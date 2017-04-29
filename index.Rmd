@@ -4,16 +4,21 @@ author:
 - Robin Lovelace
 - Jakub Nowosad
 date: '`r Sys.Date()`'
-output: bookdown::gitbook
-documentclass: book
+# output: bookdown::gitbook
+# documentclass: book
 github-repo: Robinlovelace/geocompr
 link-citations: yes
 bibliography:
   - refs.bib
   - packages.bib
-site: bookdown::bookdown_site
+# site: bookdown::bookdown_site
 biblio-style: apalike
 url: https\://Robinlovelace.github.io/geocompr/
+knit: "bookdown::render_book"
+documentclass: krantz
+output: 
+    bookdown::pdf_book:
+      pandoc_args: --chapters
 ---
 
 ```{r, echo=FALSE, include=FALSE}
