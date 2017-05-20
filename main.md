@@ -132,7 +132,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservec9025443a8c3fb6c
+preservebec2400e9ccaf554
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -848,7 +848,7 @@ bench_read = microbenchmark(times = 5,
 
 ```r
 bench_read$time[1] / bench_read$time[2]
-#> [1] 3.94
+#> [1] 3.74
 ```
 
 The results demonstrate that **sf** can be much faster (*4 times faster* in this case) than **rgdal** at reading-in the world countries shapefile.
@@ -861,13 +861,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.076   0.000   0.080
+#>   0.068   0.004   0.073
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.056   0.000   0.057
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.012   0.040
+#>   0.024   0.008   0.034
 ```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
@@ -882,6 +882,8 @@ head(sf_drivers, n = 2)
 ```
 
 ## Data output (O)
+
+## File formats
 
 ## Visual outputs
 
@@ -1238,7 +1240,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preservebf7ce95644600723
+preserve543f543cf43e973a
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 

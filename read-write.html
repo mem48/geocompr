@@ -159,7 +159,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5" data-path="read-write.html"><a href="read-write.html"><i class="fa fa-check"></i><b>5</b> Geographical data I/O</a><ul>
 <li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#data-input-i"><i class="fa fa-check"></i><b>5.1</b> Data Input (I)</a></li>
 <li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#data-output-o"><i class="fa fa-check"></i><b>5.2</b> Data output (O)</a></li>
-<li class="chapter" data-level="5.3" data-path="read-write.html"><a href="read-write.html#visual-outputs"><i class="fa fa-check"></i><b>5.3</b> Visual outputs</a></li>
+<li class="chapter" data-level="5.3" data-path="read-write.html"><a href="read-write.html#file-formats"><i class="fa fa-check"></i><b>5.3</b> File formats</a></li>
+<li class="chapter" data-level="5.4" data-path="read-write.html"><a href="read-write.html#visual-outputs"><i class="fa fa-check"></i><b>5.4</b> Visual outputs</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="coord.html"><a href="coord.html"><i class="fa fa-check"></i><b>6</b> Coordinate systems/reprojecting</a><ul>
 <li class="chapter" data-level="" data-path="coord.html"><a href="coord.html#prerequisites-3"><i class="fa fa-check"></i>Prerequisites</a></li>
@@ -220,7 +221,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="read-write" class="section level1">
 <h1><span class="header-section-number">5</span> Geographical data I/O</h1>
-<p>The previous chapters introduced this book and provided an overview of spatial data classes in R, with a focus on simple features. This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world. We include a section (<a href="read-write.html#visual-outputs">5.3</a>) on visualization because outputting data in a human (not just computer) readable enables non-programmers to benefit from your work. If your aim is to use geocomputation to improve the world, e.g. by encouraging evidence-based policies, this final stage is vital.</p>
+<p>The previous chapters introduced this book and provided an overview of spatial data classes in R, with a focus on simple features. This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world. We include a section (<a href="read-write.html#visual-outputs">5.4</a>) on visualization because outputting data in a human (not just computer) readable enables non-programmers to benefit from your work. If your aim is to use geocomputation to improve the world, e.g. by encouraging evidence-based policies, this final stage is vital.</p>
 <p>I/O is short for “input/output” which means, in plain English, “reading and writing data”. We use the acronym instead of plain English not to confuse you or to make chapter names short, but because that’s the term used in computer science and it is useful to think of data import and export from a computing perspective.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
 <!-- todo: check we mention computational efficiency, disk-space and 'idempotence' -->
 <!-- Old intro to this chapter - can we salvage anything from this? -->
@@ -252,18 +253,18 @@ bench_read =<span class="st"> </span><span class="kw">microbenchmark</span>(<spa
         rgdal::<span class="kw">readOGR</span>(f)
 )</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bench_read$time[<span class="dv">1</span>] /<span class="st"> </span>bench_read$time[<span class="dv">2</span>]
-<span class="co">#&gt; [1] 3.94</span></code></pre></div>
+<span class="co">#&gt; [1] 3.74</span></code></pre></div>
 <p>The results demonstrate that <strong>sf</strong> can be much faster (<em>4 times faster</em> in this case) than <strong>rgdal</strong> at reading-in the world countries shapefile.</p>
 <p>The counterpart of <code>st_read()</code> is <code>st_write()</code>. This allows writing to a range of geographic vector file types, including the common formats <code>.geojson</code>, <code>.shp</code> and <code>.gpkg</code>. <code>st_read()</code> will decide which driver to use automatically, based on the file name, as illustrated in the benchmark below demonstrating write speeds for each format.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.geojson&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.076   0.000   0.080</span>
+<span class="co">#&gt;   0.068   0.004   0.073</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.shp&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)) 
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.064   0.000   0.064</span>
+<span class="co">#&gt;   0.056   0.000   0.057</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.028   0.012   0.040</span></code></pre></div>
+<span class="co">#&gt;   0.024   0.008   0.034</span></code></pre></div>
 <p>The full range of file-types supported by <strong>sf</strong> is reported by <code>st_drivers()</code>, the first 2 of which are shown below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_drivers =<span class="st"> </span><span class="kw">st_drivers</span>()
 <span class="kw">head</span>(sf_drivers, <span class="dt">n =</span> <span class="dv">2</span>)
@@ -274,8 +275,11 @@ bench_read =<span class="st"> </span><span class="kw">microbenchmark</span>(<spa
 <div id="data-output-o" class="section level2">
 <h2><span class="header-section-number">5.2</span> Data output (O)</h2>
 </div>
+<div id="file-formats" class="section level2">
+<h2><span class="header-section-number">5.3</span> File formats</h2>
+</div>
 <div id="visual-outputs" class="section level2">
-<h2><span class="header-section-number">5.3</span> Visual outputs</h2>
+<h2><span class="header-section-number">5.4</span> Visual outputs</h2>
 <!-- ## Vector -->
 <!-- 
 - sf package 
