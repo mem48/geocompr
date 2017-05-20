@@ -364,7 +364,7 @@ world =<span class="st"> </span>world %&gt;%
 <span class="co"># data summary by groups (not shown)</span>
 world_continents =<span class="st"> </span>world %&gt;%<span class="st"> </span>
 <span class="st">        </span><span class="kw">group_by</span>(continent) %&gt;%<span class="st"> </span>
-<span class="st">        </span><span class="kw">summarise</span>(<span class="dt">continent_pop =</span> <span class="kw">sum</span>(pop), <span class="dt">country_n =</span> <span class="kw">n</span>())
+<span class="st">        </span><span class="kw">summarise</span>(<span class="dt">continent_pop =</span> <span class="kw">sum</span>(pop, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">country_n =</span> <span class="kw">n</span>())
 world_continents</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sort variables</span>
 ## by name
@@ -379,10 +379,10 @@ world_continents %&gt;%<span class="st"> </span>
 <span class="co">#&gt; # A tibble: 8 x 4</span>
 <span class="co">#&gt;    continent continent_pop country_n              geom</span>
 <span class="co">#&gt;       &lt;fctr&gt;         &lt;dbl&gt;     &lt;int&gt;  &lt;simple_feature&gt;</span>
-<span class="co">#&gt; 1     Africa            NA        51 &lt;MULTIPOLYGON...&gt;</span>
-<span class="co">#&gt; 2 Antarctica            NA         1 &lt;MULTIPOLYGON...&gt;</span>
-<span class="co">#&gt; 3       Asia            NA        47 &lt;MULTIPOLYGON...&gt;</span>
-<span class="co">#&gt; 4     Europe            NA        39 &lt;MULTIPOLYGON...&gt;</span>
+<span class="co">#&gt; 1     Africa      1.15e+09        51 &lt;MULTIPOLYGON...&gt;</span>
+<span class="co">#&gt; 2 Antarctica      0.00e+00         1 &lt;MULTIPOLYGON...&gt;</span>
+<span class="co">#&gt; 3       Asia      4.31e+09        47 &lt;MULTIPOLYGON...&gt;</span>
+<span class="co">#&gt; 4     Europe      7.39e+08        39 &lt;MULTIPOLYGON...&gt;</span>
 <span class="co">#&gt; # ... with 4 more rows</span>
 ## by population (in descending order)
 world_continents %&gt;%<span class="st"> </span>
@@ -396,10 +396,10 @@ world_continents %&gt;%<span class="st"> </span>
 <span class="co">#&gt; # A tibble: 8 x 4</span>
 <span class="co">#&gt;       continent continent_pop country_n              geom</span>
 <span class="co">#&gt;          &lt;fctr&gt;         &lt;dbl&gt;     &lt;int&gt;  &lt;simple_feature&gt;</span>
-<span class="co">#&gt; 1 North America      5.65e+08        18 &lt;MULTIPOLYGON...&gt;</span>
-<span class="co">#&gt; 2       Oceania      3.74e+07         7 &lt;MULTIPOLYGON...&gt;</span>
-<span class="co">#&gt; 3        Africa            NA        51 &lt;MULTIPOLYGON...&gt;</span>
-<span class="co">#&gt; 4    Antarctica            NA         1 &lt;MULTIPOLYGON...&gt;</span>
+<span class="co">#&gt; 1          Asia      4.31e+09        47 &lt;MULTIPOLYGON...&gt;</span>
+<span class="co">#&gt; 2        Africa      1.15e+09        51 &lt;MULTIPOLYGON...&gt;</span>
+<span class="co">#&gt; 3        Europe      7.39e+08        39 &lt;MULTIPOLYGON...&gt;</span>
+<span class="co">#&gt; 4 North America      5.65e+08        18 &lt;MULTIPOLYGON...&gt;</span>
 <span class="co">#&gt; # ... with 4 more rows</span></code></pre></div>
 <p>Most of the function from <strong>sf</strong> package do not drop a <code>geometry</code> column. To extract a data frame <code>st_geometry()</code> or <code>st_set_geometry()</code> function can be used.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_st =<span class="st"> </span>world

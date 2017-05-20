@@ -132,7 +132,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve9d68cb4d03b02c1f
+preserve747ecaad8139f784
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -699,7 +699,7 @@ summary(world)
 # data summary by groups (not shown)
 world_continents = world %>% 
         group_by(continent) %>% 
-        summarise(continent_pop = sum(pop), country_n = n())
+        summarise(continent_pop = sum(pop, na.rm = TRUE), country_n = n())
 world_continents
 ```
 
@@ -718,10 +718,10 @@ world_continents %>%
 #> # A tibble: 8 x 4
 #>    continent continent_pop country_n              geom
 #>       <fctr>         <dbl>     <int>  <simple_feature>
-#> 1     Africa            NA        51 <MULTIPOLYGON...>
-#> 2 Antarctica            NA         1 <MULTIPOLYGON...>
-#> 3       Asia            NA        47 <MULTIPOLYGON...>
-#> 4     Europe            NA        39 <MULTIPOLYGON...>
+#> 1     Africa      1.15e+09        51 <MULTIPOLYGON...>
+#> 2 Antarctica      0.00e+00         1 <MULTIPOLYGON...>
+#> 3       Asia      4.31e+09        47 <MULTIPOLYGON...>
+#> 4     Europe      7.39e+08        39 <MULTIPOLYGON...>
 #> # ... with 4 more rows
 ## by population (in descending order)
 world_continents %>% 
@@ -735,10 +735,10 @@ world_continents %>%
 #> # A tibble: 8 x 4
 #>       continent continent_pop country_n              geom
 #>          <fctr>         <dbl>     <int>  <simple_feature>
-#> 1 North America      5.65e+08        18 <MULTIPOLYGON...>
-#> 2       Oceania      3.74e+07         7 <MULTIPOLYGON...>
-#> 3        Africa            NA        51 <MULTIPOLYGON...>
-#> 4    Antarctica            NA         1 <MULTIPOLYGON...>
+#> 1          Asia      4.31e+09        47 <MULTIPOLYGON...>
+#> 2        Africa      1.15e+09        51 <MULTIPOLYGON...>
+#> 3        Europe      7.39e+08        39 <MULTIPOLYGON...>
+#> 4 North America      5.65e+08        18 <MULTIPOLYGON...>
 #> # ... with 4 more rows
 ```
 
@@ -848,10 +848,10 @@ bench_read = microbenchmark(times = 5,
 
 ```r
 bench_read$time[1] / bench_read$time[2]
-#> [1] 3.39
+#> [1] 5.69
 ```
 
-The results demonstrate that **sf** can be much faster (*3 times faster* in this case) than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** can be much faster (*6 times faster* in this case) than **rgdal** at reading-in the world countries shapefile.
 
 The counterpart of `st_read()` is `st_write()`. This allows writing to a range of geographic vector file types, including the common formats `.geojson`, `.shp` and `.gpkg`. `st_read()` will decide which driver to use automatically, based on the file name, as illustrated in the benchmark below demonstrating write speeds for each format.
 
@@ -861,13 +861,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.072
+#>   0.068   0.000   0.065
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.048   0.000   0.045
+#>   0.044   0.000   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.032
+#>   0.024   0.004   0.031
 ```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
@@ -1317,7 +1317,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preserve82a92e76fea94567
+preserve43bc30398b1f5eb9
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 
