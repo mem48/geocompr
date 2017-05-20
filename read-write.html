@@ -150,6 +150,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3" data-path="attr.html"><a href="attr.html#attribute-subsetting"><i class="fa fa-check"></i><b>3.3</b> Attribute subsetting</a></li>
 <li class="chapter" data-level="3.4" data-path="attr.html"><a href="attr.html#attribute-data-aggregation"><i class="fa fa-check"></i><b>3.4</b> Attribute data aggregation</a></li>
 <li class="chapter" data-level="3.5" data-path="attr.html"><a href="attr.html#attribute-data-joining"><i class="fa fa-check"></i><b>3.5</b> Attribute data joining</a></li>
+<li class="chapter" data-level="3.6" data-path="attr.html"><a href="attr.html#attribute-data-creation"><i class="fa fa-check"></i><b>3.6</b> Attribute data creation</a></li>
+<li class="chapter" data-level="3.7" data-path="attr.html"><a href="attr.html#removing-spatial-information"><i class="fa fa-check"></i><b>3.7</b> Removing spatial information</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html"><i class="fa fa-check"></i><b>4</b> Spatial data operations</a><ul>
 <li class="chapter" data-level="4.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#attribute-subsetting-1"><i class="fa fa-check"></i><b>4.1</b> Attribute subsetting</a></li>
@@ -256,18 +258,18 @@ bench_read =<span class="st"> </span><span class="kw">microbenchmark</span>(<spa
         rgdal::<span class="kw">readOGR</span>(f)
 )</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bench_read$time[<span class="dv">1</span>] /<span class="st"> </span>bench_read$time[<span class="dv">2</span>]
-<span class="co">#&gt; [1] 3.58</span></code></pre></div>
+<span class="co">#&gt; [1] 3.64</span></code></pre></div>
 <p>The results demonstrate that <strong>sf</strong> can be much faster (<em>4 times faster</em> in this case) than <strong>rgdal</strong> at reading-in the world countries shapefile.</p>
 <p>The counterpart of <code>st_read()</code> is <code>st_write()</code>. This allows writing to a range of geographic vector file types, including the common formats <code>.geojson</code>, <code>.shp</code> and <code>.gpkg</code>. <code>st_read()</code> will decide which driver to use automatically, based on the file name, as illustrated in the benchmark below demonstrating write speeds for each format.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.geojson&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.064   0.004   0.066</span>
+<span class="co">#&gt;   0.068   0.000   0.065</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.shp&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)) 
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.048   0.000   0.045</span>
+<span class="co">#&gt;    0.06    0.00    0.06</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.036   0.004   0.041</span></code></pre></div>
+<span class="co">#&gt;   0.016   0.012   0.029</span></code></pre></div>
 <p>The full range of file-types supported by <strong>sf</strong> is reported by <code>st_drivers()</code>, the first 2 of which are shown below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_drivers =<span class="st"> </span><span class="kw">st_drivers</span>()
 <span class="kw">head</span>(sf_drivers, <span class="dt">n =</span> <span class="dv">2</span>)

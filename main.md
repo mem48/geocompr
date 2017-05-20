@@ -132,7 +132,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve0264ec060e767105
+preserved9d6339e73dd286f
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -544,12 +544,6 @@ The important thing is that you select a data processing paradigm of choice, and
 
 ## Attribute subsetting
 
-## Attribute data aggregation 
-
-## Attribute data joining 
-
-as illustrated in the code examples below (results not shown).
-
 
 ```r
 world[1:6, ] # subset rows
@@ -636,6 +630,71 @@ world$pop[is.na(world$pop)] = 0
 world_few_rows = world[world$pop > 1e9,]
 ```
 
+## Attribute data aggregation 
+
+
+
+```r
+# data summary (not shown)
+summary(world)
+
+# data summary by groups (not shown)
+world_continents = world %>% 
+        group_by(continent) %>% 
+        summarise(continent_pop = sum(pop, na.rm = TRUE), country_n = n())
+world_continents
+```
+
+
+```r
+# sort variables
+## by name
+world_continents %>% 
+        arrange(continent)
+#> Simple feature collection with 8 features and 3 fields
+#> geometry type:  GEOMETRY
+#> dimension:      XY
+#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#> # A tibble: 8 x 4
+#>    continent continent_pop country_n              geom
+#>       <fctr>         <dbl>     <int>  <simple_feature>
+#> 1     Africa      1.15e+09        51 <MULTIPOLYGON...>
+#> 2 Antarctica      0.00e+00         1 <MULTIPOLYGON...>
+#> 3       Asia      4.31e+09        47 <MULTIPOLYGON...>
+#> 4     Europe      7.39e+08        39 <MULTIPOLYGON...>
+#> # ... with 4 more rows
+## by population (in descending order)
+world_continents %>% 
+        arrange(-continent_pop)
+#> Simple feature collection with 8 features and 3 fields
+#> geometry type:  GEOMETRY
+#> dimension:      XY
+#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#> # A tibble: 8 x 4
+#>       continent continent_pop country_n              geom
+#>          <fctr>         <dbl>     <int>  <simple_feature>
+#> 1          Asia      4.31e+09        47 <MULTIPOLYGON...>
+#> 2        Africa      1.15e+09        51 <MULTIPOLYGON...>
+#> 3        Europe      7.39e+08        39 <MULTIPOLYGON...>
+#> 4 North America      5.65e+08        18 <MULTIPOLYGON...>
+#> # ... with 4 more rows
+```
+
+## Attribute data joining 
+
+<!-- left_join() -->
+<!-- right_join() -->
+<!-- inner_join() -->
+<!-- full_join() -->
+<!-- semi_join() -->
+<!-- anti_join() -->
+<!-- https://github.com/dgrtwo/fuzzyjoin -->
+
+## Attribute data creation
 
 
 ```r
@@ -689,58 +748,7 @@ attributes(world$area) = NULL
 attributes(world$pop_density) = NULL
 ```
 
-
-
-
-```r
-# data summary (not shown)
-summary(world)
-
-# data summary by groups (not shown)
-world_continents = world %>% 
-        group_by(continent) %>% 
-        summarise(continent_pop = sum(pop, na.rm = TRUE), country_n = n())
-world_continents
-```
-
-
-```r
-# sort variables
-## by name
-world_continents %>% 
-        arrange(continent)
-#> Simple feature collection with 8 features and 3 fields
-#> geometry type:  GEOMETRY
-#> dimension:      XY
-#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#> # A tibble: 8 x 4
-#>    continent continent_pop country_n              geom
-#>       <fctr>         <dbl>     <int>  <simple_feature>
-#> 1     Africa      1.15e+09        51 <MULTIPOLYGON...>
-#> 2 Antarctica      0.00e+00         1 <MULTIPOLYGON...>
-#> 3       Asia      4.31e+09        47 <MULTIPOLYGON...>
-#> 4     Europe      7.39e+08        39 <MULTIPOLYGON...>
-#> # ... with 4 more rows
-## by population (in descending order)
-world_continents %>% 
-        arrange(-continent_pop)
-#> Simple feature collection with 8 features and 3 fields
-#> geometry type:  GEOMETRY
-#> dimension:      XY
-#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#> # A tibble: 8 x 4
-#>       continent continent_pop country_n              geom
-#>          <fctr>         <dbl>     <int>  <simple_feature>
-#> 1          Asia      4.31e+09        47 <MULTIPOLYGON...>
-#> 2        Africa      1.15e+09        51 <MULTIPOLYGON...>
-#> 3        Europe      7.39e+08        39 <MULTIPOLYGON...>
-#> 4 North America      5.65e+08        18 <MULTIPOLYGON...>
-#> # ... with 4 more rows
-```
+## Removing spatial information
 
 Most of the function from **sf** package do not drop a `geometry` column. To extract a data frame `st_geometry()` or `st_set_geometry()` function can be used.
 
@@ -848,7 +856,7 @@ bench_read = microbenchmark(times = 5,
 
 ```r
 bench_read$time[1] / bench_read$time[2]
-#> [1] 3.58
+#> [1] 3.64
 ```
 
 The results demonstrate that **sf** can be much faster (*4 times faster* in this case) than **rgdal** at reading-in the world countries shapefile.
@@ -861,13 +869,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.004   0.066
+#>   0.068   0.000   0.065
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.048   0.000   0.045
+#>    0.06    0.00    0.06
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.036   0.004   0.041
+#>   0.016   0.012   0.029
 ```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
@@ -1317,7 +1325,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preservec2e1f0d6452359f9
+preservee6f44e9b74c5f4cb
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 

@@ -150,6 +150,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3" data-path="attr.html"><a href="attr.html#attribute-subsetting"><i class="fa fa-check"></i><b>3.3</b> Attribute subsetting</a></li>
 <li class="chapter" data-level="3.4" data-path="attr.html"><a href="attr.html#attribute-data-aggregation"><i class="fa fa-check"></i><b>3.4</b> Attribute data aggregation</a></li>
 <li class="chapter" data-level="3.5" data-path="attr.html"><a href="attr.html#attribute-data-joining"><i class="fa fa-check"></i><b>3.5</b> Attribute data joining</a></li>
+<li class="chapter" data-level="3.6" data-path="attr.html"><a href="attr.html#attribute-data-creation"><i class="fa fa-check"></i><b>3.6</b> Attribute data creation</a></li>
+<li class="chapter" data-level="3.7" data-path="attr.html"><a href="attr.html#removing-spatial-information"><i class="fa fa-check"></i><b>3.7</b> Removing spatial information</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html"><i class="fa fa-check"></i><b>4</b> Spatial data operations</a><ul>
 <li class="chapter" data-level="4.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#attribute-subsetting-1"><i class="fa fa-check"></i><b>4.1</b> Attribute subsetting</a></li>
@@ -266,13 +268,6 @@ world =<span class="st"> </span><span class="kw">st_read</span>(f)</code></pre><
 </div>
 <div id="attribute-subsetting" class="section level2">
 <h2><span class="header-section-number">3.3</span> Attribute subsetting</h2>
-</div>
-<div id="attribute-data-aggregation" class="section level2">
-<h2><span class="header-section-number">3.4</span> Attribute data aggregation</h2>
-</div>
-<div id="attribute-data-joining" class="section level2">
-<h2><span class="header-section-number">3.5</span> Attribute data joining</h2>
-<p>as illustrated in the code examples below (results not shown).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[<span class="dv">1</span>:<span class="dv">6</span>, ] <span class="co"># subset rows</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[, <span class="dv">1</span>:<span class="dv">3</span>] <span class="co"># subset columns</span></code></pre></div>
 <p>After each operation, the geometry column is preserved.</p>
@@ -320,44 +315,9 @@ world_few_rows =<span class="st"> </span>world %&gt;%<span class="st"> </span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># subsetting simple feature rows by values</span>
 world$pop[<span class="kw">is.na</span>(world$pop)] =<span class="st"> </span><span class="dv">0</span> 
 world_few_rows =<span class="st"> </span>world[world$pop &gt;<span class="st"> </span><span class="fl">1e9</span>,]</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add a new column</span>
-world$area =<span class="st"> </span><span class="kw">set_units</span>(<span class="kw">st_area</span>(world), <span class="dt">value =</span> km^<span class="dv">2</span>)
-world$pop_density =<span class="st"> </span>world$pop /<span class="st"> </span>world$area
-
-<span class="co"># OR</span>
-world =<span class="st"> </span>world %&gt;%
-<span class="st">        </span><span class="kw">mutate</span>(<span class="dt">area =</span> <span class="kw">set_units</span>(<span class="kw">st_area</span>(.), <span class="dt">value =</span> km^<span class="dv">2</span>)) %&gt;%
-<span class="st">        </span><span class="kw">mutate</span>(<span class="dt">pop_density =</span> pop /<span class="st"> </span>area)</code></pre></div>
-<p>Note that this has created a attributes for the area and population density variables:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attributes</span>(world$area)
-<span class="co">#&gt; $units</span>
-<span class="co">#&gt; $numerator</span>
-<span class="co">#&gt; [1] &quot;km&quot; &quot;km&quot;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $denominator</span>
-<span class="co">#&gt; character(0)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; attr(,&quot;class&quot;)</span>
-<span class="co">#&gt; [1] &quot;symbolic_units&quot;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $class</span>
-<span class="co">#&gt; [1] &quot;units&quot;</span>
-<span class="kw">attributes</span>(world$pop_density)
-<span class="co">#&gt; $units</span>
-<span class="co">#&gt; $numerator</span>
-<span class="co">#&gt; character(0)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $denominator</span>
-<span class="co">#&gt; [1] &quot;km&quot; &quot;km&quot;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; attr(,&quot;class&quot;)</span>
-<span class="co">#&gt; [1] &quot;symbolic_units&quot;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $class</span>
-<span class="co">#&gt; [1] &quot;units&quot;</span></code></pre></div>
-<p>These can be set to <code>NULL</code> as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attributes</span>(world$area) =<span class="st"> </span><span class="ot">NULL</span>
-<span class="kw">attributes</span>(world$pop_density) =<span class="st"> </span><span class="ot">NULL</span></code></pre></div>
+</div>
+<div id="attribute-data-aggregation" class="section level2">
+<h2><span class="header-section-number">3.4</span> Attribute data aggregation</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># data summary (not shown)</span>
 <span class="kw">summary</span>(world)
 
@@ -401,6 +361,60 @@ world_continents %&gt;%<span class="st"> </span>
 <span class="co">#&gt; 3        Europe      7.39e+08        39 &lt;MULTIPOLYGON...&gt;</span>
 <span class="co">#&gt; 4 North America      5.65e+08        18 &lt;MULTIPOLYGON...&gt;</span>
 <span class="co">#&gt; # ... with 4 more rows</span></code></pre></div>
+</div>
+<div id="attribute-data-joining" class="section level2">
+<h2><span class="header-section-number">3.5</span> Attribute data joining</h2>
+<!-- left_join() -->
+<!-- right_join() -->
+<!-- inner_join() -->
+<!-- full_join() -->
+<!-- semi_join() -->
+<!-- anti_join() -->
+<!-- https://github.com/dgrtwo/fuzzyjoin -->
+</div>
+<div id="attribute-data-creation" class="section level2">
+<h2><span class="header-section-number">3.6</span> Attribute data creation</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add a new column</span>
+world$area =<span class="st"> </span><span class="kw">set_units</span>(<span class="kw">st_area</span>(world), <span class="dt">value =</span> km^<span class="dv">2</span>)
+world$pop_density =<span class="st"> </span>world$pop /<span class="st"> </span>world$area
+
+<span class="co"># OR</span>
+world =<span class="st"> </span>world %&gt;%
+<span class="st">        </span><span class="kw">mutate</span>(<span class="dt">area =</span> <span class="kw">set_units</span>(<span class="kw">st_area</span>(.), <span class="dt">value =</span> km^<span class="dv">2</span>)) %&gt;%
+<span class="st">        </span><span class="kw">mutate</span>(<span class="dt">pop_density =</span> pop /<span class="st"> </span>area)</code></pre></div>
+<p>Note that this has created a attributes for the area and population density variables:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attributes</span>(world$area)
+<span class="co">#&gt; $units</span>
+<span class="co">#&gt; $numerator</span>
+<span class="co">#&gt; [1] &quot;km&quot; &quot;km&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $denominator</span>
+<span class="co">#&gt; character(0)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; attr(,&quot;class&quot;)</span>
+<span class="co">#&gt; [1] &quot;symbolic_units&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $class</span>
+<span class="co">#&gt; [1] &quot;units&quot;</span>
+<span class="kw">attributes</span>(world$pop_density)
+<span class="co">#&gt; $units</span>
+<span class="co">#&gt; $numerator</span>
+<span class="co">#&gt; character(0)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $denominator</span>
+<span class="co">#&gt; [1] &quot;km&quot; &quot;km&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; attr(,&quot;class&quot;)</span>
+<span class="co">#&gt; [1] &quot;symbolic_units&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $class</span>
+<span class="co">#&gt; [1] &quot;units&quot;</span></code></pre></div>
+<p>These can be set to <code>NULL</code> as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attributes</span>(world$area) =<span class="st"> </span><span class="ot">NULL</span>
+<span class="kw">attributes</span>(world$pop_density) =<span class="st"> </span><span class="ot">NULL</span></code></pre></div>
+</div>
+<div id="removing-spatial-information" class="section level2">
+<h2><span class="header-section-number">3.7</span> Removing spatial information</h2>
 <p>Most of the function from <strong>sf</strong> package do not drop a <code>geometry</code> column. To extract a data frame <code>st_geometry()</code> or <code>st_set_geometry()</code> function can be used.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_st =<span class="st"> </span>world
 <span class="kw">st_geometry</span>(world_st) =<span class="st"> </span><span class="ot">NULL</span>
