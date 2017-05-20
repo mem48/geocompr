@@ -106,7 +106,8 @@ Reproduciblility   Minimal                    Maximal
 ## Why Geocomputation with R?
 
 In this book we treat R as a 'tool for the trade'.
-Early geographers used a variety of tools including rulers, compasses and sextants to advance knowledge about the world.
+Early geographers used a variety of tools including rulers, compasses and sextants to advance knowledge about the world. 
+<!--nowadays part-->
 It is important to remember that while R is a powerful tool, especially when interfaced with other software such as [GDAL](http://www.gdal.org/) and [PostGIS](http://postgis.net/), other tools may be better for certain tasks.
 
 R is characterised by its flexibility, enabling geographical software developers to extend it in multiple ways.
@@ -126,7 +127,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve11ef618899182048
+preserve8a53d5d53cf97dd6
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -464,12 +465,13 @@ sf data types:
 
 ## Prerequisites {-}
 
-- This chapter requires **dplyr**, **sf** and **spData** packages:
+- This chapter requires **tidyverse**, **sf**, **units**, and **spData** packages:
 
 
 ```r
 library(sf)
 library(tidyverse)
+library(units)
 ```
 
 - You must have loaded the `world` data from the spData package:
@@ -630,30 +632,57 @@ world_few_rows = world[world$pop > 1e9,]
 ```
 
 
-<!-- ```{r} -->
-<!-- # # add a new column -->
-<!-- # world$area = set_units(st_area(world), value = km^2) -->
-<!-- # world$pop_density = world$pop / world$area -->
-<!-- #  -->
-<!-- # # OR -->
-<!-- # world = world %>% -->
-<!-- #         mutate(area = set_units(st_area(.), value = km^2)) %>% -->
-<!-- #         mutate(pop_density = pop / area) -->
-<!-- ``` -->
 
-<!-- Note that this has created a attributes for the area and population density variables: -->
+```r
+# add a new column
+world$area = set_units(st_area(world), value = km^2)
+world$pop_density = world$pop / world$area
 
-<!-- ```{r} -->
-<!-- attributes(world$area) -->
-<!-- attributes(world$pop_density) -->
-<!-- ``` -->
+# OR
+world = world %>%
+        mutate(area = set_units(st_area(.), value = km^2)) %>%
+        mutate(pop_density = pop / area)
+```
 
-<!-- These can be set to `NULL` as follows: -->
+Note that this has created a attributes for the area and population density variables:
 
-<!-- ```{r} -->
-<!-- attributes(world$area) = NULL -->
-<!-- attributes(world$pop_density) = NULL -->
-<!-- ``` -->
+
+```r
+attributes(world$area)
+#> $units
+#> $numerator
+#> [1] "km" "km"
+#> 
+#> $denominator
+#> character(0)
+#> 
+#> attr(,"class")
+#> [1] "symbolic_units"
+#> 
+#> $class
+#> [1] "units"
+attributes(world$pop_density)
+#> $units
+#> $numerator
+#> character(0)
+#> 
+#> $denominator
+#> [1] "km" "km"
+#> 
+#> attr(,"class")
+#> [1] "symbolic_units"
+#> 
+#> $class
+#> [1] "units"
+```
+
+These can be set to `NULL` as follows:
+
+
+```r
+attributes(world$area) = NULL
+attributes(world$pop_density) = NULL
+```
 
 
 
@@ -814,10 +843,10 @@ bench_read = microbenchmark(times = 5,
 
 ```r
 bench_read$time[1] / bench_read$time[2]
-#> [1] 3.73
+#> [1] 3.48
 ```
 
-The results demonstrate that **sf** can be much faster (*4 times faster* in this case) than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** can be much faster (*3 times faster* in this case) than **rgdal** at reading-in the world countries shapefile.
 
 The counterpart of `st_read()` is `st_write()`. This allows writing to a range of geographic vector file types, including the common formats `.geojson`, `.shp` and `.gpkg`. `st_read()` will decide which driver to use automatically, based on the file name, as illustrated in the benchmark below demonstrating write speeds for each format.
 
@@ -827,13 +856,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.069
+#>   0.068   0.000   0.068
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.046
+#>   0.044   0.000   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.036
+#>   0.020   0.008   0.033
 ```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
@@ -1202,7 +1231,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preserve6aab44b96e42bdce
+preserve11f9ca3a5ab594e8
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 
