@@ -132,7 +132,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservebec2400e9ccaf554
+preserve9d68cb4d03b02c1f
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -848,10 +848,10 @@ bench_read = microbenchmark(times = 5,
 
 ```r
 bench_read$time[1] / bench_read$time[2]
-#> [1] 3.74
+#> [1] 3.39
 ```
 
-The results demonstrate that **sf** can be much faster (*4 times faster* in this case) than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** can be much faster (*3 times faster* in this case) than **rgdal** at reading-in the world countries shapefile.
 
 The counterpart of `st_read()` is `st_write()`. This allows writing to a range of geographic vector file types, including the common formats `.geojson`, `.shp` and `.gpkg`. `st_read()` will decide which driver to use automatically, based on the file name, as illustrated in the benchmark below demonstrating write speeds for each format.
 
@@ -861,13 +861,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.004   0.073
+#>   0.068   0.000   0.072
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.056   0.000   0.057
+#>   0.048   0.000   0.045
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.034
+#>   0.024   0.004   0.032
 ```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
@@ -909,9 +909,81 @@ head(sf_drivers, n = 2)
 <!--chapter:end:05-read-write-plot.Rmd-->
 
 
-# Coordinate systems/reprojecting {#coord}
+
+# Coordinate reference systems/reprojecting {#coord}
+
+<!-- - crs - a heart of spatial data -->
+<!-- - short history  -->
+<!-- - types of crs (geographic vs cartesian; local vs regional vs global) -->
+<!-- - objectives - 1/ to combine different datasets, 2/ area calculations, 3/ distance mesasurement, 4/ navigation, 5/ spatial data representations -->
+<!-- - proj -->
+<!-- - proj4 + epsg -->
+<!-- - the most popular epsg -->
 
 ## Prerequisites {-}
+
+- This chapter requires **tidyverse**, **sf**, and **spData** packages:
+
+
+```r
+library(sf)
+library(tidyverse)
+```
+
+- You must have loaded the `world` data from the spData package:
+
+
+```r
+f = system.file("shapes/wrld.gpkg", package = "spData")
+world = st_read(f)
+```
+
+## Introduction
+
+<!--in most of the cases reproject vector, not raster-->
+
+## Vector data
+
+<!-- CRS assign -->
+
+- In case when a coordinate reference system (CRS) is missing or the wrong CRS is set, `st_crs()` or `st_set_crs` function can be used:
+
+
+```r
+world_set3410 = st_set_crs(world, 3410)
+st_crs(world_set3410)
+#> $epsg
+#> [1] 3410
+#> 
+#> $proj4string
+#> [1] "+proj=cea +lon_0=0 +lat_ts=30 +x_0=0 +y_0=0 +a=6371228 +b=6371228 +units=m +no_defs"
+#> 
+#> attr(,"class")
+#> [1] "crs"
+```
+
+
+<img src="figures/coord_compare0-1.png" width="672" style="display: block; margin: auto;" />
+
+<!-- Reprojection -->
+
+- The `st_transform()` can be used to transform coordinates
+
+
+```r
+world_3410 = st_transform(world, 3410)
+st_crs(world_3410)
+#> $epsg
+#> [1] 3410
+#> 
+#> $proj4string
+#> [1] "+proj=cea +lon_0=0 +lat_ts=30 +x_0=0 +y_0=0 +a=6371228 +b=6371228 +units=m +no_defs"
+#> 
+#> attr(,"class")
+#> [1] "crs"
+```
+
+<img src="figures/coord_compare-1.png" width="672" style="display: block; margin: auto;" />
 
 <!--
 - st_as_sf(x, coords = c("x","y"))
@@ -922,6 +994,11 @@ head(sf_drivers, n = 2)
 - st_set_crs(x, crs)
 - st_proj_info
 - st_bbox
+-->
+
+## Raster data
+
+<!--
 - projectRaster
 -->
 
@@ -1240,7 +1317,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preserve543f543cf43e973a
+preserve82a92e76fea94567
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 
