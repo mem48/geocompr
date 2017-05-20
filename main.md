@@ -1,3 +1,4 @@
+
 --- 
 title: 'Geocomputation with R'
 author:
@@ -54,6 +55,7 @@ For further details see the book's GitHub page at [Robinlovelace/geocompr](https
 
 <!--chapter:end:index.Rmd-->
 
+
 # Introduction {#intro}
 
 This book exists at the intersection between Geography and R (Figure \@ref(fig:venn)).
@@ -64,8 +66,8 @@ The latter option communicates that this is a book about using R as a *Geographi
 However, the term GIS has some negative connotations (see Table \@ref(tab:gdsl)) and fails to communicate one of R's greatest strengths:
 its unparalleled ability to seamlessly switch between geographic and non-geographic data processing, modeling and visualization tasks.
 
-<div class="figure">
-<img src="01-introduction_files/figure-html/venn-1.png" alt="Venn diagram of the intersection between Geography and R." width="672" />
+<div class="figure" style="text-align: center">
+<img src="figures/venn-1.png" alt="Venn diagram of the intersection between Geography and R." width="672" />
 <p class="caption">(\#fig:venn)Venn diagram of the intersection between Geography and R.</p>
 </div>
 
@@ -123,8 +125,8 @@ leaflet() %>%
   addAwesomeMarkers(lng = c(-3, 23), lat = c(52, 53), popup = popup)
 ```
 
-<div class="figure">
-preserve4aa47025d2c8290f
+<div class="figure" style="text-align: center">
+preservea48b4f5f65b9c2cc
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -163,6 +165,7 @@ The most important recent evolution in R's spatial ecosystem has without doubt b
 
 <!--chapter:end:01-introduction.Rmd-->
 
+
 # Spatial classes {#spatial-class}
 
 
@@ -200,13 +203,7 @@ Let's see how simple feature in R work, with reference to world boundary data fr
 
 ```r
 library(sf)
-```
-
-```
-## Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0
-```
-
-```r
+#> Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0
 # devtools::install_github("nowosad/spData")
 f = system.file("shapes/wrld.shp", package = "spData")
 world = st_read(f)
@@ -217,10 +214,7 @@ This has loaded an object that is simultaneously of class `data.frame` and `sf`:
 
 ```r
 class(world)
-```
-
-```
-## [1] "sf"         "data.frame"
+#> [1] "sf"         "data.frame"
 ```
 
 The output of the preceding command shows that objects with class `sf` are also data frames. Thus, they can be treated like regular `data.frame`, making life easy if you are already used to working with data frames.
@@ -231,18 +225,15 @@ The output shows 2 major differences compared with a regular `data.frame`: the i
 
 ```r
 world[1:2, 1:3]
-```
-
-```
-## Simple feature collection with 2 features and 3 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: 11.6401 ymin: -17.93064 xmax: 75.15803 ymax: 38.48628
-## epsg (SRID):    4326
-## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-##   iso_a2   name_long continent                       geometry
-## 1     AF Afghanistan      Asia MULTIPOLYGON(((61.210817091...
-## 2     AO      Angola    Africa MULTIPOLYGON(((16.326528354...
+#> Simple feature collection with 2 features and 3 fields
+#> geometry type:  MULTIPOLYGON
+#> dimension:      XY
+#> bbox:           xmin: 11.6401 ymin: -17.93064 xmax: 75.15803 ymax: 38.48628
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#>   iso_a2   name_long continent                       geometry
+#> 1     AF Afghanistan      Asia MULTIPOLYGON(((61.210817091...
+#> 2     AO      Angola    Africa MULTIPOLYGON(((16.326528354...
 ```
 
 All this may seem rather complex, especially for a class system that is supposed to be simple.
@@ -290,8 +281,8 @@ plot(world)
 plot(world["pop"])
 ```
 
-<div class="figure">
-<img src="02-spatial-data_files/figure-html/sfplot-1.png" alt="Plotting with sf, with multiple variables (left) and a single variable (right)." width="49%" /><img src="02-spatial-data_files/figure-html/sfplot-2.png" alt="Plotting with sf, with multiple variables (left) and a single variable (right)." width="49%" />
+<div class="figure" style="text-align: center">
+<img src="figures/sfplot-1.png" alt="Plotting with sf, with multiple variables (left) and a single variable (right)." width="49%" /><img src="figures/sfplot-2.png" alt="Plotting with sf, with multiple variables (left) and a single variable (right)." width="49%" />
 <p class="caption">(\#fig:sfplot)Plotting with sf, with multiple variables (left) and a single variable (right).</p>
 </div>
 
@@ -324,8 +315,8 @@ Using **sf**'s `plot()` command, create a map of Nigeria in context, like the on
 - Bonus: make the country boundaries a dotted grey line.
 - Hint: `border` is an additional argument of `plot()` for **sf** objects.
 
-<div class="figure">
-<img src="02-spatial-data_files/figure-html/nigeria-1.png" alt="Map of Nigeria in context illustrating sf's plotting capabilities" width="672" />
+<div class="figure" style="text-align: center">
+<img src="figures/nigeria-1.png" alt="Map of Nigeria in context illustrating sf's plotting capabilities" width="672" />
 <p class="caption">(\#fig:nigeria)Map of Nigeria in context illustrating sf's plotting capabilities</p>
 </div>
 
@@ -340,29 +331,17 @@ As a final exercise, we'll see how to do a spatial overlay in **sf** by first co
 
 ```r
 world_centroids = st_centroid(world)
-```
-
-```
-## Warning in st_centroid.sfc(st_geometry(x)): st_centroid does not give
-## correct centroids for longitude/latitude data
-```
-
-```r
+#> Warning in st_centroid.sfc(st_geometry(x)): st_centroid does not give
+#> correct centroids for longitude/latitude data
 plot(world_centroids[1])
 africa_centroids = world_centroids[africa,]
-```
-
-```
-## although coordinates are longitude/latitude, it is assumed that they are planar
-```
-
-```r
+#> although coordinates are longitude/latitude, it is assumed that they are planar
 plot(africa_centroids, add = TRUE, cex = 2)
 ```
 
-<div class="figure">
-<img src="02-spatial-data_files/figure-html/unnamed-chunk-7-1.png" alt="Centroids in Africa" width="50%" />
-<p class="caption">(\#fig:unnamed-chunk-7)Centroids in Africa</p>
+<div class="figure" style="text-align: center">
+<img src="figures/unnamed-chunk-8-1.png" alt="Centroids in Africa" width="50%" />
+<p class="caption">(\#fig:unnamed-chunk-8)Centroids in Africa</p>
 </div>
 
 Note: another way of acheiving the same result is with a GEOS function for identifying spatial overlay:
@@ -370,69 +349,60 @@ Note: another way of acheiving the same result is with a GEOS function for ident
 
 ```r
 sel_africa = st_covered_by(world_centroids, africa, sparse = FALSE)
-```
-
-```
-## although coordinates are longitude/latitude, it is assumed that they are planar
-```
-
-```r
+#> although coordinates are longitude/latitude, it is assumed that they are planar
 summary(sel_africa)
-```
-
-```
-##      V1              V2              V3              V4         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##      V5              V6              V7              V8         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##      V9             V10             V11             V12         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##     V13             V14             V15             V16         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##     V17             V18             V19             V20         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##     V21             V22             V23             V24         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##     V25             V26             V27             V28         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##     V29             V30             V31             V32         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##     V33             V34             V35             V36         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##     V37             V38             V39             V40         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##     V41             V42             V43             V44         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##     V45             V46             V47             V48         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##     V49             V50             V51         
-##  Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1
+#>      V1              V2              V3              V4         
+#>  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+#>  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+#>  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+#>      V5              V6              V7              V8         
+#>  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+#>  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+#>  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+#>      V9             V10             V11             V12         
+#>  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+#>  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+#>  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+#>     V13             V14             V15             V16         
+#>  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+#>  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+#>  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+#>     V17             V18             V19             V20         
+#>  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+#>  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+#>  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+#>     V21             V22             V23             V24         
+#>  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+#>  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+#>  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+#>     V25             V26             V27             V28         
+#>  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+#>  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+#>  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+#>     V29             V30             V31             V32         
+#>  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+#>  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+#>  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+#>     V33             V34             V35             V36         
+#>  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+#>  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+#>  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+#>     V37             V38             V39             V40         
+#>  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+#>  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+#>  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+#>     V41             V42             V43             V44         
+#>  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+#>  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+#>  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+#>     V45             V46             V47             V48         
+#>  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+#>  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+#>  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+#>     V49             V50             V51         
+#>  Mode :logical   Mode :logical   Mode :logical  
+#>  FALSE:176       FALSE:176       FALSE:176      
+#>  TRUE :1         TRUE :1         TRUE :1
 ```
 
 This shows that there are 56 countries in Africa.
@@ -442,10 +412,7 @@ We can check if they are the same countries as follows:
 ```r
 africa_centroids2 = world_centroids[sel_africa,]
 identical(africa_centroids, africa_centroids2)
-```
-
-```
-## [1] FALSE
+#> [1] FALSE
 ```
 
 ### Exercises
@@ -492,6 +459,7 @@ sf data types:
 
 <!--chapter:end:02-spatial-data.Rmd-->
 
+
 # Attribute data operations {#attr}
 
 ## Prerequisites {-}
@@ -527,10 +495,7 @@ This means that all the accumulated wisdom and functions accumulated in the R co
 
 ```r
 class(world)
-```
-
-```
-## [1] "sf"         "data.frame"
+#> [1] "sf"         "data.frame"
 ```
 
 This 'world' dataset contains 63 non-geographical variables (and one geometry column) with data for almost 200 countries, as can be ascertained using base functions for working with tabular data:
@@ -538,26 +503,11 @@ This 'world' dataset contains 63 non-geographical variables (and one geometry co
 
 ```r
 dim(world) # it is a 2 dimensional object, with rows and columns
-```
-
-```
-## [1] 177  11
-```
-
-```r
+#> [1] 177  11
 nrow(world) # how many rows?
-```
-
-```
-## [1] 177
-```
-
-```r
+#> [1] 177
 ncol(world) # how many columns?
-```
-
-```
-## [1] 11
+#> [1] 11
 ```
 
 Extracting the attribute data of an `sf` object is the same as removing the geometry column:
@@ -567,10 +517,7 @@ Extracting the attribute data of an `sf` object is the same as removing the geom
 world_df = world
 st_geometry(world_df) = NULL
 class(world_df)
-```
-
-```
-## [1] "data.frame"
+#> [1] "data.frame"
 ```
 
 This can be useful if the geometry column causes problem, e.g. by occupying large amounts of RAM.
@@ -617,18 +564,15 @@ The `select()` function, for example, can be used to both subset and renames col
 world_orig = world # create copy of world dataset for future reference
 world1 = select(world_orig, name_long, continent, population = pop)
 head(world1, n = 2)
-```
-
-```
-## Simple feature collection with 2 features and 3 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: 11.6401 ymin: -17.93064 xmax: 75.15803 ymax: 38.48628
-## epsg (SRID):    4326
-## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-##     name_long continent population                       geometry
-## 1 Afghanistan      Asia   31627506 MULTIPOLYGON(((61.210817091...
-## 2      Angola    Africa   24227524 MULTIPOLYGON(((16.326528354...
+#> Simple feature collection with 2 features and 3 fields
+#> geometry type:  MULTIPOLYGON
+#> dimension:      XY
+#> bbox:           xmin: 11.6401 ymin: -17.93064 xmax: 75.15803 ymax: 38.48628
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#>     name_long continent population                       geometry
+#> 1 Afghanistan      Asia   31627506 MULTIPOLYGON(((61.210817091...
+#> 2      Angola    Africa   24227524 MULTIPOLYGON(((16.326528354...
 ```
 
 This is more concises than the base R equivalent (which saves the result as an object called `world2` to avoid overriding the `world` dataset created previously):
@@ -662,21 +606,18 @@ world_few_rows = world %>%
         filter(pop > 1e9)
 
 head(world_few_rows)
-```
-
-```
-## Simple feature collection with 2 features and 10 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: 68.17665 ymin: 7.965535 xmax: 135.0263 ymax: 53.4588
-## epsg (SRID):    4326
-## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-##   iso_a2 name_long continent region_un     subregion              type
-## 1     CN     China      Asia      Asia  Eastern Asia           Country
-## 2     IN     India      Asia      Asia Southern Asia Sovereign country
-##   area_km2        pop  lifeExp gdpPercap                       geometry
-## 1  9409832 1364270000 75.78227 12758.649 MULTIPOLYGON(((110.33918786...
-## 2  3142892 1295291543 68.01380  5391.694 MULTIPOLYGON(((77.837450799...
+#> Simple feature collection with 2 features and 10 fields
+#> geometry type:  MULTIPOLYGON
+#> dimension:      XY
+#> bbox:           xmin: 68.17665 ymin: 7.965535 xmax: 135.0263 ymax: 53.4588
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#>   iso_a2 name_long continent region_un     subregion              type
+#> 1     CN     China      Asia      Asia  Eastern Asia           Country
+#> 2     IN     India      Asia      Asia Southern Asia Sovereign country
+#>   area_km2      pop lifeExp gdpPercap                       geometry
+#> 1  9409832 1.36e+09    75.8     12759 MULTIPOLYGON(((110.33918786...
+#> 2  3142892 1.30e+09    68.0      5392 MULTIPOLYGON(((77.837450799...
 ```
 
 This is equivalent to the following base R code ([note](https://github.com/Robinlovelace/geocompr/issues/28) NAs are forbidden for subsetting):
@@ -734,52 +675,37 @@ world_continents
 ## by name
 world_continents %>% 
         arrange(continent)
-```
-
-```
-## Simple feature collection with 8 features and 3 fields
-## geometry type:  GEOMETRY
-## dimension:      XY
-## bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
-## epsg (SRID):    4326
-## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-## # A tibble: 8 x 4
-##                 continent continent_pop country_n          geometry
-##                    <fctr>         <dbl>     <int>  <simple_feature>
-## 1                  Africa            NA        51 <MULTIPOLYGON...>
-## 2              Antarctica            NA         1 <MULTIPOLYGON...>
-## 3                    Asia            NA        47 <MULTIPOLYGON...>
-## 4                  Europe            NA        39 <MULTIPOLYGON...>
-## 5           North America     565318889        18 <MULTIPOLYGON...>
-## 6                 Oceania      37422867         7 <MULTIPOLYGON...>
-## 7 Seven seas (open ocean)            NA         1 <POLYGON((68....>
-## 8           South America            NA        13 <MULTIPOLYGON...>
-```
-
-```r
+#> Simple feature collection with 8 features and 3 fields
+#> geometry type:  GEOMETRY
+#> dimension:      XY
+#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#> # A tibble: 8 x 4
+#>    continent continent_pop country_n          geometry
+#>       <fctr>         <dbl>     <int>  <simple_feature>
+#> 1     Africa            NA        51 <MULTIPOLYGON...>
+#> 2 Antarctica            NA         1 <MULTIPOLYGON...>
+#> 3       Asia            NA        47 <MULTIPOLYGON...>
+#> 4     Europe            NA        39 <MULTIPOLYGON...>
+#> # ... with 4 more rows
 ## by population (in descending order)
 world_continents %>% 
         arrange(-continent_pop)
-```
-
-```
-## Simple feature collection with 8 features and 3 fields
-## geometry type:  GEOMETRY
-## dimension:      XY
-## bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
-## epsg (SRID):    4326
-## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-## # A tibble: 8 x 4
-##                 continent continent_pop country_n          geometry
-##                    <fctr>         <dbl>     <int>  <simple_feature>
-## 1           North America     565318889        18 <MULTIPOLYGON...>
-## 2                 Oceania      37422867         7 <MULTIPOLYGON...>
-## 3                  Africa            NA        51 <MULTIPOLYGON...>
-## 4              Antarctica            NA         1 <MULTIPOLYGON...>
-## 5                    Asia            NA        47 <MULTIPOLYGON...>
-## 6                  Europe            NA        39 <MULTIPOLYGON...>
-## 7 Seven seas (open ocean)            NA         1 <POLYGON((68....>
-## 8           South America            NA        13 <MULTIPOLYGON...>
+#> Simple feature collection with 8 features and 3 fields
+#> geometry type:  GEOMETRY
+#> dimension:      XY
+#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#> # A tibble: 8 x 4
+#>       continent continent_pop country_n          geometry
+#>          <fctr>         <dbl>     <int>  <simple_feature>
+#> 1 North America      5.65e+08        18 <MULTIPOLYGON...>
+#> 2       Oceania      3.74e+07         7 <MULTIPOLYGON...>
+#> 3        Africa            NA        51 <MULTIPOLYGON...>
+#> 4    Antarctica            NA         1 <MULTIPOLYGON...>
+#> # ... with 4 more rows
 ```
 
 Most of the function from **sf** package do not drop a `geometry` column. To extract a data frame `st_geometry()` or `st_set_geometry()` function can be used.
@@ -789,22 +715,14 @@ Most of the function from **sf** package do not drop a `geometry` column. To ext
 world_st = world
 st_geometry(world_st) = NULL
 class(world_st)
-```
+#> [1] "data.frame"
 
-```
-## [1] "data.frame"
-```
-
-```r
 # OR
 
 world_st2 = world
 world_st2 = world_st2 %>% st_set_geometry(NULL)
 class(world_st2)
-```
-
-```
-## [1] "data.frame"
+#> [1] "data.frame"
 ```
 
 
@@ -820,6 +738,7 @@ class(world_st2)
 
 <!--chapter:end:03-attribute-operations.Rmd-->
 
+
 # Spatial data operations
 
 ## Attribute subsetting
@@ -829,6 +748,7 @@ class(world_st2)
 ## Attribute data joining 
 
 <!--chapter:end:04-spatial-operations.Rmd-->
+
 
 # Geographical data I/O {#read-write}
 
@@ -866,26 +786,17 @@ The first arguement of `st_read` is `file`, which should be a text string or an 
 
 ```r
 library(sf)
-```
-
-```
-## Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0
-```
-
-```r
+#> Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0
 f = system.file("shapes/wrld.shp", package = "spData")
 world = st_read(f)
-```
-
-```
-## Reading layer `wrld' from data source `/home/travis/R/Library/spData/shapes/wrld.shp' using driver `ESRI Shapefile'
-## converted into: POLYGON
-## Simple feature collection with 177 features and 10 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
-## epsg (SRID):    4326
-## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#> Reading layer `wrld' from data source `/home/travis/R/Library/spData/shapes/wrld.shp' using driver `ESRI Shapefile'
+#> converted into: POLYGON
+#> Simple feature collection with 177 features and 10 fields
+#> geometry type:  MULTIPOLYGON
+#> dimension:      XY
+#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 ```
 
 
@@ -903,13 +814,10 @@ bench_read = microbenchmark(times = 5,
 
 ```r
 bench_read$time[1] / bench_read$time[2]
+#> [1] 2.34
 ```
 
-```
-## [1] 3.922344
-```
-
-The results demonstrate that **sf** can be much faster (*4 times faster* in this case) than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** can be much faster (*2 times faster* in this case) than **rgdal** at reading-in the world countries shapefile.
 
 The counterpart of `st_read()` is `st_write()`. This allows writing to a range of geographic vector file types, including the common formats `.geojson`, `.shp` and `.gpkg`. `st_read()` will decide which driver to use automatically, based on the file name, as illustrated in the benchmark below demonstrating write speeds for each format.
 
@@ -918,29 +826,14 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
-```
-
-```
-##    user  system elapsed 
-##   0.072   0.004   0.076
-```
-
-```r
+#>    user  system elapsed 
+#>   0.084   0.000   0.082
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
-```
-
-```
-##    user  system elapsed 
-##   0.052   0.004   0.057
-```
-
-```r
+#>    user  system elapsed 
+#>   0.056   0.000   0.057
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
-```
-
-```
-##    user  system elapsed 
-##   0.024   0.008   0.038
+#>    user  system elapsed 
+#>   0.028   0.008   0.043
 ```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
@@ -949,12 +842,9 @@ The full range of file-types supported by **sf** is reported by `st_drivers()`, 
 ```r
 sf_drivers = st_drivers()
 head(sf_drivers, n = 2)
-```
-
-```
-##          name                  long_name write  copy is_raster is_vector
-## PCIDSK PCIDSK       PCIDSK Database File  TRUE FALSE      TRUE      TRUE
-## netCDF netCDF Network Common Data Format  TRUE  TRUE      TRUE      TRUE
+#>          name                  long_name write  copy is_raster is_vector
+#> PCIDSK PCIDSK       PCIDSK Database File  TRUE FALSE      TRUE      TRUE
+#> netCDF netCDF Network Common Data Format  TRUE  TRUE      TRUE      TRUE
 ```
 
 ## Data output (O)
@@ -982,6 +872,7 @@ head(sf_drivers, n = 2)
 
 <!--chapter:end:05-read-write-plot.Rmd-->
 
+
 # Coordinate systems/reprojecting {#coord}
 
 ## Prerequisites {-}
@@ -999,6 +890,7 @@ head(sf_drivers, n = 2)
 -->
 
 <!--chapter:end:06-coord.Rmd-->
+
 
 # Working with vector data {#vector}
 
@@ -1059,6 +951,7 @@ head(sf_drivers, n = 2)
 
 <!--chapter:end:07-vector.Rmd-->
 
+
 # Working with raster data {#raster}
 
 ## Prerequisites {-}
@@ -1082,6 +975,7 @@ head(sf_drivers, n = 2)
 
 <!--chapter:end:08-raster.Rmd-->
 
+
 # Raster-vector interaction {#raster-vector}
 
 ## Prerequisites {-}
@@ -1096,6 +990,7 @@ Raster-vector conversion
 -->
 
 <!--chapter:end:09-raster-vector.Rmd-->
+
 
 # Point Pattern analysis and spatial interpolation
 
@@ -1118,14 +1013,7 @@ i = pkgs[!pkgs %in% installed.packages()]
 if(length(i) > 0)
   install.packages(i)
 lapply(pkgs, library, character.only = TRUE)
-```
-
-```
-## Loading required package: methods
-```
-
-```
-## Loading required package: leaflet
+#> Loading required package: leaflet
 ```
 
 ## Data
@@ -1144,35 +1032,20 @@ These datasets live in the **spData** package and can be loaded as follows:
 library(spData)
 f = system.file("shapes/", package = "spData")
 lnd = rgdal::readOGR(paste0(f, "lnd.geojson"))
-```
-
-```
-## OGR data source with driver: GeoJSON 
-## Source: "/home/travis/R/Library/spData/shapes/lnd.geojson", layer: "OGRGeoJSON"
-## with 33 features
-## It has 7 fields
-```
-
-```r
+#> OGR data source with driver: GeoJSON 
+#> Source: "/home/travis/R/Library/spData/shapes/lnd.geojson", layer: "OGRGeoJSON"
+#> with 33 features
+#> It has 7 fields
 cycle_hire = rgdal::readOGR(paste0(f, "cycle_hire.geojson"))
-```
-
-```
-## OGR data source with driver: GeoJSON 
-## Source: "/home/travis/R/Library/spData/shapes/cycle_hire.geojson", layer: "OGRGeoJSON"
-## with 742 features
-## It has 5 fields
-```
-
-```r
+#> OGR data source with driver: GeoJSON 
+#> Source: "/home/travis/R/Library/spData/shapes/cycle_hire.geojson", layer: "OGRGeoJSON"
+#> with 742 features
+#> It has 5 fields
 cycle_hire_osm = rgdal::readOGR(paste0(f, "cycle_hire_osm.geojson"))
-```
-
-```
-## OGR data source with driver: GeoJSON 
-## Source: "/home/travis/R/Library/spData/shapes/cycle_hire_osm.geojson", layer: "OGRGeoJSON"
-## with 532 features
-## It has 5 fields
+#> OGR data source with driver: GeoJSON 
+#> Source: "/home/travis/R/Library/spData/shapes/cycle_hire_osm.geojson", layer: "OGRGeoJSON"
+#> with 532 features
+#> It has 5 fields
 ```
 
 We use the `Spatial` classes used by the **sp** dataset, as these are required by point pattern analysis functions used in the chapter.
@@ -1186,7 +1059,7 @@ points(cycle_hire_osm, col = "red")
 plot(lnd, add = TRUE)
 ```
 
-<img src="10-point-pattern_files/figure-html/cycle-hire1-1.png" width="672" />
+<img src="figures/cycle-hire1-1.png" width="672" style="display: block; margin: auto;" />
 
 It is immediately clear that the two datasets on cycle hire points are closely related (they have a high degree of spatial correlation) and have a distinctive pattern.
 `cycle_hire` represents official data on cycle parking, and will be the main point dataset analysed.
@@ -1204,13 +1077,7 @@ Let's first compute that for London overall, before doing a zone-by-zone breakdo
 
 ```r
 nrow(cycle_hire)
-```
-
-```
-## [1] 742
-```
-
-```r
+#> [1] 742
 lnd_area = sum(area(lnd)) / 1e6
 ```
 
@@ -1220,10 +1087,7 @@ That represents on average roughly one cycle parking rental space per 2 square k
 
 ```r
 nrow(cycle_hire) / lnd_area
-```
-
-```
-## [1] 0.4714415
+#> [1] 0.471
 ```
 
 This is not a good indicator of the density of the bike hire scheme overall, because they are so concentrated in central London.
@@ -1236,10 +1100,7 @@ bb_hire = as(extent(cycle_hire), "SpatialPolygons")
 crs(bb_hire) = crs(lnd)
 c_area = area(bb_hire) / 1e6
 c_area
-```
-
-```
-## [1] 158.3181
+#> [1] 158
 ```
 
 ### Exercises
@@ -1312,7 +1173,7 @@ points(cycle_hire)
 plot(lnd, add = TRUE)
 ```
 
-<img src="10-point-pattern_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="figures/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" />
 
 This is already very useful.
 The results show that there are 5 clusters of cycle parking with much higher density than the surrounding areas.
@@ -1323,13 +1184,13 @@ We can visualise these clusters using a static plot as follows:
 plot(rc)
 ```
 
-<img src="10-point-pattern_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<img src="figures/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" />
 
 ```r
 plot(rc > 12)
 ```
 
-<img src="10-point-pattern_files/figure-html/unnamed-chunk-8-2.png" width="672" />
+<img src="figures/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" />
 
 More useful, in terms of characterising the geographical characteristics of each cluster, would be to plot these 5 clusters interactively.
 Do this with **mapview**:
@@ -1341,7 +1202,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preservea7ffef7ed34a0754
+preserve4acb25cb63fe3ed8
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 
@@ -1362,13 +1223,10 @@ Another important characteristic of point patterns is the distances between poin
 d = spDists(cycle_hire, longlat = TRUE)
 dm = as.matrix(d)
 dm[1:3, 1:5]
-```
-
-```
-##          [,1]     [,2]     [,3]      [,4]     [,5]
-## [1,] 0.000000 6.913473 1.966592 0.7700464 5.164896
-## [2,] 6.913473 0.000000 8.205219 6.3051094 2.916743
-## [3,] 1.966592 8.205219 0.000000 2.7062514 5.915129
+#>      [,1] [,2] [,3] [,4] [,5]
+#> [1,] 0.00 6.91 1.97 0.77 5.16
+#> [2,] 6.91 0.00 8.21 6.31 2.92
+#> [3,] 1.97 8.21 0.00 2.71 5.92
 ```
 
 The results show the distance, in km, form every point to every other.
@@ -1386,7 +1244,7 @@ qtm(cycle_hire, col = "grey", main = "Isolated points") +
 qtm(cycle_hire[sel_isolated,], symbols.col = "red", symbols.size = 2) + tm_scale_bar()
 ```
 
-<img src="10-point-pattern_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+<img src="figures/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" />
 
 Another plot that is useful is that of the 'G function' for exploring the extent to which points cluster or separate compared with what would be expected from a random distribution [@bivand_applied_2013]:
 
@@ -1398,7 +1256,7 @@ Gd = Gd / length(dmin)
 plot(distance, Gd)
 ```
 
-<img src="10-point-pattern_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+<img src="figures/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" />
 
 ## Spatial interpolation
 
@@ -1416,19 +1274,13 @@ Thus spatial interpolation requires a dependent variable, which is summarised nu
 
 ```r
 summary(cycle_hire$nbikes)
-```
-
-```
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##     0.0     3.0    11.0    12.2    19.0    51.0
-```
-
-```r
+#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#>     0.0     3.0    11.0    12.2    19.0    51.0
 tm_shape(cycle_hire) +
   tm_symbols(col = "nbikes", palette = "YlOrRd", alpha = 0.6, style = "quantile")
 ```
 
-<img src="10-point-pattern_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+<img src="figures/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" />
 
 There is a clear spatial pattern to this: there are more bikes parked in the outer docking stations. We can say that verbally, but how to we represent that on the map?
 
@@ -1440,7 +1292,7 @@ rnbikes = rasterize(cycle_hire, r, field = "nbikes", fun = mean)
 plot(rnbikes)
 ```
 
-<img src="10-point-pattern_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+<img src="figures/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" />
 
 What about estimating the values of cells outside the current network area?
 We can use **raster**'s `focal()` function to estimate that.
@@ -1453,7 +1305,7 @@ plot(r_interp1)
 points(cycle_hire)
 ```
 
-<img src="10-point-pattern_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+<img src="figures/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" />
 
 ### Exercises
 
@@ -1471,19 +1323,13 @@ The next simplest solution is to break the area up into pieces and assign the va
 library(dismo)
 v = voronoi(cycle_hire)
 v = intersect(v, r)
-```
-
-```
-## Warning in intersect(x, y): non identical CRS
-```
-
-```r
+#> Warning in intersect(x, y): non identical CRS
 tm_shape(v) +
   tm_fill("nbikes", palette = "YlOrRd", style = "quantile") +
   qtm(cycle_hire, symbols.size = 0.2)
 ```
 
-<img src="10-point-pattern_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+<img src="figures/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" />
 
 ### Exercises
 
@@ -1502,17 +1348,11 @@ library(gstat)
 gs = gstat(formula = nbikes~1, locations = cycle_hire)
 crs(r) = crs(lnd)
 r_idw = interpolate(r, gs)
-```
-
-```
-## [inverse distance weighted interpolation]
-```
-
-```r
+#> [inverse distance weighted interpolation]
 plot(r_idw)
 ```
 
-<img src="10-point-pattern_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="figures/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" />
 
 ### Exercises
 
@@ -1522,6 +1362,7 @@ plot(r_idw)
 - Try cross-validating the results. Which performs best?
 
 <!--chapter:end:10-point-pattern.Rmd-->
+
 
 # References
 

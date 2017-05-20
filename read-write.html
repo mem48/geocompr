@@ -231,43 +231,43 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">5.1</span> Data Input (I)</h2>
 <p>To efficiently read data into R, it helps to have an understanding of what happens ‘under the hood’. Executing commands such as <code>sf::st_read</code> (the main function we use for loading spatial data, from the <strong>sf</strong> package) or <code>readr::read_csv</code> silently sets-off a chain of events that loads spatial objects. “Loading” in this context means loading the data into R or, more precisely, assigning objects to your workspace, stored in RAM accessible from the <code>.GlobalEnv</code> of your current R session. <!-- coud add a footnote here mentioning `.GlobalEnv` --></p>
 <p>Spatial data comes in a wide variety of file formats, and <strong>sf</strong> is adept at handling them, via the command <code>st_read</code>. This function (also called <code>read_sf</code>) uses the power of the GDAL C/C++ library behind the scenes, allowing <strong>sf</strong> to read a very wide range of spatial data formats. The first arguement of <code>st_read</code> is <code>file</code>, which should be a text string or an object containing a single text string:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)</code></pre></div>
-<pre><code>## Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/wrld.shp&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
-world =<span class="st"> </span><span class="kw">st_read</span>(f)</code></pre></div>
-<pre><code>## Reading layer `wrld&#39; from data source `/home/travis/R/Library/spData/shapes/wrld.shp&#39; using driver `ESRI Shapefile&#39;
-## converted into: POLYGON
-## Simple feature collection with 177 features and 10 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
-## epsg (SRID):    4326
-## proj4string:    +proj=longlat +datum=WGS84 +no_defs</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
+<span class="co">#&gt; Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0</span>
+f =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/wrld.shp&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
+world =<span class="st"> </span><span class="kw">st_read</span>(f)
+<span class="co">#&gt; Reading layer `wrld&#39; from data source `/home/travis/R/Library/spData/shapes/wrld.shp&#39; using driver `ESRI Shapefile&#39;</span>
+<span class="co">#&gt; converted into: POLYGON</span>
+<span class="co">#&gt; Simple feature collection with 177 features and 10 fields</span>
+<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513</span>
+<span class="co">#&gt; epsg (SRID):    4326</span>
+<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span></code></pre></div>
 <p>A major advantage of <strong>sf</strong> is that it is fast at geographical data I/O, as illustrated in the benchmark below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(microbenchmark)
 bench_read =<span class="st"> </span><span class="kw">microbenchmark</span>(<span class="dt">times =</span> <span class="dv">5</span>,
         <span class="kw">st_read</span>(f),
         rgdal::<span class="kw">readOGR</span>(f)
 )</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bench_read$time[<span class="dv">1</span>] /<span class="st"> </span>bench_read$time[<span class="dv">2</span>]</code></pre></div>
-<pre><code>## [1] 3.922344</code></pre>
-<p>The results demonstrate that <strong>sf</strong> can be much faster (<em>4 times faster</em> in this case) than <strong>rgdal</strong> at reading-in the world countries shapefile.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bench_read$time[<span class="dv">1</span>] /<span class="st"> </span>bench_read$time[<span class="dv">2</span>]
+<span class="co">#&gt; [1] 2.34</span></code></pre></div>
+<p>The results demonstrate that <strong>sf</strong> can be much faster (<em>2 times faster</em> in this case) than <strong>rgdal</strong> at reading-in the world countries shapefile.</p>
 <p>The counterpart of <code>st_read()</code> is <code>st_write()</code>. This allows writing to a range of geographic vector file types, including the common formats <code>.geojson</code>, <code>.shp</code> and <code>.gpkg</code>. <code>st_read()</code> will decide which driver to use automatically, based on the file name, as illustrated in the benchmark below demonstrating write speeds for each format.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.geojson&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))</code></pre></div>
-<pre><code>##    user  system elapsed 
-##   0.072   0.004   0.076</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.shp&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)) </code></pre></div>
-<pre><code>##    user  system elapsed 
-##   0.052   0.004   0.057</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))</code></pre></div>
-<pre><code>##    user  system elapsed 
-##   0.024   0.008   0.038</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.geojson&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
+<span class="co">#&gt;    user  system elapsed </span>
+<span class="co">#&gt;   0.084   0.000   0.082</span>
+<span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.shp&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)) 
+<span class="co">#&gt;    user  system elapsed </span>
+<span class="co">#&gt;   0.056   0.000   0.057</span>
+<span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
+<span class="co">#&gt;    user  system elapsed </span>
+<span class="co">#&gt;   0.028   0.008   0.043</span></code></pre></div>
 <p>The full range of file-types supported by <strong>sf</strong> is reported by <code>st_drivers()</code>, the first 2 of which are shown below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_drivers =<span class="st"> </span><span class="kw">st_drivers</span>()
-<span class="kw">head</span>(sf_drivers, <span class="dt">n =</span> <span class="dv">2</span>)</code></pre></div>
-<pre><code>##          name                  long_name write  copy is_raster is_vector
-## PCIDSK PCIDSK       PCIDSK Database File  TRUE FALSE      TRUE      TRUE
-## netCDF netCDF Network Common Data Format  TRUE  TRUE      TRUE      TRUE</code></pre>
+<span class="kw">head</span>(sf_drivers, <span class="dt">n =</span> <span class="dv">2</span>)
+<span class="co">#&gt;          name                  long_name write  copy is_raster is_vector</span>
+<span class="co">#&gt; PCIDSK PCIDSK       PCIDSK Database File  TRUE FALSE      TRUE      TRUE</span>
+<span class="co">#&gt; netCDF netCDF Network Common Data Format  TRUE  TRUE      TRUE      TRUE</span></code></pre></div>
 </div>
 <div id="data-output-o" class="section level2">
 <h2><span class="header-section-number">5.2</span> Data output (O)</h2>

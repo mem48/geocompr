@@ -236,26 +236,26 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">vignette</span>(<span class="st">&quot;sf2&quot;</span>) <span class="co"># for reading, writing and converting Simple Features</span>
 <span class="kw">vignette</span>(<span class="st">&quot;sf3&quot;</span>) <span class="co"># for manipulating Simple Features</span></code></pre></div>
 <p>As the first vignette explains, simple feature objects in R are stored in a data frame, with geographical data occupying special column, a ‘list-column’. This column is usually named ‘geom’ or ‘geometry’. Let’s see how simple feature in R work, with reference to world boundary data from the <strong>spData</strong> package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)</code></pre></div>
-<pre><code>## Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># devtools::install_github(&quot;nowosad/spData&quot;)</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
+<span class="co">#&gt; Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0</span>
+<span class="co"># devtools::install_github(&quot;nowosad/spData&quot;)</span>
 f =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/wrld.shp&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
 world =<span class="st"> </span><span class="kw">st_read</span>(f)</code></pre></div>
 <p>This has loaded an object that is simultaneously of class <code>data.frame</code> and <code>sf</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(world)</code></pre></div>
-<pre><code>## [1] &quot;sf&quot;         &quot;data.frame&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(world)
+<span class="co">#&gt; [1] &quot;sf&quot;         &quot;data.frame&quot;</span></code></pre></div>
 <p>The output of the preceding command shows that objects with class <code>sf</code> are also data frames. Thus, they can be treated like regular <code>data.frame</code>, making life easy if you are already used to working with data frames.</p>
 <p>Let’s look the first 2 rows and 3 columns of this object. The output shows 2 major differences compared with a regular <code>data.frame</code>: the inclusion of additional geographical data (<code>geometry type</code>, <code>dimension</code>, <code>bbox</code> and CRS information - <code>epsg (SRID)</code>, <code>proj4string</code>), and the presence of final <code>geometry</code> column:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[<span class="dv">1</span>:<span class="dv">2</span>, <span class="dv">1</span>:<span class="dv">3</span>]</code></pre></div>
-<pre><code>## Simple feature collection with 2 features and 3 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: 11.6401 ymin: -17.93064 xmax: 75.15803 ymax: 38.48628
-## epsg (SRID):    4326
-## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-##   iso_a2   name_long continent                       geometry
-## 1     AF Afghanistan      Asia MULTIPOLYGON(((61.210817091...
-## 2     AO      Angola    Africa MULTIPOLYGON(((16.326528354...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[<span class="dv">1</span>:<span class="dv">2</span>, <span class="dv">1</span>:<span class="dv">3</span>]
+<span class="co">#&gt; Simple feature collection with 2 features and 3 fields</span>
+<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: 11.6401 ymin: -17.93064 xmax: 75.15803 ymax: 38.48628</span>
+<span class="co">#&gt; epsg (SRID):    4326</span>
+<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
+<span class="co">#&gt;   iso_a2   name_long continent                       geometry</span>
+<span class="co">#&gt; 1     AF Afghanistan      Asia MULTIPOLYGON(((61.210817091...</span>
+<span class="co">#&gt; 2     AO      Angola    Africa MULTIPOLYGON(((16.326528354...</span></code></pre></div>
 <p>All this may seem rather complex, especially for a class system that is supposed to be simple. However, there are good reasons for organizing things this way and using <strong>sf</strong>.</p>
 <div id="exercises" class="section level3">
 <h3><span class="header-section-number">2.1.1</span> Exercises</h3>
@@ -288,8 +288,8 @@ world_sp =<span class="st"> </span><span class="kw">as</span>(<span class="dt">o
 <p>Basic maps in <strong>sf</strong> can be created quickly with the base <code>plot()</code> function. Unlike <strong>sp</strong>, however, <strong>sf</strong> by default creates a faceted plot, one sub-plot for each variable, as illustrated in the left-hand image in Figure <a href="spatial-class.html#fig:sfplot">2.1</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(world)
 <span class="kw">plot</span>(world[<span class="st">&quot;pop&quot;</span>])</code></pre></div>
-<div class="figure"><span id="fig:sfplot"></span>
-<img src="02-spatial-data_files/figure-html/sfplot-1.png" alt="Plotting with sf, with multiple variables (left) and a single variable (right)." width="49%" /><img src="02-spatial-data_files/figure-html/sfplot-2.png" alt="Plotting with sf, with multiple variables (left) and a single variable (right)." width="49%" />
+<div class="figure" style="text-align: center"><span id="fig:sfplot"></span>
+<img src="figures/sfplot-1.png" alt="Plotting with sf, with multiple variables (left) and a single variable (right)." width="49%" /><img src="figures/sfplot-2.png" alt="Plotting with sf, with multiple variables (left) and a single variable (right)." width="49%" />
 <p class="caption">
 Figure 2.1: Plotting with sf, with multiple variables (left) and a single variable (right).
 </p>
@@ -311,8 +311,8 @@ china =<span class="st"> </span>world[world$name_long ==<span class="st"> &quot;
 <li>Bonus: make the country boundaries a dotted grey line.</li>
 <li>Hint: <code>border</code> is an additional argument of <code>plot()</code> for <strong>sf</strong> objects.</li>
 </ul>
-<div class="figure"><span id="fig:nigeria"></span>
-<img src="02-spatial-data_files/figure-html/nigeria-1.png" alt="Map of Nigeria in context illustrating sf's plotting capabilities" width="672" />
+<div class="figure" style="text-align: center"><span id="fig:nigeria"></span>
+<img src="figures/nigeria-1.png" alt="Map of Nigeria in context illustrating sf's plotting capabilities" width="672" />
 <p class="caption">
 Figure 2.2: Map of Nigeria in context illustrating sf’s plotting capabilities
 </p>
@@ -322,79 +322,79 @@ Figure 2.2: Map of Nigeria in context illustrating sf’s plotting capabilities
 <h3><span class="header-section-number">2.3.2</span> Further work</h3>
 <p><strong>sf</strong> makes R data objects more closely aligned to the data model used in GDAL and GEOS, in theory making spatial data operations faster. The work here provides a taster of the way that <strong>sf</strong> operates but there is much more to learn (see Chapter <a href="spatial-data-operations.html#spatial-data-operations">4</a>). There is a wealth of information that is available in the package’s vignettes: these are highly recommended.</p>
 <p>As a final exercise, we’ll see how to do a spatial overlay in <strong>sf</strong> by first converting the countries of the world into centroids and then subsetting those in Africa:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_centroids =<span class="st"> </span><span class="kw">st_centroid</span>(world)</code></pre></div>
-<pre><code>## Warning in st_centroid.sfc(st_geometry(x)): st_centroid does not give
-## correct centroids for longitude/latitude data</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(world_centroids[<span class="dv">1</span>])
-africa_centroids =<span class="st"> </span>world_centroids[africa,]</code></pre></div>
-<pre><code>## although coordinates are longitude/latitude, it is assumed that they are planar</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(africa_centroids, <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">cex =</span> <span class="dv">2</span>)</code></pre></div>
-<div class="figure"><span id="fig:unnamed-chunk-7"></span>
-<img src="02-spatial-data_files/figure-html/unnamed-chunk-7-1.png" alt="Centroids in Africa" width="50%" />
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_centroids =<span class="st"> </span><span class="kw">st_centroid</span>(world)
+<span class="co">#&gt; Warning in st_centroid.sfc(st_geometry(x)): st_centroid does not give</span>
+<span class="co">#&gt; correct centroids for longitude/latitude data</span>
+<span class="kw">plot</span>(world_centroids[<span class="dv">1</span>])
+africa_centroids =<span class="st"> </span>world_centroids[africa,]
+<span class="co">#&gt; although coordinates are longitude/latitude, it is assumed that they are planar</span>
+<span class="kw">plot</span>(africa_centroids, <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">cex =</span> <span class="dv">2</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-8"></span>
+<img src="figures/unnamed-chunk-8-1.png" alt="Centroids in Africa" width="50%" />
 <p class="caption">
 Figure 2.3: Centroids in Africa
 </p>
 </div>
 <p>Note: another way of acheiving the same result is with a GEOS function for identifying spatial overlay:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sel_africa =<span class="st"> </span><span class="kw">st_covered_by</span>(world_centroids, africa, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<pre><code>## although coordinates are longitude/latitude, it is assumed that they are planar</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(sel_africa)</code></pre></div>
-<pre><code>##      V1              V2              V3              V4         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##      V5              V6              V7              V8         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##      V9             V10             V11             V12         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##     V13             V14             V15             V16         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##     V17             V18             V19             V20         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##     V21             V22             V23             V24         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##     V25             V26             V27             V28         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##     V29             V30             V31             V32         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##     V33             V34             V35             V36         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##     V37             V38             V39             V40         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##     V41             V42             V43             V44         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##     V45             V46             V47             V48         
-##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
-##     V49             V50             V51         
-##  Mode :logical   Mode :logical   Mode :logical  
-##  FALSE:176       FALSE:176       FALSE:176      
-##  TRUE :1         TRUE :1         TRUE :1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sel_africa =<span class="st"> </span><span class="kw">st_covered_by</span>(world_centroids, africa, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)
+<span class="co">#&gt; although coordinates are longitude/latitude, it is assumed that they are planar</span>
+<span class="kw">summary</span>(sel_africa)
+<span class="co">#&gt;      V1              V2              V3              V4         </span>
+<span class="co">#&gt;  Mode :logical   Mode :logical   Mode :logical   Mode :logical  </span>
+<span class="co">#&gt;  FALSE:176       FALSE:176       FALSE:176       FALSE:176      </span>
+<span class="co">#&gt;  TRUE :1         TRUE :1         TRUE :1         TRUE :1        </span>
+<span class="co">#&gt;      V5              V6              V7              V8         </span>
+<span class="co">#&gt;  Mode :logical   Mode :logical   Mode :logical   Mode :logical  </span>
+<span class="co">#&gt;  FALSE:176       FALSE:176       FALSE:176       FALSE:176      </span>
+<span class="co">#&gt;  TRUE :1         TRUE :1         TRUE :1         TRUE :1        </span>
+<span class="co">#&gt;      V9             V10             V11             V12         </span>
+<span class="co">#&gt;  Mode :logical   Mode :logical   Mode :logical   Mode :logical  </span>
+<span class="co">#&gt;  FALSE:176       FALSE:176       FALSE:176       FALSE:176      </span>
+<span class="co">#&gt;  TRUE :1         TRUE :1         TRUE :1         TRUE :1        </span>
+<span class="co">#&gt;     V13             V14             V15             V16         </span>
+<span class="co">#&gt;  Mode :logical   Mode :logical   Mode :logical   Mode :logical  </span>
+<span class="co">#&gt;  FALSE:176       FALSE:176       FALSE:176       FALSE:176      </span>
+<span class="co">#&gt;  TRUE :1         TRUE :1         TRUE :1         TRUE :1        </span>
+<span class="co">#&gt;     V17             V18             V19             V20         </span>
+<span class="co">#&gt;  Mode :logical   Mode :logical   Mode :logical   Mode :logical  </span>
+<span class="co">#&gt;  FALSE:176       FALSE:176       FALSE:176       FALSE:176      </span>
+<span class="co">#&gt;  TRUE :1         TRUE :1         TRUE :1         TRUE :1        </span>
+<span class="co">#&gt;     V21             V22             V23             V24         </span>
+<span class="co">#&gt;  Mode :logical   Mode :logical   Mode :logical   Mode :logical  </span>
+<span class="co">#&gt;  FALSE:176       FALSE:176       FALSE:176       FALSE:176      </span>
+<span class="co">#&gt;  TRUE :1         TRUE :1         TRUE :1         TRUE :1        </span>
+<span class="co">#&gt;     V25             V26             V27             V28         </span>
+<span class="co">#&gt;  Mode :logical   Mode :logical   Mode :logical   Mode :logical  </span>
+<span class="co">#&gt;  FALSE:176       FALSE:176       FALSE:176       FALSE:176      </span>
+<span class="co">#&gt;  TRUE :1         TRUE :1         TRUE :1         TRUE :1        </span>
+<span class="co">#&gt;     V29             V30             V31             V32         </span>
+<span class="co">#&gt;  Mode :logical   Mode :logical   Mode :logical   Mode :logical  </span>
+<span class="co">#&gt;  FALSE:176       FALSE:176       FALSE:176       FALSE:176      </span>
+<span class="co">#&gt;  TRUE :1         TRUE :1         TRUE :1         TRUE :1        </span>
+<span class="co">#&gt;     V33             V34             V35             V36         </span>
+<span class="co">#&gt;  Mode :logical   Mode :logical   Mode :logical   Mode :logical  </span>
+<span class="co">#&gt;  FALSE:176       FALSE:176       FALSE:176       FALSE:176      </span>
+<span class="co">#&gt;  TRUE :1         TRUE :1         TRUE :1         TRUE :1        </span>
+<span class="co">#&gt;     V37             V38             V39             V40         </span>
+<span class="co">#&gt;  Mode :logical   Mode :logical   Mode :logical   Mode :logical  </span>
+<span class="co">#&gt;  FALSE:176       FALSE:176       FALSE:176       FALSE:176      </span>
+<span class="co">#&gt;  TRUE :1         TRUE :1         TRUE :1         TRUE :1        </span>
+<span class="co">#&gt;     V41             V42             V43             V44         </span>
+<span class="co">#&gt;  Mode :logical   Mode :logical   Mode :logical   Mode :logical  </span>
+<span class="co">#&gt;  FALSE:176       FALSE:176       FALSE:176       FALSE:176      </span>
+<span class="co">#&gt;  TRUE :1         TRUE :1         TRUE :1         TRUE :1        </span>
+<span class="co">#&gt;     V45             V46             V47             V48         </span>
+<span class="co">#&gt;  Mode :logical   Mode :logical   Mode :logical   Mode :logical  </span>
+<span class="co">#&gt;  FALSE:176       FALSE:176       FALSE:176       FALSE:176      </span>
+<span class="co">#&gt;  TRUE :1         TRUE :1         TRUE :1         TRUE :1        </span>
+<span class="co">#&gt;     V49             V50             V51         </span>
+<span class="co">#&gt;  Mode :logical   Mode :logical   Mode :logical  </span>
+<span class="co">#&gt;  FALSE:176       FALSE:176       FALSE:176      </span>
+<span class="co">#&gt;  TRUE :1         TRUE :1         TRUE :1</span></code></pre></div>
 <p>This shows that there are 56 countries in Africa. We can check if they are the same countries as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">africa_centroids2 =<span class="st"> </span>world_centroids[sel_africa,]
-<span class="kw">identical</span>(africa_centroids, africa_centroids2)</code></pre></div>
-<pre><code>## [1] FALSE</code></pre>
+<span class="kw">identical</span>(africa_centroids, africa_centroids2)
+<span class="co">#&gt; [1] FALSE</span></code></pre></div>
 </div>
 <div id="exercises-1" class="section level3">
 <h3><span class="header-section-number">2.3.3</span> Exercises</h3>

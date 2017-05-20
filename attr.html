@@ -236,20 +236,20 @@ world =<span class="st"> </span><span class="kw">st_read</span>(f)</code></pre><
 <p>Attribute data is non-geographical information associated with geographical data. There is a strong overlap between geographical and non-geographical operations: non-spatial subset, aggregate and join operations each have their geographical equivalents (see <a href="spatial-data-operations.html#spatial-data-operations">4</a>).</p>
 <p>The non-spatial versions of these methods are common and easy to understand with R, so they are covered first. The methods are largely cross-transferable to the trickier tasks of spatial data operations, so pay attention!</p>
 <p>Simple features defined by the <strong>sf</strong> package make working with attribute data easy because objects of class <code>sf</code> are data frames. This means that all the accumulated wisdom and functions accumulated in the R community for handling data frames can be applied to the non-geographic aspects of data, as illustrated below for the <code>world</code> object:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(world)</code></pre></div>
-<pre><code>## [1] &quot;sf&quot;         &quot;data.frame&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(world)
+<span class="co">#&gt; [1] &quot;sf&quot;         &quot;data.frame&quot;</span></code></pre></div>
 <p>This ‘world’ dataset contains 63 non-geographical variables (and one geometry column) with data for almost 200 countries, as can be ascertained using base functions for working with tabular data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(world) <span class="co"># it is a 2 dimensional object, with rows and columns</span></code></pre></div>
-<pre><code>## [1] 177  11</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(world) <span class="co"># how many rows?</span></code></pre></div>
-<pre><code>## [1] 177</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ncol</span>(world) <span class="co"># how many columns?</span></code></pre></div>
-<pre><code>## [1] 11</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(world) <span class="co"># it is a 2 dimensional object, with rows and columns</span>
+<span class="co">#&gt; [1] 177  11</span>
+<span class="kw">nrow</span>(world) <span class="co"># how many rows?</span>
+<span class="co">#&gt; [1] 177</span>
+<span class="kw">ncol</span>(world) <span class="co"># how many columns?</span>
+<span class="co">#&gt; [1] 11</span></code></pre></div>
 <p>Extracting the attribute data of an <code>sf</code> object is the same as removing the geometry column:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_df =<span class="st"> </span>world
 <span class="kw">st_geometry</span>(world_df) =<span class="st"> </span><span class="ot">NULL</span>
-<span class="kw">class</span>(world_df)</code></pre></div>
-<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<span class="kw">class</span>(world_df)
+<span class="co">#&gt; [1] &quot;data.frame&quot;</span></code></pre></div>
 <p>This can be useful if the geometry column causes problem, e.g. by occupying large amounts of RAM. However, for most cases there is no harm in keeping the geometry column, as data frame operations on <code>sf</code> will only act on the attribute data. For this reason, being good at working with attribute data in geographical data is the same being proficient at handling data frames in R. For many applications, the most effective and intuitive way to work with data frames is with the <strong>dplyr</strong> package.</p>
 </div>
 <div id="base-vs-data.table-vs-dplyr" class="section level2">
@@ -273,16 +273,16 @@ world =<span class="st"> </span><span class="kw">st_read</span>(f)</code></pre><
 <p>The <code>select()</code> function, for example, can be used to both subset and renames columns in a single line, for example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_orig =<span class="st"> </span>world <span class="co"># create copy of world dataset for future reference</span>
 world1 =<span class="st"> </span><span class="kw">select</span>(world_orig, name_long, continent, <span class="dt">population =</span> pop)
-<span class="kw">head</span>(world1, <span class="dt">n =</span> <span class="dv">2</span>)</code></pre></div>
-<pre><code>## Simple feature collection with 2 features and 3 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: 11.6401 ymin: -17.93064 xmax: 75.15803 ymax: 38.48628
-## epsg (SRID):    4326
-## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-##     name_long continent population                       geometry
-## 1 Afghanistan      Asia   31627506 MULTIPOLYGON(((61.210817091...
-## 2      Angola    Africa   24227524 MULTIPOLYGON(((16.326528354...</code></pre>
+<span class="kw">head</span>(world1, <span class="dt">n =</span> <span class="dv">2</span>)
+<span class="co">#&gt; Simple feature collection with 2 features and 3 fields</span>
+<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: 11.6401 ymin: -17.93064 xmax: 75.15803 ymax: 38.48628</span>
+<span class="co">#&gt; epsg (SRID):    4326</span>
+<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
+<span class="co">#&gt;     name_long continent population                       geometry</span>
+<span class="co">#&gt; 1 Afghanistan      Asia   31627506 MULTIPOLYGON(((61.210817091...</span>
+<span class="co">#&gt; 2      Angola    Africa   24227524 MULTIPOLYGON(((16.326528354...</span></code></pre></div>
 <p>This is more concises than the base R equivalent (which saves the result as an object called <code>world2</code> to avoid overriding the <code>world</code> dataset created previously):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world2 =<span class="st"> </span>world_orig[<span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span>, <span class="st">&quot;continent&quot;</span>, <span class="st">&quot;pop&quot;</span>)] <span class="co"># subset columns by name</span>
 <span class="kw">names</span>(world2)[<span class="dv">3</span>] =<span class="st"> &quot;population&quot;</span> <span class="co"># rename column manually</span></code></pre></div>
@@ -296,19 +296,19 @@ world1 =<span class="st"> </span><span class="kw">select</span>(world_orig, name
 world_few_rows =<span class="st"> </span>world %&gt;%<span class="st"> </span>
 <span class="st">        </span><span class="kw">filter</span>(pop &gt;<span class="st"> </span><span class="fl">1e9</span>)
 
-<span class="kw">head</span>(world_few_rows)</code></pre></div>
-<pre><code>## Simple feature collection with 2 features and 10 fields
-## geometry type:  MULTIPOLYGON
-## dimension:      XY
-## bbox:           xmin: 68.17665 ymin: 7.965535 xmax: 135.0263 ymax: 53.4588
-## epsg (SRID):    4326
-## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-##   iso_a2 name_long continent region_un     subregion              type
-## 1     CN     China      Asia      Asia  Eastern Asia           Country
-## 2     IN     India      Asia      Asia Southern Asia Sovereign country
-##   area_km2        pop  lifeExp gdpPercap                       geometry
-## 1  9409832 1364270000 75.78227 12758.649 MULTIPOLYGON(((110.33918786...
-## 2  3142892 1295291543 68.01380  5391.694 MULTIPOLYGON(((77.837450799...</code></pre>
+<span class="kw">head</span>(world_few_rows)
+<span class="co">#&gt; Simple feature collection with 2 features and 10 fields</span>
+<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: 68.17665 ymin: 7.965535 xmax: 135.0263 ymax: 53.4588</span>
+<span class="co">#&gt; epsg (SRID):    4326</span>
+<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
+<span class="co">#&gt;   iso_a2 name_long continent region_un     subregion              type</span>
+<span class="co">#&gt; 1     CN     China      Asia      Asia  Eastern Asia           Country</span>
+<span class="co">#&gt; 2     IN     India      Asia      Asia Southern Asia Sovereign country</span>
+<span class="co">#&gt;   area_km2      pop lifeExp gdpPercap                       geometry</span>
+<span class="co">#&gt; 1  9409832 1.36e+09    75.8     12759 MULTIPOLYGON(((110.33918786...</span>
+<span class="co">#&gt; 2  3142892 1.30e+09    68.0      5392 MULTIPOLYGON(((77.837450799...</span></code></pre></div>
 <p>This is equivalent to the following base R code (<a href="https://github.com/Robinlovelace/geocompr/issues/28">note</a> NAs are forbidden for subsetting):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># subsetting simple feature rows by values</span>
 world$pop[<span class="kw">is.na</span>(world$pop)] =<span class="st"> </span><span class="dv">0</span> 
@@ -344,55 +344,50 @@ world_continents</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sort variables</span>
 ## by name
 world_continents %&gt;%<span class="st"> </span>
-<span class="st">        </span><span class="kw">arrange</span>(continent)</code></pre></div>
-<pre><code>## Simple feature collection with 8 features and 3 fields
-## geometry type:  GEOMETRY
-## dimension:      XY
-## bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
-## epsg (SRID):    4326
-## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-## # A tibble: 8 x 4
-##                 continent continent_pop country_n          geometry
-##                    &lt;fctr&gt;         &lt;dbl&gt;     &lt;int&gt;  &lt;simple_feature&gt;
-## 1                  Africa            NA        51 &lt;MULTIPOLYGON...&gt;
-## 2              Antarctica            NA         1 &lt;MULTIPOLYGON...&gt;
-## 3                    Asia            NA        47 &lt;MULTIPOLYGON...&gt;
-## 4                  Europe            NA        39 &lt;MULTIPOLYGON...&gt;
-## 5           North America     565318889        18 &lt;MULTIPOLYGON...&gt;
-## 6                 Oceania      37422867         7 &lt;MULTIPOLYGON...&gt;
-## 7 Seven seas (open ocean)            NA         1 &lt;POLYGON((68....&gt;
-## 8           South America            NA        13 &lt;MULTIPOLYGON...&gt;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## by population (in descending order)
+<span class="st">        </span><span class="kw">arrange</span>(continent)
+<span class="co">#&gt; Simple feature collection with 8 features and 3 fields</span>
+<span class="co">#&gt; geometry type:  GEOMETRY</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513</span>
+<span class="co">#&gt; epsg (SRID):    4326</span>
+<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
+<span class="co">#&gt; # A tibble: 8 x 4</span>
+<span class="co">#&gt;    continent continent_pop country_n          geometry</span>
+<span class="co">#&gt;       &lt;fctr&gt;         &lt;dbl&gt;     &lt;int&gt;  &lt;simple_feature&gt;</span>
+<span class="co">#&gt; 1     Africa            NA        51 &lt;MULTIPOLYGON...&gt;</span>
+<span class="co">#&gt; 2 Antarctica            NA         1 &lt;MULTIPOLYGON...&gt;</span>
+<span class="co">#&gt; 3       Asia            NA        47 &lt;MULTIPOLYGON...&gt;</span>
+<span class="co">#&gt; 4     Europe            NA        39 &lt;MULTIPOLYGON...&gt;</span>
+<span class="co">#&gt; # ... with 4 more rows</span>
+## by population (in descending order)
 world_continents %&gt;%<span class="st"> </span>
-<span class="st">        </span><span class="kw">arrange</span>(-continent_pop)</code></pre></div>
-<pre><code>## Simple feature collection with 8 features and 3 fields
-## geometry type:  GEOMETRY
-## dimension:      XY
-## bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
-## epsg (SRID):    4326
-## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-## # A tibble: 8 x 4
-##                 continent continent_pop country_n          geometry
-##                    &lt;fctr&gt;         &lt;dbl&gt;     &lt;int&gt;  &lt;simple_feature&gt;
-## 1           North America     565318889        18 &lt;MULTIPOLYGON...&gt;
-## 2                 Oceania      37422867         7 &lt;MULTIPOLYGON...&gt;
-## 3                  Africa            NA        51 &lt;MULTIPOLYGON...&gt;
-## 4              Antarctica            NA         1 &lt;MULTIPOLYGON...&gt;
-## 5                    Asia            NA        47 &lt;MULTIPOLYGON...&gt;
-## 6                  Europe            NA        39 &lt;MULTIPOLYGON...&gt;
-## 7 Seven seas (open ocean)            NA         1 &lt;POLYGON((68....&gt;
-## 8           South America            NA        13 &lt;MULTIPOLYGON...&gt;</code></pre>
+<span class="st">        </span><span class="kw">arrange</span>(-continent_pop)
+<span class="co">#&gt; Simple feature collection with 8 features and 3 fields</span>
+<span class="co">#&gt; geometry type:  GEOMETRY</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513</span>
+<span class="co">#&gt; epsg (SRID):    4326</span>
+<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
+<span class="co">#&gt; # A tibble: 8 x 4</span>
+<span class="co">#&gt;       continent continent_pop country_n          geometry</span>
+<span class="co">#&gt;          &lt;fctr&gt;         &lt;dbl&gt;     &lt;int&gt;  &lt;simple_feature&gt;</span>
+<span class="co">#&gt; 1 North America      5.65e+08        18 &lt;MULTIPOLYGON...&gt;</span>
+<span class="co">#&gt; 2       Oceania      3.74e+07         7 &lt;MULTIPOLYGON...&gt;</span>
+<span class="co">#&gt; 3        Africa            NA        51 &lt;MULTIPOLYGON...&gt;</span>
+<span class="co">#&gt; 4    Antarctica            NA         1 &lt;MULTIPOLYGON...&gt;</span>
+<span class="co">#&gt; # ... with 4 more rows</span></code></pre></div>
 <p>Most of the function from <strong>sf</strong> package do not drop a <code>geometry</code> column. To extract a data frame <code>st_geometry()</code> or <code>st_set_geometry()</code> function can be used.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_st =<span class="st"> </span>world
 <span class="kw">st_geometry</span>(world_st) =<span class="st"> </span><span class="ot">NULL</span>
-<span class="kw">class</span>(world_st)</code></pre></div>
-<pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># OR</span>
+<span class="kw">class</span>(world_st)
+<span class="co">#&gt; [1] &quot;data.frame&quot;</span>
+
+<span class="co"># OR</span>
 
 world_st2 =<span class="st"> </span>world
 world_st2 =<span class="st"> </span>world_st2 %&gt;%<span class="st"> </span><span class="kw">st_set_geometry</span>(<span class="ot">NULL</span>)
-<span class="kw">class</span>(world_st2)</code></pre></div>
-<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<span class="kw">class</span>(world_st2)
+<span class="co">#&gt; [1] &quot;data.frame&quot;</span></code></pre></div>
 <!-- 
 - dplyr, tidyr, and purrr packages
 - lubridate??
