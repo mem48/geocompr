@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Geocomputation with R</title>
+  <meta name="description" content="Geocomputation with R">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Geocomputation with R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://bookdown.org/robinlovelace/geocompr/" />
+  
+  
+  <meta name="github-repo" content="Robinlovelace/geocompr" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Geocomputation with R" />
+  
+  
+  
+
+<meta name="author" content="Robin Lovelace">
+<meta name="author" content="Jakub Nowosad">
+
+
+<meta name="date" content="2017-05-20">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="spatial-class.html">
+<link rel="next" href="spatial-data-operations.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<link href="libs/leaflet-0.7.7/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-0.7.7/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<link href="libs/leaflet-label-0.2.2/leaflet.label.css" rel="stylesheet" />
+<script src="libs/leaflet-label-0.2.2/leaflet.label.js"></script>
+<script src="libs/Proj4Leaflet-0.7.2/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-0.7.2/proj4leaflet.js"></script>
+<script src="libs/leaflet-binding-1.1.0/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.0.27/leaflet-providers.js"></script>
+<script src="libs/leaflet-providers-plugin-1.1.0/leaflet-providers-plugin.js"></script>
+<link href="libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.css" rel="stylesheet" />
+<script src="libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.min.js"></script>
+<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
+<script src="libs/HomeButton-0.0.1/home-button.js"></script>
+<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Geocomputation with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#why-geocomputation-with-r"><i class="fa fa-check"></i><b>1.1</b> Why Geocomputation with R?</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#rs-spatial-ecosystem"><i class="fa fa-check"></i><b>1.2</b> R’s spatial ecosystem</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="spatial-class.html"><a href="spatial-class.html"><i class="fa fa-check"></i><b>2</b> Spatial classes</a><ul>
+<li class="chapter" data-level="" data-path="spatial-class.html"><a href="spatial-class.html#prerequisites-1"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="2.1" data-path="spatial-class.html"><a href="spatial-class.html#an-introduction-to-simple-features"><i class="fa fa-check"></i><b>2.1</b> An introduction to Simple Features</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="spatial-class.html"><a href="spatial-class.html#exercises"><i class="fa fa-check"></i><b>2.1.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="spatial-class.html"><a href="spatial-class.html#why-simple-features"><i class="fa fa-check"></i><b>2.2</b> Why Simple Features?</a></li>
+<li class="chapter" data-level="2.3" data-path="spatial-class.html"><a href="spatial-class.html#basic-map"><i class="fa fa-check"></i><b>2.3</b> Basic map making</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="spatial-class.html"><a href="spatial-class.html#challenge"><i class="fa fa-check"></i><b>2.3.1</b> Challenge</a></li>
+<li class="chapter" data-level="2.3.2" data-path="spatial-class.html"><a href="spatial-class.html#further-work"><i class="fa fa-check"></i><b>2.3.2</b> Further work</a></li>
+<li class="chapter" data-level="2.3.3" data-path="spatial-class.html"><a href="spatial-class.html#exercises-1"><i class="fa fa-check"></i><b>2.3.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="spatial-class.html"><a href="spatial-class.html#vector-data"><i class="fa fa-check"></i><b>2.4</b> Vector data</a></li>
+<li class="chapter" data-level="2.5" data-path="spatial-class.html"><a href="spatial-class.html#raster-data"><i class="fa fa-check"></i><b>2.5</b> Raster data</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="attr.html"><a href="attr.html"><i class="fa fa-check"></i><b>3</b> Attribute data operations</a><ul>
+<li class="chapter" data-level="" data-path="attr.html"><a href="attr.html#prerequisites-2"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="3.1" data-path="attr.html"><a href="attr.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="attr.html"><a href="attr.html#base-vs-data.table-vs-dplyr"><i class="fa fa-check"></i><b>3.2</b> Base vs data.table vs dplyr</a></li>
+<li class="chapter" data-level="3.3" data-path="attr.html"><a href="attr.html#attribute-subsetting"><i class="fa fa-check"></i><b>3.3</b> Attribute subsetting</a></li>
+<li class="chapter" data-level="3.4" data-path="attr.html"><a href="attr.html#attribute-data-aggregation"><i class="fa fa-check"></i><b>3.4</b> Attribute data aggregation</a></li>
+<li class="chapter" data-level="3.5" data-path="attr.html"><a href="attr.html#attribute-data-joining"><i class="fa fa-check"></i><b>3.5</b> Attribute data joining</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html"><i class="fa fa-check"></i><b>4</b> Spatial data operations</a><ul>
+<li class="chapter" data-level="4.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#attribute-subsetting-1"><i class="fa fa-check"></i><b>4.1</b> Attribute subsetting</a></li>
+<li class="chapter" data-level="4.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#attribute-data-aggregation-1"><i class="fa fa-check"></i><b>4.2</b> Attribute data aggregation</a></li>
+<li class="chapter" data-level="4.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#attribute-data-joining-1"><i class="fa fa-check"></i><b>4.3</b> Attribute data joining</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="read-write.html"><a href="read-write.html"><i class="fa fa-check"></i><b>5</b> Geographical data I/O</a><ul>
+<li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#data-input-i"><i class="fa fa-check"></i><b>5.1</b> Data Input (I)</a></li>
+<li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#data-output-o"><i class="fa fa-check"></i><b>5.2</b> Data output (O)</a></li>
+<li class="chapter" data-level="5.3" data-path="read-write.html"><a href="read-write.html#visual-outputs"><i class="fa fa-check"></i><b>5.3</b> Visual outputs</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="coord.html"><a href="coord.html"><i class="fa fa-check"></i><b>6</b> Coordinate systems/reprojecting</a><ul>
+<li class="chapter" data-level="" data-path="coord.html"><a href="coord.html#prerequisites-3"><i class="fa fa-check"></i>Prerequisites</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="vector.html"><a href="vector.html"><i class="fa fa-check"></i><b>7</b> Working with vector data</a><ul>
+<li class="chapter" data-level="" data-path="vector.html"><a href="vector.html#prerequisites-4"><i class="fa fa-check"></i>Prerequisites</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="raster.html"><a href="raster.html"><i class="fa fa-check"></i><b>8</b> Working with raster data</a><ul>
+<li class="chapter" data-level="" data-path="raster.html"><a href="raster.html#prerequisites-5"><i class="fa fa-check"></i>Prerequisites</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="raster-vector.html"><a href="raster-vector.html"><i class="fa fa-check"></i><b>9</b> Raster-vector interaction</a><ul>
+<li class="chapter" data-level="" data-path="raster-vector.html"><a href="raster-vector.html#prerequisites-6"><i class="fa fa-check"></i>Prerequisites</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html"><i class="fa fa-check"></i><b>10</b> Point Pattern analysis and spatial interpolation</a><ul>
+<li class="chapter" data-level="10.1" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#data"><i class="fa fa-check"></i><b>10.1</b> Data</a></li>
+<li class="chapter" data-level="10.2" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#point-density"><i class="fa fa-check"></i><b>10.2</b> Point density</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#exercises-2"><i class="fa fa-check"></i><b>10.2.1</b> Exercises</a></li>
+<li class="chapter" data-level="10.2.2" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#challenges"><i class="fa fa-check"></i><b>10.2.2</b> Challenges</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#points-in-polygons-and-raster-cells"><i class="fa fa-check"></i><b>10.3</b> Points in polygons and raster cells</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#exercises-3"><i class="fa fa-check"></i><b>10.3.1</b> Exercises</a></li>
+<li class="chapter" data-level="10.3.2" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#challenge-1"><i class="fa fa-check"></i><b>10.3.2</b> Challenge</a></li>
+<li class="chapter" data-level="10.3.3" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#exercises-4"><i class="fa fa-check"></i><b>10.3.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#point-distance-analysis"><i class="fa fa-check"></i><b>10.4</b> Point distance analysis</a></li>
+<li class="chapter" data-level="10.5" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#spatial-interpolation"><i class="fa fa-check"></i><b>10.5</b> Spatial interpolation</a><ul>
+<li class="chapter" data-level="10.5.1" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#exercises-5"><i class="fa fa-check"></i><b>10.5.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#voronoi-polygon-interpolation"><i class="fa fa-check"></i><b>10.6</b> Voronoi polygon interpolation</a><ul>
+<li class="chapter" data-level="10.6.1" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#exercises-6"><i class="fa fa-check"></i><b>10.6.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#interpolation-with-the-gstat-package"><i class="fa fa-check"></i><b>10.7</b> Interpolation with the gstat package</a><ul>
+<li class="chapter" data-level="10.7.1" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#exercises-7"><i class="fa fa-check"></i><b>10.7.1</b> Exercises</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>11</b> References</a></li>
+<li class="divider"></li>
+<li><a href="http://robinlovelace.net/">Robin Lovelace</a></li>
+<li><a href="https://nowosad.github.io/">Jakub Nowosad</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Geocomputation with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="attr" class="section level1">
+<h1><span class="header-section-number">3</span> Attribute data operations</h1>
+<div id="prerequisites-2" class="section level2 unnumbered">
+<h2>Prerequisites</h2>
+<ul>
+<li>This chapter requires <strong>dplyr</strong>, <strong>sf</strong> and <strong>spData</strong> packages:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
+<span class="kw">library</span>(tidyverse)</code></pre></div>
+<ul>
+<li>You must have loaded the <code>world</code> data from the spData package:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/wrld.shp&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
+world =<span class="st"> </span><span class="kw">st_read</span>(f)</code></pre></div>
+</div>
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">3.1</span> Introduction</h2>
+<p>Attribute data is non-geographical information associated with geographical data. There is a strong overlap between geographical and non-geographical operations: non-spatial subset, aggregate and join operations each have their geographical equivalents (see <a href="spatial-data-operations.html#spatial-data-operations">4</a>).</p>
+<p>The non-spatial versions of these methods are common and easy to understand with R, so they are covered first. The methods are largely cross-transferable to the trickier tasks of spatial data operations, so pay attention!</p>
+<p>Simple features defined by the <strong>sf</strong> package make working with attribute data easy because objects of class <code>sf</code> are data frames. This means that all the accumulated wisdom and functions accumulated in the R community for handling data frames can be applied to the non-geographic aspects of data, as illustrated below for the <code>world</code> object:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(world)</code></pre></div>
+<pre><code>## [1] &quot;sf&quot;         &quot;data.frame&quot;</code></pre>
+<p>This ‘world’ dataset contains 63 non-geographical variables (and one geometry column) with data for almost 200 countries, as can be ascertained using base functions for working with tabular data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(world) <span class="co"># it is a 2 dimensional object, with rows and columns</span></code></pre></div>
+<pre><code>## [1] 177  11</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(world) <span class="co"># how many rows?</span></code></pre></div>
+<pre><code>## [1] 177</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ncol</span>(world) <span class="co"># how many columns?</span></code></pre></div>
+<pre><code>## [1] 11</code></pre>
+<p>Extracting the attribute data of an <code>sf</code> object is the same as removing the geometry column:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_df =<span class="st"> </span>world
+<span class="kw">st_geometry</span>(world_df) =<span class="st"> </span><span class="ot">NULL</span>
+<span class="kw">class</span>(world_df)</code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<p>This can be useful if the geometry column causes problem, e.g. by occupying large amounts of RAM. However, for most cases there is no harm in keeping the geometry column, as data frame operations on <code>sf</code> will only act on the attribute data. For this reason, being good at working with attribute data in geographical data is the same being proficient at handling data frames in R. For many applications, the most effective and intuitive way to work with data frames is with the <strong>dplyr</strong> package.</p>
+</div>
+<div id="base-vs-data.table-vs-dplyr" class="section level2">
+<h2><span class="header-section-number">3.2</span> Base vs data.table vs dplyr</h2>
+<p>Simple feature objects of class <code>sf</code> behave exactly the same as <code>data.frame</code> objects for most base R operations. Unlike objects of class <code>Spatial</code> defined by the <strong>sp</strong> package, <code>sf</code> objects are also compatible with <strong>dplyr</strong> and <strong>data.table</strong> packages. This is an advantage because they provide fast functions for data manipulation.</p>
+<p>Which method you use is largely a matter of preference. In this chapter the focus is largely on <strong>dplyr</strong> because of it’s intuitive function names and its ability to perform multiple chained operations using the pipe operator. The important thing is that you select a data processing paradigm of choice, and master it.</p>
+</div>
+<div id="attribute-subsetting" class="section level2">
+<h2><span class="header-section-number">3.3</span> Attribute subsetting</h2>
+</div>
+<div id="attribute-data-aggregation" class="section level2">
+<h2><span class="header-section-number">3.4</span> Attribute data aggregation</h2>
+</div>
+<div id="attribute-data-joining" class="section level2">
+<h2><span class="header-section-number">3.5</span> Attribute data joining</h2>
+<p>as illustrated in the code examples below (results not shown).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[<span class="dv">1</span>:<span class="dv">6</span>, ] <span class="co"># subset rows</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[, <span class="dv">1</span>:<span class="dv">3</span>] <span class="co"># subset columns</span></code></pre></div>
+<p>After each operation, the geometry column is preserved.</p>
+<p><strong>dplyr</strong> makes working with data frames easier and is compatible with <code>sf</code> objects, after the package has been loaded:</p>
+<p>The <code>select()</code> function, for example, can be used to both subset and renames columns in a single line, for example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_orig =<span class="st"> </span>world <span class="co"># create copy of world dataset for future reference</span>
+world1 =<span class="st"> </span><span class="kw">select</span>(world_orig, name_long, continent, <span class="dt">population =</span> pop)
+<span class="kw">head</span>(world1, <span class="dt">n =</span> <span class="dv">2</span>)</code></pre></div>
+<pre><code>## Simple feature collection with 2 features and 3 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: 11.6401 ymin: -17.93064 xmax: 75.15803 ymax: 38.48628
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+##     name_long continent population                       geometry
+## 1 Afghanistan      Asia   31627506 MULTIPOLYGON(((61.210817091...
+## 2      Angola    Africa   24227524 MULTIPOLYGON(((16.326528354...</code></pre>
+<p>This is more concises than the base R equivalent (which saves the result as an object called <code>world2</code> to avoid overriding the <code>world</code> dataset created previously):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world2 =<span class="st"> </span>world_orig[<span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span>, <span class="st">&quot;continent&quot;</span>, <span class="st">&quot;pop&quot;</span>)] <span class="co"># subset columns by name</span>
+<span class="kw">names</span>(world2)[<span class="dv">3</span>] =<span class="st"> &quot;population&quot;</span> <span class="co"># rename column manually</span></code></pre></div>
+<p>The <em>pipe</em> operator (<code>%&gt;%</code>), which passes the output of one function into the first argument of the next function, is commonly used in <strong>dplyr</strong> data analysis workflows. This works because the fundamental <strong>dplyr</strong> functions (or ‘verbs’, like <code>select()</code>) all take a data frame object in and spit a data frame object out. Combining many functions together with pipes is called <em>chaining</em> or <em>piping</em>. The advantage over base R for complex data processing operations is that this approach prevents nested functions and is easy to read because there is a clear order and modularity to the work (a piped command can be commented out, for example).</p>
+<p>The example below shows yet another way of creating the renamed <code>world</code> dataset, using the pipe operator:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world3 =<span class="st"> </span>world_orig %&gt;%
+<span class="st">        </span><span class="kw">select</span>(name_long, continent)</code></pre></div>
+<p>The pipe operator can be used for many data processing tasks with attribute data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># todo - describe these: ==, !=, &gt;, &gt;=, &lt;, &lt;=, &amp;, |</span>
+<span class="co"># Filtering attribute data with dplyr</span>
+world_few_rows =<span class="st"> </span>world %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">filter</span>(pop &gt;<span class="st"> </span><span class="fl">1e9</span>)
+
+<span class="kw">head</span>(world_few_rows)</code></pre></div>
+<pre><code>## Simple feature collection with 2 features and 10 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: 68.17665 ymin: 7.965535 xmax: 135.0263 ymax: 53.4588
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+##   iso_a2 name_long continent region_un     subregion              type
+## 1     CN     China      Asia      Asia  Eastern Asia           Country
+## 2     IN     India      Asia      Asia Southern Asia Sovereign country
+##   area_km2        pop  lifeExp gdpPercap                       geometry
+## 1  9409832 1364270000 75.78227 12758.649 MULTIPOLYGON(((110.33918786...
+## 2  3142892 1295291543 68.01380  5391.694 MULTIPOLYGON(((77.837450799...</code></pre>
+<p>This is equivalent to the following base R code (<a href="https://github.com/Robinlovelace/geocompr/issues/28">note</a> NAs are forbidden for subsetting):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># subsetting simple feature rows by values</span>
+world$pop[<span class="kw">is.na</span>(world$pop)] =<span class="st"> </span><span class="dv">0</span> 
+world_few_rows =<span class="st"> </span>world[world$pop &gt;<span class="st"> </span><span class="fl">1e9</span>,]</code></pre></div>
+<!-- ```{r} -->
+<!-- # # add a new column -->
+<!-- # world$area = set_units(st_area(world), value = km^2) -->
+<!-- # world$pop_density = world$pop / world$area -->
+<!-- #  -->
+<!-- # # OR -->
+<!-- # world = world %>% -->
+<!-- #         mutate(area = set_units(st_area(.), value = km^2)) %>% -->
+<!-- #         mutate(pop_density = pop / area) -->
+<!-- ``` -->
+<!-- Note that this has created a attributes for the area and population density variables: -->
+<!-- ```{r} -->
+<!-- attributes(world$area) -->
+<!-- attributes(world$pop_density) -->
+<!-- ``` -->
+<!-- These can be set to `NULL` as follows: -->
+<!-- ```{r} -->
+<!-- attributes(world$area) = NULL -->
+<!-- attributes(world$pop_density) = NULL -->
+<!-- ``` -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># data summary (not shown)</span>
+<span class="kw">summary</span>(world)
+
+<span class="co"># data summary by groups (not shown)</span>
+world_continents =<span class="st"> </span>world %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">group_by</span>(continent) %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">summarise</span>(<span class="dt">continent_pop =</span> <span class="kw">sum</span>(pop), <span class="dt">country_n =</span> <span class="kw">n</span>())
+world_continents</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sort variables</span>
+## by name
+world_continents %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">arrange</span>(continent)</code></pre></div>
+<pre><code>## Simple feature collection with 8 features and 3 fields
+## geometry type:  GEOMETRY
+## dimension:      XY
+## bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+## # A tibble: 8 x 4
+##                 continent continent_pop country_n          geometry
+##                    &lt;fctr&gt;         &lt;dbl&gt;     &lt;int&gt;  &lt;simple_feature&gt;
+## 1                  Africa            NA        51 &lt;MULTIPOLYGON...&gt;
+## 2              Antarctica            NA         1 &lt;MULTIPOLYGON...&gt;
+## 3                    Asia            NA        47 &lt;MULTIPOLYGON...&gt;
+## 4                  Europe            NA        39 &lt;MULTIPOLYGON...&gt;
+## 5           North America     565318889        18 &lt;MULTIPOLYGON...&gt;
+## 6                 Oceania      37422867         7 &lt;MULTIPOLYGON...&gt;
+## 7 Seven seas (open ocean)            NA         1 &lt;POLYGON((68....&gt;
+## 8           South America            NA        13 &lt;MULTIPOLYGON...&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## by population (in descending order)
+world_continents %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">arrange</span>(-continent_pop)</code></pre></div>
+<pre><code>## Simple feature collection with 8 features and 3 fields
+## geometry type:  GEOMETRY
+## dimension:      XY
+## bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+## # A tibble: 8 x 4
+##                 continent continent_pop country_n          geometry
+##                    &lt;fctr&gt;         &lt;dbl&gt;     &lt;int&gt;  &lt;simple_feature&gt;
+## 1           North America     565318889        18 &lt;MULTIPOLYGON...&gt;
+## 2                 Oceania      37422867         7 &lt;MULTIPOLYGON...&gt;
+## 3                  Africa            NA        51 &lt;MULTIPOLYGON...&gt;
+## 4              Antarctica            NA         1 &lt;MULTIPOLYGON...&gt;
+## 5                    Asia            NA        47 &lt;MULTIPOLYGON...&gt;
+## 6                  Europe            NA        39 &lt;MULTIPOLYGON...&gt;
+## 7 Seven seas (open ocean)            NA         1 &lt;POLYGON((68....&gt;
+## 8           South America            NA        13 &lt;MULTIPOLYGON...&gt;</code></pre>
+<p>Most of the function from <strong>sf</strong> package do not drop a <code>geometry</code> column. To extract a data frame <code>st_geometry()</code> or <code>st_set_geometry()</code> function can be used.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_st =<span class="st"> </span>world
+<span class="kw">st_geometry</span>(world_st) =<span class="st"> </span><span class="ot">NULL</span>
+<span class="kw">class</span>(world_st)</code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># OR</span>
+
+world_st2 =<span class="st"> </span>world
+world_st2 =<span class="st"> </span>world_st2 %&gt;%<span class="st"> </span><span class="kw">st_set_geometry</span>(<span class="ot">NULL</span>)
+<span class="kw">class</span>(world_st2)</code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<!-- 
+- dplyr, tidyr, and purrr packages
+- lubridate??
+- pipes
+-->
+<!-- 
+- view, add new rows/columns, subset, select, summarize 
+-->
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="spatial-class.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="spatial-data-operations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/Robinlovelace/geocompr/edit/master/03-attribute-operations.Rmd",
+"text": "Edit"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

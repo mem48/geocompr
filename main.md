@@ -3,7 +3,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-05-17'
+date: '2017-05-20'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -16,9 +16,23 @@ github-repo: Robinlovelace/geocompr
 url: https\://bookdown.org/robinlovelace/geocompr/
 ---
 
-# Prerequisites {-}
+# Welcome {-}
 
-The required packages should be installed by installing the book as a github package:
+Welcome to the **geocompr** website, the online home of our forthcoming book with [CRC Press](https://www.crcpress.com/Chapman--HallCRC-The-R-Series/book-series/CRCTHERSER).
+
+Inspired by the **bookdown** [R package](https://github.com/rstudio/bookdown) and book-hosting [website](https://github.com/rstudio/bookdown), we are developing this book in the open. We encourage contributions.
+
+**bookdown** makes editing a book as easy as editing a wiki.
+To do so, just click on the 'edit me' icon highlighted in the image below.
+Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
+
+[![](figures/editme.png)](https://github.com/Robinlovelace/geocompr/edit/master/index.Rmd)
+
+To raise an issue about the book's content (e.g. code not running) or make a feature request, check-out the [issue tracker](https://github.com/Robinlovelace/geocompr/issues).
+
+## Prerequisites {-}
+
+To reproduce the book, first install it as a github package:
 
 
 ```r
@@ -28,32 +42,55 @@ if(!require(devtools)) {
 devtools::install_github("robinlovelace/geocompr")
 ```
 
-This should allow you to build the book:
+This should install all the necessary packages to run the code.
+To build the book locally, clone or [download](https://github.com/Robinlovelace/geocompr/archive/master.zip) the repo and run the following line from the [project](https://github.com/Robinlovelace/geocompr/blob/master/geocompr.Rproj)'s root directory:
 
 
 ```r
 bookdown::render_book("index.Rmd")
 ```
 
-For further details and to report any issues, see the book's GitHub page at [Robinlovelace/geocompr](https://github.com/Robinlovelace/geocompr#geocomputation-with-r).
+For further details see the book's GitHub page at [Robinlovelace/geocompr](https://github.com/Robinlovelace/geocompr#geocomputation-with-r).
 
 <!--chapter:end:index.Rmd-->
 
 # Introduction {#intro}
 
 This book exists at the intersection between Geography and R (Figure \@ref(fig:venn)).
-Suggested titles were *Geography with R* and *R for GIS*.
-The former conveyed the message that it's not just about spatial data: 
-non-spatial attribute data are inevitably linked with geometry data.
-The latter communicated the emphasis on *geographic data* and using R as a *Geographic Information System* (GIS), to perform spatial operations [@bivand_applied_2013], but not one of R's greatest strengths compared with other GIS software: its ability to seamlessly switch between geographic and non-geographic data processing, modelling and visualisation tasks.
+Suggested titles were *Geography with R* and *R for GIS*, each of which has advantages.
+The former conveys the message that it's not just about spatial data: 
+non-spatial attribute data are inevitably interwoven with geometry data, and Geography is about more than where something is on the map.
+The latter option communicates that this is a book about using R as a *Geographic Information System* (GIS), to perform spatial operations on *geographic data* [@bivand_applied_2013].
+However, the term GIS has some negative connotations (see Table \@ref(tab:gdsl)) and fails to communicate one of R's greatest strengths:
+its unparalleled ability to seamlessly switch between geographic and non-geographic data processing, modeling and visualization tasks.
 
-*Geocomputation with R* is therefore about spatial data processing but also much more than that.
+<div class="figure">
+<img src="01-introduction_files/figure-html/venn-1.png" alt="Venn diagram of the intersection between Geography and R." width="672" />
+<p class="caption">(\#fig:venn)Venn diagram of the intersection between Geography and R.</p>
+</div>
+
+The title was chosen because this book is about more than routine spatial data processing, something that is well captured by the term *geocomputation*.
 What defines geocomputation as a development on previous work is the "creative and experimental use of GIS that it entails" [@longley_geocomputation:_1998].
-Geocomputation is a relatively young field, with a ~30 year history dating back to the first [conference](http://www.geocomputation.org/) in 1996 on the subject and a flurry of subsequent publications.
-It's worth remembering that the topic is part of the wider field of Geography which is over 2000 years old [@roller_eratosthenes_2010] and has played an important role in explaining and influencing humanity's relationship with the natural world.
+With the right know-how, geographic data can be used in ways that would have been unthinkable to early practitioners of GIS.
 
-Geocomputation in this book means more than simply analysing geographic data on a computer.
-It's about trying to make research which involves geographic data more reproducible and therefore scientific, a concept captured by the term Geographic Data Science (GDS) which differs from GIS in several ways, some of which are outlined in Table \@ref(tab:gdsl).
+Another advantage of geocomputation that it conveys the centrality of the concept of algorithms (which can be implemented in R functions) to advanced geographical research. Geocomputation is a relatively
+young field^[Geocomputation
+has a ~30 year history dating back to the first [conference](http://www.geocomputation.org/) on the subject in 1996 (at the University of Leeds where the concept for this book was dreamt up) which was followed by a flurry of subsequent
+publications.]
+but methods published under the geocomputational banner have influenced the direction of geographical research, as we will see in subsequent chapters.
+Algorithms are powerful tools that can become highly complex.
+However, all algorithms are composed of smaller, often modular parts.
+By teaching these foundations we aim to empower you.
+Creating your own solutions to geographic data problems can feel breaking free from the metaphorical 'glass ceiling' imposed by GUI-based proprietary geographic information systems (see Table \@ref(tab:gdsl) for a definition of GUI).
+
+<!-- todo: what contributions, which will we use, where in the book? -->
+
+While embracing recent developments in the field, we also wanted to pay respects the wider field of Geography, and its 2000 year history [@roller_eratosthenes_2010], of which geocomputation is a part.
+Geography has played an important role in explaining and influencing humanity's relationship with the natural world and this book aims to be a part of the 'Geographic tradition'.
+Geocomputation in this book therefore means more than simply analyzing geographic data on a computer.
+It's about trying to make research which involves making geographic data more reproducible, scientific and socially beneficial.
+This book is also part of the movement towards Geographic Data Science (GDS) which differs from GIS in several ways, some of which are outlined in Table \@ref(tab:gdsl).
+Inspired by the emphasis of GDS research on reproducibility, this book aims teach how to do geocomputation rather than just think about it.
 
 
 Table: (\#tab:gdsl)Differences in emphasis between the fields of Geographic Information Systems (GIS) and Geographic Data Science (GDS).
@@ -64,32 +101,76 @@ Home disciplines   Geography                  Geography,Computing,Statistics
 Software focus     Graphical User Interface   Code                           
 Reproduciblility   Minimal                    Maximal                        
 
-This book aims teach how to do geocomputation rather than just think about it.
-The hope is that it will enable more people to conduct reproducible scientific research in persuit of knowledge and for the greater good.
-
-
-
 ## Why Geocomputation with R?
 
-In this book we treat R as a 'tool for the trade', in a similar way that early geographers used rulers, compasses, sextants and other instruments to advance knowledge about the world.
-Actions often speak louder than words, so this book teaches Geocomputation with reference to real-world examples and reproducible code rather than abstract concepts.
-But before we crack-on with the action, a few introductory remarks are needed to explain the approach taken here and provide context.
-However, background an understanding of both topics will help you get the most out of the subsequent work, so we start with some definitions and references for further reading for historical context:
+In this book we treat R as a 'tool for the trade'.
+Early geographers used a variety of tools including rulers, compasses and sextants to advance knowledge about the world.
+It is important to remember that while R is a powerful tool, especially when interfaced with other software such as [GDAL](http://www.gdal.org/) and [PostGIS](http://postgis.net/), other tools may be better for certain tasks.
 
-- Geography, of which Geocomputation is a part, is the study of where things are located on the Earth. Primarily we are interested in the part of Geography that deals with *geographic data* and *maps*: information with a location and the visualisation of such data.
+R is characterised by its flexibility, enabling geographical software developers to extend it in multiple ways.
+A good example of this is support for generating interactive maps thanks to **leaflet** and extended by **tmap** and **mapview**.
+These packages help overcome the criticism that R has "limited interactive [plotting] facilities" [@bivand_applied_2013].
+This is no longer true, as illustrated by the code below which generates Figure \@ref(fig:interactive).
 
-- R is an open source statistical programming language that has powerful geographical capabilities, thanks largely to add-on packages.
+
+
+
+```r
+library(leaflet)
+popup = c("Robin", "Jakub")
+leaflet() %>%
+  addProviderTiles("NASAGIBS.ViirsEarthAtNight2012") %>% 
+  addAwesomeMarkers(lng = c(-3, 23), lat = c(52, 53), popup = popup)
+```
 
 <div class="figure">
-<img src="_main_files/figure-html/venn-1.png" alt="Venn diagram of the intersection between Geography and R." width="672" />
-<p class="caption">(\#fig:venn)Venn diagram of the intersection between Geography and R.</p>
+preserve4aa47025d2c8290f
+<p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
+
+It would be difficult to produce Figure \@ref(fig:interactive) with only 4 lines of code in another language, let alone embed the results in an interactive html page (the interactive version can be viewed at [bookdown.org/robinlovelace/geocompr/intro.html](https://bookdown.org/robinlovelace/geocompr/intro.html)), illustrating R's flexibility and power. 
+
+<!-- Other reasons for using R for geocompuation include: -->
+
+R provides a stable language that should behave consistently across multiple computers, free of charge.
+The use of R code therefore enables teaching geocomputation with reference to reproducible examples such as that provided in \@ref(fig:interactive) rather than abstract concepts.
+But before cracking-on with the action, a few introductory remarks are needed to explain the approach taken here and provide context.
 
 ## R's spatial ecosystem
 
 <!-- Ideas here on the history please @nowosad! -->
 
 The most important recent evolution in R's spatial ecosystem has without doubt been support for simple features thanks to the **sf** package, introduced below (see Chapter \@ref(spatial-class) for a detailed account of the `sf` class system).
+
+<!-- 
+- r, rstudio, gdal, proj4, geos, udunits 
+- r packages sf, raster, etc.
+- datasets 
+-->
+
+<!-- ## Introduction to GIS -->
+
+<!-- 
+- what's R
+- what's GIS
+- GIS data models (vector vs raster)
+- coordinate reference system - CRS
+- GIS data formats
+- GDAL, GEOS, PROJ4
+- GIS R package
+- GIS beyond R 
+-->
+
+<!--chapter:end:01-introduction.Rmd-->
+
+# Spatial classes {#spatial-class}
+
+
+## Prerequisites {-}
+
+<!--
+- classes and methods in R
+-->
 
 ## An introduction to Simple Features
 
@@ -119,6 +200,13 @@ Let's see how simple feature in R work, with reference to world boundary data fr
 
 ```r
 library(sf)
+```
+
+```
+## Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0
+```
+
+```r
 # devtools::install_github("nowosad/spData")
 f = system.file("shapes/wrld.shp", package = "spData")
 world = st_read(f)
@@ -158,7 +246,7 @@ world[1:2, 1:3]
 ```
 
 All this may seem rather complex, especially for a class system that is supposed to be simple.
-However, there are good reasons for organising things this way and using **sf**.
+However, there are good reasons for organizing things this way and using **sf**.
 
 ### Exercises
 
@@ -176,7 +264,7 @@ There are many advantages of **sf** over **sp**, including:
 - Better plotting performance
 - **sf** objects can be treated as dataframes in most operations
 - **sf** functions can be combined using `%>%` operator and works well with the [tidyverse](http://tidyverse.org/) collection of R packages
-- **sf** function names are relatively consistent and intuitive (all begin with `st_`) compared with the function names and syntax of the **sp**, **rgdal** and **rgeos** packages that it supercedes.
+- **sf** function names are relatively consistent and intuitive (all begin with `st_`) compared with the function names and syntax of the **sp**, **rgdal** and **rgeos** packages that it supersedes.
 
 A broader advantage is that simple features are so well supported by other software products, not least PostGIS, which has heavily influenced the design of **sf**.
 
@@ -184,149 +272,257 @@ A disadvantage you should be aware of, however, is that **sf** is not *feature c
 The transition from **sp** to **sf** will likely take many years, and many spatial packages may never switch.
 Even if you discover spatial data with R through the **sf** package, it is still worth at least being aware of **sp** classes, even if you rarely use them for everyday geospatial tasks.
 
-Fortunately it is easy to translate between **sp** and **sf** using the `as()` function, even when **sp** is not loaded: 
+Fortunately it is easy to translate between **sp** and **sf** using the `as()` function: 
 
 
 ```r
+library(sp)
 world_sp = as(object = world, Class = "Spatial")
 ```
 
+## Basic map making {#basic-map}
+
+Basic maps in **sf** can be created quickly with the base `plot()` function. Unlike **sp**, however, **sf** by default creates a faceted plot, one sub-plot for each variable, as illustrated in the left-hand image in Figure \@ref(fig:sfplot). 
+
+
+```r
+plot(world)
+plot(world["pop"])
+```
+
+<div class="figure">
+<img src="02-spatial-data_files/figure-html/sfplot-1.png" alt="Plotting with sf, with multiple variables (left) and a single variable (right)." width="49%" /><img src="02-spatial-data_files/figure-html/sfplot-2.png" alt="Plotting with sf, with multiple variables (left) and a single variable (right)." width="49%" />
+<p class="caption">(\#fig:sfplot)Plotting with sf, with multiple variables (left) and a single variable (right).</p>
+</div>
+
+As with **sp**, you can add layers to your maps created with `plot()`, with the argument `add = TRUE`^[In
+fact, when you `plot()` an **sf** object, R is calling `sf:::plot.sf()` behind the scenes.
+`plot()` is a generic method that behaves differently depending on the class of object being plotted.].
+However, this only works if the initial plot has only 1 layer (result not shown):
+
+
+```r
+plot(world["pop"])
+china = world[world$name_long == "China", ]
+plot(china, add = TRUE, col = "red")
+```
+
+This can be very useful when quickly checking the geographic correspondence between two or more layers.
+These plots work well for gaining a quick understanding of the data with few lines of code.
+For more advanced map making we recommend using a dedicated visualisation package such as **tmap**, **ggplot2**, **mapview**, or **leaflet**.
 
 <!-- 
-- r, rstudio, gdal, proj4, geos, udunits 
-- r packages sf, raster, etc.
-- datasets 
+- plot() function 
+- map export 
 -->
 
-<!-- ## Introduction to GIS -->
+### Challenge
+
+Using **sf**'s `plot()` command, create a map of Nigeria in context, like the one presented in figure \@ref(fig:nigeria). 
+
+- Hint: this used the `lwd`, `main` and `col` arguments of `plot()`. 
+- Bonus: make the country boundaries a dotted grey line.
+- Hint: `border` is an additional argument of `plot()` for **sf** objects.
+
+<div class="figure">
+<img src="02-spatial-data_files/figure-html/nigeria-1.png" alt="Map of Nigeria in context illustrating sf's plotting capabilities" width="672" />
+<p class="caption">(\#fig:nigeria)Map of Nigeria in context illustrating sf's plotting capabilities</p>
+</div>
+
+### Further work
+
+**sf** makes R data objects more closely aligned to the data model used in GDAL and GEOS, in theory making spatial data operations faster.
+The work here provides a taster of the way that **sf** operates but there is much more to learn (see Chapter \@ref(spatial-data-operations)).
+There is a wealth of information that is available in the package's vignettes: these are highly recommended.
+
+As a final exercise, we'll see how to do a spatial overlay in **sf** by first converting the countries of the world into centroids and then subsetting those in Africa:
+
+
+```r
+world_centroids = st_centroid(world)
+```
+
+```
+## Warning in st_centroid.sfc(st_geometry(x)): st_centroid does not give
+## correct centroids for longitude/latitude data
+```
+
+```r
+plot(world_centroids[1])
+africa_centroids = world_centroids[africa,]
+```
+
+```
+## although coordinates are longitude/latitude, it is assumed that they are planar
+```
+
+```r
+plot(africa_centroids, add = TRUE, cex = 2)
+```
+
+<div class="figure">
+<img src="02-spatial-data_files/figure-html/unnamed-chunk-7-1.png" alt="Centroids in Africa" width="50%" />
+<p class="caption">(\#fig:unnamed-chunk-7)Centroids in Africa</p>
+</div>
+
+Note: another way of acheiving the same result is with a GEOS function for identifying spatial overlay:
+
+
+```r
+sel_africa = st_covered_by(world_centroids, africa, sparse = FALSE)
+```
+
+```
+## although coordinates are longitude/latitude, it is assumed that they are planar
+```
+
+```r
+summary(sel_africa)
+```
+
+```
+##      V1              V2              V3              V4         
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+##      V5              V6              V7              V8         
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+##      V9             V10             V11             V12         
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+##     V13             V14             V15             V16         
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+##     V17             V18             V19             V20         
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+##     V21             V22             V23             V24         
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+##     V25             V26             V27             V28         
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+##     V29             V30             V31             V32         
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+##     V33             V34             V35             V36         
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+##     V37             V38             V39             V40         
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+##     V41             V42             V43             V44         
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+##     V45             V46             V47             V48         
+##  Mode :logical   Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:176       FALSE:176       FALSE:176       FALSE:176      
+##  TRUE :1         TRUE :1         TRUE :1         TRUE :1        
+##     V49             V50             V51         
+##  Mode :logical   Mode :logical   Mode :logical  
+##  FALSE:176       FALSE:176       FALSE:176      
+##  TRUE :1         TRUE :1         TRUE :1
+```
+
+This shows that there are 56 countries in Africa.
+We can check if they are the same countries as follows:
+
+
+```r
+africa_centroids2 = world_centroids[sel_africa,]
+identical(africa_centroids, africa_centroids2)
+```
+
+```
+## [1] FALSE
+```
+
+### Exercises
+
+- Perform the same operations and map making for another continent of your choice.
+- Bonus: Download some global geographic data and add attribute variables assigning them to the continents of the world.
+
+
+## Vector data
 
 <!-- 
-- what's R
-- what's GIS
-- GIS data models (vector vs raster)
-- coordinate reference system - CRS
-- GIS data formats
-- GDAL, GEOS, PROJ4
-- GIS R package
-- GIS beyond R 
+sf data types:
+- POINT
+- LINESTRING
+- POLYGON
+- MULTIPOINT
+- MULTILINESTRING
+- MULTIPOLYGON
+- GEOMETRYCOLLECTION
+- CIRCULARSTRING
+- COMPOUNDCURVE
+- CURVEPOLYGON
+- MULTICURVE
+- MULTISURFACE
+- CURVE
+- SURFACE
+- POLYHEDRALSURFACE
+- TIN
+- TRIANGLE
+
+- what's sf, sfc, sfg
+- methods(class = "sf")
+
 -->
 
-<!--chapter:end:01-introduction.Rmd-->
+## Raster data
 
-# Reading and writing spatial data {#read-write}
+<!-- 
+- raster data types 
+- RasterLayer
+- RasterStack
+- RasterBrick
+-->
+
+<!--chapter:end:02-spatial-data.Rmd-->
+
+# Attribute data operations {#attr}
 
 ## Prerequisites {-}
 
-- You must have run the code in Chapter \@ref(intro)
+- This chapter requires **dplyr**, **sf** and **spData** packages:
 
 
+```r
+library(sf)
+library(tidyverse)
+```
+
+- You must have loaded the `world` data from the spData package:
+
+
+```r
+f = system.file("shapes/wrld.shp", package = "spData")
+world = st_read(f)
+```
 
 ## Introduction
 
-Spatial data comes in a wide variety of file formats, and **sf** is adept at handling them, via its interface to GDAL.
-A major advantage of **sf** is that it is fast at geographical data I/O, as illustrated in the benchmark below:
+Attribute data is non-geographical information associated with geographical data.
+There is a strong overlap between geographical and non-geographical operations:
+non-spatial subset, aggregate and join operations each have their geographical equivalents (see \@ref(spatial-data-operations)).
 
+The non-spatial versions of these methods are common and easy to understand with R, so they are covered first.
+The methods are largely cross-transferable to the trickier tasks of spatial data operations, so pay attention!
 
-```r
-library(microbenchmark)
-bench_read = microbenchmark(times = 5,
-        st_read(f),
-        rgdal::readOGR(f)
-)
-```
-
-
-```r
-bench_read$time[1] / bench_read$time[2]
-```
-
-```
-## [1] 65.71776
-```
-
-The results demonstrate that **sf** can be much faster (*66 times faster* in this case) than **rgdal** at reading-in the world countries shapefile.
-
-The counterpart of `st_read()` is `st_write()`. This allows writing to a range of geographic vector file types, including the common formats `.geojson`, `.shp` and `.gpkg`. `st_read()` will decide which driver to use automatically, based on the file name, as illustrated in the benchmark below demonstrating write speeds for each format.
-
-
-
-
-```r
-system.time(st_write(world, "world.geojson", quiet = TRUE))
-```
-
-```
-##    user  system elapsed 
-##   0.069   0.001   0.071
-```
-
-```r
-system.time(st_write(world, "world.shp", quiet = TRUE)) 
-```
-
-```
-##    user  system elapsed 
-##   0.015   0.002   0.017
-```
-
-```r
-system.time(st_write(world, "world.gpkg", quiet = TRUE))
-```
-
-```
-##    user  system elapsed 
-##   0.028   0.024   0.052
-```
-
-The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
-
-
-```r
-sf_drivers = st_drivers()
-head(sf_drivers, n = 2)
-```
-
-```
-##          name                  long_name write  copy is_raster is_vector
-## PCIDSK PCIDSK       PCIDSK Database File  TRUE FALSE      TRUE      TRUE
-## netCDF netCDF Network Common Data Format  TRUE  TRUE      TRUE      TRUE
-```
-
-
-<!-- ## Vector -->
-
-<!-- 
-- sf package 
-- st_drivers
-- st_read, read_sf
-- st_write, write_sf
-- text files 
-- WKT, WKB, sp (st_as_sf)
--->
-
-<!-- ## Raster -->
-
-<!-- 
-- raster package 
-- raster
--->
-
-<!--chapter:end:02-read-write.Rmd-->
-
-# Working with attribute table {#attr}
-
-## Prerequisites {-}
-
-- You need the **dplyr** and **units** packages installed and loaded
-- You must have run the code in Chapter \@ref(intro)
-
-
-
-## Introduction
-
-Attribute data is non-geographical information associated with columns geometry.
-**sf** makes working with attribute data because objects of class `sf` are data frames.
-This is illustrated below for the `world` object representing the countries of the world:
+Simple features defined by the **sf** package make working with attribute data easy because objects of class `sf` are data frames.
+This means that all the accumulated wisdom and functions accumulated in the R community for handling data frames can be applied to the non-geographic aspects of data, as illustrated below for the `world` object:
 
 
 ```r
@@ -381,11 +577,24 @@ This can be useful if the geometry column causes problem, e.g. by occupying larg
 However, for most cases there is no harm in keeping the geometry column, as data frame operations on `sf` will only act on the attribute data.
 For this reason, being good at working with attribute data in geographical data is the same being proficient at handling data frames in R.
 For many applications, the most effective and intuitive way to work with data frames is with the **dplyr** package.
-The subsequent examples briefly demonstrate how attribute data in `sf` objects can be manipulated using R's base `data.frame` handling function before moving on to the more expressive **dplyr** approach.
 
-## Handling attribute data with base R
+## Base vs data.table vs dplyr
 
-`sf` objects behave exactly the same as `data.frame` objects for most base R operations, including subsetting rows and columns, creating new variables and modelling, as illustrated in the code examples below (results not shown).
+Simple feature objects of class `sf` behave exactly the same as `data.frame` objects for most base R operations.
+Unlike objects of class `Spatial` defined by the **sp** package, `sf` objects are also compatible with **dplyr** and **data.table** packages.
+This is an advantage because they provide fast functions for data manipulation.
+
+Which method you use is largely a matter of preference.
+In this chapter the focus is largely on **dplyr** because of it's intuitive function names and its ability to perform multiple chained operations using the pipe operator.
+The important thing is that you select a data processing paradigm of choice, and master it.
+
+## Attribute subsetting
+
+## Attribute data aggregation 
+
+## Attribute data joining 
+
+as illustrated in the code examples below (results not shown).
 
 
 ```r
@@ -397,25 +606,17 @@ world[1:6, ] # subset rows
 world[, 1:3] # subset columns
 ```
 
-Note that after each operation, the geometry column is preserved.
-
-## Handling attribute data with dplyr
+After each operation, the geometry column is preserved.
 
 **dplyr** makes working with data frames easier and is compatible with `sf` objects, after the package has been loaded:
 
-
-```r
-library(dplyr)
-```
-
-`dplyr` is a powerful package and sub-language of R in its own right, worthy of study in its own right.
 The `select()` function, for example, can be used to both subset and renames columns in a single line, for example:
 
 
 ```r
 world_orig = world # create copy of world dataset for future reference
-world = select(world_orig, name_long, continent, population = pop)
-head(world, n = 2)
+world1 = select(world_orig, name_long, continent, population = pop)
+head(world1, n = 2)
 ```
 
 ```
@@ -430,7 +631,7 @@ head(world, n = 2)
 ## 2      Angola    Africa   24227524 MULTIPOLYGON(((16.326528354...
 ```
 
-This is more concises than the base R equivalent (which saves the result as an object called `world2` to avoid overiding the `world` dataset created previously):
+This is more concises than the base R equivalent (which saves the result as an object called `world2` to avoid overriding the `world` dataset created previously):
 
 
 ```r
@@ -455,39 +656,48 @@ The pipe operator can be used for many data processing tasks with attribute data
 
 
 ```r
-# ==, !=, >, >=, <, <=, &, |
-
-# subsetting simple feature rows by values
-world_few_rows = world[world$population > 1e9,]
-
-#OR
+# todo - describe these: ==, !=, >, >=, <, <=, &, |
+# Filtering attribute data with dplyr
 world_few_rows = world %>% 
-        filter(population > 1e9)
+        filter(pop > 1e9)
 
 head(world_few_rows)
 ```
 
 ```
-## Simple feature collection with 2 features and 3 fields
+## Simple feature collection with 2 features and 10 fields
 ## geometry type:  MULTIPOLYGON
 ## dimension:      XY
 ## bbox:           xmin: 68.17665 ymin: 7.965535 xmax: 135.0263 ymax: 53.4588
 ## epsg (SRID):    4326
 ## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-##   name_long continent population                       geometry
-## 1     China      Asia 1364270000 MULTIPOLYGON(((110.33918786...
-## 2     India      Asia 1295291543 MULTIPOLYGON(((77.837450799...
+##   iso_a2 name_long continent region_un     subregion              type
+## 1     CN     China      Asia      Asia  Eastern Asia           Country
+## 2     IN     India      Asia      Asia Southern Asia Sovereign country
+##   area_km2        pop  lifeExp gdpPercap                       geometry
+## 1  9409832 1364270000 75.78227 12758.649 MULTIPOLYGON(((110.33918786...
+## 2  3142892 1295291543 68.01380  5391.694 MULTIPOLYGON(((77.837450799...
 ```
+
+This is equivalent to the following base R code ([note](https://github.com/Robinlovelace/geocompr/issues/28) NAs are forbidden for subsetting):
+
+
+```r
+# subsetting simple feature rows by values
+world$pop[is.na(world$pop)] = 0 
+world_few_rows = world[world$pop > 1e9,]
+```
+
 
 <!-- ```{r} -->
 <!-- # # add a new column -->
 <!-- # world$area = set_units(st_area(world), value = km^2) -->
-<!-- # world$pop_density = world$population / world$area -->
+<!-- # world$pop_density = world$pop / world$area -->
 <!-- #  -->
 <!-- # # OR -->
 <!-- # world = world %>% -->
 <!-- #         mutate(area = set_units(st_area(.), value = km^2)) %>% -->
-<!-- #         mutate(pop_density = population / area) -->
+<!-- #         mutate(pop_density = pop / area) -->
 <!-- ``` -->
 
 <!-- Note that this has created a attributes for the area and population density variables: -->
@@ -514,7 +724,7 @@ summary(world)
 # data summary by groups (not shown)
 world_continents = world %>% 
         group_by(continent) %>% 
-        summarise(continent_pop = sum(population), country_n = n())
+        summarise(continent_pop = sum(pop), country_n = n())
 world_continents
 ```
 
@@ -533,7 +743,7 @@ world_continents %>%
 ## bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
 ## epsg (SRID):    4326
 ## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-## # A tibble: 8 × 4
+## # A tibble: 8 x 4
 ##                 continent continent_pop country_n          geometry
 ##                    <fctr>         <dbl>     <int>  <simple_feature>
 ## 1                  Africa            NA        51 <MULTIPOLYGON...>
@@ -559,7 +769,7 @@ world_continents %>%
 ## bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
 ## epsg (SRID):    4326
 ## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-## # A tibble: 8 × 4
+## # A tibble: 8 x 4
 ##                 continent continent_pop country_n          geometry
 ##                    <fctr>         <dbl>     <int>  <simple_feature>
 ## 1           North America     565318889        18 <MULTIPOLYGON...>
@@ -608,187 +818,169 @@ class(world_st2)
 - view, add new rows/columns, subset, select, summarize 
 -->
 
-<!--chapter:end:03-attr.Rmd-->
+<!--chapter:end:03-attribute-operations.Rmd-->
 
-# Basic map making {#basic-map}
+# Spatial data operations
 
-## Prerequisites {-}
+## Attribute subsetting
 
+## Attribute data aggregation 
 
+## Attribute data joining 
 
-Like **sp**, basic maps in **sf** can be created quickly with the base `plot()` function. Unlike **sp**, however, **sf** by default creates a faceted plot, one sub-plot for each variable, as illustrated in the left-hand image in Figure \@ref(fig:sfplot). 
+<!--chapter:end:04-spatial-operations.Rmd-->
+
+# Geographical data I/O {#read-write}
+
+The previous chapters introduced this book and provided an overview of spatial data classes in R, with a focus on simple features.
+This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world.
+We include a section (\@ref(visual-outputs)) on visualization because outputting data in a human (not just computer) readable enables non-programmers to benefit from your work.
+If your aim is to use geocomputation to improve the world, e.g. by encouraging evidence-based policies, this final stage is vital.
+
+I/O is short for "input/output" which means, in plain English, "reading and writing data".
+We use the acronym instead of plain English not to confuse you or to make chapter names short, but because that's the term used in computer science and it is useful to think of data import and export from a computing perspective.^[
+Concepts such as computational efficiency, hard disk space and 'idempotence' are useful when thinking about reading and writing geographical datasets, which can become large and difficult to handle.
+Loading/saving data is yet another way of saying the same thing.
+]
+
+<!-- todo: check we mention computational efficiency, disk-space and 'idempotence' -->
+
+<!-- Old intro to this chapter - can we salvage anything from this? -->
+<!-- Reading, writing and plotting are 3 of the most important initial stages in geocomputation. -->
+<!-- If you cannot load your data, it's not even worth starting. -->
+<!-- If you cannot write your processed data, it will make it hard to collaborate with others. -->
+<!-- Furthermore, an often-overlooked issue is that if you cannot create visuals of your spatial data, it will be hard to understand. -->
+<!-- For this reason this introductory chapter also has a section on basic map making. -->
+
+## Data Input (I)
+
+To efficiently read data into R, it helps to have an understanding of what happens 'under the hood'.
+Executing commands such as `sf::st_read` (the main function we use for loading spatial data, from the **sf** package) or `readr::read_csv` silently sets-off a chain of events that loads spatial objects.
+"Loading" in this context means loading the data into R or, more precisely, assigning objects to your workspace, stored in RAM accessible from the `.GlobalEnv` of your current R session.
+<!-- coud add a footnote here mentioning `.GlobalEnv` -->
+
+Spatial data comes in a wide variety of file formats, and **sf** is adept at handling them, via the command `st_read`.
+This function (also called `read_sf`) uses the power of the GDAL C/C++ library behind the scenes, allowing **sf** to read a very wide range of spatial data formats.
+The first arguement of `st_read` is `file`, which should be a text string or an object containing a single text string:
 
 
 ```r
-plot(world)
-plot(world["population"])
+library(sf)
 ```
 
-<div class="figure">
-<img src="_main_files/figure-html/sfplot-1.png" alt="Plotting with sf, with multiple variables (left) and a single variable (right)." width="49%" /><img src="_main_files/figure-html/sfplot-2.png" alt="Plotting with sf, with multiple variables (left) and a single variable (right)." width="49%" />
-<p class="caption">(\#fig:sfplot)Plotting with sf, with multiple variables (left) and a single variable (right).</p>
-</div>
+```
+## Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0
+```
 
-As with **sp**, you can add layers to your maps created with `plot()`, with the argument `add = TRUE`^[In
-fact, when you `plot()` an **sf** object, R is calling `sf:::plot.sf()` behind the scenes.
-`plot()` is a generic method that behaves differently depending on the class of object being plotted.].
-However, this only works if the initial plot has only 1 layer (result not shown):
+```r
+f = system.file("shapes/wrld.shp", package = "spData")
+world = st_read(f)
+```
+
+```
+## Reading layer `wrld' from data source `/home/travis/R/Library/spData/shapes/wrld.shp' using driver `ESRI Shapefile'
+## converted into: POLYGON
+## Simple feature collection with 177 features and 10 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+```
+
+
+A major advantage of **sf** is that it is fast at geographical data I/O, as illustrated in the benchmark below:
 
 
 ```r
-plot(world["population"])
-africa = world_continents[1, ]
-plot(africa, add = TRUE, col = "red")
+library(microbenchmark)
+bench_read = microbenchmark(times = 5,
+        st_read(f),
+        rgdal::readOGR(f)
+)
 ```
 
-This can be very useful when quickly checking the geographic correspondence between two or more layers.
-These plots work well for gaining a quick understanding of the data with few lines of code.
-For more advanced map making we recommend using a dedicated visualisation package such as **tmap**, **ggplot2**, **mapview**, or **leaflet**.
+
+```r
+bench_read$time[1] / bench_read$time[2]
+```
+
+```
+## [1] 3.922344
+```
+
+The results demonstrate that **sf** can be much faster (*4 times faster* in this case) than **rgdal** at reading-in the world countries shapefile.
+
+The counterpart of `st_read()` is `st_write()`. This allows writing to a range of geographic vector file types, including the common formats `.geojson`, `.shp` and `.gpkg`. `st_read()` will decide which driver to use automatically, based on the file name, as illustrated in the benchmark below demonstrating write speeds for each format.
+
+
+
+
+```r
+system.time(st_write(world, "world.geojson", quiet = TRUE))
+```
+
+```
+##    user  system elapsed 
+##   0.072   0.004   0.076
+```
+
+```r
+system.time(st_write(world, "world.shp", quiet = TRUE)) 
+```
+
+```
+##    user  system elapsed 
+##   0.052   0.004   0.057
+```
+
+```r
+system.time(st_write(world, "world.gpkg", quiet = TRUE))
+```
+
+```
+##    user  system elapsed 
+##   0.024   0.008   0.038
+```
+
+The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
+
+
+```r
+sf_drivers = st_drivers()
+head(sf_drivers, n = 2)
+```
+
+```
+##          name                  long_name write  copy is_raster is_vector
+## PCIDSK PCIDSK       PCIDSK Database File  TRUE FALSE      TRUE      TRUE
+## netCDF netCDF Network Common Data Format  TRUE  TRUE      TRUE      TRUE
+```
+
+## Data output (O)
+
+## Visual outputs
+
+
+<!-- ## Vector -->
 
 <!-- 
-- plot() function 
-- map export 
+- sf package 
+- st_drivers
+- st_read, read_sf
+- st_write, write_sf
+- text files 
+- WKT, WKB, sp (st_as_sf)
 -->
 
-## Challenge
-
-Using **sf**'s `plot()` command, create a map of Nigeria in context, like the one presented in figure \@ref(fig:nigeria). 
-
-- Hint: this used the `lwd`, `main` and `col` arguments of `plot()`. 
-- Bonus: make the country boundaries a dotted grey line.
-- Hint: `border` is an additional argument of `plot()` for **sf** objects.
-
-<div class="figure">
-<img src="_main_files/figure-html/nigeria-1.png" alt="Map of Nigeria in context illustrating sf's plotting capabilities" width="672" />
-<p class="caption">(\#fig:nigeria)Map of Nigeria in context illustrating sf's plotting capabilities</p>
-</div>
-
-## Further work
-
-**sf** makes R data objects more closely alligned to the data model used in GDAL and GEOS, in theory making spatial data operations faster.
-The work here provides a taster of the way that **sf** operates but there is much more to learn.
-There is a wealth of information that is available in the package's vignettes: these are highly recommended.
-
-As a final exercise, we'll see how to do a spatial overlay in **sf** by first converting the countries of the world into centroids and then subsetting those in Africa:
-
-
-```r
-world_centroids = st_centroid(world)
-```
-
-```
-## Warning in st_centroid.sfc(st_geometry(x)): st_centroid does not give
-## correct centroids for longitude/latitude data
-```
-
-```r
-plot(world_centroids[1])
-africa_centroids = world_centroids[africa,]
-```
-
-```
-## although coordinates are longitude/latitude, it is assumed that they are planar
-```
-
-```r
-plot(africa_centroids, add = TRUE, cex = 2)
-```
-
-<div class="figure">
-<img src="_main_files/figure-html/unnamed-chunk-30-1.png" alt="Centroids in Africa" width="50%" />
-<p class="caption">(\#fig:unnamed-chunk-30)Centroids in Africa</p>
-</div>
-
-Note: another way of acheiving the same result is with a GEOS function for identifying spatial overlay:
-
-
-```r
-sel_africa = st_covered_by(world_centroids, africa, sparse = FALSE)
-```
-
-```
-## although coordinates are longitude/latitude, it is assumed that they are planar
-```
-
-```r
-summary(sel_africa)
-```
-
-```
-##      V1         
-##  Mode :logical  
-##  FALSE:126      
-##  TRUE :51       
-##  NA's :0
-```
-
-This shows that there are 56 countries in Africa.
-We can check if they are the same countries as follows:
-
-
-```r
-africa_centroids2 = world_centroids[sel_africa,]
-identical(africa_centroids, africa_centroids2)
-```
-
-```
-## [1] TRUE
-```
-
-## Exercises
-
-- Perform the same operations and map making for another continent of your choice.
-- Bonus: Download some global geographic data and add attribute variables assigning them to the continents of the world.
-
-
-<!--chapter:end:04-basic-map.Rmd-->
-
-# Spatial classes {#spatial-class}
-
-
-## Prerequisites {-}
-
-<!--
-- classes and methods in R
--->
-
-## Vector data
+<!-- ## Raster -->
 
 <!-- 
-sf data types:
-- POINT
-- LINESTRING
-- POLYGON
-- MULTIPOINT
-- MULTILINESTRING
-- MULTIPOLYGON
-- GEOMETRYCOLLECTION
-- CIRCULARSTRING
-- COMPOUNDCURVE
-- CURVEPOLYGON
-- MULTICURVE
-- MULTISURFACE
-- CURVE
-- SURFACE
-- POLYHEDRALSURFACE
-- TIN
-- TRIANGLE
-
-- what's sf, sfc, sfg
-- methods(class = "sf")
-
+- raster package 
+- raster
 -->
 
-## Raster data
-
-<!-- 
-- raster data types 
-- RasterLayer
-- RasterStack
-- RasterBrick
--->
-
-<!--chapter:end:05-spatial-class.Rmd-->
+<!--chapter:end:05-read-write-plot.Rmd-->
 
 # Coordinate systems/reprojecting {#coord}
 
@@ -904,6 +1096,432 @@ Raster-vector conversion
 -->
 
 <!--chapter:end:09-raster-vector.Rmd-->
+
+# Point Pattern analysis and spatial interpolation
+
+This chapter teaches the basics of point pattern analysis in R.
+It is influenced by the chapter on Spatial Point Pattern Analysis in *Applied Spatial Data Analysis with R* [@bivand_applied_2013] and an [online tutorial](http://rspatial.org/analysis/rst/8-pointpat.html) on Point Pattern Analyis by Robert Hijmans.
+
+We will use the **sp** package for this rather than the newer **sf** package, as point pattern analysis is more established for the former `Spatial` class system than the latter's `sf` classes. We will also use **raster** as it has concise and well-designed functions for spatial data:
+
+
+```r
+pkgs = c(
+  "sp",
+  "tmap",
+  "raster",
+  "mapview",
+  "dismo",
+  "gstat"
+  )
+i = pkgs[!pkgs %in% installed.packages()]
+if(length(i) > 0)
+  install.packages(i)
+lapply(pkgs, library, character.only = TRUE)
+```
+
+```
+## Loading required package: methods
+```
+
+```
+## Loading required package: leaflet
+```
+
+## Data
+
+This chapter uses two datasets on the spatial distribution and some attributes of cycle hire 'docking stations', one from OpenStreetMap and one from an on-line data feed.^[
+Docking stations enable sustainable and fast mobility for people in central London.
+They are automated bicycle parking facilities which allow people can borrow and return bicycles for a small fee.
+The sturdy 3-speed bicycles they contain have become known as 'Boris bikes' and, among some Londoners, 'Sadiq cycles', after the past and present London Mayors Boris Johnson and Sadiq Khan, although their official name is 'Santander cycles'.
+See `?cycle_hire` for further information about these datasets.
+]
+It also uses boundary data representing the 33 boroughs of London.
+These datasets live in the **spData** package and can be loaded as follows:
+
+
+```r
+library(spData)
+f = system.file("shapes/", package = "spData")
+lnd = rgdal::readOGR(paste0(f, "lnd.geojson"))
+```
+
+```
+## OGR data source with driver: GeoJSON 
+## Source: "/home/travis/R/Library/spData/shapes/lnd.geojson", layer: "OGRGeoJSON"
+## with 33 features
+## It has 7 fields
+```
+
+```r
+cycle_hire = rgdal::readOGR(paste0(f, "cycle_hire.geojson"))
+```
+
+```
+## OGR data source with driver: GeoJSON 
+## Source: "/home/travis/R/Library/spData/shapes/cycle_hire.geojson", layer: "OGRGeoJSON"
+## with 742 features
+## It has 5 fields
+```
+
+```r
+cycle_hire_osm = rgdal::readOGR(paste0(f, "cycle_hire_osm.geojson"))
+```
+
+```
+## OGR data source with driver: GeoJSON 
+## Source: "/home/travis/R/Library/spData/shapes/cycle_hire_osm.geojson", layer: "OGRGeoJSON"
+## with 532 features
+## It has 5 fields
+```
+
+We use the `Spatial` classes used by the **sp** dataset, as these are required by point pattern analysis functions used in the chapter.
+This, and a basic plot of the data, is done in the code chunk below (note the similarities with **sf** plots):
+
+
+```r
+library(sp) 
+plot(cycle_hire)
+points(cycle_hire_osm, col = "red")
+plot(lnd, add = TRUE)
+```
+
+<img src="10-point-pattern_files/figure-html/cycle-hire1-1.png" width="672" />
+
+It is immediately clear that the two datasets on cycle hire points are closely related (they have a high degree of spatial correlation) and have a distinctive pattern.
+`cycle_hire` represents official data on cycle parking, and will be the main point dataset analysed.
+`cycle_hire_osm` is the community contributed dataset on cycle hire locations, downloaded from OpenStreetMap.
+Both sets of points overlay some of London's 33 boroughs, the central ones, and seem to follow the River Thames, especially along the north bank of the river.
+But how to describe that information quantitatively, and extrapolate the values from the plotted location to other areas?
+
+It is the purpose of this chapter to provide the know-how to answer such questions, that should be extensible to many applications that involve point data.
+
+## Point density
+
+A basic statistic to compute on points within a polygon is the number of points per polygon, and the related statistic of point density.
+Let's first compute that for London overall, before doing a zone-by-zone breakdown:
+
+
+```r
+nrow(cycle_hire)
+```
+
+```
+## [1] 742
+```
+
+```r
+lnd_area = sum(area(lnd)) / 1e6
+```
+
+The results show that there are 742 cycle hire points and that London covers an area of just over one and a half thousand square kilometres (1 km^2^ = 1000000 m^2^ = 1e6 m^2^ in scientific notation).
+That represents on average roughly one cycle parking rental space per 2 square kilometers, or half a rental point per square kilometer, as revealed by the results of the calculation below:
+
+
+```r
+nrow(cycle_hire) / lnd_area
+```
+
+```
+## [1] 0.4714415
+```
+
+This is not a good indicator of the density of the bike hire scheme overall, because they are so concentrated in central London.
+A more representative result can be found by calculating the average point density *within the extent of the bike hire scheme*.
+We can coerce the bounding box (or extent in **raster** terminology) of the stations into a polygon whose area can be measured with the following commands:
+
+
+```r
+bb_hire = as(extent(cycle_hire), "SpatialPolygons")
+crs(bb_hire) = crs(lnd)
+c_area = area(bb_hire) / 1e6
+c_area
+```
+
+```
+## [1] 158.3181
+```
+
+### Exercises
+
+- What is the average point density of cycle hire points within the scheme's bounding box?
+
+<!-- ```{r} -->
+<!-- c_area = area(bb_hire) / 1e6 -->
+<!-- nrow(cycle_hire) / c_area -->
+<!-- ``` -->
+
+- Why did we add the second line of code in the previous code chunk?
+- Why are there two `crs()` calls?
+- The above chunk uses **raster** functions. How would you write the above code using **sp** code?
+
+### Challenges
+
+- Reproduce the result using **sp** code.
+- Reproduce the results using **sf** code.
+
+## Points in polygons and raster cells
+
+A useful level of analysis at which to analyse the geographical distribution of points is the zone-level.
+We can aggregate the points per zone and provide summary statistics.
+Starting with the number of points per polygon, this would calculated as follows:
+
+
+```r
+crs(lnd) = crs(cycle_hire)
+cycle_hire_ag = aggregate(cycle_hire["id"], lnd, FUN = "length")
+```
+
+### Exercises
+
+Based on an analysis of the `cycle_hire_ag`:
+
+- How many zones contain no cycle hire points?
+- What is the average number of cycle hire points per zone?
+
+### Challenge
+
+Find the average density of cycle hire points per zone in London.
+
+- Plot the result in an attractive map (e.g. as shown below).
+- Find which zone has the highest density of cycle hire points.
+
+<!-- ```{r zonedense} -->
+<!-- lnd_areas = area(lnd) / 1e6 -->
+<!-- lnd$`cycle_hire_density` = cycle_hire_ag$id / lnd_areas -->
+<!-- library(tmap) -->
+<!-- bb = tmaptools::bb(cycle_hire, 2) -->
+<!-- ft = "Cycle hire density\n(per square km)" -->
+<!-- # tmap_mode("view") -->
+<!-- (m = qtm(lnd, "cycle_hire_density", fill.title = ft, bbox = bb)) -->
+<!-- # save_tmap(tm = m, filename = "figure/cyle-hire-lnd.png", width = 600) -->
+<!-- lnd$NAME[which.max(lnd$cycle_hire_density)] -->
+<!-- ``` -->
+
+![](https://github.com/Robinlovelace/Creating-maps-in-R/raw/master/vignettes/point-pattern_files/figure-markdown_github/zonedense-1.png)
+
+A problem with the zonal representation of point density is that the results are dependent on the somewhat arbitrary shapes and sizes of the zones in which the points are aggregated.
+To overcome this problem we can create a raster representation of the points:
+
+
+```r
+r = raster(bb_hire, ncol = 16, nrow = 10)
+rc = rasterize(cycle_hire@coords, r, fun = "count")
+plot(rc)
+points(cycle_hire)
+plot(lnd, add = TRUE)
+```
+
+<img src="10-point-pattern_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+
+This is already very useful.
+The results show that there are 5 clusters of cycle parking with much higher density than the surrounding areas.
+We can visualise these clusters using a static plot as follows:
+
+
+```r
+plot(rc)
+```
+
+<img src="10-point-pattern_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+
+```r
+plot(rc > 12)
+```
+
+<img src="10-point-pattern_files/figure-html/unnamed-chunk-8-2.png" width="672" />
+
+More useful, in terms of characterising the geographical characteristics of each cluster, would be to plot these 5 clusters interactively.
+Do this with **mapview**:
+
+
+```r
+library(mapview)
+mapview(rc > 12) +
+  mapview(cycle_hire)
+```
+
+preservea7ffef7ed34a0754
+
+The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
+
+![](https://github.com/Robinlovelace/Creating-maps-in-R/raw/master/vignettes/point-pattern_files/figure-markdown_github/victoria-plot.png)
+
+### Exercises
+
+- Explore the interactive map created by **mapview** above.
+- Try to explain the location of the high density clusters: what are they near?
+- Where would you suggest building more cycle hire points? 
+
+## Point distance analysis
+
+Another important characteristic of point patterns is the distances between points, which can be calculated using **raster**'s `dist()` function:
+
+
+```r
+d = spDists(cycle_hire, longlat = TRUE)
+dm = as.matrix(d)
+dm[1:3, 1:5]
+```
+
+```
+##          [,1]     [,2]     [,3]      [,4]     [,5]
+## [1,] 0.000000 6.913473 1.966592 0.7700464 5.164896
+## [2,] 6.913473 0.000000 8.205219 6.3051094 2.916743
+## [3,] 1.966592 8.205219 0.000000 2.7062514 5.915129
+```
+
+The results show the distance, in km, form every point to every other.
+The `dm` object is known as a distance matrix: note the diagonal of zero values.
+This distance matrix is very useful for various types of analysis, a couple of which we'll explore below.
+
+To find the minimum distance of each point to every other, we can use the `apply` function, for each row, and then select the top 5:
+
+
+```r
+diag(dm) = NA
+dmin = apply(X = dm, MARGIN = 1, FUN = min, na.rm = TRUE)
+sel_isolated = order(dmin, decreasing = TRUE)[1:5]
+qtm(cycle_hire, col = "grey", main = "Isolated points") +
+qtm(cycle_hire[sel_isolated,], symbols.col = "red", symbols.size = 2) + tm_scale_bar()
+```
+
+<img src="10-point-pattern_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+
+Another plot that is useful is that of the 'G function' for exploring the extent to which points cluster or separate compared with what would be expected from a random distribution [@bivand_applied_2013]:
+
+
+```r
+distance = sort(unique(round(dmin, digits = 3)))
+Gd = sapply(distance, function(x) sum(dmin < x))
+Gd = Gd / length(dmin)
+plot(distance, Gd)
+```
+
+<img src="10-point-pattern_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+
+## Spatial interpolation
+
+Spatial interpolation refers to methods of estimating the value of something in one place, based on measurements taken elsewhere.
+It depends on spatial autocorrelation, defined in Waldo Tobler's 'first law of Geography' as follows [@miller_toblers_2004]: 
+
+> Everything  is
+related  to  everything  else,  but  near  things  are
+more  related  than  distant  thing
+
+Building on the example of cycle hire points in London, we can ask the question: what is the expected number of bikes for a stand in location x, given knowledge of the existing data.
+
+Thus spatial interpolation requires a dependent variable, which is summarised numerically and visually below:
+
+
+```r
+summary(cycle_hire$nbikes)
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##     0.0     3.0    11.0    12.2    19.0    51.0
+```
+
+```r
+tm_shape(cycle_hire) +
+  tm_symbols(col = "nbikes", palette = "YlOrRd", alpha = 0.6, style = "quantile")
+```
+
+<img src="10-point-pattern_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+
+There is a clear spatial pattern to this: there are more bikes parked in the outer docking stations. We can say that verbally, but how to we represent that on the map?
+
+A first port of call would be to rasterise the result, using the the raster representation of the study area contained in the object `r` to find the mean per cell:
+
+
+```r
+rnbikes = rasterize(cycle_hire, r, field = "nbikes", fun = mean)
+plot(rnbikes)
+```
+
+<img src="10-point-pattern_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+
+What about estimating the values of cells outside the current network area?
+We can use **raster**'s `focal()` function to estimate that.
+
+
+```r
+w = matrix(1, nc = 9, nr = 9)
+r_interp1 = focal(x = rnbikes, w = w, fun = mean, NAonly = TRUE, na.rm = TRUE, pad = TRUE)
+plot(r_interp1)
+points(cycle_hire)
+```
+
+<img src="10-point-pattern_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+
+### Exercises
+
+- Experiment with different matrix sizes of `w` in the above code block. What difference does the size make?
+- Note that the 9x9 cell focal point leads to an 'over smoothing' of the results. Find a way to include only values from touching cells in the results.
+
+## Voronoi polygon interpolation
+
+The raster cell method of spatial interpolation was fun, but not that sophisticated or spatially precise, with a resolution of around 1 km.
+
+The next simplest solution is to break the area up into pieces and assign the value of the entire area to the value of the point it contains:
+
+
+```r
+library(dismo)
+v = voronoi(cycle_hire)
+v = intersect(v, r)
+```
+
+```
+## Warning in intersect(x, y): non identical CRS
+```
+
+```r
+tm_shape(v) +
+  tm_fill("nbikes", palette = "YlOrRd", style = "quantile") +
+  qtm(cycle_hire, symbols.size = 0.2)
+```
+
+<img src="10-point-pattern_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+
+### Exercises
+
+- Create a point at a random location on the map and plot it prominently on top of the previously plotted layers.
+- What would be it's estimated 'nbikes' a) from the voronoi polygon interpolation and b) from the raster interpolation.
+- Which do you think is most accurate?
+
+## Interpolation with the gstat package
+
+**gstat** provides a number of functions for spatial prediction and interpolation using a range of models.
+The most basic of these, and a workhorse for spatial interpolation is Inverse Distance Weighting (IDW):
+
+
+```r
+library(gstat)
+gs = gstat(formula = nbikes~1, locations = cycle_hire)
+crs(r) = crs(lnd)
+r_idw = interpolate(r, gs)
+```
+
+```
+## [inverse distance weighted interpolation]
+```
+
+```r
+plot(r_idw)
+```
+
+<img src="10-point-pattern_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+
+### Exercises
+
+- Look at the original data - what could explain the spatial distribution of the `nbikes` variable?
+- Experiment with the spatial resolution - we're using 1 km grid cells which are huge!
+- Try using other methods described in Robert Hijman's [tutorial](http://rspatial.org/analysis/rst/4-interpolation.html) on spatial interpolation.
+- Try cross-validating the results. Which performs best?
+
+<!--chapter:end:10-point-pattern.Rmd-->
 
 # References
 
