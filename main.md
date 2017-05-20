@@ -126,7 +126,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea48b4f5f65b9c2cc
+preservea30f252c6093acd7
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -814,10 +814,10 @@ bench_read = microbenchmark(times = 5,
 
 ```r
 bench_read$time[1] / bench_read$time[2]
-#> [1] 2.34
+#> [1] 3.06
 ```
 
-The results demonstrate that **sf** can be much faster (*2 times faster* in this case) than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** can be much faster (*3 times faster* in this case) than **rgdal** at reading-in the world countries shapefile.
 
 The counterpart of `st_read()` is `st_write()`. This allows writing to a range of geographic vector file types, including the common formats `.geojson`, `.shp` and `.gpkg`. `st_read()` will decide which driver to use automatically, based on the file name, as illustrated in the benchmark below demonstrating write speeds for each format.
 
@@ -827,13 +827,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.084   0.000   0.082
+#>   0.104   0.000   0.104
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.056   0.000   0.057
+#>   0.072   0.000   0.071
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.008   0.043
+#>   0.028   0.016   0.061
 ```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
@@ -1202,7 +1202,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preserve4acb25cb63fe3ed8
+preserve9a332de8da68fc45
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 
