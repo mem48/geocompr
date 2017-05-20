@@ -229,7 +229,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ul>
 <li>You must have loaded the <code>world</code> data from the spData package:</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/wrld.shp&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/wrld.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
 world =<span class="st"> </span><span class="kw">st_read</span>(f)</code></pre></div>
 </div>
 <div id="introduction" class="section level2">
@@ -281,7 +281,7 @@ world1 =<span class="st"> </span><span class="kw">select</span>(world_orig, name
 <span class="co">#&gt; bbox:           xmin: 11.6401 ymin: -17.93064 xmax: 75.15803 ymax: 38.48628</span>
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;     name_long continent population                       geometry</span>
+<span class="co">#&gt;     name_long continent population                           geom</span>
 <span class="co">#&gt; 1 Afghanistan      Asia   31627506 MULTIPOLYGON(((61.210817091...</span>
 <span class="co">#&gt; 2      Angola    Africa   24227524 MULTIPOLYGON(((16.326528354...</span></code></pre></div>
 <p>This is more concises than the base R equivalent (which saves the result as an object called <code>world2</code> to avoid overriding the <code>world</code> dataset created previously):</p>
@@ -307,7 +307,7 @@ world_few_rows =<span class="st"> </span>world %&gt;%<span class="st"> </span>
 <span class="co">#&gt;   iso_a2 name_long continent region_un     subregion              type</span>
 <span class="co">#&gt; 1     CN     China      Asia      Asia  Eastern Asia           Country</span>
 <span class="co">#&gt; 2     IN     India      Asia      Asia Southern Asia Sovereign country</span>
-<span class="co">#&gt;   area_km2      pop lifeExp gdpPercap                       geometry</span>
+<span class="co">#&gt;   area_km2      pop lifeExp gdpPercap                           geom</span>
 <span class="co">#&gt; 1  9409832 1.36e+09    75.8     12759 MULTIPOLYGON(((110.33918786...</span>
 <span class="co">#&gt; 2  3142892 1.30e+09    68.0      5392 MULTIPOLYGON(((77.837450799...</span></code></pre></div>
 <p>This is equivalent to the following base R code (<a href="https://github.com/Robinlovelace/geocompr/issues/28">note</a> NAs are forbidden for subsetting):</p>
@@ -371,7 +371,7 @@ world_continents %&gt;%<span class="st"> </span>
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
 <span class="co">#&gt; # A tibble: 8 x 4</span>
-<span class="co">#&gt;    continent continent_pop country_n          geometry</span>
+<span class="co">#&gt;    continent continent_pop country_n              geom</span>
 <span class="co">#&gt;       &lt;fctr&gt;         &lt;dbl&gt;     &lt;int&gt;  &lt;simple_feature&gt;</span>
 <span class="co">#&gt; 1     Africa            NA        51 &lt;MULTIPOLYGON...&gt;</span>
 <span class="co">#&gt; 2 Antarctica            NA         1 &lt;MULTIPOLYGON...&gt;</span>
@@ -388,7 +388,7 @@ world_continents %&gt;%<span class="st"> </span>
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
 <span class="co">#&gt; # A tibble: 8 x 4</span>
-<span class="co">#&gt;       continent continent_pop country_n          geometry</span>
+<span class="co">#&gt;       continent continent_pop country_n              geom</span>
 <span class="co">#&gt;          &lt;fctr&gt;         &lt;dbl&gt;     &lt;int&gt;  &lt;simple_feature&gt;</span>
 <span class="co">#&gt; 1 North America      5.65e+08        18 &lt;MULTIPOLYGON...&gt;</span>
 <span class="co">#&gt; 2       Oceania      3.74e+07         7 &lt;MULTIPOLYGON...&gt;</span>

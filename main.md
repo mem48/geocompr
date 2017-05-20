@@ -127,7 +127,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve8a53d5d53cf97dd6
+preserve7d2c84d51eeacff7
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -206,7 +206,7 @@ Let's see how simple feature in R work, with reference to world boundary data fr
 library(sf)
 #> Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0
 # devtools::install_github("nowosad/spData")
-f = system.file("shapes/wrld.shp", package = "spData")
+f = system.file("shapes/wrld.gpkg", package = "spData")
 world = st_read(f)
 ```
 
@@ -232,7 +232,7 @@ world[1:2, 1:3]
 #> bbox:           xmin: 11.6401 ymin: -17.93064 xmax: 75.15803 ymax: 38.48628
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>   iso_a2   name_long continent                       geometry
+#>   iso_a2   name_long continent                           geom
 #> 1     AF Afghanistan      Asia MULTIPOLYGON(((61.210817091...
 #> 2     AO      Angola    Africa MULTIPOLYGON(((16.326528354...
 ```
@@ -478,7 +478,7 @@ library(units)
 
 
 ```r
-f = system.file("shapes/wrld.shp", package = "spData")
+f = system.file("shapes/wrld.gpkg", package = "spData")
 world = st_read(f)
 ```
 
@@ -572,7 +572,7 @@ head(world1, n = 2)
 #> bbox:           xmin: 11.6401 ymin: -17.93064 xmax: 75.15803 ymax: 38.48628
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>     name_long continent population                       geometry
+#>     name_long continent population                           geom
 #> 1 Afghanistan      Asia   31627506 MULTIPOLYGON(((61.210817091...
 #> 2      Angola    Africa   24227524 MULTIPOLYGON(((16.326528354...
 ```
@@ -617,7 +617,7 @@ head(world_few_rows)
 #>   iso_a2 name_long continent region_un     subregion              type
 #> 1     CN     China      Asia      Asia  Eastern Asia           Country
 #> 2     IN     India      Asia      Asia Southern Asia Sovereign country
-#>   area_km2      pop lifeExp gdpPercap                       geometry
+#>   area_km2      pop lifeExp gdpPercap                           geom
 #> 1  9409832 1.36e+09    75.8     12759 MULTIPOLYGON(((110.33918786...
 #> 2  3142892 1.30e+09    68.0      5392 MULTIPOLYGON(((77.837450799...
 ```
@@ -711,7 +711,7 @@ world_continents %>%
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #> # A tibble: 8 x 4
-#>    continent continent_pop country_n          geometry
+#>    continent continent_pop country_n              geom
 #>       <fctr>         <dbl>     <int>  <simple_feature>
 #> 1     Africa            NA        51 <MULTIPOLYGON...>
 #> 2 Antarctica            NA         1 <MULTIPOLYGON...>
@@ -728,7 +728,7 @@ world_continents %>%
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #> # A tibble: 8 x 4
-#>       continent continent_pop country_n          geometry
+#>       continent continent_pop country_n              geom
 #>          <fctr>         <dbl>     <int>  <simple_feature>
 #> 1 North America      5.65e+08        18 <MULTIPOLYGON...>
 #> 2       Oceania      3.74e+07         7 <MULTIPOLYGON...>
@@ -816,10 +816,10 @@ The first arguement of `st_read` is `file`, which should be a text string or an 
 ```r
 library(sf)
 #> Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0
-f = system.file("shapes/wrld.shp", package = "spData")
+f = system.file("shapes/wrld.gpkg", package = "spData")
 world = st_read(f)
-#> Reading layer `wrld' from data source `/home/travis/R/Library/spData/shapes/wrld.shp' using driver `ESRI Shapefile'
-#> converted into: POLYGON
+#> Reading layer `wrld.gpkg' from data source `/home/travis/R/Library/spData/shapes/wrld.gpkg' using driver `GPKG'
+#> converted into: MULTIPOLYGON
 #> Simple feature collection with 177 features and 10 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
@@ -843,7 +843,7 @@ bench_read = microbenchmark(times = 5,
 
 ```r
 bench_read$time[1] / bench_read$time[2]
-#> [1] 3.48
+#> [1] 3.39
 ```
 
 The results demonstrate that **sf** can be much faster (*3 times faster* in this case) than **rgdal** at reading-in the world countries shapefile.
@@ -856,13 +856,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.068
+#>   0.080   0.004   0.082
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.044
+#>   0.064   0.004   0.069
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.033
+#>   0.032   0.004   0.036
 ```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
@@ -1231,7 +1231,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preserve11f9ca3a5ab594e8
+preserve67c0e9c6c832fb75
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 

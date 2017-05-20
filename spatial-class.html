@@ -239,7 +239,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
 <span class="co">#&gt; Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0</span>
 <span class="co"># devtools::install_github(&quot;nowosad/spData&quot;)</span>
-f =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/wrld.shp&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
+f =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/wrld.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
 world =<span class="st"> </span><span class="kw">st_read</span>(f)</code></pre></div>
 <p>This has loaded an object that is simultaneously of class <code>data.frame</code> and <code>sf</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(world)
@@ -253,7 +253,7 @@ world =<span class="st"> </span><span class="kw">st_read</span>(f)</code></pre><
 <span class="co">#&gt; bbox:           xmin: 11.6401 ymin: -17.93064 xmax: 75.15803 ymax: 38.48628</span>
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;   iso_a2   name_long continent                       geometry</span>
+<span class="co">#&gt;   iso_a2   name_long continent                           geom</span>
 <span class="co">#&gt; 1     AF Afghanistan      Asia MULTIPOLYGON(((61.210817091...</span>
 <span class="co">#&gt; 2     AO      Angola    Africa MULTIPOLYGON(((16.326528354...</span></code></pre></div>
 <p>All this may seem rather complex, especially for a class system that is supposed to be simple. However, there are good reasons for organizing things this way and using <strong>sf</strong>.</p>
