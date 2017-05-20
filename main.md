@@ -132,7 +132,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveb95187762b5cce0b
+preservec9025443a8c3fb6c
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -848,7 +848,7 @@ bench_read = microbenchmark(times = 5,
 
 ```r
 bench_read$time[1] / bench_read$time[2]
-#> [1] 3.69
+#> [1] 3.94
 ```
 
 The results demonstrate that **sf** can be much faster (*4 times faster* in this case) than **rgdal** at reading-in the world countries shapefile.
@@ -861,13 +861,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.004   0.073
+#>   0.076   0.000   0.080
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.044
+#>   0.064   0.000   0.064
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.012   0.016   0.032
+#>   0.028   0.012   0.040
 ```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
@@ -1029,14 +1029,13 @@ Raster-vector conversion
 # Point Pattern analysis and spatial interpolation
 
 This chapter teaches the basics of point pattern analysis in R.
-It is influenced by the chapter on Spatial Point Pattern Analysis in *Applied Spatial Data Analysis with R* [@bivand_applied_2013] and an [online tutorial](http://rspatial.org/analysis/rst/8-pointpat.html) on Point Pattern Analyis by Robert Hijmans.
+It is influenced by the chapter on Spatial Point Pattern Analysis [@bivand_applied_2013] and an [online tutorial](http://rspatial.org/analysis/rst/8-pointpat.html) on Point Pattern Analyis by Robert Hijmans.
 
 We will use the **sp** package for this rather than the newer **sf** package, as point pattern analysis is more established for the former `Spatial` class system than the latter's `sf` classes. We will also use **raster** as it has concise and well-designed functions for spatial data:
 
 
 ```r
 pkgs = c(
-  "sp",
   "tmap",
   "raster",
   "mapview",
@@ -1047,7 +1046,6 @@ i = pkgs[!pkgs %in% installed.packages()]
 if(length(i) > 0)
   install.packages(i)
 lapply(pkgs, library, character.only = TRUE)
-#> Loading required package: leaflet
 ```
 
 ## Data
@@ -1066,34 +1064,38 @@ These datasets live in the **spData** package and can be loaded as follows:
 library(spData)
 f = system.file("shapes/", package = "spData")
 lnd = rgdal::readOGR(paste0(f, "lnd.geojson"))
-#> OGR data source with driver: GeoJSON 
-#> Source: "/home/travis/R/Library/spData/shapes/lnd.geojson", layer: "OGRGeoJSON"
-#> with 33 features
-#> It has 7 fields
 cycle_hire = rgdal::readOGR(paste0(f, "cycle_hire.geojson"))
-#> OGR data source with driver: GeoJSON 
-#> Source: "/home/travis/R/Library/spData/shapes/cycle_hire.geojson", layer: "OGRGeoJSON"
-#> with 742 features
-#> It has 5 fields
 cycle_hire_osm = rgdal::readOGR(paste0(f, "cycle_hire_osm.geojson"))
-#> OGR data source with driver: GeoJSON 
-#> Source: "/home/travis/R/Library/spData/shapes/cycle_hire_osm.geojson", layer: "OGRGeoJSON"
-#> with 532 features
-#> It has 5 fields
 ```
 
 We use the `Spatial` classes used by the **sp** dataset, as these are required by point pattern analysis functions used in the chapter.
-This, and a basic plot of the data, is done in the code chunk below (note the similarities with **sf** plots):
+The majority of the chapter will use only the official `cycle_hire` dataset.
+Towards the end of the chapter we will compare the two point patterns to see how similar they are.
+But first we focus only on the former dataset.
+<!-- TODO: ensure we do this -->
+
+
+## Basic point pattern analysis
+
+Before undertaking more advanced analysis, it makes sense to start simple, with basic statistics and visualizations describing point patterns.
+As with most analysis tasks this first stage involves visual inspection of the data.
+This done in the code chunk below, which generates Figure
+\@ref(fig:cycle-hire1):^[
+Note the similarities and differences between **sp** and **sf** plotting code and results. Both extend the `plot()` command to create a simple static map, meaning that arguments used in base graphics such as `col` work. However, **sp**'s plot method does not create facets for multiple variables by default and therefore you do not have to specify columns to create a single map.
+**sp** plots omit a colourscheme by default.
+]
 
 
 ```r
-library(sp) 
 plot(cycle_hire)
 points(cycle_hire_osm, col = "red")
 plot(lnd, add = TRUE)
 ```
 
-<img src="figures/cycle-hire1-1.png" width="672" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="figures/cycle-hire1-1.png" alt="The spatial distribution of cycle hire points in London according to two datasets. One is from the cyclehireapp.com website (black); the other is from OpenStreetMap (red)." width="672" />
+<p class="caption">(\#fig:cycle-hire1)The spatial distribution of cycle hire points in London according to two datasets. One is from the cyclehireapp.com website (black); the other is from OpenStreetMap (red).</p>
+</div>
 
 It is immediately clear that the two datasets on cycle hire points are closely related (they have a high degree of spatial correlation) and have a distinctive pattern.
 `cycle_hire` represents official data on cycle parking, and will be the main point dataset analysed.
@@ -1115,7 +1117,7 @@ nrow(cycle_hire)
 lnd_area = sum(area(lnd)) / 1e6
 ```
 
-The results show that there are 742 cycle hire points and that London covers an area of just over one and a half thousand square kilometres (1 km^2^ = 1000000 m^2^ = 1e6 m^2^ in scientific notation).
+The results show that there are 742 cycle hire points and that London covers an area of just over one-and-a-half thousand square kilometres (1 km^2^ = 1000000 m^2^ = 1e6 m^2^ in scientific notation).
 That represents on average roughly one cycle parking rental space per 2 square kilometers, or half a rental point per square kilometer, as revealed by the results of the calculation below:
 
 
@@ -1236,7 +1238,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preserve794461f1c23a230a
+preservebf7ce95644600723
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 
