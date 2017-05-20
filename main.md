@@ -132,7 +132,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserved9d6339e73dd286f
+preservea25403169f1a32d7
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -696,6 +696,70 @@ world_continents %>%
 
 ## Attribute data creation
 
+## Removing spatial information
+
+Most of the function from **sf** package do not drop a `geometry` column. To extract a data frame `st_geometry()` or `st_set_geometry()` function can be used.
+
+
+```r
+world_st = world
+st_geometry(world_st) = NULL
+class(world_st)
+#> [1] "data.frame"
+
+# OR
+
+world_st2 = world
+world_st2 = world_st2 %>% st_set_geometry(NULL)
+class(world_st2)
+#> [1] "data.frame"
+```
+
+
+<!-- 
+- dplyr, tidyr, and purrr packages
+- lubridate??
+- pipes
+-->
+
+<!-- 
+- view, add new rows/columns, subset, select, summarize 
+-->
+
+<!--chapter:end:03-attribute-operations.Rmd-->
+
+
+# Spatial data operations
+
+## Prerequisites {-}
+
+- This chapter requires **tidyverse**, **sf**, **units**, and **spData** packages:
+
+
+```r
+library(sf)
+library(tidyverse)
+library(units)
+```
+
+- You must have loaded the `world` data from the spData package:
+
+
+```r
+f = system.file("shapes/wrld.gpkg", package = "spData")
+world = st_read(f)
+```
+
+## Introduction
+
+## Attribute subsetting
+
+## Attribute data aggregation 
+
+## Attribute data joining 
+
+## Attribute data creation
+
 
 ```r
 # add a new column
@@ -747,47 +811,6 @@ These can be set to `NULL` as follows:
 attributes(world$area) = NULL
 attributes(world$pop_density) = NULL
 ```
-
-## Removing spatial information
-
-Most of the function from **sf** package do not drop a `geometry` column. To extract a data frame `st_geometry()` or `st_set_geometry()` function can be used.
-
-
-```r
-world_st = world
-st_geometry(world_st) = NULL
-class(world_st)
-#> [1] "data.frame"
-
-# OR
-
-world_st2 = world
-world_st2 = world_st2 %>% st_set_geometry(NULL)
-class(world_st2)
-#> [1] "data.frame"
-```
-
-
-<!-- 
-- dplyr, tidyr, and purrr packages
-- lubridate??
-- pipes
--->
-
-<!-- 
-- view, add new rows/columns, subset, select, summarize 
--->
-
-<!--chapter:end:03-attribute-operations.Rmd-->
-
-
-# Spatial data operations
-
-## Attribute subsetting
-
-## Attribute data aggregation 
-
-## Attribute data joining 
 
 <!--chapter:end:04-spatial-operations.Rmd-->
 
@@ -856,10 +879,10 @@ bench_read = microbenchmark(times = 5,
 
 ```r
 bench_read$time[1] / bench_read$time[2]
-#> [1] 3.64
+#> [1] 3.15
 ```
 
-The results demonstrate that **sf** can be much faster (*4 times faster* in this case) than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** can be much faster (*3 times faster* in this case) than **rgdal** at reading-in the world countries shapefile.
 
 The counterpart of `st_read()` is `st_write()`. This allows writing to a range of geographic vector file types, including the common formats `.geojson`, `.shp` and `.gpkg`. `st_read()` will decide which driver to use automatically, based on the file name, as illustrated in the benchmark below demonstrating write speeds for each format.
 
@@ -869,13 +892,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.065
+#>   0.064   0.000   0.067
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.06    0.00    0.06
+#>   0.048   0.000   0.048
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.029
+#>   0.028   0.004   0.033
 ```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
@@ -1325,7 +1348,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preservee6f44e9b74c5f4cb
+preserve9bf96236f1959a2f
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 
