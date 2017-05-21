@@ -1,5 +1,4 @@
 
-
 --- 
 title: 'Geocomputation with R'
 author:
@@ -15,9 +14,8 @@ bibliography:
 biblio-style: apalike
 link-citations: yes
 github-repo: Robinlovelace/geocompr
-url: https\://http://robinlovelace.net/geocompr
+url: http\://robinlovelace.net/geocompr
 ---
-
 
 
 
@@ -147,7 +145,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve5d0f6c6f370f88b1
+preserve295e474eda02e42d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -913,11 +911,11 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.31
+#> [1] 2.54
 ```
 
 
-The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -930,7 +928,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.97
+#> [1] 3.29
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -944,13 +942,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.066
+#>   0.068   0.000   0.067
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.047
+#>   0.044   0.000   0.046
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.030
+#>   0.012   0.016   0.030
 ```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
@@ -1399,7 +1397,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preservedefabe9b24cbb0be
+preserve130718b9ec4f4c00
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 
