@@ -21,7 +21,7 @@ url: http\://robinlovelace.net/geocompr
 
 # Welcome {-}
 
-Welcome to the **geocompr** website, the online home of our forthcoming book with [CRC Press](https://www.crcpress.com/Chapman--HallCRC-The-R-Series/book-series/CRCTHERSER).
+Welcome to the **geocompr** [website](http://robinlovelace.net/geocompr), the online home of our forthcoming book with [CRC Press](https://www.crcpress.com/Chapman--HallCRC-The-R-Series/book-series/CRCTHERSER).
 
 ## Development {-}
 
@@ -29,11 +29,13 @@ Inspired by the **bookdown** [R package](https://github.com/rstudio/bookdown) we
 We decided to make the book open source to encourage contributions, ensure reproducibility and provide access to the material as it evolves.
 
 The latest version is hosted at [robinlovelace.net/geocompr](http://robinlovelace.net/geocompr).
-This website is kept up-to-date thanks to Travis, a continuous integration (CI) service which automatically updates the book and reports bugs via after every update, as illustrated in the 'build status' badge below:
+This website is kept up-to-date thanks to Travis, a continuous integration (CI) service.
+Travis automatically rebuilds the book and finds bugs by reporting the 'build status' after every update.
+Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are currently reading was built on 2017-05-21 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-05-21 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -145,7 +147,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve295e474eda02e42d
+preserve4247d5a874e419a7
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -911,11 +913,11 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.54
+#> [1] 2.41
 ```
 
 
-The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -928,7 +930,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.29
+#> [1] 3.42
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -942,13 +944,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.067
+#>   0.068   0.004   0.070
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.046
+#>   0.048   0.000   0.046
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.012   0.016   0.030
+#>   0.024   0.008   0.033
 ```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
@@ -1397,7 +1399,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preserve130718b9ec4f4c00
+preserve0ec96800c47d3414
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 
