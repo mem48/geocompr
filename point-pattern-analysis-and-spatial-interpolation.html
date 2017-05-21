@@ -257,10 +257,9 @@ if(<span class="kw">length</span>(i) &gt;<span class="st"> </span><span class="d
 <h2><span class="header-section-number">10.1</span> Data</h2>
 <p>This chapter uses two datasets on the spatial distribution and some attributes of cycle hire ‘docking stations’, one from OpenStreetMap and one from an on-line data feed.<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> It also uses boundary data representing the 33 boroughs of London. These datasets live in the <strong>spData</strong> package and can be loaded as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spData)
-f =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
-lnd =<span class="st"> </span>rgdal::<span class="kw">readOGR</span>(<span class="kw">paste0</span>(f, <span class="st">&quot;lnd.geojson&quot;</span>))
-cycle_hire =<span class="st"> </span>rgdal::<span class="kw">readOGR</span>(<span class="kw">paste0</span>(f, <span class="st">&quot;cycle_hire.geojson&quot;</span>))
-cycle_hire_osm =<span class="st"> </span>rgdal::<span class="kw">readOGR</span>(<span class="kw">paste0</span>(f, <span class="st">&quot;cycle_hire_osm.geojson&quot;</span>))</code></pre></div>
+lnd =<span class="st"> </span><span class="kw">as</span>(lnd, <span class="st">&quot;Spatial&quot;</span>)
+cycle_hire =<span class="st"> </span><span class="kw">as</span>(cycle_hire, <span class="st">&quot;Spatial&quot;</span>)
+cycle_hire_osm =<span class="st"> </span><span class="kw">as</span>(cycle_hire_osm, <span class="st">&quot;Spatial&quot;</span>)</code></pre></div>
 <p>We use the <code>Spatial</code> classes used by the <strong>sp</strong> dataset, as these are required by point pattern analysis functions used in the chapter. The majority of the chapter will use only the official <code>cycle_hire</code> dataset. Towards the end of the chapter we will compare the two point patterns to see how similar they are. But first we focus only on the former dataset. <!-- TODO: ensure we do this --></p>
 </div>
 <div id="basic-point-pattern-analysis" class="section level2">

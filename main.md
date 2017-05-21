@@ -147,11 +147,11 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve4e65cfec1d156910
+preservedffeb1a260e21a75
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
-It would be difficult to produce Figure \@ref(fig:interactive) with only 4 lines of code in another language, let alone embed the results in an interactive html page (the interactive version can be viewed at [bookdown.org/robinlovelace/geocompr/intro.html](https://bookdown.org/robinlovelace/geocompr/intro.html)), illustrating R's flexibility and power. 
+It would be difficult to produce Figure \@ref(fig:interactive) with only 4 lines of code in another language, let alone embed the results in an interactive html page (the interactive version can be viewed at [robinlovelace.net/geocompr](http://robinlovelace.net/geocompr/intro.html)), illustrating R's flexibility. 
 
 <!-- Other reasons for using R for geocompuation include: -->
 
@@ -913,11 +913,11 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.29
+#> [1] 2.51
 ```
 
 
-The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -930,7 +930,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.13
+#> [1] 3.06
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -944,13 +944,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.069
+#>   0.064   0.000   0.065
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.052   0.000   0.051
+#>   0.040   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.004   0.035
+#>   0.016   0.012   0.029
 ```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
@@ -1224,10 +1224,9 @@ These datasets live in the **spData** package and can be loaded as follows:
 
 ```r
 library(spData)
-f = system.file("shapes/", package = "spData")
-lnd = rgdal::readOGR(paste0(f, "lnd.geojson"))
-cycle_hire = rgdal::readOGR(paste0(f, "cycle_hire.geojson"))
-cycle_hire_osm = rgdal::readOGR(paste0(f, "cycle_hire_osm.geojson"))
+lnd = as(lnd, "Spatial")
+cycle_hire = as(cycle_hire, "Spatial")
+cycle_hire_osm = as(cycle_hire_osm, "Spatial")
 ```
 
 We use the `Spatial` classes used by the **sp** dataset, as these are required by point pattern analysis functions used in the chapter.
@@ -1400,7 +1399,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preserve674d85408007dced
+preserve2618b864df06b47f
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 
