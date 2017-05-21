@@ -78,7 +78,7 @@ its unparalleled ability to seamlessly switch between geographic and non-geograp
 
 The title was chosen because this book is about more than routine spatial data processing, something that is well captured by the term *geocomputation*.
 What defines geocomputation as a development on previous work is the "creative and experimental use of GIS that it entails" [@longley_geocomputation:_1998].
-With the right know-how, geographic data can be used in ways that would have been unthinkable to early practitioners of GIS.
+With geocomputation geographic data can be used in new ways.
 
 Another advantage of geocomputation that it conveys the centrality of the concept of algorithms (which can be implemented in R functions) to advanced geographical research. Geocomputation is a relatively
 young field^[Geocomputation
@@ -86,9 +86,9 @@ has a ~30 year history dating back to the first [conference](http://www.geocompu
 publications.]
 but methods published under the geocomputational banner have influenced the direction of geographical research, as we will see in subsequent chapters.
 Algorithms are powerful tools that can become highly complex.
-However, all algorithms are composed of smaller, often modular parts.
+However, all algorithms are composed of smaller parts.
 By teaching these foundations we aim to empower you.
-Creating your own solutions to geographic data problems can feel breaking free from the metaphorical 'glass ceiling' imposed by GUI-based proprietary geographic information systems (see Table \@ref(tab:gdsl) for a definition of GUI).
+Creating your own solutions to geographic data problems can feel like breaking free from the metaphorical 'glass ceiling' imposed by GUI-based proprietary geographic information systems (see Table \@ref(tab:gdsl) for a definition of GUI).
 
 <!-- todo: what contributions, which will we use, where in the book? -->
 
@@ -132,7 +132,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve76b587a8dd94ae33
+preserve97122fb717150a4a
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -897,11 +897,11 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.13
+#> [1] 2.73
 ```
 
 
-The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -914,7 +914,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.55
+#> [1] 3.13
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -928,13 +928,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.067
+#>   0.076   0.000   0.076
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.052   0.000   0.051
+#>   0.068   0.000   0.069
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.033
+#>   0.032   0.008   0.041
 ```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
@@ -1384,7 +1384,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preserve5533769e7c243dce
+preserveb39cf3f9c9c92577
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 
