@@ -30,7 +30,7 @@ Welcome to the **geocompr** website, the online home of our forthcoming book wit
 Inspired by the **bookdown** [R package](https://github.com/rstudio/bookdown) we are developing this book in the open.
 We decided to make the book open source to encourage contributions, ensure reproducibility and provide access to the material as it evolves.
 
-The latest version is hosted [robinlovelace.net/geocompr](http://robinlovelace.net/geocompr).
+The latest version is hosted at [robinlovelace.net/geocompr](http://robinlovelace.net/geocompr).
 This website is kept up-to-date thanks to Travis, a continuous integration (CI) service which automatically updates the book and reports bugs via after every update, as illustrated in the 'build status' badge below:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
@@ -147,7 +147,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservedffeb1a260e21a75
+preserve5d0f6c6f370f88b1
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -913,11 +913,11 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.51
+#> [1] 2.31
 ```
 
 
-The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -930,7 +930,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.06
+#> [1] 2.97
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -944,13 +944,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.065
+#>   0.064   0.000   0.066
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.042
+#>   0.044   0.000   0.047
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.029
+#>   0.016   0.012   0.030
 ```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
@@ -1399,7 +1399,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preserve2618b864df06b47f
+preservedefabe9b24cbb0be
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 
