@@ -277,23 +277,23 @@ world =<span class="st"> </span><span class="kw">st_read</span>(f)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(microbenchmark)
 read_world_gpkg =<span class="st"> </span><span class="kw">bench_read</span>(<span class="dt">file =</span> f, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read_world_gpkg
-<span class="co">#&gt; [1] 2.41</span></code></pre></div>
+<span class="co">#&gt; [1] 2.36</span></code></pre></div>
 <p>The results demonstrate that <strong>sf</strong> was around 2 times faster than <strong>rgdal</strong> at reading-in the world countries shapefile. The relative performance of <code>st_read()</code> compared with other functions will vary depending on file format and the nature of the data. To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/lnd.geojson&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
 read_lnd_geojson =<span class="st"> </span><span class="kw">bench_read</span>(<span class="dt">file =</span> f, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read_lnd_geojson
-<span class="co">#&gt; [1] 3.42</span></code></pre></div>
+<span class="co">#&gt; [1] 3.16</span></code></pre></div>
 <p>In this case <strong>sf</strong> was around 3 times faster than <strong>rgdal</strong>.</p>
 <p>The counterpart of <code>st_read()</code> is <code>st_write()</code>. This allows writing to a range of geographic vector file types, including the common formats <code>.geojson</code>, <code>.shp</code> and <code>.gpkg</code>. <code>st_read()</code> will decide which driver to use automatically, based on the file name, as illustrated in the benchmark below demonstrating write speeds for each format.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.geojson&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.068   0.004   0.070</span>
+<span class="co">#&gt;   0.064   0.000   0.067</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.shp&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)) 
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.048   0.000   0.046</span>
+<span class="co">#&gt;   0.040   0.004   0.043</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.024   0.008   0.033</span></code></pre></div>
+<span class="co">#&gt;   0.020   0.008   0.032</span></code></pre></div>
 <p>The full range of file-types supported by <strong>sf</strong> is reported by <code>st_drivers()</code>, the first 2 of which are shown below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_drivers =<span class="st"> </span><span class="kw">st_drivers</span>()
 <span class="kw">head</span>(sf_drivers, <span class="dt">n =</span> <span class="dv">2</span>)
