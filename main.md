@@ -147,7 +147,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve1a99d599055eb68b
+preserve3ab2c3919bee2852
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -223,7 +223,7 @@ vignette("sf2") # for reading, writing and converting Simple Features
 vignette("sf3") # for manipulating Simple Features
 ```
 
-As the first vignette explains, simple feature objects in R are stored in a data frame, with geographical data occupying special column, a 'list-column'. This column is usually named 'geom' or 'geometry'.
+As the first vignette explains, simple feature objects in R are stored in a data frame, with geographic data occupying special column, a 'list-column'. This column is usually named 'geom' or 'geometry'.
 Let's see how simple features in R work, with reference to world boundary data from the **spData** package:
 
 
@@ -271,7 +271,7 @@ First, it's worth taking a look at the basic behavior and contents of this simpl
 
 `sf` objects are easy to subset.
 The code below shows its first 2 rows and 3 columns.
-The output shows 2 major differences compared with a regular `data.frame`: the inclusion of additional geographical data (`geometry type`, `dimension`, `bbox` and CRS information - `epsg (SRID)`, `proj4string`), and the presence of final `geometry` column:
+The output shows 2 major differences compared with a regular `data.frame`: the inclusion of additional geographic data (`geometry type`, `dimension`, `bbox` and CRS information - `epsg (SRID)`, `proj4string`), and the presence of final `geometry` column:
 
 
 ```r
@@ -533,7 +533,7 @@ library(spData)
 
 ## Introduction
 
-Attribute data is non-geographical information associated with geographical data.
+Attribute data is non-geographic information associated with geographical data.
 There is a strong overlap between geographical and non-geographical operations:
 non-spatial subset, aggregate and join operations each have their geographical equivalents (see \@ref(spatial-data-operations)).
 
@@ -573,7 +573,7 @@ class(world_df)
 
 This can be useful if the geometry column causes problem, e.g. by occupying large amounts of RAM.
 However, for most cases there is no harm in keeping the geometry column, as data frame operations on `sf` will only act on the attribute data.
-For this reason, being good at working with attribute data in geographical data is the same being proficient at handling data frames in R.
+For this reason, being good at working with attribute data in geographic data is the same being proficient at handling data frames in R.
 For many applications, the most effective and intuitive way to work with data frames is with the **dplyr** package.
 
 ## Base vs data.table vs dplyr
@@ -860,7 +860,7 @@ attributes(world$pop_density) = NULL
 
 
 
-# Geographical data I/O {#read-write}
+# Geographic data I/O {#read-write}
 
 The previous chapters introduced this book and provided an overview of spatial data classes in R, with a focus on simple features.
 This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world.
@@ -869,7 +869,7 @@ If your aim is to use geocomputation to improve the world, e.g. by encouraging e
 
 I/O is short for "input/output" which means, in plain English, "reading and writing data".
 We use the acronym instead of plain English not to confuse you or to make chapter names short, but because that's the term used in computer science and it is useful to think of data import and export from a computing perspective.^[
-Concepts such as computational efficiency, hard disk space and 'idempotence' are useful when thinking about reading and writing geographical datasets, which can become large and difficult to handle.
+Concepts such as computational efficiency, hard disk space and 'idempotence' are useful when thinking about reading and writing geographic datasets, which can become large and difficult to handle.
 Loading/saving data is yet another way of saying the same thing.
 ]
 
@@ -936,7 +936,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.34
+#> [1] 2.33
 ```
 
 
@@ -953,7 +953,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.04
+#> [1] 3.03
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -967,13 +967,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.068
+#>   0.064   0.000   0.065
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.040   0.000   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.012   0.016   0.031
 ```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
@@ -1447,7 +1447,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preservec79216231c0a48c7
+preservec91f239ca0a4de68
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 

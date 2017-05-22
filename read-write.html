@@ -172,7 +172,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#attribute-data-joining-1"><i class="fa fa-check"></i><b>4.4</b> Attribute data joining</a></li>
 <li class="chapter" data-level="4.5" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#attribute-data-creation-1"><i class="fa fa-check"></i><b>4.5</b> Attribute data creation</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="read-write.html"><a href="read-write.html"><i class="fa fa-check"></i><b>5</b> Geographical data I/O</a><ul>
+<li class="chapter" data-level="5" data-path="read-write.html"><a href="read-write.html"><i class="fa fa-check"></i><b>5</b> Geographic data I/O</a><ul>
 <li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#data-input-i"><i class="fa fa-check"></i><b>5.1</b> Data Input (I)</a></li>
 <li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#data-output-o"><i class="fa fa-check"></i><b>5.2</b> Data output (O)</a></li>
 <li class="chapter" data-level="5.3" data-path="read-write.html"><a href="read-write.html#file-formats"><i class="fa fa-check"></i><b>5.3</b> File formats</a></li>
@@ -239,7 +239,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="read-write" class="section level1">
-<h1><span class="header-section-number">5</span> Geographical data I/O</h1>
+<h1><span class="header-section-number">5</span> Geographic data I/O</h1>
 <p>The previous chapters introduced this book and provided an overview of spatial data classes in R, with a focus on simple features. This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world. We include a section (<a href="read-write.html#visual-outputs">5.4</a>) on visualization because outputting data in a human (not just computer) readable enables non-programmers to benefit from your work. If your aim is to use geocomputation to improve the world, e.g. by encouraging evidence-based policies, this final stage is vital.</p>
 <p>I/O is short for “input/output” which means, in plain English, “reading and writing data”. We use the acronym instead of plain English not to confuse you or to make chapter names short, but because that’s the term used in computer science and it is useful to think of data import and export from a computing perspective.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
 <!-- todo: check we mention computational efficiency, disk-space and 'idempotence' -->
@@ -277,23 +277,23 @@ world =<span class="st"> </span><span class="kw">st_read</span>(f)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(microbenchmark)
 read_world_gpkg =<span class="st"> </span><span class="kw">bench_read</span>(<span class="dt">file =</span> f, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read_world_gpkg
-<span class="co">#&gt; [1] 2.34</span></code></pre></div>
+<span class="co">#&gt; [1] 2.33</span></code></pre></div>
 <p>The results demonstrate that <strong>sf</strong> was around 2 times faster than <strong>rgdal</strong> at reading-in the world countries shapefile. The relative performance of <code>st_read()</code> compared with other functions will vary depending on file format and the nature of the data. To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/lnd.geojson&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
 read_lnd_geojson =<span class="st"> </span><span class="kw">bench_read</span>(<span class="dt">file =</span> f, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read_lnd_geojson
-<span class="co">#&gt; [1] 3.04</span></code></pre></div>
+<span class="co">#&gt; [1] 3.03</span></code></pre></div>
 <p>In this case <strong>sf</strong> was around 3 times faster than <strong>rgdal</strong>.</p>
 <p>The counterpart of <code>st_read()</code> is <code>st_write()</code>. This allows writing to a range of geographic vector file types, including the common formats <code>.geojson</code>, <code>.shp</code> and <code>.gpkg</code>. <code>st_read()</code> will decide which driver to use automatically, based on the file name, as illustrated in the benchmark below demonstrating write speeds for each format.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.geojson&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.068   0.000   0.068</span>
+<span class="co">#&gt;   0.064   0.000   0.065</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.shp&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)) 
 <span class="co">#&gt;    user  system elapsed </span>
 <span class="co">#&gt;   0.040   0.000   0.044</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.020   0.008   0.029</span></code></pre></div>
+<span class="co">#&gt;   0.012   0.016   0.031</span></code></pre></div>
 <p>The full range of file-types supported by <strong>sf</strong> is reported by <code>st_drivers()</code>, the first 2 of which are shown below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_drivers =<span class="st"> </span><span class="kw">st_drivers</span>()
 <span class="kw">head</span>(sf_drivers, <span class="dt">n =</span> <span class="dv">2</span>)
@@ -329,7 +329,7 @@ read_lnd_geojson =<span class="st"> </span><span class="kw">bench_read</span>(<s
 <div class="footnotes">
 <hr />
 <ol start="3">
-<li id="fn3"><p>Concepts such as computational efficiency, hard disk space and ‘idempotence’ are useful when thinking about reading and writing geographical datasets, which can become large and difficult to handle. Loading/saving data is yet another way of saying the same thing.<a href="read-write.html#fnref3">↩</a></p></li>
+<li id="fn3"><p>Concepts such as computational efficiency, hard disk space and ‘idempotence’ are useful when thinking about reading and writing geographic datasets, which can become large and difficult to handle. Loading/saving data is yet another way of saying the same thing.<a href="read-write.html#fnref3">↩</a></p></li>
 </ol>
 </div>
             </section>
