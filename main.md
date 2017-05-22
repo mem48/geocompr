@@ -21,7 +21,7 @@ url: http\://robinlovelace.net/geocompr
 
 # Welcome {-}
 
-Welcome to the **geocompr** [website](http://robinlovelace.net/geocompr), the online home of our forthcoming book with [CRC Press](https://www.crcpress.com/Chapman--HallCRC-The-R-Series/book-series/CRCTHERSER).
+Welcome to **geocompr** the [website](http://robinlovelace.net/geocompr) of our forthcoming book with [CRC Press](https://www.crcpress.com/Chapman--HallCRC-The-R-Series/book-series/CRCTHERSER).
 
 ## Development {-}
 
@@ -147,7 +147,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve3ab2c3919bee2852
+preserve7a52c12c84881eee
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -936,7 +936,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.33
+#> [1] 2.37
 ```
 
 
@@ -953,7 +953,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.03
+#> [1] 3.12
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -967,13 +967,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.065
+#>   0.072   0.000   0.070
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.044
+#>   0.040   0.008   0.047
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.012   0.016   0.031
+#>   0.028   0.004   0.033
 ```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
@@ -1447,7 +1447,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preservec91f239ca0a4de68
+preserveec57aba5713fc015
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 
