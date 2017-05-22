@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-05-21'
+date: '2017-05-22'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -35,7 +35,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-05-21 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-05-22 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -147,7 +147,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve1394667c06758760
+preserve30cb86cd9f612d7d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -913,7 +913,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.36
+#> [1] 2.46
 ```
 
 
@@ -930,7 +930,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.16
+#> [1] 2.83
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -944,13 +944,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.067
+#>   0.076   0.000   0.077
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.004   0.043
+#>   0.048   0.000   0.046
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.032
+#>   0.020   0.012   0.035
 ```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
@@ -1168,6 +1168,32 @@ st_crs(world_3410)
 - getValues
 - terrain, hillshade ?
 -->
+
+
+<!-- # https://aws.amazon.com/public-data-sets/landsat/ -->
+<!-- ## other stuff -->
+<!-- # http://grindgis.com/blog/vegetation-indices-arcgis -->
+<!-- ## calculate ndvi from red (band 1) and near-infrared (band 2) channel -->
+<!-- # Band 4 reflectance= (2.0000E-05 * (“sub_tif_Band_4”)) + -0.100000 -->
+
+<!-- process_landsat8_ndvi <- function(input, type){ -->
+<!--   DN_to_radiance <- function(value){ -->
+<!--     value*2.0000E-05-0.1 -->
+<!--   } -->
+<!--   r4 <- DN_to_radiance(input) -->
+<!--   if (type == 1){ -->
+<!--     ndvi <- overlay(r4[[1]], r4[[2]], fun = function(x, y) { -->
+<!--       (y-x) / (y+x) -->
+<!--     }) -->
+<!--     writeRaster(ndvi, 'data/landsat8_ndvi_spk.tif', overwrite=TRUE) -->
+<!--   } else if (type == 2){ -->
+<!--     savi <- overlay(r4[[1]], r4[[2]] ,fun = function(x, y) { -->
+<!--       l=0.5 -->
+<!--       ((y-x) / (y+x+l)) * (1+l) -->
+<!--     }) -->
+<!--     writeRaster(savi, 'data/landsat8_savi_spk.tif', overwrite=TRUE) -->
+<!--   } -->
+<!-- } -->
 
 <!--chapter:end:08-raster.Rmd-->
 
@@ -1399,7 +1425,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preserve539bf354909a47bc
+preserveb364dd2b8d32e5d6
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 
