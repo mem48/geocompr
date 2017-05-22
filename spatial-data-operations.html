@@ -140,7 +140,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#why-geocomputation-with-r"><i class="fa fa-check"></i><b>1.1</b> Why Geocomputation with R?</a></li>
 <li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#rs-spatial-ecosystem"><i class="fa fa-check"></i><b>1.2</b> R’s spatial ecosystem</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="spatial-class.html"><a href="spatial-class.html"><i class="fa fa-check"></i><b>2</b> Spatial classes</a><ul>
+<li class="chapter" data-level="2" data-path="spatial-class.html"><a href="spatial-class.html"><i class="fa fa-check"></i><b>2</b> Spatial data class and plots</a><ul>
 <li class="chapter" data-level="" data-path="spatial-class.html"><a href="spatial-class.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
 <li class="chapter" data-level="2.1" data-path="spatial-class.html"><a href="spatial-class.html#an-introduction-to-simple-features"><i class="fa fa-check"></i><b>2.1</b> An introduction to Simple Features</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="spatial-class.html"><a href="spatial-class.html#exercises"><i class="fa fa-check"></i><b>2.1.1</b> Exercises</a></li>
@@ -251,8 +251,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ul>
 <li>You must have loaded the <code>world</code> data from the spData package:</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/wrld.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
-world =<span class="st"> </span><span class="kw">st_read</span>(f)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spData)</code></pre></div>
 </div>
 <div id="introduction-1" class="section level2">
 <h2><span class="header-section-number">4.1</span> Introduction</h2>

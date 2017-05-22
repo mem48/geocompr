@@ -140,7 +140,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#why-geocomputation-with-r"><i class="fa fa-check"></i><b>1.1</b> Why Geocomputation with R?</a></li>
 <li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#rs-spatial-ecosystem"><i class="fa fa-check"></i><b>1.2</b> R’s spatial ecosystem</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="spatial-class.html"><a href="spatial-class.html"><i class="fa fa-check"></i><b>2</b> Spatial classes</a><ul>
+<li class="chapter" data-level="2" data-path="spatial-class.html"><a href="spatial-class.html"><i class="fa fa-check"></i><b>2</b> Spatial data class and plots</a><ul>
 <li class="chapter" data-level="" data-path="spatial-class.html"><a href="spatial-class.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
 <li class="chapter" data-level="2.1" data-path="spatial-class.html"><a href="spatial-class.html#an-introduction-to-simple-features"><i class="fa fa-check"></i><b>2.1</b> An introduction to Simple Features</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="spatial-class.html"><a href="spatial-class.html#exercises"><i class="fa fa-check"></i><b>2.1.1</b> Exercises</a></li>
@@ -239,7 +239,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="spatial-class" class="section level1">
-<h1><span class="header-section-number">2</span> Spatial classes</h1>
+<h1><span class="header-section-number">2</span> Spatial data class and plots</h1>
 <div id="prerequisites" class="section level2 unnumbered">
 <h2>Prerequisites</h2>
 <!--
@@ -257,17 +257,29 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="st">&quot;sf1&quot;</span>) <span class="co"># for an introduction to the package</span>
 <span class="kw">vignette</span>(<span class="st">&quot;sf2&quot;</span>) <span class="co"># for reading, writing and converting Simple Features</span>
 <span class="kw">vignette</span>(<span class="st">&quot;sf3&quot;</span>) <span class="co"># for manipulating Simple Features</span></code></pre></div>
-<p>As the first vignette explains, simple feature objects in R are stored in a data frame, with geographical data occupying special column, a ‘list-column’. This column is usually named ‘geom’ or ‘geometry’. Let’s see how simple feature in R work, with reference to world boundary data from the <strong>spData</strong> package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
+<p>As the first vignette explains, simple feature objects in R are stored in a data frame, with geographical data occupying special column, a ‘list-column’. This column is usually named ‘geom’ or ‘geometry’. Let’s see how simple features in R work, with reference to world boundary data from the <strong>spData</strong> package:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spData)
+<span class="kw">class</span>(world)</code></pre></div>
+<p>In the above code <strong>spData</strong> silently loaded the <code>world</code> dataset (and many other spatial datasets - see <a href="https://github.com/Nowosad/spData">nowosad/spData</a> for a full list). The function <code>class()</code> tells us that the object is simultaneously of class <code>data.frame</code> and <code>sf</code>, central to the concept of simple features. Thus the object behaves in the same way as a <code>data.frame</code>, but it contains a special column called <code>geom</code>. This can be seen as the final column name of <code>world</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(world)
+<span class="co">#&gt;  [1] &quot;iso_a2&quot;    &quot;name_long&quot; &quot;continent&quot; &quot;region_un&quot; &quot;subregion&quot;</span>
+<span class="co">#&gt;  [6] &quot;type&quot;      &quot;area_km2&quot;  &quot;pop&quot;       &quot;lifeExp&quot;   &quot;gdpPercap&quot;</span>
+<span class="co">#&gt; [11] &quot;geom&quot;</span></code></pre></div>
+<p>It is the contents of this modest-looking <code>geom</code> column, gives <code>sf</code> objects their spatial powers. It’s actually a list-column, containing all the coordinates needed to plot the result as a map using the <code>plot()</code> method, the results of which are presented in Figure <a href="spatial-class.html#fig:world-all">2.1</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf) <span class="co"># must be loaded to plot sf objects</span>
 <span class="co">#&gt; Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0</span>
-<span class="co"># devtools::install_github(&quot;nowosad/spData&quot;)</span>
-f =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/wrld.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
-world =<span class="st"> </span><span class="kw">st_read</span>(f)</code></pre></div>
-<p>This has loaded an object that is simultaneously of class <code>data.frame</code> and <code>sf</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(world)
-<span class="co">#&gt; [1] &quot;sf&quot;         &quot;data.frame&quot;</span></code></pre></div>
-<p>The output of the preceding command shows that objects with class <code>sf</code> are also data frames. Thus, they can be treated like regular <code>data.frame</code>, making life easy if you are already used to working with data frames.</p>
-<p>Let’s look the first 2 rows and 3 columns of this object. The output shows 2 major differences compared with a regular <code>data.frame</code>: the inclusion of additional geographical data (<code>geometry type</code>, <code>dimension</code>, <code>bbox</code> and CRS information - <code>epsg (SRID)</code>, <code>proj4string</code>), and the presence of final <code>geometry</code> column:</p>
+<span class="kw">plot</span>(world)
+<span class="co">#&gt; Warning: plotting the first 9 out of 10 attributes; use max.plot = 10 to</span>
+<span class="co">#&gt; plot all</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:world-all"></span>
+<img src="figures/world-all-1.png" alt="A spatial plot of the world using the sf package, with a facet for each attribute." width="672" />
+<p class="caption">
+Figure 2.1: A spatial plot of the world using the sf package, with a facet for each attribute.
+</p>
+</div>
+<p>Note that instead of creating a single map, as most GIS programs would, the <code>plot()</code> command has created multiple maps, one for each variable in the <code>world</code> datasets. This behavior can be useful for exploring the spatial distribution of different variables and is discussed further in @(basic-map) below.</p>
+<p>Being able to treat spatial objects as regular data frames with spatial powers has many advantages, especially if you are already used to working with data frames. We explore such ‘attribute operations’ in Chapter <a href="attr.html#attr">3</a>. First, it’s worth taking a look at the basic behavior and contents of this simple feature object, which can usefully be thought of as a ’<strong>S</strong>patial data<strong>F</strong>rame).</p>
+<p><code>sf</code> objects are easy to subset. The code below shows its first 2 rows and 3 columns. The output shows 2 major differences compared with a regular <code>data.frame</code>: the inclusion of additional geographical data (<code>geometry type</code>, <code>dimension</code>, <code>bbox</code> and CRS information - <code>epsg (SRID)</code>, <code>proj4string</code>), and the presence of final <code>geometry</code> column:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[<span class="dv">1</span>:<span class="dv">2</span>, <span class="dv">1</span>:<span class="dv">3</span>]
 <span class="co">#&gt; Simple feature collection with 2 features and 3 fields</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
@@ -307,13 +319,13 @@ world_sp =<span class="st"> </span><span class="kw">as</span>(<span class="dt">o
 </div>
 <div id="basic-map" class="section level2">
 <h2><span class="header-section-number">2.3</span> Basic map making</h2>
-<p>Basic maps in <strong>sf</strong> can be created quickly with the base <code>plot()</code> function. Unlike <strong>sp</strong>, however, <strong>sf</strong> by default creates a faceted plot, one sub-plot for each variable, as illustrated in the left-hand image in Figure <a href="spatial-class.html#fig:sfplot">2.1</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(world)
+<p>Basic maps in <strong>sf</strong> can be created quickly with the base <code>plot()</code> function. Unlike <strong>sp</strong>, however, <strong>sf</strong> by default creates a faceted plot, one sub-plot for each variable, as illustrated in the left-hand image in Figure <a href="spatial-class.html#fig:sfplot">2.2</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(world[<span class="dv">3</span>:<span class="dv">4</span>])
 <span class="kw">plot</span>(world[<span class="st">&quot;pop&quot;</span>])</code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:sfplot"></span>
 <img src="figures/sfplot-1.png" alt="Plotting with sf, with multiple variables (left) and a single variable (right)." width="49%" /><img src="figures/sfplot-2.png" alt="Plotting with sf, with multiple variables (left) and a single variable (right)." width="49%" />
 <p class="caption">
-Figure 2.1: Plotting with sf, with multiple variables (left) and a single variable (right).
+Figure 2.2: Plotting with sf, with multiple variables (left) and a single variable (right).
 </p>
 </div>
 <p>As with <strong>sp</strong>, you can add layers to your maps created with <code>plot()</code>, with the argument <code>add = TRUE</code><a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>. However, this only works if the initial plot has only 1 layer (result not shown):</p>
@@ -327,7 +339,7 @@ china =<span class="st"> </span>world[world$name_long ==<span class="st"> &quot;
 -->
 <div id="challenge" class="section level3">
 <h3><span class="header-section-number">2.3.1</span> Challenge</h3>
-<p>Using <strong>sf</strong>’s <code>plot()</code> command, create a map of Nigeria in context, like the one presented in figure <a href="spatial-class.html#fig:nigeria">2.2</a>.</p>
+<p>Using <strong>sf</strong>’s <code>plot()</code> command, create a map of Nigeria in context, like the one presented in figure <a href="spatial-class.html#fig:nigeria">2.3</a>.</p>
 <ul>
 <li>Hint: this used the <code>lwd</code>, <code>main</code> and <code>col</code> arguments of <code>plot()</code>.</li>
 <li>Bonus: make the country boundaries a dotted grey line.</li>
@@ -336,7 +348,7 @@ china =<span class="st"> </span>world[world$name_long ==<span class="st"> &quot;
 <div class="figure" style="text-align: center"><span id="fig:nigeria"></span>
 <img src="figures/nigeria-1.png" alt="Map of Nigeria in context illustrating sf's plotting capabilities" width="672" />
 <p class="caption">
-Figure 2.2: Map of Nigeria in context illustrating sf’s plotting capabilities
+Figure 2.3: Map of Nigeria in context illustrating sf’s plotting capabilities
 </p>
 </div>
 </div>
@@ -354,7 +366,7 @@ africa_centroids =<span class="st"> </span>world_centroids[africa,]
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-8"></span>
 <img src="figures/unnamed-chunk-8-1.png" alt="Centroids in Africa" width="50%" />
 <p class="caption">
-Figure 2.3: Centroids in Africa
+Figure 2.4: Centroids in Africa
 </p>
 </div>
 <p>Note: another way of acheiving the same result is with a GEOS function for identifying spatial overlay:</p>

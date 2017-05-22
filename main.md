@@ -147,7 +147,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve30cb86cd9f612d7d
+preserve1a99d599055eb68b
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -192,7 +192,7 @@ The most important recent evolution in R's spatial ecosystem has without doubt b
 <!--chapter:end:01-introduction.Rmd-->
 
 
-# Spatial classes {#spatial-class}
+# Spatial data class and plots {#spatial-class}
 
 
 ## Prerequisites {-}
@@ -224,28 +224,53 @@ vignette("sf3") # for manipulating Simple Features
 ```
 
 As the first vignette explains, simple feature objects in R are stored in a data frame, with geographical data occupying special column, a 'list-column'. This column is usually named 'geom' or 'geometry'.
-Let's see how simple feature in R work, with reference to world boundary data from the **spData** package:
+Let's see how simple features in R work, with reference to world boundary data from the **spData** package:
 
 
 ```r
-library(sf)
-#> Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0
-# devtools::install_github("nowosad/spData")
-f = system.file("shapes/wrld.gpkg", package = "spData")
-world = st_read(f)
-```
-
-This has loaded an object that is simultaneously of class `data.frame` and `sf`:
-
-
-```r
+library(spData)
 class(world)
-#> [1] "sf"         "data.frame"
 ```
 
-The output of the preceding command shows that objects with class `sf` are also data frames. Thus, they can be treated like regular `data.frame`, making life easy if you are already used to working with data frames.
+In the above code **spData** silently loaded the `world` dataset (and many other spatial datasets - see [nowosad/spData](https://github.com/Nowosad/spData) for a full list).
+The function `class()` tells us that the object is simultaneously of class `data.frame` and `sf`, central to the concept of simple features.
+Thus the object behaves in the same way as a `data.frame`, but it contains a special column called `geom`.
+This can be seen as the final column name of `world`:
 
-Let's look the first 2 rows and 3 columns of this object.
+
+```r
+names(world)
+#>  [1] "iso_a2"    "name_long" "continent" "region_un" "subregion"
+#>  [6] "type"      "area_km2"  "pop"       "lifeExp"   "gdpPercap"
+#> [11] "geom"
+```
+
+It is the contents of this modest-looking `geom` column, gives `sf` objects their spatial powers.
+It's actually a list-column, containing all the coordinates needed to plot the result as a map using the `plot()` method, the results of which are presented in Figure \@ref(fig:world-all).
+
+
+```r
+library(sf) # must be loaded to plot sf objects
+#> Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0
+plot(world)
+#> Warning: plotting the first 9 out of 10 attributes; use max.plot = 10 to
+#> plot all
+```
+
+<div class="figure" style="text-align: center">
+<img src="figures/world-all-1.png" alt="A spatial plot of the world using the sf package, with a facet for each attribute." width="672" />
+<p class="caption">(\#fig:world-all)A spatial plot of the world using the sf package, with a facet for each attribute.</p>
+</div>
+
+Note that instead of creating a single map, as most GIS programs would, the `plot()` command has created multiple maps, one for each variable in the `world` datasets.
+This behavior can be useful for exploring the spatial distribution of different variables and is discussed further in @\ref(basic-map) below.
+
+Being able to treat spatial objects as regular data frames with spatial powers has many advantages, especially if you are already used to working with data frames.
+We explore such 'attribute operations' in Chapter \@ref(attr).
+First, it's worth taking a look at the basic behavior and contents of this simple feature object, which can usefully be thought of as a '**S**patial data**F**rame).
+
+`sf` objects are easy to subset.
+The code below shows its first 2 rows and 3 columns.
 The output shows 2 major differences compared with a regular `data.frame`: the inclusion of additional geographical data (`geometry type`, `dimension`, `bbox` and CRS information - `epsg (SRID)`, `proj4string`), and the presence of final `geometry` column:
 
 
@@ -303,7 +328,7 @@ Basic maps in **sf** can be created quickly with the base `plot()` function. Unl
 
 
 ```r
-plot(world)
+plot(world[3:4])
 plot(world["pop"])
 ```
 
@@ -503,8 +528,7 @@ library(units)
 
 
 ```r
-f = system.file("shapes/wrld.gpkg", package = "spData")
-world = st_read(f)
+library(spData)
 ```
 
 ## Introduction
@@ -766,8 +790,7 @@ library(units)
 
 
 ```r
-f = system.file("shapes/wrld.gpkg", package = "spData")
-world = st_read(f)
+library(spData)
 ```
 
 ## Introduction
@@ -874,9 +897,9 @@ The first arguement of `st_read` is `file`, which should be a text string or an 
 ```r
 library(sf)
 #> Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0
-f = system.file("shapes/wrld.gpkg", package = "spData")
+f = system.file("shapes/world.gpkg", package = "spData")
 world = st_read(f)
-#> Reading layer `wrld.gpkg' from data source `/home/travis/R/Library/spData/shapes/wrld.gpkg' using driver `GPKG'
+#> Reading layer `wrld.gpkg' from data source `/home/travis/R/Library/spData/shapes/world.gpkg' using driver `GPKG'
 #> converted into: MULTIPOLYGON
 #> Simple feature collection with 177 features and 10 fields
 #> geometry type:  MULTIPOLYGON
@@ -901,7 +924,7 @@ bench_read = function(file, n) {
 ```
 
 This function takes as arguments an input file (`file`) and a number of times to run each command (`n`) and returns how many times faster `st_read()` is than `readOGR()`.
-Let's run the benchmark for the `wrld.gpkg` file represented by the object `f`:
+Let's run the benchmark for the `world.gpkg` file represented by the object `f`:
 We as illustrated in the benchmark below:
 
 
@@ -913,7 +936,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.46
+#> [1] 2.34
 ```
 
 
@@ -930,7 +953,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.83
+#> [1] 3.04
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -944,13 +967,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.076   0.000   0.077
+#>   0.068   0.000   0.068
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.048   0.000   0.046
+#>   0.040   0.000   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.035
+#>   0.020   0.008   0.029
 ```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
@@ -1017,8 +1040,7 @@ library(tidyverse)
 
 
 ```r
-f = system.file("shapes/wrld.gpkg", package = "spData")
-world = st_read(f)
+library(spData)
 ```
 
 ## Introduction
@@ -1425,7 +1447,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preserveb364dd2b8d32e5d6
+preservec79216231c0a48c7
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 
