@@ -131,7 +131,7 @@ Early geographers used a variety of tools including rulers, compasses and sextan
 It is important to remember that while R is a powerful tool, especially when interfaced with other software such as [GDAL](http://www.gdal.org/) and [PostGIS](http://postgis.net/), other tools may be better for certain tasks.
 
 R is characterised by its flexibility, enabling geographical software developers to extend it in multiple ways.
-A good example of this is support for generating interactive maps thanks to **leaflet** and extended by **tmap** and **mapview**.
+A good example of this is support for generating interactive maps thanks to **leaflet** [@R-leaflet], which has been subsequently built-on by **tmap** and **mapview** [@R-mapview; @R-tmap].
 These packages help overcome the criticism that R has "limited interactive [plotting] facilities" [@bivand_applied_2013].
 This is no longer true, as illustrated by the code below which generates Figure \@ref(fig:interactive).
 
@@ -147,7 +147,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve3e6b158beda1bed5
+preservedfeabf2cee958e31
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -168,7 +168,7 @@ But before cracking-on with the action, a few introductory remarks are needed to
 
 <!-- R spatial story (from spatstat, by maptools, sp, raster, leaflet, to sf) -->
 
-The most important recent evolution in R's spatial ecosystem has without doubt been support for simple features thanks to the **sf** package, introduced below (see Chapter \@ref(spatial-class) for a detailed account of the `sf` class system).
+The most important recent evolution in R's spatial ecosystem has without doubt been support for simple features thanks to the **sf** package [@R-sf], described in Chapter \@ref(spatial-class).
 
 <!-- 
 - r, rstudio, gdal, proj4, geos, udunits 
@@ -936,11 +936,11 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.23
+#> [1] 2.79
 ```
 
 
-The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -953,7 +953,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.24
+#> [1] 2.92
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -967,13 +967,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.071
+#>   0.072   0.000   0.074
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.048   0.000   0.046
+#>   0.072   0.000   0.069
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.012   0.035
+#>   0.024   0.008   0.031
 ```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
@@ -1447,7 +1447,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preserve76df57aac9519803
+preserve45c2af02a098bae6
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 
@@ -1561,7 +1561,7 @@ points(cycle_hire)
 
 The raster cell method of spatial interpolation was fun, but not that sophisticated or spatially precise, with a resolution of around 1 km.
 
-The next simplest solution is to break the area up into pieces and assign the value of the entire area to the value of the point it contains:
+The next simplest solution is to break the area up into pieces using the **dismo** package [@R-dismo] and assign the value of the entire area to the value of the point it contains:
 
 
 ```r
@@ -1584,7 +1584,7 @@ tm_shape(v) +
 
 ## Interpolation with the gstat package
 
-**gstat** provides a number of functions for spatial prediction and interpolation using a range of models.
+**gstat** provides a number of functions for spatial prediction and interpolation using a range of models [@R-gstat].
 The most basic of these, and a workhorse for spatial interpolation is Inverse Distance Weighting (IDW):
 
 

@@ -281,7 +281,7 @@ Figure 1.1: Venn diagram of the intersection between Geography and R.
 <div id="why-geocomputation-with-r" class="section level2">
 <h2><span class="header-section-number">1.1</span> Why Geocomputation with R?</h2>
 <p>In this book we treat R as a ‘tool for the trade’. Early geographers used a variety of tools including rulers, compasses and sextants to advance knowledge about the world. <!--nowadays part--> It is important to remember that while R is a powerful tool, especially when interfaced with other software such as <a href="http://www.gdal.org/">GDAL</a> and <a href="http://postgis.net/">PostGIS</a>, other tools may be better for certain tasks.</p>
-<p>R is characterised by its flexibility, enabling geographical software developers to extend it in multiple ways. A good example of this is support for generating interactive maps thanks to <strong>leaflet</strong> and extended by <strong>tmap</strong> and <strong>mapview</strong>. These packages help overcome the criticism that R has “limited interactive [plotting] facilities” <span class="citation">(Bivand, Pebesma, and Gómez-Rubio <a href="#ref-bivand_applied_2013">2013</a>)</span>. This is no longer true, as illustrated by the code below which generates Figure <a href="intro.html#fig:interactive">1.2</a>.</p>
+<p>R is characterised by its flexibility, enabling geographical software developers to extend it in multiple ways. A good example of this is support for generating interactive maps thanks to <strong>leaflet</strong> <span class="citation">(Cheng, Karambelkar, and Xie <a href="#ref-R-leaflet">2017</a>)</span>, which has been subsequently built-on by <strong>tmap</strong> and <strong>mapview</strong> <span class="citation">(Appelhans et al. <a href="#ref-R-mapview">2017</a>; Tennekes <a href="#ref-R-tmap">2017</a>)</span>. These packages help overcome the criticism that R has “limited interactive [plotting] facilities” <span class="citation">(Bivand, Pebesma, and Gómez-Rubio <a href="#ref-bivand_applied_2013">2013</a>)</span>. This is no longer true, as illustrated by the code below which generates Figure <a href="intro.html#fig:interactive">1.2</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(leaflet)
 popup =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Robin&quot;</span>, <span class="st">&quot;Jakub&quot;</span>)
 <span class="kw">leaflet</span>() %&gt;%
@@ -305,7 +305,7 @@ Figure 1.2: World at night imagery from NASA overlaid by the authors’ approxim
 <!-- even shorter R story - it's rapid development -->
 <!-- nowadays R - an interface to GIS (GIS libraries gdal, proj, geos; GIS software GRASS GIS, SAGA, QGIS, ArcGIS; GIS javascript libraries leaflet, etc.) -->
 <!-- R spatial story (from spatstat, by maptools, sp, raster, leaflet, to sf) -->
-<p>The most important recent evolution in R’s spatial ecosystem has without doubt been support for simple features thanks to the <strong>sf</strong> package, introduced below (see Chapter <a href="spatial-class.html#spatial-class">2</a> for a detailed account of the <code>sf</code> class system).</p>
+<p>The most important recent evolution in R’s spatial ecosystem has without doubt been support for simple features thanks to the <strong>sf</strong> package <span class="citation">(E. Pebesma <a href="#ref-R-sf">2017</a>)</span>, described in Chapter <a href="spatial-class.html#spatial-class">2</a>.</p>
 <!-- 
 - r, rstudio, gdal, proj4, geos, udunits 
 - r packages sf, raster, etc.
@@ -335,6 +335,18 @@ Figure 1.2: World at night imagery from NASA overlaid by the authors’ approxim
 </div>
 <div id="ref-roller_eratosthenes_2010">
 <p>Roller, D. 2010. <em>Eratosthenes’ “Geography”</em>. Princeton University Press. <a href="http://books.google.co.uk/books?id=8peKyWK_SWsC" class="uri">http://books.google.co.uk/books?id=8peKyWK_SWsC</a>.</p>
+</div>
+<div id="ref-R-leaflet">
+<p>Cheng, Joe, Bhaskar Karambelkar, and Yihui Xie. 2017. <em>Leaflet: Create Interactive Web Maps with the JavaScript ’Leaflet’ Library</em>. <a href="http://rstudio.github.io/leaflet/" class="uri">http://rstudio.github.io/leaflet/</a>.</p>
+</div>
+<div id="ref-R-mapview">
+<p>Appelhans, Tim, Florian Detsch, Christoph Reudenbach, and Stefan Woellauer. 2017. <em>Mapview: Interactive Viewing of Spatial Objects in R</em>. <a href="https://CRAN.R-project.org/package=mapview" class="uri">https://CRAN.R-project.org/package=mapview</a>.</p>
+</div>
+<div id="ref-R-tmap">
+<p>Tennekes, Martijn. 2017. <em>Tmap: Thematic Maps</em>. <a href="https://CRAN.R-project.org/package=tmap" class="uri">https://CRAN.R-project.org/package=tmap</a>.</p>
+</div>
+<div id="ref-R-sf">
+<p>Pebesma, Edzer. 2017. <em>Sf: Simple Features for R</em>. <a href="https://CRAN.R-project.org/package=sf" class="uri">https://CRAN.R-project.org/package=sf</a>.</p>
 </div>
 </div>
 <div class="footnotes">

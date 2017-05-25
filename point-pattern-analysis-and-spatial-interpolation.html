@@ -444,7 +444,7 @@ r_interp1 =<span class="st"> </span><span class="kw">focal</span>(<span class="d
 <div id="voronoi-polygon-interpolation" class="section level2">
 <h2><span class="header-section-number">10.7</span> Voronoi polygon interpolation</h2>
 <p>The raster cell method of spatial interpolation was fun, but not that sophisticated or spatially precise, with a resolution of around 1 km.</p>
-<p>The next simplest solution is to break the area up into pieces and assign the value of the entire area to the value of the point it contains:</p>
+<p>The next simplest solution is to break the area up into pieces using the <strong>dismo</strong> package <span class="citation">(Hijmans et al. <a href="#ref-R-dismo">2017</a>)</span> and assign the value of the entire area to the value of the point it contains:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dismo)
 v =<span class="st"> </span><span class="kw">voronoi</span>(cycle_hire)
 v =<span class="st"> </span><span class="kw">intersect</span>(v, r)
@@ -464,7 +464,7 @@ v =<span class="st"> </span><span class="kw">intersect</span>(v, r)
 </div>
 <div id="interpolation-with-the-gstat-package" class="section level2">
 <h2><span class="header-section-number">10.8</span> Interpolation with the gstat package</h2>
-<p><strong>gstat</strong> provides a number of functions for spatial prediction and interpolation using a range of models. The most basic of these, and a workhorse for spatial interpolation is Inverse Distance Weighting (IDW):</p>
+<p><strong>gstat</strong> provides a number of functions for spatial prediction and interpolation using a range of models <span class="citation">(E. Pebesma and Graeler <a href="#ref-R-gstat">2017</a>)</span>. The most basic of these, and a workhorse for spatial interpolation is Inverse Distance Weighting (IDW):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(gstat)
 gs =<span class="st"> </span><span class="kw">gstat</span>(<span class="dt">formula =</span> nbikes~<span class="dv">1</span>, <span class="dt">locations =</span> cycle_hire)
 <span class="kw">crs</span>(r) =<span class="st"> </span><span class="kw">crs</span>(lnd)
@@ -491,6 +491,12 @@ r_idw =<span class="st"> </span><span class="kw">interpolate</span>(r, gs)
 </div>
 <div id="ref-miller_toblers_2004">
 <p>Miller, Harvey J. 2004. “Tobler’s First Law and Spatial Analysis.” <em>Annals of the Association of American Geographers</em> 94 (2).</p>
+</div>
+<div id="ref-R-dismo">
+<p>Hijmans, Robert J., Steven Phillips, John Leathwick, and Jane Elith. 2017. <em>Dismo: Species Distribution Modeling</em>. <a href="https://CRAN.R-project.org/package=dismo" class="uri">https://CRAN.R-project.org/package=dismo</a>.</p>
+</div>
+<div id="ref-R-gstat">
+<p>Pebesma, Edzer, and Benedikt Graeler. 2017. <em>Gstat: Spatial and Spatio-Temporal Geostatistical Modelling, Prediction and Simulation</em>. <a href="https://CRAN.R-project.org/package=gstat" class="uri">https://CRAN.R-project.org/package=gstat</a>.</p>
 </div>
 </div>
 <div class="footnotes">
