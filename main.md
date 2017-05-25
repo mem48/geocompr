@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-05-24'
+date: '2017-05-25'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -35,7 +35,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-05-24 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-05-25 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -147,7 +147,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveb0d1c79bf95c3d92
+preserveda32a0a94f4a5d1d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -936,7 +936,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.25
+#> [1] 2.34
 ```
 
 
@@ -953,7 +953,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.21
+#> [1] 3.15
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -967,13 +967,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.069
+#>   0.068   0.000   0.068
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.052   0.000   0.052
+#>   0.048   0.000   0.047
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.033
+#>   0.028   0.004   0.033
 ```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
@@ -1447,7 +1447,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preserve6d91530fc740116a
+preserve26a4aa53a5596d84
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 
