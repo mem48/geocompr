@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-05-25'
+date: '2017-05-26'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -35,7 +35,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-05-25 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-05-26 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -147,7 +147,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservedfeabf2cee958e31
+preserve2713856784071bfc
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -192,7 +192,7 @@ The most important recent evolution in R's spatial ecosystem has without doubt b
 <!--chapter:end:01-introduction.Rmd-->
 
 
-# Spatial data class and plots {#spatial-class}
+# Simple features and plots {#spatial-class}
 
 
 ## Prerequisites {-}
@@ -212,7 +212,15 @@ It is a hierarchical data model that simplifies geographic data by condensing th
 <!-- knitr::include_graphics("figures/simple-feature-class-hierarchy.png") -->
 <!-- ``` -->
 
-The R implementation of Simple Features is provided by the **sf** package [@R-sf].
+The R implementation of Simple Features is provided by the **sf** package [@R-sf], which can be installed with the following command:^[The
+development version, which may contain new features, can be installed with `devtools::install_github("edzer/sfr")`
+]
+
+
+```r
+install.packages("sf")
+```
+
 **sf** incorporates the functionality of the 3 main packages of the **sp** paradigm (**sp** [@R-sp] for the class system, **rgdal** [@R-rgdal] for reading and writing data, **rgeos** [@R-rgeos] for spatial operations undertaken by GEOS) in a single, cohesive whole.
 This is well-documented in **sf**'s [vignettes](http://cran.rstudio.com/package=sf):
 
@@ -391,8 +399,8 @@ plot(africa_centroids, add = TRUE, cex = 2)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="figures/unnamed-chunk-8-1.png" alt="Centroids in Africa" width="50%" />
-<p class="caption">(\#fig:unnamed-chunk-8)Centroids in Africa</p>
+<img src="figures/unnamed-chunk-9-1.png" alt="Centroids in Africa" width="50%" />
+<p class="caption">(\#fig:unnamed-chunk-9)Centroids in Africa</p>
 </div>
 
 Note: another way of acheiving the same result is with a GEOS function for identifying spatial overlay:
@@ -890,7 +898,7 @@ Executing commands such as `sf::st_read` (the main function we use for loading s
 <!-- coud add a footnote here mentioning `.GlobalEnv` -->
 
 Spatial data comes in a wide variety of file formats, and **sf** is adept at handling them, via the command `st_read`.
-This function (also called `read_sf`) uses the power of the GDAL C/C++ library behind the scenes, allowing **sf** to read a very wide range of spatial data formats.
+This function uses GDAL behind the scenes, enabling a very wide range of spatial data formats to be imported.
 The first arguement of `st_read` is `file`, which should be a text string or an object containing a single text string:
 
 
@@ -908,6 +916,9 @@ world = st_read(f)
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 ```
+
+**Tip**: `read_sf()` and `write_sf()` can be used as easy-to-remember alternatives to `st_read()` and `st_write()`. Remember they hide information about the data source and overwrite existing data, though..
+
 
 A major advantage of **sf** is that it is fast.
 To demonstrate this, we will use a function to compare `st_read` with it's **sp** equivalent, `rgdal::readOGR`:
@@ -936,11 +947,11 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.79
+#> [1] 2.38
 ```
 
 
-The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -953,28 +964,10 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.92
+#> [1] 2.87
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
-
-
-The counterpart of `st_read()` is `st_write()`. This allows writing to a range of geographic vector file types, including the common formats `.geojson`, `.shp` and `.gpkg`. `st_read()` will decide which driver to use automatically, based on the file name, as illustrated in the benchmark below demonstrating write speeds for each format.
-
-
-
-
-```r
-system.time(st_write(world, "world.geojson", quiet = TRUE))
-#>    user  system elapsed 
-#>   0.072   0.000   0.074
-system.time(st_write(world, "world.shp", quiet = TRUE)) 
-#>    user  system elapsed 
-#>   0.072   0.000   0.069
-system.time(st_write(world, "world.gpkg", quiet = TRUE))
-#>    user  system elapsed 
-#>   0.024   0.008   0.031
-```
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
 
@@ -989,9 +982,93 @@ head(sf_drivers, n = 2)
 
 ## Data output (O)
 
+
+```r
+st_write(obj = world, dsn = "world.gpkg")
+#> Writing layer `world.gpkg' to data source `world.gpkg' using driver `GPKG'
+#> features:       177
+#> fields:         10
+#> geometry type:  Multi Polygon
+```
+
+**Note**: if you try write to the same data source again will fail.
+This is demonstrated in the code below for a modified version of the world in which the population doubles in all countries (don't worry about the `dplyr` code for now, this is covered in Chapter \@ref(attr)):
+
+
+```r
+world_mod = dplyr::mutate(world, pop = pop * 2)
+```
+
+
+```r
+st_write(obj = world, dsn = "world.gpkg")
+##   GDAL Error 1: Layer world.gpkg already exists, CreateLayer failed.
+## Use the layer creation option OVERWRITE=YES to replace it.
+```
+
+The error message provides some information about why it failed, some of which is provided in the comments.
+It is an issue at the GDAL level.
+This is clear from the statement `GDAL Error 1`.
+A further clue is provided by suggestion to use `OVERWRITE=YES`: this is not an option in `st_write`.
+To address this potentially common issue, `st_write()` has an argument, `delete_layer`, that deletes the previous layers in the data source before attempting to write (note there is also a `delete_dsn` argument).
+Setting this argument to `TRUE` makes the rewrite operation work:
+
+
+```r
+st_write(obj = world, dsn = "world.gpkg", delete_layer = TRUE)
+#> Deleting layer `world.gpkg' using driver `GPKG'
+#> Updating layer `world.gpkg' to data source `/home/travis/build/Robinlovelace/geocompr/world.gpkg' using driver `GPKG'
+#> features:       177
+#> fields:         10
+#> geometry type:  Multi Polygon
+```
+
+This can also be done with the function `write_sf()`, which is equivalent to (technically an *alias* for) `st_write()`, except that it has `delete_layer = TRUE` and `quiet = TRUE` by default.
+This enables spatial data to be overwritten more concisely and with less output going to screen:
+
+
+```r
+write_sf(obj = world, dsn = "world.gpkg")
+```
+
+A blunter way to update file-based geographic data sources such as `.gpkg` files is to simply delete them.
+This is not generally recommended, as it will not work for multi-file data sources such as `.shp` files:
+
+
+```r
+file.remove("world.gpkg")
+#> [1] TRUE
+```
+
+
+The counterpart of `st_read()` is `st_write()`. This allows writing to a range of geographic vector file types, including the common formats `.geojson`, `.shp` and `.gpkg`. `st_read()` will decide which driver to use automatically, based on the file name, as illustrated in the benchmark below demonstrating write speeds for each format.
+
+
+```r
+system.time(st_write(world, "world.geojson", quiet = TRUE))
+#>    user  system elapsed 
+#>   0.072   0.000   0.069
+system.time(st_write(world, "world.shp", quiet = TRUE)) 
+#>    user  system elapsed 
+#>   0.016   0.000   0.016
+system.time(st_write(world, "world.gpkg", quiet = TRUE))
+#>    user  system elapsed 
+#>   0.020   0.012   0.032
+```
+
+
+
+
 ## File formats
 
 ## Visual outputs
+
+## Exercises
+
+
+1. Name three differences between `write_sf()` and the more well-known function `st_write()`.
+
+1. What are the default arguments of `read_sf()` and `write_sf()` that enable two of these differences?
 
 
 <!-- ## Vector -->
@@ -1447,7 +1524,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preserve45c2af02a098bae6
+preserveca391c813a942150
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 
