@@ -147,7 +147,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve2713856784071bfc
+preservec305bd42148290b9
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -947,7 +947,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.38
+#> [1] 2.44
 ```
 
 
@@ -964,7 +964,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.87
+#> [1] 2.92
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1015,7 +1015,7 @@ Setting this argument to `TRUE` makes the rewrite operation work:
 
 
 ```r
-st_write(obj = world, dsn = "world.gpkg", delete_layer = TRUE)
+st_write(obj = world_mod, dsn = "world.gpkg", delete_layer = TRUE)
 #> Deleting layer `world.gpkg' using driver `GPKG'
 #> Updating layer `world.gpkg' to data source `/home/travis/build/Robinlovelace/geocompr/world.gpkg' using driver `GPKG'
 #> features:       177
@@ -1028,7 +1028,7 @@ This enables spatial data to be overwritten more concisely and with less output 
 
 
 ```r
-write_sf(obj = world, dsn = "world.gpkg")
+write_sf(obj = world_mod, dsn = "world.gpkg")
 ```
 
 A blunter way to update file-based geographic data sources such as `.gpkg` files is to simply delete them.
@@ -1047,13 +1047,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.069
+#>   0.076   0.000   0.075
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.016
+#>   0.012   0.000   0.015
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.032
+#>   0.020   0.012   0.029
 ```
 
 
@@ -1524,7 +1524,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preserveca391c813a942150
+preserve654312ecc8d71f43
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 
