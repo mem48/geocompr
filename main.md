@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-05-26'
+date: '2017-05-30'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -35,7 +35,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-05-26 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-05-30 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -147,7 +147,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservec305bd42148290b9
+preserve3d9e8760cf9a61ef
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -866,8 +866,6 @@ attributes(world$pop_density) = NULL
 <!--chapter:end:04-spatial-operations.Rmd-->
 
 
-
-
 # Geographic data I/O {#read-write}
 
 The previous chapters introduced this book and provided an overview of spatial data classes in R, with a focus on simple features.
@@ -947,7 +945,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.44
+#> [1] 2.34
 ```
 
 
@@ -964,7 +962,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.92
+#> [1] 3.18
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1001,7 +999,7 @@ world_mod = dplyr::mutate(world, pop = pop * 2)
 
 
 ```r
-st_write(obj = world, dsn = "world.gpkg")
+st_write(obj = world_mod, dsn = "world.gpkg")
 ##   GDAL Error 1: Layer world.gpkg already exists, CreateLayer failed.
 ## Use the layer creation option OVERWRITE=YES to replace it.
 ```
@@ -1009,8 +1007,14 @@ st_write(obj = world, dsn = "world.gpkg")
 The error message provides some information about why it failed, some of which is provided in the comments.
 It is an issue at the GDAL level.
 This is clear from the statement `GDAL Error 1`.
-A further clue is provided by suggestion to use `OVERWRITE=YES`: this is not an option in `st_write`.
-To address this potentially common issue, `st_write()` has an argument, `delete_layer`, that deletes the previous layers in the data source before attempting to write (note there is also a `delete_dsn` argument).
+A further clue is provided by suggestion to use `OVERWRITE=YES`: this is not an option in `st_write`, but can be added with the argument `layer_options`:
+
+
+```r
+st_write(obj = world_mod, dsn = "world.gpkg", layer_options = "OVERWRITE=YES")
+```
+
+Another solution to this issue is to use the argument `delete_layer` that deletes the previous layers in the data source before attempting to write (note there is also a `delete_dsn` argument).
 Setting this argument to `TRUE` makes the rewrite operation work:
 
 
@@ -1047,13 +1051,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.076   0.000   0.075
+#>   0.100   0.000   0.103
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.015
+#>   0.012   0.000   0.011
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.029
+#>   0.012   0.016   0.026
 ```
 
 
@@ -1524,7 +1528,7 @@ mapview(rc > 12) +
   mapview(cycle_hire)
 ```
 
-preserve654312ecc8d71f43
+preserve92e1bbe38e441a95
 
 The resulting interactive plot draws attention to the areas of high point density, such as the area surrounding Victoria station, illustrated below.
 
