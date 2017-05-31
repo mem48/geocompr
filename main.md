@@ -28,6 +28,10 @@ Welcome to **geocompr** the [website](http://robinlovelace.net/geocompr) of our 
 Inspired by the **bookdown** [R package](https://github.com/rstudio/bookdown) we are developing this book in the open.
 We decided to make the book open source to encourage contributions, ensure reproducibility and provide access to the material as it evolves.
 
+We're developing the book in 3 main phases.
+We're in phase 1 and focussed on the first 5 main chapters, which we aim to be complete by September.
+Drafts of other chapters will be added to this website as they project progresses.
+
 The latest version is hosted at [robinlovelace.net/geocompr](http://robinlovelace.net/geocompr).
 This website is kept up-to-date thanks to Travis, a continuous integration (CI) service.
 Travis automatically rebuilds the book and finds bugs by reporting the 'build status' after every update.
@@ -147,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservec2b90108d5a6b571
+preserved19ba218d9349b00
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -906,7 +910,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.21
+#> [1] 2.41
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -922,7 +926,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.58
+#> [1] 3.09
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1022,13 +1026,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.070
+#>   0.064   0.004   0.067
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.004   0.016
+#>   0.012   0.000   0.014
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.008   0.033
+#>   0.024   0.004   0.030
 ```
 
 
