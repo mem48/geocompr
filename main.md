@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-05-30'
+date: '2017-05-31'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -35,7 +35,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-05-30 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-05-31 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -147,7 +147,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserved733710a9b06cd5a
+preserve41d70fd682fef166
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -906,9 +906,8 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.45
+#> [1] 2.44
 ```
-
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
@@ -923,7 +922,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.04
+#> [1] 3.14
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -942,6 +941,8 @@ head(sf_drivers, n = 2)
 ## Data output (O)
 
 
+
+
 ```r
 st_write(obj = world, dsn = "world.gpkg")
 #> Writing layer `world.gpkg' to data source `world.gpkg' using driver `GPKG'
@@ -956,6 +957,11 @@ This is demonstrated in the code below for a modified version of the world in wh
 
 ```r
 world_mod = dplyr::mutate(world, pop = pop * 2)
+```
+
+
+```
+#> [1] TRUE
 ```
 
 
@@ -992,6 +998,11 @@ This can also be done with the function `write_sf()`, which is equivalent to (te
 This enables spatial data to be overwritten more concisely and with less output going to screen:
 
 
+```
+#> [1] TRUE
+```
+
+
 ```r
 write_sf(obj = world_mod, dsn = "world.gpkg")
 ```
@@ -1005,22 +1016,20 @@ file.remove("world.gpkg")
 #> [1] TRUE
 ```
 
-
 The counterpart of `st_read()` is `st_write()`. This allows writing to a range of geographic vector file types, including the common formats `.geojson`, `.shp` and `.gpkg`. `st_read()` will decide which driver to use automatically, based on the file name, as illustrated in the benchmark below demonstrating write speeds for each format.
 
 
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.004   0.065
+#>   0.064   0.004   0.070
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.012
+#>   0.016   0.000   0.014
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.016   0.016   0.035
 ```
-
 
 
 

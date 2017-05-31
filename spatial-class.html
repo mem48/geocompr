@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-05-30">
+<meta name="date" content="2017-05-31">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -215,7 +215,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <!-- ``` -->
 <p>The R implementation of Simple Features is provided by the <strong>sf</strong> package <span class="citation">(E. Pebesma <a href="#ref-R-sf">2017</a>)</span>, which can be installed with the following command:<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;sf&quot;</span>)</code></pre></div>
-<p><strong>sf</strong> incorporates the functionality of the 3 main packages of the <strong>sp</strong> paradigm (<strong>sp</strong> <span class="citation">(<span class="citeproc-not-found" data-reference-id="R-sp"><strong>???</strong></span>)</span> for the class system, <strong>rgdal</strong> <span class="citation">(<span class="citeproc-not-found" data-reference-id="R-rgdal"><strong>???</strong></span>)</span> for reading and writing data, <strong>rgeos</strong> <span class="citation">(<span class="citeproc-not-found" data-reference-id="R-rgeos"><strong>???</strong></span>)</span> for spatial operations undertaken by GEOS) in a single, cohesive whole. This is well-documented in <strong>sf</strong>’s <a href="http://cran.rstudio.com/package=sf">vignettes</a>:</p>
+<p><strong>sf</strong> incorporates the functionality of the 3 main packages of the <strong>sp</strong> paradigm (<strong>sp</strong> <span class="citation">(E. Pebesma and Bivand <a href="#ref-R-sp">2016</a>)</span> for the class system, <strong>rgdal</strong> <span class="citation">(<span class="citeproc-not-found" data-reference-id="R-rgdal"><strong>???</strong></span>)</span> for reading and writing data, <strong>rgeos</strong> <span class="citation">(Bivand and Rundel <a href="#ref-R-rgeos">2017</a>)</span> for spatial operations undertaken by GEOS) in a single, cohesive whole. This is well-documented in <strong>sf</strong>’s <a href="http://cran.rstudio.com/package=sf">vignettes</a>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="st">&quot;sf1&quot;</span>) <span class="co"># for an introduction to the package</span>
 <span class="kw">vignette</span>(<span class="st">&quot;sf2&quot;</span>) <span class="co"># for reading, writing and converting Simple Features</span>
 <span class="kw">vignette</span>(<span class="st">&quot;sf3&quot;</span>) <span class="co"># for manipulating Simple Features</span></code></pre></div>
@@ -397,6 +397,12 @@ sf data types:
 <div id="refs" class="references">
 <div id="ref-R-sf">
 <p>Pebesma, Edzer. 2017. <em>Sf: Simple Features for R</em>. <a href="https://CRAN.R-project.org/package=sf" class="uri">https://CRAN.R-project.org/package=sf</a>.</p>
+</div>
+<div id="ref-R-sp">
+<p>Pebesma, Edzer, and Roger Bivand. 2016. <em>Sp: Classes and Methods for Spatial Data</em>. <a href="https://CRAN.Rproject.org/package=sp" class="uri">https://CRAN.Rproject.org/package=sp</a>.</p>
+</div>
+<div id="ref-R-rgeos">
+<p>Bivand, Roger, and Colin Rundel. 2017. <em>Rgeos: Interface to Geometry Engine - Open Source (GEOS)</em>. <a href="https://CRAN.R-project.org/package=rgeos" class="uri">https://CRAN.R-project.org/package=rgeos</a>.</p>
 </div>
 </div>
 <div class="footnotes">
