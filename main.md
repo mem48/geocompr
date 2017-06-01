@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve739627fc8615137e
+preserve0a43043d48812f00
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -502,13 +502,20 @@ library(units)
 
 ```r
 library(spData)
+data("world")
+data("worldbank_df")
 ```
 
 ## Introduction
 
 Attribute data is non-geographic information associated with geographical data.
+In the context of simple features, introduced in the previous chapter, this means a tabular data joined onto the `geometry` variables of `sf` objects.
+This structure enables multiple columns to represent a range of attributes for thousands of features (one row per feature).
+
 There is a strong overlap between geographical and non-geographical operations:
-non-spatial subset, aggregate and join operations each have their geographical equivalents (see \@ref(spatial-data-operations)).
+non-spatial subset, aggregate and join operations each have their geographical equivalents.
+For this reason this chapter provides the foundation for next (chapter \@ref(spatial-data-operations)).
+The two chapters share the same structure and input data; it is recommended that they are read together.
 
 The non-spatial versions of these methods are common and easy to understand with R, so they are covered first.
 The methods are largely cross-transferable to the trickier tasks of spatial data operations, so pay attention!
@@ -919,7 +926,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.42
+#> [1] 2.26
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -935,7 +942,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.09
+#> [1] 3.07
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1035,13 +1042,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.067
+#>   0.068   0.000   0.066
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.014
+#>   0.008   0.004   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.030
+#>   0.016   0.012   0.028
 ```
 
 

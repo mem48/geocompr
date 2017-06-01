@@ -211,11 +211,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ul>
 <li>You must have loaded the <code>world</code> and <code>worldbank_df</code> data from the spData package:</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spData)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spData)
+<span class="kw">data</span>(<span class="st">&quot;world&quot;</span>)
+<span class="kw">data</span>(<span class="st">&quot;worldbank_df&quot;</span>)</code></pre></div>
 </div>
 <div id="introduction" class="section level2">
 <h2><span class="header-section-number">3.1</span> Introduction</h2>
-<p>Attribute data is non-geographic information associated with geographical data. There is a strong overlap between geographical and non-geographical operations: non-spatial subset, aggregate and join operations each have their geographical equivalents (see <a href="spatial-data-operations.html#spatial-data-operations">4</a>).</p>
+<p>Attribute data is non-geographic information associated with geographical data. In the context of simple features, introduced in the previous chapter, this means a tabular data joined onto the <code>geometry</code> variables of <code>sf</code> objects. This structure enables multiple columns to represent a range of attributes for thousands of features (one row per feature).</p>
+<p>There is a strong overlap between geographical and non-geographical operations: non-spatial subset, aggregate and join operations each have their geographical equivalents. For this reason this chapter provides the foundation for next (chapter <a href="spatial-data-operations.html#spatial-data-operations">4</a>). The two chapters share the same structure and input data; it is recommended that they are read together.</p>
 <p>The non-spatial versions of these methods are common and easy to understand with R, so they are covered first. The methods are largely cross-transferable to the trickier tasks of spatial data operations, so pay attention!</p>
 <p>Simple features defined by the <strong>sf</strong> package make working with attribute data easy because objects of class <code>sf</code> are data frames. This means that all the accumulated wisdom and functions accumulated in the R community for handling data frames can be applied to the non-geographic aspects of data, as illustrated below for the <code>world</code> object:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(world)
