@@ -164,10 +164,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html"><i class="fa fa-check"></i><b>4</b> Spatial data operations</a><ul>
 <li class="chapter" data-level="" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#prerequisites-2"><i class="fa fa-check"></i>Prerequisites</a></li>
 <li class="chapter" data-level="4.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#attribute-subsetting-1"><i class="fa fa-check"></i><b>4.2</b> Attribute subsetting</a></li>
-<li class="chapter" data-level="4.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#attribute-data-aggregation-1"><i class="fa fa-check"></i><b>4.3</b> Attribute data aggregation</a></li>
-<li class="chapter" data-level="4.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#attribute-data-joining-1"><i class="fa fa-check"></i><b>4.4</b> Attribute data joining</a></li>
-<li class="chapter" data-level="4.5" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#attribute-data-creation-1"><i class="fa fa-check"></i><b>4.5</b> Attribute data creation</a></li>
+<li class="chapter" data-level="4.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-subsetting"><i class="fa fa-check"></i><b>4.2</b> Spatial subsetting</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-clipping"><i class="fa fa-check"></i><b>4.2.1</b> Spatial clipping</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-aggregation"><i class="fa fa-check"></i><b>4.3</b> Spatial data aggregation</a></li>
+<li class="chapter" data-level="4.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-joining"><i class="fa fa-check"></i><b>4.4</b> Spatial data joining</a></li>
+<li class="chapter" data-level="4.5" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-creation"><i class="fa fa-check"></i><b>4.5</b> Spatial data creation</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="read-write.html"><a href="read-write.html"><i class="fa fa-check"></i><b>5</b> Geographic data I/O</a><ul>
 <li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#data-input-i"><i class="fa fa-check"></i><b>5.1</b> Data Input (I)</a></li>
@@ -216,17 +218,59 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="introduction-1" class="section level2">
 <h2><span class="header-section-number">4.1</span> Introduction</h2>
 </div>
-<div id="attribute-subsetting-1" class="section level2">
-<h2><span class="header-section-number">4.2</span> Attribute subsetting</h2>
+<div id="spatial-subsetting" class="section level2">
+<h2><span class="header-section-number">4.2</span> Spatial subsetting</h2>
+<div id="spatial-clipping" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Spatial clipping</h3>
+<p>Spatial clipping is a form of spatial subsetting that involves changes to the <code>geometry</code> columns of at least some of the affected features.</p>
+<p>Clipping can only apply to features more complex than points: lines, polygons and their ‘multi’ equivalents. To illustrate the concept we will start with a simple example: two overlapping circles with a centrepoint 1 unit away from each other and radius of 1:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p =<span class="st"> </span><span class="kw">st_sfc</span>(<span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)), <span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))) <span class="co"># create 2 points</span>
+b =<span class="st"> </span><span class="kw">st_buffer</span>(p, <span class="dt">dist =</span> <span class="dv">1</span>) <span class="co"># convert points to circles</span>
+l =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)
+<span class="kw">plot</span>(b)
+<span class="kw">text</span>(<span class="dt">x =</span> <span class="kw">c</span>(-<span class="fl">0.5</span>, <span class="fl">1.5</span>), <span class="dt">y =</span> <span class="dv">1</span>, <span class="dt">labels =</span> l) <span class="co"># add text</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:points"></span>
+<img src="figures/points-1.png" alt="Overlapping circles." width="672" />
+<p class="caption">
+Figure 4.1: Overlapping circles.
+</p>
 </div>
-<div id="attribute-data-aggregation-1" class="section level2">
-<h2><span class="header-section-number">4.3</span> Attribute data aggregation</h2>
+<p>Imagine you want to select not one circle or the other. Neither x or y will suffice. You want to select the space covered by both <code>x</code> <em>and</em> <code>y</code>. This can be done using the function <code>st_intersection()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i =<span class="st"> </span><span class="kw">st_intersection</span>(b[<span class="dv">1</span>], b[<span class="dv">2</span>])
+<span class="kw">plot</span>(b)
+<span class="kw">plot</span>(i, <span class="dt">col =</span> <span class="st">&quot;lightgrey&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>) <span class="co"># color intersecting area</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The subsequent code chunk demonstrate how this works for all combinations of the ‘venn’ diagram representing <code>x</code> and <code>y</code>, inspired by <a href="http://r4ds.had.co.nz/transform.html#logical-operators">Figure 5.1</a> of the book R for Data Science. <!-- Todo: reference r4ds --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">3</span>))
+<span class="kw">plot</span>(b)
+<span class="co"># y_not_x = st_</span>
+<span class="kw">plot</span>(b)
+<span class="kw">plot</span>(b)
+<span class="kw">plot</span>(b)
+<span class="kw">plot</span>(b)
+<span class="kw">plot</span>(b)
+<span class="kw">plot</span>(b)
+<span class="kw">plot</span>(b)
+<span class="kw">plot</span>(b)</code></pre></div>
+<p><img src="figures/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))
+<span class="co">#&gt; Warning in par(mfow = c(1, 1)): &quot;mfow&quot; is not a graphical parameter</span></code></pre></div>
+<p>To illustrate the difference between subsetting and clipping spatial data, we will create a series of polygons distributed evenly over the surface of the Earth and clip them.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># wip</span>
+<span class="co"># set.seed(2018)</span>
+<span class="co"># blob_points = st_sample(x = world, size = 2)</span>
+<span class="co"># blobs = st_buffer(x = blob_points, dist = 1)</span>
+<span class="co"># plot(blobs)</span></code></pre></div>
 </div>
-<div id="attribute-data-joining-1" class="section level2">
-<h2><span class="header-section-number">4.4</span> Attribute data joining</h2>
 </div>
-<div id="attribute-data-creation-1" class="section level2">
-<h2><span class="header-section-number">4.5</span> Attribute data creation</h2>
+<div id="spatial-data-aggregation" class="section level2">
+<h2><span class="header-section-number">4.3</span> Spatial data aggregation</h2>
+</div>
+<div id="spatial-data-joining" class="section level2">
+<h2><span class="header-section-number">4.4</span> Spatial data joining</h2>
+</div>
+<div id="spatial-data-creation" class="section level2">
+<h2><span class="header-section-number">4.5</span> Spatial data creation</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add a new column</span>
 world$area =<span class="st"> </span><span class="kw">set_units</span>(<span class="kw">st_area</span>(world), <span class="dt">value =</span> km^<span class="dv">2</span>)
 world$pop_density =<span class="st"> </span>world$pop /<span class="st"> </span>world$area

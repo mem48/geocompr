@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve6609c0c2662bb62c
+preserveac100e01980a4aa7
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -787,13 +787,93 @@ library(spData)
 
 ## Introduction
 
-## Attribute subsetting
+## Spatial subsetting
 
-## Attribute data aggregation 
+### Spatial clipping
 
-## Attribute data joining 
+Spatial clipping is a form of spatial subsetting that involves changes to the `geometry` columns of at least some of the affected features.
 
-## Attribute data creation
+Clipping can only apply to features more complex than points: 
+lines, polygons and their 'multi' equivalents.
+To illustrate the concept we will start with a simple example:
+two overlapping circles with a centrepoint 1 unit away from each other and radius of 1:
+
+
+```r
+p = st_sfc(st_point(c(0, 1)), st_point(c(1, 1))) # create 2 points
+b = st_buffer(p, dist = 1) # convert points to circles
+l = c("x", "y")
+plot(b)
+text(x = c(-0.5, 1.5), y = 1, labels = l) # add text
+```
+
+<div class="figure" style="text-align: center">
+<img src="figures/points-1.png" alt="Overlapping circles." width="672" />
+<p class="caption">(\#fig:points)Overlapping circles.</p>
+</div>
+
+Imagine you want to select not one circle or the other.
+Neither x or y will suffice.
+You want to select the space covered by both `x` *and* `y`.
+This can be done using the function `st_intersection()`:
+
+
+```r
+i = st_intersection(b[1], b[2])
+plot(b)
+plot(i, col = "lightgrey", add = TRUE) # color intersecting area
+```
+
+<img src="figures/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
+
+The subsequent code chunk demonstrate how this works for all combinations of the 'venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science.
+<!-- Todo: reference r4ds -->
+
+
+```r
+par(mfrow = c(3, 3))
+plot(b)
+# y_not_x = st_
+plot(b)
+plot(b)
+plot(b)
+plot(b)
+plot(b)
+plot(b)
+plot(b)
+plot(b)
+```
+
+<img src="figures/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" />
+
+```r
+par(mfow = c(1, 1))
+#> Warning in par(mfow = c(1, 1)): "mfow" is not a graphical parameter
+```
+
+
+
+To illustrate the difference between subsetting and clipping spatial data, we will create a series of polygons distributed evenly over the surface of the Earth and clip them.
+
+
+```r
+# wip
+# set.seed(2018)
+# blob_points = st_sample(x = world, size = 2)
+# blobs = st_buffer(x = blob_points, dist = 1)
+# plot(blobs)
+```
+
+
+## Spatial data aggregation 
+
+## Spatial data joining 
+
+## Spatial data creation
+
+
+
+
 
 
 ```r
@@ -929,7 +1009,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.33
+#> [1] 2.21
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -945,7 +1025,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.08
+#> [1] 3.29
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1045,13 +1125,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.076   0.000   0.074
+#>   0.080   0.004   0.085
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.015
+#>   0.012   0.004   0.016
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.004   0.032
+#>   0.028   0.004   0.033
 ```
 
 
