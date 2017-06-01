@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve0a43043d48812f00
+preserve6609c0c2662bb62c
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -520,14 +520,17 @@ The two chapters share the same structure and input data; it is recommended that
 The non-spatial versions of these methods are common and easy to understand with R, so they are covered first.
 The methods are largely cross-transferable to the trickier tasks of spatial data operations, so pay attention!
 
-Simple features defined by the **sf** package make working with attribute data easy because objects of class `sf` are data frames.
-This means that all the accumulated wisdom and functions accumulated in the R community for handling data frames can be applied to the non-geographic aspects of data, as illustrated below for the `world` object:
+Simple features are represented as objects, such as `world`, with class `sf` in the **sf** package:
 
 
 ```r
 class(world)
 #> [1] "sf"         "data.frame"
 ```
+
+The output shows that `sf` objects have two classes (`sf` and `data.frame`), meaning that are essentially data frames.
+Using data frames, the basic class used for data analysis in R, particularly within the **tidyverse** package ecosystem, has many advantages when it comes to attribute data operations.
+It means that all the accumulated know-how in the R community for handling data frames to be applied to geographic data which contain attributes.
 
 This 'world' dataset contains 63 non-geographical variables (and one geometry column) with data for almost 200 countries, as can be ascertained using base functions for working with tabular data:
 
@@ -926,7 +929,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.26
+#> [1] 2.33
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -942,7 +945,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.07
+#> [1] 3.08
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1042,13 +1045,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.066
+#>   0.076   0.000   0.074
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.008   0.004   0.012
+#>   0.012   0.000   0.015
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.028
+#>   0.028   0.004   0.032
 ```
 
 
