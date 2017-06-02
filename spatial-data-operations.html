@@ -242,32 +242,27 @@ l =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&q
 Figure 4.1: Overlapping circles.
 </p>
 </div>
-<p>Imagine you want to select not one circle or the other. Neither x or y will suffice. You want to select the space covered by both <code>x</code> <em>and</em> <code>y</code>. This can be done using the function <code>st_intersection()</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">i =<span class="st"> </span><span class="kw">st_intersection</span>(b[<span class="dv">1</span>], b[<span class="dv">2</span>])
+<p>Imagine you want to select not one circle or the other, but the space covered by both <code>x</code> <em>and</em> <code>y</code>. This can be done using the function <code>st_intersection()</code>, illustrated using objects named <code>x</code> and <code>y</code> which represent the left and right-hand circles:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x =<span class="st"> </span>b[<span class="dv">1</span>]
+y =<span class="st"> </span>b[<span class="dv">2</span>]
+x_and_y =<span class="st"> </span><span class="kw">st_intersection</span>(x, y)
 <span class="kw">plot</span>(b)
-<span class="kw">plot</span>(i, <span class="dt">col =</span> <span class="st">&quot;lightgrey&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>) <span class="co"># color intersecting area</span></code></pre></div>
+<span class="kw">plot</span>(x_and_y, <span class="dt">col =</span> <span class="st">&quot;lightgrey&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>) <span class="co"># color intersecting area</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The subsequent code chunk demonstrate how this works for all combinations of the ‘venn’ diagram representing <code>x</code> and <code>y</code>, inspired by <a href="http://r4ds.had.co.nz/transform.html#logical-operators">Figure 5.1</a> of the book R for Data Science. <!-- Todo: reference r4ds --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">3</span>))
-<span class="kw">plot</span>(b)
-<span class="co"># y_not_x = st_</span>
-<span class="kw">plot</span>(b)
-<span class="kw">plot</span>(b)
-<span class="kw">plot</span>(b)
-<span class="kw">plot</span>(b)
-<span class="kw">plot</span>(b)
-<span class="kw">plot</span>(b)
-<span class="kw">plot</span>(b)
-<span class="kw">plot</span>(b)</code></pre></div>
-<p><img src="figures/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))
-<span class="co">#&gt; Warning in par(mfow = c(1, 1)): &quot;mfow&quot; is not a graphical parameter</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-5"></span>
+<img src="figures/unnamed-chunk-5-1.png" alt="Spatial equivalents of logical operators" width="672" />
+<p class="caption">
+Figure 4.2: Spatial equivalents of logical operators
+</p>
+</div>
 <p>To illustrate the difference between subsetting and clipping spatial data, we will create a series of polygons distributed evenly over the surface of the Earth and clip them.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># wip</span>
-<span class="co"># set.seed(2018)</span>
-<span class="co"># blob_points = st_sample(x = world, size = 2)</span>
-<span class="co"># blobs = st_buffer(x = blob_points, dist = 1)</span>
-<span class="co"># plot(blobs)</span></code></pre></div>
+<!-- ```{r} -->
+<!-- set.seed(2018) -->
+<!-- blob_points = st_sample(x = world, size = 2) -->
+<!-- blobs = st_buffer(x = blob_points, dist = 1) -->
+<!-- plot(blobs) -->
+<!-- ``` -->
 </div>
 </div>
 <div id="spatial-data-aggregation" class="section level2">

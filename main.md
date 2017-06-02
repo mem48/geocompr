@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve3b48ebbd92414efb
+preserve11907e05b9d761ad
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1076,16 +1076,16 @@ text(x = c(-0.5, 1.5), y = 1, labels = l) # add text
 <p class="caption">(\#fig:points)Overlapping circles.</p>
 </div>
 
-Imagine you want to select not one circle or the other.
-Neither x or y will suffice.
-You want to select the space covered by both `x` *and* `y`.
-This can be done using the function `st_intersection()`:
+Imagine you want to select not one circle or the other, but the space covered by both `x` *and* `y`.
+This can be done using the function `st_intersection()`, illustrated using objects named `x` and `y` which represent the left and right-hand circles:
 
 
 ```r
-i = st_intersection(b[1], b[2])
+x = b[1]
+y = b[2]
+x_and_y = st_intersection(x, y)
 plot(b)
-plot(i, col = "lightgrey", add = TRUE) # color intersecting area
+plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
 ```
 
 <img src="figures/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
@@ -1093,40 +1093,21 @@ plot(i, col = "lightgrey", add = TRUE) # color intersecting area
 The subsequent code chunk demonstrate how this works for all combinations of the 'venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science.
 <!-- Todo: reference r4ds -->
 
-
-```r
-par(mfrow = c(3, 3))
-plot(b)
-# y_not_x = st_
-plot(b)
-plot(b)
-plot(b)
-plot(b)
-plot(b)
-plot(b)
-plot(b)
-plot(b)
-```
-
-<img src="figures/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" />
-
-```r
-par(mfow = c(1, 1))
-#> Warning in par(mfow = c(1, 1)): "mfow" is not a graphical parameter
-```
+<div class="figure" style="text-align: center">
+<img src="figures/unnamed-chunk-5-1.png" alt="Spatial equivalents of logical operators" width="672" />
+<p class="caption">(\#fig:unnamed-chunk-5)Spatial equivalents of logical operators</p>
+</div>
 
 
 
 To illustrate the difference between subsetting and clipping spatial data, we will create a series of polygons distributed evenly over the surface of the Earth and clip them.
 
-
-```r
-# wip
-# set.seed(2018)
-# blob_points = st_sample(x = world, size = 2)
-# blobs = st_buffer(x = blob_points, dist = 1)
-# plot(blobs)
-```
+<!-- ```{r} -->
+<!-- set.seed(2018) -->
+<!-- blob_points = st_sample(x = world, size = 2) -->
+<!-- blobs = st_buffer(x = blob_points, dist = 1) -->
+<!-- plot(blobs) -->
+<!-- ``` -->
 
 
 ## Spatial data aggregation 
@@ -1273,10 +1254,10 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.72
+#> [1] 2.39
 ```
 
-The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -1289,7 +1270,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.36
+#> [1] 3.24
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1389,13 +1370,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.065
+#>   0.064   0.004   0.068
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.014
+#>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.024   0.004   0.030
 ```
 
 
