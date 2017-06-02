@@ -453,6 +453,17 @@ inner_join1
 <span class="co">#&gt; 2       NA MULTIPOLYGON(((-155.54211 1...</span>
 <span class="kw">plot</span>(inner_join1[<span class="st">&quot;pop_growth&quot;</span>])</code></pre></div>
 <p><img src="figures/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="co"># error</span>
+inner_join2 &lt;-<span class="st">  </span>wb_north_america %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">inner_join</span>(., north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) 
+inner_join2
+<span class="co">#&gt;            name iso_a2 HDI urban_pop unemployment pop_growth literacy</span>
+<span class="co">#&gt; 1        Canada     CA  NA  29022137         6.91      1.101       NA</span>
+<span class="co">#&gt; 2 United States     US  NA 259740511         6.17      0.781       NA</span>
+<span class="co">#&gt;       name_long                           geom</span>
+<span class="co">#&gt; 1        Canada MULTIPOLYGON(((-63.6645 46....</span>
+<span class="co">#&gt; 2 United States MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <!-- full_join() -->
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># error</span>
 full_join1 &lt;-<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
@@ -473,7 +484,22 @@ full_join1
 <span class="co">#&gt; 1       NA MULTIPOLYGON(((-63.6645 46....</span>
 <span class="co">#&gt; 2       NA MULTIPOLYGON(((-46.76379 82...</span>
 <span class="co">#&gt; 3       NA MULTIPOLYGON(((-155.54211 1...</span>
-<span class="co">#&gt; 4     94.6           GEOMETRYCOLLECTION()</span></code></pre></div>
+<span class="co">#&gt; 4     94.6           GEOMETRYCOLLECTION()</span>
+
+<span class="co"># error</span>
+full_join2 &lt;-<span class="st"> </span>wb_north_america %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">full_join</span>(., north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) <span class="co">#%&gt;% plot()</span>
+full_join2
+<span class="co">#&gt;            name iso_a2 HDI urban_pop unemployment pop_growth literacy</span>
+<span class="co">#&gt; 1        Canada     CA  NA  29022137         6.91      1.101       NA</span>
+<span class="co">#&gt; 2        Mexico     MX  NA  99018446         5.25      1.321     94.6</span>
+<span class="co">#&gt; 3 United States     US  NA 259740511         6.17      0.781       NA</span>
+<span class="co">#&gt; 4          &lt;NA&gt;     GL  NA        NA           NA         NA       NA</span>
+<span class="co">#&gt;       name_long                           geom</span>
+<span class="co">#&gt; 1        Canada MULTIPOLYGON(((-63.6645 46....</span>
+<span class="co">#&gt; 2          &lt;NA&gt;                           NULL</span>
+<span class="co">#&gt; 3 United States MULTIPOLYGON(((-155.54211 1...</span>
+<span class="co">#&gt; 4     Greenland MULTIPOLYGON(((-46.76379 82...</span></code></pre></div>
 <!-- semi_join() -->
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">semi_join1 &lt;-<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">        </span><span class="kw">semi_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
@@ -486,7 +512,14 @@ semi_join1
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
 <span class="co">#&gt;   iso_a2     name_long                           geom</span>
 <span class="co">#&gt; 1     CA        Canada MULTIPOLYGON(((-63.6645 46....</span>
-<span class="co">#&gt; 2     US United States MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
+<span class="co">#&gt; 2     US United States MULTIPOLYGON(((-155.54211 1...</span>
+
+semi_join2 &lt;-<span class="st"> </span>wb_north_america %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">semi_join</span>(., north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
+semi_join2
+<span class="co">#&gt;            name iso_a2 HDI urban_pop unemployment pop_growth literacy</span>
+<span class="co">#&gt; 1        Canada     CA  NA  29022137         6.91      1.101       NA</span>
+<span class="co">#&gt; 2 United States     US  NA 259740511         6.17      0.781       NA</span></code></pre></div>
 <!-- anti_join() -->
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">anti_join1 &lt;-<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">        </span><span class="kw">anti_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
@@ -498,7 +531,13 @@ anti_join1
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
 <span class="co">#&gt;   iso_a2 name_long                           geom</span>
-<span class="co">#&gt; 1     GL Greenland MULTIPOLYGON(((-46.76379 82...</span></code></pre></div>
+<span class="co">#&gt; 1     GL Greenland MULTIPOLYGON(((-46.76379 82...</span>
+
+anti_join2 &lt;-<span class="st"> </span>wb_north_america %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">anti_join</span>(., north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
+anti_join2
+<span class="co">#&gt;     name iso_a2 HDI urban_pop unemployment pop_growth literacy</span>
+<span class="co">#&gt; 1 Mexico     MX  NA  99018446         5.25       1.32     94.6</span></code></pre></div>
 <!-- https://github.com/dgrtwo/fuzzyjoin -->
 <!-- http://r4ds.had.co.nz/relational-data.html -->
 </div>

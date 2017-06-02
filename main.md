@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve4c978e867f3669b2
+preservedf3f83b4cd7f9eb3
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -856,6 +856,20 @@ plot(inner_join1["pop_growth"])
 
 <img src="figures/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" />
 
+```r
+
+# error
+inner_join2 <-  wb_north_america %>% 
+        inner_join(., north_america, by = "iso_a2") 
+inner_join2
+#>            name iso_a2 HDI urban_pop unemployment pop_growth literacy
+#> 1        Canada     CA  NA  29022137         6.91      1.101       NA
+#> 2 United States     US  NA 259740511         6.17      0.781       NA
+#>       name_long                           geom
+#> 1        Canada MULTIPOLYGON(((-63.6645 46....
+#> 2 United States MULTIPOLYGON(((-155.54211 1...
+```
+
 <!-- full_join() -->
 
 
@@ -880,6 +894,21 @@ full_join1
 #> 2       NA MULTIPOLYGON(((-46.76379 82...
 #> 3       NA MULTIPOLYGON(((-155.54211 1...
 #> 4     94.6           GEOMETRYCOLLECTION()
+
+# error
+full_join2 <- wb_north_america %>% 
+        full_join(., north_america, by = "iso_a2") #%>% plot()
+full_join2
+#>            name iso_a2 HDI urban_pop unemployment pop_growth literacy
+#> 1        Canada     CA  NA  29022137         6.91      1.101       NA
+#> 2        Mexico     MX  NA  99018446         5.25      1.321     94.6
+#> 3 United States     US  NA 259740511         6.17      0.781       NA
+#> 4          <NA>     GL  NA        NA           NA         NA       NA
+#>       name_long                           geom
+#> 1        Canada MULTIPOLYGON(((-63.6645 46....
+#> 2          <NA>                           NULL
+#> 3 United States MULTIPOLYGON(((-155.54211 1...
+#> 4     Greenland MULTIPOLYGON(((-46.76379 82...
 ```
 
 <!-- semi_join() -->
@@ -898,6 +927,13 @@ semi_join1
 #>   iso_a2     name_long                           geom
 #> 1     CA        Canada MULTIPOLYGON(((-63.6645 46....
 #> 2     US United States MULTIPOLYGON(((-155.54211 1...
+
+semi_join2 <- wb_north_america %>% 
+        semi_join(., north_america, by = "iso_a2")
+semi_join2
+#>            name iso_a2 HDI urban_pop unemployment pop_growth literacy
+#> 1        Canada     CA  NA  29022137         6.91      1.101       NA
+#> 2 United States     US  NA 259740511         6.17      0.781       NA
 ```
 
 <!-- anti_join() -->
@@ -915,6 +951,12 @@ anti_join1
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #>   iso_a2 name_long                           geom
 #> 1     GL Greenland MULTIPOLYGON(((-46.76379 82...
+
+anti_join2 <- wb_north_america %>% 
+        anti_join(., north_america, by = "iso_a2")
+anti_join2
+#>     name iso_a2 HDI urban_pop unemployment pop_growth literacy
+#> 1 Mexico     MX  NA  99018446         5.25       1.32     94.6
 ```
 
 <!-- https://github.com/dgrtwo/fuzzyjoin -->
@@ -1199,7 +1241,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.4
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1215,7 +1257,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.23
+#> [1] 3.12
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1315,13 +1357,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.067
+#>   0.060   0.004   0.066
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.031
+#>   0.012   0.016   0.030
 ```
 
 
