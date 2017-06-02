@@ -297,9 +297,9 @@ world_few_rows =<span class="st"> </span>world %&gt;%<span class="st"> </span>
 <span class="co">#&gt;   area_km2      pop lifeExp gdpPercap                           geom</span>
 <span class="co">#&gt; 1  9409832 1.36e+09    75.8     12759 MULTIPOLYGON(((110.33918786...</span>
 <span class="co">#&gt; 2  3142892 1.30e+09    68.0      5392 MULTIPOLYGON(((77.837450799...</span></code></pre></div>
-<p>This is equivalent to the following base R code (<a href="https://github.com/Robinlovelace/geocompr/issues/28">note</a> NAs are forbidden for subsetting):</p>
+<p>This is equivalent to the following base R code (not run to preserve the NAs):<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># subsetting simple feature rows by values</span>
-world$pop[<span class="kw">is.na</span>(world$pop)] =<span class="st"> </span><span class="dv">0</span> 
+world$pop[<span class="kw">is.na</span>(world$pop)] =<span class="st"> </span><span class="dv">0</span> <span class="co"># set NAs to 0</span>
 world_few_rows =<span class="st"> </span>world[world$pop &gt;<span class="st"> </span><span class="fl">1e9</span>,]</code></pre></div>
 </div>
 <div id="attribute-data-aggregation" class="section level2">
@@ -616,6 +616,12 @@ world_st2 =<span class="st"> </span>world_st2 %&gt;%<span class="st"> </span><sp
 -->
 
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="4">
+<li id="fn4"><p><a href="https://github.com/Robinlovelace/geocompr/issues/28">Note</a> NAs do not work for subsetting by inequalities in base R, hence conversion of NAs to 0s in this version)<a href="attr.html#fnref4">↩</a></p></li>
+</ol>
 </div>
             </section>
 

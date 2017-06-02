@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea6c0c713220982d8
+preserve53db9e9bac9c01cd
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -647,12 +647,12 @@ head(world_few_rows)
 #> 2  3142892 1.30e+09    68.0      5392 MULTIPOLYGON(((77.837450799...
 ```
 
-This is equivalent to the following base R code ([note](https://github.com/Robinlovelace/geocompr/issues/28) NAs are forbidden for subsetting):
+This is equivalent to the following base R code (not run to preserve the NAs):^[[Note](https://github.com/Robinlovelace/geocompr/issues/28) NAs do not work for subsetting by inequalities in base R, hence conversion of NAs to 0s in this version)]
 
 
 ```r
 # subsetting simple feature rows by values
-world$pop[is.na(world$pop)] = 0 
+world$pop[is.na(world$pop)] = 0 # set NAs to 0
 world_few_rows = world[world$pop > 1e9,]
 ```
 
@@ -1262,10 +1262,10 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.55
+#> [1] 2.34
 ```
 
-The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -1278,7 +1278,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.13
+#> [1] 2.9
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1378,13 +1378,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.066
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.013
+#>   0.012   0.000   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.030
+#>   0.020   0.008   0.028
 ```
 
 
