@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve53db9e9bac9c01cd
+preserve2d67dbfbe00f98ef
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -588,8 +588,7 @@ The `select()` function, for example, can be used to both subset and renames col
 
 
 ```r
-world_orig = world # create copy of world dataset for future reference
-world1 = select(world_orig, name_long, continent, population = pop)
+world1 = select(world, name_long, continent, population = pop)
 head(world1, n = 2)
 #> Simple feature collection with 2 features and 3 fields
 #> geometry type:  MULTIPOLYGON
@@ -606,7 +605,7 @@ This is more concises than the base R equivalent (which saves the result as an o
 
 
 ```r
-world2 = world_orig[c("name_long", "continent", "pop")] # subset columns by name
+world2 = world[c("name_long", "continent", "pop")] # subset columns by name
 names(world2)[3] = "population" # rename column manually
 ```
 
@@ -619,24 +618,33 @@ The example below shows yet another way of creating the renamed `world` dataset,
 
 
 ```r
-world3 = world_orig %>%
-        select(name_long, continent)
+world3 = world %>%
+  select(name_long, continent)
 ```
 
-The pipe operator can be used for many data processing tasks with attribute data:
+Note that this can also be written without the pipe operator because, in the above code, the `world` object is simply 'piped' into the first argument of `select()`.
+The equivalent **dplyr** code without the pipe operator is:
 
 
 ```r
-# todo - describe these: ==, !=, >, >=, <, <=, &, |
-# Filtering attribute data with dplyr
-world_few_rows = world %>% 
-        filter(pop > 1e9)
+world4 = select(world, name_long, continent)
+```
 
-head(world_few_rows)
+
+The pipe operator can be used for many data processing tasks with attribute data:
+
+<!-- todo - describe these: ==, !=, >, >=, <, <=, &, | -->
+
+
+
+```r
+# Filtering attribute data with dplyr
+world %>%
+  filter(pop > 1e9)
 #> Simple feature collection with 2 features and 10 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
-#> bbox:           xmin: 68.17665 ymin: 7.965535 xmax: 135.0263 ymax: 53.4588
+#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #>   iso_a2 name_long continent region_un     subregion              type
@@ -659,15 +667,14 @@ world_few_rows = world[world$pop > 1e9,]
 ## Attribute data aggregation 
 
 
-
 ```r
 # data summary (not shown)
 summary(world)
 
 # data summary by groups (not shown)
 world_continents = world %>% 
-        group_by(continent) %>% 
-        summarise(continent_pop = sum(pop, na.rm = TRUE), country_n = n())
+  group_by(continent) %>% 
+  summarise(pop = sum(pop, na.rm = TRUE), country_n = n())
 world_continents
 ```
 
@@ -684,16 +691,16 @@ world_continents %>%
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #> # A tibble: 8 x 4
-#>    continent continent_pop country_n              geom
-#>        <chr>         <dbl>     <int>  <simple_feature>
-#> 1     Africa      1.15e+09        51 <MULTIPOLYGON...>
-#> 2 Antarctica      0.00e+00         1 <MULTIPOLYGON...>
-#> 3       Asia      4.31e+09        47 <MULTIPOLYGON...>
-#> 4     Europe      7.39e+08        39 <MULTIPOLYGON...>
+#>    continent      pop country_n              geom
+#>        <chr>    <dbl>     <int>  <simple_feature>
+#> 1     Africa 1.15e+09        51 <MULTIPOLYGON...>
+#> 2 Antarctica 0.00e+00         1 <MULTIPOLYGON...>
+#> 3       Asia 4.31e+09        47 <MULTIPOLYGON...>
+#> 4     Europe 7.39e+08        39 <MULTIPOLYGON...>
 #> # ... with 4 more rows
 ## by population (in descending order)
 world_continents %>% 
-        arrange(-continent_pop)
+        arrange(-pop)
 #> Simple feature collection with 8 features and 3 fields
 #> geometry type:  GEOMETRY
 #> dimension:      XY
@@ -701,12 +708,12 @@ world_continents %>%
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #> # A tibble: 8 x 4
-#>       continent continent_pop country_n              geom
-#>           <chr>         <dbl>     <int>  <simple_feature>
-#> 1          Asia      4.31e+09        47 <MULTIPOLYGON...>
-#> 2        Africa      1.15e+09        51 <MULTIPOLYGON...>
-#> 3        Europe      7.39e+08        39 <MULTIPOLYGON...>
-#> 4 North America      5.65e+08        18 <MULTIPOLYGON...>
+#>       continent      pop country_n              geom
+#>           <chr>    <dbl>     <int>  <simple_feature>
+#> 1          Asia 4.31e+09        47 <MULTIPOLYGON...>
+#> 2        Africa 1.15e+09        51 <MULTIPOLYGON...>
+#> 3        Europe 7.39e+08        39 <MULTIPOLYGON...>
+#> 4 North America 5.65e+08        18 <MULTIPOLYGON...>
 #> # ... with 4 more rows
 ```
 
@@ -738,7 +745,7 @@ north_america = world %>%
 plot(north_america[0])
 ```
 
-<img src="figures/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" />
 
 ```r
 
@@ -770,7 +777,7 @@ left_join1
 plot(left_join1["pop_growth"])
 ```
 
-<img src="figures/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" />
 
 
 ```r
@@ -893,7 +900,7 @@ inner_join1
 plot(inner_join1["pop_growth"])
 ```
 
-<img src="figures/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" />
 
 ```r
 
@@ -1262,7 +1269,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.34
+#> [1] 2.4
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1278,7 +1285,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.9
+#> [1] 2.96
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1378,13 +1385,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>   0.064   0.000   0.065
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.012
+#>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.020   0.012   0.029
 ```
 
 
