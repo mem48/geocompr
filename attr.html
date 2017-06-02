@@ -389,9 +389,7 @@ left_join1
 <span class="co">#&gt;   literacy                           geom</span>
 <span class="co">#&gt; 1       NA MULTIPOLYGON(((-63.6645 46....</span>
 <span class="co">#&gt; 2       NA MULTIPOLYGON(((-46.76379 82...</span>
-<span class="co">#&gt; 3       NA MULTIPOLYGON(((-155.54211 1...</span>
-<span class="kw">plot</span>(left_join1[<span class="st">&quot;pop_growth&quot;</span>])</code></pre></div>
-<p><img src="figures/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<span class="co">#&gt; 3       NA MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join2 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
 left_join2
@@ -435,9 +433,8 @@ left_join3
 </div>
 <div id="right-joins" class="section level3">
 <h3><span class="header-section-number">3.5.2</span> Right joins</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># error: empty GEOMETRYCOLLECTION() added to geom</span>
-right_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">right_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) <span class="co">#%&gt;% plot()</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">right_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">right_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) 
 right_join1
 <span class="co">#&gt; Simple feature collection with 3 features and 8 fields (of which 1 is empty)</span>
 <span class="co">#&gt; geometry type:  GEOMETRY</span>
@@ -476,9 +473,7 @@ inner_join1
 <span class="co">#&gt; 2     US United States United States  NA 259740511         6.17      0.781</span>
 <span class="co">#&gt;   literacy                           geom</span>
 <span class="co">#&gt; 1       NA MULTIPOLYGON(((-63.6645 46....</span>
-<span class="co">#&gt; 2       NA MULTIPOLYGON(((-155.54211 1...</span>
-<span class="kw">plot</span>(inner_join1[<span class="st">&quot;pop_growth&quot;</span>])</code></pre></div>
-<p><img src="figures/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<span class="co">#&gt; 2       NA MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <!-- ```{r} -->
 <!-- # error: geom column added -->
 <!-- inner_join2 =  wb_north_america %>%  -->
@@ -488,9 +483,8 @@ inner_join1
 </div>
 <div id="full-joins" class="section level3">
 <h3><span class="header-section-number">3.5.4</span> Full joins</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># error: empty GEOMETRYCOLLECTION</span>
-full_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">full_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) <span class="co">#%&gt;% plot()</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">full_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">full_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
 full_join1
 <span class="co">#&gt; Simple feature collection with 4 features and 8 fields (of which 1 is empty)</span>
 <span class="co">#&gt; geometry type:  GEOMETRY</span>

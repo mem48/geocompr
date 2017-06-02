@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve6c0de61d02ac4eba
+preservea8f0b42966b40b04
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -774,10 +774,7 @@ left_join1
 #> 1       NA MULTIPOLYGON(((-63.6645 46....
 #> 2       NA MULTIPOLYGON(((-46.76379 82...
 #> 3       NA MULTIPOLYGON(((-155.54211 1...
-plot(left_join1["pop_growth"])
 ```
-
-<img src="figures/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" />
 
 
 ```r
@@ -833,9 +830,8 @@ left_join3
 
 
 ```r
-# error: empty GEOMETRYCOLLECTION() added to geom
 right_join1 = north_america %>% 
-  right_join(wb_north_america, by = "iso_a2") #%>% plot()
+  right_join(wb_north_america, by = "iso_a2") 
 right_join1
 #> Simple feature collection with 3 features and 8 fields (of which 1 is empty)
 #> geometry type:  GEOMETRY
@@ -879,10 +875,7 @@ inner_join1
 #>   literacy                           geom
 #> 1       NA MULTIPOLYGON(((-63.6645 46....
 #> 2       NA MULTIPOLYGON(((-155.54211 1...
-plot(inner_join1["pop_growth"])
 ```
-
-<img src="figures/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" />
 
 
 <!-- ```{r} -->
@@ -897,9 +890,8 @@ plot(inner_join1["pop_growth"])
 
 
 ```r
-# error: empty GEOMETRYCOLLECTION
 full_join1 = north_america %>% 
-  full_join(wb_north_america, by = "iso_a2") #%>% plot()
+  full_join(wb_north_america, by = "iso_a2")
 full_join1
 #> Simple feature collection with 4 features and 8 fields (of which 1 is empty)
 #> geometry type:  GEOMETRY
@@ -1108,10 +1100,6 @@ To illustrate the difference between subsetting and clipping spatial data, we wi
 ## Spatial data creation
 
 
-
-
-
-
 ```r
 # add a new column
 world$area = set_units(st_area(world), value = km^2)
@@ -1245,7 +1233,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.39
+#> [1] 2.45
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1261,7 +1249,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.05
+#> [1] 2.99
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1361,13 +1349,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.056   0.008   0.067
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.012
+#>   0.016   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.012   0.016   0.028
+#>   0.024   0.008   0.031
 ```
 
 
