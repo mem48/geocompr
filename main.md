@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee6a1adc20d466384
+preservede0e7010aeaef86c
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -822,21 +822,12 @@ left_join3
 ```
 
 
-
-```r
-# error: keeps geom col
-left_join4 = wb_north_america %>% 
-  left_join(north_america, by = c("iso_a2"))
-left_join4
-#>            name iso_a2 HDI urban_pop unemployment pop_growth literacy
-#> 1        Canada     CA  NA  29022137         6.91      1.101       NA
-#> 2        Mexico     MX  NA  99018446         5.25      1.321     94.6
-#> 3 United States     US  NA 259740511         6.17      0.781       NA
-#>       name_long                           geom
-#> 1        Canada MULTIPOLYGON(((-63.6645 46....
-#> 2          <NA>                           NULL
-#> 3 United States MULTIPOLYGON(((-155.54211 1...
-```
+<!-- ```{r} -->
+<!-- # error: keeps geom col -->
+<!-- left_join4 = wb_north_america %>%  -->
+<!--   left_join(north_america, by = c("iso_a2")) -->
+<!-- left_join4 -->
+<!-- ``` -->
 
 ### Right joins
 
@@ -862,21 +853,12 @@ right_join1
 #> 3       NA MULTIPOLYGON(((-155.54211 1...
 ```
 
-
-```r
-# error: unwanted geom column added
-right_join2 = wb_north_america %>% 
-  right_join(north_america, by = "iso_a2") #%>% plot()
-right_join2
-#>            name iso_a2 HDI urban_pop unemployment pop_growth literacy
-#> 1        Canada     CA  NA  29022137         6.91      1.101       NA
-#> 2          <NA>     GL  NA        NA           NA         NA       NA
-#> 3 United States     US  NA 259740511         6.17      0.781       NA
-#>       name_long                           geom
-#> 1        Canada MULTIPOLYGON(((-63.6645 46....
-#> 2     Greenland MULTIPOLYGON(((-46.76379 82...
-#> 3 United States MULTIPOLYGON(((-155.54211 1...
-```
+<!-- ```{r} -->
+<!-- # error: unwanted geom column added -->
+<!-- right_join2 = wb_north_america %>%  -->
+<!--   right_join(north_america, by = "iso_a2") #%>% plot() -->
+<!-- right_join2 -->
+<!-- ``` -->
 
 ### Inner joins
 
@@ -900,21 +882,16 @@ inner_join1
 plot(inner_join1["pop_growth"])
 ```
 
-<img src="figures/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" />
 
-```r
 
-# error: geom column added
-inner_join2 =  wb_north_america %>% 
-  inner_join(north_america, by = "iso_a2") 
-inner_join2
-#>            name iso_a2 HDI urban_pop unemployment pop_growth literacy
-#> 1        Canada     CA  NA  29022137         6.91      1.101       NA
-#> 2 United States     US  NA 259740511         6.17      0.781       NA
-#>       name_long                           geom
-#> 1        Canada MULTIPOLYGON(((-63.6645 46....
-#> 2 United States MULTIPOLYGON(((-155.54211 1...
-```
+<!-- ```{r} -->
+<!-- # error: geom column added -->
+<!-- inner_join2 =  wb_north_america %>%  -->
+<!--   inner_join(north_america, by = "iso_a2")  -->
+<!-- inner_join2 -->
+<!-- ``` -->
+
 
 ### Full joins
 
@@ -940,22 +917,15 @@ full_join1
 #> 2       NA MULTIPOLYGON(((-46.76379 82...
 #> 3       NA MULTIPOLYGON(((-155.54211 1...
 #> 4     94.6           GEOMETRYCOLLECTION()
-
-# error: null geom
-full_join2 = wb_north_america %>% 
-  full_join(north_america, by = "iso_a2") #%>% plot()
-full_join2
-#>            name iso_a2 HDI urban_pop unemployment pop_growth literacy
-#> 1        Canada     CA  NA  29022137         6.91      1.101       NA
-#> 2        Mexico     MX  NA  99018446         5.25      1.321     94.6
-#> 3 United States     US  NA 259740511         6.17      0.781       NA
-#> 4          <NA>     GL  NA        NA           NA         NA       NA
-#>       name_long                           geom
-#> 1        Canada MULTIPOLYGON(((-63.6645 46....
-#> 2          <NA>                           NULL
-#> 3 United States MULTIPOLYGON(((-155.54211 1...
-#> 4     Greenland MULTIPOLYGON(((-46.76379 82...
 ```
+
+
+<!-- ```{r} -->
+<!-- # error: null geom -->
+<!-- full_join2 = wb_north_america %>%  -->
+<!--   full_join(north_america, by = "iso_a2") #%>% plot() -->
+<!-- full_join2 -->
+<!-- ``` -->
 
 ### Semi joins
 
@@ -973,8 +943,11 @@ semi_join1
 #>   iso_a2     name_long                           geom
 #> 1     CA        Canada MULTIPOLYGON(((-63.6645 46....
 #> 2     US United States MULTIPOLYGON(((-155.54211 1...
+```
 
-semi_join2 = wb_north_america %>% 
+
+```r
+semi_join2 = wb_north_america %>%
   semi_join(north_america, by = "iso_a2")
 semi_join2
 #>            name iso_a2 HDI urban_pop unemployment pop_growth literacy
@@ -997,7 +970,10 @@ anti_join1
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #>   iso_a2 name_long                           geom
 #> 1     GL Greenland MULTIPOLYGON(((-46.76379 82...
+```
 
+
+```r
 anti_join2 = wb_north_america %>% 
   anti_join(north_america, by = "iso_a2")
 anti_join2
@@ -1269,7 +1245,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.46
+#> [1] 2.34
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1285,7 +1261,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.17
+#> [1] 3.13
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1385,13 +1361,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.067
+#>   0.064   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.014
+#>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.031
+#>   0.016   0.012   0.029
 ```
 
 
