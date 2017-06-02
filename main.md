@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve5bac112d7a564281
+preservea6c0c713220982d8
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -712,15 +712,22 @@ world_continents %>%
 
 ## Attribute data joining 
 
-<!-- - intro - explain why we use joins, what's the syntax, a list of functions -->
-<!-- - very small example; x - a polygon map with several areas; y - data.frame - mostly the same keys, one/two different -->
-<!-- - each example should have a map, e.g. left_join() on the left, map with colored polygons on the right -->
-<!-- - there will (probably) be issues with some of joins - investigate the ideas + github sfr issues -->
-<!-- - are all of the joins are suitable for spatial data? (right/full) -->
-<!-- - how duplicate keys works with sf -->
-<!-- - exercises -->
+<!-- https://github.com/dgrtwo/fuzzyjoin -->
+<!-- http://r4ds.had.co.nz/relational-data.html -->
 
-<!-- data prep -->
+<!-- intro;  -->
+<!-- a lot of times we use data from many sources/files -->
+<!-- to combine (connect) them we use joins -->
+<!-- joins (relations) are usualy used for pairs of tables -->
+<!-- this is detailty explained in http://r4ds.had.co.nz/relational-data.html -->
+
+<!-- it's get slighlty more complicated, when one of dataset is sf -->
+<!-- new component - object class (geom) -->
+<!-- ... -->
+<!-- dplyr functions could be used -->
+
+<!-- for these examples, we will use two, simplified datasets - world and wordbank_df -->
+<!-- ... -->
 
 
 ```r
@@ -991,8 +998,9 @@ anti_join2
 #> 1 Mexico     MX  NA  99018446         5.25       1.32     94.6
 ```
 
-<!-- https://github.com/dgrtwo/fuzzyjoin -->
-<!-- http://r4ds.had.co.nz/relational-data.html -->
+### Exercises
+
+<!-- -->
 
 ## Attribute data creation
 
@@ -1254,7 +1262,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.51
+#> [1] 2.55
 ```
 
 The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1270,7 +1278,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.05
+#> [1] 3.13
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1370,13 +1378,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.068
+#>   0.068   0.000   0.066
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.008   0.004   0.014
+#>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.020   0.012   0.030
 ```
 
 
