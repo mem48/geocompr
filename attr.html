@@ -314,7 +314,7 @@ world_continents</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sort variables</span>
 ## by name
 world_continents %&gt;%<span class="st"> </span>
-<span class="st">        </span><span class="kw">arrange</span>(continent)
+<span class="st">  </span><span class="kw">arrange</span>(continent)
 <span class="co">#&gt; Simple feature collection with 8 features and 3 fields</span>
 <span class="co">#&gt; geometry type:  GEOMETRY</span>
 <span class="co">#&gt; dimension:      XY</span>
@@ -331,7 +331,7 @@ world_continents %&gt;%<span class="st"> </span>
 <span class="co">#&gt; # ... with 4 more rows</span>
 ## by population (in descending order)
 world_continents %&gt;%<span class="st"> </span>
-<span class="st">        </span><span class="kw">arrange</span>(-pop)
+<span class="st">  </span><span class="kw">arrange</span>(-pop)
 <span class="co">#&gt; Simple feature collection with 8 features and 3 fields</span>
 <span class="co">#&gt; geometry type:  GEOMETRY</span>
 <span class="co">#&gt; dimension:      XY</span>
@@ -363,18 +363,18 @@ world_continents %&gt;%<span class="st"> </span>
 <!-- for these examples, we will use two, simplified datasets - world and wordbank_df -->
 <!-- ... -->
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">north_america =<span class="st"> </span>world %&gt;%
-<span class="st">        </span><span class="kw">filter</span>(subregion ==<span class="st"> &quot;Northern America&quot;</span>) %&gt;%
-<span class="st">        </span><span class="kw">select</span>(iso_a2, name_long)
+<span class="st">  </span><span class="kw">filter</span>(subregion ==<span class="st"> &quot;Northern America&quot;</span>) %&gt;%
+<span class="st">  </span><span class="kw">select</span>(iso_a2, name_long)
 
 <span class="kw">plot</span>(north_america[<span class="dv">0</span>])</code></pre></div>
 <p><img src="figures/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 wb_north_america =<span class="st"> </span>worldbank_df %&gt;%<span class="st"> </span>
-<span class="st">        </span><span class="kw">filter</span>(name %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;United States&quot;</span>))</code></pre></div>
+<span class="st">  </span><span class="kw">filter</span>(name %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;United States&quot;</span>))</code></pre></div>
 <div id="left-joins" class="section level3">
 <h3><span class="header-section-number">3.5.1</span> Left joins</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join1 &lt;-<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">        </span><span class="kw">left_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
+<span class="st">  </span><span class="kw">left_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
 left_join1
 <span class="co">#&gt; Simple feature collection with 3 features and 8 fields</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
@@ -393,7 +393,7 @@ left_join1
 <span class="kw">plot</span>(left_join1[<span class="st">&quot;pop_growth&quot;</span>])</code></pre></div>
 <p><img src="figures/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join2 &lt;-<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">        </span><span class="kw">left_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
+<span class="st">  </span><span class="kw">left_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
 left_join2
 <span class="co">#&gt; Simple feature collection with 3 features and 8 fields</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
@@ -410,7 +410,7 @@ left_join2
 <span class="co">#&gt; 2       NA MULTIPOLYGON(((-46.76379 82...</span>
 <span class="co">#&gt; 3       NA MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join3 &lt;-<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">        </span><span class="kw">left_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso_a2&quot;</span>, <span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
+<span class="st">  </span><span class="kw">left_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso_a2&quot;</span>, <span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
 left_join3
 <span class="co">#&gt; Simple feature collection with 3 features and 7 fields</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
@@ -428,7 +428,7 @@ left_join3
 <span class="co">#&gt; 3 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># error</span>
 left_join4 &lt;-<span class="st"> </span>wb_north_america %&gt;%<span class="st"> </span>
-<span class="st">        </span><span class="kw">left_join</span>(., north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso_a2&quot;</span>))
+<span class="st">  </span><span class="kw">left_join</span>(., north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso_a2&quot;</span>))
 left_join4
 <span class="co">#&gt;            name iso_a2 HDI urban_pop unemployment pop_growth literacy</span>
 <span class="co">#&gt; 1        Canada     CA  NA  29022137         6.91      1.101       NA</span>
@@ -443,7 +443,7 @@ left_join4
 <h3><span class="header-section-number">3.5.2</span> Right joins</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># error</span>
 right_join1 &lt;-<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">        </span><span class="kw">right_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) <span class="co">#%&gt;% plot()</span>
+<span class="st">  </span><span class="kw">right_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) <span class="co">#%&gt;% plot()</span>
 right_join1
 <span class="co">#&gt; Simple feature collection with 3 features and 8 fields (of which 1 is empty)</span>
 <span class="co">#&gt; geometry type:  GEOMETRY</span>
@@ -461,7 +461,7 @@ right_join1
 <span class="co">#&gt; 3       NA MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># error</span>
 right_join2 &lt;-<span class="st"> </span>wb_north_america %&gt;%<span class="st"> </span>
-<span class="st">        </span><span class="kw">right_join</span>(., north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) <span class="co">#%&gt;% plot()</span>
+<span class="st">  </span><span class="kw">right_join</span>(., north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) <span class="co">#%&gt;% plot()</span>
 right_join2
 <span class="co">#&gt;            name iso_a2 HDI urban_pop unemployment pop_growth literacy</span>
 <span class="co">#&gt; 1        Canada     CA  NA  29022137         6.91      1.101       NA</span>
@@ -475,7 +475,7 @@ right_join2
 <div id="inner-joins" class="section level3">
 <h3><span class="header-section-number">3.5.3</span> Inner joins</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inner_join1 &lt;-<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">        </span><span class="kw">inner_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) 
+<span class="st">  </span><span class="kw">inner_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) 
 inner_join1
 <span class="co">#&gt; Simple feature collection with 2 features and 8 fields</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
@@ -494,7 +494,7 @@ inner_join1
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="co"># error</span>
 inner_join2 &lt;-<span class="st">  </span>wb_north_america %&gt;%<span class="st"> </span>
-<span class="st">        </span><span class="kw">inner_join</span>(., north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) 
+<span class="st">  </span><span class="kw">inner_join</span>(., north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) 
 inner_join2
 <span class="co">#&gt;            name iso_a2 HDI urban_pop unemployment pop_growth literacy</span>
 <span class="co">#&gt; 1        Canada     CA  NA  29022137         6.91      1.101       NA</span>
@@ -507,7 +507,7 @@ inner_join2
 <h3><span class="header-section-number">3.5.4</span> Full joins</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># error</span>
 full_join1 &lt;-<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">        </span><span class="kw">full_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) <span class="co">#%&gt;% plot()</span>
+<span class="st">  </span><span class="kw">full_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) <span class="co">#%&gt;% plot()</span>
 full_join1
 <span class="co">#&gt; Simple feature collection with 4 features and 8 fields (of which 1 is empty)</span>
 <span class="co">#&gt; geometry type:  GEOMETRY</span>
@@ -528,7 +528,7 @@ full_join1
 
 <span class="co"># error</span>
 full_join2 &lt;-<span class="st"> </span>wb_north_america %&gt;%<span class="st"> </span>
-<span class="st">        </span><span class="kw">full_join</span>(., north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) <span class="co">#%&gt;% plot()</span>
+<span class="st">  </span><span class="kw">full_join</span>(., north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) <span class="co">#%&gt;% plot()</span>
 full_join2
 <span class="co">#&gt;            name iso_a2 HDI urban_pop unemployment pop_growth literacy</span>
 <span class="co">#&gt; 1        Canada     CA  NA  29022137         6.91      1.101       NA</span>
@@ -544,7 +544,7 @@ full_join2
 <div id="semi-joins" class="section level3">
 <h3><span class="header-section-number">3.5.5</span> Semi joins</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">semi_join1 &lt;-<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">        </span><span class="kw">semi_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
+<span class="st">  </span><span class="kw">semi_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
 semi_join1
 <span class="co">#&gt; Simple feature collection with 2 features and 2 fields</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
@@ -557,7 +557,7 @@ semi_join1
 <span class="co">#&gt; 2     US United States MULTIPOLYGON(((-155.54211 1...</span>
 
 semi_join2 &lt;-<span class="st"> </span>wb_north_america %&gt;%<span class="st"> </span>
-<span class="st">        </span><span class="kw">semi_join</span>(., north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
+<span class="st">  </span><span class="kw">semi_join</span>(., north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
 semi_join2
 <span class="co">#&gt;            name iso_a2 HDI urban_pop unemployment pop_growth literacy</span>
 <span class="co">#&gt; 1        Canada     CA  NA  29022137         6.91      1.101       NA</span>
@@ -566,7 +566,7 @@ semi_join2
 <div id="anti-joins" class="section level3">
 <h3><span class="header-section-number">3.5.6</span> Anti joins</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">anti_join1 &lt;-<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">        </span><span class="kw">anti_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
+<span class="st">  </span><span class="kw">anti_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
 anti_join1
 <span class="co">#&gt; Simple feature collection with 1 feature and 2 fields</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
@@ -578,7 +578,7 @@ anti_join1
 <span class="co">#&gt; 1     GL Greenland MULTIPOLYGON(((-46.76379 82...</span>
 
 anti_join2 &lt;-<span class="st"> </span>wb_north_america %&gt;%<span class="st"> </span>
-<span class="st">        </span><span class="kw">anti_join</span>(., north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
+<span class="st">  </span><span class="kw">anti_join</span>(., north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
 anti_join2
 <span class="co">#&gt;     name iso_a2 HDI urban_pop unemployment pop_growth literacy</span>
 <span class="co">#&gt; 1 Mexico     MX  NA  99018446         5.25       1.32     94.6</span></code></pre></div>

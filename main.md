@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve4a6b510d371e3f28
+preservee49759ef9eb8a4f7
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -683,7 +683,7 @@ world_continents
 # sort variables
 ## by name
 world_continents %>% 
-        arrange(continent)
+  arrange(continent)
 #> Simple feature collection with 8 features and 3 fields
 #> geometry type:  GEOMETRY
 #> dimension:      XY
@@ -700,7 +700,7 @@ world_continents %>%
 #> # ... with 4 more rows
 ## by population (in descending order)
 world_continents %>% 
-        arrange(-pop)
+  arrange(-pop)
 #> Simple feature collection with 8 features and 3 fields
 #> geometry type:  GEOMETRY
 #> dimension:      XY
@@ -739,8 +739,8 @@ world_continents %>%
 
 ```r
 north_america = world %>%
-        filter(subregion == "Northern America") %>%
-        select(iso_a2, name_long)
+  filter(subregion == "Northern America") %>%
+  select(iso_a2, name_long)
 
 plot(north_america[0])
 ```
@@ -750,7 +750,7 @@ plot(north_america[0])
 ```r
 
 wb_north_america = worldbank_df %>% 
-        filter(name %in% c("Canada", "Mexico", "United States"))
+  filter(name %in% c("Canada", "Mexico", "United States"))
 ```
 
 ### Left joins
@@ -758,7 +758,7 @@ wb_north_america = worldbank_df %>%
 
 ```r
 left_join1 <- north_america %>% 
-        left_join(., wb_north_america, by = "iso_a2")
+  left_join(., wb_north_america, by = "iso_a2")
 left_join1
 #> Simple feature collection with 3 features and 8 fields
 #> geometry type:  MULTIPOLYGON
@@ -782,7 +782,7 @@ plot(left_join1["pop_growth"])
 
 ```r
 left_join2 <- north_america %>% 
-        left_join(., wb_north_america, by = c("name_long" = "name"))
+  left_join(., wb_north_america, by = c("name_long" = "name"))
 left_join2
 #> Simple feature collection with 3 features and 8 fields
 #> geometry type:  MULTIPOLYGON
@@ -803,7 +803,7 @@ left_join2
 
 ```r
 left_join3 <- north_america %>% 
-        left_join(., wb_north_america, by = c("iso_a2", "name_long" = "name"))
+  left_join(., wb_north_america, by = c("iso_a2", "name_long" = "name"))
 left_join3
 #> Simple feature collection with 3 features and 7 fields
 #> geometry type:  MULTIPOLYGON
@@ -826,7 +826,7 @@ left_join3
 ```r
 # error
 left_join4 <- wb_north_america %>% 
-        left_join(., north_america, by = c("iso_a2"))
+  left_join(., north_america, by = c("iso_a2"))
 left_join4
 #>            name iso_a2 HDI urban_pop unemployment pop_growth literacy
 #> 1        Canada     CA  NA  29022137         6.91      1.101       NA
@@ -844,7 +844,7 @@ left_join4
 ```r
 # error
 right_join1 <- north_america %>% 
-        right_join(., wb_north_america, by = "iso_a2") #%>% plot()
+  right_join(., wb_north_america, by = "iso_a2") #%>% plot()
 right_join1
 #> Simple feature collection with 3 features and 8 fields (of which 1 is empty)
 #> geometry type:  GEOMETRY
@@ -866,7 +866,7 @@ right_join1
 ```r
 # error
 right_join2 <- wb_north_america %>% 
-        right_join(., north_america, by = "iso_a2") #%>% plot()
+  right_join(., north_america, by = "iso_a2") #%>% plot()
 right_join2
 #>            name iso_a2 HDI urban_pop unemployment pop_growth literacy
 #> 1        Canada     CA  NA  29022137         6.91      1.101       NA
@@ -883,7 +883,7 @@ right_join2
 
 ```r
 inner_join1 <- north_america %>% 
-        inner_join(., wb_north_america, by = "iso_a2") 
+  inner_join(., wb_north_america, by = "iso_a2") 
 inner_join1
 #> Simple feature collection with 2 features and 8 fields
 #> geometry type:  MULTIPOLYGON
@@ -906,7 +906,7 @@ plot(inner_join1["pop_growth"])
 
 # error
 inner_join2 <-  wb_north_america %>% 
-        inner_join(., north_america, by = "iso_a2") 
+  inner_join(., north_america, by = "iso_a2") 
 inner_join2
 #>            name iso_a2 HDI urban_pop unemployment pop_growth literacy
 #> 1        Canada     CA  NA  29022137         6.91      1.101       NA
@@ -922,7 +922,7 @@ inner_join2
 ```r
 # error
 full_join1 <- north_america %>% 
-        full_join(., wb_north_america, by = "iso_a2") #%>% plot()
+  full_join(., wb_north_america, by = "iso_a2") #%>% plot()
 full_join1
 #> Simple feature collection with 4 features and 8 fields (of which 1 is empty)
 #> geometry type:  GEOMETRY
@@ -943,7 +943,7 @@ full_join1
 
 # error
 full_join2 <- wb_north_america %>% 
-        full_join(., north_america, by = "iso_a2") #%>% plot()
+  full_join(., north_america, by = "iso_a2") #%>% plot()
 full_join2
 #>            name iso_a2 HDI urban_pop unemployment pop_growth literacy
 #> 1        Canada     CA  NA  29022137         6.91      1.101       NA
@@ -962,7 +962,7 @@ full_join2
 
 ```r
 semi_join1 <- north_america %>% 
-        semi_join(., wb_north_america, by = "iso_a2")
+  semi_join(., wb_north_america, by = "iso_a2")
 semi_join1
 #> Simple feature collection with 2 features and 2 fields
 #> geometry type:  MULTIPOLYGON
@@ -975,7 +975,7 @@ semi_join1
 #> 2     US United States MULTIPOLYGON(((-155.54211 1...
 
 semi_join2 <- wb_north_america %>% 
-        semi_join(., north_america, by = "iso_a2")
+  semi_join(., north_america, by = "iso_a2")
 semi_join2
 #>            name iso_a2 HDI urban_pop unemployment pop_growth literacy
 #> 1        Canada     CA  NA  29022137         6.91      1.101       NA
@@ -987,7 +987,7 @@ semi_join2
 
 ```r
 anti_join1 <- north_america %>% 
-        anti_join(., wb_north_america, by = "iso_a2")
+  anti_join(., wb_north_america, by = "iso_a2")
 anti_join1
 #> Simple feature collection with 1 feature and 2 fields
 #> geometry type:  MULTIPOLYGON
@@ -999,7 +999,7 @@ anti_join1
 #> 1     GL Greenland MULTIPOLYGON(((-46.76379 82...
 
 anti_join2 <- wb_north_america %>% 
-        anti_join(., north_america, by = "iso_a2")
+  anti_join(., north_america, by = "iso_a2")
 anti_join2
 #>     name iso_a2 HDI urban_pop unemployment pop_growth literacy
 #> 1 Mexico     MX  NA  99018446         5.25       1.32     94.6
@@ -1269,7 +1269,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.25
+#> [1] 2.33
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1285,7 +1285,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.09
+#> [1] 2.93
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1385,13 +1385,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.004   0.070
+#>   0.076   0.000   0.079
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.004   0.014
+#>   0.016   0.000   0.016
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.031
+#>   0.028   0.008   0.036
 ```
 
 
