@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservecce295718d8349ba
+preservee6a1adc20d466384
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -824,7 +824,7 @@ left_join3
 
 
 ```r
-# drops the sf class
+# error: keeps geom col
 left_join4 = wb_north_america %>% 
   left_join(north_america, by = c("iso_a2"))
 left_join4
@@ -842,7 +842,7 @@ left_join4
 
 
 ```r
-# error
+# error: empty GEOMETRYCOLLECTION() added to geom
 right_join1 = north_america %>% 
   right_join(wb_north_america, by = "iso_a2") #%>% plot()
 right_join1
@@ -864,7 +864,7 @@ right_join1
 
 
 ```r
-# error
+# error: unwanted geom column added
 right_join2 = wb_north_america %>% 
   right_join(north_america, by = "iso_a2") #%>% plot()
 right_join2
@@ -904,7 +904,7 @@ plot(inner_join1["pop_growth"])
 
 ```r
 
-# error
+# error: geom column added
 inner_join2 =  wb_north_america %>% 
   inner_join(north_america, by = "iso_a2") 
 inner_join2
@@ -920,7 +920,7 @@ inner_join2
 
 
 ```r
-# error
+# error: empty GEOMETRYCOLLECTION
 full_join1 = north_america %>% 
   full_join(wb_north_america, by = "iso_a2") #%>% plot()
 full_join1
@@ -941,7 +941,7 @@ full_join1
 #> 3       NA MULTIPOLYGON(((-155.54211 1...
 #> 4     94.6           GEOMETRYCOLLECTION()
 
-# error
+# error: null geom
 full_join2 = wb_north_america %>% 
   full_join(north_america, by = "iso_a2") #%>% plot()
 full_join2
@@ -1269,10 +1269,10 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.5
+#> [1] 2.46
 ```
 
-The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -1285,7 +1285,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.08
+#> [1] 3.17
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1385,13 +1385,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.073
+#>   0.068   0.000   0.067
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.013
+#>   0.012   0.000   0.014
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.030
+#>   0.020   0.012   0.031
 ```
 
 

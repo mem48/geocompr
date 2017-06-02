@@ -426,7 +426,7 @@ left_join3
 <span class="co">#&gt; 1 MULTIPOLYGON(((-63.6645 46....</span>
 <span class="co">#&gt; 2 MULTIPOLYGON(((-46.76379 82...</span>
 <span class="co">#&gt; 3 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># drops the sf class</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># error: keeps geom col</span>
 left_join4 =<span class="st"> </span>wb_north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso_a2&quot;</span>))
 left_join4
@@ -441,7 +441,7 @@ left_join4
 </div>
 <div id="right-joins" class="section level3">
 <h3><span class="header-section-number">3.5.2</span> Right joins</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># error</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># error: empty GEOMETRYCOLLECTION() added to geom</span>
 right_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">right_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) <span class="co">#%&gt;% plot()</span>
 right_join1
@@ -459,7 +459,7 @@ right_join1
 <span class="co">#&gt; 1       NA MULTIPOLYGON(((-63.6645 46....</span>
 <span class="co">#&gt; 2     94.6           GEOMETRYCOLLECTION()</span>
 <span class="co">#&gt; 3       NA MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># error</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># error: unwanted geom column added</span>
 right_join2 =<span class="st"> </span>wb_north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">right_join</span>(north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) <span class="co">#%&gt;% plot()</span>
 right_join2
@@ -492,7 +492,7 @@ inner_join1
 <span class="kw">plot</span>(inner_join1[<span class="st">&quot;pop_growth&quot;</span>])</code></pre></div>
 <p><img src="figures/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-<span class="co"># error</span>
+<span class="co"># error: geom column added</span>
 inner_join2 =<span class="st">  </span>wb_north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">inner_join</span>(north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) 
 inner_join2
@@ -505,7 +505,7 @@ inner_join2
 </div>
 <div id="full-joins" class="section level3">
 <h3><span class="header-section-number">3.5.4</span> Full joins</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># error</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># error: empty GEOMETRYCOLLECTION</span>
 full_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">full_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) <span class="co">#%&gt;% plot()</span>
 full_join1
@@ -526,7 +526,7 @@ full_join1
 <span class="co">#&gt; 3       NA MULTIPOLYGON(((-155.54211 1...</span>
 <span class="co">#&gt; 4     94.6           GEOMETRYCOLLECTION()</span>
 
-<span class="co"># error</span>
+<span class="co"># error: null geom</span>
 full_join2 =<span class="st"> </span>wb_north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">full_join</span>(north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) <span class="co">#%&gt;% plot()</span>
 full_join2
