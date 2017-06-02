@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservedf3f83b4cd7f9eb3
+preservedd16e428c266d29e
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -723,6 +723,21 @@ world_continents %>%
 <!-- data prep -->
 
 
+```r
+north_america = world %>%
+        filter(subregion == "Northern America") %>%
+        select(iso_a2, name_long)
+
+plot(north_america[0])
+```
+
+<img src="figures/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" />
+
+```r
+
+wb_north_america = worldbank_df %>% 
+        filter(name %in% c("Canada", "Mexico", "United States"))
+```
 
 <!-- left_join() -->
 
@@ -1257,7 +1272,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.12
+#> [1] 3.2
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1357,13 +1372,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.004   0.066
+#>   0.068   0.000   0.068
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.013
+#>   0.012   0.000   0.014
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.012   0.016   0.030
+#>   0.020   0.012   0.032
 ```
 
 

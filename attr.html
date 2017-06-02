@@ -350,6 +350,15 @@ world_continents %&gt;%<span class="st"> </span>
 <!-- - how duplicate keys works with sf -->
 <!-- - exercises -->
 <!-- data prep -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">north_america =<span class="st"> </span>world %&gt;%
+<span class="st">        </span><span class="kw">filter</span>(subregion ==<span class="st"> &quot;Northern America&quot;</span>) %&gt;%
+<span class="st">        </span><span class="kw">select</span>(iso_a2, name_long)
+
+<span class="kw">plot</span>(north_america[<span class="dv">0</span>])</code></pre></div>
+<p><img src="figures/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+wb_north_america =<span class="st"> </span>worldbank_df %&gt;%<span class="st"> </span>
+<span class="st">        </span><span class="kw">filter</span>(name %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;United States&quot;</span>))</code></pre></div>
 <!-- left_join() -->
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join1 &lt;-<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">        </span><span class="kw">left_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
