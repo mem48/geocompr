@@ -157,7 +157,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.2" data-path="attr.html"><a href="attr.html#base-vs-data.table-vs-dplyr"><i class="fa fa-check"></i><b>3.2</b> Base vs data.table vs dplyr</a></li>
 <li class="chapter" data-level="3.3" data-path="attr.html"><a href="attr.html#attribute-subsetting"><i class="fa fa-check"></i><b>3.3</b> Attribute subsetting</a></li>
 <li class="chapter" data-level="3.4" data-path="attr.html"><a href="attr.html#attribute-data-aggregation"><i class="fa fa-check"></i><b>3.4</b> Attribute data aggregation</a></li>
-<li class="chapter" data-level="3.5" data-path="attr.html"><a href="attr.html#attribute-data-joining"><i class="fa fa-check"></i><b>3.5</b> Attribute data joining</a></li>
+<li class="chapter" data-level="3.5" data-path="attr.html"><a href="attr.html#attribute-data-joining"><i class="fa fa-check"></i><b>3.5</b> Attribute data joining</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="attr.html"><a href="attr.html#left-joins"><i class="fa fa-check"></i><b>3.5.1</b> Left joins</a></li>
+<li class="chapter" data-level="3.5.2" data-path="attr.html"><a href="attr.html#right-joins"><i class="fa fa-check"></i><b>3.5.2</b> Right joins</a></li>
+<li class="chapter" data-level="3.5.3" data-path="attr.html"><a href="attr.html#inner-joins"><i class="fa fa-check"></i><b>3.5.3</b> Inner joins</a></li>
+<li class="chapter" data-level="3.5.4" data-path="attr.html"><a href="attr.html#full-joins"><i class="fa fa-check"></i><b>3.5.4</b> Full joins</a></li>
+<li class="chapter" data-level="3.5.5" data-path="attr.html"><a href="attr.html#semi-joins"><i class="fa fa-check"></i><b>3.5.5</b> Semi joins</a></li>
+<li class="chapter" data-level="3.5.6" data-path="attr.html"><a href="attr.html#anti-joins"><i class="fa fa-check"></i><b>3.5.6</b> Anti joins</a></li>
+</ul></li>
 <li class="chapter" data-level="3.6" data-path="attr.html"><a href="attr.html#attribute-data-creation"><i class="fa fa-check"></i><b>3.6</b> Attribute data creation</a></li>
 <li class="chapter" data-level="3.7" data-path="attr.html"><a href="attr.html#removing-spatial-information"><i class="fa fa-check"></i><b>3.7</b> Removing spatial information</a></li>
 </ul></li>
@@ -359,7 +366,8 @@ world_continents %&gt;%<span class="st"> </span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 wb_north_america =<span class="st"> </span>worldbank_df %&gt;%<span class="st"> </span>
 <span class="st">        </span><span class="kw">filter</span>(name %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;United States&quot;</span>))</code></pre></div>
-<!-- left_join() -->
+<div id="left-joins" class="section level3">
+<h3><span class="header-section-number">3.5.1</span> Left joins</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join1 &lt;-<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">        </span><span class="kw">left_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
 left_join1
@@ -425,7 +433,9 @@ left_join4
 <span class="co">#&gt; 1        Canada MULTIPOLYGON(((-63.6645 46....</span>
 <span class="co">#&gt; 2          &lt;NA&gt;                           NULL</span>
 <span class="co">#&gt; 3 United States MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
-<!-- right_join() -->
+</div>
+<div id="right-joins" class="section level3">
+<h3><span class="header-section-number">3.5.2</span> Right joins</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># error</span>
 right_join1 &lt;-<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">        </span><span class="kw">right_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) <span class="co">#%&gt;% plot()</span>
@@ -456,7 +466,9 @@ right_join2
 <span class="co">#&gt; 1        Canada MULTIPOLYGON(((-63.6645 46....</span>
 <span class="co">#&gt; 2     Greenland MULTIPOLYGON(((-46.76379 82...</span>
 <span class="co">#&gt; 3 United States MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
-<!-- inner_join() -->
+</div>
+<div id="inner-joins" class="section level3">
+<h3><span class="header-section-number">3.5.3</span> Inner joins</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inner_join1 &lt;-<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">        </span><span class="kw">inner_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) 
 inner_join1
@@ -485,7 +497,9 @@ inner_join2
 <span class="co">#&gt;       name_long                           geom</span>
 <span class="co">#&gt; 1        Canada MULTIPOLYGON(((-63.6645 46....</span>
 <span class="co">#&gt; 2 United States MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
-<!-- full_join() -->
+</div>
+<div id="full-joins" class="section level3">
+<h3><span class="header-section-number">3.5.4</span> Full joins</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># error</span>
 full_join1 &lt;-<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">        </span><span class="kw">full_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) <span class="co">#%&gt;% plot()</span>
@@ -521,7 +535,9 @@ full_join2
 <span class="co">#&gt; 2          &lt;NA&gt;                           NULL</span>
 <span class="co">#&gt; 3 United States MULTIPOLYGON(((-155.54211 1...</span>
 <span class="co">#&gt; 4     Greenland MULTIPOLYGON(((-46.76379 82...</span></code></pre></div>
-<!-- semi_join() -->
+</div>
+<div id="semi-joins" class="section level3">
+<h3><span class="header-section-number">3.5.5</span> Semi joins</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">semi_join1 &lt;-<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">        </span><span class="kw">semi_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
 semi_join1
@@ -541,7 +557,9 @@ semi_join2
 <span class="co">#&gt;            name iso_a2 HDI urban_pop unemployment pop_growth literacy</span>
 <span class="co">#&gt; 1        Canada     CA  NA  29022137         6.91      1.101       NA</span>
 <span class="co">#&gt; 2 United States     US  NA 259740511         6.17      0.781       NA</span></code></pre></div>
-<!-- anti_join() -->
+</div>
+<div id="anti-joins" class="section level3">
+<h3><span class="header-section-number">3.5.6</span> Anti joins</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">anti_join1 &lt;-<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">        </span><span class="kw">anti_join</span>(., wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
 anti_join1
@@ -561,6 +579,7 @@ anti_join2
 <span class="co">#&gt; 1 Mexico     MX  NA  99018446         5.25       1.32     94.6</span></code></pre></div>
 <!-- https://github.com/dgrtwo/fuzzyjoin -->
 <!-- http://r4ds.had.co.nz/relational-data.html -->
+</div>
 </div>
 <div id="attribute-data-creation" class="section level2">
 <h2><span class="header-section-number">3.6</span> Attribute data creation</h2>

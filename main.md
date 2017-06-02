@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve1548d4a114d09da3
+preserve3b48ebbd92414efb
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -739,7 +739,7 @@ wb_north_america = worldbank_df %>%
         filter(name %in% c("Canada", "Mexico", "United States"))
 ```
 
-<!-- left_join() -->
+### Left joins
 
 
 ```r
@@ -824,7 +824,7 @@ left_join4
 #> 3 United States MULTIPOLYGON(((-155.54211 1...
 ```
 
-<!-- right_join() -->
+### Right joins
 
 
 ```r
@@ -864,7 +864,7 @@ right_join2
 #> 3 United States MULTIPOLYGON(((-155.54211 1...
 ```
 
-<!-- inner_join() -->
+### Inner joins
 
 
 ```r
@@ -902,7 +902,7 @@ inner_join2
 #> 2 United States MULTIPOLYGON(((-155.54211 1...
 ```
 
-<!-- full_join() -->
+### Full joins
 
 
 ```r
@@ -943,7 +943,7 @@ full_join2
 #> 4     Greenland MULTIPOLYGON(((-46.76379 82...
 ```
 
-<!-- semi_join() -->
+### Semi joins
 
 
 ```r
@@ -968,7 +968,7 @@ semi_join2
 #> 2 United States     US  NA 259740511         6.17      0.781       NA
 ```
 
-<!-- anti_join() -->
+### Anti joins
 
 
 ```r
@@ -1273,10 +1273,10 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.25
+#> [1] 2.72
 ```
 
-The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -1289,7 +1289,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.61
+#> [1] 3.36
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1389,10 +1389,10 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.004   0.070
+#>   0.068   0.000   0.065
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.013
+#>   0.016   0.000   0.014
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
 #>   0.020   0.008   0.029
