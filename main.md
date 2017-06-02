@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-06-01'
+date: '2017-06-02'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -39,7 +39,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-06-01 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-06-02 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveac100e01980a4aa7
+preserve4c978e867f3669b2
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -488,13 +488,12 @@ sf data types:
 
 ## Prerequisites {-}
 
-- This chapter requires **tidyverse**, **sf**, **units**, and **spData** packages:
+- This chapter requires **tidyverse**, **sf**, and **spData** packages:
 
 
 ```r
 library(sf)
 library(tidyverse)
-library(units)
 ```
 
 - You must have loaded the `world` and `worldbank_df` data from the spData package:
@@ -686,7 +685,7 @@ world_continents %>%
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #> # A tibble: 8 x 4
 #>    continent continent_pop country_n              geom
-#>       <fctr>         <dbl>     <int>  <simple_feature>
+#>        <chr>         <dbl>     <int>  <simple_feature>
 #> 1     Africa      1.15e+09        51 <MULTIPOLYGON...>
 #> 2 Antarctica      0.00e+00         1 <MULTIPOLYGON...>
 #> 3       Asia      4.31e+09        47 <MULTIPOLYGON...>
@@ -703,7 +702,7 @@ world_continents %>%
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #> # A tibble: 8 x 4
 #>       continent continent_pop country_n              geom
-#>          <fctr>         <dbl>     <int>  <simple_feature>
+#>           <chr>         <dbl>     <int>  <simple_feature>
 #> 1          Asia      4.31e+09        47 <MULTIPOLYGON...>
 #> 2        Africa      1.15e+09        51 <MULTIPOLYGON...>
 #> 3        Europe      7.39e+08        39 <MULTIPOLYGON...>
@@ -721,12 +720,203 @@ world_continents %>%
 <!-- - how duplicate keys works with sf -->
 <!-- - exercises -->
 
+<!-- data prep -->
+
+
+
 <!-- left_join() -->
+
+
+```r
+left_join1 <- north_america %>% 
+        left_join(., wb_north_america, by = "iso_a2")
+left_join1
+#> Simple feature collection with 3 features and 8 fields
+#> geometry type:  MULTIPOLYGON
+#> dimension:      XY
+#> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#>   iso_a2     name_long          name HDI urban_pop unemployment pop_growth
+#> 1     CA        Canada        Canada  NA  29022137         6.91      1.101
+#> 2     GL     Greenland          <NA>  NA        NA           NA         NA
+#> 3     US United States United States  NA 259740511         6.17      0.781
+#>   literacy                           geom
+#> 1       NA MULTIPOLYGON(((-63.6645 46....
+#> 2       NA MULTIPOLYGON(((-46.76379 82...
+#> 3       NA MULTIPOLYGON(((-155.54211 1...
+plot(left_join1["pop_growth"])
+```
+
+<img src="figures/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" />
+
+
+```r
+left_join2 <- north_america %>% 
+        left_join(., wb_north_america, by = c("name_long" = "name"))
+left_join2
+#> Simple feature collection with 3 features and 8 fields
+#> geometry type:  MULTIPOLYGON
+#> dimension:      XY
+#> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#>   iso_a2.x     name_long iso_a2.y HDI urban_pop unemployment pop_growth
+#> 1       CA        Canada       CA  NA  29022137         6.91      1.101
+#> 2       GL     Greenland     <NA>  NA        NA           NA         NA
+#> 3       US United States       US  NA 259740511         6.17      0.781
+#>   literacy                           geom
+#> 1       NA MULTIPOLYGON(((-63.6645 46....
+#> 2       NA MULTIPOLYGON(((-46.76379 82...
+#> 3       NA MULTIPOLYGON(((-155.54211 1...
+```
+
+
+```r
+left_join3 <- north_america %>% 
+        left_join(., wb_north_america, by = c("iso_a2", "name_long" = "name"))
+left_join3
+#> Simple feature collection with 3 features and 7 fields
+#> geometry type:  MULTIPOLYGON
+#> dimension:      XY
+#> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#>   iso_a2     name_long HDI urban_pop unemployment pop_growth literacy
+#> 1     CA        Canada  NA  29022137         6.91      1.101       NA
+#> 2     GL     Greenland  NA        NA           NA         NA       NA
+#> 3     US United States  NA 259740511         6.17      0.781       NA
+#>                             geom
+#> 1 MULTIPOLYGON(((-63.6645 46....
+#> 2 MULTIPOLYGON(((-46.76379 82...
+#> 3 MULTIPOLYGON(((-155.54211 1...
+```
+
 <!-- right_join() -->
+
+
+```r
+# error
+right_join1 <- north_america %>% 
+        right_join(., wb_north_america, by = "iso_a2") #%>% plot()
+right_join1
+#> Simple feature collection with 3 features and 8 fields (of which 1 is empty)
+#> geometry type:  GEOMETRY
+#> dimension:      XY
+#> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#>   iso_a2     name_long          name HDI urban_pop unemployment pop_growth
+#> 1     CA        Canada        Canada  NA  29022137         6.91      1.101
+#> 2     MX          <NA>        Mexico  NA  99018446         5.25      1.321
+#> 3     US United States United States  NA 259740511         6.17      0.781
+#>   literacy                           geom
+#> 1       NA MULTIPOLYGON(((-63.6645 46....
+#> 2     94.6           GEOMETRYCOLLECTION()
+#> 3       NA MULTIPOLYGON(((-155.54211 1...
+```
+
+
+```r
+# error
+right_join2 <- wb_north_america %>% 
+        right_join(., north_america, by = "iso_a2") #%>% plot()
+right_join2
+#>            name iso_a2 HDI urban_pop unemployment pop_growth literacy
+#> 1        Canada     CA  NA  29022137         6.91      1.101       NA
+#> 2          <NA>     GL  NA        NA           NA         NA       NA
+#> 3 United States     US  NA 259740511         6.17      0.781       NA
+#>       name_long                           geom
+#> 1        Canada MULTIPOLYGON(((-63.6645 46....
+#> 2     Greenland MULTIPOLYGON(((-46.76379 82...
+#> 3 United States MULTIPOLYGON(((-155.54211 1...
+```
+
 <!-- inner_join() -->
+
+
+```r
+inner_join1 <- north_america %>% 
+        inner_join(., wb_north_america, by = "iso_a2") 
+inner_join1
+#> Simple feature collection with 2 features and 8 fields
+#> geometry type:  MULTIPOLYGON
+#> dimension:      XY
+#> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#>   iso_a2     name_long          name HDI urban_pop unemployment pop_growth
+#> 1     CA        Canada        Canada  NA  29022137         6.91      1.101
+#> 2     US United States United States  NA 259740511         6.17      0.781
+#>   literacy                           geom
+#> 1       NA MULTIPOLYGON(((-63.6645 46....
+#> 2       NA MULTIPOLYGON(((-155.54211 1...
+plot(inner_join1["pop_growth"])
+```
+
+<img src="figures/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" />
+
 <!-- full_join() -->
+
+
+```r
+# error
+full_join1 <- north_america %>% 
+        full_join(., wb_north_america, by = "iso_a2") #%>% plot()
+full_join1
+#> Simple feature collection with 4 features and 8 fields (of which 1 is empty)
+#> geometry type:  GEOMETRY
+#> dimension:      XY
+#> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#>   iso_a2     name_long          name HDI urban_pop unemployment pop_growth
+#> 1     CA        Canada        Canada  NA  29022137         6.91      1.101
+#> 2     GL     Greenland          <NA>  NA        NA           NA         NA
+#> 3     US United States United States  NA 259740511         6.17      0.781
+#> 4     MX          <NA>        Mexico  NA  99018446         5.25      1.321
+#>   literacy                           geom
+#> 1       NA MULTIPOLYGON(((-63.6645 46....
+#> 2       NA MULTIPOLYGON(((-46.76379 82...
+#> 3       NA MULTIPOLYGON(((-155.54211 1...
+#> 4     94.6           GEOMETRYCOLLECTION()
+```
+
 <!-- semi_join() -->
+
+
+```r
+semi_join1 <- north_america %>% 
+        semi_join(., wb_north_america, by = "iso_a2")
+semi_join1
+#> Simple feature collection with 2 features and 2 fields
+#> geometry type:  MULTIPOLYGON
+#> dimension:      XY
+#> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#>   iso_a2     name_long                           geom
+#> 1     CA        Canada MULTIPOLYGON(((-63.6645 46....
+#> 2     US United States MULTIPOLYGON(((-155.54211 1...
+```
+
 <!-- anti_join() -->
+
+
+```r
+anti_join1 <- north_america %>% 
+        anti_join(., wb_north_america, by = "iso_a2")
+anti_join1
+#> Simple feature collection with 1 feature and 2 fields
+#> geometry type:  MULTIPOLYGON
+#> dimension:      XY
+#> bbox:           xmin: -73.297 ymin: 60.03676 xmax: -12.20855 ymax: 83.64513
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#>   iso_a2 name_long                           geom
+#> 1     GL Greenland MULTIPOLYGON(((-46.76379 82...
+```
+
 <!-- https://github.com/dgrtwo/fuzzyjoin -->
 <!-- http://r4ds.had.co.nz/relational-data.html -->
 
@@ -1009,7 +1199,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.21
+#> [1] 2.4
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1025,7 +1215,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.29
+#> [1] 3.23
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1125,13 +1315,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.080   0.004   0.085
+#>   0.068   0.000   0.067
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.004   0.016
+#>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.004   0.033
+#>   0.020   0.012   0.031
 ```
 
 
