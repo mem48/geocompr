@@ -426,7 +426,7 @@ left_join3
 <span class="co">#&gt; 1 MULTIPOLYGON(((-63.6645 46....</span>
 <span class="co">#&gt; 2 MULTIPOLYGON(((-46.76379 82...</span>
 <span class="co">#&gt; 3 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># error</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># drops the sf class</span>
 left_join4 =<span class="st"> </span>wb_north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso_a2&quot;</span>))
 left_join4
