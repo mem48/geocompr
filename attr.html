@@ -155,8 +155,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="attr.html"><a href="attr.html#prerequisites-1"><i class="fa fa-check"></i>Prerequisites</a></li>
 <li class="chapter" data-level="3.1" data-path="attr.html"><a href="attr.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
 <li class="chapter" data-level="3.2" data-path="attr.html"><a href="attr.html#base-vs-data.table-vs-dplyr"><i class="fa fa-check"></i><b>3.2</b> Base vs data.table vs dplyr</a></li>
-<li class="chapter" data-level="3.3" data-path="attr.html"><a href="attr.html#attribute-subsetting"><i class="fa fa-check"></i><b>3.3</b> Attribute subsetting</a></li>
-<li class="chapter" data-level="3.4" data-path="attr.html"><a href="attr.html#attribute-data-aggregation"><i class="fa fa-check"></i><b>3.4</b> Attribute data aggregation</a></li>
+<li class="chapter" data-level="3.3" data-path="attr.html"><a href="attr.html#attribute-subsetting"><i class="fa fa-check"></i><b>3.3</b> Attribute subsetting</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="attr.html"><a href="attr.html#exercises-2"><i class="fa fa-check"></i><b>3.3.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="attr.html"><a href="attr.html#attribute-data-aggregation"><i class="fa fa-check"></i><b>3.4</b> Attribute data aggregation</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="attr.html"><a href="attr.html#exercises-3"><i class="fa fa-check"></i><b>3.4.1</b> Exercises</a></li>
+</ul></li>
 <li class="chapter" data-level="3.5" data-path="attr.html"><a href="attr.html#attribute-data-joining"><i class="fa fa-check"></i><b>3.5</b> Attribute data joining</a><ul>
 <li class="chapter" data-level="3.5.1" data-path="attr.html"><a href="attr.html#left-joins"><i class="fa fa-check"></i><b>3.5.1</b> Left joins</a></li>
 <li class="chapter" data-level="3.5.2" data-path="attr.html"><a href="attr.html#right-joins"><i class="fa fa-check"></i><b>3.5.2</b> Right joins</a></li>
@@ -164,9 +168,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.5.4" data-path="attr.html"><a href="attr.html#full-joins"><i class="fa fa-check"></i><b>3.5.4</b> Full joins</a></li>
 <li class="chapter" data-level="3.5.5" data-path="attr.html"><a href="attr.html#semi-joins"><i class="fa fa-check"></i><b>3.5.5</b> Semi joins</a></li>
 <li class="chapter" data-level="3.5.6" data-path="attr.html"><a href="attr.html#anti-joins"><i class="fa fa-check"></i><b>3.5.6</b> Anti joins</a></li>
-<li class="chapter" data-level="3.5.7" data-path="attr.html"><a href="attr.html#exercises-2"><i class="fa fa-check"></i><b>3.5.7</b> Exercises</a></li>
+<li class="chapter" data-level="3.5.7" data-path="attr.html"><a href="attr.html#exercises-4"><i class="fa fa-check"></i><b>3.5.7</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="3.6" data-path="attr.html"><a href="attr.html#attribute-data-creation"><i class="fa fa-check"></i><b>3.6</b> Attribute data creation</a></li>
+<li class="chapter" data-level="3.6" data-path="attr.html"><a href="attr.html#attribute-data-creation"><i class="fa fa-check"></i><b>3.6</b> Attribute data creation</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="attr.html"><a href="attr.html#exercises-5"><i class="fa fa-check"></i><b>3.6.1</b> Exercises</a></li>
+</ul></li>
 <li class="chapter" data-level="3.7" data-path="attr.html"><a href="attr.html#removing-spatial-information"><i class="fa fa-check"></i><b>3.7</b> Removing spatial information</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html"><i class="fa fa-check"></i><b>4</b> Spatial data operations</a><ul>
@@ -184,7 +190,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#data-output-o"><i class="fa fa-check"></i><b>5.2</b> Data output (O)</a></li>
 <li class="chapter" data-level="5.3" data-path="read-write.html"><a href="read-write.html#file-formats"><i class="fa fa-check"></i><b>5.3</b> File formats</a></li>
 <li class="chapter" data-level="5.4" data-path="read-write.html"><a href="read-write.html#visual-outputs"><i class="fa fa-check"></i><b>5.4</b> Visual outputs</a></li>
-<li class="chapter" data-level="5.5" data-path="read-write.html"><a href="read-write.html#exercises-3"><i class="fa fa-check"></i><b>5.5</b> Exercises</a></li>
+<li class="chapter" data-level="5.5" data-path="read-write.html"><a href="read-write.html#exercises-6"><i class="fa fa-check"></i><b>5.5</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>6</b> References</a></li>
 <li class="divider"></li>
@@ -270,7 +276,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co">#&gt;     name_long continent population                           geom</span>
 <span class="co">#&gt; 1 Afghanistan      Asia   31627506 MULTIPOLYGON(((61.210817091...</span>
 <span class="co">#&gt; 2      Angola    Africa   24227524 MULTIPOLYGON(((16.326528354...</span></code></pre></div>
-<p>This is more concises than the base R equivalent (which saves the result as an object called <code>world2</code> to avoid overriding the <code>world</code> dataset created previously):</p>
+<p>This is more concise than the base R equivalent (which saves the result as an object called <code>world2</code> to avoid overriding the <code>world</code> dataset created previously):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world2 =<span class="st"> </span>world[<span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span>, <span class="st">&quot;continent&quot;</span>, <span class="st">&quot;pop&quot;</span>)] <span class="co"># subset columns by name</span>
 <span class="kw">names</span>(world2)[<span class="dv">3</span>] =<span class="st"> &quot;population&quot;</span> <span class="co"># rename column manually</span></code></pre></div>
 <p>The <em>pipe</em> operator (<code>%&gt;%</code>), which passes the output of one function into the first argument of the next function, is commonly used in <strong>dplyr</strong> data analysis workflows. This works because the fundamental <strong>dplyr</strong> functions (or ‘verbs’, like <code>select()</code>) all take a data frame object in and spit a data frame object out. Combining many functions together with pipes is called <em>chaining</em> or <em>piping</em>. The advantage over base R for complex data processing operations is that this approach prevents nested functions and is easy to read because there is a clear order and modularity to the work (a piped command can be commented out, for example).</p>
@@ -300,6 +306,9 @@ world %&gt;%
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># subsetting simple feature rows by values</span>
 world$pop[<span class="kw">is.na</span>(world$pop)] =<span class="st"> </span><span class="dv">0</span> <span class="co"># set NAs to 0</span>
 world_few_rows =<span class="st"> </span>world[world$pop &gt;<span class="st"> </span><span class="fl">1e9</span>,]</code></pre></div>
+<div id="exercises-2" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> Exercises</h3>
+</div>
 </div>
 <div id="attribute-data-aggregation" class="section level2">
 <h2><span class="header-section-number">3.4</span> Attribute data aggregation</h2>
@@ -346,22 +355,17 @@ world_continents %&gt;%<span class="st"> </span>
 <span class="co">#&gt; 3        Europe 7.39e+08        39 &lt;MULTIPOLYGON...&gt;</span>
 <span class="co">#&gt; 4 North America 5.65e+08        18 &lt;MULTIPOLYGON...&gt;</span>
 <span class="co">#&gt; # ... with 4 more rows</span></code></pre></div>
+<div id="exercises-3" class="section level3">
+<h3><span class="header-section-number">3.4.1</span> Exercises</h3>
+</div>
 </div>
 <div id="attribute-data-joining" class="section level2">
 <h2><span class="header-section-number">3.5</span> Attribute data joining</h2>
 <!-- https://github.com/dgrtwo/fuzzyjoin -->
 <!-- http://r4ds.had.co.nz/relational-data.html -->
-<!-- intro;  -->
-<!-- a lot of times we use data from many sources/files -->
-<!-- to combine (connect) them we use joins -->
-<!-- joins (relations) are usualy used for pairs of tables -->
-<!-- this is detailty explained in http://r4ds.had.co.nz/relational-data.html -->
-<!-- it's get slighlty more complicated, when one of dataset is sf -->
-<!-- new component - object class (geom) -->
-<!-- ... -->
-<!-- dplyr functions could be used -->
-<!-- for these examples, we will use two, simplified datasets - world and wordbank_df -->
-<!-- ... -->
+<p>Combining data from different sources is one of the most common task in data preparation. It could be done using joins - methods created to work with a pair of tables. The <strong>dplyr</strong> package has a set of verbs to easily connect <code>data.frames</code> - <code>left_join()</code>, <code>right_join()</code>, <code>inner_join()</code>, <code>full_join</code>, <code>semi_join()</code> and <code>anti_join()</code>. They are thoroughly explained in the Relational data chapter in the book R for Data Science <span class="citation">(Grolemund and Wickham <a href="#ref-grolemund_r_2016">2016</a>)</span>.</p>
+<p>Working with spatial data, however, usually involves a connection between spatial data (<code>sf</code> objects) with tables (<code>data.frame</code> objects). Fortunately, the <strong>sf</strong> package has all of the <strong>dplyr</strong> join functions adapted to work with <code>sf</code> objects. The only important difference between combining of two <code>data.frames</code> and combining of <code>sf</code> with <code>data.frame</code> is a <code>geom</code> column. Therefore, the result of data joins could be either an <code>sf</code> or <code>data.frame</code> object.</p>
+<p>The easiest way to understand the concept of joins is to use a smaller datasets. We will use an <code>sf</code> object <code>north_america</code> with country codes (<code>iso_a2</code>), names and geometries, as well as <code>data.frame</code> object <code>wb_north_america</code> containing information about urban population and unemployment for three countries. It is important to add that the first object has data about Canada, Greenland and United States and the second one has data about Canada, Mexico and United States:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">north_america =<span class="st"> </span>world %&gt;%
 <span class="st">  </span><span class="kw">filter</span>(subregion ==<span class="st"> &quot;Northern America&quot;</span>) %&gt;%
 <span class="st">  </span><span class="kw">select</span>(iso_a2, name_long)
@@ -431,22 +435,18 @@ left_join3
 <div id="right-joins" class="section level3">
 <h3><span class="header-section-number">3.5.2</span> Right joins</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">right_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">right_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) 
+<span class="st">  </span><span class="kw">right_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso_a2&quot;</span>, <span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
 right_join1
-<span class="co">#&gt; Simple feature collection with 3 features and 5 fields (of which 1 is empty)</span>
+<span class="co">#&gt; Simple feature collection with 3 features and 4 fields (of which 1 is empty)</span>
 <span class="co">#&gt; geometry type:  GEOMETRY</span>
 <span class="co">#&gt; dimension:      XY</span>
 <span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324</span>
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;   iso_a2     name_long          name urban_pop unemploy</span>
-<span class="co">#&gt; 1     CA        Canada        Canada  29022137     6.91</span>
-<span class="co">#&gt; 2     MX          &lt;NA&gt;        Mexico  99018446     5.25</span>
-<span class="co">#&gt; 3     US United States United States 259740511     6.17</span>
-<span class="co">#&gt;                             geom</span>
-<span class="co">#&gt; 1 MULTIPOLYGON(((-63.6645 46....</span>
-<span class="co">#&gt; 2           GEOMETRYCOLLECTION()</span>
-<span class="co">#&gt; 3 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
+<span class="co">#&gt;   iso_a2     name_long urban_pop unemploy                           geom</span>
+<span class="co">#&gt; 1     CA        Canada  29022137     6.91 MULTIPOLYGON(((-63.6645 46....</span>
+<span class="co">#&gt; 2     MX        Mexico  99018446     5.25           GEOMETRYCOLLECTION()</span>
+<span class="co">#&gt; 3     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
 <!-- right_join2 = wb_north_america %>%  -->
@@ -546,13 +546,16 @@ anti_join2
 <span class="co">#&gt;     name iso_a2 urban_pop unemploy</span>
 <span class="co">#&gt; 1 Mexico     MX  99018446     5.25</span></code></pre></div>
 </div>
-<div id="exercises-2" class="section level3">
+<div id="exercises-4" class="section level3">
 <h3><span class="header-section-number">3.5.7</span> Exercises</h3>
 <!-- -->
 </div>
 </div>
 <div id="attribute-data-creation" class="section level2">
 <h2><span class="header-section-number">3.6</span> Attribute data creation</h2>
+<div id="exercises-5" class="section level3">
+<h3><span class="header-section-number">3.6.1</span> Exercises</h3>
+</div>
 </div>
 <div id="removing-spatial-information" class="section level2">
 <h2><span class="header-section-number">3.7</span> Removing spatial information</h2>
@@ -573,10 +576,13 @@ world_st2 =<span class="st"> </span>world_st2 %&gt;%<span class="st"> </span><sp
 - lubridate??
 - pipes
 -->
-<!-- 
-- view, add new rows/columns, subset, select, summarize 
--->
 
+</div>
+</div>
+<h3> References</h3>
+<div id="refs" class="references">
+<div id="ref-grolemund_r_2016">
+<p>Grolemund, Garrett, and Hadley Wickham. 2016. <em>R for Data Science</em>. 1 edition. OReilly Media.</p>
 </div>
 </div>
 <div class="footnotes">
