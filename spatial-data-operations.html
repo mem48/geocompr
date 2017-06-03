@@ -257,13 +257,14 @@ x_and_y =<span class="st"> </span><span class="kw">st_intersection</span>(x, y)
 <span class="kw">plot</span>(x_and_y, <span class="dt">col =</span> <span class="st">&quot;lightgrey&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>) <span class="co"># color intersecting area</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-4-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>The subsequent code chunk demonstrate how this works for all combinations of the ‘venn’ diagram representing <code>x</code> and <code>y</code>, inspired by <a href="http://r4ds.had.co.nz/transform.html#logical-operators">Figure 5.1</a> of the book R for Data Science <span class="citation">(Grolemund and Wickham <a href="#ref-grolemund_r_2016">2016</a>)</span>. <!-- Todo: reference r4ds --></p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-5"></span>
-<img src="figures/unnamed-chunk-5-1.png" alt="Spatial equivalents of logical operators" width="576" />
+<div class="figure" style="text-align: center"><span id="fig:venn-clip"></span>
+<img src="figures/venn-clip-1.png" alt="Spatial equivalents of logical operators" width="576" />
 <p class="caption">
 Figure 4.2: Spatial equivalents of logical operators
 </p>
 </div>
-<p>To illustrate the difference between subsetting and clipping spatial data, we will create a series of polygons distributed evenly over the surface of the Earth and clip them.</p>
+<p>To illustrate the difference between subsetting and clipping spatial data, we will generate points that cover the bounding box of the circles <code>x</code> and <code>y</code> in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.2</a>.</p>
+<!-- TODO? create a series of polygons distributed evenly over the surface of the Earth and clip them. -->
 <!-- ```{r} -->
 <!-- set.seed(2018) -->
 <!-- blob_points = st_sample(x = world, size = 2) -->
