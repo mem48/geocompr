@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve4c1b51f33ea7fb4c
+preservecc015c0f2d2a93cd
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -484,7 +484,6 @@ sf data types:
 <!--chapter:end:02-spatial-data.Rmd-->
 
 
-# Attribute data operations {#attr}
 
 ## Prerequisites {-}
 
@@ -601,7 +600,7 @@ head(world1, n = 2)
 #> 2      Angola    Africa   24227524 MULTIPOLYGON(((16.326528354...
 ```
 
-This is more concises than the base R equivalent (which saves the result as an object called `world2` to avoid overriding the `world` dataset created previously):
+This is more concise than the base R equivalent (which saves the result as an object called `world2` to avoid overriding the `world` dataset created previously):
 
 
 ```r
@@ -664,6 +663,8 @@ world$pop[is.na(world$pop)] = 0 # set NAs to 0
 world_few_rows = world[world$pop > 1e9,]
 ```
 
+### Exercises
+
 ## Attribute data aggregation 
 
 
@@ -717,24 +718,25 @@ world_continents %>%
 #> # ... with 4 more rows
 ```
 
+### Exercises
+
 ## Attribute data joining 
 
 <!-- https://github.com/dgrtwo/fuzzyjoin -->
 <!-- http://r4ds.had.co.nz/relational-data.html -->
 
-<!-- intro;  -->
-<!-- a lot of times we use data from many sources/files -->
-<!-- to combine (connect) them we use joins -->
-<!-- joins (relations) are usualy used for pairs of tables -->
-<!-- this is detailty explained in http://r4ds.had.co.nz/relational-data.html -->
+Combining data from different sources is one of the most common task in data preparation. 
+It could be done using joins - methods created to work with a pair of tables.
+The **dplyr** package has a set of verbs to easily connect `data.frames` - `left_join()`, `right_join()`,  `inner_join()`, `full_join`, `semi_join()` and `anti_join()`. 
+They are thoroughly explained in the Relational data chapter in the book R for Data Science [@grolemund_r_2016].
 
-<!-- it's get slighlty more complicated, when one of dataset is sf -->
-<!-- new component - object class (geom) -->
-<!-- ... -->
-<!-- dplyr functions could be used -->
+Working with spatial data, however, usually involves a connection between spatial data (`sf` objects) with tables (`data.frame` objects).
+Fortunately, the **sf** package has all of the **dplyr** join functions adapted to work with `sf` objects.
+The only important difference between combining of two `data.frames` and combining of `sf` with `data.frame` is a `geom` column.
+Therefore, the result of data joins could be either an `sf` or `data.frame` object.
 
-<!-- for these examples, we will use two, simplified datasets - world and wordbank_df -->
-<!-- ... -->
+The easiest way to understand the concept of joins is to use a smaller datasets. 
+We will use an `sf` object `north_america` with country codes (`iso_a2`), names and geometries, as well as `data.frame` object `wb_north_america` containing information about urban population and unemployment for three countries. It is important to add that the first object has data about Canada, Greenland and United States and the second one has data about Canada, Mexico and United States:
 
 
 ```r
@@ -825,22 +827,18 @@ left_join3
 
 ```r
 right_join1 = north_america %>% 
-  right_join(wb_north_america, by = "iso_a2") 
+  right_join(wb_north_america, by = c("iso_a2", "name_long" = "name"))
 right_join1
-#> Simple feature collection with 3 features and 5 fields (of which 1 is empty)
+#> Simple feature collection with 3 features and 4 fields (of which 1 is empty)
 #> geometry type:  GEOMETRY
 #> dimension:      XY
 #> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>   iso_a2     name_long          name urban_pop unemploy
-#> 1     CA        Canada        Canada  29022137     6.91
-#> 2     MX          <NA>        Mexico  99018446     5.25
-#> 3     US United States United States 259740511     6.17
-#>                             geom
-#> 1 MULTIPOLYGON(((-63.6645 46....
-#> 2           GEOMETRYCOLLECTION()
-#> 3 MULTIPOLYGON(((-155.54211 1...
+#>   iso_a2     name_long urban_pop unemploy                           geom
+#> 1     CA        Canada  29022137     6.91 MULTIPOLYGON(((-63.6645 46....
+#> 2     MX        Mexico  99018446     5.25           GEOMETRYCOLLECTION()
+#> 3     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...
 ```
 
 <!-- ```{r} -->
@@ -973,6 +971,9 @@ anti_join2
 
 ## Attribute data creation
 
+
+### Exercises
+
 ## Removing spatial information
 
 Most of the function from **sf** package do not drop a `geometry` column. To extract a data frame `st_geometry()` or `st_set_geometry()` function can be used.
@@ -997,10 +998,6 @@ class(world_st2)
 - dplyr, tidyr, and purrr packages
 - lubridate??
 - pipes
--->
-
-<!-- 
-- view, add new rows/columns, subset, select, summarize 
 -->
 
 <!--chapter:end:03-attribute-operations.Rmd-->
@@ -1227,10 +1224,10 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.35
+#> [1] 2.53
 ```
 
-The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -1243,7 +1240,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.14
+#> [1] 3.11
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1343,13 +1340,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.067
+#>   0.064   0.000   0.065
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.013
+#>   0.016   0.000   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.030
+#>   0.024   0.008   0.031
 ```
 
 
