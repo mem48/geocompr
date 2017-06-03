@@ -180,6 +180,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
 <li class="chapter" data-level="4.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-subsetting"><i class="fa fa-check"></i><b>4.2</b> Spatial subsetting</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-clipping"><i class="fa fa-check"></i><b>4.2.1</b> Spatial clipping</a></li>
+<li class="chapter" data-level="4.2.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#exercises-6"><i class="fa fa-check"></i><b>4.2.2</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-aggregation"><i class="fa fa-check"></i><b>4.3</b> Spatial data aggregation</a></li>
 <li class="chapter" data-level="4.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-joining"><i class="fa fa-check"></i><b>4.4</b> Spatial data joining</a></li>
@@ -190,7 +191,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#data-output-o"><i class="fa fa-check"></i><b>5.2</b> Data output (O)</a></li>
 <li class="chapter" data-level="5.3" data-path="read-write.html"><a href="read-write.html#file-formats"><i class="fa fa-check"></i><b>5.3</b> File formats</a></li>
 <li class="chapter" data-level="5.4" data-path="read-write.html"><a href="read-write.html#visual-outputs"><i class="fa fa-check"></i><b>5.4</b> Visual outputs</a></li>
-<li class="chapter" data-level="5.5" data-path="read-write.html"><a href="read-write.html#exercises-6"><i class="fa fa-check"></i><b>5.5</b> Exercises</a></li>
+<li class="chapter" data-level="5.5" data-path="read-write.html"><a href="read-write.html#exercises-7"><i class="fa fa-check"></i><b>5.5</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>6</b> References</a></li>
 <li class="divider"></li>
@@ -238,8 +239,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3><span class="header-section-number">4.2.1</span> Spatial clipping</h3>
 <p>Spatial clipping is a form of spatial subsetting that involves changes to the <code>geometry</code> columns of at least some of the affected features.</p>
 <p>Clipping can only apply to features more complex than points: lines, polygons and their ‘multi’ equivalents. To illustrate the concept we will start with a simple example: two overlapping circles with a centrepoint 1 unit away from each other and radius of 1:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p =<span class="st"> </span><span class="kw">st_sfc</span>(<span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)), <span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))) <span class="co"># create 2 points</span>
-b =<span class="st"> </span><span class="kw">st_buffer</span>(p, <span class="dt">dist =</span> <span class="dv">1</span>) <span class="co"># convert points to circles</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b =<span class="st"> </span><span class="kw">st_sfc</span>(<span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)), <span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))) <span class="co"># create 2 points</span>
+b =<span class="st"> </span><span class="kw">st_buffer</span>(b, <span class="dt">dist =</span> <span class="dv">1</span>) <span class="co"># convert points to circles</span>
 l =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)
 <span class="kw">plot</span>(b)
 <span class="kw">text</span>(<span class="dt">x =</span> <span class="kw">c</span>(-<span class="fl">0.5</span>, <span class="fl">1.5</span>), <span class="dt">y =</span> <span class="dv">1</span>, <span class="dt">labels =</span> l) <span class="co"># add text</span></code></pre></div>
@@ -263,7 +264,11 @@ x_and_y =<span class="st"> </span><span class="kw">st_intersection</span>(x, y)
 Figure 4.2: Spatial equivalents of logical operators
 </p>
 </div>
-<p>To illustrate the difference between subsetting and clipping spatial data, we will generate points that cover the bounding box of the circles <code>x</code> and <code>y</code> in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.2</a>.</p>
+<p>To illustrate the relationship between subsetting and clipping spatial data, we will generate points that cover the bounding box of the circles <code>x</code> and <code>y</code> in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.2</a>. We will see that there are different ways to subset these points to fit into combinations of the circles: via clipping and logical operators.</p>
+</div>
+<div id="exercises-6" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Exercises</h3>
+<p>Write code that subsets points that are contained within <code>x</code> <em>and</em> <code>y</code> (illustrated by the plot in the 2<sup>nd</sup> row and the 1<sup>st</sup> column in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.2</a>).</p>
 <!-- TODO? create a series of polygons distributed evenly over the surface of the Earth and clip them. -->
 <!-- ```{r} -->
 <!-- set.seed(2018) -->

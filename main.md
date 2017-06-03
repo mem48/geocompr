@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve9889050bc2fe6a67
+preserve24c6de8a5c214b33
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1106,8 +1106,8 @@ two overlapping circles with a centrepoint 1 unit away from each other and radiu
 
 
 ```r
-p = st_sfc(st_point(c(0, 1)), st_point(c(1, 1))) # create 2 points
-b = st_buffer(p, dist = 1) # convert points to circles
+b = st_sfc(st_point(c(0, 1)), st_point(c(1, 1))) # create 2 points
+b = st_buffer(b, dist = 1) # convert points to circles
 l = c("x", "y")
 plot(b)
 text(x = c(-0.5, 1.5), y = 1, labels = l) # add text
@@ -1140,9 +1140,13 @@ The subsequent code chunk demonstrate how this works for all combinations of the
 <p class="caption">(\#fig:venn-clip)Spatial equivalents of logical operators</p>
 </div>
 
+To illustrate the relationship between subsetting and clipping spatial data, we will generate points that cover the bounding box of the circles `x` and `y` in Figure \@ref(fig:venn-clip).
+We will see that there are different ways to subset these points to fit into combinations of the circles: via clipping and logical operators.
 
 
-To illustrate the difference between subsetting and clipping spatial data, we will generate points that cover the bounding box of the circles `x` and `y` in Figure \@ref(fig:venn-clip).
+### Exercises
+
+Write code that subsets points that are contained within `x` *and* `y` (illustrated by the plot in the 2^nd^ row and the 1^st^ column in Figure \@ref(fig:venn-clip)).
 
 <!-- TODO? create a series of polygons distributed evenly over the surface of the Earth and clip them. -->
 
@@ -1294,7 +1298,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.26
+#> [1] 2.22
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1310,7 +1314,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3
+#> [1] 2.96
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1410,13 +1414,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.068
+#>   0.068   0.000   0.070
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.015
+#>   0.016   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.031
+#>   0.024   0.008   0.029
 ```
 
 
