@@ -165,9 +165,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.5.1" data-path="attr.html"><a href="attr.html#left-joins"><i class="fa fa-check"></i><b>3.5.1</b> Left joins</a></li>
 <li class="chapter" data-level="3.5.2" data-path="attr.html"><a href="attr.html#right-joins"><i class="fa fa-check"></i><b>3.5.2</b> Right joins</a></li>
 <li class="chapter" data-level="3.5.3" data-path="attr.html"><a href="attr.html#inner-joins"><i class="fa fa-check"></i><b>3.5.3</b> Inner joins</a></li>
-<li class="chapter" data-level="3.5.4" data-path="attr.html"><a href="attr.html#full-joins"><i class="fa fa-check"></i><b>3.5.4</b> Full joins</a></li>
-<li class="chapter" data-level="3.5.5" data-path="attr.html"><a href="attr.html#semi-joins"><i class="fa fa-check"></i><b>3.5.5</b> Semi joins</a></li>
-<li class="chapter" data-level="3.5.6" data-path="attr.html"><a href="attr.html#anti-joins"><i class="fa fa-check"></i><b>3.5.6</b> Anti joins</a></li>
+<li class="chapter" data-level="3.5.4" data-path="attr.html"><a href="attr.html#semi-joins"><i class="fa fa-check"></i><b>3.5.4</b> Semi joins</a></li>
+<li class="chapter" data-level="3.5.5" data-path="attr.html"><a href="attr.html#anti-joins"><i class="fa fa-check"></i><b>3.5.5</b> Anti joins</a></li>
+<li class="chapter" data-level="3.5.6" data-path="attr.html"><a href="attr.html#full-joins"><i class="fa fa-check"></i><b>3.5.6</b> Full joins</a></li>
 <li class="chapter" data-level="3.5.7" data-path="attr.html"><a href="attr.html#exercises-4"><i class="fa fa-check"></i><b>3.5.7</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="attr.html"><a href="attr.html#attribute-data-creation"><i class="fa fa-check"></i><b>3.6</b> Attribute data creation</a><ul>
@@ -501,8 +501,51 @@ inner_join1
 <!-- inner_join2 -->
 <!-- ``` -->
 </div>
+<div id="semi-joins" class="section level3">
+<h3><span class="header-section-number">3.5.4</span> Semi joins</h3>
+<p>The <code>semi_join()</code> is very similar to the <code>inner_join()</code>. It also keeps only observations from the left object (<code>north_america</code>) where there are matching observations in the right object, but keeping just columns from the left one: <!-- filtering? --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">semi_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">semi_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
+semi_join1
+<span class="co">#&gt; Simple feature collection with 2 features and 2 fields</span>
+<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324</span>
+<span class="co">#&gt; epsg (SRID):    4326</span>
+<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
+<span class="co">#&gt;   iso_a2     name_long                           geom</span>
+<span class="co">#&gt; 1     CA        Canada MULTIPOLYGON(((-63.6645 46....</span>
+<span class="co">#&gt; 2     US United States MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
+<!-- ```{r} -->
+<!-- semi_join2 = wb_north_america %>% -->
+<!--   semi_join(north_america, by = "iso_a2") -->
+<!-- semi_join2 -->
+<!-- ``` -->
+</div>
+<div id="anti-joins" class="section level3">
+<h3><span class="header-section-number">3.5.5</span> Anti joins</h3>
+<p>The <code>anti_join()</code> returns all rows from the left object that are not matching observations in the right object. Only columns from the right object are kept:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">anti_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">anti_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
+anti_join1
+<span class="co">#&gt; Simple feature collection with 1 feature and 2 fields</span>
+<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: -73.297 ymin: 60.03676 xmax: -12.20855 ymax: 83.64513</span>
+<span class="co">#&gt; epsg (SRID):    4326</span>
+<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
+<span class="co">#&gt;   iso_a2 name_long                           geom</span>
+<span class="co">#&gt; 1     GL Greenland MULTIPOLYGON(((-46.76379 82...</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(anti_join1[<span class="dv">0</span>])</code></pre></div>
+<p><img src="figures/unnamed-chunk-28-1.png" width="576" style="display: block; margin: auto;" /></p>
+<!-- ```{r} -->
+<!-- anti_join2 = wb_north_america %>%  -->
+<!--   anti_join(north_america, by = "iso_a2") -->
+<!-- anti_join2 -->
+<!-- ``` -->
+</div>
 <div id="full-joins" class="section level3">
-<h3><span class="header-section-number">3.5.4</span> Full joins</h3>
+<h3><span class="header-section-number">3.5.6</span> Full joins</h3>
 <p>The <code>full_join()</code> returns all rows and all columns from both the left and right object. It also puts <code>NA</code> in cases where there are not matching values and returns an empty geometry for cases that only exist in the right object:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">full_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">full_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
@@ -528,45 +571,6 @@ full_join1
 <!-- full_join2 = wb_north_america %>%  -->
 <!--   full_join(north_america, by = "iso_a2") #%>% plot() -->
 <!-- full_join2 -->
-<!-- ``` -->
-</div>
-<div id="semi-joins" class="section level3">
-<h3><span class="header-section-number">3.5.5</span> Semi joins</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">semi_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">semi_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
-semi_join1
-<span class="co">#&gt; Simple feature collection with 2 features and 2 fields</span>
-<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324</span>
-<span class="co">#&gt; epsg (SRID):    4326</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;   iso_a2     name_long                           geom</span>
-<span class="co">#&gt; 1     CA        Canada MULTIPOLYGON(((-63.6645 46....</span>
-<span class="co">#&gt; 2     US United States MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
-<!-- ```{r} -->
-<!-- semi_join2 = wb_north_america %>% -->
-<!--   semi_join(north_america, by = "iso_a2") -->
-<!-- semi_join2 -->
-<!-- ``` -->
-</div>
-<div id="anti-joins" class="section level3">
-<h3><span class="header-section-number">3.5.6</span> Anti joins</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">anti_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">anti_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
-anti_join1
-<span class="co">#&gt; Simple feature collection with 1 feature and 2 fields</span>
-<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -73.297 ymin: 60.03676 xmax: -12.20855 ymax: 83.64513</span>
-<span class="co">#&gt; epsg (SRID):    4326</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;   iso_a2 name_long                           geom</span>
-<span class="co">#&gt; 1     GL Greenland MULTIPOLYGON(((-46.76379 82...</span></code></pre></div>
-<!-- ```{r} -->
-<!-- anti_join2 = wb_north_america %>%  -->
-<!--   anti_join(north_america, by = "iso_a2") -->
-<!-- anti_join2 -->
 <!-- ``` -->
 </div>
 <div id="exercises-4" class="section level3">
