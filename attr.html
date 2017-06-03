@@ -454,19 +454,23 @@ left_join3
 </div>
 <div id="right-joins" class="section level3">
 <h3><span class="header-section-number">3.5.2</span> Right joins</h3>
+<p>The <code>right_join()</code> keeps all observations from the right object (<code>wb_north_america</code>), but in the same time preserves a <code>sf</code> class from the left object (<code>north_america</code>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">right_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">right_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso_a2&quot;</span>, <span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
 right_join1
-<span class="co">#&gt; Simple feature collection with 3 features and 4 fields (of which 1 is empty)</span>
-<span class="co">#&gt; geometry type:  GEOMETRY</span>
+<span class="co">#&gt; Simple feature collection with 3 features and 4 fields (with 1 geometry empty)</span>
+<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
 <span class="co">#&gt; dimension:      XY</span>
 <span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324</span>
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
 <span class="co">#&gt;   iso_a2     name_long urban_pop unemploy                           geom</span>
 <span class="co">#&gt; 1     CA        Canada  29022137     6.91 MULTIPOLYGON(((-63.6645 46....</span>
-<span class="co">#&gt; 2     MX        Mexico  99018446     5.25           GEOMETRYCOLLECTION()</span>
+<span class="co">#&gt; 2     MX        Mexico  99018446     5.25                 MULTIPOLYGON()</span>
 <span class="co">#&gt; 3     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
+<p>You can see that the new object <code>right_join1</code> has information about Mexico, but drop information about Greenland. What’s more, our right object, as a <code>data.frame</code>, doesn’t have a geometry representation of Mexico. As a result, the <code>right_join1</code> object contains only non-spatial data of Mexico. It could be easily illustrated using the <code>plot</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(right_join1[<span class="dv">0</span>]) <span class="co"># only Canada and United States</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-23-1.png" width="576" style="display: block; margin: auto;" /></p>
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
 <!-- right_join2 = wb_north_america %>%  -->
@@ -503,8 +507,8 @@ inner_join1
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">full_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">full_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
 full_join1
-<span class="co">#&gt; Simple feature collection with 4 features and 5 fields (of which 1 is empty)</span>
-<span class="co">#&gt; geometry type:  GEOMETRY</span>
+<span class="co">#&gt; Simple feature collection with 4 features and 5 fields (with 1 geometry empty)</span>
+<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
 <span class="co">#&gt; dimension:      XY</span>
 <span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513</span>
 <span class="co">#&gt; epsg (SRID):    4326</span>
@@ -518,7 +522,7 @@ full_join1
 <span class="co">#&gt; 1 MULTIPOLYGON(((-63.6645 46....</span>
 <span class="co">#&gt; 2 MULTIPOLYGON(((-46.76379 82...</span>
 <span class="co">#&gt; 3 MULTIPOLYGON(((-155.54211 1...</span>
-<span class="co">#&gt; 4           GEOMETRYCOLLECTION()</span></code></pre></div>
+<span class="co">#&gt; 4                 MULTIPOLYGON()</span></code></pre></div>
 <!-- ```{r} -->
 <!-- # error: null geom -->
 <!-- full_join2 = wb_north_america %>%  -->

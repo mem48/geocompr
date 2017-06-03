@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserved5a57a1373c1da91
+preserve0e4e5adcf9df0172
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -865,22 +865,36 @@ left_join3
 
 ### Right joins
 
+The `right_join()` keeps all observations from the right object (`wb_north_america`), but in the same time preserves a `sf` class from the left object (`north_america`).
+
 
 ```r
 right_join1 = north_america %>% 
   right_join(wb_north_america, by = c("iso_a2", "name_long" = "name"))
 right_join1
-#> Simple feature collection with 3 features and 4 fields (of which 1 is empty)
-#> geometry type:  GEOMETRY
+#> Simple feature collection with 3 features and 4 fields (with 1 geometry empty)
+#> geometry type:  MULTIPOLYGON
 #> dimension:      XY
 #> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #>   iso_a2     name_long urban_pop unemploy                           geom
 #> 1     CA        Canada  29022137     6.91 MULTIPOLYGON(((-63.6645 46....
-#> 2     MX        Mexico  99018446     5.25           GEOMETRYCOLLECTION()
+#> 2     MX        Mexico  99018446     5.25                 MULTIPOLYGON()
 #> 3     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...
 ```
+
+You can see that the new object `right_join1` has information about Mexico, but drop information about Greenland.
+What's more, our right object, as a `data.frame`, doesn't have a geometry representation of Mexico.
+As a result, the `right_join1` object contains only non-spatial data of Mexico.
+It could be easily illustrated using the `plot` function:
+
+
+```r
+plot(right_join1[0]) # only Canada and United States
+```
+
+<img src="figures/unnamed-chunk-23-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
@@ -926,8 +940,8 @@ inner_join1
 full_join1 = north_america %>% 
   full_join(wb_north_america, by = "iso_a2")
 full_join1
-#> Simple feature collection with 4 features and 5 fields (of which 1 is empty)
-#> geometry type:  GEOMETRY
+#> Simple feature collection with 4 features and 5 fields (with 1 geometry empty)
+#> geometry type:  MULTIPOLYGON
 #> dimension:      XY
 #> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513
 #> epsg (SRID):    4326
@@ -941,7 +955,7 @@ full_join1
 #> 1 MULTIPOLYGON(((-63.6645 46....
 #> 2 MULTIPOLYGON(((-46.76379 82...
 #> 3 MULTIPOLYGON(((-155.54211 1...
-#> 4           GEOMETRYCOLLECTION()
+#> 4                 MULTIPOLYGON()
 ```
 
 
@@ -1258,7 +1272,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.53
+#> [1] 2.78
 ```
 
 The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1274,7 +1288,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.03
+#> [1] 3.04
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1374,13 +1388,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.096   0.000   0.095
+#>   0.072   0.000   0.073
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.036   0.012   0.046
+#>   0.020   0.008   0.026
 ```
 
 
