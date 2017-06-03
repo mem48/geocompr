@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-06-02">
+<meta name="date" content="2017-06-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -213,12 +213,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="prerequisites-1" class="section level2 unnumbered">
 <h2>Prerequisites</h2>
 <ul>
-<li>This chapter requires <strong>tidyverse</strong>, <strong>sf</strong>, and <strong>spData</strong> packages:</li>
+<li>This chapter requires <strong>tidyverse</strong> and <strong>sf</strong>:</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
 <span class="kw">library</span>(tidyverse)</code></pre></div>
 <ul>
-<li>You must have loaded the <code>world</code> and <code>worldbank_df</code> data from the spData package:</li>
+<li>You must have loaded the <code>world</code> and <code>worldbank_df</code> data from the <strong>spData</strong> package:</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spData)
 <span class="kw">data</span>(<span class="st">&quot;world&quot;</span>)
@@ -232,8 +232,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Simple features are represented as objects, such as <code>world</code>, with class <code>sf</code> in the <strong>sf</strong> package:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(world)
 <span class="co">#&gt; [1] &quot;sf&quot;         &quot;data.frame&quot;</span></code></pre></div>
-<p>The output shows that <code>sf</code> objects have two classes (<code>sf</code> and <code>data.frame</code>), meaning that are essentially data frames. Using data frames, the basic class used for data analysis in R, particularly within the <strong>tidyverse</strong> package ecosystem, has many advantages when it comes to attribute data operations. It means that all the accumulated know-how in the R community for handling data frames to be applied to geographic data which contain attributes.</p>
-<p>This ‘world’ dataset contains 63 non-geographical variables (and one geometry column) with data for almost 200 countries, as can be ascertained using base functions for working with tabular data:</p>
+<p>The output shows that <code>sf</code> objects have two classes (<code>sf</code> and <code>data.frame</code>), meaning that are essentially data frames. Using data frames, the basic class used for data analysis in R, particularly within <a href="http://tidyverse.org/">the <strong>tidyverse</strong> package ecosystem</a>, has many advantages when it comes to attribute data operations. It means that all the accumulated know-how in the R community for handling data frames to be applied to geographic data which contain attributes.</p>
+<p>This ‘world’ dataset contains 10 non-geographical variables (and one geometry column) with data for almost 200 countries, as can be ascertained using base functions for working with tabular data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(world) <span class="co"># it is a 2 dimensional object, with rows and columns</span>
 <span class="co">#&gt; [1] 177  11</span>
 <span class="kw">nrow</span>(world) <span class="co"># how many rows?</span>
@@ -370,60 +370,57 @@ world_continents %&gt;%<span class="st"> </span>
 <p><img src="figures/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 wb_north_america =<span class="st"> </span>worldbank_df %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(name %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;United States&quot;</span>))</code></pre></div>
+<span class="st">  </span><span class="kw">filter</span>(name %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;United States&quot;</span>)) %&gt;%
+<span class="st">  </span><span class="kw">select</span>(name, iso_a2, urban_pop, <span class="dt">unemploy =</span> unemployment)</code></pre></div>
 <div id="left-joins" class="section level3">
 <h3><span class="header-section-number">3.5.1</span> Left joins</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
 left_join1
-<span class="co">#&gt; Simple feature collection with 3 features and 8 fields</span>
+<span class="co">#&gt; Simple feature collection with 3 features and 5 fields</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
 <span class="co">#&gt; dimension:      XY</span>
 <span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513</span>
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;   iso_a2     name_long          name HDI urban_pop unemployment pop_growth</span>
-<span class="co">#&gt; 1     CA        Canada        Canada  NA  29022137         6.91      1.101</span>
-<span class="co">#&gt; 2     GL     Greenland          &lt;NA&gt;  NA        NA           NA         NA</span>
-<span class="co">#&gt; 3     US United States United States  NA 259740511         6.17      0.781</span>
-<span class="co">#&gt;   literacy                           geom</span>
-<span class="co">#&gt; 1       NA MULTIPOLYGON(((-63.6645 46....</span>
-<span class="co">#&gt; 2       NA MULTIPOLYGON(((-46.76379 82...</span>
-<span class="co">#&gt; 3       NA MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join2 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">left_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
-left_join2
-<span class="co">#&gt; Simple feature collection with 3 features and 8 fields</span>
-<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513</span>
-<span class="co">#&gt; epsg (SRID):    4326</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;   iso_a2.x     name_long iso_a2.y HDI urban_pop unemployment pop_growth</span>
-<span class="co">#&gt; 1       CA        Canada       CA  NA  29022137         6.91      1.101</span>
-<span class="co">#&gt; 2       GL     Greenland     &lt;NA&gt;  NA        NA           NA         NA</span>
-<span class="co">#&gt; 3       US United States       US  NA 259740511         6.17      0.781</span>
-<span class="co">#&gt;   literacy                           geom</span>
-<span class="co">#&gt; 1       NA MULTIPOLYGON(((-63.6645 46....</span>
-<span class="co">#&gt; 2       NA MULTIPOLYGON(((-46.76379 82...</span>
-<span class="co">#&gt; 3       NA MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join3 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">left_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso_a2&quot;</span>, <span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
-left_join3
-<span class="co">#&gt; Simple feature collection with 3 features and 7 fields</span>
-<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513</span>
-<span class="co">#&gt; epsg (SRID):    4326</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;   iso_a2     name_long HDI urban_pop unemployment pop_growth literacy</span>
-<span class="co">#&gt; 1     CA        Canada  NA  29022137         6.91      1.101       NA</span>
-<span class="co">#&gt; 2     GL     Greenland  NA        NA           NA         NA       NA</span>
-<span class="co">#&gt; 3     US United States  NA 259740511         6.17      0.781       NA</span>
+<span class="co">#&gt;   iso_a2     name_long          name urban_pop unemploy</span>
+<span class="co">#&gt; 1     CA        Canada        Canada  29022137     6.91</span>
+<span class="co">#&gt; 2     GL     Greenland          &lt;NA&gt;        NA       NA</span>
+<span class="co">#&gt; 3     US United States United States 259740511     6.17</span>
 <span class="co">#&gt;                             geom</span>
 <span class="co">#&gt; 1 MULTIPOLYGON(((-63.6645 46....</span>
 <span class="co">#&gt; 2 MULTIPOLYGON(((-46.76379 82...</span>
 <span class="co">#&gt; 3 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join2 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">left_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
+left_join2
+<span class="co">#&gt; Simple feature collection with 3 features and 5 fields</span>
+<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513</span>
+<span class="co">#&gt; epsg (SRID):    4326</span>
+<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
+<span class="co">#&gt;   iso_a2.x     name_long iso_a2.y urban_pop unemploy</span>
+<span class="co">#&gt; 1       CA        Canada       CA  29022137     6.91</span>
+<span class="co">#&gt; 2       GL     Greenland     &lt;NA&gt;        NA       NA</span>
+<span class="co">#&gt; 3       US United States       US 259740511     6.17</span>
+<span class="co">#&gt;                             geom</span>
+<span class="co">#&gt; 1 MULTIPOLYGON(((-63.6645 46....</span>
+<span class="co">#&gt; 2 MULTIPOLYGON(((-46.76379 82...</span>
+<span class="co">#&gt; 3 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join3 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">left_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso_a2&quot;</span>, <span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
+left_join3
+<span class="co">#&gt; Simple feature collection with 3 features and 4 fields</span>
+<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513</span>
+<span class="co">#&gt; epsg (SRID):    4326</span>
+<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
+<span class="co">#&gt;   iso_a2     name_long urban_pop unemploy                           geom</span>
+<span class="co">#&gt; 1     CA        Canada  29022137     6.91 MULTIPOLYGON(((-63.6645 46....</span>
+<span class="co">#&gt; 2     GL     Greenland        NA       NA MULTIPOLYGON(((-46.76379 82...</span>
+<span class="co">#&gt; 3     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <!-- ```{r} -->
 <!-- # error: keeps geom col -->
 <!-- left_join4 = wb_north_america %>%  -->
@@ -436,20 +433,20 @@ left_join3
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">right_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">right_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) 
 right_join1
-<span class="co">#&gt; Simple feature collection with 3 features and 8 fields (of which 1 is empty)</span>
+<span class="co">#&gt; Simple feature collection with 3 features and 5 fields (of which 1 is empty)</span>
 <span class="co">#&gt; geometry type:  GEOMETRY</span>
 <span class="co">#&gt; dimension:      XY</span>
 <span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324</span>
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;   iso_a2     name_long          name HDI urban_pop unemployment pop_growth</span>
-<span class="co">#&gt; 1     CA        Canada        Canada  NA  29022137         6.91      1.101</span>
-<span class="co">#&gt; 2     MX          &lt;NA&gt;        Mexico  NA  99018446         5.25      1.321</span>
-<span class="co">#&gt; 3     US United States United States  NA 259740511         6.17      0.781</span>
-<span class="co">#&gt;   literacy                           geom</span>
-<span class="co">#&gt; 1       NA MULTIPOLYGON(((-63.6645 46....</span>
-<span class="co">#&gt; 2     94.6           GEOMETRYCOLLECTION()</span>
-<span class="co">#&gt; 3       NA MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
+<span class="co">#&gt;   iso_a2     name_long          name urban_pop unemploy</span>
+<span class="co">#&gt; 1     CA        Canada        Canada  29022137     6.91</span>
+<span class="co">#&gt; 2     MX          &lt;NA&gt;        Mexico  99018446     5.25</span>
+<span class="co">#&gt; 3     US United States United States 259740511     6.17</span>
+<span class="co">#&gt;                             geom</span>
+<span class="co">#&gt; 1 MULTIPOLYGON(((-63.6645 46....</span>
+<span class="co">#&gt; 2           GEOMETRYCOLLECTION()</span>
+<span class="co">#&gt; 3 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
 <!-- right_join2 = wb_north_america %>%  -->
@@ -462,18 +459,18 @@ right_join1
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inner_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">inner_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) 
 inner_join1
-<span class="co">#&gt; Simple feature collection with 2 features and 8 fields</span>
+<span class="co">#&gt; Simple feature collection with 2 features and 5 fields</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
 <span class="co">#&gt; dimension:      XY</span>
 <span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324</span>
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;   iso_a2     name_long          name HDI urban_pop unemployment pop_growth</span>
-<span class="co">#&gt; 1     CA        Canada        Canada  NA  29022137         6.91      1.101</span>
-<span class="co">#&gt; 2     US United States United States  NA 259740511         6.17      0.781</span>
-<span class="co">#&gt;   literacy                           geom</span>
-<span class="co">#&gt; 1       NA MULTIPOLYGON(((-63.6645 46....</span>
-<span class="co">#&gt; 2       NA MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
+<span class="co">#&gt;   iso_a2     name_long          name urban_pop unemploy</span>
+<span class="co">#&gt; 1     CA        Canada        Canada  29022137     6.91</span>
+<span class="co">#&gt; 2     US United States United States 259740511     6.17</span>
+<span class="co">#&gt;                             geom</span>
+<span class="co">#&gt; 1 MULTIPOLYGON(((-63.6645 46....</span>
+<span class="co">#&gt; 2 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <!-- ```{r} -->
 <!-- # error: geom column added -->
 <!-- inner_join2 =  wb_north_america %>%  -->
@@ -486,22 +483,22 @@ inner_join1
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">full_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">full_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
 full_join1
-<span class="co">#&gt; Simple feature collection with 4 features and 8 fields (of which 1 is empty)</span>
+<span class="co">#&gt; Simple feature collection with 4 features and 5 fields (of which 1 is empty)</span>
 <span class="co">#&gt; geometry type:  GEOMETRY</span>
 <span class="co">#&gt; dimension:      XY</span>
 <span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513</span>
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;   iso_a2     name_long          name HDI urban_pop unemployment pop_growth</span>
-<span class="co">#&gt; 1     CA        Canada        Canada  NA  29022137         6.91      1.101</span>
-<span class="co">#&gt; 2     GL     Greenland          &lt;NA&gt;  NA        NA           NA         NA</span>
-<span class="co">#&gt; 3     US United States United States  NA 259740511         6.17      0.781</span>
-<span class="co">#&gt; 4     MX          &lt;NA&gt;        Mexico  NA  99018446         5.25      1.321</span>
-<span class="co">#&gt;   literacy                           geom</span>
-<span class="co">#&gt; 1       NA MULTIPOLYGON(((-63.6645 46....</span>
-<span class="co">#&gt; 2       NA MULTIPOLYGON(((-46.76379 82...</span>
-<span class="co">#&gt; 3       NA MULTIPOLYGON(((-155.54211 1...</span>
-<span class="co">#&gt; 4     94.6           GEOMETRYCOLLECTION()</span></code></pre></div>
+<span class="co">#&gt;   iso_a2     name_long          name urban_pop unemploy</span>
+<span class="co">#&gt; 1     CA        Canada        Canada  29022137     6.91</span>
+<span class="co">#&gt; 2     GL     Greenland          &lt;NA&gt;        NA       NA</span>
+<span class="co">#&gt; 3     US United States United States 259740511     6.17</span>
+<span class="co">#&gt; 4     MX          &lt;NA&gt;        Mexico  99018446     5.25</span>
+<span class="co">#&gt;                             geom</span>
+<span class="co">#&gt; 1 MULTIPOLYGON(((-63.6645 46....</span>
+<span class="co">#&gt; 2 MULTIPOLYGON(((-46.76379 82...</span>
+<span class="co">#&gt; 3 MULTIPOLYGON(((-155.54211 1...</span>
+<span class="co">#&gt; 4           GEOMETRYCOLLECTION()</span></code></pre></div>
 <!-- ```{r} -->
 <!-- # error: null geom -->
 <!-- full_join2 = wb_north_america %>%  -->
@@ -526,9 +523,9 @@ semi_join1
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">semi_join2 =<span class="st"> </span>wb_north_america %&gt;%
 <span class="st">  </span><span class="kw">semi_join</span>(north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
 semi_join2
-<span class="co">#&gt;            name iso_a2 HDI urban_pop unemployment pop_growth literacy</span>
-<span class="co">#&gt; 1        Canada     CA  NA  29022137         6.91      1.101       NA</span>
-<span class="co">#&gt; 2 United States     US  NA 259740511         6.17      0.781       NA</span></code></pre></div>
+<span class="co">#&gt;            name iso_a2 urban_pop unemploy</span>
+<span class="co">#&gt; 1        Canada     CA  29022137     6.91</span>
+<span class="co">#&gt; 2 United States     US 259740511     6.17</span></code></pre></div>
 </div>
 <div id="anti-joins" class="section level3">
 <h3><span class="header-section-number">3.5.6</span> Anti joins</h3>
@@ -546,8 +543,8 @@ anti_join1
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">anti_join2 =<span class="st"> </span>wb_north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">anti_join</span>(north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
 anti_join2
-<span class="co">#&gt;     name iso_a2 HDI urban_pop unemployment pop_growth literacy</span>
-<span class="co">#&gt; 1 Mexico     MX  NA  99018446         5.25       1.32     94.6</span></code></pre></div>
+<span class="co">#&gt;     name iso_a2 urban_pop unemploy</span>
+<span class="co">#&gt; 1 Mexico     MX  99018446     5.25</span></code></pre></div>
 </div>
 <div id="exercises-2" class="section level3">
 <h3><span class="header-section-number">3.5.7</span> Exercises</h3>
