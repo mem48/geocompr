@@ -363,21 +363,39 @@ world_continents %&gt;%<span class="st"> </span>
 <h2><span class="header-section-number">3.5</span> Attribute data joining</h2>
 <!-- https://github.com/dgrtwo/fuzzyjoin -->
 <!-- http://r4ds.had.co.nz/relational-data.html -->
+<!-- non-unique keys -->
 <p>Combining data from different sources is one of the most common task in data preparation. It could be done using joins - methods created to work with a pair of tables. The <strong>dplyr</strong> package has a set of verbs to easily connect <code>data.frames</code> - <code>left_join()</code>, <code>right_join()</code>, <code>inner_join()</code>, <code>full_join</code>, <code>semi_join()</code> and <code>anti_join()</code>. They are thoroughly explained in the Relational data chapter in the book R for Data Science <span class="citation">(Grolemund and Wickham <a href="#ref-grolemund_r_2016">2016</a>)</span>.</p>
 <p>Working with spatial data, however, usually involves a connection between spatial data (<code>sf</code> objects) and tables (<code>data.frame</code> objects). Fortunately, the <strong>sf</strong> package has all of the <strong>dplyr</strong> join functions adapted to work with <code>sf</code> objects. The only important difference between combining two <code>data.frames</code> and combining <code>sf</code> with <code>data.frame</code> is a <code>geom</code> column. Therefore, the result of data joins could be either an <code>sf</code> or <code>data.frame</code> object.</p>
 <p>The easiest way to understand the concept of joins is to use a smaller datasets. We will use an <code>sf</code> object <code>north_america</code> with country codes (<code>iso_a2</code>), names and geometries, as well as <code>data.frame</code> object <code>wb_north_america</code> containing information about urban population and unemployment for three countries. It is important to add that the first object has data about Canada, Greenland and United States and the second one has data about Canada, Mexico and United States:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">north_america =<span class="st"> </span>world %&gt;%
 <span class="st">  </span><span class="kw">filter</span>(subregion ==<span class="st"> &quot;Northern America&quot;</span>) %&gt;%
 <span class="st">  </span><span class="kw">select</span>(iso_a2, name_long)
-
-<span class="kw">plot</span>(north_america[<span class="dv">0</span>])
-
-wb_north_america =<span class="st"> </span>worldbank_df %&gt;%<span class="st"> </span>
+north_america
+<span class="co">#&gt; Simple feature collection with 3 features and 2 fields</span>
+<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513</span>
+<span class="co">#&gt; epsg (SRID):    4326</span>
+<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
+<span class="co">#&gt;   iso_a2     name_long                           geom</span>
+<span class="co">#&gt; 1     CA        Canada MULTIPOLYGON(((-63.6645 46....</span>
+<span class="co">#&gt; 2     GL     Greenland MULTIPOLYGON(((-46.76379 82...</span>
+<span class="co">#&gt; 3     US United States MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
+<!-- # plot(north_america[0]) -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wb_north_america =<span class="st"> </span>worldbank_df %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(name %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;United States&quot;</span>)) %&gt;%
-<span class="st">  </span><span class="kw">select</span>(name, iso_a2, urban_pop, <span class="dt">unemploy =</span> unemployment)</code></pre></div>
-<p><img src="figures/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" /></p>
+<span class="st">  </span><span class="kw">select</span>(name, iso_a2, urban_pop, <span class="dt">unemploy =</span> unemployment)
+
+wb_north_america
+<span class="co">#&gt;            name iso_a2 urban_pop unemploy</span>
+<span class="co">#&gt; 1        Canada     CA  29022137     6.91</span>
+<span class="co">#&gt; 2        Mexico     MX  99018446     5.25</span>
+<span class="co">#&gt; 3 United States     US 259740511     6.17</span></code></pre></div>
+<p>In this book, we focus on spatial data. All of the following examples will have a <code>sf</code> object as the first argument and a <code>data.frame</code> object as the second argument. A new <code>sf</code> object will be a result of these joins. However, the reverse order is also possible and will result in a <code>data.frame</code> object. This is beyond the scope of this book, but we encourage you to try it.</p>
 <div id="left-joins" class="section level3">
 <h3><span class="header-section-number">3.5.1</span> Left joins</h3>
+<p>Left join is the most often used type of joins. The <code>left_join()</code> returns all observations from the left object (<code>north_america</code>) and the matched observations from the right object (<code>wb_north_america</code>). In cases, like <code>Greenland</code>, when we don’t have a data in the right object, <code>NA</code> values will be introduced.</p>
+<p>To connect two object we need to specify a key. This is a variable (or variables) that uniquely identifies each observation (row). The argument <code>by</code> is used to state which variable is the key. In simple cases, a single, unique variable exist in both objects, for example <code>iso_a2</code> column:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
 left_join1
@@ -395,6 +413,7 @@ left_join1
 <span class="co">#&gt; 1 MULTIPOLYGON(((-63.6645 46....</span>
 <span class="co">#&gt; 2 MULTIPOLYGON(((-46.76379 82...</span>
 <span class="co">#&gt; 3 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
+<p>It is also possible to join objects by different variables. Both of the datasets have variables with names of countries, but they are named differently. The <code>north_america</code> has a <code>name_long</code> column and the <code>wb_north_america</code> has a <code>name</code> column. In these cases, we can use a named vector to specify the connection, e.g. <code>c(&quot;name_long&quot; = &quot;name&quot;)</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join2 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
 left_join2
@@ -412,6 +431,7 @@ left_join2
 <span class="co">#&gt; 1 MULTIPOLYGON(((-63.6645 46....</span>
 <span class="co">#&gt; 2 MULTIPOLYGON(((-46.76379 82...</span>
 <span class="co">#&gt; 3 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
+<p>The new object <code>left_join2</code>, however is still not perfectly connected as it has two duplicated variables - <code>iso_a2.x</code> and <code>iso_a2.y</code>. To solve this problem we should specify all the keys:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join3 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso_a2&quot;</span>, <span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
 left_join3
@@ -520,12 +540,11 @@ semi_join1
 <span class="co">#&gt;   iso_a2     name_long                           geom</span>
 <span class="co">#&gt; 1     CA        Canada MULTIPOLYGON(((-63.6645 46....</span>
 <span class="co">#&gt; 2     US United States MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">semi_join2 =<span class="st"> </span>wb_north_america %&gt;%
-<span class="st">  </span><span class="kw">semi_join</span>(north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
-semi_join2
-<span class="co">#&gt;            name iso_a2 urban_pop unemploy</span>
-<span class="co">#&gt; 1        Canada     CA  29022137     6.91</span>
-<span class="co">#&gt; 2 United States     US 259740511     6.17</span></code></pre></div>
+<!-- ```{r} -->
+<!-- semi_join2 = wb_north_america %>% -->
+<!--   semi_join(north_america, by = "iso_a2") -->
+<!-- semi_join2 -->
+<!-- ``` -->
 </div>
 <div id="anti-joins" class="section level3">
 <h3><span class="header-section-number">3.5.6</span> Anti joins</h3>
@@ -540,11 +559,11 @@ anti_join1
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
 <span class="co">#&gt;   iso_a2 name_long                           geom</span>
 <span class="co">#&gt; 1     GL Greenland MULTIPOLYGON(((-46.76379 82...</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">anti_join2 =<span class="st"> </span>wb_north_america %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">anti_join</span>(north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
-anti_join2
-<span class="co">#&gt;     name iso_a2 urban_pop unemploy</span>
-<span class="co">#&gt; 1 Mexico     MX  99018446     5.25</span></code></pre></div>
+<!-- ```{r} -->
+<!-- anti_join2 = wb_north_america %>%  -->
+<!--   anti_join(north_america, by = "iso_a2") -->
+<!-- anti_join2 -->
+<!-- ``` -->
 </div>
 <div id="exercises-4" class="section level3">
 <h3><span class="header-section-number">3.5.7</span> Exercises</h3>

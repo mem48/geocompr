@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve836fdf2948316eb1
+preserved5a57a1373c1da91
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -725,6 +725,7 @@ world_continents %>%
 
 <!-- https://github.com/dgrtwo/fuzzyjoin -->
 <!-- http://r4ds.had.co.nz/relational-data.html -->
+<!-- non-unique keys -->
 
 Combining data from different sources is one of the most common task in data preparation. 
 It could be done using joins - methods created to work with a pair of tables.
@@ -744,17 +745,49 @@ We will use an `sf` object `north_america` with country codes (`iso_a2`), names 
 north_america = world %>%
   filter(subregion == "Northern America") %>%
   select(iso_a2, name_long)
+north_america
+#> Simple feature collection with 3 features and 2 fields
+#> geometry type:  MULTIPOLYGON
+#> dimension:      XY
+#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#>   iso_a2     name_long                           geom
+#> 1     CA        Canada MULTIPOLYGON(((-63.6645 46....
+#> 2     GL     Greenland MULTIPOLYGON(((-46.76379 82...
+#> 3     US United States MULTIPOLYGON(((-155.54211 1...
+```
+<!-- # plot(north_america[0]) -->
 
-plot(north_america[0])
 
+```r
 wb_north_america = worldbank_df %>% 
   filter(name %in% c("Canada", "Mexico", "United States")) %>%
   select(name, iso_a2, urban_pop, unemploy = unemployment)
+
+wb_north_america
+#>            name iso_a2 urban_pop unemploy
+#> 1        Canada     CA  29022137     6.91
+#> 2        Mexico     MX  99018446     5.25
+#> 3 United States     US 259740511     6.17
 ```
 
-<img src="figures/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" />
+In this book, we focus on spatial data. 
+All of the following examples will have a `sf` object as the first argument and a `data.frame` object as the second argument. 
+A new `sf` object will be a result of these joins. 
+However, the reverse order is also possible and will result in a `data.frame` object.
+This is beyond the scope of this book, but we encourage you to try it.
 
 ### Left joins
+
+Left join is the most often used type of joins.
+The `left_join()` returns all observations from the left object (`north_america`) and the matched observations from the right object (`wb_north_america`). 
+In cases, like `Greenland`, when we don't have a data in the right object, `NA` values will be introduced.
+
+To connect two object we need to specify a key.
+This is a variable (or variables) that uniquely identifies each observation (row). 
+The argument `by` is used to state which variable is the key. 
+In simple cases, a single, unique variable exist in both objects, for example `iso_a2` column:
 
 
 ```r
@@ -777,6 +810,11 @@ left_join1
 #> 3 MULTIPOLYGON(((-155.54211 1...
 ```
 
+It is also possible to join objects by different variables.
+Both of the datasets have variables with names of countries, but they are named differently.
+The `north_america` has a `name_long` column and the `wb_north_america` has a `name` column.
+In these cases, we can use a named vector to specify the connection, e.g. `c("name_long" = "name")`:
+
 
 ```r
 left_join2 = north_america %>% 
@@ -798,6 +836,9 @@ left_join2
 #> 3 MULTIPOLYGON(((-155.54211 1...
 ```
 
+The new object `left_join2`, however is still not perfectly connected as it has two duplicated variables - `iso_a2.x` and `iso_a2.y`.
+To solve this problem we should specify all the keys:
+
 
 ```r
 left_join3 = north_america %>% 
@@ -814,7 +855,6 @@ left_join3
 #> 2     GL     Greenland        NA       NA MULTIPOLYGON(((-46.76379 82...
 #> 3     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...
 ```
-
 
 <!-- ```{r} -->
 <!-- # error: keeps geom col -->
@@ -930,15 +970,11 @@ semi_join1
 #> 2     US United States MULTIPOLYGON(((-155.54211 1...
 ```
 
-
-```r
-semi_join2 = wb_north_america %>%
-  semi_join(north_america, by = "iso_a2")
-semi_join2
-#>            name iso_a2 urban_pop unemploy
-#> 1        Canada     CA  29022137     6.91
-#> 2 United States     US 259740511     6.17
-```
+<!-- ```{r} -->
+<!-- semi_join2 = wb_north_america %>% -->
+<!--   semi_join(north_america, by = "iso_a2") -->
+<!-- semi_join2 -->
+<!-- ``` -->
 
 ### Anti joins
 
@@ -957,14 +993,11 @@ anti_join1
 #> 1     GL Greenland MULTIPOLYGON(((-46.76379 82...
 ```
 
-
-```r
-anti_join2 = wb_north_america %>% 
-  anti_join(north_america, by = "iso_a2")
-anti_join2
-#>     name iso_a2 urban_pop unemploy
-#> 1 Mexico     MX  99018446     5.25
-```
+<!-- ```{r} -->
+<!-- anti_join2 = wb_north_america %>%  -->
+<!--   anti_join(north_america, by = "iso_a2") -->
+<!-- anti_join2 -->
+<!-- ``` -->
 
 ### Exercises
 
@@ -1225,7 +1258,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.69
+#> [1] 2.53
 ```
 
 The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1241,10 +1274,10 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.19
+#> [1] 3.03
 ```
 
-In this case **sf** was around 2 times faster than **rgdal**.
+In this case **sf** was around 3 times faster than **rgdal**.
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
 
@@ -1341,13 +1374,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.071
+#>   0.096   0.000   0.095
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.014
+#>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.033
+#>   0.036   0.012   0.046
 ```
 
 
