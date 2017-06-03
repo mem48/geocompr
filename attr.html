@@ -381,7 +381,8 @@ north_america
 <span class="co">#&gt; 1     CA        Canada MULTIPOLYGON(((-63.6645 46....</span>
 <span class="co">#&gt; 2     GL     Greenland MULTIPOLYGON(((-46.76379 82...</span>
 <span class="co">#&gt; 3     US United States MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
-<!-- # plot(north_america[0]) -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(north_america[<span class="dv">0</span>])</code></pre></div>
+<p><img src="figures/unnamed-chunk-18-1.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wb_north_america =<span class="st"> </span>worldbank_df %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(name %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;United States&quot;</span>)) %&gt;%
 <span class="st">  </span><span class="kw">select</span>(name, iso_a2, urban_pop, <span class="dt">unemploy =</span> unemployment)
@@ -469,8 +470,8 @@ right_join1
 <span class="co">#&gt; 2     MX        Mexico  99018446     5.25                 MULTIPOLYGON()</span>
 <span class="co">#&gt; 3     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <p>You can see that the new object <code>right_join1</code> has information about Mexico, but drop information about Greenland. What’s more, our right object, as a <code>data.frame</code>, doesn’t have a geometry representation of Mexico. As a result, the <code>right_join1</code> object contains only non-spatial data of Mexico. It could be easily illustrated using the <code>plot</code> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(right_join1[<span class="dv">0</span>]) <span class="co"># only Canada and United States</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-23-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(right_join1[<span class="dv">0</span>]) <span class="co"># Canada and United States only</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-24-1.png" width="576" style="display: block; margin: auto;" /></p>
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
 <!-- right_join2 = wb_north_america %>%  -->
@@ -480,21 +481,19 @@ right_join1
 </div>
 <div id="inner-joins" class="section level3">
 <h3><span class="header-section-number">3.5.3</span> Inner joins</h3>
+<p>The <code>inner_join()</code> keeps only observations from the left object (<code>north_america</code>) where there are matching observations in the right object (<code>wb_north_america</code>). Additionally, all columns from the left and right object are kept:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inner_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">inner_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>) 
+<span class="st">  </span><span class="kw">inner_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso_a2&quot;</span>, <span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
 inner_join1
-<span class="co">#&gt; Simple feature collection with 2 features and 5 fields</span>
+<span class="co">#&gt; Simple feature collection with 2 features and 4 fields</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
 <span class="co">#&gt; dimension:      XY</span>
 <span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324</span>
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;   iso_a2     name_long          name urban_pop unemploy</span>
-<span class="co">#&gt; 1     CA        Canada        Canada  29022137     6.91</span>
-<span class="co">#&gt; 2     US United States United States 259740511     6.17</span>
-<span class="co">#&gt;                             geom</span>
-<span class="co">#&gt; 1 MULTIPOLYGON(((-63.6645 46....</span>
-<span class="co">#&gt; 2 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
+<span class="co">#&gt;   iso_a2     name_long urban_pop unemploy                           geom</span>
+<span class="co">#&gt; 1     CA        Canada  29022137     6.91 MULTIPOLYGON(((-63.6645 46....</span>
+<span class="co">#&gt; 2     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <!-- ```{r} -->
 <!-- # error: geom column added -->
 <!-- inner_join2 =  wb_north_america %>%  -->
@@ -504,6 +503,7 @@ inner_join1
 </div>
 <div id="full-joins" class="section level3">
 <h3><span class="header-section-number">3.5.4</span> Full joins</h3>
+<p>The <code>full_join()</code> returns all rows and all columns from both the left and right object. It also puts <code>NA</code> in cases where there are not matching values and returns an empty geometry for cases that only exist in the right object:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">full_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">full_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
 full_join1

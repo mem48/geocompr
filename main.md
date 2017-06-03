@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve0e4e5adcf9df0172
+preserveb9494fe18ed7e0ca
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -757,7 +757,13 @@ north_america
 #> 2     GL     Greenland MULTIPOLYGON(((-46.76379 82...
 #> 3     US United States MULTIPOLYGON(((-155.54211 1...
 ```
-<!-- # plot(north_america[0]) -->
+
+
+```r
+plot(north_america[0])
+```
+
+<img src="figures/unnamed-chunk-18-1.png" width="576" style="display: block; margin: auto;" />
 
 
 ```r
@@ -891,10 +897,10 @@ It could be easily illustrated using the `plot` function:
 
 
 ```r
-plot(right_join1[0]) # only Canada and United States
+plot(right_join1[0]) # Canada and United States only
 ```
 
-<img src="figures/unnamed-chunk-23-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-24-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
@@ -905,25 +911,23 @@ plot(right_join1[0]) # only Canada and United States
 
 ### Inner joins
 
+The `inner_join()` keeps only observations from the left object (`north_america`) where there are matching observations in the right object (`wb_north_america`). Additionally, all columns from the left and right object are kept:
+
 
 ```r
 inner_join1 = north_america %>% 
-  inner_join(wb_north_america, by = "iso_a2") 
+  inner_join(wb_north_america, by = c("iso_a2", "name_long" = "name"))
 inner_join1
-#> Simple feature collection with 2 features and 5 fields
+#> Simple feature collection with 2 features and 4 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
 #> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>   iso_a2     name_long          name urban_pop unemploy
-#> 1     CA        Canada        Canada  29022137     6.91
-#> 2     US United States United States 259740511     6.17
-#>                             geom
-#> 1 MULTIPOLYGON(((-63.6645 46....
-#> 2 MULTIPOLYGON(((-155.54211 1...
+#>   iso_a2     name_long urban_pop unemploy                           geom
+#> 1     CA        Canada  29022137     6.91 MULTIPOLYGON(((-63.6645 46....
+#> 2     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...
 ```
-
 
 <!-- ```{r} -->
 <!-- # error: geom column added -->
@@ -932,8 +936,10 @@ inner_join1
 <!-- inner_join2 -->
 <!-- ``` -->
 
-
 ### Full joins
+
+The `full_join()` returns all rows and all columns from both the left and right object. 
+It also puts `NA` in cases where there are not matching values and returns an empty geometry for cases that only exist in the right object:
 
 
 ```r
@@ -1272,10 +1278,10 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.78
+#> [1] 2.3
 ```
 
-The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -1288,7 +1294,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.04
+#> [1] 3.28
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1388,13 +1394,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.073
+#>   0.068   0.000   0.069
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.013
+#>   0.012   0.000   0.014
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.026
+#>   0.024   0.008   0.031
 ```
 
 
