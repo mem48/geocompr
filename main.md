@@ -91,7 +91,7 @@ However, the term GIS has some negative connotations (see Table \@ref(tab:gdsl))
 its unparalleled ability to seamlessly switch between geographic and non-geographic data processing, modeling and visualization tasks.
 
 <div class="figure" style="text-align: center">
-<img src="figures/venn-1.png" alt="Venn diagram of the intersection between Geography and R." width="672" />
+<img src="figures/venn-1.png" alt="Venn diagram of the intersection between Geography and R." width="576" />
 <p class="caption">(\#fig:venn)Venn diagram of the intersection between Geography and R.</p>
 </div>
 
@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea858fde894d7f84d
+preserve4c1b51f33ea7fb4c
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -270,7 +270,7 @@ plot(world)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="figures/world-all-1.png" alt="A spatial plot of the world using the sf package, with a facet for each attribute." width="672" />
+<img src="figures/world-all-1.png" alt="A spatial plot of the world using the sf package, with a facet for each attribute." width="576" />
 <p class="caption">(\#fig:world-all)A spatial plot of the world using the sf package, with a facet for each attribute.</p>
 </div>
 
@@ -390,7 +390,7 @@ Using **sf**'s `plot()` command, create a map of Nigeria in context, like the on
 - Hint: `border` is an additional argument of `plot()` for **sf** objects.
 
 <div class="figure" style="text-align: center">
-<img src="figures/nigeria-1.png" alt="Map of Nigeria in context illustrating sf's plotting capabilities" width="672" />
+<img src="figures/nigeria-1.png" alt="Map of Nigeria in context illustrating sf's plotting capabilities" width="576" />
 <p class="caption">(\#fig:nigeria)Map of Nigeria in context illustrating sf's plotting capabilities</p>
 </div>
 
@@ -743,16 +743,13 @@ north_america = world %>%
   select(iso_a2, name_long)
 
 plot(north_america[0])
-```
-
-<img src="figures/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" />
-
-```r
 
 wb_north_america = worldbank_df %>% 
   filter(name %in% c("Canada", "Mexico", "United States")) %>%
   select(name, iso_a2, urban_pop, unemploy = unemployment)
 ```
+
+<img src="figures/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" />
 
 ### Left joins
 
@@ -1052,7 +1049,7 @@ text(x = c(-0.5, 1.5), y = 1, labels = l) # add text
 ```
 
 <div class="figure" style="text-align: center">
-<img src="figures/points-1.png" alt="Overlapping circles." width="672" />
+<img src="figures/points-1.png" alt="Overlapping circles." width="576" />
 <p class="caption">(\#fig:points)Overlapping circles.</p>
 </div>
 
@@ -1068,13 +1065,13 @@ plot(b)
 plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
 ```
 
-<img src="figures/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-4-1.png" width="576" style="display: block; margin: auto;" />
 
 The subsequent code chunk demonstrate how this works for all combinations of the 'venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
 <!-- Todo: reference r4ds -->
 
 <div class="figure" style="text-align: center">
-<img src="figures/unnamed-chunk-5-1.png" alt="Spatial equivalents of logical operators" width="672" />
+<img src="figures/unnamed-chunk-5-1.png" alt="Spatial equivalents of logical operators" width="576" />
 <p class="caption">(\#fig:unnamed-chunk-5)Spatial equivalents of logical operators</p>
 </div>
 
@@ -1230,7 +1227,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.14
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1246,7 +1243,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.51
+#> [1] 3.14
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1346,13 +1343,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.072
+#>   0.068   0.000   0.067
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.024   0.000   0.025
+#>   0.016   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.008   0.034
+#>   0.020   0.008   0.030
 ```
 
 

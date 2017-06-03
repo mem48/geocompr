@@ -212,7 +212,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">1</span> Introduction</h1>
 <p>This book exists at the intersection between Geography and R (Figure <a href="intro.html#fig:venn">1.1</a>). Suggested titles were <em>Geography with R</em> and <em>R for GIS</em>, each of which has advantages. The former conveys the message that it’s not just about spatial data: non-spatial attribute data are inevitably interwoven with geometry data, and Geography is about more than where something is on the map. The latter option communicates that this is a book about using R as a <em>Geographic Information System</em> (GIS), to perform spatial operations on <em>geographic data</em> <span class="citation">(Bivand, Pebesma, and Gómez-Rubio <a href="#ref-bivand_applied_2013">2013</a>)</span>. However, the term GIS has some negative connotations (see Table <a href="intro.html#tab:gdsl">1.1</a>) and fails to communicate one of R’s greatest strengths: its unparalleled ability to seamlessly switch between geographic and non-geographic data processing, modeling and visualization tasks.</p>
 <div class="figure" style="text-align: center"><span id="fig:venn"></span>
-<img src="figures/venn-1.png" alt="Venn diagram of the intersection between Geography and R." width="672" />
+<img src="figures/venn-1.png" alt="Venn diagram of the intersection between Geography and R." width="576" />
 <p class="caption">
 Figure 1.1: Venn diagram of the intersection between Geography and R.
 </p>
@@ -258,7 +258,7 @@ popup =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot
 <span class="st">  </span><span class="kw">addProviderTiles</span>(<span class="st">&quot;NASAGIBS.ViirsEarthAtNight2012&quot;</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">addAwesomeMarkers</span>(<span class="dt">lng =</span> <span class="kw">c</span>(-<span class="dv">3</span>, <span class="dv">23</span>), <span class="dt">lat =</span> <span class="kw">c</span>(<span class="dv">52</span>, <span class="dv">53</span>), <span class="dt">popup =</span> popup)</code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:interactive"></span>
-<div id="htmlwidget-ec897849c5c50a6f7846" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<div id="htmlwidget-ec897849c5c50a6f7846" style="width:576px;height:355.968px;" class="leaflet html-widget"></div>
 <script type="application/json" data-for="htmlwidget-ec897849c5c50a6f7846">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["NASAGIBS.ViirsEarthAtNight2012",null,null,{"errorTileUrl":"","noWrap":false,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false}]},{"method":"addAwesomeMarkers","args":[[52,53],[-3,23],null,null,null,{"clickable":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Robin","Jakub"],null,null,null,null,null,null]}],"limits":{"lat":[52,53],"lng":[-3,23]}},"evals":[],"jsHooks":[]}</script>
 <p class="caption">
 Figure 1.2: World at night imagery from NASA overlaid by the authors’ approximate home locations to illustrate interactive mapping with R.
