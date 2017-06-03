@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservec54e8499620c75fd
+preserve836fdf2948316eb1
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -731,9 +731,9 @@ It could be done using joins - methods created to work with a pair of tables.
 The **dplyr** package has a set of verbs to easily connect `data.frames` - `left_join()`, `right_join()`,  `inner_join()`, `full_join`, `semi_join()` and `anti_join()`. 
 They are thoroughly explained in the Relational data chapter in the book R for Data Science [@grolemund_r_2016].
 
-Working with spatial data, however, usually involves a connection between spatial data (`sf` objects) with tables (`data.frame` objects).
+Working with spatial data, however, usually involves a connection between spatial data (`sf` objects) and tables (`data.frame` objects).
 Fortunately, the **sf** package has all of the **dplyr** join functions adapted to work with `sf` objects.
-The only important difference between combining of two `data.frames` and combining of `sf` with `data.frame` is a `geom` column.
+The only important difference between combining two `data.frames` and combining `sf` with `data.frame` is a `geom` column.
 Therefore, the result of data joins could be either an `sf` or `data.frame` object.
 
 The easiest way to understand the concept of joins is to use a smaller datasets. 
@@ -1225,10 +1225,10 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.31
+#> [1] 2.69
 ```
 
-The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -1241,10 +1241,10 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.82
+#> [1] 2.19
 ```
 
-In this case **sf** was around 3 times faster than **rgdal**.
+In this case **sf** was around 2 times faster than **rgdal**.
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
 
@@ -1341,13 +1341,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.068
+#>   0.072   0.000   0.071
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.014
+#>   0.016   0.000   0.014
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.030
+#>   0.020   0.012   0.033
 ```
 
 
