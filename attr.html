@@ -262,11 +262,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="attribute-subsetting" class="section level2">
 <h2><span class="header-section-number">3.3</span> Attribute subsetting</h2>
+<!-- data.frame is a non-spatial part of sf objects -->
+<!-- therefore, all of standard functions for attribute subsetting can be used -->
+<!-- such as [], $, and subset -->
+<!-- After each operation, the geometry column is preserved. -->
+<!-- [] operator can be used to subset rows and columns -->
+<!-- [] operator requires two arguments - one for rows (observations) and one for columns (variables) - [rows, columns] -->
+<!-- these arguments could be either numeric or character -->
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[<span class="dv">1</span>:<span class="dv">6</span>, ] <span class="co"># subset rows</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[, <span class="dv">1</span>:<span class="dv">3</span>] <span class="co"># subset columns</span></code></pre></div>
-<p>After each operation, the geometry column is preserved.</p>
-<p><strong>dplyr</strong> makes working with data frames easier and is compatible with <code>sf</code> objects, after the package has been loaded:</p>
-<p>The <code>select()</code> function, for example, can be used to both subset and renames columns in a single line, for example:</p>
+<!-- $ operator can be used to retrieve a variable (column) by its name -->
+<!-- The result is a vector -->
+<!-- an example -->
+<p><strong>dplyr</strong> makes working with data frames easier and is compatible with <code>sf</code> objects.</p>
+<!-- , after the package has been loaded: [or - it is a part of tidyverse] -->
+<!-- attribute subsetting in dplyr is could be done using two functions - select and filter -->
+<p>The <code>select()</code> function can be used to both subset and renames columns in a single line, for example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world1 =<span class="st"> </span><span class="kw">select</span>(world, name_long, continent, <span class="dt">population =</span> pop)
 <span class="kw">head</span>(world1, <span class="dt">n =</span> <span class="dv">2</span>)
 <span class="co">#&gt; Simple feature collection with 2 features and 3 fields</span>
@@ -287,11 +298,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span><span class="kw">select</span>(name_long, continent)</code></pre></div>
 <p>Note that this can also be written without the pipe operator because, in the above code, the <code>world</code> object is simply ‘piped’ into the first argument of <code>select()</code>. The equivalent <strong>dplyr</strong> code without the pipe operator is:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world4 =<span class="st"> </span><span class="kw">select</span>(world, name_long, continent)</code></pre></div>
-<p>The pipe operator can be used for many data processing tasks with attribute data:</p>
-<!-- todo - describe these: ==, !=, >, >=, <, <=, &, | -->
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Filtering attribute data with dplyr</span>
+<p>The pipe operator can be used for many data processing tasks with attribute data. <!-- another one is filter --> <!-- filter() keeps rows matching given criteria --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># 1,000,000,000 could be expressed as 1e9 in the scientific notation </span>
 world %&gt;%
-<span class="st">  </span><span class="kw">filter</span>(pop &gt;<span class="st"> </span><span class="fl">1e9</span>)
+<span class="st">  </span><span class="kw">filter</span>(pop &gt;<span class="st"> </span><span class="fl">1e9</span>) 
 <span class="co">#&gt; Simple feature collection with 2 features and 10 fields</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
 <span class="co">#&gt; dimension:      XY</span>
@@ -304,6 +314,8 @@ world %&gt;%
 <span class="co">#&gt;   area_km2      pop lifeExp gdpPercap                           geom</span>
 <span class="co">#&gt; 1  9409832 1.36e+09    75.8     12759 MULTIPOLYGON(((110.33918786...</span>
 <span class="co">#&gt; 2  3142892 1.30e+09    68.0      5392 MULTIPOLYGON(((77.837450799...</span></code></pre></div>
+<!-- todo - describe these: ==, !=, >, >=, <, <=, &, | -->
+<!-- more examples -->
 <p>This is equivalent to the following base R code (not run to preserve the NAs):<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># subsetting simple feature rows by values</span>
 world$pop[<span class="kw">is.na</span>(world$pop)] =<span class="st"> </span><span class="dv">0</span> <span class="co"># set NAs to 0</span>

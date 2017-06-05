@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve623aa133270d56d4
+preservede25733734a63e43
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -591,6 +591,15 @@ The important thing is that you select a data processing paradigm of choice, and
 
 ## Attribute subsetting
 
+<!-- data.frame is a non-spatial part of sf objects -->
+<!-- therefore, all of standard functions for attribute subsetting can be used -->
+<!-- such as [], $, and subset -->
+<!-- After each operation, the geometry column is preserved. -->
+
+<!-- [] operator can be used to subset rows and columns -->
+<!-- [] operator requires two arguments - one for rows (observations) and one for columns (variables) - [rows, columns] -->
+<!-- these arguments could be either numeric or character -->
+
 
 ```r
 world[1:6, ] # subset rows
@@ -601,11 +610,16 @@ world[1:6, ] # subset rows
 world[, 1:3] # subset columns
 ```
 
-After each operation, the geometry column is preserved.
+<!-- $ operator can be used to retrieve a variable (column) by its name -->
+<!-- The result is a vector -->
+<!-- an example -->
 
-**dplyr** makes working with data frames easier and is compatible with `sf` objects, after the package has been loaded:
+**dplyr** makes working with data frames easier and is compatible with `sf` objects.
 
-The `select()` function, for example, can be used to both subset and renames columns in a single line, for example:
+<!-- , after the package has been loaded: [or - it is a part of tidyverse] -->
+<!-- attribute subsetting in dplyr is could be done using two functions - select and filter -->
+
+The `select()` function can be used to both subset and renames columns in a single line, for example:
 
 
 ```r
@@ -651,17 +665,15 @@ The equivalent **dplyr** code without the pipe operator is:
 world4 = select(world, name_long, continent)
 ```
 
-
-The pipe operator can be used for many data processing tasks with attribute data:
-
-<!-- todo - describe these: ==, !=, >, >=, <, <=, &, | -->
-
+The pipe operator can be used for many data processing tasks with attribute data.
+<!-- another one is filter -->
+<!-- filter() keeps rows matching given criteria -->
 
 
 ```r
-# Filtering attribute data with dplyr
+# 1,000,000,000 could be expressed as 1e9 in the scientific notation 
 world %>%
-  filter(pop > 1e9)
+  filter(pop > 1e9) 
 #> Simple feature collection with 2 features and 10 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
@@ -675,6 +687,9 @@ world %>%
 #> 1  9409832 1.36e+09    75.8     12759 MULTIPOLYGON(((110.33918786...
 #> 2  3142892 1.30e+09    68.0      5392 MULTIPOLYGON(((77.837450799...
 ```
+
+<!-- todo - describe these: ==, !=, >, >=, <, <=, &, | -->
+<!-- more examples -->
 
 This is equivalent to the following base R code (not run to preserve the NAs):^[[Note](https://github.com/Robinlovelace/geocompr/issues/28) NAs do not work for subsetting by inequalities in base R, hence conversion of NAs to 0s in this version)]
 
@@ -1354,7 +1369,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.41
+#> [1] 2.13
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1370,7 +1385,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.98
+#> [1] 3.07
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1470,13 +1485,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.084   0.004   0.088
+#>   0.068   0.000   0.068
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.017
+#>   0.008   0.004   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.044   0.004   0.052
+#>   0.024   0.008   0.030
 ```
 
 
