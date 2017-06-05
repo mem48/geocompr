@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-06-03">
+<meta name="date" content="2017-06-05">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -139,7 +139,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="2" data-path="spatial-class.html"><a href="spatial-class.html"><i class="fa fa-check"></i><b>2</b> Simple features and plots</a><ul>
 <li class="chapter" data-level="" data-path="spatial-class.html"><a href="spatial-class.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
-<li class="chapter" data-level="2.1" data-path="spatial-class.html"><a href="spatial-class.html#an-introduction-to-simple-features"><i class="fa fa-check"></i><b>2.1</b> An introduction to Simple Features</a><ul>
+<li class="chapter" data-level="2.1" data-path="spatial-class.html"><a href="spatial-class.html#intro-sf"><i class="fa fa-check"></i><b>2.1</b> An introduction to Simple Features</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="spatial-class.html"><a href="spatial-class.html#exercises"><i class="fa fa-check"></i><b>2.1.1</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="spatial-class.html"><a href="spatial-class.html#why-simple-features"><i class="fa fa-check"></i><b>2.2</b> Why Simple Features?</a></li>
@@ -148,8 +148,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.3.2" data-path="spatial-class.html"><a href="spatial-class.html#further-work"><i class="fa fa-check"></i><b>2.3.2</b> Further work</a></li>
 <li class="chapter" data-level="2.3.3" data-path="spatial-class.html"><a href="spatial-class.html#exercises-1"><i class="fa fa-check"></i><b>2.3.3</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="spatial-class.html"><a href="spatial-class.html#vector-data"><i class="fa fa-check"></i><b>2.4</b> Vector data</a></li>
-<li class="chapter" data-level="2.5" data-path="spatial-class.html"><a href="spatial-class.html#raster-data"><i class="fa fa-check"></i><b>2.5</b> Raster data</a></li>
+<li class="chapter" data-level="2.4" data-path="spatial-class.html"><a href="spatial-class.html#sfg"><i class="fa fa-check"></i><b>2.4</b> Simple feature geometries, collections and data frames</a></li>
+<li class="chapter" data-level="2.5" data-path="spatial-class.html"><a href="spatial-class.html#simple-feature-geometries"><i class="fa fa-check"></i><b>2.5</b> Simple feature geometries</a></li>
+<li class="chapter" data-level="2.6" data-path="spatial-class.html"><a href="spatial-class.html#raster-data"><i class="fa fa-check"></i><b>2.6</b> Raster data</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="attr.html"><a href="attr.html"><i class="fa fa-check"></i><b>3</b> Attribute data operations</a><ul>
 <li class="chapter" data-level="" data-path="attr.html"><a href="attr.html#prerequisites-1"><i class="fa fa-check"></i>Prerequisites</a></li>
@@ -255,12 +256,12 @@ world =<span class="st"> </span><span class="kw">st_read</span>(f)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(microbenchmark)
 read_world_gpkg =<span class="st"> </span><span class="kw">bench_read</span>(<span class="dt">file =</span> f, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read_world_gpkg
-<span class="co">#&gt; [1] 2.33</span></code></pre></div>
+<span class="co">#&gt; [1] 2.41</span></code></pre></div>
 <p>The results demonstrate that <strong>sf</strong> was around 2 times faster than <strong>rgdal</strong> at reading-in the world countries shapefile. The relative performance of <code>st_read()</code> compared with other functions will vary depending on file format and the nature of the data. To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/lnd.geojson&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
 read_lnd_geojson =<span class="st"> </span><span class="kw">bench_read</span>(<span class="dt">file =</span> f, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read_lnd_geojson
-<span class="co">#&gt; [1] 2.97</span></code></pre></div>
+<span class="co">#&gt; [1] 2.98</span></code></pre></div>
 <p>In this case <strong>sf</strong> was around 3 times faster than <strong>rgdal</strong>.</p>
 <p>The full range of file-types supported by <strong>sf</strong> is reported by <code>st_drivers()</code>, the first 2 of which are shown below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_drivers =<span class="st"> </span><span class="kw">st_drivers</span>()
@@ -300,13 +301,13 @@ read_lnd_geojson =<span class="st"> </span><span class="kw">bench_read</span>(<s
 <p>The counterpart of <code>st_read()</code> is <code>st_write()</code>. This allows writing to a range of geographic vector file types, including the common formats <code>.geojson</code>, <code>.shp</code> and <code>.gpkg</code>. <code>st_read()</code> will decide which driver to use automatically, based on the file name, as illustrated in the benchmark below demonstrating write speeds for each format.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.geojson&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.068   0.004   0.071</span>
+<span class="co">#&gt;   0.084   0.004   0.088</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.shp&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)) 
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.016   0.000   0.014</span>
+<span class="co">#&gt;   0.016   0.000   0.017</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.024   0.008   0.030</span></code></pre></div>
+<span class="co">#&gt;   0.044   0.004   0.052</span></code></pre></div>
 </div>
 <div id="file-formats" class="section level2">
 <h2><span class="header-section-number">5.3</span> File formats</h2>

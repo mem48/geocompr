@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-06-03'
+date: '2017-06-05'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -39,7 +39,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-06-03 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-06-05 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -50,7 +50,7 @@ To raise an issue about the book's content (e.g. code not running) or make a fea
 
 ## Reproducibility {-}
 
-To reproduce the book, you need a recent version of R and up-to-date packages.
+To reproduce the book, you need a recent version of [R](https://cran.r-project.org/) and up-to-date packages.
 The following code should install the required packages:
 
 
@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve62fe110876dc20d2
+preserve623aa133270d56d4
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -205,7 +205,7 @@ The most important recent evolution in R's spatial ecosystem has without doubt b
 - classes and methods in R
 -->
 
-## An introduction to Simple Features
+## An introduction to Simple Features {#intro-sf}
 
 Simple Features is an open standard data model developed and endorsed by the Open Geospatial Consortium ([OGC](http://portal.opengeospatial.org/files/?artifact_id=25355)) to describe how features with geographical and non-geographical features should be represented.
 It is a hierarchical data model that simplifies geographic data by condensing the complex range of possible geographic forms (e.g., line, point, polygon, multipolygon forms) into a single geometry class.
@@ -445,7 +445,28 @@ summary(sel_asia)
 - Bonus: Download some global geographic data and add attribute variables assigning them to the continents of the world.
 
 
-## Vector data
+## Simple feature geometries, collections and data frames {#sfg}
+
+To understand new data formats in depth, it often helps to generate them for first principles.
+This section walks through vector spatial classes step-by-step, from the simplest simple feature geometry to simple feature objects, with class `sf`, representing complex spatial data.
+Before describing each geometry type that the **sf** package supports it is worth taking a step back to understand the building blocks of `sf` objects. 
+
+As stated in section \@ref(intro-sf), simple features are simply dataframes with at least one special column that makes it spatial.
+These spatial columns are often called `geom` or `geometry` and can be like non-spatial columns: `world$geom` refers to the spatial element of the `world` object described above.
+These geometry columns are 'list columns' of class `sfc`: they are *simple feature collections*.
+In turn, `sfc` objects are composed of one or more objects of class `sfg`: simple feature geometries.
+
+To understand how the spatial components of simple features work, it is vital to understand simple feature geometries.
+For this reason we cover each type currently supported `sfg` in the next section before moving to describe how they can be combined to form `sfc` and eventually full `sf` objects.
+
+
+## Simple feature geometries
+
+
+```r
+sfg_point = st_point(c(0, 1))
+```
+
 
 <!-- 
 sf data types:
@@ -1141,7 +1162,11 @@ The subsequent code chunk demonstrate how this works for all combinations of the
 </div>
 
 To illustrate the relationship between subsetting and clipping spatial data, we will subset points that cover the bounding box of the circles `x` and `y` in Figure \@ref(fig:venn-clip).
-We will see that there are different ways to subset these points to fit into combinations of the circles: via clipping and logical operators.
+Some points will be inside just one circle, some will be inside both and some will be inside neither.
+To generate the points will use a function not yet covered in this book, `st_sample()`.
+
+
+There are two different ways to subset points that fit into combinations of the circles: via clipping and logical operators.
 But first we must generate some points.
 We will use the *simple random* sampling strategy to sample from a box representing the extent of `x` and `y`, using the code below to generate the situation plotted in Figure \@ref(fig:venn-subset):
 
@@ -1173,6 +1198,11 @@ text(x = c(-0.5, 1.5), y = 1, labels = l)
 ### Exercises
 
 Write code that subsets points that are contained within `x` *and* `y` (illustrated by the plot in the 2^nd^ row and the 1^st^ column in Figure \@ref(fig:venn-clip)).
+
+- Create a randomly located point with the command `st_point()` (refer back to section \@ref(sfg) to see how to create spatial data 'from scratch').
+
+scattered points with the command 
+
 
 <!-- TODO? create a series of polygons distributed evenly over the surface of the Earth and clip them. -->
 
@@ -1324,7 +1354,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.33
+#> [1] 2.41
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1340,7 +1370,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.97
+#> [1] 2.98
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1440,13 +1470,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.004   0.071
+#>   0.084   0.004   0.088
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.014
+#>   0.016   0.000   0.017
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.030
+#>   0.044   0.004   0.052
 ```
 
 
