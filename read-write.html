@@ -236,7 +236,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 f =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
 world =<span class="st"> </span><span class="kw">st_read</span>(f)
 <span class="co">#&gt; Reading layer `wrld.gpkg&#39; from data source `/home/travis/R/Library/spData/shapes/world.gpkg&#39; using driver `GPKG&#39;</span>
-<span class="co">#&gt; converted into: MULTIPOLYGON</span>
 <span class="co">#&gt; Simple feature collection with 177 features and 10 fields</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
 <span class="co">#&gt; dimension:      XY</span>
@@ -256,7 +255,7 @@ world =<span class="st"> </span><span class="kw">st_read</span>(f)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(microbenchmark)
 read_world_gpkg =<span class="st"> </span><span class="kw">bench_read</span>(<span class="dt">file =</span> f, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read_world_gpkg
-<span class="co">#&gt; [1] 2.49</span></code></pre></div>
+<span class="co">#&gt; [1] 1.95</span></code></pre></div>
 <p>The results demonstrate that <strong>sf</strong> was around 2 times faster than <strong>rgdal</strong> at reading-in the world countries shapefile. The relative performance of <code>st_read()</code> compared with other functions will vary depending on file format and the nature of the data. To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/lnd.geojson&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
 read_lnd_geojson =<span class="st"> </span><span class="kw">bench_read</span>(<span class="dt">file =</span> f, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
@@ -301,13 +300,13 @@ read_lnd_geojson =<span class="st"> </span><span class="kw">bench_read</span>(<s
 <p>The counterpart of <code>st_read()</code> is <code>st_write()</code>. This allows writing to a range of geographic vector file types, including the common formats <code>.geojson</code>, <code>.shp</code> and <code>.gpkg</code>. <code>st_read()</code> will decide which driver to use automatically, based on the file name, as illustrated in the benchmark below demonstrating write speeds for each format.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.geojson&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.076   0.000   0.075</span>
+<span class="co">#&gt;   0.060   0.004   0.064</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.shp&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)) 
 <span class="co">#&gt;    user  system elapsed </span>
 <span class="co">#&gt;   0.012   0.000   0.013</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.016   0.012   0.029</span></code></pre></div>
+<span class="co">#&gt;   0.024   0.004   0.029</span></code></pre></div>
 </div>
 <div id="file-formats" class="section level2">
 <h2><span class="header-section-number">5.3</span> File formats</h2>

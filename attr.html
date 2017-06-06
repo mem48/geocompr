@@ -262,18 +262,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="attribute-subsetting" class="section level2">
 <h2><span class="header-section-number">3.3</span> Attribute subsetting</h2>
-<!-- data.frame is a non-spatial part of sf objects -->
-<!-- therefore, all of standard functions for attribute subsetting can be used -->
-<!-- such as [], $, and subset -->
-<!-- After each operation, the geometry column is preserved. -->
-<!-- [] operator can be used to subset rows and columns -->
-<!-- [] operator requires two arguments - one for rows (observations) and one for columns (variables) - [rows, columns] -->
-<!-- these arguments could be either numeric or character -->
+<!-- info about pull (dplyr 0.6): -->
+<!-- https://github.com/tidyverse/dplyr/commit/0b9aabf6c06c9cd3b784b155044d497d4b93df3e -->
+<p>Every simple feature object of class <code>sf</code> has a <code>data.frame</code> part. Therefore, you can use all of the base R functions for attribute subsetting or apply one of many external packages (such as <code>dplyr</code>) for subset the attributes. Standard functions include <code>[]</code>, <code>$</code>, and <code>subset()</code>. They could be replaced by the <code>dplyr</code> verbs, such as <code>select()</code>, <code>filter()</code>, and <code>pull()</code>. It is important to remember that most of the functions preserve the geometry column.</p>
+<p>You can use the <code>[]</code> operator to subset rows and columns. Two arguments are required, one for rows (observations) and one for columns (variables), e.g. [rows, columns]. These arguments could be either numeric, which indicates a position, or character, which indicates a name of row or column.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[<span class="dv">1</span>:<span class="dv">6</span>, ] <span class="co"># subset rows</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[, <span class="dv">1</span>:<span class="dv">3</span>] <span class="co"># subset columns</span></code></pre></div>
-<!-- $ operator can be used to retrieve a variable (column) by its name -->
-<!-- The result is a vector -->
-<!-- an example -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[, <span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span>, <span class="st">&quot;lifeExp&quot;</span>)] <span class="co"># subset columns by name</span></code></pre></div>
+<p>The <code>$</code> operator retrieves a variable by its name and returns a vector:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world$name_long</code></pre></div>
+<p>You can also subset a <code>sf</code> object based on a given condition using (surprise, surprise…) the <code>subset()</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">small_countries =<span class="st"> </span><span class="kw">subset</span>(world, area_km2 &lt;<span class="st"> </span><span class="dv">10000</span>)</code></pre></div>
 <p><strong>dplyr</strong> makes working with data frames easier and is compatible with <code>sf</code> objects.</p>
 <!-- , after the package has been loaded: [or - it is a part of tidyverse] -->
 <!-- attribute subsetting in dplyr is could be done using two functions - select and filter -->
@@ -449,7 +448,7 @@ north_america
 <span class="co">#&gt; 2     GL     Greenland MULTIPOLYGON(((-46.76379 82...</span>
 <span class="co">#&gt; 3     US United States MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(north_america[<span class="dv">0</span>])</code></pre></div>
-<p><img src="figures/unnamed-chunk-19-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-22-1.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wb_north_america =<span class="st"> </span>worldbank_df %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(name %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;United States&quot;</span>)) %&gt;%
 <span class="st">  </span><span class="kw">select</span>(name, iso_a2, urban_pop, <span class="dt">unemploy =</span> unemployment)
@@ -538,7 +537,7 @@ right_join1
 <span class="co">#&gt; 3     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <p>You can see that the new object <code>right_join1</code> has information about Mexico, but drop information about Greenland. What’s more, our right object, as a <code>data.frame</code>, doesn’t have a geometry representation of Mexico. As a result, the <code>right_join1</code> object contains only non-spatial data of Mexico. It could be easily illustrated using the <code>plot</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(right_join1[<span class="dv">0</span>]) <span class="co"># Canada and United States only</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-25-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-28-1.png" width="576" style="display: block; margin: auto;" /></p>
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
 <!-- right_join2 = wb_north_america %>%  -->
@@ -604,7 +603,7 @@ anti_join1
 <span class="co">#&gt;   iso_a2 name_long                           geom</span>
 <span class="co">#&gt; 1     GL Greenland MULTIPOLYGON(((-46.76379 82...</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(anti_join1[<span class="dv">0</span>])</code></pre></div>
-<p><img src="figures/unnamed-chunk-29-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-32-1.png" width="576" style="display: block; margin: auto;" /></p>
 <!-- ```{r} -->
 <!-- anti_join2 = wb_north_america %>%  -->
 <!--   anti_join(north_america, by = "iso_a2") -->

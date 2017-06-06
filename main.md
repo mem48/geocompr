@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee1641475112c0912
+preserve09a502ed3a99ccb5
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -591,14 +591,17 @@ The important thing is that you select a data processing paradigm of choice, and
 
 ## Attribute subsetting
 
-<!-- data.frame is a non-spatial part of sf objects -->
-<!-- therefore, all of standard functions for attribute subsetting can be used -->
-<!-- such as [], $, and subset -->
-<!-- After each operation, the geometry column is preserved. -->
+<!-- info about pull (dplyr 0.6): -->
+<!-- https://github.com/tidyverse/dplyr/commit/0b9aabf6c06c9cd3b784b155044d497d4b93df3e -->
+Every simple feature object of class `sf` has a `data.frame` part. 
+Therefore, you can use all of the base R functions for attribute subsetting or apply one of many external packages (such as `dplyr`) for subset the attributes.
+Standard functions include `[]`, `$`, and `subset()`.
+They could be replaced by the `dplyr` verbs, such as `select()`, `filter()`, and `pull()`.
+It is important to remember that most of the functions preserve the geometry column.
 
-<!-- [] operator can be used to subset rows and columns -->
-<!-- [] operator requires two arguments - one for rows (observations) and one for columns (variables) - [rows, columns] -->
-<!-- these arguments could be either numeric or character -->
+You can use the `[]` operator to subset rows and columns. 
+Two arguments are required, one for rows (observations) and one for columns (variables), e.g. [rows, columns].
+These arguments could be either numeric, which indicates a position, or character, which indicates a name of row or column.
 
 
 ```r
@@ -610,9 +613,24 @@ world[1:6, ] # subset rows
 world[, 1:3] # subset columns
 ```
 
-<!-- $ operator can be used to retrieve a variable (column) by its name -->
-<!-- The result is a vector -->
-<!-- an example -->
+
+```r
+world[, c("name_long", "lifeExp")] # subset columns by name
+```
+
+The `$` operator retrieves a variable by its name and returns a vector:
+
+
+```r
+world$name_long
+```
+
+You can also subset a `sf` object based on a given condition using (surprise, surprise...) the `subset()` function:
+
+
+```r
+small_countries = subset(world, area_km2 < 10000)
+```
 
 **dplyr** makes working with data frames easier and is compatible with `sf` objects.
 
@@ -859,7 +877,7 @@ north_america
 plot(north_america[0])
 ```
 
-<img src="figures/unnamed-chunk-19-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-22-1.png" width="576" style="display: block; margin: auto;" />
 
 
 ```r
@@ -996,7 +1014,7 @@ It could be easily illustrated using the `plot` function:
 plot(right_join1[0]) # Canada and United States only
 ```
 
-<img src="figures/unnamed-chunk-25-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-28-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
@@ -1086,7 +1104,7 @@ anti_join1
 plot(anti_join1[0])
 ```
 
-<img src="figures/unnamed-chunk-29-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-32-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- ```{r} -->
 <!-- anti_join2 = wb_north_america %>%  -->
@@ -1387,7 +1405,6 @@ library(sf)
 f = system.file("shapes/world.gpkg", package = "spData")
 world = st_read(f)
 #> Reading layer `wrld.gpkg' from data source `/home/travis/R/Library/spData/shapes/world.gpkg' using driver `GPKG'
-#> converted into: MULTIPOLYGON
 #> Simple feature collection with 177 features and 10 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
@@ -1426,7 +1443,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.49
+#> [1] 1.95
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1542,13 +1559,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.076   0.000   0.075
+#>   0.060   0.004   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.029
+#>   0.024   0.004   0.029
 ```
 
 
