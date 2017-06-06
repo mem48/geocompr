@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-06-05'
+date: '2017-06-06'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -39,7 +39,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-06-05 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-06-06 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservefa0e10996bf71cca
+preservee1641475112c0912
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -619,6 +619,8 @@ world[, 1:3] # subset columns
 <!-- , after the package has been loaded: [or - it is a part of tidyverse] -->
 <!-- attribute subsetting in dplyr is could be done using two functions - select and filter -->
 
+<!-- simple select example (without renaming) -->
+
 The `select()` function can be used to both subset and renames columns in a single line, for example:
 
 
@@ -644,6 +646,9 @@ world2 = world[c("name_long", "continent", "pop")] # subset columns by name
 names(world2)[3] = "population" # rename column manually
 ```
 
+<!-- another one is filter -->
+<!-- filter() keeps rows matching given criteria -->
+
 The *pipe* operator (` %>% `), which passes the output of one function into the first argument of the next function, is commonly used in **dplyr** data analysis workflows.
 This works because the fundamental **dplyr** functions (or 'verbs', like `select()`) all take a data frame object in and spit a data frame object out.
 Combining many functions together with pipes is called *chaining* or *piping*.
@@ -665,9 +670,9 @@ The equivalent **dplyr** code without the pipe operator is:
 world4 = select(world, name_long, continent)
 ```
 
+<!-- more complicated example of using pipes (select + filter) -->
+
 The pipe operator can be used for many data processing tasks with attribute data.
-<!-- another one is filter -->
-<!-- filter() keeps rows matching given criteria -->
 
 
 ```r
@@ -704,17 +709,72 @@ world_few_rows = world[world$pop > 1e9,]
 
 ## Attribute data aggregation 
 
+<!-- base summary -->
+<!-- summarize() function can be used to reduce variables to values -->
+<!-- https://github.com/ropenscilabs/skimr ?? -->
+
 
 ```r
-# data summary (not shown)
+# data summary 
 summary(world)
+#>     iso_a2           name_long          continent        
+#>  Length:177         Length:177         Length:177        
+#>  Class :character   Class :character   Class :character  
+#>  Mode  :character   Mode  :character   Mode  :character  
+#>                                                          
+#>                                                          
+#>                                                          
+#>                                                          
+#>   region_un          subregion             type          
+#>  Length:177         Length:177         Length:177        
+#>  Class :character   Class :character   Class :character  
+#>  Mode  :character   Mode  :character   Mode  :character  
+#>                                                          
+#>                                                          
+#>                                                          
+#>                                                          
+#>     area_km2             pop              lifeExp       gdpPercap     
+#>  Min.   :    2417   Min.   :5.63e+04   Min.   :48.9   Min.   :   566  
+#>  1st Qu.:   46185   1st Qu.:3.86e+06   1st Qu.:64.3   1st Qu.:  3502  
+#>  Median :  185004   Median :1.05e+07   Median :72.8   Median : 10740  
+#>  Mean   :  832870   Mean   :4.29e+07   Mean   :70.6   Mean   : 17379  
+#>  3rd Qu.:  621860   3rd Qu.:3.08e+07   3rd Qu.:77.1   3rd Qu.: 24375  
+#>  Max.   :16989128   Max.   :1.36e+09   Max.   :83.6   Max.   :132120  
+#>                     NA's   :9          NA's   :9      NA's   :17      
+#>             geom    
+#>  MULTIPOLYGON :177  
+#>  epsg:4326    :  0  
+#>  +proj=long...:  0  
+#>                     
+#>                     
+#>                     
+#> 
+```
 
+
+```r
 # data summary by groups (not shown)
 world_continents = world %>% 
   group_by(continent) %>% 
   summarise(pop = sum(pop, na.rm = TRUE), country_n = n())
 world_continents
+#> Simple feature collection with 8 features and 3 fields
+#> geometry type:  GEOMETRY
+#> dimension:      XY
+#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#> # A tibble: 8 x 4
+#>    continent      pop country_n              geom
+#>        <chr>    <dbl>     <int>  <simple_feature>
+#> 1     Africa 1.15e+09        51 <MULTIPOLYGON...>
+#> 2 Antarctica 0.00e+00         1 <MULTIPOLYGON...>
+#> 3       Asia 4.31e+09        47 <MULTIPOLYGON...>
+#> 4     Europe 7.39e+08        39 <MULTIPOLYGON...>
+#> # ... with 4 more rows
 ```
+
+<!-- should it stay or should it go (?): -->
 
 
 ```r
@@ -799,7 +859,7 @@ north_america
 plot(north_america[0])
 ```
 
-<img src="figures/unnamed-chunk-18-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-19-1.png" width="576" style="display: block; margin: auto;" />
 
 
 ```r
@@ -936,7 +996,7 @@ It could be easily illustrated using the `plot` function:
 plot(right_join1[0]) # Canada and United States only
 ```
 
-<img src="figures/unnamed-chunk-24-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-25-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
@@ -1026,7 +1086,7 @@ anti_join1
 plot(anti_join1[0])
 ```
 
-<img src="figures/unnamed-chunk-28-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-29-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- ```{r} -->
 <!-- anti_join2 = wb_north_america %>%  -->
@@ -1075,6 +1135,10 @@ full_join1
 
 ## Attribute data creation
 
+<!-- mutate -->
+<!-- rename -->
+<!-- separate/unite ?? -->
+<!-- lubridate? -->
 
 ### Exercises
 
@@ -1096,13 +1160,6 @@ world_st2 = world_st2 %>% st_set_geometry(NULL)
 class(world_st2)
 #> [1] "data.frame"
 ```
-
-
-<!-- 
-- dplyr, tidyr, and purrr packages
-- lubridate??
-- pipes
--->
 
 <!--chapter:end:03-attribute-operations.Rmd-->
 
@@ -1369,10 +1426,10 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.87
+#> [1] 2.49
 ```
 
-The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -1385,7 +1442,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.27
+#> [1] 3.14
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1485,13 +1542,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.072
+#>   0.076   0.000   0.075
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.014
+#>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.036
+#>   0.016   0.012   0.029
 ```
 
 
