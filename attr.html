@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-06-06">
+<meta name="date" content="2017-06-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -266,37 +266,57 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <!-- https://github.com/tidyverse/dplyr/commit/0b9aabf6c06c9cd3b784b155044d497d4b93df3e -->
 <p>Every simple feature object of class <code>sf</code> has a <code>data.frame</code> part. Therefore, you can use all of the base R functions for attribute subsetting or apply one of many external packages (such as <code>dplyr</code>) for subset the attributes. Standard functions include <code>[]</code>, <code>$</code>, and <code>subset()</code>. They could be replaced by the <code>dplyr</code> verbs, such as <code>select()</code>, <code>filter()</code>, and <code>pull()</code>. It is important to remember that most of the functions preserve the geometry column.</p>
 <p>You can use the <code>[]</code> operator to subset rows and columns. Two arguments are required, one for rows (observations) and one for columns (variables), e.g. [rows, columns]. These arguments could be either numeric, which indicates a position, or character, which indicates a name of row or column.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[<span class="dv">1</span>:<span class="dv">6</span>, ] <span class="co"># subset rows</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[, <span class="dv">1</span>:<span class="dv">3</span>] <span class="co"># subset columns</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[<span class="dv">1</span>:<span class="dv">6</span>, ] <span class="co"># subset rows by position</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[, <span class="dv">1</span>:<span class="dv">3</span>] <span class="co"># subset columns by position</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[, <span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span>, <span class="st">&quot;lifeExp&quot;</span>)] <span class="co"># subset columns by name</span></code></pre></div>
 <p>The <code>$</code> operator retrieves a variable by its name and returns a vector:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world$name_long</code></pre></div>
 <p>You can also subset a <code>sf</code> object based on a given condition using (surprise, surprise…) the <code>subset()</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">small_countries =<span class="st"> </span><span class="kw">subset</span>(world, area_km2 &lt;<span class="st"> </span><span class="dv">10000</span>)</code></pre></div>
-<p><strong>dplyr</strong> makes working with data frames easier and is compatible with <code>sf</code> objects.</p>
 <!-- , after the package has been loaded: [or - it is a part of tidyverse] -->
-<!-- attribute subsetting in dplyr is could be done using two functions - select and filter -->
-<!-- simple select example (without renaming) -->
-<p>The <code>select()</code> function can be used to both subset and renames columns in a single line, for example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world1 =<span class="st"> </span><span class="kw">select</span>(world, name_long, continent, <span class="dt">population =</span> pop)
+<p><strong>dplyr</strong> makes working with data frames easier and is compatible with <code>sf</code> objects. The two main <strong>dplyr</strong> functions that help with attribute subsetting are <code>select()</code> and <code>filter()</code>.</p>
+<p>The <code>select()</code> function picks columns by its name. For example, you could select only two columns - <code>name_long</code> and <code>pop</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world1 =<span class="st"> </span><span class="kw">select</span>(world, name_long, pop)
 <span class="kw">head</span>(world1, <span class="dt">n =</span> <span class="dv">2</span>)
-<span class="co">#&gt; Simple feature collection with 2 features and 3 fields</span>
+<span class="co">#&gt; Simple feature collection with 2 features and 2 fields</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
 <span class="co">#&gt; dimension:      XY</span>
 <span class="co">#&gt; bbox:           xmin: 11.6401 ymin: -17.93064 xmax: 75.15803 ymax: 38.48628</span>
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;     name_long continent population                           geom</span>
-<span class="co">#&gt; 1 Afghanistan      Asia   31627506 MULTIPOLYGON(((61.210817091...</span>
-<span class="co">#&gt; 2      Angola    Africa   24227524 MULTIPOLYGON(((16.326528354...</span></code></pre></div>
-<p>This is more concise than the base R equivalent (which saves the result as an object called <code>world2</code> to avoid overriding the <code>world</code> dataset created previously):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world2 =<span class="st"> </span>world[<span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span>, <span class="st">&quot;continent&quot;</span>, <span class="st">&quot;pop&quot;</span>)] <span class="co"># subset columns by name</span>
-<span class="kw">names</span>(world2)[<span class="dv">3</span>] =<span class="st"> &quot;population&quot;</span> <span class="co"># rename column manually</span></code></pre></div>
-<!-- another one is filter -->
-<!-- filter() keeps rows matching given criteria -->
+<span class="co">#&gt;     name_long      pop                           geom</span>
+<span class="co">#&gt; 1 Afghanistan 31627506 MULTIPOLYGON(((61.210817091...</span>
+<span class="co">#&gt; 2      Angola 24227524 MULTIPOLYGON(((16.326528354...</span></code></pre></div>
+<p>This function gives a possibility to select a range of columns with an <code>:</code> operator or remove some columns with an <code>-</code> operator:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># all columns between name_long and pop (inclusive)</span>
+world2 =<span class="st"> </span><span class="kw">select</span>(world, name_long:pop)
+<span class="kw">head</span>(world2, <span class="dt">n =</span> <span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># all columns except subregion and area_km2 (inclusive)</span>
+world3 =<span class="st"> </span><span class="kw">select</span>(world, -subregion, -area_km2)
+<span class="kw">head</span>(world3, <span class="dt">n =</span> <span class="dv">2</span>)</code></pre></div>
+<p>The <code>select()</code> function can be also used to both subset and renames columns in a single line, for example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world4 =<span class="st"> </span><span class="kw">select</span>(world, name_long, <span class="dt">population =</span> pop)
+<span class="kw">head</span>(world4, <span class="dt">n =</span> <span class="dv">2</span>)
+<span class="co">#&gt; Simple feature collection with 2 features and 2 fields</span>
+<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: 11.6401 ymin: -17.93064 xmax: 75.15803 ymax: 38.48628</span>
+<span class="co">#&gt; epsg (SRID):    4326</span>
+<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
+<span class="co">#&gt;     name_long population                           geom</span>
+<span class="co">#&gt; 1 Afghanistan   31627506 MULTIPOLYGON(((61.210817091...</span>
+<span class="co">#&gt; 2      Angola   24227524 MULTIPOLYGON(((16.326528354...</span></code></pre></div>
+<p>This is more concise than the base R equivalent (which saves the result as an object called <code>world5</code> to avoid overriding the <code>world</code> dataset created previously):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world5 =<span class="st"> </span>world[<span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span>, <span class="st">&quot;pop&quot;</span>)] <span class="co"># subset columns by name</span>
+<span class="kw">names</span>(world5)[<span class="dv">3</span>] =<span class="st"> &quot;population&quot;</span> <span class="co"># rename column manually</span></code></pre></div>
+<p>The <code>select()</code> function works with a number of special functions that help with more complicated selection. More details could be find on the function help page - <code>?select</code>.</p>
+<p>The <code>filter()</code> function is a <strong>dplyr</strong> alternative to the <code>subset()</code> function. Its role is to keeps rows matching given criteria.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># only countries with a life expectation larger than 82 years</span>
+world6 =<span class="st"> </span><span class="kw">filter</span>(world, lifeExp &gt;<span class="st"> </span><span class="dv">82</span>)</code></pre></div>
+<p>The standard set of comparison operators can be used in the <code>filter()</code> function: <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&amp;</code>, <code>|</code>. <!-- todo - describe these: ==, !=, >, >=, <, <=, &, | --> <!-- more examples --></p>
 <p>The <em>pipe</em> operator (<code>%&gt;%</code>), which passes the output of one function into the first argument of the next function, is commonly used in <strong>dplyr</strong> data analysis workflows. This works because the fundamental <strong>dplyr</strong> functions (or ‘verbs’, like <code>select()</code>) all take a data frame object in and spit a data frame object out. Combining many functions together with pipes is called <em>chaining</em> or <em>piping</em>. The advantage over base R for complex data processing operations is that this approach prevents nested functions and is easy to read because there is a clear order and modularity to the work (a piped command can be commented out, for example).</p>
 <p>The example below shows yet another way of creating the renamed <code>world</code> dataset, using the pipe operator:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world3 =<span class="st"> </span>world %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world7 =<span class="st"> </span>world %&gt;%
 <span class="st">  </span><span class="kw">select</span>(name_long, continent)</code></pre></div>
 <p>Note that this can also be written without the pipe operator because, in the above code, the <code>world</code> object is simply ‘piped’ into the first argument of <code>select()</code>. The equivalent <strong>dplyr</strong> code without the pipe operator is:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world4 =<span class="st"> </span><span class="kw">select</span>(world, name_long, continent)</code></pre></div>
@@ -317,8 +337,6 @@ world %&gt;%
 <span class="co">#&gt;   area_km2      pop lifeExp gdpPercap                           geom</span>
 <span class="co">#&gt; 1  9409832 1.36e+09    75.8     12759 MULTIPOLYGON(((110.33918786...</span>
 <span class="co">#&gt; 2  3142892 1.30e+09    68.0      5392 MULTIPOLYGON(((77.837450799...</span></code></pre></div>
-<!-- todo - describe these: ==, !=, >, >=, <, <=, &, | -->
-<!-- more examples -->
 <p>This is equivalent to the following base R code (not run to preserve the NAs):<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># subsetting simple feature rows by values</span>
 world$pop[<span class="kw">is.na</span>(world$pop)] =<span class="st"> </span><span class="dv">0</span> <span class="co"># set NAs to 0</span>
@@ -448,7 +466,7 @@ north_america
 <span class="co">#&gt; 2     GL     Greenland MULTIPOLYGON(((-46.76379 82...</span>
 <span class="co">#&gt; 3     US United States MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(north_america[<span class="dv">0</span>])</code></pre></div>
-<p><img src="figures/unnamed-chunk-22-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-26-1.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wb_north_america =<span class="st"> </span>worldbank_df %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(name %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;United States&quot;</span>)) %&gt;%
 <span class="st">  </span><span class="kw">select</span>(name, iso_a2, urban_pop, <span class="dt">unemploy =</span> unemployment)
@@ -537,7 +555,7 @@ right_join1
 <span class="co">#&gt; 3     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <p>You can see that the new object <code>right_join1</code> has information about Mexico, but drop information about Greenland. What’s more, our right object, as a <code>data.frame</code>, doesn’t have a geometry representation of Mexico. As a result, the <code>right_join1</code> object contains only non-spatial data of Mexico. It could be easily illustrated using the <code>plot</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(right_join1[<span class="dv">0</span>]) <span class="co"># Canada and United States only</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-28-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-32-1.png" width="576" style="display: block; margin: auto;" /></p>
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
 <!-- right_join2 = wb_north_america %>%  -->
@@ -603,7 +621,7 @@ anti_join1
 <span class="co">#&gt;   iso_a2 name_long                           geom</span>
 <span class="co">#&gt; 1     GL Greenland MULTIPOLYGON(((-46.76379 82...</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(anti_join1[<span class="dv">0</span>])</code></pre></div>
-<p><img src="figures/unnamed-chunk-32-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-36-1.png" width="576" style="display: block; margin: auto;" /></p>
 <!-- ```{r} -->
 <!-- anti_join2 = wb_north_america %>%  -->
 <!--   anti_join(north_america, by = "iso_a2") -->

@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-06-06'
+date: '2017-06-07'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -39,7 +39,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-06-06 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-06-07 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve9035952f35c73e1d
+preserve16d142d6e8670163
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -605,12 +605,12 @@ These arguments could be either numeric, which indicates a position, or characte
 
 
 ```r
-world[1:6, ] # subset rows
+world[1:6, ] # subset rows by position
 ```
 
 
 ```r
-world[, 1:3] # subset columns
+world[, 1:3] # subset columns by position
 ```
 
 
@@ -632,40 +632,84 @@ You can also subset a `sf` object based on a given condition using (surprise, su
 small_countries = subset(world, area_km2 < 10000)
 ```
 
-**dplyr** makes working with data frames easier and is compatible with `sf` objects.
-
 <!-- , after the package has been loaded: [or - it is a part of tidyverse] -->
-<!-- attribute subsetting in dplyr is could be done using two functions - select and filter -->
+**dplyr** makes working with data frames easier and is compatible with `sf` objects.
+The two main **dplyr** functions that help with attribute subsetting are `select()` and `filter()`.
 
-<!-- simple select example (without renaming) -->
-
-The `select()` function can be used to both subset and renames columns in a single line, for example:
+The `select()` function picks columns by its name.
+For example, you could select only two columns - `name_long` and `pop`:
 
 
 ```r
-world1 = select(world, name_long, continent, population = pop)
+world1 = select(world, name_long, pop)
 head(world1, n = 2)
-#> Simple feature collection with 2 features and 3 fields
+#> Simple feature collection with 2 features and 2 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
 #> bbox:           xmin: 11.6401 ymin: -17.93064 xmax: 75.15803 ymax: 38.48628
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>     name_long continent population                           geom
-#> 1 Afghanistan      Asia   31627506 MULTIPOLYGON(((61.210817091...
-#> 2      Angola    Africa   24227524 MULTIPOLYGON(((16.326528354...
+#>     name_long      pop                           geom
+#> 1 Afghanistan 31627506 MULTIPOLYGON(((61.210817091...
+#> 2      Angola 24227524 MULTIPOLYGON(((16.326528354...
 ```
 
-This is more concise than the base R equivalent (which saves the result as an object called `world2` to avoid overriding the `world` dataset created previously):
+This function gives a possibility to select a range of columns with an `:` operator or remove some columns with an `-` operator:
 
 
 ```r
-world2 = world[c("name_long", "continent", "pop")] # subset columns by name
-names(world2)[3] = "population" # rename column manually
+# all columns between name_long and pop (inclusive)
+world2 = select(world, name_long:pop)
+head(world2, n = 2)
 ```
 
-<!-- another one is filter -->
-<!-- filter() keeps rows matching given criteria -->
+
+```r
+# all columns except subregion and area_km2 (inclusive)
+world3 = select(world, -subregion, -area_km2)
+head(world3, n = 2)
+```
+
+The `select()` function can be also used to both subset and renames columns in a single line, for example:
+
+
+```r
+world4 = select(world, name_long, population = pop)
+head(world4, n = 2)
+#> Simple feature collection with 2 features and 2 fields
+#> geometry type:  MULTIPOLYGON
+#> dimension:      XY
+#> bbox:           xmin: 11.6401 ymin: -17.93064 xmax: 75.15803 ymax: 38.48628
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#>     name_long population                           geom
+#> 1 Afghanistan   31627506 MULTIPOLYGON(((61.210817091...
+#> 2      Angola   24227524 MULTIPOLYGON(((16.326528354...
+```
+
+This is more concise than the base R equivalent (which saves the result as an object called `world5` to avoid overriding the `world` dataset created previously):
+
+
+```r
+world5 = world[c("name_long", "pop")] # subset columns by name
+names(world5)[3] = "population" # rename column manually
+```
+
+The `select()` function works with a number of special functions that help with more complicated selection. 
+More details could be find on the function help page - `?select`.
+
+The `filter()` function is a **dplyr** alternative to the `subset()` function.
+Its role is to keeps rows matching given criteria.
+
+
+```r
+# only countries with a life expectation larger than 82 years
+world6 = filter(world, lifeExp > 82)
+```
+
+The standard set of comparison operators can be used in the `filter()` function: `==`, `!=`, `>`, `>=`, `<`, `<=`, `&`, `|`. 
+<!-- todo - describe these: ==, !=, >, >=, <, <=, &, | -->
+<!-- more examples -->
 
 The *pipe* operator (` %>% `), which passes the output of one function into the first argument of the next function, is commonly used in **dplyr** data analysis workflows.
 This works because the fundamental **dplyr** functions (or 'verbs', like `select()`) all take a data frame object in and spit a data frame object out.
@@ -676,7 +720,7 @@ The example below shows yet another way of creating the renamed `world` dataset,
 
 
 ```r
-world3 = world %>%
+world7 = world %>%
   select(name_long, continent)
 ```
 
@@ -689,7 +733,6 @@ world4 = select(world, name_long, continent)
 ```
 
 <!-- more complicated example of using pipes (select + filter) -->
-
 The pipe operator can be used for many data processing tasks with attribute data.
 
 
@@ -710,9 +753,6 @@ world %>%
 #> 1  9409832 1.36e+09    75.8     12759 MULTIPOLYGON(((110.33918786...
 #> 2  3142892 1.30e+09    68.0      5392 MULTIPOLYGON(((77.837450799...
 ```
-
-<!-- todo - describe these: ==, !=, >, >=, <, <=, &, | -->
-<!-- more examples -->
 
 This is equivalent to the following base R code (not run to preserve the NAs):^[[Note](https://github.com/Robinlovelace/geocompr/issues/28) NAs do not work for subsetting by inequalities in base R, hence conversion of NAs to 0s in this version)]
 
@@ -877,7 +917,7 @@ north_america
 plot(north_america[0])
 ```
 
-<img src="figures/unnamed-chunk-22-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-26-1.png" width="576" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1014,7 +1054,7 @@ It could be easily illustrated using the `plot` function:
 plot(right_join1[0]) # Canada and United States only
 ```
 
-<img src="figures/unnamed-chunk-28-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-32-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
@@ -1104,7 +1144,7 @@ anti_join1
 plot(anti_join1[0])
 ```
 
-<img src="figures/unnamed-chunk-32-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-36-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- ```{r} -->
 <!-- anti_join2 = wb_north_america %>%  -->
@@ -1443,7 +1483,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.06
+#> [1] 2.39
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1459,10 +1499,10 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.58
+#> [1] 2.35
 ```
 
-In this case **sf** was around 3 times faster than **rgdal**.
+In this case **sf** was around 2 times faster than **rgdal**.
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
 
@@ -1559,13 +1599,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.072
+#>   0.064   0.000   0.067
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.014
+#>   0.012   0.000   0.014
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.012   0.036
+#>   0.016   0.012   0.029
 ```
 
 
