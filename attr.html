@@ -664,13 +664,13 @@ full_join1
 </div>
 <div id="attribute-data-creation" class="section level2">
 <h2><span class="header-section-number">3.6</span> Attribute data creation</h2>
-<!-- base R example?? -->
-<!-- new varaibles could be add with mutate() -->
-<!-- you can create pop_dens by ... and gdp by ... -->
+<p>It is often the case when a new column needs to be created based on existing columns. For example, we want to calculate population density. We need to divide a <code>pop</code> column (population) by a <code>area_km2</code> column (unit area in square km). In base R it could be done this way:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_new &lt;-<span class="st"> </span>world <span class="co"># not to overwrite our original data</span>
+world_new$pop_dens =<span class="st"> </span>world_new$pop /<span class="st"> </span>world_new$area_km2</code></pre></div>
+<p>Alternatively, we can use one of <strong>dplyr</strong> functions - <code>mutate()</code> or <code>transmute()</code>. <code>mutate()</code> adds new columns at second-to-last position in the <code>sf</code> object (the last one is reserved for the geometry):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pop_dens =</span> pop /<span class="st"> </span>area_km2,
-         <span class="dt">gdp =</span> gdpPercap *<span class="st"> </span>pop)
-<span class="co">#&gt; Simple feature collection with 177 features and 12 fields</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pop_dens =</span> pop /<span class="st"> </span>area_km2)
+<span class="co">#&gt; Simple feature collection with 177 features and 11 fields</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
 <span class="co">#&gt; dimension:      XY</span>
 <span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513</span>
@@ -719,27 +719,27 @@ full_join1
 <span class="co">#&gt; 18                Americas                 Caribbean Sovereign country</span>
 <span class="co">#&gt; 19                  Europe           Southern Europe Sovereign country</span>
 <span class="co">#&gt; 20                  Europe            Eastern Europe Sovereign country</span>
-<span class="co">#&gt;    area_km2      pop lifeExp gdpPercap pop_dens      gdp</span>
-<span class="co">#&gt; 1    652270 3.16e+07    60.4      1844    48.49 5.83e+10</span>
-<span class="co">#&gt; 2   1245464 2.42e+07    52.3      6956    19.45 1.69e+11</span>
-<span class="co">#&gt; 3     29695 2.89e+06    77.8     10699    97.45 3.10e+10</span>
-<span class="co">#&gt; 4     79881 9.09e+06    77.4     63831   113.75 5.80e+11</span>
-<span class="co">#&gt; 5   2784469 4.30e+07    76.2     18873    15.44 8.11e+11</span>
-<span class="co">#&gt; 6     28657 3.01e+06    74.7      7706   104.90 2.32e+10</span>
-<span class="co">#&gt; 7  12335956       NA      NA        NA       NA       NA</span>
-<span class="co">#&gt; 8     11603       NA      NA        NA       NA       NA</span>
-<span class="co">#&gt; 9   7687614 2.35e+07    82.3     43274     3.05 1.02e+12</span>
-<span class="co">#&gt; 10    85065 8.54e+06    81.3     44123   100.41 3.77e+11</span>
-<span class="co">#&gt; 11    91113 9.54e+06    70.8     16715   104.65 1.59e+11</span>
-<span class="co">#&gt; 12    26239 1.08e+07    56.7       734   412.24 7.94e+09</span>
-<span class="co">#&gt; 13    30126 1.12e+07    80.6     41274   372.81 4.64e+11</span>
-<span class="co">#&gt; 14   116999 1.06e+07    59.5      1942    90.59 2.06e+10</span>
-<span class="co">#&gt; 15   271594 1.76e+07    58.6      1576    64.76 2.77e+10</span>
-<span class="co">#&gt; 16   133782 1.59e+08    71.6      2979  1189.08 4.74e+11</span>
-<span class="co">#&gt; 17   110217 7.22e+06    75.4     16302    65.54 1.18e+11</span>
-<span class="co">#&gt; 18    15585 3.83e+05    75.2     22253    24.58 8.52e+09</span>
-<span class="co">#&gt; 19    50605 3.82e+06    76.4      9802    75.44 3.74e+10</span>
-<span class="co">#&gt; 20   208970 9.48e+06    73.0     17364    45.38 1.65e+11</span>
+<span class="co">#&gt;    area_km2      pop lifeExp gdpPercap pop_dens</span>
+<span class="co">#&gt; 1    652270 3.16e+07    60.4      1844    48.49</span>
+<span class="co">#&gt; 2   1245464 2.42e+07    52.3      6956    19.45</span>
+<span class="co">#&gt; 3     29695 2.89e+06    77.8     10699    97.45</span>
+<span class="co">#&gt; 4     79881 9.09e+06    77.4     63831   113.75</span>
+<span class="co">#&gt; 5   2784469 4.30e+07    76.2     18873    15.44</span>
+<span class="co">#&gt; 6     28657 3.01e+06    74.7      7706   104.90</span>
+<span class="co">#&gt; 7  12335956       NA      NA        NA       NA</span>
+<span class="co">#&gt; 8     11603       NA      NA        NA       NA</span>
+<span class="co">#&gt; 9   7687614 2.35e+07    82.3     43274     3.05</span>
+<span class="co">#&gt; 10    85065 8.54e+06    81.3     44123   100.41</span>
+<span class="co">#&gt; 11    91113 9.54e+06    70.8     16715   104.65</span>
+<span class="co">#&gt; 12    26239 1.08e+07    56.7       734   412.24</span>
+<span class="co">#&gt; 13    30126 1.12e+07    80.6     41274   372.81</span>
+<span class="co">#&gt; 14   116999 1.06e+07    59.5      1942    90.59</span>
+<span class="co">#&gt; 15   271594 1.76e+07    58.6      1576    64.76</span>
+<span class="co">#&gt; 16   133782 1.59e+08    71.6      2979  1189.08</span>
+<span class="co">#&gt; 17   110217 7.22e+06    75.4     16302    65.54</span>
+<span class="co">#&gt; 18    15585 3.83e+05    75.2     22253    24.58</span>
+<span class="co">#&gt; 19    50605 3.82e+06    76.4      9802    75.44</span>
+<span class="co">#&gt; 20   208970 9.48e+06    73.0     17364    45.38</span>
 <span class="co">#&gt;                              geom</span>
 <span class="co">#&gt; 1  MULTIPOLYGON(((61.210817091...</span>
 <span class="co">#&gt; 2  MULTIPOLYGON(((16.326528354...</span>
@@ -761,39 +761,46 @@ full_join1
 <span class="co">#&gt; 18 MULTIPOLYGON(((-77.53466 23...</span>
 <span class="co">#&gt; 19 MULTIPOLYGON(((19.005486281...</span>
 <span class="co">#&gt; 20 MULTIPOLYGON(((23.484127638...</span></code></pre></div>
-<!-- transmute -->
+<p>The difference between <code>mutate()</code> and <code>transmute()</code> is that the latter do not preserve existing columns:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">transmute</span>(<span class="dt">pop_dens =</span> pop /<span class="st"> </span>area_km2,
-         <span class="dt">gdp =</span> gdpPercap *<span class="st"> </span>pop)
-<span class="co">#&gt; Simple feature collection with 177 features and 2 fields</span>
+<span class="st">  </span><span class="kw">transmute</span>(<span class="dt">pop_dens =</span> pop /<span class="st"> </span>area_km2)
+<span class="co">#&gt; Simple feature collection with 177 features and 1 field</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
 <span class="co">#&gt; dimension:      XY</span>
 <span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513</span>
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
 <span class="co">#&gt; First 20 features:</span>
-<span class="co">#&gt;    pop_dens      gdp                           geom</span>
-<span class="co">#&gt; 1     48.49 5.83e+10 MULTIPOLYGON(((61.210817091...</span>
-<span class="co">#&gt; 2     19.45 1.69e+11 MULTIPOLYGON(((16.326528354...</span>
-<span class="co">#&gt; 3     97.45 3.10e+10 MULTIPOLYGON(((20.590247430...</span>
-<span class="co">#&gt; 4    113.75 5.80e+11 MULTIPOLYGON(((51.579518670...</span>
-<span class="co">#&gt; 5     15.44 8.11e+11 MULTIPOLYGON(((-65.5 -55.2,...</span>
-<span class="co">#&gt; 6    104.90 2.32e+10 MULTIPOLYGON(((43.582745802...</span>
-<span class="co">#&gt; 7        NA       NA MULTIPOLYGON(((-59.57209469...</span>
-<span class="co">#&gt; 8        NA       NA MULTIPOLYGON(((68.935 -48.6...</span>
-<span class="co">#&gt; 9      3.05 1.02e+12 MULTIPOLYGON(((145.39797814...</span>
-<span class="co">#&gt; 10   100.41 3.77e+11 MULTIPOLYGON(((16.979666782...</span>
-<span class="co">#&gt; 11   104.65 1.59e+11 MULTIPOLYGON(((45.001987339...</span>
-<span class="co">#&gt; 12   412.24 7.94e+09 MULTIPOLYGON(((29.339997592...</span>
-<span class="co">#&gt; 13   372.81 4.64e+11 MULTIPOLYGON(((3.3149711442...</span>
-<span class="co">#&gt; 14    90.59 2.06e+10 MULTIPOLYGON(((2.6917016943...</span>
-<span class="co">#&gt; 15    64.76 2.77e+10 MULTIPOLYGON(((-2.827496303...</span>
-<span class="co">#&gt; 16  1189.08 4.74e+11 MULTIPOLYGON(((92.672720981...</span>
-<span class="co">#&gt; 17    65.54 1.18e+11 MULTIPOLYGON(((22.657149692...</span>
-<span class="co">#&gt; 18    24.58 8.52e+09 MULTIPOLYGON(((-77.53466 23...</span>
-<span class="co">#&gt; 19    75.44 3.74e+10 MULTIPOLYGON(((19.005486281...</span>
-<span class="co">#&gt; 20    45.38 1.65e+11 MULTIPOLYGON(((23.484127638...</span></code></pre></div>
+<span class="co">#&gt;    pop_dens                           geom</span>
+<span class="co">#&gt; 1     48.49 MULTIPOLYGON(((61.210817091...</span>
+<span class="co">#&gt; 2     19.45 MULTIPOLYGON(((16.326528354...</span>
+<span class="co">#&gt; 3     97.45 MULTIPOLYGON(((20.590247430...</span>
+<span class="co">#&gt; 4    113.75 MULTIPOLYGON(((51.579518670...</span>
+<span class="co">#&gt; 5     15.44 MULTIPOLYGON(((-65.5 -55.2,...</span>
+<span class="co">#&gt; 6    104.90 MULTIPOLYGON(((43.582745802...</span>
+<span class="co">#&gt; 7        NA MULTIPOLYGON(((-59.57209469...</span>
+<span class="co">#&gt; 8        NA MULTIPOLYGON(((68.935 -48.6...</span>
+<span class="co">#&gt; 9      3.05 MULTIPOLYGON(((145.39797814...</span>
+<span class="co">#&gt; 10   100.41 MULTIPOLYGON(((16.979666782...</span>
+<span class="co">#&gt; 11   104.65 MULTIPOLYGON(((45.001987339...</span>
+<span class="co">#&gt; 12   412.24 MULTIPOLYGON(((29.339997592...</span>
+<span class="co">#&gt; 13   372.81 MULTIPOLYGON(((3.3149711442...</span>
+<span class="co">#&gt; 14    90.59 MULTIPOLYGON(((2.6917016943...</span>
+<span class="co">#&gt; 15    64.76 MULTIPOLYGON(((-2.827496303...</span>
+<span class="co">#&gt; 16  1189.08 MULTIPOLYGON(((92.672720981...</span>
+<span class="co">#&gt; 17    65.54 MULTIPOLYGON(((22.657149692...</span>
+<span class="co">#&gt; 18    24.58 MULTIPOLYGON(((-77.53466 23...</span>
+<span class="co">#&gt; 19    75.44 MULTIPOLYGON(((19.005486281...</span>
+<span class="co">#&gt; 20    45.38 MULTIPOLYGON(((23.484127638...</span></code></pre></div>
+<!-- unite ?? -->
+<!-- https://github.com/edzer/sfr/issues/378 -->
+<!-- ```{r} -->
+<!-- world %>%  -->
+<!--   unite(con_reg, continent:region_un, sep = ":") -->
+<!-- ``` -->
+<!-- separate -->
 <!-- rename -->
+<p>Two helper functions, <code>rename()</code> and <code>set_names</code> can be used to change columns names. The first one, <code>rename()</code> replace an old name with a new one. For example, we want to change a name of column from <code>name_long</code> to <code>name</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">rename</span>(<span class="dt">name =</span> name_long)
 <span class="co">#&gt; Simple feature collection with 177 features and 10 fields</span>
@@ -866,6 +873,7 @@ full_join1
 <span class="co">#&gt; 18    15585 3.83e+05    75.2     22253 MULTIPOLYGON(((-77.53466 23...</span>
 <span class="co">#&gt; 19    50605 3.82e+06    76.4      9802 MULTIPOLYGON(((19.005486281...</span>
 <span class="co">#&gt; 20   208970 9.48e+06    73.0     17364 MULTIPOLYGON(((23.484127638...</span></code></pre></div>
+<p><code>set_names</code> can be used to change names of many columns. In this function, we do not need to provide old names:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_names =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ISO_A2&quot;</span>, <span class="st">&quot;Name&quot;</span>, <span class="st">&quot;Continent&quot;</span>, <span class="st">&quot;Region&quot;</span>, <span class="st">&quot;Subregion&quot;</span>, 
               <span class="st">&quot;Country_type&quot;</span>, <span class="st">&quot;Area_in_km2&quot;</span>, <span class="st">&quot;Population&quot;</span>, <span class="st">&quot;Life_Expectancy&quot;</span>,
               <span class="st">&quot;GDP_per_capita&quot;</span>, <span class="st">&quot;geom&quot;</span>)
@@ -962,16 +970,10 @@ world %&gt;%<span class="st"> </span>
 <span class="co">#&gt; 18 MULTIPOLYGON(((-77.53466 23...</span>
 <span class="co">#&gt; 19 MULTIPOLYGON(((19.005486281...</span>
 <span class="co">#&gt; 20 MULTIPOLYGON(((23.484127638...</span></code></pre></div>
-<!-- unite ?? -->
-<!-- https://github.com/edzer/sfr/issues/378 -->
-<!-- ```{r} -->
-<!-- world %>%  -->
-<!--   unite(con_reg, continent:region_un, sep = ":") -->
-<!-- ``` -->
-<!-- separate -->
 <!-- lubridate? -->
 <div id="exercises-5" class="section level3">
 <h3><span class="header-section-number">3.6.1</span> Exercises</h3>
+<!-- calculate gdp -->
 </div>
 </div>
 <div id="removing-spatial-information" class="section level2">

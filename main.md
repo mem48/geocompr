@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve7eeb7a1140384f51
+preservebf60ead6ed482552
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1193,16 +1193,25 @@ full_join1
 
 ## Attribute data creation
 
-<!-- base R example?? -->
-<!-- new varaibles could be add with mutate() -->
-<!-- you can create pop_dens by ... and gdp by ... -->
+It is often the case when a new column needs to be created based on existing columns.
+For example, we want to calculate population density.
+We need to divide a `pop` column (population) by a `area_km2` column (unit area in square km).
+In base R it could be done this way:
+
+
+```r
+world_new <- world # not to overwrite our original data
+world_new$pop_dens = world_new$pop / world_new$area_km2
+```
+
+Alternatively, we can use one of **dplyr** functions - `mutate()` or `transmute()`.
+`mutate()` adds new columns at second-to-last position in the `sf` object (the last one is reserved for the geometry):
 
 
 ```r
 world %>% 
-  mutate(pop_dens = pop / area_km2,
-         gdp = gdpPercap * pop)
-#> Simple feature collection with 177 features and 12 fields
+  mutate(pop_dens = pop / area_km2)
+#> Simple feature collection with 177 features and 11 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
 #> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
@@ -1251,27 +1260,27 @@ world %>%
 #> 18                Americas                 Caribbean Sovereign country
 #> 19                  Europe           Southern Europe Sovereign country
 #> 20                  Europe            Eastern Europe Sovereign country
-#>    area_km2      pop lifeExp gdpPercap pop_dens      gdp
-#> 1    652270 3.16e+07    60.4      1844    48.49 5.83e+10
-#> 2   1245464 2.42e+07    52.3      6956    19.45 1.69e+11
-#> 3     29695 2.89e+06    77.8     10699    97.45 3.10e+10
-#> 4     79881 9.09e+06    77.4     63831   113.75 5.80e+11
-#> 5   2784469 4.30e+07    76.2     18873    15.44 8.11e+11
-#> 6     28657 3.01e+06    74.7      7706   104.90 2.32e+10
-#> 7  12335956       NA      NA        NA       NA       NA
-#> 8     11603       NA      NA        NA       NA       NA
-#> 9   7687614 2.35e+07    82.3     43274     3.05 1.02e+12
-#> 10    85065 8.54e+06    81.3     44123   100.41 3.77e+11
-#> 11    91113 9.54e+06    70.8     16715   104.65 1.59e+11
-#> 12    26239 1.08e+07    56.7       734   412.24 7.94e+09
-#> 13    30126 1.12e+07    80.6     41274   372.81 4.64e+11
-#> 14   116999 1.06e+07    59.5      1942    90.59 2.06e+10
-#> 15   271594 1.76e+07    58.6      1576    64.76 2.77e+10
-#> 16   133782 1.59e+08    71.6      2979  1189.08 4.74e+11
-#> 17   110217 7.22e+06    75.4     16302    65.54 1.18e+11
-#> 18    15585 3.83e+05    75.2     22253    24.58 8.52e+09
-#> 19    50605 3.82e+06    76.4      9802    75.44 3.74e+10
-#> 20   208970 9.48e+06    73.0     17364    45.38 1.65e+11
+#>    area_km2      pop lifeExp gdpPercap pop_dens
+#> 1    652270 3.16e+07    60.4      1844    48.49
+#> 2   1245464 2.42e+07    52.3      6956    19.45
+#> 3     29695 2.89e+06    77.8     10699    97.45
+#> 4     79881 9.09e+06    77.4     63831   113.75
+#> 5   2784469 4.30e+07    76.2     18873    15.44
+#> 6     28657 3.01e+06    74.7      7706   104.90
+#> 7  12335956       NA      NA        NA       NA
+#> 8     11603       NA      NA        NA       NA
+#> 9   7687614 2.35e+07    82.3     43274     3.05
+#> 10    85065 8.54e+06    81.3     44123   100.41
+#> 11    91113 9.54e+06    70.8     16715   104.65
+#> 12    26239 1.08e+07    56.7       734   412.24
+#> 13    30126 1.12e+07    80.6     41274   372.81
+#> 14   116999 1.06e+07    59.5      1942    90.59
+#> 15   271594 1.76e+07    58.6      1576    64.76
+#> 16   133782 1.59e+08    71.6      2979  1189.08
+#> 17   110217 7.22e+06    75.4     16302    65.54
+#> 18    15585 3.83e+05    75.2     22253    24.58
+#> 19    50605 3.82e+06    76.4      9802    75.44
+#> 20   208970 9.48e+06    73.0     17364    45.38
 #>                              geom
 #> 1  MULTIPOLYGON(((61.210817091...
 #> 2  MULTIPOLYGON(((16.326528354...
@@ -1295,44 +1304,58 @@ world %>%
 #> 20 MULTIPOLYGON(((23.484127638...
 ```
 
-<!-- transmute -->
+The difference between `mutate()` and `transmute()` is that the latter do not preserve existing columns:
 
 
 ```r
 world %>% 
-  transmute(pop_dens = pop / area_km2,
-         gdp = gdpPercap * pop)
-#> Simple feature collection with 177 features and 2 fields
+  transmute(pop_dens = pop / area_km2)
+#> Simple feature collection with 177 features and 1 field
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
 #> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #> First 20 features:
-#>    pop_dens      gdp                           geom
-#> 1     48.49 5.83e+10 MULTIPOLYGON(((61.210817091...
-#> 2     19.45 1.69e+11 MULTIPOLYGON(((16.326528354...
-#> 3     97.45 3.10e+10 MULTIPOLYGON(((20.590247430...
-#> 4    113.75 5.80e+11 MULTIPOLYGON(((51.579518670...
-#> 5     15.44 8.11e+11 MULTIPOLYGON(((-65.5 -55.2,...
-#> 6    104.90 2.32e+10 MULTIPOLYGON(((43.582745802...
-#> 7        NA       NA MULTIPOLYGON(((-59.57209469...
-#> 8        NA       NA MULTIPOLYGON(((68.935 -48.6...
-#> 9      3.05 1.02e+12 MULTIPOLYGON(((145.39797814...
-#> 10   100.41 3.77e+11 MULTIPOLYGON(((16.979666782...
-#> 11   104.65 1.59e+11 MULTIPOLYGON(((45.001987339...
-#> 12   412.24 7.94e+09 MULTIPOLYGON(((29.339997592...
-#> 13   372.81 4.64e+11 MULTIPOLYGON(((3.3149711442...
-#> 14    90.59 2.06e+10 MULTIPOLYGON(((2.6917016943...
-#> 15    64.76 2.77e+10 MULTIPOLYGON(((-2.827496303...
-#> 16  1189.08 4.74e+11 MULTIPOLYGON(((92.672720981...
-#> 17    65.54 1.18e+11 MULTIPOLYGON(((22.657149692...
-#> 18    24.58 8.52e+09 MULTIPOLYGON(((-77.53466 23...
-#> 19    75.44 3.74e+10 MULTIPOLYGON(((19.005486281...
-#> 20    45.38 1.65e+11 MULTIPOLYGON(((23.484127638...
+#>    pop_dens                           geom
+#> 1     48.49 MULTIPOLYGON(((61.210817091...
+#> 2     19.45 MULTIPOLYGON(((16.326528354...
+#> 3     97.45 MULTIPOLYGON(((20.590247430...
+#> 4    113.75 MULTIPOLYGON(((51.579518670...
+#> 5     15.44 MULTIPOLYGON(((-65.5 -55.2,...
+#> 6    104.90 MULTIPOLYGON(((43.582745802...
+#> 7        NA MULTIPOLYGON(((-59.57209469...
+#> 8        NA MULTIPOLYGON(((68.935 -48.6...
+#> 9      3.05 MULTIPOLYGON(((145.39797814...
+#> 10   100.41 MULTIPOLYGON(((16.979666782...
+#> 11   104.65 MULTIPOLYGON(((45.001987339...
+#> 12   412.24 MULTIPOLYGON(((29.339997592...
+#> 13   372.81 MULTIPOLYGON(((3.3149711442...
+#> 14    90.59 MULTIPOLYGON(((2.6917016943...
+#> 15    64.76 MULTIPOLYGON(((-2.827496303...
+#> 16  1189.08 MULTIPOLYGON(((92.672720981...
+#> 17    65.54 MULTIPOLYGON(((22.657149692...
+#> 18    24.58 MULTIPOLYGON(((-77.53466 23...
+#> 19    75.44 MULTIPOLYGON(((19.005486281...
+#> 20    45.38 MULTIPOLYGON(((23.484127638...
 ```
 
+
+<!-- unite ?? -->
+<!-- https://github.com/edzer/sfr/issues/378 -->
+
+<!-- ```{r} -->
+<!-- world %>%  -->
+<!--   unite(con_reg, continent:region_un, sep = ":") -->
+<!-- ``` -->
+
+<!-- separate -->
+
 <!-- rename -->
+
+Two helper functions, `rename()` and `set_names` can be used to change columns names.
+The first one, `rename()` replace an old name with a new one.
+For example, we want to change a name of column from `name_long` to `name`:
 
 
 ```r
@@ -1409,6 +1432,9 @@ world %>%
 #> 19    50605 3.82e+06    76.4      9802 MULTIPOLYGON(((19.005486281...
 #> 20   208970 9.48e+06    73.0     17364 MULTIPOLYGON(((23.484127638...
 ```
+
+`set_names` can be used to change names of many columns. 
+In this function, we do not need to provide old names: 
 
 
 ```r
@@ -1510,18 +1536,11 @@ world %>%
 #> 20 MULTIPOLYGON(((23.484127638...
 ```
 
-<!-- unite ?? -->
-<!-- https://github.com/edzer/sfr/issues/378 -->
-
-<!-- ```{r} -->
-<!-- world %>%  -->
-<!--   unite(con_reg, continent:region_un, sep = ":") -->
-<!-- ``` -->
-
-<!-- separate -->
 <!-- lubridate? -->
 
 ### Exercises
+
+<!-- calculate gdp -->
 
 ## Removing spatial information
 
@@ -1806,7 +1825,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.26
+#> [1] 2.42
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1822,7 +1841,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.79
+#> [1] 3.13
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1922,13 +1941,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.068
+#>   0.064   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.014
+#>   0.012   0.000   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.004   0.029
+#>   0.028   0.000   0.027
 ```
 
 
