@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservec191259537c3d159
+preserve1601c149a47d08f2
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -791,7 +791,7 @@ world %>%
 <!-- summarize() function can be used to reduce variables to values -->
 <!-- https://github.com/ropenscilabs/skimr ?? -->
 
-
+The `summary()` function is used to obtain summary statistics of `sf` objects:
 
 
 ```r
@@ -831,6 +831,38 @@ summary(world)
 #> 
 ```
 
+This function works well to get a quick glimpse of data in an interactive mode.
+The `summary()` function, hovewer, should not be used to create new objects and is not very customizable.
+`summarise()` from the `dplyr` package can be used as an alternative.
+In this function, we need to define what kind of statistics and for which variables we want to calculate.
+For example, we could calculate the world's population and number of countries:
+
+
+```r
+# customized data summary
+world_summary = world %>% 
+  summarise(pop = sum(pop, na.rm = TRUE), country_n = n())
+world_summary
+#> Simple feature collection with 1 feature and 2 fields
+#> geometry type:  MULTIPOLYGON
+#> dimension:      XY
+#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#>        pop country_n                           geom
+#> 1 7.21e+09       177 MULTIPOLYGON(((-159.2081835...
+```
+
+<!-- ?? -->
+<!-- ```{r} -->
+<!-- plot(world_summary) -->
+<!-- ``` -->
+
+The list of helpful functions is in the helpfile of this function - `?summarise`.
+The whole power of `summarise()` is revealed when its combined with the `group_by()` function.
+They allow to summary subsets of data.
+For example, we want to get the total population and number of countries on every continent:
+
 
 ```r
 # data summary by groups
@@ -853,6 +885,11 @@ world_continents
 #> 4     Europe 7.39e+08        39 <MULTIPOLYGON...>
 #> # ... with 4 more rows
 ```
+
+<!-- ?? -->
+<!-- ```{r} -->
+<!-- plot(world_continents) -->
+<!-- ``` -->
 
 <!-- should it stay or should it go (?) aka should we present the arrange function?: -->
 
@@ -910,7 +947,7 @@ north_america
 plot(north_america[0])
 ```
 
-<img src="figures/unnamed-chunk-26-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-27-1.png" width="576" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1047,7 +1084,7 @@ It could be easily illustrated using the `plot` function:
 plot(right_join1[0]) # Canada and United States only
 ```
 
-<img src="figures/unnamed-chunk-32-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-33-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
@@ -1137,7 +1174,7 @@ anti_join1
 plot(anti_join1[0])
 ```
 
-<img src="figures/unnamed-chunk-36-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-37-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- ```{r} -->
 <!-- anti_join2 = wb_north_america %>%  -->
@@ -1818,7 +1855,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.39
+#> [1] 2.28
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1834,7 +1871,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.84
+#> [1] 3.08
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1934,13 +1971,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.076   0.000   0.072
+#>   0.068   0.000   0.070
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.013
+#>   0.016   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.016   0.033
+#>   0.024   0.008   0.030
 ```
 
 
