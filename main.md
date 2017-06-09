@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve55b631a26e5a8435
+preserve61675e48d5ca7c56
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -753,6 +753,15 @@ world %>%
 #> 2  3142892 1.30e+09    68.0      5392 MULTIPOLYGON(((77.837450799...
 ```
 
+This is equivalent to the following base R code (not run to preserve the NAs):^[[Note](https://github.com/Robinlovelace/geocompr/issues/28) NAs do not work for subsetting by inequalities in base R, hence conversion of NAs to 0s in this version)]
+
+
+```r
+# subsetting simple feature rows by values
+world$pop[is.na(world$pop)] = 0 # set NAs to 0
+world_few_rows = world[world$pop > 1e9,]
+```
+
 The ` %>% ` operator works the best for combining many operations.
 For example, we want to (1) rename the `name_long` column into a `name` column, (2) picks only `name`, `subregion` and `gdpPercap` and (3) subset countries from "Eastern Asia" with gross domestic product per capita larger than 30,000$:
 
@@ -772,22 +781,9 @@ world %>%
 #> 2 Republic of Korea Eastern Asia     33640 MULTIPOLYGON(((128.34971642...
 ```
 
-
-
-
-<!-- more complicated example of using pipes (select + filter) -->
-
-
-This is equivalent to the following base R code (not run to preserve the NAs):^[[Note](https://github.com/Robinlovelace/geocompr/issues/28) NAs do not work for subsetting by inequalities in base R, hence conversion of NAs to 0s in this version)]
-
-
-```r
-# subsetting simple feature rows by values
-world$pop[is.na(world$pop)] = 0 # set NAs to 0
-world_few_rows = world[world$pop > 1e9,]
-```
-
 ### Exercises
+
+<!--  -->
 
 ## Attribute data aggregation 
 
@@ -1849,7 +1845,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.13
+#> [1] 2.38
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1865,7 +1861,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.34
+#> [1] 3.31
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1965,13 +1961,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.072
+#>   0.064   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.017
+#>   0.012   0.004   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.016   0.038
+#>   0.028   0.000   0.028
 ```
 
 

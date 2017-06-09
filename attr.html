@@ -336,6 +336,10 @@ world %&gt;%
 <span class="co">#&gt;   area_km2      pop lifeExp gdpPercap                           geom</span>
 <span class="co">#&gt; 1  9409832 1.36e+09    75.8     12759 MULTIPOLYGON(((110.33918786...</span>
 <span class="co">#&gt; 2  3142892 1.30e+09    68.0      5392 MULTIPOLYGON(((77.837450799...</span></code></pre></div>
+<p>This is equivalent to the following base R code (not run to preserve the NAs):<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># subsetting simple feature rows by values</span>
+world$pop[<span class="kw">is.na</span>(world$pop)] =<span class="st"> </span><span class="dv">0</span> <span class="co"># set NAs to 0</span>
+world_few_rows =<span class="st"> </span>world[world$pop &gt;<span class="st"> </span><span class="fl">1e9</span>,]</code></pre></div>
 <p>The <code>%&gt;%</code> operator works the best for combining many operations. For example, we want to (1) rename the <code>name_long</code> column into a <code>name</code> column, (2) picks only <code>name</code>, <code>subregion</code> and <code>gdpPercap</code> and (3) subset countries from “Eastern Asia” with gross domestic product per capita larger than 30,000$:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(<span class="dt">name =</span> name_long, subregion, gdpPercap) %&gt;%<span class="st"> </span>
@@ -349,13 +353,9 @@ world %&gt;%
 <span class="co">#&gt;                name    subregion gdpPercap                           geom</span>
 <span class="co">#&gt; 1             Japan Eastern Asia     37365 MULTIPOLYGON(((134.63842817...</span>
 <span class="co">#&gt; 2 Republic of Korea Eastern Asia     33640 MULTIPOLYGON(((128.34971642...</span></code></pre></div>
-<!-- more complicated example of using pipes (select + filter) -->
-<p>This is equivalent to the following base R code (not run to preserve the NAs):<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># subsetting simple feature rows by values</span>
-world$pop[<span class="kw">is.na</span>(world$pop)] =<span class="st"> </span><span class="dv">0</span> <span class="co"># set NAs to 0</span>
-world_few_rows =<span class="st"> </span>world[world$pop &gt;<span class="st"> </span><span class="fl">1e9</span>,]</code></pre></div>
 <div id="exercises-2" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Exercises</h3>
+<!--  -->
 </div>
 </div>
 <div id="attribute-data-aggregation" class="section level2">
