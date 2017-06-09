@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve120e07de5eb840ca
+preserve48fc361c58c5fdda
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -905,6 +905,8 @@ world_continents
 
 ### Exercises
 
+<!-- -->
+
 ## Attribute data joining 
 
 <!-- https://github.com/dgrtwo/fuzzyjoin -->
@@ -1222,6 +1224,7 @@ full_join1
 <!-- -->
 
 ## Attribute data creation
+<!-- lubridate? -->
 
 It is often the case when a new column needs to be created based on existing columns.
 For example, we want to calculate population density.
@@ -1241,97 +1244,6 @@ Alternatively, we can use one of **dplyr** functions - `mutate()` or `transmute(
 ```r
 world %>% 
   mutate(pop_dens = pop / area_km2)
-#> Simple feature collection with 177 features and 11 fields
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#> First 20 features:
-#>    iso_a2                           name_long               continent
-#> 1      AF                         Afghanistan                    Asia
-#> 2      AO                              Angola                  Africa
-#> 3      AL                             Albania                  Europe
-#> 4      AE                United Arab Emirates                    Asia
-#> 5      AR                           Argentina           South America
-#> 6      AM                             Armenia                    Asia
-#> 7      AQ                          Antarctica              Antarctica
-#> 8      TF French Southern and Antarctic Lands Seven seas (open ocean)
-#> 9      AU                           Australia                 Oceania
-#> 10     AT                             Austria                  Europe
-#> 11     AZ                          Azerbaijan                    Asia
-#> 12     BI                             Burundi                  Africa
-#> 13     BE                             Belgium                  Europe
-#> 14     BJ                               Benin                  Africa
-#> 15     BF                        Burkina Faso                  Africa
-#> 16     BD                          Bangladesh                    Asia
-#> 17     BG                            Bulgaria                  Europe
-#> 18     BS                             Bahamas           North America
-#> 19     BA              Bosnia and Herzegovina                  Europe
-#> 20     BY                             Belarus                  Europe
-#>                  region_un                 subregion              type
-#> 1                     Asia             Southern Asia Sovereign country
-#> 2                   Africa             Middle Africa Sovereign country
-#> 3                   Europe           Southern Europe Sovereign country
-#> 4                     Asia              Western Asia Sovereign country
-#> 5                 Americas             South America Sovereign country
-#> 6                     Asia              Western Asia Sovereign country
-#> 7               Antarctica                Antarctica     Indeterminate
-#> 8  Seven seas (open ocean)   Seven seas (open ocean)        Dependency
-#> 9                  Oceania Australia and New Zealand           Country
-#> 10                  Europe            Western Europe Sovereign country
-#> 11                    Asia              Western Asia Sovereign country
-#> 12                  Africa            Eastern Africa Sovereign country
-#> 13                  Europe            Western Europe Sovereign country
-#> 14                  Africa            Western Africa Sovereign country
-#> 15                  Africa            Western Africa Sovereign country
-#> 16                    Asia             Southern Asia Sovereign country
-#> 17                  Europe            Eastern Europe Sovereign country
-#> 18                Americas                 Caribbean Sovereign country
-#> 19                  Europe           Southern Europe Sovereign country
-#> 20                  Europe            Eastern Europe Sovereign country
-#>    area_km2      pop lifeExp gdpPercap pop_dens
-#> 1    652270 3.16e+07    60.4      1844    48.49
-#> 2   1245464 2.42e+07    52.3      6956    19.45
-#> 3     29695 2.89e+06    77.8     10699    97.45
-#> 4     79881 9.09e+06    77.4     63831   113.75
-#> 5   2784469 4.30e+07    76.2     18873    15.44
-#> 6     28657 3.01e+06    74.7      7706   104.90
-#> 7  12335956       NA      NA        NA       NA
-#> 8     11603       NA      NA        NA       NA
-#> 9   7687614 2.35e+07    82.3     43274     3.05
-#> 10    85065 8.54e+06    81.3     44123   100.41
-#> 11    91113 9.54e+06    70.8     16715   104.65
-#> 12    26239 1.08e+07    56.7       734   412.24
-#> 13    30126 1.12e+07    80.6     41274   372.81
-#> 14   116999 1.06e+07    59.5      1942    90.59
-#> 15   271594 1.76e+07    58.6      1576    64.76
-#> 16   133782 1.59e+08    71.6      2979  1189.08
-#> 17   110217 7.22e+06    75.4     16302    65.54
-#> 18    15585 3.83e+05    75.2     22253    24.58
-#> 19    50605 3.82e+06    76.4      9802    75.44
-#> 20   208970 9.48e+06    73.0     17364    45.38
-#>                              geom
-#> 1  MULTIPOLYGON(((61.210817091...
-#> 2  MULTIPOLYGON(((16.326528354...
-#> 3  MULTIPOLYGON(((20.590247430...
-#> 4  MULTIPOLYGON(((51.579518670...
-#> 5  MULTIPOLYGON(((-65.5 -55.2,...
-#> 6  MULTIPOLYGON(((43.582745802...
-#> 7  MULTIPOLYGON(((-59.57209469...
-#> 8  MULTIPOLYGON(((68.935 -48.6...
-#> 9  MULTIPOLYGON(((145.39797814...
-#> 10 MULTIPOLYGON(((16.979666782...
-#> 11 MULTIPOLYGON(((45.001987339...
-#> 12 MULTIPOLYGON(((29.339997592...
-#> 13 MULTIPOLYGON(((3.3149711442...
-#> 14 MULTIPOLYGON(((2.6917016943...
-#> 15 MULTIPOLYGON(((-2.827496303...
-#> 16 MULTIPOLYGON(((92.672720981...
-#> 17 MULTIPOLYGON(((22.657149692...
-#> 18 MULTIPOLYGON(((-77.53466 23...
-#> 19 MULTIPOLYGON(((19.005486281...
-#> 20 MULTIPOLYGON(((23.484127638...
 ```
 
 The difference between `mutate()` and `transmute()` is that the latter do not preserve existing columns:
@@ -1340,34 +1252,6 @@ The difference between `mutate()` and `transmute()` is that the latter do not pr
 ```r
 world %>% 
   transmute(pop_dens = pop / area_km2)
-#> Simple feature collection with 177 features and 1 field
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#> First 20 features:
-#>    pop_dens                           geom
-#> 1     48.49 MULTIPOLYGON(((61.210817091...
-#> 2     19.45 MULTIPOLYGON(((16.326528354...
-#> 3     97.45 MULTIPOLYGON(((20.590247430...
-#> 4    113.75 MULTIPOLYGON(((51.579518670...
-#> 5     15.44 MULTIPOLYGON(((-65.5 -55.2,...
-#> 6    104.90 MULTIPOLYGON(((43.582745802...
-#> 7        NA MULTIPOLYGON(((-59.57209469...
-#> 8        NA MULTIPOLYGON(((68.935 -48.6...
-#> 9      3.05 MULTIPOLYGON(((145.39797814...
-#> 10   100.41 MULTIPOLYGON(((16.979666782...
-#> 11   104.65 MULTIPOLYGON(((45.001987339...
-#> 12   412.24 MULTIPOLYGON(((29.339997592...
-#> 13   372.81 MULTIPOLYGON(((3.3149711442...
-#> 14    90.59 MULTIPOLYGON(((2.6917016943...
-#> 15    64.76 MULTIPOLYGON(((-2.827496303...
-#> 16  1189.08 MULTIPOLYGON(((92.672720981...
-#> 17    65.54 MULTIPOLYGON(((22.657149692...
-#> 18    24.58 MULTIPOLYGON(((-77.53466 23...
-#> 19    75.44 MULTIPOLYGON(((19.005486281...
-#> 20    45.38 MULTIPOLYGON(((23.484127638...
 ```
 
 
@@ -1381,8 +1265,6 @@ world %>%
 
 <!-- separate -->
 
-<!-- rename -->
-
 Two helper functions, `rename()` and `set_names` can be used to change columns names.
 The first one, `rename()` replace an old name with a new one.
 For example, we want to change a name of column from `name_long` to `name`:
@@ -1391,76 +1273,6 @@ For example, we want to change a name of column from `name_long` to `name`:
 ```r
 world %>% 
   rename(name = name_long)
-#> Simple feature collection with 177 features and 10 fields
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#> First 20 features:
-#>    iso_a2                                name               continent
-#> 1      AF                         Afghanistan                    Asia
-#> 2      AO                              Angola                  Africa
-#> 3      AL                             Albania                  Europe
-#> 4      AE                United Arab Emirates                    Asia
-#> 5      AR                           Argentina           South America
-#> 6      AM                             Armenia                    Asia
-#> 7      AQ                          Antarctica              Antarctica
-#> 8      TF French Southern and Antarctic Lands Seven seas (open ocean)
-#> 9      AU                           Australia                 Oceania
-#> 10     AT                             Austria                  Europe
-#> 11     AZ                          Azerbaijan                    Asia
-#> 12     BI                             Burundi                  Africa
-#> 13     BE                             Belgium                  Europe
-#> 14     BJ                               Benin                  Africa
-#> 15     BF                        Burkina Faso                  Africa
-#> 16     BD                          Bangladesh                    Asia
-#> 17     BG                            Bulgaria                  Europe
-#> 18     BS                             Bahamas           North America
-#> 19     BA              Bosnia and Herzegovina                  Europe
-#> 20     BY                             Belarus                  Europe
-#>                  region_un                 subregion              type
-#> 1                     Asia             Southern Asia Sovereign country
-#> 2                   Africa             Middle Africa Sovereign country
-#> 3                   Europe           Southern Europe Sovereign country
-#> 4                     Asia              Western Asia Sovereign country
-#> 5                 Americas             South America Sovereign country
-#> 6                     Asia              Western Asia Sovereign country
-#> 7               Antarctica                Antarctica     Indeterminate
-#> 8  Seven seas (open ocean)   Seven seas (open ocean)        Dependency
-#> 9                  Oceania Australia and New Zealand           Country
-#> 10                  Europe            Western Europe Sovereign country
-#> 11                    Asia              Western Asia Sovereign country
-#> 12                  Africa            Eastern Africa Sovereign country
-#> 13                  Europe            Western Europe Sovereign country
-#> 14                  Africa            Western Africa Sovereign country
-#> 15                  Africa            Western Africa Sovereign country
-#> 16                    Asia             Southern Asia Sovereign country
-#> 17                  Europe            Eastern Europe Sovereign country
-#> 18                Americas                 Caribbean Sovereign country
-#> 19                  Europe           Southern Europe Sovereign country
-#> 20                  Europe            Eastern Europe Sovereign country
-#>    area_km2      pop lifeExp gdpPercap                           geom
-#> 1    652270 3.16e+07    60.4      1844 MULTIPOLYGON(((61.210817091...
-#> 2   1245464 2.42e+07    52.3      6956 MULTIPOLYGON(((16.326528354...
-#> 3     29695 2.89e+06    77.8     10699 MULTIPOLYGON(((20.590247430...
-#> 4     79881 9.09e+06    77.4     63831 MULTIPOLYGON(((51.579518670...
-#> 5   2784469 4.30e+07    76.2     18873 MULTIPOLYGON(((-65.5 -55.2,...
-#> 6     28657 3.01e+06    74.7      7706 MULTIPOLYGON(((43.582745802...
-#> 7  12335956       NA      NA        NA MULTIPOLYGON(((-59.57209469...
-#> 8     11603       NA      NA        NA MULTIPOLYGON(((68.935 -48.6...
-#> 9   7687614 2.35e+07    82.3     43274 MULTIPOLYGON(((145.39797814...
-#> 10    85065 8.54e+06    81.3     44123 MULTIPOLYGON(((16.979666782...
-#> 11    91113 9.54e+06    70.8     16715 MULTIPOLYGON(((45.001987339...
-#> 12    26239 1.08e+07    56.7       734 MULTIPOLYGON(((29.339997592...
-#> 13    30126 1.12e+07    80.6     41274 MULTIPOLYGON(((3.3149711442...
-#> 14   116999 1.06e+07    59.5      1942 MULTIPOLYGON(((2.6917016943...
-#> 15   271594 1.76e+07    58.6      1576 MULTIPOLYGON(((-2.827496303...
-#> 16   133782 1.59e+08    71.6      2979 MULTIPOLYGON(((92.672720981...
-#> 17   110217 7.22e+06    75.4     16302 MULTIPOLYGON(((22.657149692...
-#> 18    15585 3.83e+05    75.2     22253 MULTIPOLYGON(((-77.53466 23...
-#> 19    50605 3.82e+06    76.4      9802 MULTIPOLYGON(((19.005486281...
-#> 20   208970 9.48e+06    73.0     17364 MULTIPOLYGON(((23.484127638...
 ```
 
 `set_names` can be used to change names of many columns. 
@@ -1473,100 +1285,7 @@ new_names = c("ISO_A2", "Name", "Continent", "Region", "Subregion",
               "GDP_per_capita", "geom")
 world %>% 
   set_names(new_names)
-#> Simple feature collection with 177 features and 10 fields
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#> First 20 features:
-#>    ISO_A2                                Name               Continent
-#> 1      AF                         Afghanistan                    Asia
-#> 2      AO                              Angola                  Africa
-#> 3      AL                             Albania                  Europe
-#> 4      AE                United Arab Emirates                    Asia
-#> 5      AR                           Argentina           South America
-#> 6      AM                             Armenia                    Asia
-#> 7      AQ                          Antarctica              Antarctica
-#> 8      TF French Southern and Antarctic Lands Seven seas (open ocean)
-#> 9      AU                           Australia                 Oceania
-#> 10     AT                             Austria                  Europe
-#> 11     AZ                          Azerbaijan                    Asia
-#> 12     BI                             Burundi                  Africa
-#> 13     BE                             Belgium                  Europe
-#> 14     BJ                               Benin                  Africa
-#> 15     BF                        Burkina Faso                  Africa
-#> 16     BD                          Bangladesh                    Asia
-#> 17     BG                            Bulgaria                  Europe
-#> 18     BS                             Bahamas           North America
-#> 19     BA              Bosnia and Herzegovina                  Europe
-#> 20     BY                             Belarus                  Europe
-#>                     Region                 Subregion      Country_type
-#> 1                     Asia             Southern Asia Sovereign country
-#> 2                   Africa             Middle Africa Sovereign country
-#> 3                   Europe           Southern Europe Sovereign country
-#> 4                     Asia              Western Asia Sovereign country
-#> 5                 Americas             South America Sovereign country
-#> 6                     Asia              Western Asia Sovereign country
-#> 7               Antarctica                Antarctica     Indeterminate
-#> 8  Seven seas (open ocean)   Seven seas (open ocean)        Dependency
-#> 9                  Oceania Australia and New Zealand           Country
-#> 10                  Europe            Western Europe Sovereign country
-#> 11                    Asia              Western Asia Sovereign country
-#> 12                  Africa            Eastern Africa Sovereign country
-#> 13                  Europe            Western Europe Sovereign country
-#> 14                  Africa            Western Africa Sovereign country
-#> 15                  Africa            Western Africa Sovereign country
-#> 16                    Asia             Southern Asia Sovereign country
-#> 17                  Europe            Eastern Europe Sovereign country
-#> 18                Americas                 Caribbean Sovereign country
-#> 19                  Europe           Southern Europe Sovereign country
-#> 20                  Europe            Eastern Europe Sovereign country
-#>    Area_in_km2 Population Life_Expectancy GDP_per_capita
-#> 1       652270   3.16e+07            60.4           1844
-#> 2      1245464   2.42e+07            52.3           6956
-#> 3        29695   2.89e+06            77.8          10699
-#> 4        79881   9.09e+06            77.4          63831
-#> 5      2784469   4.30e+07            76.2          18873
-#> 6        28657   3.01e+06            74.7           7706
-#> 7     12335956         NA              NA             NA
-#> 8        11603         NA              NA             NA
-#> 9      7687614   2.35e+07            82.3          43274
-#> 10       85065   8.54e+06            81.3          44123
-#> 11       91113   9.54e+06            70.8          16715
-#> 12       26239   1.08e+07            56.7            734
-#> 13       30126   1.12e+07            80.6          41274
-#> 14      116999   1.06e+07            59.5           1942
-#> 15      271594   1.76e+07            58.6           1576
-#> 16      133782   1.59e+08            71.6           2979
-#> 17      110217   7.22e+06            75.4          16302
-#> 18       15585   3.83e+05            75.2          22253
-#> 19       50605   3.82e+06            76.4           9802
-#> 20      208970   9.48e+06            73.0          17364
-#>                              geom
-#> 1  MULTIPOLYGON(((61.210817091...
-#> 2  MULTIPOLYGON(((16.326528354...
-#> 3  MULTIPOLYGON(((20.590247430...
-#> 4  MULTIPOLYGON(((51.579518670...
-#> 5  MULTIPOLYGON(((-65.5 -55.2,...
-#> 6  MULTIPOLYGON(((43.582745802...
-#> 7  MULTIPOLYGON(((-59.57209469...
-#> 8  MULTIPOLYGON(((68.935 -48.6...
-#> 9  MULTIPOLYGON(((145.39797814...
-#> 10 MULTIPOLYGON(((16.979666782...
-#> 11 MULTIPOLYGON(((45.001987339...
-#> 12 MULTIPOLYGON(((29.339997592...
-#> 13 MULTIPOLYGON(((3.3149711442...
-#> 14 MULTIPOLYGON(((2.6917016943...
-#> 15 MULTIPOLYGON(((-2.827496303...
-#> 16 MULTIPOLYGON(((92.672720981...
-#> 17 MULTIPOLYGON(((22.657149692...
-#> 18 MULTIPOLYGON(((-77.53466 23...
-#> 19 MULTIPOLYGON(((19.005486281...
-#> 20 MULTIPOLYGON(((23.484127638...
 ```
-
-<!-- lubridate? -->
 
 ### Exercises
 
@@ -1855,7 +1574,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.29
+#> [1] 2.37
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1871,7 +1590,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.18
+#> [1] 2.83
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1971,13 +1690,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.066
+#>   0.132   0.004   0.136
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.013
+#>   0.024   0.008   0.035
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.029
+#>   0.044   0.020   0.063
 ```
 
 
