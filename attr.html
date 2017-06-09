@@ -416,42 +416,16 @@ world_continents
 <span class="co">#&gt; 3       Asia 4.31e+09        47 &lt;MULTIPOLYGON...&gt;</span>
 <span class="co">#&gt; 4     Europe 7.39e+08        39 &lt;MULTIPOLYGON...&gt;</span>
 <span class="co">#&gt; # ... with 4 more rows</span></code></pre></div>
-<!-- should it stay or should it go (?): -->
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sort variables</span>
-## by name
-world_continents %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">arrange</span>(continent)
-<span class="co">#&gt; Simple feature collection with 8 features and 3 fields</span>
-<span class="co">#&gt; geometry type:  GEOMETRY</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513</span>
-<span class="co">#&gt; epsg (SRID):    4326</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt; # A tibble: 8 x 4</span>
-<span class="co">#&gt;    continent      pop country_n              geom</span>
-<span class="co">#&gt;        &lt;chr&gt;    &lt;dbl&gt;     &lt;int&gt;  &lt;simple_feature&gt;</span>
-<span class="co">#&gt; 1     Africa 1.15e+09        51 &lt;MULTIPOLYGON...&gt;</span>
-<span class="co">#&gt; 2 Antarctica 0.00e+00         1 &lt;MULTIPOLYGON...&gt;</span>
-<span class="co">#&gt; 3       Asia 4.31e+09        47 &lt;MULTIPOLYGON...&gt;</span>
-<span class="co">#&gt; 4     Europe 7.39e+08        39 &lt;MULTIPOLYGON...&gt;</span>
-<span class="co">#&gt; # ... with 4 more rows</span>
-## by population (in descending order)
-world_continents %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">arrange</span>(-pop)
-<span class="co">#&gt; Simple feature collection with 8 features and 3 fields</span>
-<span class="co">#&gt; geometry type:  GEOMETRY</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513</span>
-<span class="co">#&gt; epsg (SRID):    4326</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt; # A tibble: 8 x 4</span>
-<span class="co">#&gt;       continent      pop country_n              geom</span>
-<span class="co">#&gt;           &lt;chr&gt;    &lt;dbl&gt;     &lt;int&gt;  &lt;simple_feature&gt;</span>
-<span class="co">#&gt; 1          Asia 4.31e+09        47 &lt;MULTIPOLYGON...&gt;</span>
-<span class="co">#&gt; 2        Africa 1.15e+09        51 &lt;MULTIPOLYGON...&gt;</span>
-<span class="co">#&gt; 3        Europe 7.39e+08        39 &lt;MULTIPOLYGON...&gt;</span>
-<span class="co">#&gt; 4 North America 5.65e+08        18 &lt;MULTIPOLYGON...&gt;</span>
-<span class="co">#&gt; # ... with 4 more rows</span></code></pre></div>
+<!-- should it stay or should it go (?) aka should we present the arrange function?: -->
+<!-- ```{r} -->
+<!-- # sort variables -->
+<!-- ## by name -->
+<!-- world_continents %>%  -->
+<!--   arrange(continent) -->
+<!-- ## by population (in descending order) -->
+<!-- world_continents %>%  -->
+<!--   arrange(-pop) -->
+<!-- ``` -->
 <div id="exercises-3" class="section level3">
 <h3><span class="header-section-number">3.4.1</span> Exercises</h3>
 </div>
@@ -479,7 +453,7 @@ north_america
 <span class="co">#&gt; 2     GL     Greenland MULTIPOLYGON(((-46.76379 82...</span>
 <span class="co">#&gt; 3     US United States MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(north_america[<span class="dv">0</span>])</code></pre></div>
-<p><img src="figures/unnamed-chunk-27-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-26-1.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wb_north_america =<span class="st"> </span>worldbank_df %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(name %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;United States&quot;</span>)) %&gt;%
 <span class="st">  </span><span class="kw">select</span>(name, iso_a2, urban_pop, <span class="dt">unemploy =</span> unemployment)
@@ -568,7 +542,7 @@ right_join1
 <span class="co">#&gt; 3     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <p>You can see that the new object <code>right_join1</code> has information about Mexico, but drop information about Greenland. What’s more, our right object, as a <code>data.frame</code>, doesn’t have a geometry representation of Mexico. As a result, the <code>right_join1</code> object contains only non-spatial data of Mexico. It could be easily illustrated using the <code>plot</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(right_join1[<span class="dv">0</span>]) <span class="co"># Canada and United States only</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-33-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-32-1.png" width="576" style="display: block; margin: auto;" /></p>
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
 <!-- right_join2 = wb_north_america %>%  -->
@@ -634,7 +608,7 @@ anti_join1
 <span class="co">#&gt;   iso_a2 name_long                           geom</span>
 <span class="co">#&gt; 1     GL Greenland MULTIPOLYGON(((-46.76379 82...</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(anti_join1[<span class="dv">0</span>])</code></pre></div>
-<p><img src="figures/unnamed-chunk-37-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-36-1.png" width="576" style="display: block; margin: auto;" /></p>
 <!-- ```{r} -->
 <!-- anti_join2 = wb_north_america %>%  -->
 <!--   anti_join(north_america, by = "iso_a2") -->
