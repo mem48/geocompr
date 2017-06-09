@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveaf2efcf444cc6aab
+preservedc0d68da0be916ab
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -718,10 +718,9 @@ Symbol   Name
 |        Or                    
 `!`      Not                   
 
-<!-- todo - describe these: ==, !=, >, >=, <, <=, &, | -->
-<!-- more examples -->
-
-
+<!-- describe these: ==, !=, >, >=, <, <=, &, | -->
+<!-- add warning about = vs == -->
+<!-- add info about combination of &, |, ! -->
 
 The *pipe* operator (` %>% `), which passes the output of one function into the first argument of the next function, is commonly used in **dplyr** data analysis workflows.
 This works because the fundamental **dplyr** functions (or 'verbs', like `select()`) all take a data frame object in and spit a data frame object out.
@@ -854,11 +853,11 @@ summary(world)
 #> 
 ```
 
-This function works well to get a quick glimpse of data in an interactive mode.
-The `summary()` function, however, should not be used to create new objects and is not very customizable.
-`summarise()` from the `dplyr` package can be used as an alternative.
+This function role is to give a quick glimpse of data in an interactive mode.
+The `summary()` function, however, is not very customizable and should not be used to create new objects.
+`summarise()` from the `dplyr` package can be used as an alternative in these cases.
 In this function, we need to define what kind of statistics and for which variables we want to calculate.
-For example, we could calculate the world's population and number of countries:
+For example, we could calculate the world's population and number of countries in the world:
 
 
 ```r
@@ -881,9 +880,9 @@ world_summary
 <!-- plot(world_summary) -->
 <!-- ``` -->
 
-The list of helpful functions is in the helpfile of this function - `?summarise`.
-The whole power of `summarise()` is revealed when its combined with the `group_by()` function.
-They allow to summary subsets of data.
+The list of useful functions could be find in the helpfile of this function - `?summarise`.
+The whole power of `summarise()` is revealed when it is combined with the `group_by()` function.
+This allow to summary requested subsets of data.
 For example, we want to get the total population and number of countries on every continent:
 
 
@@ -1250,9 +1249,9 @@ full_join1
 <!-- lubridate? -->
 
 It is often the case when a new column needs to be created based on existing columns.
-For example, we want to calculate population density.
+For example, we want to calculate population density for each country.
 We need to divide a `pop` column (population) by a `area_km2` column (unit area in square km).
-In base R it could be done this way:
+It could be done this way in base R:
 
 
 ```r
@@ -1596,7 +1595,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.36
+#> [1] 2.37
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1612,7 +1611,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.11
+#> [1] 3.09
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1712,10 +1711,10 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.065
+#>   0.060   0.004   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.012
+#>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
 #>   0.020   0.008   0.028
