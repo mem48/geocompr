@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve59d07612aee78c05
+preserved7ea3067fb729025
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -614,18 +614,18 @@ world[, 1:3] # subset columns by position
 world[, c("name_long", "lifeExp")] # subset columns by name
 ```
 
-The `$` operator retrieves a variable by its name and returns a vector:
-
-
-```r
-world$name_long
-```
-
 You can also subset a `sf` object based on a given condition using (surprise, surprise...) the `subset()` function:
 
 
 ```r
 small_countries = subset(world, area_km2 < 10000)
+```
+
+The `$` operator retrieves a variable by its name and returns a vector:
+
+
+```r
+world$name_long
 ```
 
 <!-- , after the package has been loaded: [or - it is a part of tidyverse] -->
@@ -726,6 +726,14 @@ The equivalent **dplyr** code without the pipe operator is:
 
 ```r
 world8 = select(world, name_long, continent)
+```
+
+The `pull()`function retrieves a variable by its name or position and returns a vector:
+
+
+```r
+world %>% 
+  pull(name_long)
 ```
 
 The pipe operator can be used for many data processing tasks with attribute data.
@@ -948,7 +956,7 @@ north_america
 plot(north_america[0])
 ```
 
-<img src="figures/unnamed-chunk-27-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-28-1.png" width="576" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1085,7 +1093,7 @@ It could be easily illustrated using the `plot` function:
 plot(right_join1[0]) # Canada and United States only
 ```
 
-<img src="figures/unnamed-chunk-33-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-34-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
@@ -1175,7 +1183,7 @@ anti_join1
 plot(anti_join1[0])
 ```
 
-<img src="figures/unnamed-chunk-37-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-38-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- ```{r} -->
 <!-- anti_join2 = wb_north_america %>%  -->
@@ -1573,10 +1581,10 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.5
+#> [1] 2.21
 ```
 
-The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -1589,7 +1597,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.16
+#> [1] 2.95
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1689,13 +1697,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.064
+#>   0.068   0.000   0.069
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.012
+#>   0.012   0.000   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.030
+#>   0.028   0.000   0.030
 ```
 
 
