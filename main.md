@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve9f27cae200ccec53
+preserve55b631a26e5a8435
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -654,7 +654,7 @@ head(world1, n = 2)
 #> 2      Angola 24227524 MULTIPOLYGON(((16.326528354...
 ```
 
-This function gives a possibility to select a range of columns with an `:` operator or remove some columns with an `-` operator:
+This function gives a possibility to select a range of columns with an `:` operator or exclude some columns with an `-` operator:
 
 
 ```r
@@ -732,7 +732,6 @@ The equivalent **dplyr** code without the pipe operator is:
 world8 = select(world, name_long, continent)
 ```
 
-<!-- more complicated example of using pipes (select + filter) -->
 The pipe operator can be used for many data processing tasks with attribute data.
 
 
@@ -753,6 +752,31 @@ world %>%
 #> 1  9409832 1.36e+09    75.8     12759 MULTIPOLYGON(((110.33918786...
 #> 2  3142892 1.30e+09    68.0      5392 MULTIPOLYGON(((77.837450799...
 ```
+
+The ` %>% ` operator works the best for combining many operations.
+For example, we want to (1) rename the `name_long` column into a `name` column, (2) picks only `name`, `subregion` and `gdpPercap` and (3) subset countries from "Eastern Asia" with gross domestic product per capita larger than 30,000$:
+
+
+```r
+world %>% 
+  select(name = name_long, subregion, gdpPercap) %>% 
+  filter(subregion == "Eastern Asia", gdpPercap > 30000)
+#> Simple feature collection with 2 features and 3 fields
+#> geometry type:  MULTIPOLYGON
+#> dimension:      XY
+#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#>                name    subregion gdpPercap                           geom
+#> 1             Japan Eastern Asia     37365 MULTIPOLYGON(((134.63842817...
+#> 2 Republic of Korea Eastern Asia     33640 MULTIPOLYGON(((128.34971642...
+```
+
+
+
+
+<!-- more complicated example of using pipes (select + filter) -->
+
 
 This is equivalent to the following base R code (not run to preserve the NAs):^[[Note](https://github.com/Robinlovelace/geocompr/issues/28) NAs do not work for subsetting by inequalities in base R, hence conversion of NAs to 0s in this version)]
 
@@ -917,7 +941,7 @@ north_america
 plot(north_america[0])
 ```
 
-<img src="figures/unnamed-chunk-26-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-27-1.png" width="576" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1054,7 +1078,7 @@ It could be easily illustrated using the `plot` function:
 plot(right_join1[0]) # Canada and United States only
 ```
 
-<img src="figures/unnamed-chunk-32-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-33-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
@@ -1144,7 +1168,7 @@ anti_join1
 plot(anti_join1[0])
 ```
 
-<img src="figures/unnamed-chunk-36-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-37-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- ```{r} -->
 <!-- anti_join2 = wb_north_america %>%  -->
@@ -1825,7 +1849,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.32
+#> [1] 2.13
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1841,7 +1865,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.1
+#> [1] 3.34
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1941,13 +1965,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.004   0.065
+#>   0.072   0.000   0.072
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.012
+#>   0.016   0.000   0.017
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.004   0.028
+#>   0.024   0.016   0.038
 ```
 
 
