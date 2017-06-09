@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservebc08f97a25afddfc
+preserve943ba15fe02bc457
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -783,12 +783,15 @@ world %>%
 
 ### Exercises
 
-<!--  -->
+<!-- 
+1. Select columns A and B
+2. Select columns with "region" -> use contains() 
+3. Find all countries that: (few points)
+4. Exercises about additional select and filter helper functions (one_of; between, is.na, near, etc.)
+ -->
 
 ## Attribute data aggregation 
 
-<!-- base summary -->
-<!-- summarize() function can be used to reduce variables to values -->
 <!-- https://github.com/ropenscilabs/skimr ?? -->
 
 The `summary()` function is used to obtain summary statistics of `sf` objects:
@@ -853,7 +856,7 @@ world_summary
 #> 1 7.21e+09       177 MULTIPOLYGON(((-159.2081835...
 ```
 
-<!-- ?? -->
+<!-- ?? open a github issue-->
 <!-- ```{r} -->
 <!-- plot(world_summary) -->
 <!-- ``` -->
@@ -886,7 +889,7 @@ world_continents
 #> # ... with 4 more rows
 ```
 
-<!-- ?? -->
+<!-- ?? open a github issue -->
 <!-- ```{r} -->
 <!-- plot(world_continents) -->
 <!-- ``` -->
@@ -1574,7 +1577,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.36
+#> [1] 2.39
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1590,7 +1593,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.07
+#> [1] 3.01
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1690,13 +1693,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>   0.068   0.004   0.068
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.012
+#>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.029
+#>   0.020   0.012   0.030
 ```
 
 

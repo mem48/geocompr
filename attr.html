@@ -355,13 +355,16 @@ world_few_rows =<span class="st"> </span>world[world$pop &gt;<span class="st"> <
 <span class="co">#&gt; 2 Republic of Korea Eastern Asia     33640 MULTIPOLYGON(((128.34971642...</span></code></pre></div>
 <div id="exercises-2" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Exercises</h3>
-<!--  -->
+<!-- 
+1. Select columns A and B
+2. Select columns with "region" -> use contains() 
+3. Find all countries that: (few points)
+4. Exercises about additional select and filter helper functions (one_of; between, is.na, near, etc.)
+ -->
 </div>
 </div>
 <div id="attribute-data-aggregation" class="section level2">
 <h2><span class="header-section-number">3.4</span> Attribute data aggregation</h2>
-<!-- base summary -->
-<!-- summarize() function can be used to reduce variables to values -->
 <!-- https://github.com/ropenscilabs/skimr ?? -->
 <p>The <code>summary()</code> function is used to obtain summary statistics of <code>sf</code> objects:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># data summary </span>
@@ -411,7 +414,7 @@ world_summary
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
 <span class="co">#&gt;        pop country_n                           geom</span>
 <span class="co">#&gt; 1 7.21e+09       177 MULTIPOLYGON(((-159.2081835...</span></code></pre></div>
-<!-- ?? -->
+<!-- ?? open a github issue-->
 <!-- ```{r} -->
 <!-- plot(world_summary) -->
 <!-- ``` -->
@@ -435,7 +438,7 @@ world_continents
 <span class="co">#&gt; 3       Asia 4.31e+09        47 &lt;MULTIPOLYGON...&gt;</span>
 <span class="co">#&gt; 4     Europe 7.39e+08        39 &lt;MULTIPOLYGON...&gt;</span>
 <span class="co">#&gt; # ... with 4 more rows</span></code></pre></div>
-<!-- ?? -->
+<!-- ?? open a github issue -->
 <!-- ```{r} -->
 <!-- plot(world_continents) -->
 <!-- ``` -->
