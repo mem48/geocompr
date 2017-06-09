@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserved3be040fb1e0db57
+preserveaf2efcf444cc6aab
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -630,7 +630,7 @@ world$name_long
 
 <!-- , after the package has been loaded: [or - it is a part of tidyverse] -->
 **dplyr** makes working with data frames easier and is compatible with `sf` objects.
-The two main **dplyr** functions that help with attribute subsetting are `select()` and `filter()`.
+The main **dplyr** functions that help with attribute subsetting are `select()`, `filter()` and `pull()`.
 
 The `select()` function picks columns by its name.
 For example, you could select only two columns - `name_long` and `pop`:
@@ -666,7 +666,7 @@ world3 = select(world, -subregion, -area_km2)
 head(world3, n = 2)
 ```
 
-The `select()` function can be also used to both subset and renames columns in a single line, for example:
+The `select()` function can be also used to both subset and rename columns in a single line, for example:
 
 
 ```r
@@ -691,7 +691,7 @@ world5 = world[c("name_long", "pop")] # subset columns by name
 names(world5)[3] = "population" # rename column manually
 ```
 
-The `select()` function works with a number of special functions that help with more complicated selection. 
+The `select()` function works with a number of special functions that help with more complicated selection, such as `contains()`, `starts_with()`, `num_range()`. 
 More details could be find on the function help page - `?select`.
 
 The `filter()` function is a **dplyr** alternative to the `subset()` function.
@@ -703,9 +703,25 @@ Its role is to keeps rows matching given criteria.
 world6 = filter(world, lifeExp > 82)
 ```
 
-The standard set of comparison operators can be used in the `filter()` function: `==`, `!=`, `>`, `>=`, `<`, `<=`, `&`, `|`. 
+The standard set of comparison operators can be used in the `filter()` function: 
+
+
+Symbol   Name                  
+-------  ----------------------
+`==`     Equal to              
+`!=`     Not equal to          
+`>`      Greater than          
+`>=`     Greater than or equal 
+`<`      Less than             
+`<=`     Less than or equal    
+`&`      And                   
+|        Or                    
+`!`      Not                   
+
 <!-- todo - describe these: ==, !=, >, >=, <, <=, &, | -->
 <!-- more examples -->
+
+
 
 The *pipe* operator (` %>% `), which passes the output of one function into the first argument of the next function, is commonly used in **dplyr** data analysis workflows.
 This works because the fundamental **dplyr** functions (or 'verbs', like `select()`) all take a data frame object in and spit a data frame object out.
@@ -956,7 +972,7 @@ north_america
 plot(north_america[0])
 ```
 
-<img src="figures/unnamed-chunk-28-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-29-1.png" width="576" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1093,7 +1109,7 @@ It could be easily illustrated using the `plot` function:
 plot(right_join1[0]) # Canada and United States only
 ```
 
-<img src="figures/unnamed-chunk-34-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-35-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
@@ -1183,7 +1199,7 @@ anti_join1
 plot(anti_join1[0])
 ```
 
-<img src="figures/unnamed-chunk-38-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-39-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- ```{r} -->
 <!-- anti_join2 = wb_north_america %>%  -->
@@ -1596,7 +1612,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.05
+#> [1] 3.11
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1696,13 +1712,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.066
+#>   0.064   0.000   0.065
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.012   0.000   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.030
+#>   0.020   0.008   0.028
 ```
 
 

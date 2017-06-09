@@ -267,7 +267,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The <code>$</code> operator retrieves a variable by its name and returns a vector:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world$name_long</code></pre></div>
 <!-- , after the package has been loaded: [or - it is a part of tidyverse] -->
-<p><strong>dplyr</strong> makes working with data frames easier and is compatible with <code>sf</code> objects. The two main <strong>dplyr</strong> functions that help with attribute subsetting are <code>select()</code> and <code>filter()</code>.</p>
+<p><strong>dplyr</strong> makes working with data frames easier and is compatible with <code>sf</code> objects. The main <strong>dplyr</strong> functions that help with attribute subsetting are <code>select()</code>, <code>filter()</code> and <code>pull()</code>.</p>
 <p>The <code>select()</code> function picks columns by its name. For example, you could select only two columns - <code>name_long</code> and <code>pop</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world1 =<span class="st"> </span><span class="kw">select</span>(world, name_long, pop)
 <span class="kw">head</span>(world1, <span class="dt">n =</span> <span class="dv">2</span>)
@@ -287,7 +287,7 @@ world2 =<span class="st"> </span><span class="kw">select</span>(world, name_long
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># all columns except subregion and area_km2 (inclusive)</span>
 world3 =<span class="st"> </span><span class="kw">select</span>(world, -subregion, -area_km2)
 <span class="kw">head</span>(world3, <span class="dt">n =</span> <span class="dv">2</span>)</code></pre></div>
-<p>The <code>select()</code> function can be also used to both subset and renames columns in a single line, for example:</p>
+<p>The <code>select()</code> function can be also used to both subset and rename columns in a single line, for example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world4 =<span class="st"> </span><span class="kw">select</span>(world, name_long, <span class="dt">population =</span> pop)
 <span class="kw">head</span>(world4, <span class="dt">n =</span> <span class="dv">2</span>)
 <span class="co">#&gt; Simple feature collection with 2 features and 2 fields</span>
@@ -302,11 +302,59 @@ world3 =<span class="st"> </span><span class="kw">select</span>(world, -subregio
 <p>This is more concise than the base R equivalent (which saves the result as an object called <code>world5</code> to avoid overriding the <code>world</code> dataset created previously):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world5 =<span class="st"> </span>world[<span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span>, <span class="st">&quot;pop&quot;</span>)] <span class="co"># subset columns by name</span>
 <span class="kw">names</span>(world5)[<span class="dv">3</span>] =<span class="st"> &quot;population&quot;</span> <span class="co"># rename column manually</span></code></pre></div>
-<p>The <code>select()</code> function works with a number of special functions that help with more complicated selection. More details could be find on the function help page - <code>?select</code>.</p>
+<p>The <code>select()</code> function works with a number of special functions that help with more complicated selection, such as <code>contains()</code>, <code>starts_with()</code>, <code>num_range()</code>. More details could be find on the function help page - <code>?select</code>.</p>
 <p>The <code>filter()</code> function is a <strong>dplyr</strong> alternative to the <code>subset()</code> function. Its role is to keeps rows matching given criteria.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># only countries with a life expectation larger than 82 years</span>
 world6 =<span class="st"> </span><span class="kw">filter</span>(world, lifeExp &gt;<span class="st"> </span><span class="dv">82</span>)</code></pre></div>
-<p>The standard set of comparison operators can be used in the <code>filter()</code> function: <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&amp;</code>, <code>|</code>. <!-- todo - describe these: ==, !=, >, >=, <, <=, &, | --> <!-- more examples --></p>
+<p>The standard set of comparison operators can be used in the <code>filter()</code> function:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Symbol</th>
+<th align="left">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>==</code></td>
+<td align="left">Equal to</td>
+</tr>
+<tr class="even">
+<td align="left"><code>!=</code></td>
+<td align="left">Not equal to</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>&gt;</code></td>
+<td align="left">Greater than</td>
+</tr>
+<tr class="even">
+<td align="left"><code>&gt;=</code></td>
+<td align="left">Greater than or equal</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>&lt;</code></td>
+<td align="left">Less than</td>
+</tr>
+<tr class="even">
+<td align="left"><code>&lt;=</code></td>
+<td align="left">Less than or equal</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>&amp;</code></td>
+<td align="left">And</td>
+</tr>
+<tr class="even">
+<td align="left">|</td>
+<td align="left">Or</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>!</code></td>
+<td align="left">Not</td>
+</tr>
+</tbody>
+</table>
+<!-- todo - describe these: ==, !=, >, >=, <, <=, &, | -->
+<!-- more examples -->
 <p>The <em>pipe</em> operator (<code>%&gt;%</code>), which passes the output of one function into the first argument of the next function, is commonly used in <strong>dplyr</strong> data analysis workflows. This works because the fundamental <strong>dplyr</strong> functions (or ‘verbs’, like <code>select()</code>) all take a data frame object in and spit a data frame object out. Combining many functions together with pipes is called <em>chaining</em> or <em>piping</em>. The advantage over base R for complex data processing operations is that this approach prevents nested functions and is easy to read because there is a clear order and modularity to the work (a piped command can be commented out, for example).</p>
 <p>The example below shows yet another way of creating the renamed <code>world</code> dataset, using the pipe operator:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world7 =<span class="st"> </span>world %&gt;%
@@ -476,7 +524,7 @@ north_america
 <span class="co">#&gt; 2     GL     Greenland MULTIPOLYGON(((-46.76379 82...</span>
 <span class="co">#&gt; 3     US United States MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(north_america[<span class="dv">0</span>])</code></pre></div>
-<p><img src="figures/unnamed-chunk-28-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-29-1.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wb_north_america =<span class="st"> </span>worldbank_df %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(name %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;United States&quot;</span>)) %&gt;%
 <span class="st">  </span><span class="kw">select</span>(name, iso_a2, urban_pop, <span class="dt">unemploy =</span> unemployment)
@@ -565,7 +613,7 @@ right_join1
 <span class="co">#&gt; 3     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <p>You can see that the new object <code>right_join1</code> has information about Mexico, but drop information about Greenland. What’s more, our right object, as a <code>data.frame</code>, doesn’t have a geometry representation of Mexico. As a result, the <code>right_join1</code> object contains only non-spatial data of Mexico. It could be easily illustrated using the <code>plot</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(right_join1[<span class="dv">0</span>]) <span class="co"># Canada and United States only</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-34-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-35-1.png" width="576" style="display: block; margin: auto;" /></p>
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
 <!-- right_join2 = wb_north_america %>%  -->
@@ -631,7 +679,7 @@ anti_join1
 <span class="co">#&gt;   iso_a2 name_long                           geom</span>
 <span class="co">#&gt; 1     GL Greenland MULTIPOLYGON(((-46.76379 82...</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(anti_join1[<span class="dv">0</span>])</code></pre></div>
-<p><img src="figures/unnamed-chunk-38-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-39-1.png" width="576" style="display: block; margin: auto;" /></p>
 <!-- ```{r} -->
 <!-- anti_join2 = wb_north_america %>%  -->
 <!--   anti_join(north_america, by = "iso_a2") -->
