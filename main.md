@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve1601c149a47d08f2
+preserve120e07de5eb840ca
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -832,7 +832,7 @@ summary(world)
 ```
 
 This function works well to get a quick glimpse of data in an interactive mode.
-The `summary()` function, hovewer, should not be used to create new objects and is not very customizable.
+The `summary()` function, however, should not be used to create new objects and is not very customizable.
 `summarise()` from the `dplyr` package can be used as an alternative.
 In this function, we need to define what kind of statistics and for which variables we want to calculate.
 For example, we could calculate the world's population and number of countries:
@@ -1855,7 +1855,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.28
+#> [1] 2.29
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1871,7 +1871,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.08
+#> [1] 3.18
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1971,13 +1971,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.070
+#>   0.064   0.000   0.066
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.013
+#>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.030
+#>   0.024   0.004   0.029
 ```
 
 
