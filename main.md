@@ -151,7 +151,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve943ba15fe02bc457
+preservec28d38d9a448639d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -236,17 +236,16 @@ vignette("sf3") # for manipulating Simple Features
 ```
 
 As the first vignette explains, simple feature objects in R are stored in a data frame, with geographic data occupying special column, a 'list-column'. This column is usually named 'geom' or 'geometry'.
-Let's see how simple features in R work, with reference to world boundary data from the **spData** package:
+A 'real world' example is loaded by the **spData** package, which loads the `world` object:
 
 
 ```r
 library(spData)
-class(world)
+data("world")
 ```
 
 In the above code **spData** silently loaded the `world` dataset (and many other spatial datasets - see [nowosad/spData](https://github.com/Nowosad/spData) for a full list).
-The function `class()` tells us that the object is simultaneously of class `data.frame` and `sf`, central to the concept of simple features.
-Thus the object behaves in the same way as a `data.frame`, but it contains a special column called `geom`.
+The dataset contains spatial and non-spatial information, as shown by the function `names()`, which reports the column headings in data frames. 
 This can be seen as the final column name of `world`:
 
 
@@ -412,7 +411,7 @@ plot(world_centroids, add = TRUE, cex = world$pop / 1e8, lwd = 3)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="figures/africa-1.png" alt="Centroids representing country population, diameter being proportional to population." width="50%" />
+<img src="figures/africa-1.png" alt="Centroids representing country population, diameter being proportional to population." width="576" />
 <p class="caption">(\#fig:africa)Centroids representing country population, diameter being proportional to population.</p>
 </div>
 
@@ -529,18 +528,17 @@ data("worldbank_df")
 ## Introduction
 
 Attribute data is non-geographic information associated with geographical data.
-In the context of simple features, introduced in the previous chapter, this means a tabular data joined onto the `geometry` variables of `sf` objects.
+In the context of simple features, introduced in the previous chapter, this means a data frame with one row for each of the geographic features stored in the `geom` variables of `sf` objects.
 This structure enables multiple columns to represent a range of attributes for thousands of features (one row per feature).
 
 There is a strong overlap between geographical and non-geographical operations:
-non-spatial subset, aggregate and join operations each have their geographical equivalents.
-For this reason this chapter provides the foundation for next (chapter \@ref(spatial-data-operations)).
-The two chapters share the same structure and input data; it is recommended that they are read together.
+non-spatial subset, aggregate and join each have their geographical equivalents.
+This chapter therefore provides the foundation for next (chapter \@ref(spatial-data-operations)) in terms of structure and input data.
+The non-spatial versions of these methods are widely used and (using functions such as `filter()` and `[`) cross-transferable to the trickier tasks of spatial data operations.
 
-The non-spatial versions of these methods are common and easy to understand with R, so they are covered first.
-The methods are largely cross-transferable to the trickier tasks of spatial data operations, so pay attention!
-
-Simple features are represented as objects, such as `world`, with class `sf` in the **sf** package:
+Simple features are represented with class `sf`, defined in the **sf** package.
+This is shown in the result of the function `class()` applied to the `world` object:
+Thus the object behaves in the same way as a `data.frame`, but it contains a special column called `geom`.
 
 
 ```r
@@ -548,11 +546,18 @@ class(world)
 #> [1] "sf"         "data.frame"
 ```
 
-The output shows that `sf` objects have two classes (`sf` and `data.frame`), meaning that are essentially data frames.
-Using data frames, the basic class used for data analysis in R, particularly within [the **tidyverse** package ecosystem](http://tidyverse.org/), has many advantages when it comes to attribute data operations.
-It means that all the accumulated know-how in the R community for handling data frames to be applied to geographic data which contain attributes.
+The output shows that `sf` objects actually have two classes, `sf` and `data.frame`. 
+This duality is central to the concept of simple features:
+most of the time `sf` can be treated as and behave like `data.frame`s.
+Simple features are, in essence, data frames with a spatial extension.
 
-This 'world' dataset contains 10 non-geographical variables (and one geometry column) with data for almost 200 countries, as can be ascertained using base functions for working with tabular data:
+The trusty `data.frame` (and extensions to it such as the `tibble` class used in the tidyverse) is a workhorse for data analysis in R.
+Extending this system to work with spatial data has many advantages,
+meaning that all the accumulated know-how in the R community for handling data frames to be applied to geographic data which contain attributes.
+
+Before proceeding to perform various attribute operations of a dataset, it is worth taking time to think about its basic parameters.
+In this case, the  `world` object contains 10 non-geographical columns (and one geometry list-column) with data for almost 200 countries.
+This can be be checked using base R functions for working with tabular data such as `nrow()` and `ncol()`:
 
 
 ```r
@@ -568,36 +573,27 @@ Extracting the attribute data of an `sf` object is the same as removing the geom
 
 
 ```r
-world_df = world
-st_geometry(world_df) = NULL
+world_df = st_set_geometry(world, NULL)
 class(world_df)
 #> [1] "data.frame"
 ```
 
-This can be useful if the geometry column causes problem, e.g. by occupying large amounts of RAM.
-However, for most cases there is no harm in keeping the geometry column, as data frame operations on `sf` will only act on the attribute data.
+This can be useful if the geometry column causes problems, e.g. by occupying large amounts of RAM, or when you want to save the non-spatial data.
+For most cases, however, there is no harm in keeping the geometry column because non-spatial data operations on `sf` objects act only on the attribute data.
 For this reason, being good at working with attribute data in geographic data is the same being proficient at handling data frames in R.
-For many applications, the most effective and intuitive way to work with data frames is with the **dplyr** package.
-
-## Base vs data.table vs dplyr
-
-Simple feature objects of class `sf` behave exactly the same as `data.frame` objects for most base R operations.
-Unlike objects of class `Spatial` defined by the **sp** package, `sf` objects are also compatible with **dplyr** and **data.table** packages.
-This is an advantage because they provide fast functions for data manipulation.
-
-Which method you use is largely a matter of preference.
-In this chapter the focus is largely on **dplyr** because of it's intuitive function names and its ability to perform multiple chained operations using the pipe operator.
-The important thing is that you select a data processing paradigm of choice, and master it.
+For many applications, the most effective and intuitive way of working with data frames is with the **dplyr** package, as we will see in the next
+section.^[
+Unlike objects of class `Spatial` defined by the **sp** package, `sf` objects are also compatible with **dplyr** and **data.table** packages, which provide fast and powerful functions for data manipulation (see [Section 6.7](https://csgillespie.github.io/efficientR/data-carpentry.html#data-processing-with-data.table) of @gillespie_efficient_2016).
+This chapter focusses on **dplyr** because of its intuitive function names and ability to perform multiple chained operations using the pipe operator.]
 
 ## Attribute subsetting
 
 <!-- info about pull (dplyr 0.6): -->
 <!-- https://github.com/tidyverse/dplyr/commit/0b9aabf6c06c9cd3b784b155044d497d4b93df3e -->
-Every simple feature object of class `sf` has a `data.frame` part. 
-Therefore, you can use all of the base R functions for attribute subsetting or apply one of many external packages (such as `dplyr`) for subset the attributes.
-Standard functions include `[]`, `$`, and `subset()`.
-They could be replaced by the `dplyr` verbs, such as `select()`, `filter()`, and `pull()`.
-It is important to remember that most of the functions preserve the geometry column.
+Because simple feature objects are also data frames, you can use a wide range of functions (from base R and packages) for subsetting them, based on attribute data.
+Base R subsetting functions include `[]`, `$`, and `subset()`.
+**dplyr** subsetting functions include `slice()`, `select()` and `filter()`.
+Most of the functions preserve the geometry column.
 
 You can use the `[]` operator to subset rows and columns. 
 Two arguments are required, one for rows (observations) and one for columns (variables), e.g. [rows, columns].
@@ -1577,7 +1573,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.39
+#> [1] 2.4
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1593,7 +1589,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.01
+#> [1] 3.14
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1693,13 +1689,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.004   0.068
+#>   0.064   0.000   0.065
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.013
+#>   0.016   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.030
+#>   0.024   0.004   0.027
 ```
 
 
