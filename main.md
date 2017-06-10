@@ -149,7 +149,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve37533916c056b7e3
+preserve9a87fd5ee7986e69
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1334,7 +1334,28 @@ library(spData)
 
 ## Introduction
 
+<!-- references to the previos chapter -->
+<!-- short description to the next sections -->
+<!-- should be done after the first draft of the next sections -->
+<!-- Note about that datasets should have the same projections -->
+
 ## Spatial subsetting
+
+<!-- https://github.com/edzer/sfr/wiki/migrating#relevant-commands-exported-by-rgeos -->
+<!-- Relations and inverse relations -->
+<!-- http://desktop.arcgis.com/en/arcmap/latest/extensions/data-reviewer/types-of-spatial-relationships-that-can-be-validated.htm -->
+<!-- Topological relations: -->
+<!-- - equals -->
+<!-- - disjoin  -->
+<!-- - intersects -->
+<!-- - touches -->
+<!-- - contains -->
+<!-- - covers -->
+<!-- - coveredby -->
+<!-- - within -->
+<!-- Distance relations -->
+<!-- Subset (1) points in polygons <-> (2) -->
+<!-- Spatial clipping -->
 
 ### Spatial clipping
 
@@ -1385,7 +1406,6 @@ To illustrate the relationship between subsetting and clipping spatial data, we 
 Some points will be inside just one circle, some will be inside both and some will be inside neither.
 To generate the points will use a function not yet covered in this book, `st_sample()`.
 
-
 There are two different ways to subset points that fit into combinations of the circles: via clipping and logical operators.
 But first we must generate some points.
 We will use the *simple random* sampling strategy to sample from a box representing the extent of `x` and `y`, using the code below to generate the situation plotted in Figure \@ref(fig:venn-subset):
@@ -1411,10 +1431,6 @@ text(x = c(-0.5, 1.5), y = 1, labels = l)
 
 
 
-
-
-
-
 ### Exercises
 
 Write code that subsets points that are contained within `x` *and* `y` (illustrated by the plot in the 2^nd^ row and the 1^st^ column in Figure \@ref(fig:venn-clip)).
@@ -1422,7 +1438,6 @@ Write code that subsets points that are contained within `x` *and* `y` (illustra
 - Create a randomly located point with the command `st_point()` (refer back to section \@ref(sfg) to see how to create spatial data 'from scratch').
 
 scattered points with the command 
-
 
 <!-- TODO? create a series of polygons distributed evenly over the surface of the Earth and clip them. -->
 
@@ -1433,12 +1448,27 @@ scattered points with the command
 <!-- plot(blobs) -->
 <!-- ``` -->
 
-
 ## Spatial data aggregation 
+
+<!-- - `aggregate.sf()` - aggregate an sf object, possibly union-ing geometries -->
+<!-- - disaggregation?? `st_cast()` - https://github.com/edzer/sfr/wiki/migrating -->
+<!-- - `group_by()` + `summarise()` - potential errors -->
+<!-- - ? generalization **rmapsharper** - https://github.com/ateucher/rmapshaper -->
+<!-- `st_union` -->
 
 ## Spatial data joining 
 
+<!-- e.g. two point's datasets (non-overlapping) -->
+<!-- e.g. two point's datasets (overlapping) -->
+<!-- ? topological problems of joining lines/polygons? -->
+<!-- joining different types (e.g. points + polygons = geometry) -> save as GPKG? -->
+<!-- `merge()`; `st_interpolate_aw()` -->
+
 ## Spatial data creation
+
+<!-- where should "area" example be? in this or the previous chapter? -->
+`st_centroid()`
+`st_buffer()`
 
 
 ```r
@@ -1491,6 +1521,10 @@ These can be set to `NULL` as follows:
 attributes(world$area) = NULL
 attributes(world$pop_density) = NULL
 ```
+
+
+<!-- ## Spatial data transformation -->
+<!-- changes classes; polygonize, etc-->
 
 <!--chapter:end:04-spatial-operations.Rmd-->
 
@@ -1573,7 +1607,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.16
+#> [1] 2.26
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1589,7 +1623,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.11
+#> [1] 3.28
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1689,13 +1723,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.068
+#>   0.080   0.004   0.084
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.014
+#>    0.02    0.00    0.02
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.031
+#>   0.024   0.020   0.042
 ```
 
 

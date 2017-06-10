@@ -231,9 +231,28 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="introduction-1" class="section level2">
 <h2><span class="header-section-number">4.1</span> Introduction</h2>
+<!-- references to the previos chapter -->
+<!-- short description to the next sections -->
+<!-- should be done after the first draft of the next sections -->
+<!-- Note about that datasets should have the same projections -->
 </div>
 <div id="spatial-subsetting" class="section level2">
 <h2><span class="header-section-number">4.2</span> Spatial subsetting</h2>
+<!-- https://github.com/edzer/sfr/wiki/migrating#relevant-commands-exported-by-rgeos -->
+<!-- Relations and inverse relations -->
+<!-- http://desktop.arcgis.com/en/arcmap/latest/extensions/data-reviewer/types-of-spatial-relationships-that-can-be-validated.htm -->
+<!-- Topological relations: -->
+<!-- - equals -->
+<!-- - disjoin  -->
+<!-- - intersects -->
+<!-- - touches -->
+<!-- - contains -->
+<!-- - covers -->
+<!-- - coveredby -->
+<!-- - within -->
+<!-- Distance relations -->
+<!-- Subset (1) points in polygons <-> (2) -->
+<!-- Spatial clipping -->
 <div id="spatial-clipping" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Spatial clipping</h3>
 <p>Spatial clipping is a form of spatial subsetting that involves changes to the <code>geometry</code> columns of at least some of the affected features.</p>
@@ -300,12 +319,24 @@ Figure 4.3: Randomly distributed points within the bounding box enclosing circle
 </div>
 <div id="spatial-data-aggregation" class="section level2">
 <h2><span class="header-section-number">4.3</span> Spatial data aggregation</h2>
+<!-- - `aggregate.sf()` - aggregate an sf object, possibly union-ing geometries -->
+<!-- - disaggregation?? `st_cast()` - https://github.com/edzer/sfr/wiki/migrating -->
+<!-- - `group_by()` + `summarise()` - potential errors -->
+<!-- - ? generalization **rmapsharper** - https://github.com/ateucher/rmapshaper -->
+<!-- `st_union` -->
 </div>
 <div id="spatial-data-joining" class="section level2">
 <h2><span class="header-section-number">4.4</span> Spatial data joining</h2>
+<!-- e.g. two point's datasets (non-overlapping) -->
+<!-- e.g. two point's datasets (overlapping) -->
+<!-- ? topological problems of joining lines/polygons? -->
+<!-- joining different types (e.g. points + polygons = geometry) -> save as GPKG? -->
+<!-- `merge()`; `st_interpolate_aw()` -->
 </div>
 <div id="spatial-data-creation" class="section level2">
 <h2><span class="header-section-number">4.5</span> Spatial data creation</h2>
+<!-- where should "area" example be? in this or the previous chapter? -->
+<p><code>st_centroid()</code> <code>st_buffer()</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add a new column</span>
 world$area =<span class="st"> </span><span class="kw">set_units</span>(<span class="kw">st_area</span>(world), <span class="dt">value =</span> km^<span class="dv">2</span>)
 world$pop_density =<span class="st"> </span>world$pop /<span class="st"> </span>world$area
@@ -344,6 +375,8 @@ world =<span class="st"> </span>world %&gt;%
 <p>These can be set to <code>NULL</code> as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attributes</span>(world$area) =<span class="st"> </span><span class="ot">NULL</span>
 <span class="kw">attributes</span>(world$pop_density) =<span class="st"> </span><span class="ot">NULL</span></code></pre></div>
+<!-- ## Spatial data transformation -->
+<!-- changes classes; polygonize, etc-->
 
 </div>
 </div>
