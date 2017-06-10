@@ -149,7 +149,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee6cbc6c1e6b13619
+preserve37533916c056b7e3
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -163,33 +163,13 @@ But before cracking-on with the action, a few introductory remarks are needed to
 
 ## R's spatial ecosystem
 
-<!-- Ideas here on the history please @nowosad! -->
-<!-- short S story - an interface to Fortran and C -->
-<!-- even shorter R story - it's rapid development -->
-<!-- nowadays R - an interface to GIS (GIS libraries gdal, proj, geos; GIS software GRASS GIS, SAGA, QGIS, ArcGIS; GIS javascript libraries leaflet, etc.) -->
-
-<!-- R spatial story (from spatstat, by maptools, sp, raster, leaflet, to sf) -->
+<!-- paragraphs (with references to chapters in the book): -->
+<!-- 1. this book focus -> sf + raster/stars + leaflet/mapview (the recent state of spatial R); the history of R spatial is way longer -->
+<!-- 2. R spatial story (from spatstat, by maptools, sp, raster, leaflet, to sf) -->
+<!-- 3. short S story - an interface to Fortran and C -> nowodays R is an interface to many programming languages C, Fortran, C++, JavaScript, Go; R - an interface to libraries gdal (C/C++), proj (C), geos (C++) -->
+<!-- 4. R also as an interface to GIS software GRASS GIS, SAGA, QGIS, ArcGIS (calls from R and from the software) + GIS javascript libraries leaflet; reference to the CLI/GUI integration chapter -->
 
 The most important recent evolution in R's spatial ecosystem has without doubt been support for simple features thanks to the **sf** package [@R-sf], described in Chapter \@ref(spatial-class).
-
-<!-- 
-- r, rstudio, gdal, proj4, geos, udunits 
-- r packages sf, raster, etc.
-- datasets 
--->
-
-<!-- ## Introduction to GIS -->
-
-<!-- 
-- what's R
-- what's GIS
-- GIS data models (vector vs raster)
-- coordinate reference system - CRS
-- GIS data formats
-- GDAL, GEOS, PROJ4
-- GIS R package
-- GIS beyond R 
--->
 
 <!--chapter:end:01-introduction.Rmd-->
 
@@ -1593,7 +1573,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.36
+#> [1] 2.16
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1609,7 +1589,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.15
+#> [1] 3.11
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1709,13 +1689,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.068
+#>   0.068   0.000   0.068
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.013
+#>   0.016   0.000   0.014
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.032
+#>   0.024   0.004   0.031
 ```
 
 
