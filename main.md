@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-06-10'
+date: '2017-06-11'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -39,7 +39,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-06-10 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-06-11 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -85,7 +85,7 @@ Suggested titles were *Geography with R* and *R for GIS*, each of which has adva
 The former conveys the message that it's not just about spatial data: 
 non-spatial attribute data are inevitably interwoven with geometry data, and Geography is about more than where something is on the map.
 The latter option communicates that this is a book about using R as a *Geographic Information System* (GIS), to perform spatial operations on *geographic data* [@bivand_applied_2013].
-However, the term GIS has some negative connotations (see Table \@ref(tab:gdsl)) and fails to communicate one of R's greatest strengths:
+However, the term GIS has some negative connotations <!-- I see what you mean by negative connotations but I had to think immediately of qualitative GIS and critical GIS, i.e., scientists from the humanities criticising GIS technologies. Think of the so-called "GIS crisis", positivism, make-believe objectivity, etc.--> (see Table \@ref(tab:gdsl)) and fails to communicate one of R's greatest strengths:
 its unparalleled ability to seamlessly switch between geographic and non-geographic data processing, modeling and visualization tasks.
 
 <div class="figure" style="text-align: center">
@@ -97,24 +97,23 @@ The title was chosen because this book is about more than routine spatial data p
 What defines geocomputation as a development on previous work is the "creative and experimental use of GIS that it entails" [@longley_geocomputation:_1998].
 With geocomputation geographic data can be used in new ways.
 
-Another advantage of geocomputation that it conveys the centrality of the concept of algorithms (which can be implemented in R functions) to advanced geographical research. Geocomputation is a relatively
+Another advantage of geocomputation is that it conveys the centrality of the concept of algorithms (which can be implemented in R functions) to advanced geographical research. Geocomputation is a relatively
 young field^[Geocomputation
 has a ~30 year history dating back to the first [conference](http://www.geocomputation.org/) on the subject in 1996 (at the University of Leeds where the concept for this book was dreamt up) which was followed by a flurry of subsequent
 publications.]
 but methods published under the geocomputational banner have influenced the direction of geographical research, as we will see in subsequent chapters.
 Algorithms are powerful tools that can become highly complex.
 However, all algorithms are composed of smaller parts.
-By teaching these foundations we aim to empower you.
-Creating your own solutions to geographic data problems can feel like breaking free from the metaphorical 'glass ceiling' imposed by GUI-based proprietary geographic information systems (see Table \@ref(tab:gdsl) for a definition of GUI).
+By teaching these foundations we aim to empower you to create your own solutions to geographic data problems. This can feel like breaking free from the metaphorical 'glass ceiling' imposed by GUI-based proprietary geographic information systems (see Table \@ref(tab:gdsl) for a definition of GUI).
 
 <!-- todo: what contributions, which will we use, where in the book? -->
 
-While embracing recent developments in the field, we also wanted to pay respects the wider field of Geography, and its 2000 year history [@roller_eratosthenes_2010], of which geocomputation is a part.
+While embracing recent developments in the field, we also wanted to pay respects to the wider field of Geography, and its 2000 year history [@roller_eratosthenes_2010], of which geocomputation is a part.
 Geography has played an important role in explaining and influencing humanity's relationship with the natural world and this book aims to be a part of the 'Geographic tradition'.
 Geocomputation in this book therefore means more than simply analyzing geographic data on a computer.
 It's about trying to make research which involves making geographic data more reproducible, scientific and socially beneficial.
 This book is also part of the movement towards Geographic Data Science (GDS) which differs from GIS in several ways, some of which are outlined in Table \@ref(tab:gdsl).
-Inspired by the emphasis of GDS research on reproducibility, this book aims teach how to do geocomputation rather than just think about it.
+Inspired by the emphasis of GDS research on reproducibility, this book aims to teach how to do geocomputation rather than just think about it.
 
 
 Table: (\#tab:gdsl)Differences in emphasis between the fields of Geographic Information Systems (GIS) and Geographic Data Science (GDS).
@@ -130,7 +129,7 @@ Reproduciblility   Minimal                    Maximal
 In this book we treat R as a 'tool for the trade'.
 Early geographers used a variety of tools including rulers, compasses and sextants to advance knowledge about the world. 
 <!--nowadays part-->
-It is important to remember that while R is a powerful tool, especially when interfaced with other software such as [GDAL](http://www.gdal.org/) and [PostGIS](http://postgis.net/), other tools may be better for certain tasks.
+It is important to remember that while R is a powerful tool, especially when interfaced with other software such as [GDAL](http://www.gdal.org/) and [PostGIS](http://postgis.net/), other tools may be better for certain tasks. <!-- What exactly do you mean? Which tasks? Is there a geocomputational task for which we do not have an interface? So maybe rephrase along the lines that R is not a GIS and therefore not suited for some geoprocessing tasks but that interfaces close this gap. -->
 
 R is characterised by its flexibility, enabling geographical software developers to extend it in multiple ways.
 A good example of this is support for generating interactive maps thanks to **leaflet** [@R-leaflet], which has been subsequently built-on by **tmap** and **mapview** [@R-mapview; @R-tmap].
@@ -149,7 +148,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve9a87fd5ee7986e69
+preserve7932523187c13c86
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -169,7 +168,28 @@ But before cracking-on with the action, a few introductory remarks are needed to
 <!-- 3. short S story - an interface to Fortran and C -> nowodays R is an interface to many programming languages C, Fortran, C++, JavaScript, Go; R - an interface to libraries gdal (C/C++), proj (C), geos (C++) -->
 <!-- 4. R also as an interface to GIS software GRASS GIS, SAGA, QGIS, ArcGIS (calls from R and from the software) + GIS javascript libraries leaflet; reference to the CLI/GUI integration chapter -->
 
+
+<!-- 
+- r, rstudio, gdal, proj4, geos, udunits 
+- r packages sf, raster, etc.
+- datasets 
+-->
+
+<!-- ## Introduction to GIS -->
+
+<!-- 
+- what's R
+- what's GIS
+- GIS data models (vector vs raster)
+- coordinate reference system - CRS
+- GIS data formats
+- GDAL, GEOS, PROJ4
+- GIS R package
+- GIS beyond R 
+-->
+
 The most important recent evolution in R's spatial ecosystem has without doubt been support for simple features thanks to the **sf** package [@R-sf], described in Chapter \@ref(spatial-class).
+
 
 <!--chapter:end:01-introduction.Rmd-->
 
@@ -1607,7 +1627,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.26
+#> [1] 2.31
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1623,7 +1643,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.28
+#> [1] 3.2
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1723,13 +1743,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.080   0.004   0.084
+#>   0.064   0.000   0.067
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.02    0.00    0.02
+#>   0.016   0.000   0.014
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.020   0.042
+#>   0.012   0.016   0.030
 ```
 
 
