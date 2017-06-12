@@ -705,13 +705,12 @@ world_new$pop_dens =<span class="st"> </span>world_new$pop /<span class="st"> </
 <p>The difference between <code>mutate()</code> and <code>transmute()</code> is that the latter do not preserve existing columns:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">transmute</span>(<span class="dt">pop_dens =</span> pop /<span class="st"> </span>area_km2)</code></pre></div>
-<!-- unite ?? -->
-<!-- https://github.com/edzer/sfr/issues/378 -->
-<!-- ```{r} -->
-<!-- world %>%  -->
-<!--   unite(con_reg, continent:region_un, sep = ":") -->
-<!-- ``` -->
-<!-- separate -->
+<p>Existing columns could be also paste together using <code>unite()</code>. For example, we want to stick together <code>continent</code> and <code>region_un</code> columns into a new <code>con_reg</code> column. We could specify a separator to use between values and if input columns should be removed:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_unite =<span class="st"> </span>world %&gt;%
+<span class="st">  </span><span class="kw">unite</span>(con_reg, continent:region_un, <span class="dt">sep =</span> <span class="st">&quot;:&quot;</span>, <span class="dt">remove =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>The <code>separate()</code> function is the complement of the <code>unite()</code> function. Its role is to split one column into multiple columns using either a regular expression or character position.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_separate =<span class="st"> </span>world_unite %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">separate</span>(con_reg, <span class="kw">c</span>(<span class="st">&quot;continent&quot;</span>, <span class="st">&quot;region_un&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;:&quot;</span>)</code></pre></div>
 <p>Two helper functions, <code>rename()</code> and <code>set_names</code> can be used to change columns names. The first one, <code>rename()</code> replace an old name with a new one. For example, we want to change a name of column from <code>name_long</code> to <code>name</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">rename</span>(<span class="dt">name =</span> name_long)</code></pre></div>

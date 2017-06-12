@@ -148,7 +148,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea9f76488eeb295eb
+preserveae30377188473eb9
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -755,7 +755,6 @@ The following code chunk, for example, selects the 3^rd^ to 5^th^ rows:
 slice(world, 3:5)
 ```
 
-
 `filter()` is **dplyr**'s equivalent of base R's `subset()` function.
 It keeps only rows matching given criteria, e.g. only countries with a very high average life expectancy:
 
@@ -1305,15 +1304,26 @@ world %>%
   transmute(pop_dens = pop / area_km2)
 ```
 
-<!-- unite ?? -->
-<!-- https://github.com/edzer/sfr/issues/378 -->
+Existing columns could be also paste together using `unite()`. 
+For example, we want to stick together `continent` and `region_un` columns into a new `con_reg` column.
+We could specify a separator to use between values and if input columns should be removed:
 
-<!-- ```{r} -->
-<!-- world %>%  -->
-<!--   unite(con_reg, continent:region_un, sep = ":") -->
-<!-- ``` -->
 
-<!-- separate -->
+```r
+world_unite = world %>%
+  unite(con_reg, continent:region_un, sep = ":", remove = TRUE)
+```
+
+The `separate()` function is the complement of the `unite()` function.
+Its role is to split one column into multiple columns using either a regular expression or character position.
+
+
+```r
+world_separate = world_unite %>% 
+  separate(con_reg, c("continent", "region_un"), sep = ":")
+```
+
+
 
 Two helper functions, `rename()` and `set_names` can be used to change columns names.
 The first one, `rename()` replace an old name with a new one.
@@ -1743,7 +1753,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.16
+#> [1] 2.39
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1759,10 +1769,10 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.51
+#> [1] 2.96
 ```
 
-In this case **sf** was around 4 times faster than **rgdal**.
+In this case **sf** was around 3 times faster than **rgdal**.
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
 
@@ -1859,13 +1869,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.071
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.012   0.000   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.025
+#>   0.020   0.008   0.029
 ```
 
 
