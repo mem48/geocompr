@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-06-11">
+<meta name="date" content="2017-06-12">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -256,7 +256,19 @@ Figure 2.1: A spatial plot of the world using the sf package, with a facet for e
 </p>
 </div>
 <p>Note that instead of creating a single map, as most GIS programs would, the <code>plot()</code> command has created multiple maps, one for each variable in the <code>world</code> datasets. This behavior can be useful for exploring the spatial distribution of different variables and is discussed further in @(basic-map) below.</p>
-<p>Being able to treat spatial objects as regular data frames with spatial powers has many advantages, especially if you are already used to working with data frames. We explore such ‘attribute operations’ in Chapter <a href="attr.html#attr">3</a>. First, it’s worth taking a look at the basic behavior and contents of this simple feature object, which can usefully be thought of as a ’<strong>S</strong>patial data<strong>F</strong>rame).</p>
+<p>Being able to treat spatial objects as regular data frames with spatial powers has many advantages, especially if you are already used to working with data frames. The commonly used <code>summary()</code> function, for example, provides a useful overview of the variables within the <code>world</code> object, but prefixed with some information about the object’s spatial component:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(world[<span class="st">&quot;lifeExp&quot;</span>])
+<span class="co">#&gt;     lifeExp                geom    </span>
+<span class="co">#&gt;  Min.   :48.9   MULTIPOLYGON :177  </span>
+<span class="co">#&gt;  1st Qu.:64.3   epsg:4326    :  0  </span>
+<span class="co">#&gt;  Median :72.8   +proj=long...:  0  </span>
+<span class="co">#&gt;  Mean   :70.6                      </span>
+<span class="co">#&gt;  3rd Qu.:77.1                      </span>
+<span class="co">#&gt;  Max.   :83.6                      </span>
+<span class="co">#&gt;  NA&#39;s   :9</span></code></pre></div>
+<p>The result provides a quick summary of both the non-spatial and spatial data contained in <code>world</code>. The former tells us that average life expectancy for humans on planet Earth is around around 70 years (ranging from less than 50 to more than 80 years). The latter tells us that the spatial component of <code>world</code> comprises a <code>MULTIPOLYGON</code> with 177 features and a geographical (lat/lon) coordinate reference system (CRS) with an EPSG code of <code>4326</code>.</p>
+<!-- TODO: cross-reference section covering CRSs. -->
+<p>Note that by appending <code>[&quot;lifeExp&quot;]</code> onto the object name in the previous code chunk, only the relevant column was summarised. We explore such ‘attribute operations’ in Chapter <a href="attr.html#attr">3</a>. First, it’s worth taking a look at the basic behavior and contents of this simple feature object, which can usefully be thought of as a ’<strong>S</strong>patial data<strong>F</strong>rame).</p>
 <p><code>sf</code> objects are easy to subset. The code below shows its first 2 rows and 3 columns. The output shows 2 major differences compared with a regular <code>data.frame</code>: the inclusion of additional geographic data (<code>geometry type</code>, <code>dimension</code>, <code>bbox</code> and CRS information - <code>epsg (SRID)</code>, <code>proj4string</code>), and the presence of final <code>geometry</code> column:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[<span class="dv">1</span>:<span class="dv">2</span>, <span class="dv">1</span>:<span class="dv">3</span>]
 <span class="co">#&gt; Simple feature collection with 2 features and 3 fields</span>

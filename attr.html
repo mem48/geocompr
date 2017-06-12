@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-06-11">
+<meta name="date" content="2017-06-12">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -232,12 +232,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="introduction" class="section level2">
 <h2><span class="header-section-number">3.1</span> Introduction</h2>
-<p>Attribute data is non-geographic information associated with geographical data. In the context of simple features, introduced in the previous chapter, this means a data frame with one row for each of the geographic features stored in the <code>geom</code> variables of <code>sf</code> objects. This structure enables multiple columns to represent a range of attributes for thousands of features (one row per feature).</p>
-<p>There is a strong overlap between geographical and non-geographical operations: non-spatial subset, aggregate and join each have their geographical equivalents. This chapter therefore provides the foundation for next (chapter <a href="spatial-data-operations.html#spatial-data-operations">4</a>) in terms of structure and input data. The non-spatial versions of these methods are widely used and (using functions such as <code>filter()</code> and <code>[</code>) cross-transferable to the trickier tasks of spatial data operations.</p>
-<p>Simple features are represented with class <code>sf</code>, defined in the <strong>sf</strong> package. This is shown in the result of the function <code>class()</code> applied to the <code>world</code> object: Thus the object behaves in the same way as a <code>data.frame</code>, but it contains a special column called <code>geom</code>.</p>
+<p>Attribute data is non-spatial information associated with geographic data. In the context of simple features, introduced in the previous chapter, this means a data frame with a column for each variable and one row per geographic feature stored in the <code>geom</code> list-column of <code>sf</code> objects. This structure enables multiple columns to represent a range of attributes for thousands of features (one row per feature).</p>
+<p>There is a strong overlap between geographical and non-geographical operations: non-spatial subset, aggregate and join each have their geographical equivalents. This chapter therefore provides the foundation for next (chapter <a href="spatial-data-operations.html#spatial-data-operations">4</a>) in terms of structure and input data. The non-spatial versions of these methods are widely used and, using functions such as <code>[</code> from base R and <code>filter()</code> from the <strong>tidyverse</strong>, cross-transferable to the tasks of spatial data operations.</p>
+<p>As outlined in Chapter <a href="spatial-class.html#spatial-class">2</a>, support for simple features in R is provided by the <strong>sf</strong> package. <strong>sf</strong> ensures simple feature objects work well with generic R functions such as <code>plot()</code> and <code>summary()</code>. The reason for this is that simple features have their own class system:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(world)
 <span class="co">#&gt; [1] &quot;sf&quot;         &quot;data.frame&quot;</span></code></pre></div>
-<p>The output shows that <code>sf</code> objects actually have two classes, <code>sf</code> and <code>data.frame</code>. This duality is central to the concept of simple features: most of the time <code>sf</code> can be treated as and behave like <code>data.frame</code>s. Simple features are, in essence, data frames with a spatial extension.</p>
+<p>The result shows that <code>sf</code> objects actually have two classes, <code>sf</code> and <code>data.frame</code>. Simple features are simply data frames (square tables), but with spatial attributes (usually stored in a special <code>geom</code> list-column in the data frame). This duality is central to the concept of simple features: most of the time a <code>sf</code> can be treated as and behaves like a <code>data.frame</code>. Simple features are, in essence, data frames with a spatial extension.</p>
 <p>The trusty <code>data.frame</code> (and extensions to it such as the <code>tibble</code> class used in the tidyverse) is a workhorse for data analysis in R. Extending this system to work with spatial data has many advantages, meaning that all the accumulated know-how in the R community for handling data frames to be applied to geographic data which contain attributes.</p>
 <p>Before proceeding to perform various attribute operations of a dataset, it is worth taking time to think about its basic parameters. In this case, the <code>world</code> object contains 10 non-geographical columns (and one geometry list-column) with data for almost 200 countries. This can be be checked using base R functions for working with tabular data such as <code>nrow()</code> and <code>ncol()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(world) <span class="co"># it is a 2 dimensional object, with rows and columns</span>
@@ -246,28 +246,28 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co">#&gt; [1] 177</span>
 <span class="kw">ncol</span>(world) <span class="co"># how many columns?</span>
 <span class="co">#&gt; [1] 11</span></code></pre></div>
-<p>Extracting the attribute data of an <code>sf</code> object is the same as removing the geometry column:</p>
+<p>Extracting the attribute data of an <code>sf</code> object is the same as removing its geometry:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_df =<span class="st"> </span><span class="kw">st_set_geometry</span>(world, <span class="ot">NULL</span>)
 <span class="kw">class</span>(world_df)
 <span class="co">#&gt; [1] &quot;data.frame&quot;</span></code></pre></div>
-<p>This can be useful if the geometry column causes problems, e.g. by occupying large amounts of RAM, or when you want to save the non-spatial data. For most cases, however, there is no harm in keeping the geometry column because non-spatial data operations on <code>sf</code> objects act only on the attribute data. For this reason, being good at working with attribute data in geographic data is the same being proficient at handling data frames in R. For many applications, the most effective and intuitive way of working with data frames is with the <strong>dplyr</strong> package, as we will see in the next section.<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
+<p>This can be useful if the geometry column causes problems, e.g. by occupying large amounts of RAM, or to focus attention on the non-spatial data. For most cases, however, there is no harm in keeping the geometry column because non-spatial data operations on <code>sf</code> objects act only on the attribute data. For this reason, being good at working with attribute data in geographic data is the same being proficient at handling data frames in R. For many applications, the most effective and intuitive way of working with data frames is with the <strong>dplyr</strong> package, as we will see in the next section.<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
 </div>
 <div id="attribute-subsetting" class="section level2">
 <h2><span class="header-section-number">3.2</span> Attribute subsetting</h2>
 <!-- info about pull (dplyr 0.6): -->
 <!-- https://github.com/tidyverse/dplyr/commit/0b9aabf6c06c9cd3b784b155044d497d4b93df3e -->
-<p>Because simple feature objects are also data frames, you can use a wide range of functions (from base R and packages) for subsetting them, based on attribute data. Base R subsetting functions include <code>[</code>, <code>subset()</code> and <code>$</code>. <strong>dplyr</strong> subsetting functions include <code>select()</code>, <code>filter()</code>, and <code>pull()</code>. Most of the functions preserve the geometry column.</p>
-<p>You can use the <code>[</code> operator to subset rows and columns. Two arguments are required, one for rows (observations) and one for columns (variables), e.g. [rows, columns]. These arguments could be either numeric, which indicates a position, or character, which indicates a name of row or column.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[<span class="dv">1</span>:<span class="dv">6</span>, ] <span class="co"># subset rows by position</span></code></pre></div>
+<p>Because simple feature objects are also data frames, you can use a wide range of functions (from base R and packages) for subsetting them, based on attribute data. Base R subsetting functions include <code>[</code>, <code>subset()</code> and <code>$</code>. <strong>dplyr</strong> subsetting functions include <code>select()</code>, <code>filter()</code>, and <code>pull()</code>. Both sets of functions preserve the spatial components of the data.</p>
+<p>The <code>[</code> operator subsets rows and columns. It requires two arguments, one for rows (observations) and one for columns (variables), and is appended to the object name, e.g. <code>object[rows, columns]</code>, which can be either numeric, indicating position, or character, indicating row or column names. Leaving an argument empty returns all, meaning <code>object[rows,]</code> returns just the rows of interest for all columns. This functionality is demonstrated below (results not shown - try running this on your own computer to check the output is as expected):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[<span class="dv">1</span>:<span class="dv">6</span>,] <span class="co"># subset rows by position</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[, <span class="dv">1</span>:<span class="dv">3</span>] <span class="co"># subset columns by position</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[, <span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span>, <span class="st">&quot;lifeExp&quot;</span>)] <span class="co"># subset columns by name</span></code></pre></div>
-<p>You can also subset a <code>sf</code> object based on a given condition using (surprise, surprise…) the <code>subset()</code> function:</p>
+<p>You can also subset using the base R <code>subset()</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">small_countries =<span class="st"> </span><span class="kw">subset</span>(world, area_km2 &lt;<span class="st"> </span><span class="dv">10000</span>)</code></pre></div>
 <p>The <code>$</code> operator retrieves a variable by its name and returns a vector:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world$name_long</code></pre></div>
 <!-- , after the package has been loaded: [or - it is a part of tidyverse] -->
-<p><strong>dplyr</strong> makes working with data frames easier and is compatible with <code>sf</code> objects. The main <strong>dplyr</strong> functions that help with attribute subsetting are <code>select()</code>, <code>filter()</code> and <code>pull()</code>.</p>
-<p>The <code>select()</code> function picks columns by its name. For example, you could select only two columns - <code>name_long</code> and <code>pop</code>:</p>
+<p><strong>dplyr</strong> makes working with data frames easier and is compatible with <code>sf</code> objects. The main <strong>dplyr</strong> functions that help with attribute subsetting are <code>select()</code>, <code>slice()</code>, <code>filter()</code> and <code>pull()</code>.</p>
+<p>The <code>select()</code> function picks columns by name or position. For example, you could select only two columns, <code>name_long</code> and <code>pop</code>, with the following command:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world1 =<span class="st"> </span><span class="kw">select</span>(world, name_long, pop)
 <span class="kw">head</span>(world1, <span class="dt">n =</span> <span class="dv">2</span>)
 <span class="co">#&gt; Simple feature collection with 2 features and 2 fields</span>
@@ -279,14 +279,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co">#&gt;     name_long      pop                           geom</span>
 <span class="co">#&gt; 1 Afghanistan 31627506 MULTIPOLYGON(((61.210817091...</span>
 <span class="co">#&gt; 2      Angola 24227524 MULTIPOLYGON(((16.326528354...</span></code></pre></div>
-<p>This function gives a possibility to select a range of columns with an <code>:</code> operator or exclude some columns with an <code>-</code> operator:</p>
+<p>This function allows a range of columns to be selected using the <code>:</code> operator:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># all columns between name_long and pop (inclusive)</span>
 world2 =<span class="st"> </span><span class="kw">select</span>(world, name_long:pop)
 <span class="kw">head</span>(world2, <span class="dt">n =</span> <span class="dv">2</span>)</code></pre></div>
+<p>Specific columns can be omitted using the <code>-</code> operator:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># all columns except subregion and area_km2 (inclusive)</span>
 world3 =<span class="st"> </span><span class="kw">select</span>(world, -subregion, -area_km2)
 <span class="kw">head</span>(world3, <span class="dt">n =</span> <span class="dv">2</span>)</code></pre></div>
-<p>The <code>select()</code> function can be also used to both subset and rename columns in a single line, for example:</p>
+<p><code>select()</code> can be also used to both subset and rename columns in a single line, for example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world4 =<span class="st"> </span><span class="kw">select</span>(world, name_long, <span class="dt">population =</span> pop)
 <span class="kw">head</span>(world4, <span class="dt">n =</span> <span class="dv">2</span>)
 <span class="co">#&gt; Simple feature collection with 2 features and 2 fields</span>
@@ -302,7 +303,9 @@ world3 =<span class="st"> </span><span class="kw">select</span>(world, -subregio
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world5 =<span class="st"> </span>world[<span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span>, <span class="st">&quot;pop&quot;</span>)] <span class="co"># subset columns by name</span>
 <span class="kw">names</span>(world5)[<span class="dv">3</span>] =<span class="st"> &quot;population&quot;</span> <span class="co"># rename column manually</span></code></pre></div>
 <p>The <code>select()</code> function works with a number of special functions that help with more complicated selection, such as <code>contains()</code>, <code>starts_with()</code>, <code>num_range()</code>. More details could be find on the function help page - <code>?select</code>.</p>
-<p>The <code>filter()</code> function is a <strong>dplyr</strong> alternative to the <code>subset()</code> function. Its role is to keeps rows matching given criteria.</p>
+<p><code>slice()</code> is the equivalent of <code>select()</code> but work for rows. The following code chunk, for example, selects the 3<sup>rd</sup> to 5<sup>th</sup> rows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">slice</span>(world, <span class="dv">3</span>:<span class="dv">5</span>)</code></pre></div>
+<p><code>filter()</code> is <strong>dplyr</strong>’s equivalent of base R’s <code>subset()</code> function. It keeps only rows matching given criteria, e.g. only countries with a very high average life expectancy:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># only countries with a life expectation larger than 82 years</span>
 world6 =<span class="st"> </span><span class="kw">filter</span>(world, lifeExp &gt;<span class="st"> </span><span class="dv">82</span>)</code></pre></div>
 <p>The standard set of comparison operators can be used in the <code>filter()</code> function:</p>
@@ -361,7 +364,7 @@ world6 =<span class="st"> </span><span class="kw">filter</span>(world, lifeExp &
 <span class="st">  </span><span class="kw">select</span>(name_long, continent)</code></pre></div>
 <p>Note that this can also be written without the pipe operator because, in the above code, the <code>world</code> object is simply ‘piped’ into the first argument of <code>select()</code>. The equivalent <strong>dplyr</strong> code without the pipe operator is:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world8 =<span class="st"> </span><span class="kw">select</span>(world, name_long, continent)</code></pre></div>
-<p>The <code>pull()</code>function retrieves a variable by its name or position and returns a vector:</p>
+<p><code>pull()</code> retrieves a single variable by name or position and returns a vector:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">pull</span>(name_long)</code></pre></div>
 <p>The pipe operator can be used for many data processing tasks with attribute data.</p>
@@ -410,42 +413,10 @@ world_few_rows =<span class="st"> </span>world[world$pop &gt;<span class="st"> <
 <div id="attribute-data-aggregation" class="section level2">
 <h2><span class="header-section-number">3.3</span> Attribute data aggregation</h2>
 <!-- https://github.com/ropenscilabs/skimr ?? -->
-<p>The <code>summary()</code> function is used to obtain summary statistics of <code>sf</code> objects:</p>
+<p>As demonstrated in chapter <a href="spatial-class.html#intro-sf">2.1</a>, <code>summary()</code> provides summary statistics of <code>sf</code> objects (result not shown):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># data summary </span>
-<span class="kw">summary</span>(world)
-<span class="co">#&gt;     iso_a2           name_long          continent        </span>
-<span class="co">#&gt;  Length:177         Length:177         Length:177        </span>
-<span class="co">#&gt;  Class :character   Class :character   Class :character  </span>
-<span class="co">#&gt;  Mode  :character   Mode  :character   Mode  :character  </span>
-<span class="co">#&gt;                                                          </span>
-<span class="co">#&gt;                                                          </span>
-<span class="co">#&gt;                                                          </span>
-<span class="co">#&gt;                                                          </span>
-<span class="co">#&gt;   region_un          subregion             type          </span>
-<span class="co">#&gt;  Length:177         Length:177         Length:177        </span>
-<span class="co">#&gt;  Class :character   Class :character   Class :character  </span>
-<span class="co">#&gt;  Mode  :character   Mode  :character   Mode  :character  </span>
-<span class="co">#&gt;                                                          </span>
-<span class="co">#&gt;                                                          </span>
-<span class="co">#&gt;                                                          </span>
-<span class="co">#&gt;                                                          </span>
-<span class="co">#&gt;     area_km2             pop              lifeExp       gdpPercap     </span>
-<span class="co">#&gt;  Min.   :    2417   Min.   :5.63e+04   Min.   :48.9   Min.   :   566  </span>
-<span class="co">#&gt;  1st Qu.:   46185   1st Qu.:3.86e+06   1st Qu.:64.3   1st Qu.:  3502  </span>
-<span class="co">#&gt;  Median :  185004   Median :1.05e+07   Median :72.8   Median : 10740  </span>
-<span class="co">#&gt;  Mean   :  832870   Mean   :4.29e+07   Mean   :70.6   Mean   : 17379  </span>
-<span class="co">#&gt;  3rd Qu.:  621860   3rd Qu.:3.08e+07   3rd Qu.:77.1   3rd Qu.: 24375  </span>
-<span class="co">#&gt;  Max.   :16989128   Max.   :1.36e+09   Max.   :83.6   Max.   :132120  </span>
-<span class="co">#&gt;                     NA&#39;s   :9          NA&#39;s   :9      NA&#39;s   :17      </span>
-<span class="co">#&gt;             geom    </span>
-<span class="co">#&gt;  MULTIPOLYGON :177  </span>
-<span class="co">#&gt;  epsg:4326    :  0  </span>
-<span class="co">#&gt;  +proj=long...:  0  </span>
-<span class="co">#&gt;                     </span>
-<span class="co">#&gt;                     </span>
-<span class="co">#&gt;                     </span>
-<span class="co">#&gt; </span></code></pre></div>
-<p>This function role is to give a quick glimpse of data in an interactive mode. The <code>summary()</code> function, however, is not very customizable and should not be used to create new objects. <code>summarise()</code> from the <code>dplyr</code> package can be used as an alternative in these cases. In this function, we need to define what kind of statistics and for which variables we want to calculate. For example, we could calculate the world’s population and number of countries in the world:</p>
+<span class="kw">summary</span>(world)</code></pre></div>
+<p>This function usefully provides a quick glimpse of data when using R interactively, but lacks flexibility and should not be used to create new objects. The <strong>dplyr</strong> equivalent is <code>summarise()</code>, which returns summary statistics based on functions and variables defined by the user. The following code chunk, for example, calculates the total population and number of countries in the world:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># customized data summary</span>
 world_summary =<span class="st"> </span>world %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">pop =</span> <span class="kw">sum</span>(pop, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">country_n =</span> <span class="kw">n</span>())
@@ -462,7 +433,8 @@ world_summary
 <!-- ```{r} -->
 <!-- plot(world_summary) -->
 <!-- ``` -->
-<p>The list of useful functions could be find in the helpfile of this function - <code>?summarise</code>. The whole power of <code>summarise()</code> is revealed when it is combined with the <code>group_by()</code> function. This allow to summary requested subsets of data. For example, we want to get the total population and number of countries on every continent:</p>
+<p>A wide range of summary statistics can thus be generated by the function. A list of useful summary statistics can be found in the help page associated with the function: see <code>?summarise</code> for more information.</p>
+<p><code>summarise()</code> becomes even more powerful when combined with <code>group_by()</code>, allowing <em>per group</em> summaries, analogous to the base R function <code>aggregate()</code>. The following code chunk calculates the total population and number of countries on <em>per continent</em>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># data summary by groups</span>
 world_continents =<span class="st"> </span>world %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">group_by</span>(continent) %&gt;%<span class="st"> </span>
@@ -524,7 +496,7 @@ north_america
 <span class="co">#&gt; 2     GL     Greenland MULTIPOLYGON(((-46.76379 82...</span>
 <span class="co">#&gt; 3     US United States MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(north_america[<span class="dv">0</span>])</code></pre></div>
-<p><img src="figures/unnamed-chunk-29-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-30-1.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wb_north_america =<span class="st"> </span>worldbank_df %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(name %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;United States&quot;</span>)) %&gt;%
 <span class="st">  </span><span class="kw">select</span>(name, iso_a2, urban_pop, <span class="dt">unemploy =</span> unemployment)
@@ -597,7 +569,7 @@ left_join3
 </div>
 <div id="right-joins" class="section level3">
 <h3><span class="header-section-number">3.4.2</span> Right joins</h3>
-<p>The <code>right_join()</code> keeps all observations from the right object (<code>wb_north_america</code>), but in the same time preserves a <code>sf</code> class from the left object (<code>north_america</code>).</p>
+<p><code>right_join()</code> keeps all observations from the second object (<code>wb_north_america</code> in this case) but preserves the <code>sf</code> class from the left object (<code>north_america</code>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">right_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">right_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso_a2&quot;</span>, <span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
 right_join1
@@ -611,9 +583,9 @@ right_join1
 <span class="co">#&gt; 1     CA        Canada  29022137     6.91 MULTIPOLYGON(((-63.6645 46....</span>
 <span class="co">#&gt; 2     MX        Mexico  99018446     5.25                 MULTIPOLYGON()</span>
 <span class="co">#&gt; 3     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
-<p>You can see that the new object <code>right_join1</code> has information about Mexico, but drop information about Greenland. What’s more, our right object, as a <code>data.frame</code>, doesn’t have a geometry representation of Mexico. As a result, the <code>right_join1</code> object contains only non-spatial data of Mexico. It could be easily illustrated using the <code>plot</code> function:</p>
+<p>The output shows that the result, <code>right_join1</code>, has information about Mexico, but drops information about Greenland. Furthermore, our right object, as a <code>data.frame</code>, doesn’t have a geometry representation of Mexico. As a result, the <code>right_join1</code> object contains only non-spatial data of Mexico. It could be easily illustrated using the <code>plot</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(right_join1[<span class="dv">0</span>]) <span class="co"># Canada and United States only</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-35-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-36-1.png" width="576" style="display: block; margin: auto;" /></p>
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
 <!-- right_join2 = wb_north_america %>%  -->
@@ -679,7 +651,7 @@ anti_join1
 <span class="co">#&gt;   iso_a2 name_long                           geom</span>
 <span class="co">#&gt; 1     GL Greenland MULTIPOLYGON(((-46.76379 82...</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(anti_join1[<span class="dv">0</span>])</code></pre></div>
-<p><img src="figures/unnamed-chunk-39-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-40-1.png" width="576" style="display: block; margin: auto;" /></p>
 <!-- ```{r} -->
 <!-- anti_join2 = wb_north_america %>%  -->
 <!--   anti_join(north_america, by = "iso_a2") -->
@@ -755,17 +727,9 @@ world %&gt;%<span class="st"> </span>
 </div>
 <div id="removing-spatial-information" class="section level2">
 <h2><span class="header-section-number">3.6</span> Removing spatial information</h2>
-<p>Most of the function from <strong>sf</strong> package do not drop a <code>geometry</code> column. To extract a data frame <code>st_geometry()</code> or <code>st_set_geometry()</code> function can be used.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_st =<span class="st"> </span>world
-<span class="kw">st_geometry</span>(world_st) =<span class="st"> </span><span class="ot">NULL</span>
-<span class="kw">class</span>(world_st)
-<span class="co">#&gt; [1] &quot;data.frame&quot;</span>
-
-<span class="co"># OR</span>
-
-world_st2 =<span class="st"> </span>world
-world_st2 =<span class="st"> </span>world_st2 %&gt;%<span class="st"> </span><span class="kw">st_set_geometry</span>(<span class="ot">NULL</span>)
-<span class="kw">class</span>(world_st2)
+<p>It is important to note that the attribute data operations preserve the geometry of the simple features. As mentioned at the outset of the chapter, however, it can be useful to remove the geometry. In the case of the <code>world</code> dataset we’ve been using, this can be done using <code>st_set_geometry()</code>.<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_data =<span class="st"> </span>world %&gt;%<span class="st"> </span><span class="kw">st_set_geometry</span>(<span class="ot">NULL</span>)
+<span class="kw">class</span>(world_data)
 <span class="co">#&gt; [1] &quot;data.frame&quot;</span></code></pre></div>
 
 </div>
@@ -781,6 +745,7 @@ world_st2 =<span class="st"> </span>world_st2 %&gt;%<span class="st"> </span><sp
 <ol start="4">
 <li id="fn4"><p>Unlike objects of class <code>Spatial</code> defined by the <strong>sp</strong> package, <code>sf</code> objects are also compatible with <strong>dplyr</strong> and <strong>data.table</strong> packages, which provide fast and powerful functions for data manipulation (see <a href="https://csgillespie.github.io/efficientR/data-carpentry.html#data-processing-with-data.table">Section 6.7</a> of <span class="citation">(<span class="citeproc-not-found" data-reference-id="gillespie_efficient_2016"><strong>???</strong></span>)</span>). This chapter focusses on <strong>dplyr</strong> because of its intuitive function names and ability to perform multiple chained operations using the pipe operator.<a href="attr.html#fnref4">↩</a></p></li>
 <li id="fn5"><p><a href="https://github.com/Robinlovelace/geocompr/issues/28">Note</a> NAs do not work for subsetting by inequalities in base R, hence conversion of NAs to 0s in this version)<a href="attr.html#fnref5">↩</a></p></li>
+<li id="fn6"><p>Note that <code>st_geometry(world_st) = NULL</code> also works to remove the geometry from <code>world</code> but overwrites the original object.<a href="attr.html#fnref6">↩</a></p></li>
 </ol>
 </div>
             </section>
