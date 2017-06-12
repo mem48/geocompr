@@ -148,7 +148,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve06eb86778c42dab5
+preserve44cb8d7091b31d3a
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1406,19 +1406,10 @@ library(spData)
 <!-- https://github.com/edzer/sfr/wiki/migrating#relevant-commands-exported-by-rgeos -->
 <!-- Relations and inverse relations -->
 <!-- http://desktop.arcgis.com/en/arcmap/latest/extensions/data-reviewer/types-of-spatial-relationships-that-can-be-validated.htm -->
-<!-- Topological relations: -->
-<!-- - equals -->
-<!-- - disjoin  -->
-<!-- - intersects -->
-<!-- - touches -->
-<!-- - contains -->
-<!-- - covers -->
-<!-- - coveredby -->
-<!-- - within -->
-<!-- + difference between datatypes -->
+<!-- Topological relations: + difference between datatypes -->
+<!-- ?geos_binary_pred -->
 <!-- Distance relations -->
 <!-- Subset (1) points in polygons <-> (2) -->
-<!-- Spatial clipping -->
 
 
 ```r
@@ -1430,8 +1421,16 @@ b1 = a1 * 0.5
 b2 = a2 * 0.4 + c(1, 0.5)
 b = st_sfc(b1, b2)
 
-plot(a, border = "red")
+l1 = st_linestring(x = matrix(c(0, 3, -1, 1), , 2))
+l2 = st_linestring(x = matrix(c(-1, -1, -0.5, 1), , 2))
+l = st_sfc(l1, l2)
+
+p = st_multipoint(x = matrix(c(0.5, 1, -1, 0, 1, 0.5), , 2))
+
+plot(a, border = "red", axes = TRUE)
 plot(b, border = "green", add = TRUE)
+plot(l, add = TRUE)
+plot(p, add = TRUE)
 ```
 
 <img src="figures/unnamed-chunk-4-1.png" width="576" style="display: block; margin: auto;" />
@@ -1501,7 +1500,23 @@ Crosses:
 st_crosses(a, b, sparse = FALSE)
 ```
 
-<!-- ?geos_binary_pred -->
+DE9-IM - https://en.wikipedia.org/wiki/DE-9IM
+
+
+```r
+st_relate(a, b, sparse = FALSE)
+```
+
+<!-- examples (points/polygons) -->
+<!-- examples (points/lines) -->
+<!-- examples (lines/polygons) -->
+
+### Distance relations
+
+
+```r
+st_distance(a, b)
+```
 
 ### Spatial clipping
 
@@ -1538,7 +1553,7 @@ plot(b)
 plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
 ```
 
-<img src="figures/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" />
 
 The subsequent code chunk demonstrate how this works for all combinations of the 'venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
 <!-- Todo: reference r4ds -->
@@ -1753,7 +1768,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.27
+#> [1] 2.24
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1769,7 +1784,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3
+#> [1] 3.03
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1869,13 +1884,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.072   0.000   0.072
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.004   0.030
+#>   0.012   0.012   0.026
 ```
 
 

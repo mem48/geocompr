@@ -179,8 +179,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
 <li class="chapter" data-level="4.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-subsetting"><i class="fa fa-check"></i><b>4.2</b> Spatial subsetting</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#topological-relations"><i class="fa fa-check"></i><b>4.2.1</b> Topological relations</a></li>
-<li class="chapter" data-level="4.2.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-clipping"><i class="fa fa-check"></i><b>4.2.2</b> Spatial clipping</a></li>
-<li class="chapter" data-level="4.2.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#exercises-6"><i class="fa fa-check"></i><b>4.2.3</b> Exercises</a></li>
+<li class="chapter" data-level="4.2.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#distance-relations"><i class="fa fa-check"></i><b>4.2.2</b> Distance relations</a></li>
+<li class="chapter" data-level="4.2.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-clipping"><i class="fa fa-check"></i><b>4.2.3</b> Spatial clipping</a></li>
+<li class="chapter" data-level="4.2.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#exercises-6"><i class="fa fa-check"></i><b>4.2.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-aggregation"><i class="fa fa-check"></i><b>4.3</b> Spatial data aggregation</a></li>
 <li class="chapter" data-level="4.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-joining"><i class="fa fa-check"></i><b>4.4</b> Spatial data joining</a></li>
@@ -245,19 +246,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <!-- https://github.com/edzer/sfr/wiki/migrating#relevant-commands-exported-by-rgeos -->
 <!-- Relations and inverse relations -->
 <!-- http://desktop.arcgis.com/en/arcmap/latest/extensions/data-reviewer/types-of-spatial-relationships-that-can-be-validated.htm -->
-<!-- Topological relations: -->
-<!-- - equals -->
-<!-- - disjoin  -->
-<!-- - intersects -->
-<!-- - touches -->
-<!-- - contains -->
-<!-- - covers -->
-<!-- - coveredby -->
-<!-- - within -->
-<!-- + difference between datatypes -->
+<!-- Topological relations: + difference between datatypes -->
+<!-- ?geos_binary_pred -->
 <!-- Distance relations -->
 <!-- Subset (1) points in polygons <-> (2) -->
-<!-- Spatial clipping -->
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a1 =<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(-<span class="dv">1</span>, -<span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>, -<span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="kw">c</span>(-<span class="dv">1</span>, -<span class="dv">1</span>))))
 a2 =<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>))))
 a =<span class="st"> </span><span class="kw">st_sfc</span>(a1, a2)
@@ -266,8 +258,16 @@ b1 =<span class="st"> </span>a1 *<span class="st"> </span><span class="fl">0.5</
 b2 =<span class="st"> </span>a2 *<span class="st"> </span><span class="fl">0.4</span> +<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>)
 b =<span class="st"> </span><span class="kw">st_sfc</span>(b1, b2)
 
-<span class="kw">plot</span>(a, <span class="dt">border =</span> <span class="st">&quot;red&quot;</span>)
-<span class="kw">plot</span>(b, <span class="dt">border =</span> <span class="st">&quot;green&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
+l1 =<span class="st"> </span><span class="kw">st_linestring</span>(<span class="dt">x =</span> <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">3</span>, -<span class="dv">1</span>, <span class="dv">1</span>), , <span class="dv">2</span>))
+l2 =<span class="st"> </span><span class="kw">st_linestring</span>(<span class="dt">x =</span> <span class="kw">matrix</span>(<span class="kw">c</span>(-<span class="dv">1</span>, -<span class="dv">1</span>, -<span class="fl">0.5</span>, <span class="dv">1</span>), , <span class="dv">2</span>))
+l =<span class="st"> </span><span class="kw">st_sfc</span>(l1, l2)
+
+p =<span class="st"> </span><span class="kw">st_multipoint</span>(<span class="dt">x =</span> <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, -<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.5</span>), , <span class="dv">2</span>))
+
+<span class="kw">plot</span>(a, <span class="dt">border =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">axes =</span> <span class="ot">TRUE</span>)
+<span class="kw">plot</span>(b, <span class="dt">border =</span> <span class="st">&quot;green&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
+<span class="kw">plot</span>(l, <span class="dt">add =</span> <span class="ot">TRUE</span>)
+<span class="kw">plot</span>(p, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="figures/unnamed-chunk-4-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Equals:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_equals</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
@@ -289,10 +289,18 @@ b =<span class="st"> </span><span class="kw">st_sfc</span>(b1, b2)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_touches</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p>Crosses:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crosses</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<!-- ?geos_binary_pred -->
+<p>DE9-IM - <a href="https://en.wikipedia.org/wiki/DE-9IM" class="uri">https://en.wikipedia.org/wiki/DE-9IM</a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_relate</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<!-- examples (points/polygons) -->
+<!-- examples (points/lines) -->
+<!-- examples (lines/polygons) -->
+</div>
+<div id="distance-relations" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Distance relations</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_distance</span>(a, b)</code></pre></div>
 </div>
 <div id="spatial-clipping" class="section level3">
-<h3><span class="header-section-number">4.2.2</span> Spatial clipping</h3>
+<h3><span class="header-section-number">4.2.3</span> Spatial clipping</h3>
 <p>Spatial clipping is a form of spatial subsetting that involves changes to the <code>geometry</code> columns of at least some of the affected features.</p>
 <p>Clipping can only apply to features more complex than points: lines, polygons and their ‘multi’ equivalents. To illustrate the concept we will start with a simple example: two overlapping circles with a centrepoint 1 unit away from each other and radius of 1:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b =<span class="st"> </span><span class="kw">st_sfc</span>(<span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)), <span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))) <span class="co"># create 2 points</span>
@@ -312,7 +320,7 @@ y =<span class="st"> </span>b[<span class="dv">2</span>]
 x_and_y =<span class="st"> </span><span class="kw">st_intersection</span>(x, y)
 <span class="kw">plot</span>(b)
 <span class="kw">plot</span>(x_and_y, <span class="dt">col =</span> <span class="st">&quot;lightgrey&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>) <span class="co"># color intersecting area</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>The subsequent code chunk demonstrate how this works for all combinations of the ‘venn’ diagram representing <code>x</code> and <code>y</code>, inspired by <a href="http://r4ds.had.co.nz/transform.html#logical-operators">Figure 5.1</a> of the book R for Data Science <span class="citation">(Grolemund and Wickham <a href="#ref-grolemund_r_2016">2016</a>)</span>. <!-- Todo: reference r4ds --></p>
 <div class="figure" style="text-align: center"><span id="fig:venn-clip"></span>
 <img src="figures/venn-clip-1.png" alt="Spatial equivalents of logical operators" width="576" />
@@ -340,7 +348,7 @@ Figure 4.3: Randomly distributed points within the bounding box enclosing circle
 </div>
 </div>
 <div id="exercises-6" class="section level3">
-<h3><span class="header-section-number">4.2.3</span> Exercises</h3>
+<h3><span class="header-section-number">4.2.4</span> Exercises</h3>
 <p>Write code that subsets points that are contained within <code>x</code> <em>and</em> <code>y</code> (illustrated by the plot in the 2<sup>nd</sup> row and the 1<sup>st</sup> column in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.2</a>).</p>
 <ul>
 <li>Create a randomly located point with the command <code>st_point()</code> (refer back to section <a href="spatial-class.html#sfg">2.4</a> to see how to create spatial data ‘from scratch’).</li>
