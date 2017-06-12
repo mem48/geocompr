@@ -148,7 +148,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve4cabc36c983f3094
+preserveecd701a6654ec77f
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1318,10 +1318,10 @@ world %>%
 It is important to note that the attribute data operations preserve the geometry of the simple features.
 As mentioned at the outset of the chapter, however, it can be useful to remove the geometry.
 In the case of the `world` dataset we've been using, this can be done using
-`st_set_geometry()`.^[Note that
+`st_set_geometry()`^[Note that
 `st_geometry(world_st) = NULL`
 also works to remove the geometry from `world` but overwrites the original object.
-]
+].
 
 
 ```r
@@ -1628,7 +1628,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.39
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1644,7 +1644,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.17
+#> [1] 3.4
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1744,13 +1744,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.004   0.066
+#>   0.056   0.008   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.014
+#>   0.012   0.000   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.032
+#>   0.020   0.008   0.029
 ```
 
 
