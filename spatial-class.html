@@ -219,9 +219,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">2</span> Simple features and plots</h1>
 <div id="prerequisites" class="section level2 unnumbered">
 <h2>Prerequisites</h2>
-<!--
-- classes and methods in R
--->
+<p>This chapter requires the packages <strong>sf</strong>, <strong>tidyverse</strong> and <strong>spData</strong> to be installed and loaded, e.g. via:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pkgs_02 =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;sf&quot;</span>, <span class="st">&quot;tidyverse&quot;</span>) <span class="co"># add spData when on CRAN</span>
+<span class="kw">install.packages</span>(pkgs_02)
+<span class="kw">lapply</span>(pkgs_02, <span class="dt">FUN =</span> library, <span class="dt">character.only =</span> <span class="ot">TRUE</span>)</code></pre></div>
 </div>
 <div id="intro-sf" class="section level2">
 <h2><span class="header-section-number">2.1</span> An introduction to Simple Features</h2>
@@ -244,7 +245,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co">#&gt;  [1] &quot;iso_a2&quot;    &quot;name_long&quot; &quot;continent&quot; &quot;region_un&quot; &quot;subregion&quot;</span>
 <span class="co">#&gt;  [6] &quot;type&quot;      &quot;area_km2&quot;  &quot;pop&quot;       &quot;lifeExp&quot;   &quot;gdpPercap&quot;</span>
 <span class="co">#&gt; [11] &quot;geom&quot;</span></code></pre></div>
-<p>It is the contents of this modest-looking <code>geom</code> column, gives <code>sf</code> objects their spatial powers. It’s actually a list-column, containing all the coordinates needed to plot the result as a map using the <code>plot()</code> method, the results of which are presented in Figure <a href="spatial-class.html#fig:world-all">2.1</a>.</p>
+<p>It is the contents of this modest-looking <code>geom</code> column that gives <code>sf</code> objects their spatial powers. It’s actually a list-column, containing all the coordinates needed to plot the result as a map using the <code>plot()</code> method, the results of which are presented in Figure <a href="spatial-class.html#fig:world-all">2.1</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf) <span class="co"># must be loaded to plot sf objects</span>
 <span class="co">#&gt; Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0</span>
 <span class="kw">plot</span>(world)
@@ -320,8 +321,18 @@ Figure 2.2: Plotting with sf, with multiple variables (left) and a single variab
 </p>
 </div>
 <p>As with <strong>sp</strong>, you can add layers to your maps created with <code>plot()</code>, with the argument <code>add = TRUE</code>.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> To illustrate this, and prepare for content covered in chapters <a href="attr.html#attr">3</a> and <a href="spatial-data-operations.html#spatial-data-operations">4</a> on attribute and spatial data operations, we will subset and combine countries in the <code>world</code> object, to create a single object that represents Asia:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">asia =<span class="st"> </span>world[world$continent ==<span class="st"> &quot;Asia&quot;</span>, ]
-asia =<span class="st"> </span><span class="kw">st_union</span>(asia)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="co">#&gt; Loading tidyverse: ggplot2</span>
+<span class="co">#&gt; Loading tidyverse: tibble</span>
+<span class="co">#&gt; Loading tidyverse: tidyr</span>
+<span class="co">#&gt; Loading tidyverse: readr</span>
+<span class="co">#&gt; Loading tidyverse: purrr</span>
+<span class="co">#&gt; Loading tidyverse: dplyr</span>
+<span class="co">#&gt; Conflicts with tidy packages ----------------------------------------------</span>
+<span class="co">#&gt; filter(): dplyr, stats</span>
+<span class="co">#&gt; lag():    dplyr, stats</span>
+asia =<span class="st"> </span><span class="kw">filter</span>(world, continent ==<span class="st"> &quot;Asia&quot;</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">st_union</span>()</code></pre></div>
 <p>We can now plot the Asian continent over a map of the world. Note, however, that this only works if the initial plot has only 1 layer:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(world[<span class="st">&quot;pop&quot;</span>])
 <span class="kw">plot</span>(asia, <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</code></pre></div>
@@ -331,9 +342,10 @@ asia =<span class="st"> </span><span class="kw">st_union</span>(asia)</code></pr
 - plot() function 
 - map export 
 -->
+<!-- Maybe show also somewhere that `world[0]` produces only a plot of the geometry which is rather useful if you do not want to plot a specific attribute. This way, you can for example dismiss the col = "white"-argument in your Nigeria example. -->
 <div id="challenge" class="section level3">
 <h3><span class="header-section-number">2.3.1</span> Challenge</h3>
-<p>Using <strong>sf</strong>’s <code>plot()</code> command, create a map of Nigeria in context, like the one presented in figure <a href="spatial-class.html#fig:nigeria">2.3</a>.</p>
+<p>Using <strong>sf</strong>’s <code>plot()</code> command, create a map of Nigeria in context, building on the code that creates and plots Asia above (see Figure <a href="spatial-class.html#fig:nigeria">2.3</a> for an example of what this could look like).</p>
 <ul>
 <li>Hint: this used the <code>lwd</code>, <code>main</code> and <code>col</code> arguments of <code>plot()</code>.</li>
 <li>Bonus: make the country boundaries a dotted grey line.</li>
@@ -348,9 +360,21 @@ Figure 2.3: Map of Nigeria in context illustrating sf’s plotting capabilities
 </div>
 <div id="further-work" class="section level3">
 <h3><span class="header-section-number">2.3.2</span> Further work</h3>
-<p><strong>sf</strong> makes R data objects more closely aligned to the data model used in GDAL and GEOS, in theory making spatial data operations faster. The work here provides a taster of the way that <strong>sf</strong> operates but there is much more to learn (see Chapter <a href="spatial-data-operations.html#spatial-data-operations">4</a>). There is a wealth of information that is available in the package’s vignettes: these are highly recommended.</p>
-<p>As a final exercise, we’ll see how to do a spatial overlay in <strong>sf</strong> by first converting the countries of the world into centroids and then subsetting those in Asia. Because <strong>sf</strong>’s <code>plot()</code> builds on the base <code>plot()</code> function, you have access to all the base plotting options developed for base plotting. If you are accustomed to base plotting, this will be useful, as illustrated by the variable circle sizes generated by the <code>cex</code> argument in Figure <a href="spatial-class.html#fig:africa">2.4</a>, which was generated using the code below.</p>
+<p><strong>sf</strong> makes R data objects more closely aligned to the data model used in GDAL and GEOS, in theory making spatial data operations faster. The work here provides a taste of the way <strong>sf</strong> operates but there is much more to learn (see Chapter <a href="spatial-data-operations.html#spatial-data-operations">4</a>). And there is also a wealth of information in the highly recommended vignettes of the package.</p>
+<p>As a final exercise, we’ll see one way of how to do a spatial overlay in <strong>sf</strong>. First, we convert the countries of the world into centroids, and then subset those in Asia. Finally, the <code>summary</code>-command tells us how many centroids (countries) are part of Asia (43) and how many are not (134).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_centroids =<span class="st"> </span><span class="kw">st_centroid</span>(world)
+<span class="co">#&gt; Warning in st_centroid.sfc(st_geometry(x)): st_centroid does not give</span>
+<span class="co">#&gt; correct centroids for longitude/latitude data</span>
+sel_asia =<span class="st"> </span><span class="kw">st_intersects</span>(world_centroids, asia, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)
+<span class="co">#&gt; although coordinates are longitude/latitude, it is assumed that they are planar</span>
+<span class="kw">summary</span>(sel_asia)
+<span class="co">#&gt;      V1         </span>
+<span class="co">#&gt;  Mode :logical  </span>
+<span class="co">#&gt;  FALSE:134      </span>
+<span class="co">#&gt;  TRUE :43</span></code></pre></div>
+<p>Note: another way of achieving the same result is with a GEOS function for identifying spatial overlay, which we’ll cover in more datail in Chapter <a href="spatial-data-operations.html#spatial-data-operations">4</a>.</p>
+<p>Because <strong>sf</strong>’s <code>plot()</code> builds on the base <code>plot()</code> function, you have access to all the base plotting options developed for base plotting. If you are accustomed to base plotting, this will be useful, as illustrated by the variable circle sizes generated by the <code>cex</code> argument in Figure <a href="spatial-class.html#fig:africa">2.4</a>, which was generated using the code below.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw">plot</span>(world[<span class="st">&quot;continent&quot;</span>])
 <span class="kw">plot</span>(world_centroids, <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">cex =</span> world$pop /<span class="st"> </span><span class="fl">1e8</span>, <span class="dt">lwd =</span> <span class="dv">3</span>)</code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:africa"></span>
@@ -359,14 +383,6 @@ Figure 2.3: Map of Nigeria in context illustrating sf’s plotting capabilities
 Figure 2.4: Centroids representing country population, diameter being proportional to population.
 </p>
 </div>
-<p>Note: another way of acheiving the same result is with a GEOS function for identifying spatial overlay, which we’ll cover in more datail in Chapter <a href="spatial-data-operations.html#spatial-data-operations">4</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sel_asia =<span class="st"> </span><span class="kw">st_intersects</span>(world_centroids, asia, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)
-<span class="co">#&gt; although coordinates are longitude/latitude, it is assumed that they are planar</span>
-<span class="kw">summary</span>(sel_asia)
-<span class="co">#&gt;      V1         </span>
-<span class="co">#&gt;  Mode :logical  </span>
-<span class="co">#&gt;  FALSE:134      </span>
-<span class="co">#&gt;  TRUE :43</span></code></pre></div>
 <!-- More appropriate for subsequent chapters. -->
 <!-- This shows that there are 43 countries in Asia -->
 <!-- We can check if they are the same countries as follows: -->
