@@ -727,7 +727,7 @@ world %&gt;%<span class="st"> </span>
 </div>
 <div id="removing-spatial-information" class="section level2">
 <h2><span class="header-section-number">3.6</span> Removing spatial information</h2>
-<p>It is important to note that the attribute data operations preserve the geometry of the simple features. As mentioned at the outset of the chapter, however, it can be useful to remove the geometry. In the case of the <code>world</code> dataset we’ve been using, this can be done using <code>st_set_geometry()</code><a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a>.</p>
+<p>It is important to note that the attribute data operations preserve the geometry of the simple features. As mentioned at the outset of the chapter, however, it can be useful to remove the geometry. In the case of the <code>world</code> dataset we’ve been using, this can be done using <code>st_set_geometry()</code>.<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_data =<span class="st"> </span>world %&gt;%<span class="st"> </span><span class="kw">st_set_geometry</span>(<span class="ot">NULL</span>)
 <span class="kw">class</span>(world_data)
 <span class="co">#&gt; [1] &quot;data.frame&quot;</span></code></pre></div>
