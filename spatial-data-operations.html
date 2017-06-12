@@ -374,7 +374,8 @@ Figure 4.3: Randomly distributed points within the bounding box enclosing circle
 <div id="spatial-data-creation" class="section level2">
 <h2><span class="header-section-number">4.5</span> Spatial data creation</h2>
 <!-- where should "area" example be? in this or the previous chapter? -->
-<p><code>st_centroid()</code> <code>st_buffer()</code></p>
+<!-- `st_centroid()` -->
+<!-- `st_buffer()` -->
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add a new column</span>
 world$area =<span class="st"> </span><span class="kw">set_units</span>(<span class="kw">st_area</span>(world), <span class="dt">value =</span> km^<span class="dv">2</span>)
 world$pop_density =<span class="st"> </span>world$pop /<span class="st"> </span>world$area
