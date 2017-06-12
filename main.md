@@ -148,7 +148,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservef1bc8707689c0372
+preserve2894ae5d0219c211
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1362,6 +1362,8 @@ library(spData)
 
 ## Spatial subsetting
 
+### Topological relations
+
 <!-- https://edzer.github.io/sfr/articles/sf3.html -->
 <!-- https://github.com/edzer/sfr/wiki/migrating#relevant-commands-exported-by-rgeos -->
 <!-- Relations and inverse relations -->
@@ -1375,9 +1377,93 @@ library(spData)
 <!-- - covers -->
 <!-- - coveredby -->
 <!-- - within -->
+<!-- + difference between datatypes -->
 <!-- Distance relations -->
 <!-- Subset (1) points in polygons <-> (2) -->
 <!-- Spatial clipping -->
+
+
+```r
+a1 = st_polygon(list(rbind(c(-1, -1), c(1, -1), c(1, 1), c(-1, -1))))
+a2 = st_polygon(list(rbind(c(2, 0), c(2, 2), c(3, 2), c(3, 0), c(2, 0))))
+a = st_sfc(a1, a2)
+
+b1 = a1 * 0.5
+b2 = a2 * 0.4 + c(1, 0.5)
+b = st_sfc(b1, b2)
+
+plot(a, border = "red")
+plot(b, border = "green", add = TRUE)
+```
+
+<img src="figures/unnamed-chunk-4-1.png" width="576" style="display: block; margin: auto;" />
+
+Equals:
+
+
+```r
+st_equals(a, b, sparse = FALSE)
+```
+
+Contains:
+
+
+```r
+st_contains(a, b, sparse = FALSE)
+st_contains_properly(a, b, sparse = FALSE)
+```
+
+Covers:
+
+
+```r
+st_covers(a, b, sparse = FALSE)
+st_covered_by(a, b, sparse = FALSE)
+```
+
+Whithin:
+
+
+```r
+st_within(a, b, sparse = FALSE)
+```
+
+Overlaps:
+
+
+```r
+st_overlaps(a, b, sparse = FALSE)
+```
+
+Intersects:
+
+
+```r
+st_intersects(a, b, sparse = FALSE)
+```
+
+Disjoint:
+
+
+```r
+st_disjoint(a, b, sparse = FALSE)
+```
+
+Touches:
+
+
+```r
+st_touches(a, b, sparse = FALSE)
+```
+
+Crosses:
+
+
+```r
+st_crosses(a, b, sparse = FALSE)
+```
+
+<!-- ?geos_binary_pred -->
 
 ### Spatial clipping
 
@@ -1414,7 +1500,7 @@ plot(b)
 plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
 ```
 
-<img src="figures/unnamed-chunk-4-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" />
 
 The subsequent code chunk demonstrate how this works for all combinations of the 'venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
 <!-- Todo: reference r4ds -->
@@ -1629,7 +1715,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.05
+#> [1] 2.23
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1645,7 +1731,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.02
+#> [1] 3.13
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1745,13 +1831,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.004   0.072
+#>   0.072   0.000   0.071
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.012   0.000   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.008   0.026
+#>   0.016   0.008   0.023
 ```
 
 
