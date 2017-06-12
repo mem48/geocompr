@@ -216,7 +216,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="intro" class="section level1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
-<p>This book exists at the intersection between Geography and R (Figure <a href="intro.html#fig:venn">1.1</a>). Suggested titles were <em>Geography with R</em> and <em>R for GIS</em>, each of which has advantages. The former conveys the message that it’s not just about spatial data: non-spatial attribute data are inevitably interwoven with geometry data, and Geography is about more than where something is on the map. The latter option communicates that this is a book about using R as a <em>Geographic Information System</em> (GIS), to perform spatial operations on <em>geographic data</em> <span class="citation">(Roger Bivand and Edzer J Pebesma and Virgilio G\a’omez-Rubio <a href="#ref-bivand_applied_2013">2013</a>)</span>. However, the term GIS has some negative connotations <!-- I see what you mean by negative connotations but I had to think immediately of qualitative GIS and critical GIS, i.e., scientists from the humanities criticising GIS technologies. Think of the so-called "GIS crisis", positivism, make-believe objectivity, etc.--> (see Table <a href="intro.html#tab:gdsl">1.1</a>) and fails to communicate one of R’s greatest strengths: its unparalleled ability to seamlessly switch between geographic and non-geographic data processing, modeling and visualization tasks.</p>
+<p>This book exists at the intersection between Geography and R (Figure <a href="intro.html#fig:venn">1.1</a>). Suggested titles were <em>Geography with R</em> and <em>R for GIS</em>, each of which has advantages. The former conveys the message that it’s not just about spatial data: non-spatial attribute data are inevitably interwoven with geometry data, and Geography is about more than where something is on the map. The latter option communicates that this is a book about using R as a <em>Geographic Information System</em> (GIS), to perform spatial operations on <em>geographic data</em> <span class="citation">(Bivand, Pebesma, and Gómez-Rubio <a href="#ref-bivand_applied_2013">2013</a>)</span>. However, the term GIS has some negative connotations <!-- I see what you mean by negative connotations but I had to think immediately of qualitative GIS and critical GIS, i.e., scientists from the humanities criticising GIS technologies. Think of the so-called "GIS crisis", positivism, make-believe objectivity, etc.--> (see Table <a href="intro.html#tab:gdsl">1.1</a>) and fails to communicate one of R’s greatest strengths: its unparalleled ability to seamlessly switch between geographic and non-geographic data processing, modeling and visualization tasks.</p>
 <div class="figure" style="text-align: center"><span id="fig:venn"></span>
 <img src="figures/venn-1.png" alt="Venn diagram of the intersection between Geography and R." width="576" />
 <p class="caption">
@@ -257,7 +257,7 @@ Figure 1.1: Venn diagram of the intersection between Geography and R.
 <div id="why-geocomputation-with-r" class="section level2">
 <h2><span class="header-section-number">1.1</span> Why Geocomputation with R?</h2>
 <p>In this book we treat R as a ‘tool for the trade’. Early geographers used a variety of tools including rulers, compasses and sextants to advance knowledge about the world. <!--nowadays part--> It is important to remember that while R is a powerful tool, especially when interfaced with other software such as <a href="http://www.gdal.org/">GDAL</a> and <a href="http://postgis.net/">PostGIS</a>, other tools may be better for certain tasks. <!-- What exactly do you mean? Which tasks? Is there a geocomputational task for which we do not have an interface? So maybe rephrase along the lines that R is not a GIS and therefore not suited for some geoprocessing tasks but that interfaces close this gap. --></p>
-<p>R is characterised by its flexibility, enabling geographical software developers to extend it in multiple ways. A good example of this is support for generating interactive maps thanks to <strong>leaflet</strong> <span class="citation">(Cheng, Karambelkar, and Xie <a href="#ref-R-leaflet">2017</a>)</span>, which has been subsequently built-on by <strong>tmap</strong> and <strong>mapview</strong> <span class="citation">(Appelhans et al. <a href="#ref-R-mapview">2017</a>; Tennekes <a href="#ref-R-tmap">2017</a>)</span>. These packages help overcome the criticism that R has “limited interactive [plotting] facilities” <span class="citation">(Roger Bivand and Edzer J Pebesma and Virgilio G\a’omez-Rubio <a href="#ref-bivand_applied_2013">2013</a>)</span>. This is no longer true, as illustrated by the code below which generates Figure <a href="intro.html#fig:interactive">1.2</a>.</p>
+<p>R is characterised by its flexibility, enabling geographical software developers to extend it in multiple ways. A good example of this is support for generating interactive maps thanks to <strong>leaflet</strong> <span class="citation">(Cheng, Karambelkar, and Xie <a href="#ref-R-leaflet">2017</a>)</span>, which has been subsequently built-on by <strong>tmap</strong> and <strong>mapview</strong> <span class="citation">(Appelhans et al. <a href="#ref-R-mapview">2017</a>; Tennekes <a href="#ref-R-tmap">2017</a>)</span>. These packages help overcome the criticism that R has “limited interactive [plotting] facilities” <span class="citation">(Bivand, Pebesma, and Gómez-Rubio <a href="#ref-bivand_applied_2013">2013</a>)</span>. This is no longer true, as illustrated by the code below which generates Figure <a href="intro.html#fig:interactive">1.2</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(leaflet)
 popup =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Robin&quot;</span>, <span class="st">&quot;Jakub&quot;</span>)
 <span class="kw">leaflet</span>() %&gt;%
@@ -297,29 +297,29 @@ Figure 1.2: World at night imagery from NASA overlaid by the authors’ approxim
 - GIS R package
 - GIS beyond R 
 -->
-<p>The most important recent evolution in R’s spatial ecosystem has without doubt been support for simple features thanks to the <strong>sf</strong> package <span class="citation">(Pebesma <a href="#ref-R-sf">2017</a>)</span>, described in Chapter <a href="spatial-class.html#spatial-class">2</a>.</p>
+<p>The most important recent evolution in R’s spatial ecosystem has without doubt been support for simple features thanks to the <strong>sf</strong> package <span class="citation">(E. Pebesma <a href="#ref-R-sf">2017</a>)</span>, described in Chapter <a href="spatial-class.html#spatial-class">2</a>.</p>
 
 </div>
 </div>
 <h3> References</h3>
 <div id="refs" class="references">
 <div id="ref-bivand_applied_2013">
-<p>Roger Bivand and Edzer J Pebesma and Virgilio G\a’omez-Rubio. 2013. <em>Applied Spatial Data Analysis with R</em>. Vol. 747248717. Springer.</p>
+<p>Bivand, Roger, Edzer J Pebesma, and Virgilio Gómez-Rubio. 2013. <em>Applied Spatial Data Analysis with R</em>. Vol. 747248717. Springer.</p>
 </div>
 <div id="ref-longley_geocomputation:_1998">
 <p>Longley, Paul A., Sue M. Brooks, Rachael McDonnell, and Bill MacMillan, eds. 1998. <em>Geocomputation: A Primer</em>. 1 edition. Chichester, Eng. ; New York: Wiley.</p>
 </div>
 <div id="ref-roller_eratosthenes_2010">
-<p>Roller, D. 2010. <em>Eratosthenes’ &quot;Geography&quot;</em>. Princeton University Press. <a href="http://books.google.co.uk/books?id=8peKyWK_SWsC" class="uri">http://books.google.co.uk/books?id=8peKyWK_SWsC</a>.</p>
+<p>Roller, D. 2010. <em>Eratosthenes’ “Geography”</em>. Princeton University Press. <a href="http://books.google.co.uk/books?id=8peKyWK_SWsC" class="uri">http://books.google.co.uk/books?id=8peKyWK_SWsC</a>.</p>
 </div>
 <div id="ref-R-leaflet">
-<p>Cheng, Joe, Bhaskar Karambelkar, and Yihui Xie. 2017. <em>Leaflet: Create Interactive Web Maps with the JavaScript ’Leaflet’ Library</em>. <a href="https://CRAN.R-project.org/package=leaflet" class="uri">https://CRAN.R-project.org/package=leaflet</a>.</p>
+<p>Cheng, Joe, Bhaskar Karambelkar, and Yihui Xie. 2017. <em>Leaflet: Create Interactive Web Maps with the JavaScript ’Leaflet’ Library</em>. <a href="http://rstudio.github.io/leaflet/" class="uri">http://rstudio.github.io/leaflet/</a>.</p>
 </div>
 <div id="ref-R-mapview">
-<p>Appelhans, Tim, Florian Detsch, Christoph Reudenbach, and Stefan Woellauer. 2017. <em>Mapview: Interactive Viewing of Spatial Objects in R</em>. <a href="https://github.com/r-spatial/mapview" class="uri">https://github.com/r-spatial/mapview</a>.</p>
+<p>Appelhans, Tim, Florian Detsch, Christoph Reudenbach, and Stefan Woellauer. 2017. <em>Mapview: Interactive Viewing of Spatial Objects in R</em>. <a href="https://CRAN.R-project.org/package=mapview" class="uri">https://CRAN.R-project.org/package=mapview</a>.</p>
 </div>
 <div id="ref-R-tmap">
-<p>Tennekes, Martijn. 2017. <em>Tmap: Thematic Maps</em>. <a href="https://github.com/mtennekes/tmap" class="uri">https://github.com/mtennekes/tmap</a>.</p>
+<p>Tennekes, Martijn. 2017. <em>Tmap: Thematic Maps</em>. <a href="https://CRAN.R-project.org/package=tmap" class="uri">https://CRAN.R-project.org/package=tmap</a>.</p>
 </div>
 <div id="ref-R-sf">
 <p>Pebesma, Edzer. 2017. <em>Sf: Simple Features for R</em>. <a href="https://github.com/edzer/sfr/" class="uri">https://github.com/edzer/sfr/</a>.</p>
@@ -377,17 +377,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

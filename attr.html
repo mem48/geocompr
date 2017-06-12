@@ -743,7 +743,7 @@ world %&gt;%<span class="st"> </span>
 <div class="footnotes">
 <hr />
 <ol start="4">
-<li id="fn4"><p>Unlike objects of class <code>Spatial</code> defined by the <strong>sp</strong> package, <code>sf</code> objects are also compatible with <strong>dplyr</strong> and <strong>data.table</strong> packages, which provide fast and powerful functions for data manipulation (see <a href="https://csgillespie.github.io/efficientR/data-carpentry.html#data-processing-with-data.table">Section 6.7</a> of <span class="citation">(<span class="citeproc-not-found" data-reference-id="gillespie_efficient_2016"><strong>???</strong></span>)</span>). This chapter focusses on <strong>dplyr</strong> because of its intuitive function names and ability to perform multiple chained operations using the pipe operator.<a href="attr.html#fnref4">↩</a></p></li>
+<li id="fn4"><p>Unlike objects of class <code>Spatial</code> defined by the <strong>sp</strong> package, <code>sf</code> objects are also compatible with <strong>dplyr</strong> and <strong>data.table</strong> packages, which provide fast and powerful functions for data manipulation (see <a href="https://csgillespie.github.io/efficientR/data-carpentry.html#data-processing-with-data.table">Section 6.7</a> of <span class="citation">Gillespie and Lovelace (<a href="#ref-gillespie_efficient_2016">2016</a>)</span>). This chapter focusses on <strong>dplyr</strong> because of its intuitive function names and ability to perform multiple chained operations using the pipe operator.<a href="attr.html#fnref4">↩</a></p></li>
 <li id="fn5"><p><a href="https://github.com/Robinlovelace/geocompr/issues/28">Note</a> NAs do not work for subsetting by inequalities in base R, hence conversion of NAs to 0s in this version)<a href="attr.html#fnref5">↩</a></p></li>
 <li id="fn6"><p>Note that <code>st_geometry(world_st) = NULL</code> also works to remove the geometry from <code>world</code> but overwrites the original object.<a href="attr.html#fnref6">↩</a></p></li>
 </ol>
@@ -794,17 +794,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

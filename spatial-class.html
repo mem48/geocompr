@@ -229,9 +229,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <!-- ```{r sf-ogc, fig.cap="The Simple Features class hierarchy, used with permission (on condition of linking to the source) from the Open Geospatial Consortium's document 06-103r4 (see http://www.opengeospatial.org/standards/sfa)", out.width="100%", echo=FALSE} -->
 <!-- knitr::include_graphics("figures/simple-feature-class-hierarchy.png") -->
 <!-- ``` -->
-<p>The R implementation of Simple Features is provided by the <strong>sf</strong> package <span class="citation">(Pebesma <a href="#ref-R-sf">2017</a>)</span>, which can be installed with the following command:<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
+<p>The R implementation of Simple Features is provided by the <strong>sf</strong> package <span class="citation">(E. Pebesma <a href="#ref-R-sf">2017</a>)</span>, which can be installed with the following command:<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;sf&quot;</span>)</code></pre></div>
-<p><strong>sf</strong> incorporates the functionality of the 3 main packages of the <strong>sp</strong> paradigm (<strong>sp</strong> <span class="citation">(Pebesma and Bivand <a href="#ref-R-sp">2016</a>)</span> for the class system, <strong>rgdal</strong> <span class="citation">(Bivand, Keitt, and Rowlingson <a href="#ref-R-rgdal">2017</a>)</span> for reading and writing data, <strong>rgeos</strong> <span class="citation">(Bivand and Rundel <a href="#ref-R-rgeos">2017</a>)</span> for spatial operations undertaken by GEOS) in a single, cohesive whole. This is well-documented in <strong>sf</strong>’s <a href="http://cran.rstudio.com/package=sf">vignettes</a>:</p>
+<p><strong>sf</strong> incorporates the functionality of the 3 main packages of the <strong>sp</strong> paradigm (<strong>sp</strong> <span class="citation">(E. Pebesma and Bivand <a href="#ref-R-sp">2016</a>)</span> for the class system, <strong>rgdal</strong> <span class="citation">(Bivand, Keitt, and Rowlingson <a href="#ref-R-rgdal">2017</a>)</span> for reading and writing data, <strong>rgeos</strong> <span class="citation">(Bivand and Rundel <a href="#ref-R-rgeos">2017</a>)</span> for spatial operations undertaken by GEOS) in a single, cohesive whole. This is well-documented in <strong>sf</strong>’s <a href="http://cran.rstudio.com/package=sf">vignettes</a>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="st">&quot;sf1&quot;</span>) <span class="co"># for an introduction to the package</span>
 <span class="kw">vignette</span>(<span class="st">&quot;sf2&quot;</span>) <span class="co"># for reading, writing and converting Simple Features</span>
 <span class="kw">vignette</span>(<span class="st">&quot;sf3&quot;</span>) <span class="co"># for manipulating Simple Features</span></code></pre></div>
@@ -496,17 +496,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
