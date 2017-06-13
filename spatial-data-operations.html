@@ -384,6 +384,7 @@ Figure 4.3: Randomly distributed points within the bounding box enclosing circle
 <!-- where should "area" example be? in this or the previous chapter? -->
 <!-- `st_centroid()` -->
 <!-- `st_buffer()` -->
+<!-- http://r-spatial.org//r/2017/06/09/mapedit_0-2-0.html -->
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add a new column</span>
 world$area =<span class="st"> </span><span class="kw">set_units</span>(<span class="kw">st_area</span>(world), <span class="dt">value =</span> km^<span class="dv">2</span>)
 world$pop_density =<span class="st"> </span>world$pop /<span class="st"> </span>world$area

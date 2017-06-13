@@ -159,7 +159,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve65dc0102924cca14
+preserveb83bbb20a25674cf
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1649,6 +1649,7 @@ scattered points with the command
 <!-- where should "area" example be? in this or the previous chapter? -->
 <!-- `st_centroid()` -->
 <!-- `st_buffer()` -->
+<!-- http://r-spatial.org//r/2017/06/09/mapedit_0-2-0.html -->
 
 
 ```r
@@ -1787,7 +1788,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.45
+#> [1] 2.31
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1803,7 +1804,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.04
+#> [1] 3.08
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1903,13 +1904,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.004   0.067
+#>   0.072   0.000   0.070
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.013
+#>   0.016   0.000   0.014
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.024   0.008   0.033
 ```
 
 
