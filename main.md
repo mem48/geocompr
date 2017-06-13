@@ -148,7 +148,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve748cfe5fba2ae7f4
+preserveeaf7008616bdb196
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -542,6 +542,10 @@ sf data types:
 - methods(class = "sf")
 
 -->
+
+## Geometry collections
+
+## Coordinate Reference Systems
 
 <!-- ## Raster data -->
 <!-- Suggest we save this until the raster section for now -->
@@ -1773,7 +1777,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.43
+#> [1] 2.21
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1789,7 +1793,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3
+#> [1] 3.07
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1889,13 +1893,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.067
+#>   0.076   0.000   0.074
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.016   0.012   0.028
 ```
 
 
