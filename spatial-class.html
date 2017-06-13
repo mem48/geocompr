@@ -136,7 +136,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#why-geocomputation-with-r"><i class="fa fa-check"></i><b>1.1</b> Why Geocomputation with R?</a></li>
 <li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#rs-spatial-ecosystem"><i class="fa fa-check"></i><b>1.2</b> R’s spatial ecosystem</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="spatial-class.html"><a href="spatial-class.html"><i class="fa fa-check"></i><b>2</b> Simple features and plots</a><ul>
+<li class="chapter" data-level="2" data-path="spatial-class.html"><a href="spatial-class.html"><i class="fa fa-check"></i><b>2</b> Geographic data in R</a><ul>
 <li class="chapter" data-level="" data-path="spatial-class.html"><a href="spatial-class.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
 <li class="chapter" data-level="2.1" data-path="spatial-class.html"><a href="spatial-class.html#intro-sf"><i class="fa fa-check"></i><b>2.1</b> An introduction to Simple Features</a><ul>
 <li class="chapter" data-level="2.1.1" data-path="spatial-class.html"><a href="spatial-class.html#exercises"><i class="fa fa-check"></i><b>2.1.1</b> Exercises</a></li>
@@ -148,8 +148,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.3.3" data-path="spatial-class.html"><a href="spatial-class.html#exercises-1"><i class="fa fa-check"></i><b>2.3.3</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="spatial-class.html"><a href="spatial-class.html#sfg"><i class="fa fa-check"></i><b>2.4</b> Simple feature geometries, collections and data frames</a></li>
-<li class="chapter" data-level="2.5" data-path="spatial-class.html"><a href="spatial-class.html#simple-feature-geometries"><i class="fa fa-check"></i><b>2.5</b> Simple feature geometries</a></li>
-<li class="chapter" data-level="2.6" data-path="spatial-class.html"><a href="spatial-class.html#raster-data"><i class="fa fa-check"></i><b>2.6</b> Raster data</a></li>
+<li class="chapter" data-level="2.5" data-path="spatial-class.html"><a href="spatial-class.html#geometries"><i class="fa fa-check"></i><b>2.5</b> Geometries</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="attr.html"><a href="attr.html"><i class="fa fa-check"></i><b>3</b> Attribute data operations</a><ul>
 <li class="chapter" data-level="" data-path="attr.html"><a href="attr.html#prerequisites-1"><i class="fa fa-check"></i>Prerequisites</a></li>
@@ -217,7 +216,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="spatial-class" class="section level1">
-<h1><span class="header-section-number">2</span> Simple features and plots</h1>
+<h1><span class="header-section-number">2</span> Geographic data in R</h1>
 <div id="prerequisites" class="section level2 unnumbered">
 <h2>Prerequisites</h2>
 <p>This chapter requires the packages <strong>sf</strong>, <strong>tidyverse</strong> and <strong>spData</strong> to be installed and loaded, e.g. via:</p>
@@ -407,8 +406,9 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 <p>As stated in section <a href="spatial-class.html#intro-sf">2.1</a>, simple features are simply dataframes with at least one special column that makes it spatial. These spatial columns are often called <code>geom</code> or <code>geometry</code> and can be like non-spatial columns: <code>world$geom</code> refers to the spatial element of the <code>world</code> object described above. These geometry columns are ‘list columns’ of class <code>sfc</code>: they are <em>simple feature collections</em>. In turn, <code>sfc</code> objects are composed of one or more objects of class <code>sfg</code>: simple feature geometries.</p>
 <p>To understand how the spatial components of simple features work, it is vital to understand simple feature geometries. For this reason we cover each type currently supported <code>sfg</code> in the next section before moving to describe how they can be combined to form <code>sfc</code> and eventually full <code>sf</code> objects.</p>
 </div>
-<div id="simple-feature-geometries" class="section level2">
-<h2><span class="header-section-number">2.5</span> Simple feature geometries</h2>
+<div id="geometries" class="section level2">
+<h2><span class="header-section-number">2.5</span> Geometries</h2>
+<p>Geometries are the basic building blocks of simple features. This section demonstrates how the full range of geometry types supported by the <strong>sf</strong> package can be created, combined and plotted.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sfg_point =<span class="st"> </span><span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</code></pre></div>
 <!-- 
 sf data types:
@@ -434,9 +434,8 @@ sf data types:
 - methods(class = "sf")
 
 -->
-</div>
-<div id="raster-data" class="section level2">
-<h2><span class="header-section-number">2.6</span> Raster data</h2>
+<!-- ## Raster data -->
+<!-- Suggest we save this until the raster section for now -->
 <!-- 
 - raster data types 
 - RasterLayer
