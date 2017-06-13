@@ -97,7 +97,18 @@ The title was chosen because this book is about more than routine spatial data p
 What defines geocomputation as a development on previous work is the "creative and experimental use of GIS that it entails" [@longley_geocomputation:_1998].
 With geocomputation geographic data can be used in new ways.
 
-Another advantage of geocomputation is that it conveys the centrality of the concept of algorithms (which can be implemented in R functions) to advanced geographical research. Geocomputation is a relatively
+Another advantage of geocomputation is that it conveys the centrality of the concept of algorithms (which can be implemented in R functions) to advanced geographical research.
+This is captured in another seminal book on the subject [@openshaw_geocomputation_2000]:
+
+> GC is neither an equation-fest nor a computer gigaflop speed contest.
+GeoComputation is about using the various different types of geodata and about
+developing relevant geo-tools within the overall context of a 'scientific'
+approach.
+
+The computational approach to geographic data allows the creation of new tools from modular components.
+R, being a functional language, makes the creation of the 'geo-tools' that Openshaw advocates relatively easy compared with the low level languages (e.g. FORTRAN and Java) that dominated the field at the time.
+
+Geocomputation is a relatively
 young field^[Geocomputation
 has a ~30 year history dating back to the first [conference](http://www.geocomputation.org/) on the subject in 1996 (at the University of Leeds where the concept for this book was dreamt up) which was followed by a flurry of subsequent
 publications.]
@@ -148,7 +159,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveedf3d79bb36f423d
+preserve7d5bbd56c1aa29a4
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1766,7 +1777,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.36
+#> [1] 2.3
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1782,7 +1793,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.95
+#> [1] 3.13
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1882,13 +1893,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.004   0.068
+#>   0.068   0.000   0.071
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.013
+#>   0.016   0.000   0.014
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.030
+#>   0.016   0.016   0.033
 ```
 
 
