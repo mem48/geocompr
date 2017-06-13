@@ -221,10 +221,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">2</span> Geographic data in R</h1>
 <div id="prerequisites" class="section level2 unnumbered">
 <h2>Prerequisites</h2>
-<p>This chapter requires the packages <strong>sf</strong>, <strong>tidyverse</strong> and <strong>spData</strong> to be installed and loaded, e.g. via:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pkgs_02 =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;sf&quot;</span>, <span class="st">&quot;tidyverse&quot;</span>) <span class="co"># add spData when on CRAN</span>
-<span class="kw">install.packages</span>(pkgs_02)
-<span class="kw">lapply</span>(pkgs_02, <span class="dt">FUN =</span> library, <span class="dt">character.only =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>This chapter requires the packages <strong>sf</strong>, and <strong>spData</strong> to be installed and loaded:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
+<span class="kw">library</span>(spData)</code></pre></div>
 </div>
 <div id="intro-sf" class="section level2">
 <h2><span class="header-section-number">2.1</span> An introduction to Simple Features</h2>
@@ -323,18 +322,8 @@ Figure 2.2: Plotting with sf, with multiple variables (left) and a single variab
 </p>
 </div>
 <p>As with <strong>sp</strong>, you can add layers to your maps created with <code>plot()</code>, with the argument <code>add = TRUE</code>.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> To illustrate this, and prepare for content covered in chapters <a href="attr.html#attr">3</a> and <a href="spatial-data-operations.html#spatial-data-operations">4</a> on attribute and spatial data operations, we will subset and combine countries in the <code>world</code> object, to create a single object that represents Asia:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="co">#&gt; Loading tidyverse: ggplot2</span>
-<span class="co">#&gt; Loading tidyverse: tibble</span>
-<span class="co">#&gt; Loading tidyverse: tidyr</span>
-<span class="co">#&gt; Loading tidyverse: readr</span>
-<span class="co">#&gt; Loading tidyverse: purrr</span>
-<span class="co">#&gt; Loading tidyverse: dplyr</span>
-<span class="co">#&gt; Conflicts with tidy packages ----------------------------------------------</span>
-<span class="co">#&gt; filter(): dplyr, stats</span>
-<span class="co">#&gt; lag():    dplyr, stats</span>
-asia =<span class="st"> </span><span class="kw">filter</span>(world, continent ==<span class="st"> &quot;Asia&quot;</span>) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">st_union</span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">asia =<span class="st"> </span>world[world$continent ==<span class="st"> &quot;Asia&quot;</span>,]
+asia =<span class="st"> </span><span class="kw">st_union</span>(asia)</code></pre></div>
 <p>We can now plot the Asian continent over a map of the world. Note, however, that this only works if the initial plot has only 1 layer:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(world[<span class="st">&quot;pop&quot;</span>])
 <span class="kw">plot</span>(asia, <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</code></pre></div>

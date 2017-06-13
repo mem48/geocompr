@@ -148,7 +148,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveeaf7008616bdb196
+preserveedf3d79bb36f423d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -199,13 +199,12 @@ The most important recent evolution in R's spatial ecosystem has without doubt b
 
 ## Prerequisites {-}
 
-This chapter requires the packages **sf**, **tidyverse** and **spData** to be installed and loaded, e.g. via:
+This chapter requires the packages **sf**, and **spData** to be installed and loaded:
 
 
 ```r
-pkgs_02 = c("sf", "tidyverse") # add spData when on CRAN
-install.packages(pkgs_02)
-lapply(pkgs_02, FUN = library, character.only = TRUE)
+library(sf)
+library(spData)
 ```
 
 
@@ -381,18 +380,8 @@ To illustrate this, and prepare for content covered in chapters \@ref(attr) and 
 
 
 ```r
-library(tidyverse)
-#> Loading tidyverse: ggplot2
-#> Loading tidyverse: tibble
-#> Loading tidyverse: tidyr
-#> Loading tidyverse: readr
-#> Loading tidyverse: purrr
-#> Loading tidyverse: dplyr
-#> Conflicts with tidy packages ----------------------------------------------
-#> filter(): dplyr, stats
-#> lag():    dplyr, stats
-asia = filter(world, continent == "Asia") %>% 
-  st_union()
+asia = world[world$continent == "Asia",]
+asia = st_union(asia)
 ```
 
 We can now plot the Asian continent over a map of the world.
@@ -1777,7 +1766,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.21
+#> [1] 2.36
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1793,7 +1782,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.07
+#> [1] 2.95
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1893,13 +1882,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.076   0.000   0.074
+#>   0.064   0.004   0.068
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.028
+#>   0.024   0.004   0.030
 ```
 
 
