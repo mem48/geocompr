@@ -149,8 +149,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="spatial-class.html"><a href="spatial-class.html#sfg"><i class="fa fa-check"></i><b>2.4</b> Simple feature geometries, collections and data frames</a></li>
 <li class="chapter" data-level="2.5" data-path="spatial-class.html"><a href="spatial-class.html#geometries"><i class="fa fa-check"></i><b>2.5</b> Geometries</a></li>
-<li class="chapter" data-level="2.6" data-path="spatial-class.html"><a href="spatial-class.html#geometry-collections"><i class="fa fa-check"></i><b>2.6</b> Geometry collections</a></li>
-<li class="chapter" data-level="2.7" data-path="spatial-class.html"><a href="spatial-class.html#coordinate-reference-systems"><i class="fa fa-check"></i><b>2.7</b> Coordinate Reference Systems</a></li>
+<li class="chapter" data-level="2.6" data-path="spatial-class.html"><a href="spatial-class.html#coordinate-reference-systems"><i class="fa fa-check"></i><b>2.6</b> Coordinate Reference Systems</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="attr.html"><a href="attr.html"><i class="fa fa-check"></i><b>3</b> Attribute data operations</a><ul>
 <li class="chapter" data-level="" data-path="attr.html"><a href="attr.html#prerequisites-1"><i class="fa fa-check"></i>Prerequisites</a></li>
@@ -400,37 +399,43 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 <div id="geometries" class="section level2">
 <h2><span class="header-section-number">2.5</span> Geometries</h2>
 <p>Geometries are the basic building blocks of simple features. This section demonstrates how the full range of geometry types supported by the <strong>sf</strong> package can be created, combined and plotted.</p>
+<!-- figure - image/fig1.jpg -->
+<!-- 17 geometry types exist.  -->
+<!-- 7 of those are the most popular - you can see them on figure x -->
+<!-- they are interconnected - points could create mulitpoints or lines; lines could create mutlilines or polygons, etc. -->
+<!-- of course the building block is POINT -->
+<!-- - POINT -->
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sfg_point =<span class="st"> </span><span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</code></pre></div>
-<!-- 
-sf data types:
-- POINT
-- LINESTRING
-- POLYGON
-- MULTIPOINT
-- MULTILINESTRING
-- MULTIPOLYGON
-- GEOMETRYCOLLECTION
-- CIRCULARSTRING
-- COMPOUNDCURVE
-- CURVEPOLYGON
-- MULTICURVE
-- MULTISURFACE
-- CURVE
-- SURFACE
-- POLYHEDRALSURFACE
-- TIN
-- TRIANGLE
-
-- what's sf, sfc, sfg
-- methods(class = "sf")
-
--->
-</div>
-<div id="geometry-collections" class="section level2">
-<h2><span class="header-section-number">2.6</span> Geometry collections</h2>
+<!-- ```{r, echo=FALSE, eval=FALSE} -->
+<!-- aa = st_as_sfc("LINESTRING(10 5, 9 4, 8 3, 7 2, 6 1)") -->
+<!-- cc = st_as_sfc("CIRCULARSTRING(10 5, 9 4, 8 3, 7 2, 6 1)") -->
+<!-- plot(aa) -->
+<!-- plot(cc) -->
+<!-- ``` -->
+<!-- https://edzer.github.io/sfr/articles/sf1.html -->
+<!-- sf data types: -->
+<!-- - LINESTRING -->
+<!-- - POLYGON -->
+<!-- - MULTIPOINT -->
+<!-- - MULTILINESTRING -->
+<!-- - MULTIPOLYGON -->
+<!-- - GEOMETRYCOLLECTION -->
+<!-- - CIRCULARSTRING -->
+<!-- - COMPOUNDCURVE -->
+<!-- - CURVEPOLYGON -->
+<!-- - MULTICURVE -->
+<!-- - MULTISURFACE -->
+<!-- - CURVE -->
+<!-- - SURFACE -->
+<!-- - POLYHEDRALSURFACE -->
+<!-- - TIN -->
+<!-- - TRIANGLE -->
+<!-- - what's sf, sfc, sfg -->
+<!-- - methods(class = "sf") -->
+<!-- ## Geometry collections -->
 </div>
 <div id="coordinate-reference-systems" class="section level2">
-<h2><span class="header-section-number">2.7</span> Coordinate Reference Systems</h2>
+<h2><span class="header-section-number">2.6</span> Coordinate Reference Systems</h2>
 <!-- ## Raster data -->
 <!-- Suggest we save this until the raster section for now -->
 <!-- 

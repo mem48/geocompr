@@ -159,7 +159,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve7d5bbd56c1aa29a4
+preserve65dc0102924cca14
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -491,7 +491,6 @@ plot(world_centroids, add = TRUE, cex = world$pop / 1e8, lwd = 3)
 - Perform the same operations and map making for another continent of your choice.
 - Bonus: Download some global geographic data and add attribute variables assigning them to the continents of the world.
 
-
 ## Simple feature geometries, collections and data frames {#sfg}
 
 To understand new data formats in depth, it often helps to generate them for first principles.
@@ -506,11 +505,20 @@ In turn, `sfc` objects are composed of one or more objects of class `sfg`: simpl
 To understand how the spatial components of simple features work, it is vital to understand simple feature geometries.
 For this reason we cover each type currently supported `sfg` in the next section before moving to describe how they can be combined to form `sfc` and eventually full `sf` objects.
 
-
 ## Geometries
 
 Geometries are the basic building blocks of simple features.
 This section demonstrates how the full range of geometry types supported by the **sf** package can be created, combined and plotted.
+
+<!-- figure - image/fig1.jpg -->
+
+<!-- 17 geometry types exist.  -->
+<!-- 7 of those are the most popular - you can see them on figure x -->
+<!-- they are interconnected - points could create mulitpoints or lines; lines could create mutlilines or polygons, etc. -->
+
+<!-- of course the building block is POINT -->
+
+<!-- - POINT -->
 
 
 ```r
@@ -518,32 +526,34 @@ sfg_point = st_point(c(0, 1))
 ```
 
 
-<!-- 
-sf data types:
-- POINT
-- LINESTRING
-- POLYGON
-- MULTIPOINT
-- MULTILINESTRING
-- MULTIPOLYGON
-- GEOMETRYCOLLECTION
-- CIRCULARSTRING
-- COMPOUNDCURVE
-- CURVEPOLYGON
-- MULTICURVE
-- MULTISURFACE
-- CURVE
-- SURFACE
-- POLYHEDRALSURFACE
-- TIN
-- TRIANGLE
+<!-- ```{r, echo=FALSE, eval=FALSE} -->
+<!-- aa = st_as_sfc("LINESTRING(10 5, 9 4, 8 3, 7 2, 6 1)") -->
+<!-- cc = st_as_sfc("CIRCULARSTRING(10 5, 9 4, 8 3, 7 2, 6 1)") -->
+<!-- plot(aa) -->
+<!-- plot(cc) -->
+<!-- ``` -->
 
-- what's sf, sfc, sfg
-- methods(class = "sf")
-
--->
-
-## Geometry collections
+<!-- https://edzer.github.io/sfr/articles/sf1.html -->
+<!-- sf data types: -->
+<!-- - LINESTRING -->
+<!-- - POLYGON -->
+<!-- - MULTIPOINT -->
+<!-- - MULTILINESTRING -->
+<!-- - MULTIPOLYGON -->
+<!-- - GEOMETRYCOLLECTION -->
+<!-- - CIRCULARSTRING -->
+<!-- - COMPOUNDCURVE -->
+<!-- - CURVEPOLYGON -->
+<!-- - MULTICURVE -->
+<!-- - MULTISURFACE -->
+<!-- - CURVE -->
+<!-- - SURFACE -->
+<!-- - POLYHEDRALSURFACE -->
+<!-- - TIN -->
+<!-- - TRIANGLE -->
+<!-- - what's sf, sfc, sfg -->
+<!-- - methods(class = "sf") -->
+<!-- ## Geometry collections -->
 
 ## Coordinate Reference Systems
 
@@ -1777,7 +1787,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.3
+#> [1] 2.45
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1793,7 +1803,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.13
+#> [1] 3.04
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1893,13 +1903,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.071
+#>   0.060   0.004   0.067
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.014
+#>   0.016   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.016   0.033
+#>   0.020   0.008   0.028
 ```
 
 
