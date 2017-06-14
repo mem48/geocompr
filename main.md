@@ -159,7 +159,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve177de3ac334af459
+preserveddd057e86b58ee75
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -472,10 +472,6 @@ plot(world_centroids, add = TRUE, cex = world$pop / 1e8, lwd = 3)
 <p class="caption">(\#fig:africa)Centroids representing country population, diameter being proportional to population.</p>
 </div>
 
-
-
-
-
 <!-- More appropriate for subsequent chapters. -->
 <!-- This shows that there are 43 countries in Asia -->
 <!-- We can check if they are the same countries as follows: -->
@@ -507,18 +503,27 @@ For this reason we cover each type currently supported `sfg` in the next section
 
 ## Geometries
 
-Geometries are the basic building blocks of simple features.
 This section demonstrates how the full range of geometry types supported by the **sf** package can be created, combined and plotted.
+Geometries are the basic building blocks of simple features.
+Simple features could be represented as one of the 17 geometry types using the **sf** package.
+In this chapter we will focus on seven, the most commonly used, simple features types: `POINT`, `LINESTRING`, `POLYGON`, `MULTIPOINT`, `MULTILINESTRING`, `MULTIPOLYGON` and `GEOMETRYCOLLECTION`.<!--FIG-->
+The whole list of possible feature types could be found in [the PostGIS manual ](http://postgis.net/docs/using_postgis_dbmanagement.html).
+
+All of the geometry types are built of points. 
+Each point could be described as coordinates in a 2D, 3D or 4D space:
+
+- X and Y coordinates represent location of points. It could be either easting and northing or longitude and latitude.
+- A Z coordinate denotes altitude.
+- An M coordinate ("measure") allows to represent some measure associated to the point, but not the whole feature. 
+This coordinate could be a time of measurement, information who measured this point or what's the error of measurement.
+
+As a result, four possible types of points exist - XY (two-dimensional), XYZ (three-dimensional containing altitude), XYM (three-dimensional containing meaure) and XYZM (four-dimensional).
 
 <!-- figure - image/fig1.jpg -->
 
-<!-- 17 geometry types exist.  -->
+<!-- Well-known text -->
 <!-- 7 of those are the most popular - you can see them on figure x -->
 <!-- they are interconnected - points could create mulitpoints or lines; lines could create mutlilines or polygons, etc. -->
-
-<!-- of course the building block is POINT -->
-
-<!-- - POINT -->
 
 
 ```r
@@ -1788,7 +1793,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.29
+#> [1] 2.21
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1804,7 +1809,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.03
+#> [1] 3.07
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1904,13 +1909,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.068   0.000   0.070
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.013
+#>   0.008   0.004   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.028
+#>   0.024   0.000   0.025
 ```
 
 

@@ -398,13 +398,18 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 </div>
 <div id="geometries" class="section level2">
 <h2><span class="header-section-number">2.5</span> Geometries</h2>
-<p>Geometries are the basic building blocks of simple features. This section demonstrates how the full range of geometry types supported by the <strong>sf</strong> package can be created, combined and plotted.</p>
+<p>This section demonstrates how the full range of geometry types supported by the <strong>sf</strong> package can be created, combined and plotted. Geometries are the basic building blocks of simple features. Simple features could be represented as one of the 17 geometry types using the <strong>sf</strong> package. In this chapter we will focus on seven, the most commonly used, simple features types: <code>POINT</code>, <code>LINESTRING</code>, <code>POLYGON</code>, <code>MULTIPOINT</code>, <code>MULTILINESTRING</code>, <code>MULTIPOLYGON</code> and <code>GEOMETRYCOLLECTION</code>.<!--FIG--> The whole list of possible feature types could be found in <a href="http://postgis.net/docs/using_postgis_dbmanagement.html">the PostGIS manual</a>.</p>
+<p>All of the geometry types are built of points. Each point could be described as coordinates in a 2D, 3D or 4D space:</p>
+<ul>
+<li>X and Y coordinates represent location of points. It could be either easting and northing or longitude and latitude.</li>
+<li>A Z coordinate denotes altitude.</li>
+<li>An M coordinate (“measure”) allows to represent some measure associated to the point, but not the whole feature. This coordinate could be a time of measurement, information who measured this point or what’s the error of measurement.</li>
+</ul>
+<p>As a result, four possible types of points exist - XY (two-dimensional), XYZ (three-dimensional containing altitude), XYM (three-dimensional containing meaure) and XYZM (four-dimensional).</p>
 <!-- figure - image/fig1.jpg -->
-<!-- 17 geometry types exist.  -->
+<!-- Well-known text -->
 <!-- 7 of those are the most popular - you can see them on figure x -->
 <!-- they are interconnected - points could create mulitpoints or lines; lines could create mutlilines or polygons, etc. -->
-<!-- of course the building block is POINT -->
-<!-- - POINT -->
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sfg_point =<span class="st"> </span><span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</code></pre></div>
 <!-- ```{r, echo=FALSE, eval=FALSE} -->
 <!-- aa = st_as_sfc("LINESTRING(10 5, 9 4, 8 3, 7 2, 6 1)") -->
