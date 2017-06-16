@@ -159,7 +159,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve33143a5044fb8b06
+preserve34c576bdb00825f7
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -530,8 +530,31 @@ They could be easily describes as well-known text:
 - XYM - `POINTM (5 2 1)`
 - XYZM - `POINT (5 2 3 1)`
 
-<!-- the next types -->
+<!-- The rest of geometries are built on that -->
+<!-- linestring is a set of coordinates -->
+<!-- `LINESTRING (4 2, 2 4, 5 5)` -->
+<!-- explain 3D and 4D linestring -->
 
+<!-- what's poligon -->
+<!-- poligon example -->
+<!-- infromation about holes -->
+<!-- example -->
+
+<!-- on top of that are mutlipart geometries -->
+<!-- mutlipoint -->
+<!-- multipoint example -->
+<!-- multilinestring  -->
+<!-- multilinestring example -->
+<!-- multipoligon -->
+<!-- multipoligon example -->
+
+<!-- what's geometry colection -->
+<!-- example -->
+
+<!-- how to create geometries in r ?st_point -->
+
+<!-- table -->
+<!-- the next types -->
 <!-- figure - image/fig1.jpg -->
 <!-- Well-known text -->
 <!-- 7 of those are the most popular - you can see them on figure x -->
@@ -1800,7 +1823,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.5
+#> [1] 2.37
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1816,10 +1839,10 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.6
+#> [1] 2.56
 ```
 
-In this case **sf** was around 4 times faster than **rgdal**.
+In this case **sf** was around 3 times faster than **rgdal**.
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
 
@@ -1916,13 +1939,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.071
+#>   0.064   0.000   0.065
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.008   0.033
+#>   0.020   0.008   0.029
 ```
 
 
