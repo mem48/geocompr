@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-06-15'
+date: '2017-06-16'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -39,7 +39,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-06-15 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-06-16 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -159,7 +159,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve33dae1a85576160f
+preserve6494898d1159234a
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -509,6 +509,11 @@ Simple features could be represented as one of the 17 geometry types using the *
 In this chapter we will focus on seven, the most commonly used, simple features types: `POINT`, `LINESTRING`, `POLYGON`, `MULTIPOINT`, `MULTILINESTRING`, `MULTIPOLYGON` and `GEOMETRYCOLLECTION`.<!--FIG-->
 The whole list of possible feature types could be found in [the PostGIS manual ](http://postgis.net/docs/using_postgis_dbmanagement.html).
 
+Simple features could be represented in one of two ways, ether as a well-known binary (WKB) or well-known text (WKT). 
+Well-known binary (WKB) representations are usually hexadecimal strings, which are used to transfer and store geometry objects in databases.
+Well-known text (WKT), on the other hand, is a text markup description of simple features. 
+Both formats are exchangeable, therefore we would focus only on the well-known text (WKT) representation.
+
 All of the geometry types are built of points. 
 Each point could be described as coordinates in a 2D, 3D or 4D space:
 
@@ -518,26 +523,28 @@ Each point could be described as coordinates in a 2D, 3D or 4D space:
 This coordinate could be a time of measurement, information who measured this point or what's the error of measurement.
 
 As a result, four possible types of points exist - XY (two-dimensional), XYZ (three-dimensional containing altitude), XYM (three-dimensional containing meaure) and XYZM (four-dimensional).
+They could be easily describes as well-known text:
+
+- XY - `POINT (5 2)`
+- XYZ - `POINT (5 2 3)`
+- XYM - `POINTM (5 2 1)`
+- XYZM - `POINT (5 2 3 1)`
+
+<!-- the next types -->
 
 <!-- figure - image/fig1.jpg -->
-
 <!-- Well-known text -->
 <!-- 7 of those are the most popular - you can see them on figure x -->
 <!-- they are interconnected - points could create mulitpoints or lines; lines could create mutlilines or polygons, etc. -->
-
-
-```r
-sfg_point = st_point(c(0, 1))
-```
-
-
+<!-- ```{r} -->
+<!-- sfg_point = st_point(c(0, 1)) -->
+<!-- ``` -->
 <!-- ```{r, echo=FALSE, eval=FALSE} -->
 <!-- aa = st_as_sfc("LINESTRING(10 5, 9 4, 8 3, 7 2, 6 1)") -->
 <!-- cc = st_as_sfc("CIRCULARSTRING(10 5, 9 4, 8 3, 7 2, 6 1)") -->
 <!-- plot(aa) -->
 <!-- plot(cc) -->
 <!-- ``` -->
-
 <!-- https://edzer.github.io/sfr/articles/sf1.html -->
 <!-- sf data types: -->
 <!-- - LINESTRING -->
@@ -1793,7 +1800,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.37
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1809,7 +1816,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.13
+#> [1] 3.09
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1909,13 +1916,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.012
+#>   0.016   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.028
+#>   0.028   0.004   0.029
 ```
 
 
