@@ -425,7 +425,7 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 </ul>
 <p><img src="figures/linestring-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Linestring cannot have self intersecting line part. In other words, lines shouldn’t pass through the same point twice (except for the endpoint).</p>
-<p>A polygon is a sequence of points, where the first and last point have the same coordinates. Similarly to linestring, polygon needs to create a non-self intersecting ring. By the definition, polygon has one exterior boundary and zero or more interior boundaries. These interior boundaries are often known as holes.</p>
+<p>A polygon is a sequence of points, where the first and last point have the same coordinates. Similarly to linestring, polygon needs to create a non-self intersecting ring. By the definition, polygon has one exterior boundary (outer ring) and zero or more interior boundaries (inner ring). These interior boundaries are often known as holes.</p>
 <ul>
 <li>Zero interior boundaries (holes) - <code>POLYGON ((1 5, 4 4, 4 1, 2 2, 1 5))</code></li>
 </ul>

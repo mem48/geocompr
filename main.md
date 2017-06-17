@@ -159,7 +159,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve802a670e213d6b7e
+preserve5a512b0d0a9e3c67
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -545,7 +545,7 @@ In other words, lines shouldn't pass through the same point twice (except for th
 
 A polygon is a sequence of points, where the first and last point have the same coordinates. 
 Similarly to linestring, polygon needs to create a non-self intersecting ring.
-By the definition, polygon has one exterior boundary and zero or more interior boundaries.
+By the definition, polygon has one exterior boundary (outer ring) and zero or more interior boundaries (inner ring).
 These interior boundaries are often known as holes.
 
 - Zero interior boundaries (holes) - `POLYGON ((1 5, 4 4, 4 1, 2 2, 1 5))`
@@ -1867,7 +1867,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.34
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1883,7 +1883,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.97
+#> [1] 3.12
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1983,13 +1983,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.067
+#>   0.060   0.004   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.014
+#>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.016   0.031
+#>   0.024   0.004   0.028
 ```
 
 
