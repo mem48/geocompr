@@ -159,7 +159,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserved3b5d259e32fb215
+preserve45091919502134f2
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -630,7 +630,36 @@ st_linestring(linestring_matrix)
 #> LINESTRING(1 5, 4 4, 4 1, 2 2, 3 2)
 ```
 
+The rest of object are represented by lists:
 
+
+```r
+## POLYGON
+polygon_list = list(rbind(c(1, 5), c(2, 2), c(4, 1), c(4, 4), c(1, 5)))
+st_polygon(polygon_list)
+#> POLYGON((1 5, 2 2, 4 1, 4 4, 1 5))
+## POLYGON with a hole
+polygon_border = rbind(c(1, 5), c(2, 2), c(4, 1), c(4, 4), c(1, 5))
+polygon_hole = rbind(c(2, 4), c(3, 4), c(3, 3), c(2, 3), c(2, 4))
+polygon_with_hole_list = list(polygon_border, polygon_hole)
+st_polygon(polygon_with_hole_list)
+#> POLYGON((1 5, 2 2, 4 1, 4 4, 1 5), (2 4, 3 4, 3 3, 2 3, 2 4))
+## MULTILINESTRING
+multilinestring_list = list(rbind(c(1, 5), c(4, 4), c(4, 1), c(2, 2), c(3, 2)), 
+                            rbind(c(1, 2), c(2, 4)))
+st_multilinestring((multilinestring_list))
+#> MULTILINESTRING((1 5, 4 4, 4 1, 2 2, 3 2), (1 2, 2 4))
+## MULTIPOLYGON
+multipolygon_list = list(list(rbind(c(1, 5), c(2, 2), c(4, 1), c(4, 4), c(1, 5))),
+                         list(rbind(c(0, 2), c(1, 2), c(1, 3), c(0, 3), c(0, 2))))
+st_multipolygon(multipolygon_list)
+#> MULTIPOLYGON(((1 5, 2 2, 4 1, 4 4, 1 5)), ((0 2, 1 2, 1 3, 0 3, 0 2)))
+## GEMETRYCOLLECTION
+gemetrycollection_list = list(st_multipoint(mulitpoint_matrix),
+                              st_linestring(linestring_matrix))
+st_geometrycollection(gemetrycollection_list)
+#> GEOMETRYCOLLECTION(MULTIPOINT(5 2, 1 3, 3 4, 3 2), LINESTRING(1 5, 4 4, 4 1, 2 2, 3 2))
+```
 
 <!-- st_point(); st_as_sfc("POINT(NA NA)") #issue -->
 <!-- how to create geometries in r ?st_point -->
@@ -1877,7 +1906,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.36
+#> [1] 2.37
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1893,7 +1922,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.05
+#> [1] 3.09
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1993,13 +2022,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.064   0.000   0.065
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.013
+#>   0.016   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.000   0.028
+#>   0.016   0.012   0.028
 ```
 
 
