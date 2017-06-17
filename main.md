@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-06-16'
+date: '2017-06-17'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -39,7 +39,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-06-16 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-06-17 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -159,7 +159,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve27afb995bffcdb79
+preservedcb04b0696be77ef
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -492,7 +492,6 @@ plot(world_centroids, add = TRUE, cex = world$pop / 1e8, lwd = 3)
 To understand new data formats in depth, it often helps to generate them for first principles.
 This section walks through vector spatial classes step-by-step, from the simplest simple feature geometry to simple feature objects, with class `sf`, representing complex spatial data.
 Before describing each geometry type that the **sf** package supports it is worth taking a step back to understand the building blocks of `sf` objects. 
-
 As stated in section \@ref(intro-sf), simple features are simply dataframes with at least one special column that makes it spatial.
 These spatial columns are often called `geom` or `geometry` and can be like non-spatial columns: `world$geom` refers to the spatial element of the `world` object described above.
 These geometry columns are 'list columns' of class `sfc`: they are *simple feature collections*.
@@ -522,14 +521,35 @@ Each point could be described as coordinates in a 2D, 3D or 4D space:
 - An M coordinate ("measure") allows to represent some measure associated to the point, but not the whole feature. 
 This coordinate could be a time of measurement, information who measured this point or what's the error of measurement.
 
-As a result, four possible types of points exist - XY (two-dimensional), XYZ (three-dimensional containing altitude), XYM (three-dimensional containing meaure) and XYZM (four-dimensional).
+As a result, four possible types of points exist - XY (two-dimensional), XYZ (three-dimensional containing altitude), XYM (three-dimensional containing measure) and XYZM (four-dimensional).
 They could be easily describes as well-known text:
 
 - XY - `POINT (5 2)`
 - XYZ - `POINT (5 2 3)`
 - XYM - `POINTM (5 2 1)`
 - XYZM - `POINT (5 2 3 1)`
+<!-- plot(st_as_sfc("POINT(5 2)")) -->
 
+The rest of the geometries have similar form.
+A linestring is represented by a sequence of points with linear interpolation between points, for example:
+
+- `LINESTRING (1 5, 4 4, 4 1, 2 2, 3 2)`
+<!-- plot(st_as_sfc("LINESTRING(1 5, 4 4, 4 1, 2 2, 3 2)")) -->
+
+Linestring cannot have self intersecting line part.
+In other words, lines shouldn't pass through the same point twice (except for the endpoint).
+
+A polygon is a sequence of points, where the first and last point have the same coordinates. 
+Similarly to linestring, polygon needs to create a non-self intersecting ring.
+By the definition, polygon has one exterior boundary and zero or more interior boundaries.
+These interior boundaries are often known as holes.
+
+- Zero interior boundaries (holes) - `POLYGON ((1 5, 4 4, 4 1, 2 2, 1 5))`
+<!-- plot(st_as_sfc("POLYGON((1 5, 4 4, 4 1, 2 2, 1 5))")) -->
+- One hole - `POLYGON ((1 5, 4 4, 4 1, 2 2, 1 5), (2 4, 3 4, 3 3, 2 3))`
+<!-- plot(st_as_sfc("POLYGON((1 5, 4 4, 4 1, 2 2, 1 5), (2 4, 3 4, 3 3, 2 3))")) -->
+
+<!-- st_point(); st_as_sfc("POINT(NA NA)") #issue -->
 <!-- The rest of geometries are built on that -->
 <!-- linestring is a set of coordinates -->
 <!-- `LINESTRING (4 2, 2 4, 5 5)` -->
@@ -1823,7 +1843,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.3
+#> [1] 2.39
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1839,7 +1859,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.13
+#> [1] 3.16
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1939,13 +1959,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.066
+#>   0.060   0.004   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.013
+#>   0.012   0.000   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.030
+#>   0.028   0.000   0.029
 ```
 
 

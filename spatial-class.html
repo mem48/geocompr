@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-06-16">
+<meta name="date" content="2017-06-17">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -392,8 +392,7 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 </div>
 <div id="sfg" class="section level2">
 <h2><span class="header-section-number">2.4</span> Simple feature geometries, collections and data frames</h2>
-<p>To understand new data formats in depth, it often helps to generate them for first principles. This section walks through vector spatial classes step-by-step, from the simplest simple feature geometry to simple feature objects, with class <code>sf</code>, representing complex spatial data. Before describing each geometry type that the <strong>sf</strong> package supports it is worth taking a step back to understand the building blocks of <code>sf</code> objects.</p>
-<p>As stated in section <a href="spatial-class.html#intro-sf">2.1</a>, simple features are simply dataframes with at least one special column that makes it spatial. These spatial columns are often called <code>geom</code> or <code>geometry</code> and can be like non-spatial columns: <code>world$geom</code> refers to the spatial element of the <code>world</code> object described above. These geometry columns are ‘list columns’ of class <code>sfc</code>: they are <em>simple feature collections</em>. In turn, <code>sfc</code> objects are composed of one or more objects of class <code>sfg</code>: simple feature geometries.</p>
+<p>To understand new data formats in depth, it often helps to generate them for first principles. This section walks through vector spatial classes step-by-step, from the simplest simple feature geometry to simple feature objects, with class <code>sf</code>, representing complex spatial data. Before describing each geometry type that the <strong>sf</strong> package supports it is worth taking a step back to understand the building blocks of <code>sf</code> objects. As stated in section <a href="spatial-class.html#intro-sf">2.1</a>, simple features are simply dataframes with at least one special column that makes it spatial. These spatial columns are often called <code>geom</code> or <code>geometry</code> and can be like non-spatial columns: <code>world$geom</code> refers to the spatial element of the <code>world</code> object described above. These geometry columns are ‘list columns’ of class <code>sfc</code>: they are <em>simple feature collections</em>. In turn, <code>sfc</code> objects are composed of one or more objects of class <code>sfg</code>: simple feature geometries.</p>
 <p>To understand how the spatial components of simple features work, it is vital to understand simple feature geometries. For this reason we cover each type currently supported <code>sfg</code> in the next section before moving to describe how they can be combined to form <code>sfc</code> and eventually full <code>sf</code> objects.</p>
 </div>
 <div id="geometries" class="section level2">
@@ -406,13 +405,24 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 <li>A Z coordinate denotes altitude.</li>
 <li>An M coordinate (“measure”) allows to represent some measure associated to the point, but not the whole feature. This coordinate could be a time of measurement, information who measured this point or what’s the error of measurement.</li>
 </ul>
-<p>As a result, four possible types of points exist - XY (two-dimensional), XYZ (three-dimensional containing altitude), XYM (three-dimensional containing meaure) and XYZM (four-dimensional). They could be easily describes as well-known text:</p>
+<p>As a result, four possible types of points exist - XY (two-dimensional), XYZ (three-dimensional containing altitude), XYM (three-dimensional containing measure) and XYZM (four-dimensional). They could be easily describes as well-known text:</p>
 <ul>
 <li>XY - <code>POINT (5 2)</code></li>
 <li>XYZ - <code>POINT (5 2 3)</code></li>
 <li>XYM - <code>POINTM (5 2 1)</code></li>
-<li>XYZM - <code>POINT (5 2 3 1)</code></li>
+<li>XYZM - <code>POINT (5 2 3 1)</code> <!-- plot(st_as_sfc("POINT(5 2)")) --></li>
 </ul>
+<p>The rest of the geometries have similar form. A linestring is represented by a sequence of points with linear interpolation between points, for example:</p>
+<ul>
+<li><code>LINESTRING (1 5, 4 4, 4 1, 2 2, 3 2)</code> <!-- plot(st_as_sfc("LINESTRING(1 5, 4 4, 4 1, 2 2, 3 2)")) --></li>
+</ul>
+<p>Linestring cannot have self intersecting line part. In other words, lines shouldn’t pass through the same point twice (except for the endpoint).</p>
+<p>A polygon is a sequence of points, where the first and last point have the same coordinates. Similarly to linestring, polygon needs to create a non-self intersecting ring. By the definition, polygon has one exterior boundary and zero or more interior boundaries. These interior boundaries are often known as holes.</p>
+<ul>
+<li>Zero interior boundaries (holes) - <code>POLYGON ((1 5, 4 4, 4 1, 2 2, 1 5))</code> <!-- plot(st_as_sfc("POLYGON((1 5, 4 4, 4 1, 2 2, 1 5))")) --></li>
+<li>One hole - <code>POLYGON ((1 5, 4 4, 4 1, 2 2, 1 5), (2 4, 3 4, 3 3, 2 3))</code> <!-- plot(st_as_sfc("POLYGON((1 5, 4 4, 4 1, 2 2, 1 5), (2 4, 3 4, 3 3, 2 3))")) --></li>
+</ul>
+<!-- st_point(); st_as_sfc("POINT(NA NA)") #issue -->
 <!-- The rest of geometries are built on that -->
 <!-- linestring is a set of coordinates -->
 <!-- `LINESTRING (4 2, 2 4, 5 5)` -->
