@@ -148,7 +148,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.3.3" data-path="spatial-class.html"><a href="spatial-class.html#exercises-1"><i class="fa fa-check"></i><b>2.3.3</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="spatial-class.html"><a href="spatial-class.html#sfg"><i class="fa fa-check"></i><b>2.4</b> Simple feature geometries, collections and data frames</a></li>
-<li class="chapter" data-level="2.5" data-path="spatial-class.html"><a href="spatial-class.html#geometries"><i class="fa fa-check"></i><b>2.5</b> Geometries</a></li>
+<li class="chapter" data-level="2.5" data-path="spatial-class.html"><a href="spatial-class.html#geometries"><i class="fa fa-check"></i><b>2.5</b> Geometries</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="spatial-class.html"><a href="spatial-class.html#simple-feature-geometry-types"><i class="fa fa-check"></i><b>2.5.1</b> Simple feature geometry types</a></li>
+<li class="chapter" data-level="2.5.2" data-path="spatial-class.html"><a href="spatial-class.html#simple-feature-geometry-sfg-objects"><i class="fa fa-check"></i><b>2.5.2</b> Simple feature geometry (sfg) objects</a></li>
+</ul></li>
 <li class="chapter" data-level="2.6" data-path="spatial-class.html"><a href="spatial-class.html#coordinate-reference-systems"><i class="fa fa-check"></i><b>2.6</b> Coordinate Reference Systems</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="attr.html"><a href="attr.html"><i class="fa fa-check"></i><b>3</b> Attribute data operations</a><ul>
@@ -397,8 +400,10 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 </div>
 <div id="geometries" class="section level2">
 <h2><span class="header-section-number">2.5</span> Geometries</h2>
+<div id="simple-feature-geometry-types" class="section level3">
+<h3><span class="header-section-number">2.5.1</span> Simple feature geometry types</h3>
 <p>This section demonstrates how the full range of geometry types supported by the <strong>sf</strong> package can be created, combined and plotted. Geometries are the basic building blocks of simple features. Simple features could be represented as one of the 17 geometry types using the <strong>sf</strong> package. In this chapter we will focus on seven, the most commonly used, simple features types: <code>POINT</code>, <code>LINESTRING</code>, <code>POLYGON</code>, <code>MULTIPOINT</code>, <code>MULTILINESTRING</code>, <code>MULTIPOLYGON</code> and <code>GEOMETRYCOLLECTION</code>.<!--FIG--> The whole list of possible feature types could be found in <a href="http://postgis.net/docs/using_postgis_dbmanagement.html">the PostGIS manual</a>.</p>
-<p>Simple features could be represented in one of two ways, ether as a well-known binary (WKB) or well-known text (WKT). Well-known binary (WKB) representations are usually hexadecimal strings, which are used to transfer and store geometry objects in databases. Well-known text (WKT), on the other hand, is a text markup description of simple features. Both formats are exchangeable, therefore we would focus only on the well-known text (WKT) representation.</p>
+<p>Simple features could be represented, outside of an R environment, in one of two ways, ether as a well-known binary (WKB) or well-known text (WKT). Well-known binary (WKB) representations are usually hexadecimal strings, which are used to transfer and store geometry objects in databases. Well-known text (WKT), on the other hand, is a text markup description of simple features. Both formats are exchangeable, therefore we would focus only on the well-known text (WKT) representation.</p>
 <p>All of the geometry types are built of points. Each point could be described as coordinates in a 2D, 3D or 4D space:</p>
 <ul>
 <li>X and Y coordinates represent location of points. It could be either easting and northing or longitude and latitude.</li>
@@ -412,22 +417,32 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 <li>XYM - <code>POINTM (5 2 1)</code></li>
 <li>XYZM - <code>POINT (5 2 3 1)</code></li>
 </ul>
-<p><img src="figures/unnamed-chunk-13-1.png" width="576" style="display: block; margin: auto;" /></p>
-<p>The rest of the geometries have similar form. A linestring is represented by a sequence of points with linear interpolation between points, for example:</p>
+<p><img src="figures/point-1.png" width="576" style="display: block; margin: auto;" /></p>
+<!-- The rest of the geometries have similar form. -->
+<p>A linestring is represented by a sequence of points with linear interpolation between points, for example:</p>
 <ul>
 <li><code>LINESTRING (1 5, 4 4, 4 1, 2 2, 3 2)</code></li>
 </ul>
-<p><img src="figures/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/linestring-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Linestring cannot have self intersecting line part. In other words, lines shouldn’t pass through the same point twice (except for the endpoint).</p>
 <p>A polygon is a sequence of points, where the first and last point have the same coordinates. Similarly to linestring, polygon needs to create a non-self intersecting ring. By the definition, polygon has one exterior boundary and zero or more interior boundaries. These interior boundaries are often known as holes.</p>
 <ul>
 <li>Zero interior boundaries (holes) - <code>POLYGON ((1 5, 4 4, 4 1, 2 2, 1 5))</code></li>
 </ul>
-<p><img src="figures/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/polygon-1.png" width="576" style="display: block; margin: auto;" /></p>
 <ul>
 <li>One hole - <code>POLYGON ((1 5, 4 4, 4 1, 2 2, 1 5), (2 4, 3 4, 3 3, 2 3))</code></li>
 </ul>
-<p><img src="figures/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/polygon_hole-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>The next three geometry types are the sets of previous ones: a mulitpoint is a set of points, multilinestring is a set strings and multipolygon is a set of polygons:</p>
+<ul>
+<li>Multipoint - <code>MULTIPOINT</code></li>
+<li>Multistring - <code>MULTILINESTRING</code></li>
+<li>Multipolygon - <code>MULTIPOLYGON</code></li>
+</ul>
+</div>
+<div id="simple-feature-geometry-sfg-objects" class="section level3">
+<h3><span class="header-section-number">2.5.2</span> Simple feature geometry (sfg) objects</h3>
 <!-- st_point(); st_as_sfc("POINT(NA NA)") #issue -->
 <!-- The rest of geometries are built on that -->
 <!-- linestring is a set of coordinates -->
@@ -483,6 +498,7 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 <!-- - what's sf, sfc, sfg -->
 <!-- - methods(class = "sf") -->
 <!-- ## Geometry collections -->
+</div>
 </div>
 <div id="coordinate-reference-systems" class="section level2">
 <h2><span class="header-section-number">2.6</span> Coordinate Reference Systems</h2>

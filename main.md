@@ -159,7 +159,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve0834cbb92517484b
+preserve6aa137d108817d72
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -502,13 +502,15 @@ For this reason we cover each type currently supported `sfg` in the next section
 
 ## Geometries
 
+### Simple feature geometry types
+
 This section demonstrates how the full range of geometry types supported by the **sf** package can be created, combined and plotted.
 Geometries are the basic building blocks of simple features.
 Simple features could be represented as one of the 17 geometry types using the **sf** package.
 In this chapter we will focus on seven, the most commonly used, simple features types: `POINT`, `LINESTRING`, `POLYGON`, `MULTIPOINT`, `MULTILINESTRING`, `MULTIPOLYGON` and `GEOMETRYCOLLECTION`.<!--FIG-->
 The whole list of possible feature types could be found in [the PostGIS manual ](http://postgis.net/docs/using_postgis_dbmanagement.html).
 
-Simple features could be represented in one of two ways, ether as a well-known binary (WKB) or well-known text (WKT). 
+Simple features could be represented, outside of an R environment, in one of two ways, ether as a well-known binary (WKB) or well-known text (WKT). 
 Well-known binary (WKB) representations are usually hexadecimal strings, which are used to transfer and store geometry objects in databases.
 Well-known text (WKT), on the other hand, is a text markup description of simple features. 
 Both formats are exchangeable, therefore we would focus only on the well-known text (WKT) representation.
@@ -529,14 +531,14 @@ They could be easily describes as well-known text:
 - XYM - `POINTM (5 2 1)`
 - XYZM - `POINT (5 2 3 1)`
 
-<img src="figures/unnamed-chunk-13-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/point-1.png" width="576" style="display: block; margin: auto;" />
 
-The rest of the geometries have similar form.
+<!-- The rest of the geometries have similar form. -->
 A linestring is represented by a sequence of points with linear interpolation between points, for example:
 
 - `LINESTRING (1 5, 4 4, 4 1, 2 2, 3 2)`
 
-<img src="figures/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/linestring-1.png" width="576" style="display: block; margin: auto;" />
 
 Linestring cannot have self intersecting line part.
 In other words, lines shouldn't pass through the same point twice (except for the endpoint).
@@ -548,13 +550,19 @@ These interior boundaries are often known as holes.
 
 - Zero interior boundaries (holes) - `POLYGON ((1 5, 4 4, 4 1, 2 2, 1 5))`
 
-<img src="figures/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/polygon-1.png" width="576" style="display: block; margin: auto;" />
 
 - One hole - `POLYGON ((1 5, 4 4, 4 1, 2 2, 1 5), (2 4, 3 4, 3 3, 2 3))`
 
-<img src="figures/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/polygon_hole-1.png" width="576" style="display: block; margin: auto;" />
 
+The next three geometry types are the sets of previous ones: a mulitpoint is a set of points, multilinestring is a set strings and multipolygon is a set of polygons:
 
+- Multipoint - `MULTIPOINT`
+- Multistring - `MULTILINESTRING`
+- Multipolygon - `MULTIPOLYGON`
+
+### Simple feature geometry (sfg) objects 
 
 <!-- st_point(); st_as_sfc("POINT(NA NA)") #issue -->
 <!-- The rest of geometries are built on that -->
@@ -1850,7 +1858,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.35
+#> [1] 2.31
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1866,7 +1874,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.25
+#> [1] 3
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1966,13 +1974,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.069
+#>   0.068   0.000   0.068
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.004   0.014
+#>   0.012   0.000   0.015
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.032
+#>   0.028   0.008   0.034
 ```
 
 
