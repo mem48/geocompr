@@ -159,7 +159,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveaba18a91f9e6df2b
+preserve7d541d921d1f5a12
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -574,6 +574,28 @@ It could consists of a set of any geometry types previously mentioned, for examp
 <!-- simple features coordinates needs to be mentioned -->
 
 ### Simple feature geometry (sfg) objects 
+
+Simple feature geometry types are represented in R by objects of a `sfg` class. 
+A `sfg` object is a geometry of a single feature - a point, linestring, polygon, multipoint, multilinestring, multipolygon or geometry collection.
+
+Usually you don't need to create geometries on your own. 
+In most cases, geometries are read from spatial files.
+However, a set of function to create simple feature geometry (sfg) objects exist in R and could be used in a special cases.
+The names of these functions are simple and consistent, as they start with a `st_`  prefix and end with name of geometry types in lowercase letters:
+
+- A point - `st_point()`
+- A linestring - `st_linestring()`
+- A polygon - `st_polygon()`
+- A multipoint - `st_multipoint()`
+- A multilinestring - `st_multilinestring()`
+- A multipolygon - `st_multipolygon()`
+- A geometry collection - `st_geometrycollection()`
+
+In R, `sfg` objects are represented by three native data types:
+
+1. A numeric vector - a single point
+2. A matrix - a set of points, where each row contains a point, e.g. a linestring or polygon
+3. A list - any other set, e.g. multilinestring or geometry collection
 
 <!-- st_point(); st_as_sfc("POINT(NA NA)") #issue -->
 <!-- how to create geometries in r ?st_point -->
@@ -1820,7 +1842,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.29
+#> [1] 2.37
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1836,7 +1858,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.09
+#> [1] 3.08
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1936,13 +1958,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>   0.060   0.004   0.065
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.014
+#>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.028
+#>   0.024   0.004   0.029
 ```
 
 

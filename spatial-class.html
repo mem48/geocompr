@@ -450,6 +450,23 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 </div>
 <div id="simple-feature-geometry-sfg-objects" class="section level3">
 <h3><span class="header-section-number">2.5.2</span> Simple feature geometry (sfg) objects</h3>
+<p>Simple feature geometry types are represented in R by objects of a <code>sfg</code> class. A <code>sfg</code> object is a geometry of a single feature - a point, linestring, polygon, multipoint, multilinestring, multipolygon or geometry collection.</p>
+<p>Usually you don’t need to create geometries on your own. In most cases, geometries are read from spatial files. However, a set of function to create simple feature geometry (sfg) objects exist in R and could be used in a special cases. The names of these functions are simple and consistent, as they start with a <code>st_</code> prefix and end with name of geometry types in lowercase letters:</p>
+<ul>
+<li>A point - <code>st_point()</code></li>
+<li>A linestring - <code>st_linestring()</code></li>
+<li>A polygon - <code>st_polygon()</code></li>
+<li>A multipoint - <code>st_multipoint()</code></li>
+<li>A multilinestring - <code>st_multilinestring()</code></li>
+<li>A multipolygon - <code>st_multipolygon()</code></li>
+<li>A geometry collection - <code>st_geometrycollection()</code></li>
+</ul>
+<p>In R, <code>sfg</code> objects are represented by three native data types:</p>
+<ol style="list-style-type: decimal">
+<li>A numeric vector - a single point</li>
+<li>A matrix - a set of points, where each row contains a point, e.g. a linestring or polygon</li>
+<li>A list - any other set, e.g. multilinestring or geometry collection</li>
+</ol>
 <!-- st_point(); st_as_sfc("POINT(NA NA)") #issue -->
 <!-- how to create geometries in r ?st_point -->
 <!-- table -->
