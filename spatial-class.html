@@ -410,18 +410,24 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 <li>XY - <code>POINT (5 2)</code></li>
 <li>XYZ - <code>POINT (5 2 3)</code></li>
 <li>XYM - <code>POINTM (5 2 1)</code></li>
-<li>XYZM - <code>POINT (5 2 3 1)</code> <!-- plot(st_as_sfc("POINT(5 2)")) --></li>
+<li>XYZM - <code>POINT (5 2 3 1)</code></li>
 </ul>
+<p><img src="figures/unnamed-chunk-13-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>The rest of the geometries have similar form. A linestring is represented by a sequence of points with linear interpolation between points, for example:</p>
 <ul>
-<li><code>LINESTRING (1 5, 4 4, 4 1, 2 2, 3 2)</code> <!-- plot(st_as_sfc("LINESTRING(1 5, 4 4, 4 1, 2 2, 3 2)")) --></li>
+<li><code>LINESTRING (1 5, 4 4, 4 1, 2 2, 3 2)</code></li>
 </ul>
+<p><img src="figures/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Linestring cannot have self intersecting line part. In other words, lines shouldn’t pass through the same point twice (except for the endpoint).</p>
 <p>A polygon is a sequence of points, where the first and last point have the same coordinates. Similarly to linestring, polygon needs to create a non-self intersecting ring. By the definition, polygon has one exterior boundary and zero or more interior boundaries. These interior boundaries are often known as holes.</p>
 <ul>
-<li>Zero interior boundaries (holes) - <code>POLYGON ((1 5, 4 4, 4 1, 2 2, 1 5))</code> <!-- plot(st_as_sfc("POLYGON((1 5, 4 4, 4 1, 2 2, 1 5))")) --></li>
-<li>One hole - <code>POLYGON ((1 5, 4 4, 4 1, 2 2, 1 5), (2 4, 3 4, 3 3, 2 3))</code> <!-- plot(st_as_sfc("POLYGON((1 5, 4 4, 4 1, 2 2, 1 5), (2 4, 3 4, 3 3, 2 3))")) --></li>
+<li>Zero interior boundaries (holes) - <code>POLYGON ((1 5, 4 4, 4 1, 2 2, 1 5))</code></li>
 </ul>
+<p><img src="figures/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto;" /></p>
+<ul>
+<li>One hole - <code>POLYGON ((1 5, 4 4, 4 1, 2 2, 1 5), (2 4, 3 4, 3 3, 2 3))</code></li>
+</ul>
+<p><img src="figures/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" /></p>
 <!-- st_point(); st_as_sfc("POINT(NA NA)") #issue -->
 <!-- The rest of geometries are built on that -->
 <!-- linestring is a set of coordinates -->

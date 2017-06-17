@@ -159,7 +159,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservead952742b10bffdc
+preserve5d5878e9db73ccba
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -528,13 +528,15 @@ They could be easily describes as well-known text:
 - XYZ - `POINT (5 2 3)`
 - XYM - `POINTM (5 2 1)`
 - XYZM - `POINT (5 2 3 1)`
-<!-- plot(st_as_sfc("POINT(5 2)")) -->
+
+<img src="figures/unnamed-chunk-13-1.png" width="576" style="display: block; margin: auto;" />
 
 The rest of the geometries have similar form.
 A linestring is represented by a sequence of points with linear interpolation between points, for example:
 
 - `LINESTRING (1 5, 4 4, 4 1, 2 2, 3 2)`
-<!-- plot(st_as_sfc("LINESTRING(1 5, 4 4, 4 1, 2 2, 3 2)")) -->
+
+<img src="figures/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" />
 
 Linestring cannot have self intersecting line part.
 In other words, lines shouldn't pass through the same point twice (except for the endpoint).
@@ -545,9 +547,12 @@ By the definition, polygon has one exterior boundary and zero or more interior b
 These interior boundaries are often known as holes.
 
 - Zero interior boundaries (holes) - `POLYGON ((1 5, 4 4, 4 1, 2 2, 1 5))`
-<!-- plot(st_as_sfc("POLYGON((1 5, 4 4, 4 1, 2 2, 1 5))")) -->
+
+<img src="figures/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto;" />
+
 - One hole - `POLYGON ((1 5, 4 4, 4 1, 2 2, 1 5), (2 4, 3 4, 3 3, 2 3))`
-<!-- plot(st_as_sfc("POLYGON((1 5, 4 4, 4 1, 2 2, 1 5), (2 4, 3 4, 3 3, 2 3))")) -->
+
+<img src="figures/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- st_point(); st_as_sfc("POINT(NA NA)") #issue -->
 <!-- The rest of geometries are built on that -->
@@ -1843,7 +1848,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.27
+#> [1] 2.45
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1859,7 +1864,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.04
+#> [1] 3.1
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1959,13 +1964,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.069
+#>   0.080   0.004   0.084
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.013
+#>   0.024   0.000   0.025
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.008   0.034
+#>   0.028   0.008   0.033
 ```
 
 
