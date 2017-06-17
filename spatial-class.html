@@ -427,11 +427,11 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 <p>Linestring cannot have self intersecting line part. In other words, lines shouldn’t pass through the same point twice (except for the endpoint).</p>
 <p>A polygon is a sequence of points, where the first and last point have the same coordinates. Similarly to linestring, polygon needs to create a non-self intersecting ring. By the definition, polygon has one exterior boundary (outer ring) and zero or more interior boundaries (inner ring). These interior boundaries are often known as holes.</p>
 <ul>
-<li>Zero interior boundaries (holes) - <code>POLYGON ((1 5, 4 4, 4 1, 2 2, 1 5))</code></li>
+<li>Zero interior boundaries (holes) - <code>POLYGON ((1 5, 2 2, 4 1, 4 4, 1 5))</code></li>
 </ul>
 <p><img src="figures/polygon-1.png" width="576" style="display: block; margin: auto;" /></p>
 <ul>
-<li>One hole - <code>POLYGON ((1 5, 4 4, 4 1, 2 2, 1 5), (2 4, 3 4, 3 3, 2 3))</code></li>
+<li>One hole - <code>POLYGON ((1 5, 4 4, 4 1, 2 2, 1 5), (2 4, 3 4, 3 3, 2 3, 2 4))</code></li>
 </ul>
 <p><img src="figures/polygon_hole-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>The next three geometry types are the sets of previous ones: a multipoint is a set of points, multilinestring is a set strings and multipolygon is a set of polygons:</p>
