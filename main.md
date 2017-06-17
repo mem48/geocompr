@@ -159,7 +159,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve04db96fff82287f5
+preserveaba18a91f9e6df2b
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -571,68 +571,21 @@ It could consists of a set of any geometry types previously mentioned, for examp
 
 <img src="figures/geom_collection-1.png" width="576" style="display: block; margin: auto;" />
 
+<!-- simple features coordinates needs to be mentioned -->
+
 ### Simple feature geometry (sfg) objects 
 
 <!-- st_point(); st_as_sfc("POINT(NA NA)") #issue -->
-<!-- The rest of geometries are built on that -->
-<!-- linestring is a set of coordinates -->
-<!-- `LINESTRING (4 2, 2 4, 5 5)` -->
-<!-- explain 3D and 4D linestring -->
-
-<!-- what's poligon -->
-<!-- poligon example -->
-<!-- infromation about holes -->
-<!-- example -->
-
-<!-- on top of that are mutlipart geometries -->
-<!-- mutlipoint -->
-<!-- multipoint example -->
-<!-- multilinestring  -->
-<!-- multilinestring example -->
-<!-- multipoligon -->
-<!-- multipoligon example -->
-
-<!-- what's geometry colection -->
-<!-- example -->
-
 <!-- how to create geometries in r ?st_point -->
-
 <!-- table -->
-<!-- the next types -->
 <!-- figure - image/fig1.jpg -->
-<!-- Well-known text -->
-<!-- 7 of those are the most popular - you can see them on figure x -->
 <!-- they are interconnected - points could create mulitpoints or lines; lines could create mutlilines or polygons, etc. -->
 <!-- ```{r} -->
 <!-- sfg_point = st_point(c(0, 1)) -->
 <!-- ``` -->
-<!-- ```{r, echo=FALSE, eval=FALSE} -->
-<!-- aa = st_as_sfc("LINESTRING(10 5, 9 4, 8 3, 7 2, 6 1)") -->
-<!-- cc = st_as_sfc("CIRCULARSTRING(10 5, 9 4, 8 3, 7 2, 6 1)") -->
-<!-- plot(aa) -->
-<!-- plot(cc) -->
-<!-- ``` -->
 <!-- https://edzer.github.io/sfr/articles/sf1.html -->
-<!-- sf data types: -->
-<!-- - LINESTRING -->
-<!-- - POLYGON -->
-<!-- - MULTIPOINT -->
-<!-- - MULTILINESTRING -->
-<!-- - MULTIPOLYGON -->
-<!-- - GEOMETRYCOLLECTION -->
-<!-- - CIRCULARSTRING -->
-<!-- - COMPOUNDCURVE -->
-<!-- - CURVEPOLYGON -->
-<!-- - MULTICURVE -->
-<!-- - MULTISURFACE -->
-<!-- - CURVE -->
-<!-- - SURFACE -->
-<!-- - POLYHEDRALSURFACE -->
-<!-- - TIN -->
-<!-- - TRIANGLE -->
 <!-- - what's sf, sfc, sfg -->
 <!-- - methods(class = "sf") -->
-<!-- ## Geometry collections -->
 
 ## Coordinate Reference Systems
 
@@ -1867,7 +1820,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.35
+#> [1] 2.29
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1883,7 +1836,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.93
+#> [1] 3.09
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1983,13 +1936,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.073
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.016
+#>   0.012   0.000   0.014
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.012   0.036
+#>   0.024   0.004   0.028
 ```
 
 
