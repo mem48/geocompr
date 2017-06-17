@@ -159,7 +159,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve04f7e0603ab0f1b5
+preservedce1aba7becf5574
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -606,11 +606,14 @@ st_point(c(5, 2)) # XY point
 #> POINT(5 2)
 st_point(c(5, 2, 3)) # XYZ point
 #> POINTZ(5 2 3)
-st_point(c(5, 2, 1), "XYM") # XYM point
+st_point(c(5, 2, 1), dim = "XYM") # XYM point
 #> POINTM(5 2 1)
 st_point(c(5, 2, 3, 1)) # XYZM point
 #> POINTZM(5 2 3 1)
 ```
+
+XY, XYZ and XYZM types of points are automaticly created based on the lenght of a numeric vector. 
+Only XYM type needs to be specified using a `dim` argument.
 
 
 
@@ -1860,7 +1863,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.28
+#> [1] 2.31
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1876,7 +1879,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.21
+#> [1] 3.08
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1976,13 +1979,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.004   0.074
+#>   0.064   0.000   0.067
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.033
+#>   0.024   0.008   0.029
 ```
 
 
