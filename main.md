@@ -159,7 +159,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservedce1aba7becf5574
+preserved3b5d259e32fb215
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -594,7 +594,7 @@ The names of these functions are simple and consistent, as they start with a `st
 In R, `sfg` objects are represented by three native data types:
 
 1. A numeric vector - a single point
-2. A matrix - a set of points, where each row contains a point, e.g. a linestring or polygon
+2. A matrix - a set of points, where each row contains a point - a multipoint or linestring
 3. A list - any other set, e.g. a multilinestring or geometry collection
 
 To create point objects, we could use the `st_point()` function:
@@ -615,6 +615,20 @@ st_point(c(5, 2, 3, 1)) # XYZM point
 XY, XYZ and XYZM types of points are automaticly created based on the lenght of a numeric vector. 
 Only XYM type needs to be specified using a `dim` argument.
 
+Multipoint and linestring objects are created based on a matrix using `st_multipoint()` and `st_linestring()` functions:
+
+
+```r
+# a rbind function simplify creation of matrices
+## MULTIPOINT
+mulitpoint_matrix = rbind(c(5, 2), c(1, 3), c(3, 4), c(3, 2))
+st_multipoint(mulitpoint_matrix)
+#> MULTIPOINT(5 2, 1 3, 3 4, 3 2)
+## LINESTRING
+linestring_matrix = rbind(c(1, 5), c(4, 4), c(4, 1), c(2, 2), c(3, 2))
+st_linestring(linestring_matrix)
+#> LINESTRING(1 5, 4 4, 4 1, 2 2, 3 2)
+```
 
 
 
@@ -1863,7 +1877,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.31
+#> [1] 2.36
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1879,7 +1893,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.08
+#> [1] 3.05
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -1979,13 +1993,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.067
+#>   0.064   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.029
+#>   0.028   0.000   0.028
 ```
 
 

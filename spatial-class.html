@@ -464,7 +464,7 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 <p>In R, <code>sfg</code> objects are represented by three native data types:</p>
 <ol style="list-style-type: decimal">
 <li>A numeric vector - a single point</li>
-<li>A matrix - a set of points, where each row contains a point, e.g. a linestring or polygon</li>
+<li>A matrix - a set of points, where each row contains a point - a multipoint or linestring</li>
 <li>A list - any other set, e.g. a multilinestring or geometry collection</li>
 </ol>
 <p>To create point objects, we could use the <code>st_point()</code> function:</p>
@@ -478,6 +478,16 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 <span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>)) <span class="co"># XYZM point</span>
 <span class="co">#&gt; POINTZM(5 2 3 1)</span></code></pre></div>
 <p>XY, XYZ and XYZM types of points are automaticly created based on the lenght of a numeric vector. Only XYM type needs to be specified using a <code>dim</code> argument.</p>
+<p>Multipoint and linestring objects are created based on a matrix using <code>st_multipoint()</code> and <code>st_linestring()</code> functions:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a rbind function simplify creation of matrices</span>
+## MULTIPOINT
+mulitpoint_matrix =<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>))
+<span class="kw">st_multipoint</span>(mulitpoint_matrix)
+<span class="co">#&gt; MULTIPOINT(5 2, 1 3, 3 4, 3 2)</span>
+## LINESTRING
+linestring_matrix =<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>))
+<span class="kw">st_linestring</span>(linestring_matrix)
+<span class="co">#&gt; LINESTRING(1 5, 4 4, 4 1, 2 2, 3 2)</span></code></pre></div>
 <!-- st_point(); st_as_sfc("POINT(NA NA)") #issue -->
 <!-- how to create geometries in r ?st_point -->
 <!-- table -->
