@@ -451,7 +451,7 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 <div id="simple-feature-geometry-sfg-objects" class="section level3">
 <h3><span class="header-section-number">2.5.2</span> Simple feature geometry (sfg) objects</h3>
 <p>Simple feature geometry types are represented in R by objects of a <code>sfg</code> class. A <code>sfg</code> object is a geometry of a single feature - a point, linestring, polygon, multipoint, multilinestring, multipolygon or geometry collection.</p>
-<p>Usually you don’t need to create geometries on your own. In most cases, geometries are read from spatial files. However, a set of function to create simple feature geometry (sfg) objects exist in R and could be used in a special cases. The names of these functions are simple and consistent, as they start with a <code>st_</code> prefix and end with name of geometry types in lowercase letters:</p>
+<p>Usually you don’t need to create geometries on your own. In most cases, geometries are read from spatial files. However, a set of function to create simple feature geometry (<code>sfg</code>) objects exist in R and could be used in special cases. The names of these functions are simple and consistent, as they start with a <code>st_</code> prefix and end with name of geometry types in lowercase letters:</p>
 <ul>
 <li>A point - <code>st_point()</code></li>
 <li>A linestring - <code>st_linestring()</code></li>
@@ -465,8 +465,18 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 <ol style="list-style-type: decimal">
 <li>A numeric vector - a single point</li>
 <li>A matrix - a set of points, where each row contains a point, e.g. a linestring or polygon</li>
-<li>A list - any other set, e.g. multilinestring or geometry collection</li>
+<li>A list - any other set, e.g. a multilinestring or geometry collection</li>
 </ol>
+<p>To create point objects, we could use the <code>st_point()</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># note that we use a numeric vector for points</span>
+<span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>)) <span class="co"># XY point</span>
+<span class="co">#&gt; POINT(5 2)</span>
+<span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">3</span>)) <span class="co"># XYZ point</span>
+<span class="co">#&gt; POINTZ(5 2 3)</span>
+<span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">1</span>), <span class="st">&quot;XYM&quot;</span>) <span class="co"># XYM point</span>
+<span class="co">#&gt; POINTM(5 2 1)</span>
+<span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>)) <span class="co"># XYZM point</span>
+<span class="co">#&gt; POINTZM(5 2 3 1)</span></code></pre></div>
 <!-- st_point(); st_as_sfc("POINT(NA NA)") #issue -->
 <!-- how to create geometries in r ?st_point -->
 <!-- table -->
