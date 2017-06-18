@@ -477,7 +477,7 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 <span class="co">#&gt; POINTM(5 2 1)</span>
 <span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>)) <span class="co"># XYZM point</span>
 <span class="co">#&gt; POINTZM(5 2 3 1)</span></code></pre></div>
-<p>XY, XYZ and XYZM types of points are automaticly created based on the lenght of a numeric vector. Only XYM type needs to be specified using a <code>dim</code> argument.</p>
+<p>XY, XYZ and XYZM types of points are automaticly created based on the lenght of a numeric vector. Only the XYM type needs to be specified using a <code>dim</code> argument.</p>
 <p>Multipoint and linestring objects are created based on a matrix using <code>st_multipoint()</code> and <code>st_linestring()</code> functions:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># a rbind function simplify creation of matrices</span>
 ## MULTIPOINT

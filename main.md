@@ -166,7 +166,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve79dbebc0a8951962
+preserve3e862103da6d146b
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -620,7 +620,7 @@ st_point(c(5, 2, 3, 1)) # XYZM point
 ```
 
 XY, XYZ and XYZM types of points are automaticly created based on the lenght of a numeric vector. 
-Only XYM type needs to be specified using a `dim` argument.
+Only the XYM type needs to be specified using a `dim` argument.
 
 Multipoint and linestring objects are created based on a matrix using `st_multipoint()` and `st_linestring()` functions:
 
@@ -1918,7 +1918,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.3
+#> [1] 2.33
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1934,7 +1934,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.09
+#> [1] 3.1
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2034,13 +2034,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.073
+#>   0.072   0.000   0.070
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.013
+#>   0.012   0.004   0.014
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.004   0.034
+#>   0.028   0.004   0.032
 ```
 
 
