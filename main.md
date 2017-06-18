@@ -107,7 +107,13 @@ R is a functional language [@wickham_advanced_2014].
 It has many 'bridges' that allow access to a treasure trove of GIS algorithms.
 <!-- todo - add this reference to end of previous line: -->
 <!-- (\@ref(gis)). -->
-It is thus ideal for quickly creating 'geo-tools', without needing to master low level languages such as C, FORTRAN and Java.
+It is thus ideal for quickly creating 'geo-tools', without needing to master low level languages such as C, FORTRAN and Java. 
+
+But geocomputation is not just about the methods and code: it is about doing
+"practical work that is beneficial or useful" [@openshaw_geocomputation_2000].
+After reading this book you should be able to do more than just *understand* geocomputational methods or *follow* the reproducible examples implemented in code chunks in each chapter.
+This book is about *doing* geocomputation.
+This means applying the methods you have learned (and skills you will master) on real-world data to solve pressing problems for social and environmental benefit.
 
 Geocomputation is a relatively
 young field^[Geocomputation
@@ -160,7 +166,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve9a51aae14b8487d3
+preservea0bb7ee4caf4f62d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1912,7 +1918,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.33
+#> [1] 2.37
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1928,7 +1934,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.08
+#> [1] 3.09
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2028,13 +2034,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>   0.068   0.000   0.069
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.013
+#>   0.008   0.004   0.014
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.024   0.008   0.033
 ```
 
 
