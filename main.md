@@ -103,7 +103,7 @@ developing relevant geo-tools within the overall context of a 'scientific'
 approach.
 
 Thus geocomputation is not just about using existing tools, but creating new ones.
-R is a functional language [@wickham_advanced_2014].
+R is a [functional language](http://adv-r.had.co.nz/Functional-programming.html) [@wickham_advanced_2014].
 It has many 'bridges' that allow access to a treasure trove of GIS algorithms.
 <!-- todo - add this reference to end of previous line: -->
 <!-- (\@ref(gis)). -->
@@ -166,7 +166,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea0bb7ee4caf4f62d
+preserve5f87ca80b9f8f0dd
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1918,7 +1918,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.37
+#> [1] 2.3
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2034,13 +2034,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.069
+#>   0.060   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.008   0.004   0.014
+#>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.033
+#>   0.020   0.012   0.029
 ```
 
 
