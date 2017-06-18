@@ -147,12 +147,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.3.2" data-path="spatial-class.html"><a href="spatial-class.html#further-work"><i class="fa fa-check"></i><b>2.3.2</b> Further work</a></li>
 <li class="chapter" data-level="2.3.3" data-path="spatial-class.html"><a href="spatial-class.html#exercises-1"><i class="fa fa-check"></i><b>2.3.3</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="spatial-class.html"><a href="spatial-class.html#sfg"><i class="fa fa-check"></i><b>2.4</b> Simple feature geometries, collections and data frames</a></li>
-<li class="chapter" data-level="2.5" data-path="spatial-class.html"><a href="spatial-class.html#geometries"><i class="fa fa-check"></i><b>2.5</b> Geometries</a><ul>
-<li class="chapter" data-level="2.5.1" data-path="spatial-class.html"><a href="spatial-class.html#simple-feature-geometry-types"><i class="fa fa-check"></i><b>2.5.1</b> Simple feature geometry types</a></li>
-<li class="chapter" data-level="2.5.2" data-path="spatial-class.html"><a href="spatial-class.html#simple-feature-geometry-sfg-objects"><i class="fa fa-check"></i><b>2.5.2</b> Simple feature geometry (sfg) objects</a></li>
+<li class="chapter" data-level="2.4" data-path="spatial-class.html"><a href="spatial-class.html#sf_classes"><i class="fa fa-check"></i><b>2.4</b> Simple feature geometries, collections and data frames</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="spatial-class.html"><a href="spatial-class.html#geometry"><i class="fa fa-check"></i><b>2.4.1</b> Simple feature geometry types</a></li>
+<li class="chapter" data-level="2.4.2" data-path="spatial-class.html"><a href="spatial-class.html#sfg"><i class="fa fa-check"></i><b>2.4.2</b> Simple feature geometry (sfg) objects</a></li>
+<li class="chapter" data-level="2.4.3" data-path="spatial-class.html"><a href="spatial-class.html#sfc"><i class="fa fa-check"></i><b>2.4.3</b> Simple feature collections</a></li>
+<li class="chapter" data-level="2.4.4" data-path="spatial-class.html"><a href="spatial-class.html#sf"><i class="fa fa-check"></i><b>2.4.4</b> Simple feature objects</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="spatial-class.html"><a href="spatial-class.html#coordinate-reference-systems"><i class="fa fa-check"></i><b>2.6</b> Coordinate Reference Systems</a></li>
+<li class="chapter" data-level="2.5" data-path="spatial-class.html"><a href="spatial-class.html#coordinate-reference-systems"><i class="fa fa-check"></i><b>2.5</b> Coordinate Reference Systems</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="attr.html"><a href="attr.html"><i class="fa fa-check"></i><b>3</b> Attribute data operations</a><ul>
 <li class="chapter" data-level="" data-path="attr.html"><a href="attr.html#prerequisites-1"><i class="fa fa-check"></i>Prerequisites</a></li>
@@ -393,15 +394,12 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 </ul>
 </div>
 </div>
-<div id="sfg" class="section level2">
+<div id="sf_classes" class="section level2">
 <h2><span class="header-section-number">2.4</span> Simple feature geometries, collections and data frames</h2>
-<p>To understand new data formats in depth, it often helps to generate them for first principles. This section walks through vector spatial classes step-by-step, from the simplest simple feature geometry to simple feature objects, with class <code>sf</code>, representing complex spatial data. Before describing each geometry type that the <strong>sf</strong> package supports it is worth taking a step back to understand the building blocks of <code>sf</code> objects. As stated in section <a href="spatial-class.html#intro-sf">2.1</a>, simple features are simply dataframes with at least one special column that makes it spatial. These spatial columns are often called <code>geom</code> or <code>geometry</code> and can be like non-spatial columns: <code>world$geom</code> refers to the spatial element of the <code>world</code> object described above. These geometry columns are ‘list columns’ of class <code>sfc</code>: they are <em>simple feature collections</em>. In turn, <code>sfc</code> objects are composed of one or more objects of class <code>sfg</code>: simple feature geometries.</p>
+<p>To understand new data formats in depth, it often helps to generate them for first principles. This section walks through vector spatial classes step-by-step, from the elementary simple feature geometry to simple feature objects, with class <code>sf</code>, representing complex spatial data. Before describing each geometry type that the <strong>sf</strong> package supports it is worth taking a step back to understand the building blocks of <code>sf</code> objects. As stated in section <a href="spatial-class.html#intro-sf">2.1</a>, simple features are simply dataframes with at least one special column that makes it spatial. These spatial columns are often called <code>geom</code> or <code>geometry</code> and can be like non-spatial columns: <code>world$geom</code> refers to the spatial element of the <code>world</code> object described above. These geometry columns are ‘list columns’ of class <code>sfc</code>: they are <em>simple feature collections</em>. In turn, <code>sfc</code> objects are composed of one or more objects of class <code>sfg</code>: simple feature geometries.</p>
 <p>To understand how the spatial components of simple features work, it is vital to understand simple feature geometries. For this reason we cover each type currently supported <code>sfg</code> in the next section before moving to describe how they can be combined to form <code>sfc</code> and eventually full <code>sf</code> objects.</p>
-</div>
-<div id="geometries" class="section level2">
-<h2><span class="header-section-number">2.5</span> Geometries</h2>
-<div id="simple-feature-geometry-types" class="section level3">
-<h3><span class="header-section-number">2.5.1</span> Simple feature geometry types</h3>
+<div id="geometry" class="section level3">
+<h3><span class="header-section-number">2.4.1</span> Simple feature geometry types</h3>
 <p>This section demonstrates how the full range of geometry types supported by the <strong>sf</strong> package can be created, combined and plotted. Geometries are the basic building blocks of simple features. Simple features could be represented as one of the 17 geometry types using the <strong>sf</strong> package. In this chapter we will focus on seven, the most commonly used, simple features types: <code>POINT</code>, <code>LINESTRING</code>, <code>POLYGON</code>, <code>MULTIPOINT</code>, <code>MULTILINESTRING</code>, <code>MULTIPOLYGON</code> and <code>GEOMETRYCOLLECTION</code>.<!--FIG--> The whole list of possible feature types could be found in <a href="http://postgis.net/docs/using_postgis_dbmanagement.html">the PostGIS manual</a>.</p>
 <p>Simple features could be represented, outside of an R environment, in one of two ways, ether as a well-known binary (WKB) or well-known text (WKT). Well-known binary (WKB) representations are usually hexadecimal strings, which are used to transfer and store geometry objects in databases. Well-known text (WKT), on the other hand, is a text markup description of simple features. Both formats are exchangeable, therefore we would focus only on the well-known text (WKT) representation.</p>
 <p>All of the geometry types are built of points. Each point could be described as coordinates in a 2D, 3D or 4D space:</p>
@@ -448,8 +446,8 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 <p><img src="figures/geom_collection-1.png" width="576" style="display: block; margin: auto;" /></p>
 <!-- simple features coordinates needs to be mentioned -->
 </div>
-<div id="simple-feature-geometry-sfg-objects" class="section level3">
-<h3><span class="header-section-number">2.5.2</span> Simple feature geometry (sfg) objects</h3>
+<div id="sfg" class="section level3">
+<h3><span class="header-section-number">2.4.2</span> Simple feature geometry (sfg) objects</h3>
 <p>Simple feature geometry types are represented in R by objects of a <code>sfg</code> class. A <code>sfg</code> object is a geometry of a single feature - a point, linestring, polygon, multipoint, multilinestring, multipolygon or geometry collection.</p>
 <p>Usually you don’t need to create geometries on your own. In most cases, geometries are read from spatial files. However, a set of function to create simple feature geometry (<code>sfg</code>) objects exist in R and could be used in special cases. The names of these functions are simple and consistent, as they start with a <code>st_</code> prefix and end with name of geometry types in lowercase letters:</p>
 <ul>
@@ -531,9 +529,15 @@ gemetrycollection_list =<span class="st"> </span><span class="kw">list</span>(<s
 <!-- - what's sf, sfc, sfg -->
 <!-- - methods(class = "sf") -->
 </div>
+<div id="sfc" class="section level3">
+<h3><span class="header-section-number">2.4.3</span> Simple feature collections</h3>
+</div>
+<div id="sf" class="section level3">
+<h3><span class="header-section-number">2.4.4</span> Simple feature objects</h3>
+</div>
 </div>
 <div id="coordinate-reference-systems" class="section level2">
-<h2><span class="header-section-number">2.6</span> Coordinate Reference Systems</h2>
+<h2><span class="header-section-number">2.5</span> Coordinate Reference Systems</h2>
 <!-- ## Raster data -->
 <!-- Suggest we save this until the raster section for now -->
 <!-- 

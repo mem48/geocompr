@@ -166,7 +166,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve3e862103da6d146b
+preserve7cb38425a74bb5b4
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -214,7 +214,6 @@ The most important recent evolution in R's spatial ecosystem has without doubt b
 
 # Geographic data in R {#spatial-class}
 
-
 ## Prerequisites {-}
 
 This chapter requires the packages **sf**, and **spData** to be installed and loaded:
@@ -224,7 +223,6 @@ This chapter requires the packages **sf**, and **spData** to be installed and lo
 library(sf)
 library(spData)
 ```
-
 
 ## An introduction to Simple Features {#intro-sf}
 
@@ -494,10 +492,10 @@ plot(world_centroids, add = TRUE, cex = world$pop / 1e8, lwd = 3)
 - Perform the same operations and map making for another continent of your choice.
 - Bonus: Download some global geographic data and add attribute variables assigning them to the continents of the world.
 
-## Simple feature geometries, collections and data frames {#sfg}
+## Simple feature geometries, collections and data frames {#sf_classes}
 
 To understand new data formats in depth, it often helps to generate them for first principles.
-This section walks through vector spatial classes step-by-step, from the simplest simple feature geometry to simple feature objects, with class `sf`, representing complex spatial data.
+This section walks through vector spatial classes step-by-step, from the elementary simple feature geometry to simple feature objects, with class `sf`, representing complex spatial data.
 Before describing each geometry type that the **sf** package supports it is worth taking a step back to understand the building blocks of `sf` objects. 
 As stated in section \@ref(intro-sf), simple features are simply dataframes with at least one special column that makes it spatial.
 These spatial columns are often called `geom` or `geometry` and can be like non-spatial columns: `world$geom` refers to the spatial element of the `world` object described above.
@@ -507,9 +505,7 @@ In turn, `sfc` objects are composed of one or more objects of class `sfg`: simpl
 To understand how the spatial components of simple features work, it is vital to understand simple feature geometries.
 For this reason we cover each type currently supported `sfg` in the next section before moving to describe how they can be combined to form `sfc` and eventually full `sf` objects.
 
-## Geometries
-
-### Simple feature geometry types
+### Simple feature geometry types {#geometry}
 
 This section demonstrates how the full range of geometry types supported by the **sf** package can be created, combined and plotted.
 Geometries are the basic building blocks of simple features.
@@ -580,7 +576,7 @@ It could consists of a set of any geometry types previously mentioned, for examp
 
 <!-- simple features coordinates needs to be mentioned -->
 
-### Simple feature geometry (sfg) objects 
+### Simple feature geometry (sfg) objects {#sfg}
 
 Simple feature geometry types are represented in R by objects of a `sfg` class. 
 A `sfg` object is a geometry of a single feature - a point, linestring, polygon, multipoint, multilinestring, multipolygon or geometry collection.
@@ -684,6 +680,13 @@ st_geometrycollection(gemetrycollection_list)
 <!-- https://edzer.github.io/sfr/articles/sf1.html -->
 <!-- - what's sf, sfc, sfg -->
 <!-- - methods(class = "sf") -->
+
+### Simple feature collections {#sfc}
+
+
+
+### Simple feature objects {#sf}
+
 
 ## Coordinate Reference Systems
 
@@ -1918,7 +1921,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.33
+#> [1] 2.2
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1934,7 +1937,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.1
+#> [1] 3.16
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2034,13 +2037,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.070
+#>   0.072   0.008   0.079
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.004   0.014
+#>   0.012   0.000   0.014
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.004   0.032
+#>   0.024   0.008   0.032
 ```
 
 
