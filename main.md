@@ -166,7 +166,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve7cb38425a74bb5b4
+preservef0de2a78ab5ded7e
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -615,7 +615,7 @@ st_point(c(5, 2, 3, 1)) # XYZM point
 #> POINTZM(5 2 3 1)
 ```
 
-XY, XYZ and XYZM types of points are automaticly created based on the lenght of a numeric vector. 
+XY, XYZ and XYZM types of points are automatically created based on the length of a numeric vector. 
 Only the XYM type needs to be specified using a `dim` argument.
 
 Multipoint and linestring objects are created based on a matrix using `st_multipoint()` and `st_linestring()` functions:
@@ -624,8 +624,8 @@ Multipoint and linestring objects are created based on a matrix using `st_multip
 ```r
 # a rbind function simplify creation of matrices
 ## MULTIPOINT
-mulitpoint_matrix = rbind(c(5, 2), c(1, 3), c(3, 4), c(3, 2))
-st_multipoint(mulitpoint_matrix)
+multipoint_matrix = rbind(c(5, 2), c(1, 3), c(3, 4), c(3, 2))
+st_multipoint(multipoint_matrix)
 #> MULTIPOINT(5 2, 1 3, 3 4, 3 2)
 
 ## LINESTRING
@@ -663,7 +663,7 @@ st_multipolygon(multipolygon_list)
 #> MULTIPOLYGON(((1 5, 2 2, 4 1, 4 4, 1 5)), ((0 2, 1 2, 1 3, 0 3, 0 2)))
 
 ## GEMETRYCOLLECTION
-gemetrycollection_list = list(st_multipoint(mulitpoint_matrix),
+gemetrycollection_list = list(st_multipoint(multipoint_matrix),
                               st_linestring(linestring_matrix))
 st_geometrycollection(gemetrycollection_list)
 #> GEOMETRYCOLLECTION(MULTIPOINT(5 2, 1 3, 3 4, 3 2), LINESTRING(1 5, 4 4, 4 1, 2 2, 3 2))
@@ -683,12 +683,93 @@ st_geometrycollection(gemetrycollection_list)
 
 ### Simple feature collections {#sfc}
 
+One `sfg` object contains only a single simple feature geometry. 
+A simple feature collection (`sfc`) is a list of `sfg` objects.
+The `st_sfc()` function can be used to create `sfc` objects.
+For example, we want to collect two simple features of a point type:
 
+
+```r
+# sfc POINT
+point1 = st_point(c(5, 2))
+point2 = st_point(c(1, 3))
+st_sfc(point1, point2)
+#> Geometry set for 2 features 
+#> geometry type:  POINT
+#> dimension:      XY
+#> bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3
+#> epsg (SRID):    NA
+#> proj4string:    NA
+#> POINT(5 2)
+#> POINT(1 3)
+```
+
+In most cases, the `sfc` object contains objects of identical geometry type.
+Therefore, when we combine `sfg` objects of a polygon type we would get `sfc` with a polygon type, and a collection of multilinestring would result into `sfc` of a multilinestring type:
+
+
+```r
+# sfc POLYGON
+polygon_list1 = list(rbind(c(1, 5), c(2, 2), c(4, 1), c(4, 4), c(1, 5)))
+polygon1 = st_polygon(polygon_list)
+polygon_list2 = list(rbind(c(0, 2), c(1, 2), c(1, 3), c(0, 3), c(0, 2)))
+polygon2 = st_polygon(polygon_list2)
+st_sfc(polygon1, polygon2)
+#> Geometry set for 2 features 
+#> geometry type:  POLYGON
+#> dimension:      XY
+#> bbox:           xmin: 0 ymin: 1 xmax: 4 ymax: 5
+#> epsg (SRID):    NA
+#> proj4string:    NA
+#> POLYGON((1 5, 2 2, 4 1, 4 4, 1 5))
+#> POLYGON((0 2, 1 2, 1 3, 0 3, 0 2))
+```
+
+
+```r
+# sfc MULTILINESTRING
+multilinestring_list1 = list(rbind(c(1, 5), c(4, 4), c(4, 1), c(2, 2), c(3, 2)), 
+                            rbind(c(1, 2), c(2, 4)))
+multilinestring1 = st_multilinestring((multilinestring_list1))
+multilinestring_list2 = list(rbind(c(2, 9), c(7, 9), c(5, 6), c(4, 7), c(2, 7)), 
+                            rbind(c(1, 7), c(3, 8)))
+multilinestring2 = st_multilinestring((multilinestring_list2))
+st_sfc(multilinestring1, multilinestring2)
+#> Geometry set for 2 features 
+#> geometry type:  MULTILINESTRING
+#> dimension:      XY
+#> bbox:           xmin: 1 ymin: 1 xmax: 7 ymax: 9
+#> epsg (SRID):    NA
+#> proj4string:    NA
+#> MULTILINESTRING((1 5, 4 4, 4 1, 2 2, 3 2), (1 2...
+#> MULTILINESTRING((2 9, 7 9, 5 6, 4 7, 2 7), (1 7...
+```
+
+It is possible to create a `sfc` object from `sfg` objects with a different geometry type.
+This new object would have a "geometry" geometry type:
+
+
+```r
+# sfc GEOMETRY
+st_sfc(point1, multilinestring1)
+#> Geometry set for 2 features 
+#> geometry type:  GEOMETRY
+#> dimension:      XY
+#> bbox:           xmin: 1 ymin: 1 xmax: 5 ymax: 5
+#> epsg (SRID):    NA
+#> proj4string:    NA
+#> POINT(5 2)
+#> MULTILINESTRING((1 5, 4 4, 4 1, 2 2, 3 2), (1 2...
+```
+
+<!-- Additionally, `sfc` can store coordinate reference system. -->
+<!-- plots can be made -->
+<!-- POINT/MULTIPOINT, etc. -->
+<!-- GEOMETRY -->
 
 ### Simple feature objects {#sf}
 
-
-## Coordinate Reference Systems
+<!-- ## Coordinate Reference Systems -->
 
 <!-- ## Raster data -->
 <!-- Suggest we save this until the raster section for now -->
@@ -1921,7 +2002,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.2
+#> [1] 2.33
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1937,7 +2018,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.16
+#> [1] 3.06
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2037,13 +2118,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.008   0.079
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.014
+#>   0.012   0.000   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.032
+#>   0.016   0.008   0.028
 ```
 
 
