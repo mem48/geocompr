@@ -93,20 +93,21 @@ its unparalleled ability to seamlessly switch between geographic and non-geograp
 <p class="caption">(\#fig:venn)Venn diagram of the intersection between Geography and R.</p>
 </div>
 
-The title was chosen because this book is about more than routine spatial data processing, something that is well captured by the term *geocomputation*.
+The title was chosen because this book is about more than routine spatial data processing.
 What defines geocomputation as a development on previous work is the "creative and experimental use of GIS that it entails" [@longley_geocomputation:_1998].
-With geocomputation geographic data can be used in new ways.
+Another advantage of the term is that it conveys the centrality of the concept of algorithms (which can be implemented in R functions) to advanced geographical research.
+This is captured in the following quote from another seminal book on the subject [@openshaw_geocomputation_2000]:
 
-Another advantage of geocomputation is that it conveys the centrality of the concept of algorithms (which can be implemented in R functions) to advanced geographical research.
-This is captured in another seminal book on the subject [@openshaw_geocomputation_2000]:
-
-> GC is neither an equation-fest nor a computer gigaflop speed contest.
-GeoComputation is about using the various different types of geodata and about
+> GeoComputation is about using the various different types of geodata and about
 developing relevant geo-tools within the overall context of a 'scientific'
 approach.
 
-The computational approach to geographic data allows the creation of new tools from modular components.
-R, being a functional language, makes the creation of the 'geo-tools' that Openshaw advocates relatively easy compared with the low level languages (e.g. FORTRAN and Java) that dominated the field at the time.
+Thus geocomputation is not just about using existing tools, but creating new ones.
+R is a functional language [@wickham_advanced_2014].
+It has many 'bridges' that allow access to a treasure trove of GIS algorithms.
+<!-- todo - add this reference to end of previous line: -->
+<!-- (\@ref(gis)). -->
+It is thus ideal for quickly creating 'geo-tools', without needing to master low level languages such as C, FORTRAN and Java.
 
 Geocomputation is a relatively
 young field^[Geocomputation
@@ -159,7 +160,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservecc47242f746085dc
+preserve9a51aae14b8487d3
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1911,7 +1912,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.31
+#> [1] 2.33
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -1927,7 +1928,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.1
+#> [1] 3.08
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2027,13 +2028,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.028
+#>   0.020   0.008   0.028
 ```
 
 
