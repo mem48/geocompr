@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-06-18">
+<meta name="date" content="2017-06-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -574,7 +574,7 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <span class="co">#&gt; proj4string:    NA</span>
 <span class="co">#&gt; MULTILINESTRING((1 5, 4 4, 4 1, 2 2, 3 2), (1 2...</span>
 <span class="co">#&gt; MULTILINESTRING((2 9, 7 9, 5 6, 4 7, 2 7), (1 7...</span></code></pre></div>
-<p>It is possible to create a <code>sfc</code> object from <code>sfg</code> objects with a different geometry type. This new object would have a “geometry” geometry type:</p>
+<p>It is possible to create a <code>sfc</code> object from <code>sfg</code> objects with different geometry types. This new object would have a “geometry” geometry type:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sfc GEOMETRY</span>
 <span class="kw">st_sfc</span>(point1, multilinestring1)
 <span class="co">#&gt; Geometry set for 2 features </span>
