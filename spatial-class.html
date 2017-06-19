@@ -602,6 +602,9 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 </div>
 <div id="sf" class="section level3">
 <h3><span class="header-section-number">2.4.4</span> Simple feature objects</h3>
+<p>Simple features are created from simple feature geometries:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_point1 =<span class="st"> </span><span class="kw">st_sf</span>(<span class="kw">st_sfc</span>(point1))
+sf_point2 =<span class="st"> </span><span class="kw">st_sf</span>(<span class="kw">st_sfc</span>(point2))</code></pre></div>
 <!-- ## Coordinate Reference Systems -->
 <!-- ## Raster data -->
 <!-- Suggest we save this until the raster section for now -->
@@ -624,6 +627,10 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <p>However, the result is incorrectly given in the same units. The solution is to set the units with the <strong>units</strong> package:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">units::<span class="kw">set_units</span>(<span class="kw">st_area</span>(nigeria), km^<span class="dv">2</span>)
 <span class="co">#&gt; 905072 km^2</span></code></pre></div>
+<!-- Something about when units are not set: -->
+<!-- ```{r} -->
+<!-- st_distance(sf_point1, sf_point2) -->
+<!-- ``` -->
 
 </div>
 </div>

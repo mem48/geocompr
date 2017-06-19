@@ -166,7 +166,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve358926e515ff2fb5
+preserve439df1478e65a61e
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -791,6 +791,16 @@ The `sfc` object could have `NA` values in both attributes or have a actual valu
 
 ### Simple feature objects {#sf}
 
+Simple features are created from simple feature geometries:
+
+
+```r
+sf_point1 = st_sf(st_sfc(point1))
+sf_point2 = st_sf(st_sfc(point2))
+```
+
+
+
 <!-- ## Coordinate Reference Systems -->
 
 <!-- ## Raster data -->
@@ -830,6 +840,12 @@ The solution is to set the units with the **units** package:
 units::set_units(st_area(nigeria), km^2)
 #> 905072 km^2
 ```
+
+<!-- Something about when units are not set: -->
+
+<!-- ```{r} -->
+<!-- st_distance(sf_point1, sf_point2) -->
+<!-- ``` -->
 
 
 
@@ -2054,7 +2070,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.27
+#> [1] 2.42
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2070,7 +2086,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.38
+#> [1] 3.08
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2170,13 +2186,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>    0.08    0.00    0.08
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.015
+#>   0.012   0.000   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.016   0.036
+#>   0.016   0.016   0.031
 ```
 
 
