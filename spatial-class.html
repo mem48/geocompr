@@ -585,10 +585,19 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <span class="co">#&gt; proj4string:    NA</span>
 <span class="co">#&gt; POINT(5 2)</span>
 <span class="co">#&gt; MULTILINESTRING((1 5, 4 4, 4 1, 2 2, 3 2), (1 2...</span></code></pre></div>
+<!-- The "geometry" type  -->
+<!-- cannot be written (?) -->
+<!-- if you want to use it - st_cast() to a proper geometry type -->
+<!-- or st_is to select only one geometry type -->
+<!-- http://r-spatial.org/r/2017/01/12/newssf.html -->
+<!-- st_is -->
+<!-- methods(class = "sfc") -->
 <!-- Additionally, `sfc` can store coordinate reference system. -->
+<p>The simple feature collection objects could store more information about spatial data than just geometries. It is possible to define coordinate reference systems (CRS). <!-- What's CRS --> CRS can be represented by the <code>epsg (SRID)</code> and <code>proj4string</code> attributes. The default value of <code>epsg (SRID)</code> and <code>proj4string</code> is <code>NA</code> (Not Available). This value is used in cases, when we don’t know the CRS. Importantly, all geometries in the <code>sfc</code> objects must have the same CRS. The <code>sfc</code> object could have <code>NA</code> values in both attributes or have a actual value for one or two CRS attributes.</p>
+<!-- all geometries in a geometry list-column must have the same CRS. -->
+<!-- epsg -> integer -->
+<!-- proj4string -> character -->
 <!-- plots can be made -->
-<!-- POINT/MULTIPOINT, etc. -->
-<!-- GEOMETRY -->
 </div>
 <div id="sf" class="section level3">
 <h3><span class="header-section-number">2.4.4</span> Simple feature objects</h3>

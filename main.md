@@ -166,7 +166,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveff7851e654a3e9cc
+preservecf1626f49b0a603e
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -762,10 +762,32 @@ st_sfc(point1, multilinestring1)
 #> MULTILINESTRING((1 5, 4 4, 4 1, 2 2, 3 2), (1 2...
 ```
 
+<!-- The "geometry" type  -->
+<!-- cannot be written (?) -->
+<!-- if you want to use it - st_cast() to a proper geometry type -->
+<!-- or st_is to select only one geometry type -->
+<!-- http://r-spatial.org/r/2017/01/12/newssf.html -->
+<!-- st_is -->
+
+<!-- methods(class = "sfc") -->
+
 <!-- Additionally, `sfc` can store coordinate reference system. -->
+
+The simple feature collection objects could store more information about spatial data than just geometries.
+It is possible to define coordinate reference systems (CRS).
+<!-- What's CRS -->
+CRS can be represented by the `epsg (SRID)` and `proj4string` attributes.
+The default value of `epsg (SRID)` and `proj4string` is `NA` (Not Available).
+This value is used in cases, when we don't know the CRS.
+Importantly, all geometries in the `sfc` objects must have the same CRS. 
+The `sfc` object could have `NA` values in both attributes or have a actual value for one or two CRS attributes.
+
+<!-- all geometries in a geometry list-column must have the same CRS. -->
+
+<!-- epsg -> integer -->
+<!-- proj4string -> character -->
+
 <!-- plots can be made -->
-<!-- POINT/MULTIPOINT, etc. -->
-<!-- GEOMETRY -->
 
 ### Simple feature objects {#sf}
 
@@ -2002,7 +2024,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.32
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2018,10 +2040,10 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.05
+#> [1] 4.62
 ```
 
-In this case **sf** was around 3 times faster than **rgdal**.
+In this case **sf** was around 5 times faster than **rgdal**.
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
 
@@ -2118,13 +2140,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.063
+#>   0.068   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.012
+#>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.027
+#>   0.028   0.004   0.030
 ```
 
 
