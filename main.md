@@ -166,7 +166,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservecf1626f49b0a603e
+preserve358926e515ff2fb5
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -492,7 +492,7 @@ plot(world_centroids, add = TRUE, cex = world$pop / 1e8, lwd = 3)
 - Perform the same operations and map making for another continent of your choice.
 - Bonus: Download some global geographic data and add attribute variables assigning them to the continents of the world.
 
-## Simple feature geometries, collections and data frames {#sf_classes}
+## Simple feature classes {#sf_classes}
 
 To understand new data formats in depth, it often helps to generate them for first principles.
 This section walks through vector spatial classes step-by-step, from the elementary simple feature geometry to simple feature objects, with class `sf`, representing complex spatial data.
@@ -802,6 +802,36 @@ The `sfc` object could have `NA` values in both attributes or have a actual valu
 - RasterStack
 - RasterBrick
 -->
+
+## Units
+
+The final thing to say about `sf` objects in this chapter is that they have units. 
+This is illustrated by calculating the area of Nigeria:
+
+
+```r
+st_area(nigeria)
+#> 9.05e+11 m^2
+```
+
+To translate this figure into a more digestible size, it is tempting to divide the results by a million (the number of square meters in a square kilometer):
+
+
+```r
+st_area(nigeria) / 1e6
+#> 905072 m^2
+```
+
+However, the result is incorrectly given in the same units.
+The solution is to set the units with the **units** package:
+
+
+```r
+units::set_units(st_area(nigeria), km^2)
+#> 905072 km^2
+```
+
+
 
 <!--chapter:end:02-spatial-data.Rmd-->
 
@@ -2024,7 +2054,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.35
+#> [1] 2.27
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2040,10 +2070,10 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 4.62
+#> [1] 3.38
 ```
 
-In this case **sf** was around 5 times faster than **rgdal**.
+In this case **sf** was around 3 times faster than **rgdal**.
 
 The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
 
@@ -2140,13 +2170,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.064
+#>    0.08    0.00    0.08
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.013
+#>   0.016   0.000   0.015
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.004   0.030
+#>   0.020   0.016   0.036
 ```
 
 
