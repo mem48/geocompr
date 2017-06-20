@@ -166,7 +166,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve6c0126321ccd03ad
+preserve8dd471e78c20a440
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -766,7 +766,7 @@ The simple feature collection objects could have more information about spatial 
 It is possible to store coordinate reference systems (CRS) in them.
 <!-- What's CRS -->
 CRS can be represented by the `epsg (SRID)` and `proj4string` attributes.
-The default value of `epsg (SRID)` and `proj4string` is `NA` (*Not Available*), which is used in cases when the CRS is unknown:
+The default value of `epsg (SRID)` and `proj4string` is `NA` (*Not Available*), which is used when the CRS is unknown:
 
 
 ```r
@@ -2107,7 +2107,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.32
+#> [1] 2.37
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2123,7 +2123,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.9
+#> [1] 3.12
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2223,13 +2223,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.068   0.000   0.066
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.012   0.000   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.028
+#>   0.020   0.012   0.029
 ```
 
 
