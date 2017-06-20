@@ -416,7 +416,6 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 <li>XYZM - <code>POINT (5 2 3 1)</code></li>
 </ul>
 <p><img src="figures/point-1.png" width="576" style="display: block; margin: auto;" /></p>
-<!-- The rest of the geometries have similar form. -->
 <p>A linestring is represented by a sequence of points with linear interpolation between points, for example:</p>
 <ul>
 <li><code>LINESTRING (1 5, 4 4, 4 1, 2 2, 3 2)</code></li>
@@ -444,7 +443,6 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 <li>Geometry collection - <code>GEOMETRYCOLLECTION (MULTIPOINT (5 2, 1 3, 3 4, 3 2), LINESTRING (1 5, 4 4, 4 1, 2 2, 3 2)))</code></li>
 </ul>
 <p><img src="figures/geom_collection-1.png" width="576" style="display: block; margin: auto;" /></p>
-<!-- simple features coordinates needs to be mentioned -->
 </div>
 <div id="sfg" class="section level3">
 <h3><span class="header-section-number">2.4.2</span> Simple feature geometry (sfg) objects</h3>
@@ -517,17 +515,11 @@ gemetrycollection_list =<span class="st"> </span><span class="kw">list</span>(<s
                               <span class="kw">st_linestring</span>(linestring_matrix))
 <span class="kw">st_geometrycollection</span>(gemetrycollection_list)
 <span class="co">#&gt; GEOMETRYCOLLECTION(MULTIPOINT(5 2, 1 3, 3 4, 3 2), LINESTRING(1 5, 4 4, 4 1, 2 2, 3 2))</span></code></pre></div>
-<!-- st_point(); st_as_sfc("POINT(NA NA)") #issue -->
-<!-- how to create geometries in r ?st_point -->
 <!-- table -->
 <!-- figure - image/fig1.jpg -->
-<!-- they are interconnected - points could create mulitpoints or lines; lines could create mutlilines or polygons, etc. -->
-<!-- ```{r} -->
-<!-- sfg_point = st_point(c(0, 1)) -->
-<!-- ``` -->
+<!-- they are interconnected - points could create mulitpoints or lines; -->
+<!-- lines could create mutlilines or polygons, etc. -->
 <!-- https://edzer.github.io/sfr/articles/sf1.html -->
-<!-- - what's sf, sfc, sfg -->
-<!-- - methods(class = "sf") -->
 </div>
 <div id="sfc" class="section level3">
 <h3><span class="header-section-number">2.4.3</span> Simple feature collections</h3>
@@ -593,7 +585,6 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <!-- http://r-spatial.org/r/2017/01/12/newssf.html -->
 <!-- st_is -->
 <!-- methods(class = "sfc") -->
-<!-- Additionally, `sfc` can store coordinate reference system. -->
 <p>The simple feature collection objects could have more information about spatial data than just geometries. It is possible to store coordinate reference systems (CRS) in them. <!-- What's CRS --> CRS can be represented by the <code>epsg (SRID)</code> and <code>proj4string</code> attributes. The default value of <code>epsg (SRID)</code> and <code>proj4string</code> is <code>NA</code> (<em>Not Available</em>), which is used in cases when the CRS is unknown:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_sfc</span>(point1, point2)
 <span class="co">#&gt; Geometry set for 2 features </span>
@@ -636,6 +627,7 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <span class="co">#&gt; proj4string:    +proj=utm +zone=11 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs</span>
 <span class="co">#&gt; POINT(5 2)</span>
 <span class="co">#&gt; POINT(1 3)</span></code></pre></div>
+<!-- precision -->
 <!-- plots can be made -->
 </div>
 <div id="sf" class="section level3">
@@ -643,7 +635,6 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <p>Simple features are created from simple feature geometries:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_point1 =<span class="st"> </span><span class="kw">st_sf</span>(<span class="kw">st_sfc</span>(point1))
 sf_point2 =<span class="st"> </span><span class="kw">st_sf</span>(<span class="kw">st_sfc</span>(point2))</code></pre></div>
-<!-- ## Coordinate Reference Systems -->
 <!-- ## Raster data -->
 <!-- Suggest we save this until the raster section for now -->
 <!-- 

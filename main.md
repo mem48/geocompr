@@ -166,7 +166,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservedce9cb7ba1a12631
+preserve6c0126321ccd03ad
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -536,7 +536,6 @@ They could be easily describes as well-known text:
 
 <img src="figures/point-1.png" width="576" style="display: block; margin: auto;" />
 
-<!-- The rest of the geometries have similar form. -->
 A linestring is represented by a sequence of points with linear interpolation between points, for example:
 
 - `LINESTRING (1 5, 4 4, 4 1, 2 2, 3 2)`
@@ -573,8 +572,6 @@ It could consists of a set of any geometry types previously mentioned, for examp
 - Geometry collection - `GEOMETRYCOLLECTION (MULTIPOINT (5 2, 1 3, 3 4, 3 2), LINESTRING (1 5, 4 4, 4 1, 2 2, 3 2)))`
 
 <img src="figures/geom_collection-1.png" width="576" style="display: block; margin: auto;" />
-
-<!-- simple features coordinates needs to be mentioned -->
 
 ### Simple feature geometry (sfg) objects {#sfg}
 
@@ -669,17 +666,11 @@ st_geometrycollection(gemetrycollection_list)
 #> GEOMETRYCOLLECTION(MULTIPOINT(5 2, 1 3, 3 4, 3 2), LINESTRING(1 5, 4 4, 4 1, 2 2, 3 2))
 ```
 
-<!-- st_point(); st_as_sfc("POINT(NA NA)") #issue -->
-<!-- how to create geometries in r ?st_point -->
 <!-- table -->
 <!-- figure - image/fig1.jpg -->
-<!-- they are interconnected - points could create mulitpoints or lines; lines could create mutlilines or polygons, etc. -->
-<!-- ```{r} -->
-<!-- sfg_point = st_point(c(0, 1)) -->
-<!-- ``` -->
+<!-- they are interconnected - points could create mulitpoints or lines; -->
+<!-- lines could create mutlilines or polygons, etc. -->
 <!-- https://edzer.github.io/sfr/articles/sf1.html -->
-<!-- - what's sf, sfc, sfg -->
-<!-- - methods(class = "sf") -->
 
 ### Simple feature collections {#sfc}
 
@@ -771,8 +762,6 @@ st_sfc(point1, multilinestring1)
 
 <!-- methods(class = "sfc") -->
 
-<!-- Additionally, `sfc` can store coordinate reference system. -->
-
 The simple feature collection objects could have more information about spatial data than just geometries.
 It is possible to store coordinate reference systems (CRS) in them.
 <!-- What's CRS -->
@@ -837,6 +826,8 @@ st_sfc(point1, point2, crs = 2955)
 #> POINT(5 2)
 #> POINT(1 3)
 ```
+
+<!-- precision -->
 <!-- plots can be made -->
 
 ### Simple feature objects {#sf}
@@ -848,10 +839,6 @@ Simple features are created from simple feature geometries:
 sf_point1 = st_sf(st_sfc(point1))
 sf_point2 = st_sf(st_sfc(point2))
 ```
-
-
-
-<!-- ## Coordinate Reference Systems -->
 
 <!-- ## Raster data -->
 <!-- Suggest we save this until the raster section for now -->
@@ -2120,7 +2107,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.27
+#> [1] 2.32
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2136,7 +2123,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.07
+#> [1] 2.9
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2236,13 +2223,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.004   0.067
+#>   0.064   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.013
+#>   0.012   0.000   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.033
+#>   0.024   0.004   0.028
 ```
 
 
