@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-06-19'
+date: '2017-06-20'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -39,7 +39,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-06-19 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-06-20 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -166,7 +166,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve439df1478e65a61e
+preservedce9cb7ba1a12631
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -773,20 +773,70 @@ st_sfc(point1, multilinestring1)
 
 <!-- Additionally, `sfc` can store coordinate reference system. -->
 
-The simple feature collection objects could store more information about spatial data than just geometries.
-It is possible to define coordinate reference systems (CRS).
+The simple feature collection objects could have more information about spatial data than just geometries.
+It is possible to store coordinate reference systems (CRS) in them.
 <!-- What's CRS -->
 CRS can be represented by the `epsg (SRID)` and `proj4string` attributes.
-The default value of `epsg (SRID)` and `proj4string` is `NA` (Not Available).
-This value is used in cases, when we don't know the CRS.
-Importantly, all geometries in the `sfc` objects must have the same CRS. 
+The default value of `epsg (SRID)` and `proj4string` is `NA` (*Not Available*), which is used in cases when the CRS is unknown:
+
+
+```r
+st_sfc(point1, point2)
+#> Geometry set for 2 features 
+#> geometry type:  POINT
+#> dimension:      XY
+#> bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3
+#> epsg (SRID):    NA
+#> proj4string:    NA
+#> POINT(5 2)
+#> POINT(1 3)
+```
+
 The `sfc` object could have `NA` values in both attributes or have a actual value for one or two CRS attributes.
+Importantly, all geometries in the `sfc` objects must have the same CRS. 
 
-<!-- all geometries in a geometry list-column must have the same CRS. -->
+We can add coordinate reference system as a `crs` argument of `st_sfc()`. 
+This argument could accept either an integer with the `epsg` code or character with `proj4string`.
 
-<!-- epsg -> integer -->
-<!-- proj4string -> character -->
+<!-- information about epsg -->
 
+```r
+st_sfc(point1, point2, crs = 4326)
+#> Geometry set for 2 features 
+#> geometry type:  POINT
+#> dimension:      XY
+#> bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#> POINT(5 2)
+#> POINT(1 3)
+```
+<!-- information about proj4string -->
+
+```r
+st_sfc(point1, point2, crs = "+proj=utm +zone=11 +ellps=GRS80 +units=m +no_defs")
+#> Geometry set for 2 features 
+#> geometry type:  POINT
+#> dimension:      XY
+#> bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3
+#> epsg (SRID):    NA
+#> proj4string:    +proj=utm +zone=11 +ellps=GRS80 +units=m +no_defs
+#> POINT(5 2)
+#> POINT(1 3)
+```
+<!-- epsg is less flexible but unambiguous; it's simplier to set-->
+
+```r
+st_sfc(point1, point2, crs = 2955)
+#> Geometry set for 2 features 
+#> geometry type:  POINT
+#> dimension:      XY
+#> bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3
+#> epsg (SRID):    2955
+#> proj4string:    +proj=utm +zone=11 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs
+#> POINT(5 2)
+#> POINT(1 3)
+```
 <!-- plots can be made -->
 
 ### Simple feature objects {#sf}
@@ -2070,7 +2120,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.42
+#> [1] 2.27
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2086,7 +2136,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.08
+#> [1] 3.07
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2186,13 +2236,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>   0.064   0.004   0.067
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.012
+#>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.016   0.031
+#>   0.020   0.012   0.033
 ```
 
 
