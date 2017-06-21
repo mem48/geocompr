@@ -166,7 +166,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservefd4d0c0872e2c00a
+preserve5a1baf34bc7fd6c2
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -834,32 +834,58 @@ st_sfc(point1, point2, crs = 2955)
 
 Most of the time, geometries are related to a set of attributes. 
 These attributes could represent the name of the geometry, measured value, group to which the geometry belongs, and many more.
-For example, we measured a temperature of 25°C on the Trafalgar Square in London. 
-This can be described not only by its coordinates and value of a temperature, but also by the name of the point, it's category (city or village), or if the measurement was made using an automatic station.
+For example, we measured a temperature of 25°C on the Trafalgar Square in London on June 21th 2017. 
+This can be described not only by its coordinates and value of a temperature, but also by the name of the point, the date of the measurement, it's category (city or village), or if the measurement was made using an automatic station.
 
 The simple feature class, `sf`, is a combination of an attribute table (`data.frame`) and simple feature geometry collection (`sfc`).
 Simple features are created using the `st_sf()` function:
 
 
 ```r
+# sfg objects
+london_point = st_point(c(0.1, 51.5))
+craggy_island_point = st_point(c(-9.6, 53.0))
+
+# sfc object
+our_geometry = st_sfc(london_point, craggy_island_point, crs = 4326)
+
+# data.frame object
 our_attributes = data.frame(name = c("London", "Craggy Island"),
                             temperature = c(25, 13),
+                            date = c(as.Date("2017-06-21"), as.Date("2017-06-22")),
                             category = c("city", "village"),
                             automatic = c(FALSE, TRUE))
-our_geometry = st_sfc(point1, point2)
+
+# sf object
 sf_points = st_sf(our_attributes, geometry = our_geometry)
+```
+
+The above example illustrates the components of `sf` objects. 
+Firstly, simple feature geometry (`sfg`) objects are defined using coordinates.
+These objects are combined into a simple feature collection (`sfc`).
+The `sfc` could also store the information about coordinate reference system.
+`data.frame` is created, where each row corresponds to one geometry feature.
+Finally, the attribute table and `sfc` object are tied together using the `st_sf()` function.
+The resulting object has two classes - `sf` and `data.frame`:
+
+
+```r
 class(sf_points)
 #> [1] "sf"         "data.frame"
+```
+
+
+```r
 sf_points
-#> Simple feature collection with 2 features and 4 fields
+#> Simple feature collection with 2 features and 5 fields
 #> geometry type:  POINT
 #> dimension:      XY
-#> bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3
-#> epsg (SRID):    NA
-#> proj4string:    NA
-#>            name temperature category automatic   geometry
-#> 1        London          25     city     FALSE POINT(5 2)
-#> 2 Craggy Island          13  village      TRUE POINT(1 3)
+#> bbox:           xmin: -9.6 ymin: 51.5 xmax: 0.1 ymax: 53
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#>            name temperature       date category automatic        geometry
+#> 1        London          25 2017-06-21     city     FALSE POINT(0.1 51.5)
+#> 2 Craggy Island          13 2017-06-22  village      TRUE  POINT(-9.6 53)
 ```
 
 <!-- you can see here how the sf objects are build -> two simple features geometries -> one list-column (geometry collection) -> one sf, which is a combination of a sfc and data.frame -->
@@ -2126,7 +2152,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.31
+#> [1] 2.26
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2142,7 +2168,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.03
+#> [1] 3.05
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2242,13 +2268,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.004   0.064
+#>   0.064   0.000   0.065
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.013
+#>   0.016   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.028
+#>   0.028   0.000   0.028
 ```
 
 
