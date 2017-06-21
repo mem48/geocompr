@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-06-20'
+date: '2017-06-21'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -39,7 +39,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-06-20 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-06-21 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -166,7 +166,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve9f95cd370dd9db68
+preservefd4d0c0872e2c00a
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -832,23 +832,45 @@ st_sfc(point1, point2, crs = 2955)
 
 ### Simple feature objects {#sf}
 
-Simple features are created from simple feature geometries:
+Most of the time, geometries are related to a set of attributes. 
+These attributes could represent the name of the geometry, measured value, group to which the geometry belongs, and many more.
+For example, we measured a temperature of 25°C on the Trafalgar Square in London. 
+This can be described not only by its coordinates and value of a temperature, but also by the name of the point, it's category (city or village), or if the measurement was made using an automatic station.
+
+The simple feature class, `sf`, is a combination of an attribute table (`data.frame`) and simple feature geometry collection (`sfc`).
+Simple features are created using the `st_sf()` function:
 
 
 ```r
-sf_point1 = st_sf(st_sfc(point1))
-sf_point2 = st_sf(st_sfc(point2))
+our_attributes = data.frame(name = c("London", "Craggy Island"),
+                            temperature = c(25, 13),
+                            category = c("city", "village"),
+                            automatic = c(FALSE, TRUE))
+our_geometry = st_sfc(point1, point2)
+sf_points = st_sf(our_attributes, geometry = our_geometry)
+class(sf_points)
+#> [1] "sf"         "data.frame"
+sf_points
+#> Simple feature collection with 2 features and 4 fields
+#> geometry type:  POINT
+#> dimension:      XY
+#> bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3
+#> epsg (SRID):    NA
+#> proj4string:    NA
+#>            name temperature category automatic   geometry
+#> 1        London          25     city     FALSE POINT(5 2)
+#> 2 Craggy Island          13  village      TRUE POINT(1 3)
 ```
+
+<!-- you can see here how the sf objects are build -> two simple features geometries -> one list-column (geometry collection) -> one sf, which is a combination of a sfc and data.frame -->
+<!-- https://edzer.github.io/sfr/articles/sf1.html#how-attributes-relate-to-geometries -->
 
 <!-- ## Raster data -->
 <!-- Suggest we save this until the raster section for now -->
-
-<!-- 
-- raster data types 
-- RasterLayer
-- RasterStack
-- RasterBrick
--->
+<!-- - raster data types  -->
+<!-- - RasterLayer -->
+<!-- - RasterStack -->
+<!-- - RasterBrick -->
 
 ## Units
 
@@ -879,12 +901,9 @@ units::set_units(st_area(nigeria), km^2)
 ```
 
 <!-- Something about when units are not set: -->
-
 <!-- ```{r} -->
 <!-- st_distance(sf_point1, sf_point2) -->
 <!-- ``` -->
-
-
 
 <!--chapter:end:02-spatial-data.Rmd-->
 
@@ -2123,7 +2142,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.99
+#> [1] 3.03
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2223,13 +2242,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>   0.060   0.004   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.012
+#>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.016   0.012   0.028
 ```
 
 

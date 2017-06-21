@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-06-20">
+<meta name="date" content="2017-06-21">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -632,17 +632,34 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 </div>
 <div id="sf" class="section level3">
 <h3><span class="header-section-number">2.4.4</span> Simple feature objects</h3>
-<p>Simple features are created from simple feature geometries:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_point1 =<span class="st"> </span><span class="kw">st_sf</span>(<span class="kw">st_sfc</span>(point1))
-sf_point2 =<span class="st"> </span><span class="kw">st_sf</span>(<span class="kw">st_sfc</span>(point2))</code></pre></div>
+<p>Most of the time, geometries are related to a set of attributes. These attributes could represent the name of the geometry, measured value, group to which the geometry belongs, and many more. For example, we measured a temperature of 25°C on the Trafalgar Square in London. This can be described not only by its coordinates and value of a temperature, but also by the name of the point, it’s category (city or village), or if the measurement was made using an automatic station.</p>
+<p>The simple feature class, <code>sf</code>, is a combination of an attribute table (<code>data.frame</code>) and simple feature geometry collection (<code>sfc</code>). Simple features are created using the <code>st_sf()</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">our_attributes =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;London&quot;</span>, <span class="st">&quot;Craggy Island&quot;</span>),
+                            <span class="dt">temperature =</span> <span class="kw">c</span>(<span class="dv">25</span>, <span class="dv">13</span>),
+                            <span class="dt">category =</span> <span class="kw">c</span>(<span class="st">&quot;city&quot;</span>, <span class="st">&quot;village&quot;</span>),
+                            <span class="dt">automatic =</span> <span class="kw">c</span>(<span class="ot">FALSE</span>, <span class="ot">TRUE</span>))
+our_geometry =<span class="st"> </span><span class="kw">st_sfc</span>(point1, point2)
+sf_points =<span class="st"> </span><span class="kw">st_sf</span>(our_attributes, <span class="dt">geometry =</span> our_geometry)
+<span class="kw">class</span>(sf_points)
+<span class="co">#&gt; [1] &quot;sf&quot;         &quot;data.frame&quot;</span>
+sf_points
+<span class="co">#&gt; Simple feature collection with 2 features and 4 fields</span>
+<span class="co">#&gt; geometry type:  POINT</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3</span>
+<span class="co">#&gt; epsg (SRID):    NA</span>
+<span class="co">#&gt; proj4string:    NA</span>
+<span class="co">#&gt;            name temperature category automatic   geometry</span>
+<span class="co">#&gt; 1        London          25     city     FALSE POINT(5 2)</span>
+<span class="co">#&gt; 2 Craggy Island          13  village      TRUE POINT(1 3)</span></code></pre></div>
+<!-- you can see here how the sf objects are build -> two simple features geometries -> one list-column (geometry collection) -> one sf, which is a combination of a sfc and data.frame -->
+<!-- https://edzer.github.io/sfr/articles/sf1.html#how-attributes-relate-to-geometries -->
 <!-- ## Raster data -->
 <!-- Suggest we save this until the raster section for now -->
-<!-- 
-- raster data types 
-- RasterLayer
-- RasterStack
-- RasterBrick
--->
+<!-- - raster data types  -->
+<!-- - RasterLayer -->
+<!-- - RasterStack -->
+<!-- - RasterBrick -->
 </div>
 </div>
 <div id="units" class="section level2">
