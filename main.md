@@ -166,7 +166,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve552e464db9f79a9c
+preserve33b84863ce9245bd
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -499,7 +499,7 @@ This section walks through vector spatial classes step-by-step, from the element
 Before describing each geometry type that the **sf** package supports it is worth taking a step back to understand the building blocks of `sf` objects. 
 As stated in section \@ref(intro-sf), simple features are simply dataframes with at least one special column that makes it spatial.
 These spatial columns are often called `geom` or `geometry` and can be like non-spatial columns: `world$geom` refers to the spatial element of the `world` object described above.
-These geometry columns are 'list columns' of class `sfc`: they are *simple feature collections*.
+These geometry columns are 'list columns' of class `sfc`: they are simple feature collections.
 In turn, `sfc` objects are composed of one or more objects of class `sfg`: simple feature geometries.
 
 To understand how the spatial components of simple features work, it is vital to understand simple feature geometries.
@@ -527,7 +527,7 @@ Each point could be described as coordinates in a 2D, 3D or 4D space:
 This coordinate could be a time of measurement, information who measured this point or what's the error of measurement.
 
 As a result, four possible types of points exist - XY (two-dimensional), XYZ (three-dimensional containing altitude), XYM (three-dimensional containing measure) and XYZM (four-dimensional).
-They could be easily describes as well-known text:
+They could be easily describes as a well-known text:
 
 - XY - `POINT (5 2)`
 - XYZ - `POINT (5 2 3)`
@@ -573,6 +573,8 @@ It could consists of a set of any geometry types previously mentioned, for examp
 
 <img src="figures/geom_collection-1.png" width="576" style="display: block; margin: auto;" />
 
+
+
 ### Simple feature geometry (sfg) objects {#sfg}
 
 Simple feature geometry types are represented in R by objects of a `sfg` class. 
@@ -580,7 +582,7 @@ A `sfg` object is a geometry of a single feature - a point, linestring, polygon,
 
 Usually you don't need to create geometries on your own. 
 In most cases, geometries are read from spatial files.
-However, a set of function to create simple feature geometry (`sfg`) objects exist in R and could be used in special cases.
+However, a set of function to create simple feature geometry objects (`sfg`) exists in R and could be used in special cases.
 The names of these functions are simple and consistent, as they start with a `st_`  prefix and end with name of geometry types in lowercase letters:
 
 - A point - `st_point()`
@@ -619,7 +621,7 @@ Multipoint and linestring objects are created based on a matrix using `st_multip
 
 
 ```r
-# a rbind function simplify creation of matrices
+# the rbind function simplify creation of matrices
 ## MULTIPOINT
 multipoint_matrix = rbind(c(5, 2), c(1, 3), c(3, 4), c(3, 2))
 st_multipoint(multipoint_matrix)
@@ -631,7 +633,7 @@ st_linestring(linestring_matrix)
 #> LINESTRING(1 5, 4 4, 4 1, 2 2, 3 2)
 ```
 
-The rest of object are represented by lists:
+The rest of objects are represented by lists:
 
 
 ```r
@@ -675,7 +677,7 @@ st_geometrycollection(gemetrycollection_list)
 ### Simple feature collections {#sfc}
 
 One `sfg` object contains only a single simple feature geometry. 
-A simple feature collection (`sfc`) is a list of `sfg` objects.
+A simple feature collection (`sfc`) is a list of `sfg` objects with information about a coordinate reference system.
 The `st_sfc()` function can be used to create `sfc` objects.
 For example, we want to collect two simple features of a point type:
 
@@ -695,8 +697,8 @@ st_sfc(point1, point2)
 #> POINT(1 3)
 ```
 
-In most cases, the `sfc` object contains objects of identical geometry type.
-Therefore, when we combine `sfg` objects of a polygon type we would get `sfc` with a polygon type, and a collection of multilinestring would result into `sfc` of a multilinestring type:
+In most cases, an `sfc` object contains objects of identical geometry type.
+Therefore, when we combine `sfg` objects of a polygon type we would get `sfc` of a polygon type, and a collection of multilinestring would result into `sfc` of a multilinestring type:
 
 
 ```r
@@ -836,7 +838,7 @@ st_sfc(point1, point2, crs = 2955)
 Most of the time, geometries are related to a set of attributes. 
 These attributes could represent the name of the geometry, measured value, group to which the geometry belongs, and many more.
 For example, we measured a temperature of 25°C on the Trafalgar Square in London on June 21th 2017. 
-This can be described not only by its coordinates and value of a temperature, but also by the name of the point, the date of the measurement, it's category (city or village), or if the measurement was made using an automatic station.
+This can be described not only by its coordinates and temperature value, but also by the name of the point, the date of the measurement, it's category (city or village), or if the measurement was made using an automatic station.
 
 The simple feature class, `sf`, is a combination of an attribute table (`data.frame`) and simple feature geometry collection (`sfc`).
 Simple features are created using the `st_sf()` function:
@@ -867,13 +869,6 @@ These objects are combined into a simple feature collection (`sfc`).
 The `sfc` also stores the information about coordinate reference system.
 `data.frame` is created, where each row corresponds to one geometry feature.
 Finally, the attribute table and `sfc` object are tied together using the `st_sf()` function.
-The resulting object has two classes - `sf` and `data.frame`:
-
-
-```r
-class(sf_points)
-#> [1] "sf"         "data.frame"
-```
 
 
 ```r
@@ -887,6 +882,14 @@ sf_points
 #>            name temperature       date category automatic        geometry
 #> 1        London          25 2017-06-21     city     FALSE POINT(0.1 51.5)
 #> 2 Craggy Island          13 2017-06-22  village      TRUE  POINT(-9.6 53)
+```
+
+The resulting object has two classes - `sf` and `data.frame`:
+
+
+```r
+class(sf_points)
+#> [1] "sf"         "data.frame"
 ```
 
 <!-- https://edzer.github.io/sfr/articles/sf1.html#how-attributes-relate-to-geometries -->
@@ -2157,7 +2160,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.33
+#> [1] 2.27
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2173,7 +2176,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.02
+#> [1] 3.12
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2273,13 +2276,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.062
+#>   0.064   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.004   0.015
+#>   0.012   0.000   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.020   0.008   0.029
 ```
 
 
