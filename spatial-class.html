@@ -597,7 +597,8 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <span class="co">#&gt; POINT(1 3)</span></code></pre></div>
 <p>The <code>sfc</code> object could have <code>NA</code> values in both attributes or have an actual value for one or two CRS attributes. Importantly, all geometries in the <code>sfc</code> objects must have the same CRS.</p>
 <p>We can add coordinate reference system as a <code>crs</code> argument of <code>st_sfc()</code>. This argument could accept either an integer with the <code>epsg</code> code or character with <code>proj4string</code>.</p>
-<p><a href="https://edzer.github.io/sfr/articles/sf1.html#crs" class="uri">https://edzer.github.io/sfr/articles/sf1.html#crs</a> <!-- information about epsg --></p>
+<!-- https://edzer.github.io/sfr/articles/sf1.html#crs -->
+<!-- information about epsg -->
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_sfc</span>(point1, point2, <span class="dt">crs =</span> <span class="dv">4326</span>)
 <span class="co">#&gt; Geometry set for 2 features </span>
 <span class="co">#&gt; geometry type:  POINT</span>

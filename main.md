@@ -166,7 +166,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve58848d43469da161
+preserve552e464db9f79a9c
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -787,7 +787,7 @@ Importantly, all geometries in the `sfc` objects must have the same CRS.
 We can add coordinate reference system as a `crs` argument of `st_sfc()`. 
 This argument could accept either an integer with the `epsg` code or character with `proj4string`.
 
-https://edzer.github.io/sfr/articles/sf1.html#crs
+<!-- https://edzer.github.io/sfr/articles/sf1.html#crs -->
 <!-- information about epsg -->
 
 ```r
@@ -2157,7 +2157,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.17
+#> [1] 2.33
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2173,7 +2173,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.12
+#> [1] 3.02
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2276,10 +2276,10 @@ system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>   0.060   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.008   0.004   0.012
+#>   0.012   0.004   0.015
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.008   0.028
+#>   0.020   0.008   0.028
 ```
 
 
