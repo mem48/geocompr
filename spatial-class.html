@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-06-21">
+<meta name="date" content="2017-06-22">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -597,7 +597,7 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <span class="co">#&gt; POINT(1 3)</span></code></pre></div>
 <p>The <code>sfc</code> object could have <code>NA</code> values in both attributes or have an actual value for one or two CRS attributes. Importantly, all geometries in the <code>sfc</code> objects must have the same CRS.</p>
 <p>We can add coordinate reference system as a <code>crs</code> argument of <code>st_sfc()</code>. This argument could accept either an integer with the <code>epsg</code> code or character with <code>proj4string</code>.</p>
-<!-- information about epsg -->
+<p><a href="https://edzer.github.io/sfr/articles/sf1.html#crs" class="uri">https://edzer.github.io/sfr/articles/sf1.html#crs</a> <!-- information about epsg --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_sfc</span>(point1, point2, <span class="dt">crs =</span> <span class="dv">4326</span>)
 <span class="co">#&gt; Geometry set for 2 features </span>
 <span class="co">#&gt; geometry type:  POINT</span>
@@ -650,7 +650,7 @@ our_attributes =<span class="st"> </span><span class="kw">data.frame</span>(<spa
 
 <span class="co"># sf object</span>
 sf_points =<span class="st"> </span><span class="kw">st_sf</span>(our_attributes, <span class="dt">geometry =</span> our_geometry)</code></pre></div>
-<p>The above example illustrates the components of <code>sf</code> objects. Firstly, simple feature geometry (<code>sfg</code>) objects are defined using coordinates. These objects are combined into a simple feature collection (<code>sfc</code>). The <code>sfc</code> could also store the information about coordinate reference system. <code>data.frame</code> is created, where each row corresponds to one geometry feature. Finally, the attribute table and <code>sfc</code> object are tied together using the <code>st_sf()</code> function. The resulting object has two classes - <code>sf</code> and <code>data.frame</code>:</p>
+<p>The above example illustrates the components of <code>sf</code> objects. Firstly, simple feature geometry (<code>sfg</code>) objects are defined using coordinates. These objects are combined into a simple feature collection (<code>sfc</code>). The <code>sfc</code> also stores the information about coordinate reference system. <code>data.frame</code> is created, where each row corresponds to one geometry feature. Finally, the attribute table and <code>sfc</code> object are tied together using the <code>st_sf()</code> function. The resulting object has two classes - <code>sf</code> and <code>data.frame</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(sf_points)
 <span class="co">#&gt; [1] &quot;sf&quot;         &quot;data.frame&quot;</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_points
@@ -663,8 +663,10 @@ sf_points =<span class="st"> </span><span class="kw">st_sf</span>(our_attributes
 <span class="co">#&gt;            name temperature       date category automatic        geometry</span>
 <span class="co">#&gt; 1        London          25 2017-06-21     city     FALSE POINT(0.1 51.5)</span>
 <span class="co">#&gt; 2 Craggy Island          13 2017-06-22  village      TRUE  POINT(-9.6 53)</span></code></pre></div>
-<!-- you can see here how the sf objects are build -> two simple features geometries -> one list-column (geometry collection) -> one sf, which is a combination of a sfc and data.frame -->
 <!-- https://edzer.github.io/sfr/articles/sf1.html#how-attributes-relate-to-geometries -->
+<!-- methods -->
+<!-- methods(class = "sf") -->
+<!-- plots -->
 <!-- ## Raster data -->
 <!-- Suggest we save this until the raster section for now -->
 <!-- - raster data types  -->

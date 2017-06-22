@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-06-21'
+date: '2017-06-22'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -39,7 +39,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-06-21 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-06-22 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -166,7 +166,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve5a1baf34bc7fd6c2
+preserve58848d43469da161
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -787,6 +787,7 @@ Importantly, all geometries in the `sfc` objects must have the same CRS.
 We can add coordinate reference system as a `crs` argument of `st_sfc()`. 
 This argument could accept either an integer with the `epsg` code or character with `proj4string`.
 
+https://edzer.github.io/sfr/articles/sf1.html#crs
 <!-- information about epsg -->
 
 ```r
@@ -863,7 +864,7 @@ sf_points = st_sf(our_attributes, geometry = our_geometry)
 The above example illustrates the components of `sf` objects. 
 Firstly, simple feature geometry (`sfg`) objects are defined using coordinates.
 These objects are combined into a simple feature collection (`sfc`).
-The `sfc` could also store the information about coordinate reference system.
+The `sfc` also stores the information about coordinate reference system.
 `data.frame` is created, where each row corresponds to one geometry feature.
 Finally, the attribute table and `sfc` object are tied together using the `st_sf()` function.
 The resulting object has two classes - `sf` and `data.frame`:
@@ -888,8 +889,12 @@ sf_points
 #> 2 Craggy Island          13 2017-06-22  village      TRUE  POINT(-9.6 53)
 ```
 
-<!-- you can see here how the sf objects are build -> two simple features geometries -> one list-column (geometry collection) -> one sf, which is a combination of a sfc and data.frame -->
 <!-- https://edzer.github.io/sfr/articles/sf1.html#how-attributes-relate-to-geometries -->
+
+<!-- methods -->
+<!-- methods(class = "sf") -->
+<!-- plots -->
+
 
 <!-- ## Raster data -->
 <!-- Suggest we save this until the raster section for now -->
@@ -2152,7 +2157,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.26
+#> [1] 2.17
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2168,7 +2173,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.05
+#> [1] 3.12
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2268,13 +2273,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.065
+#>   0.060   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.013
+#>   0.008   0.004   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.000   0.028
+#>   0.016   0.008   0.028
 ```
 
 
