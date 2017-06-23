@@ -166,7 +166,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve4a84069485bf4fe1
+preserve918999a211b418e7
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -421,7 +421,6 @@ For more advanced map making we recommend using a dedicated visualisation packag
 - map export 
 -->
 
-
 <!-- Maybe show also somewhere that `world[0]` produces only a plot of the geometry which is rather useful if you do not want to plot a specific attribute. This way, you can for example dismiss the col = "white"-argument in your Nigeria example. -->
 
 
@@ -503,17 +502,17 @@ These geometry columns are 'list columns' of class `sfc`: they are simple featur
 In turn, `sfc` objects are composed of one or more objects of class `sfg`: simple feature geometries.
 
 To understand how the spatial components of simple features work, it is vital to understand simple feature geometries.
-For this reason we cover each type currently supported `sfg` in the next section before moving to describe how they can be combined to form `sfc` and eventually full `sf` objects.
+For this reason we cover each type currently supported `sfg` in the next sections before moving to describe how they can be combined to form `sfc` and eventually full `sf` objects.
 
 ### Simple feature geometry types {#geometry}
 
-This section demonstrates how the full range of geometry types supported by the **sf** package can be created, combined and plotted.
+<!-- This section demonstrates how the full range of geometry types supported by the **sf** package can be created, combined and plotted. -->
 Geometries are the basic building blocks of simple features.
 Simple features could be represented as one of the 17 geometry types using the **sf** package.
 In this chapter we will focus on seven, the most commonly used, simple features types: `POINT`, `LINESTRING`, `POLYGON`, `MULTIPOINT`, `MULTILINESTRING`, `MULTIPOLYGON` and `GEOMETRYCOLLECTION`.<!--FIG-->
 The whole list of possible feature types could be found in [the PostGIS manual ](http://postgis.net/docs/using_postgis_dbmanagement.html).
 
-Simple features could be represented, outside of an R environment, in one of two ways, ether as a well-known binary (WKB) or well-known text (WKT). 
+Simple features, outside of an R environment, could be represented in one of two ways, ether as a well-known binary (WKB) or well-known text (WKT). 
 Well-known binary (WKB) representations are usually hexadecimal strings, which are used to transfer and store geometry objects in databases.
 Well-known text (WKT), on the other hand, is a text markup description of simple features. 
 Both formats are exchangeable, therefore we would focus only on the well-known text (WKT) representation.
@@ -795,7 +794,6 @@ Importantly, all geometries in the `sfc` objects must have the same CRS.
 We can add coordinate reference system as a `crs` argument of `st_sfc()`. 
 This argument could accept either an integer with the `epsg` code or character with `proj4string`.
 
-<!-- https://edzer.github.io/sfr/articles/sf1.html#crs -->
 For example, we can set the WGS 84 using either its epsg code (`4326`) or its `proj4string` definition (`"+proj=longlat +datum=WGS84 +no_defs"`):
 
 
@@ -937,7 +935,6 @@ class(sf_points)
 <!-- methods -->
 <!-- methods(class = "sf") -->
 <!-- plots -->
-
 
 <!-- ## Raster data -->
 <!-- Suggest we save this until the raster section for now -->
@@ -2200,7 +2197,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.21
+#> [1] 2.3
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2216,7 +2213,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.02
+#> [1] 3.06
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2316,13 +2313,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.069
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.012   0.000   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.016   0.034
+#>   0.024   0.004   0.027
 ```
 
 
