@@ -166,7 +166,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve918999a211b418e7
+preserve8c24e19f0596626f
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -930,11 +930,10 @@ class(sf_points)
 #> [1] "sf"         "data.frame"
 ```
 
-<!-- https://edzer.github.io/sfr/articles/sf1.html#how-attributes-relate-to-geometries -->
-
 <!-- methods -->
 <!-- methods(class = "sf") -->
 <!-- plots -->
+<!-- https://edzer.github.io/sfr/articles/sf1.html#how-attributes-relate-to-geometries -->
 
 <!-- ## Raster data -->
 <!-- Suggest we save this until the raster section for now -->
@@ -2213,7 +2212,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.06
+#> [1] 3.08
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2313,13 +2312,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>    0.06    0.00    0.06
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.012
+#>   0.012   0.000   0.013
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.027
+#>   0.016   0.012   0.026
 ```
 
 
