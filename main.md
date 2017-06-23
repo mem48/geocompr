@@ -115,11 +115,7 @@ After reading this book you should be able to do more than just *understand* geo
 This book is about *doing* geocomputation.
 This means applying the methods you have learned (and skills you will master) on real-world data to solve pressing problems for social and environmental benefit.
 
-Geocomputation is a relatively
-young field^[Geocomputation
-has a ~30 year history dating back to the first [conference](http://www.geocomputation.org/) on the subject in 1996 (at the University of Leeds where the concept for this book was dreamt up) which was followed by a flurry of subsequent
-publications.]
-but algorithms published under the geocomputational banner have influenced the direction of geographical research, as we will see in subsequent chapters.
+Geocomputation is a relatively young field^[Geocomputation has a ~30 year history dating back to the first [conference](http://www.geocomputation.org/) on the subject in 1996 (at the University of Leeds where the concept for this book was dreamt up) which was followed by a flurry of subsequent publications.] but algorithms published under the geocomputational banner have influenced the direction of geographical research, as we will see in subsequent chapters.
 Algorithms are powerful tools that can become highly complex.
 However, all algorithms are composed of smaller parts.
 By teaching these foundations we aim to empower you to create your own solutions to geographic data problems. This can feel like breaking free from the metaphorical 'glass ceiling' imposed by GUI-based proprietary geographic information systems (see Table \@ref(tab:gdsl) for a definition of GUI).
@@ -150,7 +146,7 @@ Early geographers used a variety of tools including rulers, compasses and sextan
 It is important to remember that while R is a powerful tool, especially when interfaced with other software such as [GDAL](http://www.gdal.org/) and [PostGIS](http://postgis.net/), other tools may be better for certain tasks. <!-- What exactly do you mean? Which tasks? Is there a geocomputational task for which we do not have an interface? So maybe rephrase along the lines that R is not a GIS and therefore not suited for some geoprocessing tasks but that interfaces close this gap. -->
 
 R is characterised by its flexibility, enabling geographical software developers to extend it in multiple ways.
-A good example of this is support for generating interactive maps thanks to **leaflet** [@R-leaflet], which has been subsequently built-on by **tmap** and **mapview** [@R-mapview; @R-tmap].
+A good example of this is support for generating interactive maps thanks to **leaflet** [@R-leaflet], which has been subsequently built-on by **tmap** and **mapview** [@R-tmap; @R-mapview].
 These packages help overcome the criticism that R has "limited interactive [plotting] facilities" [@bivand_applied_2013].
 This is no longer true, as illustrated by the code below which generates Figure \@ref(fig:interactive).
 
@@ -166,7 +162,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve8c24e19f0596626f
+preserve303958da4caaf2d4
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -182,10 +178,24 @@ But before cracking-on with the action, a few introductory remarks are needed to
 
 <!-- paragraphs (with references to chapters in the book): -->
 <!-- 1. this book focus -> sf + raster/stars + leaflet/mapview (the recent state of spatial R); the history of R spatial is way longer -->
-<!-- 2. R spatial story (from spatstat, by maptools, sp, raster, leaflet, to sf) -->
-<!-- 3. short S story - an interface to Fortran and C -> nowodays R is an interface to many programming languages C, Fortran, C++, JavaScript, Go; R - an interface to libraries gdal (C/C++), proj (C), geos (C++) -->
-<!-- 4. R also as an interface to GIS software GRASS GIS, SAGA, QGIS, ArcGIS (calls from R and from the software) + GIS javascript libraries leaflet; reference to the CLI/GUI integration chapter -->
+This book focuses mainly on the most recent state of R's spatial ecosystem.
+We would like to give you the abbility to use the `sf`,<!--raster/stars-->, `tmap`, `leaflet` and `mapview` packages to solve spatial problems. 
+Hovewer, spatial analysis in R has a long history.
 
+<!-- 2. R spatial story (from spatstat, by maptools, sp, raster, leaflet, to sf) -->
+<!-- https://pdfs.semanticscholar.org/9bb5/c9571d64bd3e1ae376967b6c6aca39d6fa70.pdf -->
+<!-- https://pdfs.semanticscholar.org/9a0a/40ac215bfc0d52605b487f66928caf6abc99.pdf -->
+<!-- ASDAR - p. VIII - the Distributed Statistical Computing conference in Vienna in 2003 -->
+<!-- ASDAR - p. 3 - For over 10 years, R has had an increasing number of contributed packages for handling and analysing spatial data. All these packages used to make diﬀer- ent assumptions about how spatial data were organised, and R itself had no capabilities for distinguishing coordinates from other numbers. In addition, methods for plotting spatial data and other tasks were scattered, made diﬀer- ent assumptions on the organisation of the data, and were rudimentary. This was not unlike the situation for time series data at the time. -->
+<!-- the creation of the sp package - sp_0.7-3.tar.gz	2005-04-28 08:20	459K	(CRAN archive) -->
+<!-- the sp package - spatial structures, objects summary, plots (classes and methods) -->
+<!-- ASDAR - p. 5 - figure -->
+<!-- spatstat_1.0-1.tar.gz	2002-01-21 08:56 	674K	(CRAN archive) --> 
+<!-- R - an interface to libraries gdal (C/C++), proj (C), geos (C++) -->
+<!-- R - an interface to visualisation libraries - mostly java script - leaflet->mapview -->
+<!-- R also as an interface to GIS software GRASS GIS, SAGA, QGIS, ArcGIS (calls from R and from the software) reference to the CLI/GUI integration chapter -->
+
+<!-- 3. short S story - an interface to Fortran and C -> nowodays R is an interface to many programming languages C, Fortran, C++, JavaScript, Go; -->
 
 <!-- 
 - r, rstudio, gdal, proj4, geos, udunits 
@@ -2196,7 +2206,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.3
+#> [1] 2.25
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2212,7 +2222,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.08
+#> [1] 3.04
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2312,13 +2322,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>    0.06    0.00    0.06
+#>   0.056   0.004   0.060
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.012   0.000   0.013
+#>   0.008   0.000   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.026
+#>   0.016   0.008   0.026
 ```
 
 
