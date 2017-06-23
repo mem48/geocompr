@@ -261,7 +261,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 Figure 2.1: A spatial plot of the world using the sf package, with a facet for each attribute.
 </p>
 </div>
-<p>Note that instead of creating a single map, as most GIS programs would, the <code>plot()</code> command has created multiple maps, one for each variable in the <code>world</code> datasets. This behavior can be useful for exploring the spatial distribution of different variables and is discussed further in [basic-map] below.</p>
+<p>Note that instead of creating a single map, as most GIS programs would, the <code>plot()</code> command has created multiple maps, one for each variable in the <code>world</code> datasets. This behavior can be useful for exploring the spatial distribution of different variables and is discussed further in <a href="spatial-class.html#basic-map">2.3</a> below.</p>
 <p>Being able to treat spatial objects as regular data frames with spatial powers has many advantages, especially if you are already used to working with data frames. The commonly used <code>summary()</code> function, for example, provides a useful overview of the variables within the <code>world</code> object, but prefixed with some information about the object’s spatial component:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(world[<span class="st">&quot;lifeExp&quot;</span>])
 <span class="co">#&gt;     lifeExp                geom    </span>
@@ -578,7 +578,7 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <!-- or st_is to select only one geometry type -->
 <!-- http://r-spatial.org/r/2017/01/12/newssf.html -->
 <!-- methods(class = "sfc") -->
-<p>The simple feature collection objects could have more information about spatial data than just geometries. It is possible to store coordinate reference systems (CRS) in them. <!-- What's CRS --> CRS can be represented by the <code>epsg (SRID)</code> and <code>proj4string</code> attributes. The default value of <code>epsg (SRID)</code> and <code>proj4string</code> is <code>NA</code> (<em>Not Available</em>), which is used when the CRS is unknown:</p>
+<p>The simple feature collection objects could have more information about spatial data than just geometries. It is possible to store coordinate reference systems (CRS) in them. <!-- What's CRS --> CRS can be represented by <code>epsg (SRID)</code> and <code>proj4string</code> attributes. The default value of <code>epsg (SRID)</code> and <code>proj4string</code> is <code>NA</code> (<em>Not Available</em>), which is used when the CRS is unknown:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_sfc</span>(point1, point2)
 <span class="co">#&gt; Geometry set for 2 features </span>
 <span class="co">#&gt; geometry type:  POINT</span>
