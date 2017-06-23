@@ -166,7 +166,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservedfd86be085a57596
+preservee1b5f21f729d6950
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -800,6 +800,7 @@ For example, we can set the WGS 84 using either its epsg code (`4326`) or its `p
 
 
 ```r
+# EPSG definition
 st_sfc(point1, point2, crs = 4326)
 #> Geometry set for 2 features 
 #> geometry type:  POINT
@@ -813,6 +814,7 @@ st_sfc(point1, point2, crs = 4326)
 
 
 ```r
+# PROJ4STRING definition
 st_sfc(point1, point2, crs = "+proj=longlat +datum=WGS84 +no_defs")
 #> Geometry set for 2 features 
 #> geometry type:  POINT
@@ -828,7 +830,7 @@ Both of these approaches have advantages and disadvantages.
 An `epsg` code is usually shorter and therefore easier to remember. 
 The code also refers to only one, well-defined coordinate reference system. 
 It could be, however, considered a limitation of `epsg`, as it is not flexible.
-On the hand, a `proj4string` definition is longer - it could specify projection type, datum, ellipsoid, and many more parameters. 
+On the hand, a `proj4string` definition is longer - it could specify many different parameters, such as projection type, datum and ellipsoid. 
 This makes `proj4string` more complicated, but also allows to create many different projections and modify existing ones.
 `proj4string` is also supported by the PROJ.4 software (and therefore by the `sf` package), which enables transformations between different projections.
 
@@ -866,7 +868,7 @@ st_sfc(point1, point2, crs = "+proj=utm +zone=11 +ellps=GRS80 +towgs84=0,0,0,0,0
 ```
 
 The above result doesn't contain `epsg`. 
-This is due the fact that no general method for conversion from `proj4string` to `epsg`.
+This is due the fact that no general method for conversion from `proj4string` to `epsg` exists.
 
 <!-- precision -->
 <!-- plots can be made -->
@@ -2198,7 +2200,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.33
+#> [1] 2.36
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2214,7 +2216,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.97
+#> [1] 3.06
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2314,13 +2316,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.016   0.000   0.012
+#>   0.012   0.000   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.004   0.031
+#>   0.012   0.016   0.028
 ```
 
 

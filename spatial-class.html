@@ -592,7 +592,8 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <p>We can add coordinate reference system as a <code>crs</code> argument of <code>st_sfc()</code>. This argument could accept either an integer with the <code>epsg</code> code or character with <code>proj4string</code>.</p>
 <!-- https://edzer.github.io/sfr/articles/sf1.html#crs -->
 <p>For example, we can set the WGS 84 using either its epsg code (<code>4326</code>) or its <code>proj4string</code> definition (<code>&quot;+proj=longlat +datum=WGS84 +no_defs&quot;</code>):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_sfc</span>(point1, point2, <span class="dt">crs =</span> <span class="dv">4326</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># EPSG definition</span>
+<span class="kw">st_sfc</span>(point1, point2, <span class="dt">crs =</span> <span class="dv">4326</span>)
 <span class="co">#&gt; Geometry set for 2 features </span>
 <span class="co">#&gt; geometry type:  POINT</span>
 <span class="co">#&gt; dimension:      XY</span>
@@ -601,7 +602,8 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
 <span class="co">#&gt; POINT(5 2)</span>
 <span class="co">#&gt; POINT(1 3)</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_sfc</span>(point1, point2, <span class="dt">crs =</span> <span class="st">&quot;+proj=longlat +datum=WGS84 +no_defs&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># PROJ4STRING definition</span>
+<span class="kw">st_sfc</span>(point1, point2, <span class="dt">crs =</span> <span class="st">&quot;+proj=longlat +datum=WGS84 +no_defs&quot;</span>)
 <span class="co">#&gt; Geometry set for 2 features </span>
 <span class="co">#&gt; geometry type:  POINT</span>
 <span class="co">#&gt; dimension:      XY</span>
@@ -610,7 +612,7 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
 <span class="co">#&gt; POINT(5 2)</span>
 <span class="co">#&gt; POINT(1 3)</span></code></pre></div>
-<p>Both of these approaches have advantages and disadvantages. An <code>epsg</code> code is usually shorter and therefore easier to remember. The code also refers to only one, well-defined coordinate reference system. It could be, however, considered a limitation of <code>epsg</code>, as it is not flexible. On the hand, a <code>proj4string</code> definition is longer - it could specify projection type, datum, ellipsoid, and many more parameters. This makes <code>proj4string</code> more complicated, but also allows to create many different projections and modify existing ones. <code>proj4string</code> is also supported by the PROJ.4 software (and therefore by the <code>sf</code> package), which enables transformations between different projections.</p>
+<p>Both of these approaches have advantages and disadvantages. An <code>epsg</code> code is usually shorter and therefore easier to remember. The code also refers to only one, well-defined coordinate reference system. It could be, however, considered a limitation of <code>epsg</code>, as it is not flexible. On the hand, a <code>proj4string</code> definition is longer - it could specify many different parameters, such as projection type, datum and ellipsoid. This makes <code>proj4string</code> more complicated, but also allows to create many different projections and modify existing ones. <code>proj4string</code> is also supported by the PROJ.4 software (and therefore by the <code>sf</code> package), which enables transformations between different projections.</p>
 <p><code>epsg</code> always points to a particular CRS. This property makes possible for PROJ.4 to convert <code>epsg</code> into corresponding <code>proj4string</code>. For example, we can set the UTM Zone 11N projection with <code>epsg</code> code <code>2955</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_sfc</span>(point1, point2, <span class="dt">crs =</span> <span class="dv">2955</span>)
 <span class="co">#&gt; Geometry set for 2 features </span>
@@ -631,7 +633,7 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <span class="co">#&gt; proj4string:    +proj=utm +zone=11 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs</span>
 <span class="co">#&gt; POINT(5 2)</span>
 <span class="co">#&gt; POINT(1 3)</span></code></pre></div>
-<p>The above result doesn’t contain <code>epsg</code>. This is due the fact that no general method for conversion from <code>proj4string</code> to <code>epsg</code>.</p>
+<p>The above result doesn’t contain <code>epsg</code>. This is due the fact that no general method for conversion from <code>proj4string</code> to <code>epsg</code> exists.</p>
 <!-- precision -->
 <!-- plots can be made -->
 </div>
