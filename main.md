@@ -162,7 +162,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea4834951da6eca4f
+preservea6518ad364a56a50
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2204,7 +2204,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.28
+#> [1] 2.3
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2220,7 +2220,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.06
+#> [1] 3.05
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2246,13 +2246,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.004   0.064
+#>    0.06    0.00    0.06
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.042
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.030
+#>   0.020   0.008   0.027
 ```
 
 
@@ -2295,20 +2295,12 @@ Setting this argument to `TRUE` makes the rewrite operation work:
 
 ```r
 st_write(obj = world_mod, dsn = "world.gpkg", delete_layer = TRUE)
-#> Deleting layer `world.gpkg' using driver `GPKG'
-#> Updating layer `world.gpkg' to data source `/home/travis/build/Robinlovelace/geocompr/world.gpkg' using driver `GPKG'
-#> features:       177
-#> fields:         10
-#> geometry type:  Multi Polygon
 ```
 
 This can also be done with the function `write_sf()`, which is equivalent to (technically an *alias* for) `st_write()`, except that it has `delete_layer = TRUE` and `quiet = TRUE` by default.
 This enables spatial data to be overwritten more concisely and with less output going to screen:
 
 
-```
-#> [1] TRUE
-```
 
 
 ```r
@@ -2321,7 +2313,6 @@ This is not generally recommended, as it will not work for multi-file data sourc
 
 ```r
 file.remove("world.gpkg")
-#> [1] TRUE
 ```
 
 ## File formats
