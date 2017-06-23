@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-06-22">
+<meta name="date" content="2017-06-23">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -489,28 +489,24 @@ linestring_matrix =<span class="st"> </span><span class="kw">rbind</span>(<span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## POLYGON
 polygon_list =<span class="st"> </span><span class="kw">list</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)))
 <span class="kw">st_polygon</span>(polygon_list)
-<span class="co">#&gt; POLYGON((1 5, 2 2, 4 1, 4 4, 1 5))</span>
-
-## POLYGON with a hole
+<span class="co">#&gt; POLYGON((1 5, 2 2, 4 1, 4 4, 1 5))</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## POLYGON with a hole
 polygon_border =<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>))
 polygon_hole =<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>))
 polygon_with_hole_list =<span class="st"> </span><span class="kw">list</span>(polygon_border, polygon_hole)
 <span class="kw">st_polygon</span>(polygon_with_hole_list)
-<span class="co">#&gt; POLYGON((1 5, 2 2, 4 1, 4 4, 1 5), (2 4, 3 4, 3 3, 2 3, 2 4))</span>
-
-## MULTILINESTRING
+<span class="co">#&gt; POLYGON((1 5, 2 2, 4 1, 4 4, 1 5), (2 4, 3 4, 3 3, 2 3, 2 4))</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## MULTILINESTRING
 multilinestring_list =<span class="st"> </span><span class="kw">list</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>)), 
                             <span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>)))
 <span class="kw">st_multilinestring</span>((multilinestring_list))
-<span class="co">#&gt; MULTILINESTRING((1 5, 4 4, 4 1, 2 2, 3 2), (1 2, 2 4))</span>
-
-## MULTIPOLYGON
+<span class="co">#&gt; MULTILINESTRING((1 5, 4 4, 4 1, 2 2, 3 2), (1 2, 2 4))</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## MULTIPOLYGON
 multipolygon_list =<span class="st"> </span><span class="kw">list</span>(<span class="kw">list</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>))),
                          <span class="kw">list</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>))))
 <span class="kw">st_multipolygon</span>(multipolygon_list)
-<span class="co">#&gt; MULTIPOLYGON(((1 5, 2 2, 4 1, 4 4, 1 5)), ((0 2, 1 2, 1 3, 0 3, 0 2)))</span>
-
-## GEMETRYCOLLECTION
+<span class="co">#&gt; MULTIPOLYGON(((1 5, 2 2, 4 1, 4 4, 1 5)), ((0 2, 1 2, 1 3, 0 3, 0 2)))</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## GEMETRYCOLLECTION
 gemetrycollection_list =<span class="st"> </span><span class="kw">list</span>(<span class="kw">st_multipoint</span>(multipoint_matrix),
                               <span class="kw">st_linestring</span>(linestring_matrix))
 <span class="kw">st_geometrycollection</span>(gemetrycollection_list)
@@ -578,12 +574,9 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <span class="co">#&gt; proj4string:    NA</span>
 <span class="co">#&gt; POINT(5 2)</span>
 <span class="co">#&gt; MULTILINESTRING((1 5, 4 4, 4 1, 2 2, 3 2), (1 2...</span></code></pre></div>
-<!-- The "geometry" type  -->
-<!-- cannot be written (?) -->
 <!-- if you want to use it - st_cast() to a proper geometry type -->
 <!-- or st_is to select only one geometry type -->
 <!-- http://r-spatial.org/r/2017/01/12/newssf.html -->
-<!-- st_is -->
 <!-- methods(class = "sfc") -->
 <p>The simple feature collection objects could have more information about spatial data than just geometries. It is possible to store coordinate reference systems (CRS) in them. <!-- What's CRS --> CRS can be represented by the <code>epsg (SRID)</code> and <code>proj4string</code> attributes. The default value of <code>epsg (SRID)</code> and <code>proj4string</code> is <code>NA</code> (<em>Not Available</em>), which is used when the CRS is unknown:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_sfc</span>(point1, point2)
@@ -598,7 +591,7 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <p>The <code>sfc</code> object could have <code>NA</code> values in both attributes or have an actual value for one or two CRS attributes. Importantly, all geometries in the <code>sfc</code> objects must have the same CRS.</p>
 <p>We can add coordinate reference system as a <code>crs</code> argument of <code>st_sfc()</code>. This argument could accept either an integer with the <code>epsg</code> code or character with <code>proj4string</code>.</p>
 <!-- https://edzer.github.io/sfr/articles/sf1.html#crs -->
-<!-- information about epsg -->
+<p>For example, we can set the WGS 84 using either its epsg code (<code>4326</code>) or its <code>proj4string</code> definition (<code>&quot;+proj=longlat +datum=WGS84 +no_defs&quot;</code>):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_sfc</span>(point1, point2, <span class="dt">crs =</span> <span class="dv">4326</span>)
 <span class="co">#&gt; Geometry set for 2 features </span>
 <span class="co">#&gt; geometry type:  POINT</span>
@@ -608,17 +601,17 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
 <span class="co">#&gt; POINT(5 2)</span>
 <span class="co">#&gt; POINT(1 3)</span></code></pre></div>
-<!-- information about proj4string -->
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_sfc</span>(point1, point2, <span class="dt">crs =</span> <span class="st">&quot;+proj=utm +zone=11 +ellps=GRS80 +units=m +no_defs&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_sfc</span>(point1, point2, <span class="dt">crs =</span> <span class="st">&quot;+proj=longlat +datum=WGS84 +no_defs&quot;</span>)
 <span class="co">#&gt; Geometry set for 2 features </span>
 <span class="co">#&gt; geometry type:  POINT</span>
 <span class="co">#&gt; dimension:      XY</span>
 <span class="co">#&gt; bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3</span>
-<span class="co">#&gt; epsg (SRID):    NA</span>
-<span class="co">#&gt; proj4string:    +proj=utm +zone=11 +ellps=GRS80 +units=m +no_defs</span>
+<span class="co">#&gt; epsg (SRID):    4326</span>
+<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
 <span class="co">#&gt; POINT(5 2)</span>
 <span class="co">#&gt; POINT(1 3)</span></code></pre></div>
-<!-- epsg is less flexible but unambiguous; it's simplier to set-->
+<p>Both of these approaches have advantages and disadvantages. An <code>epsg</code> code is usually shorter and therefore easier to remember. The code also refers to only one, well-defined coordinate reference system. It could be, however, considered a limitation of <code>epsg</code>, as it is not flexible. On the hand, a <code>proj4string</code> definition is longer - it could specify projection type, datum, ellipsoid, and many more parameters. This makes <code>proj4string</code> more complicated, but also allows to create many different projections and modify existing ones. <code>proj4string</code> is also supported by the PROJ.4 software (and therefore by the <code>sf</code> package), which enables transformations between different projections.</p>
+<p><code>epsg</code> always points to a particular CRS. This property makes possible for PROJ.4 to convert <code>epsg</code> into corresponding <code>proj4string</code>. For example, we can set the UTM Zone 11N projection with <code>epsg</code> code <code>2955</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_sfc</span>(point1, point2, <span class="dt">crs =</span> <span class="dv">2955</span>)
 <span class="co">#&gt; Geometry set for 2 features </span>
 <span class="co">#&gt; geometry type:  POINT</span>
@@ -628,6 +621,17 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <span class="co">#&gt; proj4string:    +proj=utm +zone=11 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs</span>
 <span class="co">#&gt; POINT(5 2)</span>
 <span class="co">#&gt; POINT(1 3)</span></code></pre></div>
+<p>As you can see above, the <code>proj4string</code> definition was automatically added. Now we can try to set the CRS using <code>proj4string</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_sfc</span>(point1, point2, <span class="dt">crs =</span> <span class="st">&quot;+proj=utm +zone=11 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs&quot;</span>)
+<span class="co">#&gt; Geometry set for 2 features </span>
+<span class="co">#&gt; geometry type:  POINT</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3</span>
+<span class="co">#&gt; epsg (SRID):    NA</span>
+<span class="co">#&gt; proj4string:    +proj=utm +zone=11 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs</span>
+<span class="co">#&gt; POINT(5 2)</span>
+<span class="co">#&gt; POINT(1 3)</span></code></pre></div>
+<p>The above result doesn’t contain <code>epsg</code>. This is due the fact that no general method for conversion from <code>proj4string</code> to <code>epsg</code>.</p>
 <!-- precision -->
 <!-- plots can be made -->
 </div>

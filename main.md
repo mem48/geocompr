@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-06-22'
+date: '2017-06-23'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -39,7 +39,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-06-22 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-06-23 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -166,7 +166,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve33b84863ce9245bd
+preserve0bc6c4ac21989d13
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -573,8 +573,6 @@ It could consists of a set of any geometry types previously mentioned, for examp
 
 <img src="figures/geom_collection-1.png" width="576" style="display: block; margin: auto;" />
 
-
-
 ### Simple feature geometry (sfg) objects {#sfg}
 
 Simple feature geometry types are represented in R by objects of a `sfg` class. 
@@ -641,26 +639,38 @@ The rest of objects are represented by lists:
 polygon_list = list(rbind(c(1, 5), c(2, 2), c(4, 1), c(4, 4), c(1, 5)))
 st_polygon(polygon_list)
 #> POLYGON((1 5, 2 2, 4 1, 4 4, 1 5))
+```
 
+
+```r
 ## POLYGON with a hole
 polygon_border = rbind(c(1, 5), c(2, 2), c(4, 1), c(4, 4), c(1, 5))
 polygon_hole = rbind(c(2, 4), c(3, 4), c(3, 3), c(2, 3), c(2, 4))
 polygon_with_hole_list = list(polygon_border, polygon_hole)
 st_polygon(polygon_with_hole_list)
 #> POLYGON((1 5, 2 2, 4 1, 4 4, 1 5), (2 4, 3 4, 3 3, 2 3, 2 4))
+```
 
+
+```r
 ## MULTILINESTRING
 multilinestring_list = list(rbind(c(1, 5), c(4, 4), c(4, 1), c(2, 2), c(3, 2)), 
                             rbind(c(1, 2), c(2, 4)))
 st_multilinestring((multilinestring_list))
 #> MULTILINESTRING((1 5, 4 4, 4 1, 2 2, 3 2), (1 2, 2 4))
+```
 
+
+```r
 ## MULTIPOLYGON
 multipolygon_list = list(list(rbind(c(1, 5), c(2, 2), c(4, 1), c(4, 4), c(1, 5))),
                          list(rbind(c(0, 2), c(1, 2), c(1, 3), c(0, 3), c(0, 2))))
 st_multipolygon(multipolygon_list)
 #> MULTIPOLYGON(((1 5, 2 2, 4 1, 4 4, 1 5)), ((0 2, 1 2, 1 3, 0 3, 0 2)))
+```
 
+
+```r
 ## GEMETRYCOLLECTION
 gemetrycollection_list = list(st_multipoint(multipoint_matrix),
                               st_linestring(linestring_matrix))
@@ -755,13 +765,9 @@ st_sfc(point1, multilinestring1)
 #> MULTILINESTRING((1 5, 4 4, 4 1, 2 2, 3 2), (1 2...
 ```
 
-<!-- The "geometry" type  -->
-<!-- cannot be written (?) -->
 <!-- if you want to use it - st_cast() to a proper geometry type -->
 <!-- or st_is to select only one geometry type -->
 <!-- http://r-spatial.org/r/2017/01/12/newssf.html -->
-<!-- st_is -->
-
 <!-- methods(class = "sfc") -->
 
 The simple feature collection objects could have more information about spatial data than just geometries.
@@ -790,7 +796,8 @@ We can add coordinate reference system as a `crs` argument of `st_sfc()`.
 This argument could accept either an integer with the `epsg` code or character with `proj4string`.
 
 <!-- https://edzer.github.io/sfr/articles/sf1.html#crs -->
-<!-- information about epsg -->
+For example, we can set the WGS 84 using either its epsg code (`4326`) or its `proj4string` definition (`"+proj=longlat +datum=WGS84 +no_defs"`):
+
 
 ```r
 st_sfc(point1, point2, crs = 4326)
@@ -803,20 +810,32 @@ st_sfc(point1, point2, crs = 4326)
 #> POINT(5 2)
 #> POINT(1 3)
 ```
-<!-- information about proj4string -->
+
 
 ```r
-st_sfc(point1, point2, crs = "+proj=utm +zone=11 +ellps=GRS80 +units=m +no_defs")
+st_sfc(point1, point2, crs = "+proj=longlat +datum=WGS84 +no_defs")
 #> Geometry set for 2 features 
 #> geometry type:  POINT
 #> dimension:      XY
 #> bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3
-#> epsg (SRID):    NA
-#> proj4string:    +proj=utm +zone=11 +ellps=GRS80 +units=m +no_defs
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #> POINT(5 2)
 #> POINT(1 3)
 ```
-<!-- epsg is less flexible but unambiguous; it's simplier to set-->
+
+Both of these approaches have advantages and disadvantages. 
+An `epsg` code is usually shorter and therefore easier to remember. 
+The code also refers to only one, well-defined coordinate reference system. 
+It could be, however, considered a limitation of `epsg`, as it is not flexible.
+On the hand, a `proj4string` definition is longer - it could specify projection type, datum, ellipsoid, and many more parameters. 
+This makes `proj4string` more complicated, but also allows to create many different projections and modify existing ones.
+`proj4string` is also supported by the PROJ.4 software (and therefore by the `sf` package), which enables transformations between different projections.
+
+`epsg` always points to a particular CRS.
+This property makes possible for PROJ.4 to convert `epsg` into corresponding `proj4string`.
+For example, we can set the UTM Zone 11N projection with `epsg` code `2955`:
+
 
 ```r
 st_sfc(point1, point2, crs = 2955)
@@ -829,6 +848,25 @@ st_sfc(point1, point2, crs = 2955)
 #> POINT(5 2)
 #> POINT(1 3)
 ```
+
+As you can see above, the `proj4string` definition was automatically added.
+Now we can try to set the CRS using `proj4string`:
+
+
+```r
+st_sfc(point1, point2, crs = "+proj=utm +zone=11 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+#> Geometry set for 2 features 
+#> geometry type:  POINT
+#> dimension:      XY
+#> bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3
+#> epsg (SRID):    NA
+#> proj4string:    +proj=utm +zone=11 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs
+#> POINT(5 2)
+#> POINT(1 3)
+```
+
+The above result doesn't contain `epsg`. 
+This is due the fact that no general method for conversion from `proj4string` to `epsg`.
 
 <!-- precision -->
 <!-- plots can be made -->
@@ -2160,7 +2198,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.27
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2176,7 +2214,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.12
+#> [1] 3.04
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2276,13 +2314,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.062
+#>   0.064   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.012   0.000   0.012
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.016   0.012   0.028
 ```
 
 
