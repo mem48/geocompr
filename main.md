@@ -162,7 +162,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve258cd02cca27bf4c
+preserved4fe206cea456602
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -178,21 +178,21 @@ But before cracking-on with the action, a few introductory remarks are needed to
 
 <!-- paragraphs (with references to chapters in the book): -->
 <!-- 1. this book focus -> sf + raster/stars + leaflet/mapview (the recent state of spatial R); the history of R spatial is way longer -->
-
 This book focuses mainly on the most recent state of R's spatial ecosystem.
 We would like to give you the ability to use the **sf**,<!--raster/stars,--> **tmap**, **leaflet** and **mapview** packages to solve spatial problems. 
 However, spatial analysis in R has a long history.
 
+<!-- 2. R spatial story (from spatstat, by maptools, sp, raster, leaflet, to sf) -->
 In the volume 1/2 of R News (the predecessor of The R Journal), Brian Ripley created an overview of the spatial statistics state in June 2001<!--CITE-->. <!-- https://pdfs.semanticscholar.org/9a0a/40ac215bfc0d52605b487f66928caf6abc99.pdf -->
 He shortly described eight packages, mostly used for spatial smoothing end interpolation (such as **akima**, **spatial**, **sgeostat** and **geoR**) and spatial point patterns (**splancs** and **spatstat**).
 Most of these packages where based on the previos code written for S or S-PLUS.
 <!-- one/two sentences about the spatstat package -->
 In the next issue of R News, Roger Bivand gave an introduction to the **splanc** package and suggested some future prospects<!--CITE-->.<!-- https://cran.r-project.org/doc/Rnews/Rnews_2001-3.pdf -->
 The most notably, he mentioned the need for standardized R spatial interface, more efficient mechanisms for exchanging data with GIS, and better ways to treat spatial metadata (such as spatial projections).
-
-
-<!-- 2. R spatial story (from spatstat, by maptools, sp, raster, leaflet, to sf) -->
+<!-- It was extended by the paper ... -->
+<!-- spdep and Opportunities for advancing spatial data analysis in R --> 
 <!-- https://pdfs.semanticscholar.org/9bb5/c9571d64bd3e1ae376967b6c6aca39d6fa70.pdf -->
+
 <!-- ASDAR - p. VIII - the Distributed Statistical Computing conference in Vienna in 2003 -->
 <!-- ASDAR - p. 3 - For over 10 years, R has had an increasing number of contributed packages for handling and analysing spatial data. All these packages used to make diﬀer- ent assumptions about how spatial data were organised, and R itself had no capabilities for distinguishing coordinates from other numbers. In addition, methods for plotting spatial data and other tasks were scattered, made diﬀer- ent assumptions on the organisation of the data, and were rudimentary. This was not unlike the situation for time series data at the time. -->
 <!-- the creation of the sp package - sp_0.7-3.tar.gz	2005-04-28 08:20	459K	(CRAN archive) -->
@@ -2211,7 +2211,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.3
+#> [1] 2.24
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2227,7 +2227,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.11
+#> [1] 3.25
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2253,13 +2253,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.056   0.004   0.061
+#>   0.060   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.040   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.016   0.012   0.030
 ```
 
 
