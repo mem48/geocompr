@@ -162,7 +162,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserved4fe206cea456602
+preserve5aee1e7fb36841c7
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -185,7 +185,7 @@ However, spatial analysis in R has a long history.
 <!-- 2. R spatial story (from spatstat, by maptools, sp, raster, leaflet, to sf) -->
 In the volume 1/2 of R News (the predecessor of The R Journal), Brian Ripley created an overview of the spatial statistics state in June 2001<!--CITE-->. <!-- https://pdfs.semanticscholar.org/9a0a/40ac215bfc0d52605b487f66928caf6abc99.pdf -->
 He shortly described eight packages, mostly used for spatial smoothing end interpolation (such as **akima**, **spatial**, **sgeostat** and **geoR**) and spatial point patterns (**splancs** and **spatstat**).
-Most of these packages where based on the previos code written for S or S-PLUS.
+Most of these packages where based on the previous code written for S or S-PLUS.
 <!-- one/two sentences about the spatstat package -->
 In the next issue of R News, Roger Bivand gave an introduction to the **splanc** package and suggested some future prospects<!--CITE-->.<!-- https://cran.r-project.org/doc/Rnews/Rnews_2001-3.pdf -->
 The most notably, he mentioned the need for standardized R spatial interface, more efficient mechanisms for exchanging data with GIS, and better ways to treat spatial metadata (such as spatial projections).
@@ -2211,7 +2211,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.24
+#> [1] 2.4
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2227,7 +2227,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.25
+#> [1] 2.96
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2253,13 +2253,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.062
+#>   0.064   0.000   0.065
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.043
+#>   0.044   0.000   0.046
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.030
+#>   0.020   0.012   0.032
 ```
 
 
