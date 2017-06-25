@@ -162,7 +162,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserved5cbcafbc5842f2b
+preservea45eae90903bd792
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -224,8 +224,8 @@ This not only because the incumbent packages are highly mature: there is a wealt
 <p class="caption">(\#fig:cranlogs)The popularity of spatial packages in R. The y axis shows the average number of downloads, within a 30 day rolling window, of R's top 5 spatial packages, defined as those with the highest number of downloads within the last 30 days.</p>
 </div>
 
-We would like to give you the ability to use the **sf**,<!--raster/stars,--> **tmap**, **leaflet** and **mapview** packages to solve spatial problems. 
-However, spatial analysis in R has a long history.
+<!-- We would like to give you the ability to use the **sf**,<!--raster/stars,--> **tmap**, **leaflet** and **mapview** packages to solve spatial problems.  -->
+<!-- However, spatial analysis in R has a long history. -->
 
 <!-- 2. R spatial story (from spatstat, by maptools, sp, raster, leaflet, to sf) -->
 In the volume 1/2 of R News (the predecessor of The R Journal), Brian Ripley created an overview of the spatial statistics state in June 2001<!--CITE-->. <!-- https://pdfs.semanticscholar.org/9a0a/40ac215bfc0d52605b487f66928caf6abc99.pdf -->
@@ -2264,7 +2264,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.48
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2280,7 +2280,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.34
+#> [1] 3.1
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2306,13 +2306,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.061
+#>    0.06    0.00    0.06
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.044
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.032
+#>   0.016   0.012   0.027
 ```
 
 
