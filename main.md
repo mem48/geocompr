@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveb905d4612e8c752d
+preserve9594490a3da8c19c
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -201,12 +201,14 @@ mapview            163
 geojsonio          141
 tigris             121
 
-Despite the rapid growth of the 'sfverse', 
 A surge in development time (and interest) in 'R-Geo' has followed the award of a grant by the R Consortium for the development of support for Simple Features and the resulting **sf** package (covered in \@ref(intro-sf)).
-Simple Features represent a new way of doing spatial data in R that has many advantages.
-An emerging sub-system within the wider **sf** has only been around for a short time compared with the incumbent **sp** package, but has already received much attention.
-Table \@ref(table:cloc) compares the two package, illustrating the rapid growth of **sf**.
-The point of this table is clear: the new paradigm for spatial data analysis heralded by **sf** has the wind in its sails and is set to dominate future developments in R's spatial ecosystem for years to come. 
+This is illustrated in multiple places, not least the [R-sig-Geo Archives](https://stat.ethz.ch/pipermail/r-sig-geo/), a long-standing open access email list containing much R-spatial wisdom accumulated over the years.
+Many posts on the list now discuss **sf** and related packages, suggesting that R's spatial software developers are using the package and, therefore, it is here to stay.
+We will see in the next chapter how Simple Features in R work and their many advantages.
+
+We propose that the release of **sf** heralds a new era for spatial data analysis and geocomputation in R.
+This era (which refrain from labelling the **sfverse** with any sersiousness, awaiting a better name!) clearly has the wind in its sails and is set to dominate future developments in R's spatial ecosystem for years to come.
+So time invested in learning the 'new ways' of handling spatial data and, hopefully, reading this book, is well spent!
 
 <div class="figure" style="text-align: center">
 <img src="figures/spatial-package-growth.png" alt="The popularity of spatial packages in R. The y axis shows the average number of downloads, within a 30 day rolling window, of R's top 5 spatial packages, defined as those with the highest number of downloads within the last 30 days." width="1050" />
@@ -2264,7 +2266,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.29
+#> [1] 2.32
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2280,7 +2282,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.1
+#> [1] 3.12
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2306,13 +2308,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.062
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.027
+#>   0.028   0.000   0.027
 ```
 
 
