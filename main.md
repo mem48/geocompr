@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea65ca81b5487de06
+preservefb4ba92426b78f27
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -183,8 +183,8 @@ This evolution is common in open source software: because all the code is open, 
 In the context of spatial vector data classes in R, this can be clearly seen in the evolution of the **sf** package which in many ways evolved from the earlier **sp** package.
 
 R's evolving spatial ecosystem should also be understood in the context of developments in the wider R community.
-Since the release of visualisation package **ggplot2** in [2007](https://cran.r-project.org/src/contrib/Archive/ggplot2/) and data processing package **dplyr** in [2014](https://cran.r-project.org/src/contrib/Archive/dplyr/), these packages have become extremely popular.
-These and related packages share a common style, with a focus on 'tidy data'.
+The visualisation and data processing packages **ggplot2** and **dplyr** (released on CRAN in [2007](https://cran.r-project.org/src/contrib/Archive/ggplot2/) and [2014](https://cran.r-project.org/src/contrib/Archive/dplyr/) respectively) exemplify these shifts.
+These and other packages written by Hadley Wickham and collaborators share a common style, with a focus on 'tidy data' (hence the emergence of the term 'Hadleyverse' in [2013](https://trends.google.com/trends/explore?q=hadleyverse)).
 For ease of installation and to harmonize packages in this style, the **tidyverse** 'metapackage' was released in late [2016](https://cran.r-project.org/src/contrib/Archive/tidyverse/).
 Although there is no equivalent **sfverse**, there are a growing number of actively developed package which use **sf** (Table \@ref(tab:revdep)) and discussion of harmonization among R's many spatial packages.^[
 See the [r-spatial](https://github.com/r-spatial/) organisation and conversations in the [discussion](https://github.com/r-spatial/discuss/issues/11) repo for more on this.
@@ -2264,7 +2264,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.26
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2306,13 +2306,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.004   0.063
+#>   0.056   0.004   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.041
+#>   0.036   0.004   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.000   0.029
+#>   0.024   0.004   0.028
 ```
 
 
