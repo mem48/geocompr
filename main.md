@@ -162,7 +162,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve485e6c0555df3215
+preserve650b350ef6770661
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -178,8 +178,56 @@ But before cracking-on with the action, a few introductory remarks are needed to
 
 <!-- paragraphs (with references to chapters in the book): -->
 <!-- 1. this book focus -> sf + raster/stars + leaflet/mapview (the recent state of spatial R); the history of R spatial is way longer -->
-This book focuses mainly on the most recent state of R's spatial ecosystem.
-We would like to give you the ability to use the **sf**,<!--raster/stars,--> **tmap**, **leaflet** and **mapview** packages to solve spatial problems. 
+
+This book teaches Geocomputational techniques using an ecosystem of R packages that in many ways supercede their predecessors in terms of speed and performance.
+This evolution is common in open source software: because all the code is open, developers can learn from the experiences of prior work, 'standing on the shoulders of giants', as Isaac Newton put it in [1676](http://digitallibrary.hsp.org/index.php/Detail/Object/Show/object_id/9285), rather than constantly reinventing the wheel.
+In the context of spatial vector data classes in R, this can be clearly seen in the evolution of the **sf** package which in many ways evolved from the earlier **sp** package.
+
+R's evolving spatial ecosystem should also be understood in the context of developments in the wider R community.
+Since the release of visualisation package **ggplot2** in [2007](https://cran.r-project.org/src/contrib/Archive/ggplot2/) and data processing package **dplyr** in [2014](https://cran.r-project.org/src/contrib/Archive/dplyr/), these packages have become extremely popular.
+These and related packages share a common style, with a focus on 'tidy data'.
+For ease of installation and to harmonise packages in this style, the **tidyverse** 'metapackage' was released in late [2016](https://cran.r-project.org/src/contrib/Archive/tidyverse/).
+Although there is no equivalent **sfverse**, there are a growing number of actively developed package which use **sf** as a base, the top 5 of which are shown in Table \@ref(tab:revdep).
+
+
+Table: (\#tab:revdep)The top 5 most downloaded packages that depend on sf. As of 2017-06-25 there are 15 packages which import sf.
+
+package      Downloads  date       
+----------  ----------  -----------
+plotly            1908  2017-06-23 
+leaflet            535  2017-06-23 
+mapview            163  2017-06-23 
+geojsonio          141  2017-06-23 
+tigris             121  2017-06-23 
+
+
+
+
+
+A surge in development time (and interest) in 'R-Geo' has followed the award of a grant by the R Consortium for the development of support for Simple Features and the resulting **sf** package (covered in \@ref(intro-sf)).
+Simple Features represent a new way of doing spatial data in R that has many advantages.
+An emerging sub-system within the wider 
+
+
+**sf** has only been around for a short time compared with the incumbent **sp** package, but has already received much attention.
+Table \@ref(table:cloc) compares the two package, illustrating the rapid growth of **sf**.
+The point of this table is clear: the new paradigm for spatial data analysis heralded by **sf** has the wind in its sails and is set to dominate future developments in R's spatial ecosystem for years to come.
+
+Figure \@ref(fig:cranlogs) shows the growth of **sf** in the context of the wider spatial ecosystem.
+
+
+```r
+knitr::include_graphics("figures/spatial-package-growth.png")
+```
+
+<div class="figure" style="text-align: center">
+<img src="figures/spatial-package-growth.png" alt="The popularity of spatial packages in R. The y axis shows the average number of downloads, within a 30 day rolling window, of R's top 5 spatial packages, defined as those with the highest number of downloads within the last 30 days."  />
+<p class="caption">(\#fig:cranlogs)The popularity of spatial packages in R. The y axis shows the average number of downloads, within a 30 day rolling window, of R's top 5 spatial packages, defined as those with the highest number of downloads within the last 30 days.</p>
+</div>
+
+
+
+like to give you the ability to use the **sf**,<!--raster/stars,--> **tmap**, **leaflet** and **mapview** packages to solve spatial problems. 
 However, spatial analysis in R has a long history.
 
 <!-- 2. R spatial story (from spatstat, by maptools, sp, raster, leaflet, to sf) -->
@@ -195,6 +243,9 @@ The most notably, he mentioned the need for standardized R spatial interface, mo
 <!-- opportunities; mapping capabilities -->
 <!-- https://pdfs.semanticscholar.org/9bb5/c9571d64bd3e1ae376967b6c6aca39d6fa70.pdf -->
 
+
+<!-- 2. R spatial story (from spatstat, by maptools, sp, raster, leaflet, to sf) -->
+<!-- https://pdfs.semanticscholar.org/9bb5/c9571d64bd3e1ae376967b6c6aca39d6fa70.pdf -->
 <!-- ASDAR - p. VIII - the Distributed Statistical Computing conference in Vienna in 2003 -->
 <!-- ASDAR - p. 3 - For over 10 years, R has had an increasing number of contributed packages for handling and analysing spatial data. All these packages used to make diﬀer- ent assumptions about how spatial data were organised, and R itself had no capabilities for distinguishing coordinates from other numbers. In addition, methods for plotting spatial data and other tasks were scattered, made diﬀer- ent assumptions on the organisation of the data, and were rudimentary. This was not unlike the situation for time series data at the time. -->
 <!-- the creation of the sp package - sp_0.7-3.tar.gz	2005-04-28 08:20	459K	(CRAN archive) -->
@@ -2216,7 +2267,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.29
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2232,7 +2283,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.03
+#> [1] 3.02
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2258,13 +2309,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.056   0.004   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.041
+#>   0.044   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.012   0.012   0.028
+#>   0.012   0.016   0.029
 ```
 
 
