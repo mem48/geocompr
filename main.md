@@ -162,7 +162,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve9b75700d61934b01
+preserve2fccfcba0faaa186
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -187,23 +187,22 @@ R's evolving spatial ecosystem should also be understood in the context of devel
 Since the release of visualisation package **ggplot2** in [2007](https://cran.r-project.org/src/contrib/Archive/ggplot2/) and data processing package **dplyr** in [2014](https://cran.r-project.org/src/contrib/Archive/dplyr/), these packages have become extremely popular.
 These and related packages share a common style, with a focus on 'tidy data'.
 For ease of installation and to harmonise packages in this style, the **tidyverse** 'metapackage' was released in late [2016](https://cran.r-project.org/src/contrib/Archive/tidyverse/).
-Although there is no equivalent **sfverse**, there are a growing number of actively developed package which use **sf** as a base, the top 5 of which are shown in Table \@ref(tab:revdep).
+Although there is no equivalent **sfverse**, there are a growing number of actively developed package which use **sf** (Table \@ref(tab:revdep)) and discussion of harmonisation among R's many spatial packages.^[
+See the [r-spatial](https://github.com/r-spatial/) organisation and conversations in the [discussion](https://github.com/r-spatial/discuss/issues/11) repo for more on this.
+]
 
 
-Table: (\#tab:revdep)The top 5 most downloaded packages that depend on sf. As of 2017-06-25 there are 15 packages which import sf.
+Table: (\#tab:revdep)The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-06-23 there are 15 packages which import sf.
 
-package      Downloads  date       
-----------  ----------  -----------
-plotly            1908  2017-06-23 
-leaflet            535  2017-06-23 
-mapview            163  2017-06-23 
-geojsonio          141  2017-06-23 
-tigris             121  2017-06-23 
+package      Downloads
+----------  ----------
+plotly            1908
+leaflet            535
+mapview            163
+geojsonio          141
+tigris             121
 
-
-
-
-
+Despite the rapid growth of the 'sfverse', 
 A surge in development time (and interest) in 'R-Geo' has followed the award of a grant by the R Consortium for the development of support for Simple Features and the resulting **sf** package (covered in \@ref(intro-sf)).
 Simple Features represent a new way of doing spatial data in R that has many advantages.
 An emerging sub-system within the wider 
@@ -211,14 +210,14 @@ An emerging sub-system within the wider
 
 **sf** has only been around for a short time compared with the incumbent **sp** package, but has already received much attention.
 Table \@ref(table:cloc) compares the two package, illustrating the rapid growth of **sf**.
-The point of this table is clear: the new paradigm for spatial data analysis heralded by **sf** has the wind in its sails and is set to dominate future developments in R's spatial ecosystem for years to come.
+The point of this table is clear: the new paradigm for spatial data analysis heralded by **sf** has the wind in its sails and is set to dominate future developments in R's spatial ecosystem for years to come. 
+This book focuses on the 'new' way of doing geocomputation for practical purposes and to ensure that what you learn here is 'future-proof'.
+There is one caveat to this, however: younger packages are generally less stable and may undergo changes to the way they function or (more commonly) add more features. In other words:
 
-Figure \@ref(fig:cranlogs) shows the growth of **sf** in the context of the wider spatial ecosystem.
+> If you live on the cutting edge you risk getting hurt.
 
-
-```r
-knitr::include_graphics("figures/spatial-package-growth.png")
-```
+It is therefor worth being aware of the history of the development of spatial data functionality in R.
+This not only because the incumbent packages are highly mature: there is a wealth of functions, use-cases and teaching material written using older packages in R's spatial ecosystem, so it's worth being aware of the history preceding the rise of **sf** depicted in Figure \@ref(fig:cranlogs).
 
 <div class="figure" style="text-align: center">
 <img src="figures/spatial-package-growth.png" alt="The popularity of spatial packages in R. The y axis shows the average number of downloads, within a 30 day rolling window, of R's top 5 spatial packages, defined as those with the highest number of downloads within the last 30 days."  />
@@ -2267,7 +2266,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.29
+#> [1] 2.32
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2283,7 +2282,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.14
+#> [1] 3.11
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2309,13 +2308,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.004   0.061
+#>    0.06    0.00    0.06
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.004   0.043
+#>   0.040   0.000   0.039
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.012   0.016   0.029
+#>   0.024   0.000   0.027
 ```
 
 
