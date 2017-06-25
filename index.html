@@ -245,8 +245,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if(!<span class="kw">require</span>(devtools)) {
   <span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)
 }
-devtools::<span class="kw">install_github</span>(<span class="st">&quot;robinlovelace/geocompr&quot;</span>)
-devtools::<span class="kw">install_github</span>(<span class="st">&quot;nowosad/spData&quot;</span>)</code></pre></div>
+devtools::<span class="kw">install_github</span>(<span class="st">&quot;robinlovelace/geocompr&quot;</span>)</code></pre></div>
 <p>To build the book locally, clone or <a href="https://github.com/Robinlovelace/geocompr/archive/master.zip">download</a> the repo and run the following line from the <a href="https://github.com/Robinlovelace/geocompr/blob/master/geocompr.Rproj">project</a>’s root directory:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bookdown::<span class="kw">render_book</span>(<span class="st">&quot;index.Rmd&quot;</span>) <span class="co"># to build the book</span>
 <span class="kw">browseURL</span>(<span class="st">&quot;_book/index.html&quot;</span>) <span class="co"># to view it</span></code></pre></div>

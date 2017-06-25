@@ -225,7 +225,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="prerequisites" class="section level2 unnumbered">
 <h2>Prerequisites</h2>
 <p>This chapter requires the packages <strong>sf</strong>, and <strong>spData</strong> to be installed and loaded:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;sf&quot;</span>)
+devtools::<span class="kw">install_github</span>(<span class="st">&quot;nowosad/spData&quot;</span>) <span class="co"># requires devtools to be installed</span>
+<span class="kw">library</span>(sf)
 <span class="kw">library</span>(spData)</code></pre></div>
 </div>
 <div id="intro-sf" class="section level2">
