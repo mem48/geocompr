@@ -162,7 +162,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve7ca397aed3e2f6d8
+preservedb640c5a1d399c05
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -205,10 +205,7 @@ tigris             121
 Despite the rapid growth of the 'sfverse', 
 A surge in development time (and interest) in 'R-Geo' has followed the award of a grant by the R Consortium for the development of support for Simple Features and the resulting **sf** package (covered in \@ref(intro-sf)).
 Simple Features represent a new way of doing spatial data in R that has many advantages.
-An emerging sub-system within the wider 
-
-
-**sf** has only been around for a short time compared with the incumbent **sp** package, but has already received much attention.
+An emerging sub-system within the wider **sf** has only been around for a short time compared with the incumbent **sp** package, but has already received much attention.
 Table \@ref(table:cloc) compares the two package, illustrating the rapid growth of **sf**.
 The point of this table is clear: the new paradigm for spatial data analysis heralded by **sf** has the wind in its sails and is set to dominate future developments in R's spatial ecosystem for years to come. 
 
@@ -229,7 +226,7 @@ This not only because the incumbent packages are highly mature: there is a wealt
 <!-- However, spatial analysis in R has a long history. -->
 
 <!-- 2. R spatial story (from spatstat, by maptools, sp, raster, leaflet, to sf) -->
-In the volume 1/2 of R News (the predecessor of The R Journal), Brian Ripley created an overview of the spatial statistics state in June 2001<!--CITE-->. <!-- https://pdfs.semanticscholar.org/9a0a/40ac215bfc0d52605b487f66928caf6abc99.pdf -->
+In the volume 1/2 of R News (the predecessor of The R Journal), Brian Ripley created an overview of the spatial statistics state in June 2001 [@ripley_spatial_2001]. <!-- https://pdfs.semanticscholar.org/9a0a/40ac215bfc0d52605b487f66928caf6abc99.pdf -->
 He shortly described eight packages, mostly used for spatial smoothing end interpolation (such as **akima**, **spatial**, **sgeostat** and **geoR**) and spatial point patterns (**splancs** and **spatstat**).
 Most of these packages where based on the previous code written for S or S-PLUS.
 <!-- one/two sentences about the spatstat package -->
@@ -240,6 +237,7 @@ The most notably, he mentioned the need for standardized R spatial interface, mo
 <!-- spdep -->
 <!-- opportunities; mapping capabilities -->
 <!-- https://pdfs.semanticscholar.org/9bb5/c9571d64bd3e1ae376967b6c6aca39d6fa70.pdf -->
+<!-- http://onlinelibrary.wiley.com/doi/10.1111/j.0016-7363.2005.00672.x/full -->
 
 
 <!-- 2. R spatial story (from spatstat, by maptools, sp, raster, leaflet, to sf) -->
@@ -2265,7 +2263,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.35
+#> [1] 2.28
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2281,7 +2279,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.09
+#> [1] 3.04
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2307,13 +2305,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.063
+#>   0.056   0.000   0.060
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.045
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.004   0.029
+#>   0.016   0.008   0.027
 ```
 
 
