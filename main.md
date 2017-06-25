@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservefb4ba92426b78f27
+preserveb905d4612e8c752d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -169,7 +169,7 @@ It would be difficult to produce Figure \@ref(fig:interactive) with only 4 lines
 
 <!-- Other reasons for using R for geocompuation include: -->
 
-R provides a stable language that should behave consistently across multiple computers, free of charge.
+R provides a stable language that behaves consistently across multiple computers, free of charge.
 The use of R code therefore enables teaching geocomputation with reference to reproducible examples such as that provided in \@ref(fig:interactive) rather than abstract concepts.
 But before cracking-on with the action, a few introductory remarks are needed to explain the approach taken here and provide context.
 
@@ -2264,7 +2264,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.35
+#> [1] 2.29
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2280,7 +2280,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.05
+#> [1] 3.1
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2306,13 +2306,13 @@ The counterpart of `st_read()` is `st_write()`. This allows writing to a range o
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.056   0.004   0.061
+#>   0.064   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.036   0.004   0.041
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.028
+#>   0.020   0.008   0.027
 ```
 
 
