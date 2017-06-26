@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve59ea030e9ba953ae
+preserve0185ed59bc12629e
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2193,9 +2193,10 @@ attributes(world$pop_density) = NULL
 
 # Geographic data I/O {#read-write}
 
-The previous chapters introduced this book and provided an overview of spatial data classes in R, with a focus on simple features.
+The previous chapters provided an overview of spatial data classes in R, with a focus on simple features.
 This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world.
-We include a section (\@ref(visual-outputs)) on visualization because outputting data in a human (not just computer) readable enables non-programmers to benefit from your work.
+<!-- Not sure if this is the place for the following two sentences... Or if so, some kind of link is missing.-->
+We include a section (\@ref(visual-outputs)) on visualization because outputting data in a human (not just computer) readable format enables non-programmers to benefit from your work.
 If your aim is to use geocomputation to improve the world, e.g. by encouraging evidence-based policies, this final stage is vital.
 
 I/O is short for "input/output" which means, in plain English, "reading and writing data".
@@ -2216,12 +2217,14 @@ Loading/saving data is yet another way of saying the same thing.
 ## Data Input (I)
 
 To efficiently read data into R, it helps to have an understanding of what happens 'under the hood'.
-Executing commands such as `sf::st_read()` (the main function we use for loading spatial data, from the **sf** package) or `readr::read_csv()` silently sets-off a chain of events that loads spatial objects.
+Executing commands such as `sf::st_read()` (the main function we use for loading spatial data, from the **sf** package) or `readr::read_csv()` silently sets off a chain of events that loads objects.
+<!-- I would suggest to avoid confusion. readr::read_csv cannot load spatial objects. Since you write "happens under the hood", I would also expect a bit more detail on "silently sets off a chain of events". -->
 "Loading" in this context means loading the data into R or, more precisely, assigning objects to your workspace, stored in RAM accessible from the `.GlobalEnv` of your current R session.
+<!-- What is your understanding of workspace? Or what is the difference between workspace and the global environment here?-->
 <!-- coud add a footnote here mentioning `.GlobalEnv` -->
 
-Spatial data comes in a wide variety of file formats, and **sf** is adept at handling them, via the command `st_read()`.
-This function uses GDAL behind the scenes, enabling a very wide range of spatial data formats to be imported.
+Spatial data comes in a wide variety of file formats, and **sf** is able to handle most of them <!-- is that right? --> via its `st_read()` command.
+Behind the scences it uses GDAL, which supports the import of a very wide range of spatial data formats.
 The first arguement of `st_read()` is `file`, which should be a text string or an object containing a single text string:
 
 
@@ -2239,10 +2242,11 @@ world = st_read(f)
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 ```
 
-**Tip**: `read_sf()` and `write_sf()` can be used as easy-to-remember alternatives to `st_read()` and `st_write()`. Remember they hide information about the data source and overwrite existing data, though..
+**Tip**: `read_sf()` and `write_sf()` can be used as easy-to-remember alternatives to `st_read()` and `st_write()`.
+Remember they hide information about the data source and overwrite existing data, though.
 
 A major advantage of **sf** is that it is fast.
-To demonstrate this, we will use a function to compare `st_read` with it's **sp** equivalent, `rgdal::readOGR`:
+To demonstrate this, we will use a function to compare `st_read` with its **sp** equivalent, `rgdal::readOGR`:
 
 
 ```r
@@ -2268,7 +2272,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.4
+#> [1] 2.38
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2284,12 +2288,12 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.42
+#> [1] 3.11
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
 
-The full range of file-types supported by **sf** is reported by `st_drivers()`, the first 2 of which are shown below:
+To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
 
 ```r
@@ -2304,19 +2308,22 @@ head(sf_drivers, n = 2)
 
 
 
-The counterpart of `st_read()` is `st_write()`. This allows writing to a range of geographic vector file types, including the common formats `.geojson`, `.shp` and `.gpkg`. `st_read()` will decide which driver to use automatically, based on the file name, as illustrated in the benchmark below demonstrating write speeds for each format.
+The counterpart of `st_read()` is `st_write()`.
+It allows to write **sf** objects to a wide range of geographic vector file formats, including the most common ones such as `.geojson`, `.shp` and `.gpkg`.
+Based on the file name `st_write()` decides automatically which driver to use. How fast the writing process is depends also on the driver:
+<!-- Is this comparison here necessary, or shouldn't we instead focus on the automatic driver selection? -->
 
 
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.066
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.052   0.000   0.052
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.016   0.034
+#>   0.016   0.012   0.027
 ```
 
 
@@ -2325,7 +2332,8 @@ system.time(st_write(world, "world.gpkg", quiet = TRUE))
 <!-- st_write(obj = world, dsn = "world.gpkg") -->
 <!-- ``` -->
 
-**Note**: if you try write to the same data source again will fail.
+**Note**: if you try to write to the same data source again, the function will fail.
+<!-- Why are you creating a modified version? Could you not use the same object again to demonstrate that overwriting will fail? -->
 This is demonstrated in the code below for a modified version of the world in which the population doubles in all countries (don't worry about the **dplyr** code for now, this is covered in Chapter \@ref(attr)):
 
 
@@ -2342,27 +2350,27 @@ st_write(obj = world_mod, dsn = "world.gpkg")
 ## Use the layer creation option OVERWRITE=YES to replace it.
 ```
 
-The error message provides some information about why it failed, some of which is provided in the comments.
-It is an issue at the GDAL level.
-This is clear from the statement `GDAL Error 1`.
-A further clue is provided by suggestion to use `OVERWRITE=YES`: this is not an option in `st_write()`, but the GDAL option.
-It can be added with the argument `layer_options`:
+The error message (only partly reproduced above) provides some information as to why the function failed.
+The `GDAL Error 1` statement makes clear that the failure occured at the GDAL level.
+Additionally, the suggestion to use `OVERWRITE=YES` provides a clue how to fix the problem.
+However, this is a GDAL option, and not a `st_write()` argument.
+Luckily, `st_write` provides a `layer_options` argument through which we can pass driver-dependent options:
 
 
 ```r
 st_write(obj = world_mod, dsn = "world.gpkg", layer_options = "OVERWRITE=YES")
 ```
 
-Another solution to this issue is to use the `st_write()` argument `delete_layer` that deletes the previous layers in the data source before attempting to write (note there is also a `delete_dsn` argument).
-Setting this argument to `TRUE` makes the rewrite operation work:
+Another solution is to use the `st_write()` argument `delete_layer`. Setting it to `TRUE` deletes already existing layers in the data source before the function attempts to write (note there is also a `delete_dsn` argument):
 
 
 ```r
 st_write(obj = world_mod, dsn = "world.gpkg", delete_layer = TRUE)
 ```
 
-This can also be done with the function `write_sf()`, which is equivalent to (technically an *alias* for) `st_write()`, except that it has `delete_layer = TRUE` and `quiet = TRUE` by default.
-This enables spatial data to be overwritten more concisely and with less output going to screen:
+You can achieve the same with `write_sf()` since it is equivalent to (technically an *alias* for) `st_write()`, except that its defaults for `delete_layer` and `quiet` is `TRUE`.
+This enables spatial data to be overwritten more concisely, and with less output going to screen:
+<!-- What does this mean: overwritten more concisely? -->
 
 
 
@@ -2371,6 +2379,7 @@ This enables spatial data to be overwritten more concisely and with less output 
 write_sf(obj = world_mod, dsn = "world.gpkg")
 ```
 
+<!-- Is the file.remove()-part important? -->
 A blunter way to update file-based geographic data sources such as `.gpkg` files is to simply delete them.
 This is not generally recommended, as it will not work for multi-file data sources such as `.shp` files:
 
