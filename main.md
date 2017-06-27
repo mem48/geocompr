@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservef4fe79f761b4315c
+preserve9ea229710b2ce61f
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -233,11 +233,23 @@ In the volume 1/2 of R News (the predecessor of The R Journal), Brian Ripley cre
 He shortly described eight packages, mostly used for spatial smoothing end interpolation (such as **akima**, **spatial**, **sgeostat** and **geoR**) and spatial point patterns (**splancs** and **spatstat**).
 Most of these packages where based on the previous code written for S or S-PLUS.
 The last mentioned package, **spatstat** became a standard for analyzing spatial point patterns.
-<!-- We would shortly described examples of point pattern analysis in \@ref(point-pattern). -->
+<!-- We shortly described examples of point pattern analysis in \@ref(point-pattern). -->
 However, most of this topic goes beyond the scope of this book, so for more information we recommend book of @baddeley_spatial_2015.
 
-In the next issue of R News, Roger Bivand gave an introduction to the **splanc** package and suggested some future prospects [@bivand_more_2001].<!-- https://cran.r-project.org/doc/Rnews/Rnews_2001-3.pdf -->
+In the next issue of R News, @bivand_more_2001 gave an introduction to the **splanc** package and suggested some future prospects.<!-- https://cran.r-project.org/doc/Rnews/Rnews_2001-3.pdf -->
 The most notably, he mentioned the need for standardized R spatial interface, more efficient mechanisms for exchanging data with GIS, and better ways to treat spatial metadata (such as spatial projections).
+<!-- WHY? - coordinates as a numeric values, different classes/ideas, no standards -->
+<!-- it's problematic when - plot; merging data; transforming data; saving data -->
+
+Two years later, he presented an extended review of existing R spatial packages at the 3rd International Workshop on Distributed Statistical Computing (DSC 2003) [@hornik_approaches_2003]. 
+More importantly, he also proposed basis for spatial data classes in R. 
+<!-- the rise of GDAL + OGR + proj in the background -->
+<!-- more info on GDAL/OGR -->
+Based on the data types offered by GDAL/OGR, fundamental types of spatial data were highlighted - point, line, polygon and raster.
+<!-- He also suggested the use of the S4 class (the DBI package) -->
+
+
+
 <!-- It was extended by the paper ... -->
 <!-- spdep and Opportunities for advancing spatial data analysis in R --> 
 <!-- spdep -->
@@ -258,6 +270,7 @@ The most notably, he mentioned the need for standardized R spatial interface, mo
 <!-- R - an interface to libraries gdal (C/C++), proj (C), geos (C++) -->
 <!-- http://onlinelibrary.wiley.com/doi/10.1111/j.0016-7363.2005.00672.x/full -->
 
+<!-- GIS integration -->
 <!-- R also as an interface to GIS software GRASS GIS, SAGA, QGIS, ArcGIS (calls from R and from the software) reference to the CLI/GUI integration chapter -->
 <!-- rgrass -->
 <!-- http://www.geocomputation.org/2000/GC009/Gc009.htm -->
@@ -2271,7 +2284,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.19
+#> [1] 2.38
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2287,7 +2300,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.06
+#> [1] 3.02
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2316,13 +2329,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.067
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.028   0.004   0.034
+#>   0.040   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.026
+#>   0.020   0.008   0.028
 ```
 
 
