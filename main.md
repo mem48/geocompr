@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-06-26'
+date: '2017-06-27'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -39,7 +39,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-06-26 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-06-27 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve443e504f65074360
+preserve7f3f33499363b097
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -235,6 +235,7 @@ Most of these packages where based on the previous code written for S or S-PLUS.
 The last mentioned package, **spatstat** became a standard for analyzing spatial point patterns.
 We would shortly described examples of point pattern analysis in \@ref(point-pattern).
 However, most of this topic goes beyond the scope of this book, so for more information we recommend book of @baddeley_spatial_2015.
+
 In the next issue of R News, Roger Bivand gave an introduction to the **splanc** package and suggested some future prospects [@bivand_more_2001].<!-- https://cran.r-project.org/doc/Rnews/Rnews_2001-3.pdf -->
 The most notably, he mentioned the need for standardized R spatial interface, more efficient mechanisms for exchanging data with GIS, and better ways to treat spatial metadata (such as spatial projections).
 <!-- It was extended by the paper ... -->
@@ -244,18 +245,25 @@ The most notably, he mentioned the need for standardized R spatial interface, mo
 <!-- https://pdfs.semanticscholar.org/9bb5/c9571d64bd3e1ae376967b6c6aca39d6fa70.pdf -->
 <!-- http://onlinelibrary.wiley.com/doi/10.1111/j.0016-7363.2005.00672.x/full -->
 
-
 <!-- 2. R spatial story (from spatstat, by maptools, sp, raster, leaflet, to sf) -->
 <!-- https://pdfs.semanticscholar.org/9bb5/c9571d64bd3e1ae376967b6c6aca39d6fa70.pdf -->
 <!-- ASDAR - p. VIII - the Distributed Statistical Computing conference in Vienna in 2003 -->
+<!-- https://www.r-project.org/conferences/DSC-2003/Proceedings/Bivand.pdf -->
 <!-- ASDAR - p. 3 - For over 10 years, R has had an increasing number of contributed packages for handling and analysing spatial data. All these packages used to make diﬀer- ent assumptions about how spatial data were organised, and R itself had no capabilities for distinguishing coordinates from other numbers. In addition, methods for plotting spatial data and other tasks were scattered, made diﬀer- ent assumptions on the organisation of the data, and were rudimentary. This was not unlike the situation for time series data at the time. -->
 <!-- the creation of the sp package - sp_0.7-3.tar.gz	2005-04-28 08:20	459K	(CRAN archive) -->
 <!-- the sp package - spatial structures, objects summary, plots (classes and methods) -->
 <!-- ASDAR - p. 5 - figure -->
-<!-- spatstat_1.0-1.tar.gz	2002-01-21 08:56 	674K	(CRAN archive) --> 
+<!-- https://cran.r-project.org/doc/Rnews/Rnews_2005-2.pdf -->
+<!-- https://cran.r-project.org/web/views/Spatial.html -->
 <!-- R - an interface to libraries gdal (C/C++), proj (C), geos (C++) -->
-<!-- R - an interface to visualisation libraries - mostly java script - leaflet->mapview -->
+
 <!-- R also as an interface to GIS software GRASS GIS, SAGA, QGIS, ArcGIS (calls from R and from the software) reference to the CLI/GUI integration chapter -->
+<!-- rgrass -->
+<!-- http://www.geocomputation.org/2000/GC009/Gc009.htm -->
+<!-- http://www.sciencedirect.com/science/article/pii/S0098300400000571 -->
+
+
+<!-- R - an interface to visualisation libraries - mostly java script - leaflet->mapview -->
 
 <!-- 3. short S story - an interface to Fortran and C -> nowodays R is an interface to many programming languages C, Fortran, C++, JavaScript, Go; -->
 
@@ -267,19 +275,6 @@ The most important recent evolution in R's spatial ecosystem has without doubt b
 - r, rstudio, gdal, proj4, geos, udunits 
 - r packages sf, raster, etc.
 - datasets 
--->
-
-<!-- ## Introduction to GIS -->
-
-<!-- 
-- what's R
-- what's GIS
-- GIS data models (vector vs raster)
-- coordinate reference system - CRS
-- GIS data formats
-- GDAL, GEOS, PROJ4
-- GIS R package
-- GIS beyond R 
 -->
 
 <!--chapter:end:01-introduction.Rmd-->
@@ -2274,7 +2269,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.32
+#> [1] 1.94
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2290,7 +2285,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.1
+#> [1] 2.92
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2319,13 +2314,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.088   0.000   0.088
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.004   0.041
+#>   0.044   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.030
+#>   0.016   0.016   0.031
 ```
 
 
