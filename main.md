@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve7f3f33499363b097
+preservef4fe79f761b4315c
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -233,7 +233,7 @@ In the volume 1/2 of R News (the predecessor of The R Journal), Brian Ripley cre
 He shortly described eight packages, mostly used for spatial smoothing end interpolation (such as **akima**, **spatial**, **sgeostat** and **geoR**) and spatial point patterns (**splancs** and **spatstat**).
 Most of these packages where based on the previous code written for S or S-PLUS.
 The last mentioned package, **spatstat** became a standard for analyzing spatial point patterns.
-We would shortly described examples of point pattern analysis in \@ref(point-pattern).
+<!-- We would shortly described examples of point pattern analysis in \@ref(point-pattern). -->
 However, most of this topic goes beyond the scope of this book, so for more information we recommend book of @baddeley_spatial_2015.
 
 In the next issue of R News, Roger Bivand gave an introduction to the **splanc** package and suggested some future prospects [@bivand_more_2001].<!-- https://cran.r-project.org/doc/Rnews/Rnews_2001-3.pdf -->
@@ -256,6 +256,7 @@ The most notably, he mentioned the need for standardized R spatial interface, mo
 <!-- https://cran.r-project.org/doc/Rnews/Rnews_2005-2.pdf -->
 <!-- https://cran.r-project.org/web/views/Spatial.html -->
 <!-- R - an interface to libraries gdal (C/C++), proj (C), geos (C++) -->
+<!-- http://onlinelibrary.wiley.com/doi/10.1111/j.0016-7363.2005.00672.x/full -->
 
 <!-- R also as an interface to GIS software GRASS GIS, SAGA, QGIS, ArcGIS (calls from R and from the software) reference to the CLI/GUI integration chapter -->
 <!-- rgrass -->
@@ -1014,6 +1015,7 @@ class(sf_points)
 
 ## Units
 
+<!-- https://cran.r-project.org/web/packages/units/vignettes/measurement_units_in_R.html -->
 The final thing to say about `sf` objects in this chapter is that they have units. 
 This is illustrated by calculating the area of Nigeria:
 
@@ -2269,7 +2271,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 1.94
+#> [1] 2.19
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2285,7 +2287,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.92
+#> [1] 3.06
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2314,13 +2316,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.088   0.000   0.088
+#>   0.064   0.000   0.067
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.043
+#>   0.028   0.004   0.034
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.016   0.031
+#>   0.024   0.004   0.026
 ```
 
 
