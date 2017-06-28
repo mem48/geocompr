@@ -139,22 +139,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="2" data-path="spatial-class.html"><a href="spatial-class.html"><i class="fa fa-check"></i><b>2</b> Geographic data in R</a><ul>
 <li class="chapter" data-level="" data-path="spatial-class.html"><a href="spatial-class.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
-<li class="chapter" data-level="2.1" data-path="spatial-class.html"><a href="spatial-class.html#intro-sf"><i class="fa fa-check"></i><b>2.1</b> An introduction to Simple Features</a><ul>
-<li class="chapter" data-level="2.1.1" data-path="spatial-class.html"><a href="spatial-class.html#exercises"><i class="fa fa-check"></i><b>2.1.1</b> Exercises</a></li>
+<li class="chapter" data-level="2.1" data-path="spatial-class.html"><a href="spatial-class.html#vector-data"><i class="fa fa-check"></i><b>2.1</b> Vector data</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="spatial-class.html"><a href="spatial-class.html#intro-sf"><i class="fa fa-check"></i><b>2.1.1</b> An introduction to Simple Features</a></li>
+<li class="chapter" data-level="2.1.2" data-path="spatial-class.html"><a href="spatial-class.html#why-simple-features"><i class="fa fa-check"></i><b>2.1.2</b> Why Simple Features?</a></li>
+<li class="chapter" data-level="2.1.3" data-path="spatial-class.html"><a href="spatial-class.html#basic-map"><i class="fa fa-check"></i><b>2.1.3</b> Basic map making</a></li>
+<li class="chapter" data-level="2.1.4" data-path="spatial-class.html"><a href="spatial-class.html#sf_classes"><i class="fa fa-check"></i><b>2.1.4</b> Simple feature classes</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="spatial-class.html"><a href="spatial-class.html#why-simple-features"><i class="fa fa-check"></i><b>2.2</b> Why Simple Features?</a></li>
-<li class="chapter" data-level="2.3" data-path="spatial-class.html"><a href="spatial-class.html#basic-map"><i class="fa fa-check"></i><b>2.3</b> Basic map making</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="spatial-class.html"><a href="spatial-class.html#challenge"><i class="fa fa-check"></i><b>2.3.1</b> Challenge</a></li>
-<li class="chapter" data-level="2.3.2" data-path="spatial-class.html"><a href="spatial-class.html#further-work"><i class="fa fa-check"></i><b>2.3.2</b> Further work</a></li>
-<li class="chapter" data-level="2.3.3" data-path="spatial-class.html"><a href="spatial-class.html#exercises-1"><i class="fa fa-check"></i><b>2.3.3</b> Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="2.4" data-path="spatial-class.html"><a href="spatial-class.html#sf_classes"><i class="fa fa-check"></i><b>2.4</b> Simple feature classes</a><ul>
-<li class="chapter" data-level="2.4.1" data-path="spatial-class.html"><a href="spatial-class.html#geometry"><i class="fa fa-check"></i><b>2.4.1</b> Simple feature geometry types</a></li>
-<li class="chapter" data-level="2.4.2" data-path="spatial-class.html"><a href="spatial-class.html#sfg"><i class="fa fa-check"></i><b>2.4.2</b> Simple feature geometry (sfg) objects</a></li>
-<li class="chapter" data-level="2.4.3" data-path="spatial-class.html"><a href="spatial-class.html#sfc"><i class="fa fa-check"></i><b>2.4.3</b> Simple feature collections</a></li>
-<li class="chapter" data-level="2.4.4" data-path="spatial-class.html"><a href="spatial-class.html#sf"><i class="fa fa-check"></i><b>2.4.4</b> Simple feature objects</a></li>
-</ul></li>
-<li class="chapter" data-level="2.5" data-path="spatial-class.html"><a href="spatial-class.html#units"><i class="fa fa-check"></i><b>2.5</b> Units</a></li>
+<li class="chapter" data-level="2.2" data-path="spatial-class.html"><a href="spatial-class.html#raster-data"><i class="fa fa-check"></i><b>2.2</b> Raster data</a></li>
+<li class="chapter" data-level="2.3" data-path="spatial-class.html"><a href="spatial-class.html#units"><i class="fa fa-check"></i><b>2.3</b> Units</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="attr.html"><a href="attr.html"><i class="fa fa-check"></i><b>3</b> Attribute data operations</a><ul>
 <li class="chapter" data-level="" data-path="attr.html"><a href="attr.html#prerequisites-1"><i class="fa fa-check"></i>Prerequisites</a></li>
@@ -226,13 +218,28 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="prerequisites" class="section level2 unnumbered">
 <h2>Prerequisites</h2>
 <p>This chapter requires the packages <strong>sf</strong>, and <strong>spData</strong> to be installed and loaded:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;sf&quot;</span>)
-devtools::<span class="kw">install_github</span>(<span class="st">&quot;nowosad/spData&quot;</span>) <span class="co"># requires devtools to be installed</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">&quot;nowosad/spData&quot;</span>) <span class="co"># requires devtools</span>
 <span class="kw">library</span>(sf)
 <span class="kw">library</span>(spData)</code></pre></div>
+<p>This section will provide brief explanations of both the fundamental geographic data types: vector and raster. A brief abstract description is provided of each before moving quickly to their implementation in R packages designed specifically for handling them. Both are vital to the sciences, although which will be of most use will largely depend on your discipline:</p>
+<ul>
+<li>Because human settlements and boundaries tend to be complex with precise borders defined by legal systems, vector data tends to dominate in the social sciences.</li>
+<li>In environmental sciences, by contrast, raster data tend to dominate.</li>
+</ul>
+<p>However, there is a substantial level of overlap: ecologists and demographers, for example, commonly use both vector and raster geographical data types. We therefore strongly recommend learning about each type of data before proceeding to understand how to manipulate them in subsequent chapters.</p>
 </div>
-<div id="intro-sf" class="section level2">
-<h2><span class="header-section-number">2.1</span> An introduction to Simple Features</h2>
+<div id="vector-data" class="section level2">
+<h2><span class="header-section-number">2.1</span> Vector data</h2>
+<p>Vector data are based on points that located in on a cartesian (or geographic) coordinate system. Each point point in vector data is typically represented by 2 numbers representing distance from the <span class="math inline">\(origin\)</span> along the <span class="math inline">\(x\)</span> (horizontal) and <span class="math inline">\(y\)</span> (vertical) axis in Euclidean space.[ In 3 dimensional coordinate systems 3 numbers are needed for each of the 3 axes, <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span> and <span class="math inline">\(z\)</span>.] In mathematical notation these points are typically represented as numbers separated by commas and enclosed by a pair of enclosing brackets: <span class="math inline">\((1, 3)\)</span> for example, represents a point located 1 unit to the right and 3 units above the origin. There is clear link between these vector points and the <code>vector</code> class in R. The following line of code, for example, creates a 2 dimensional vector:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p =<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> <span class="dv">2</span>)</code></pre></div>
+<p>More commonly one would use the command <code>c()</code> (think of ‘c’ for ‘combine’) or <code>seq()</code> (short for ‘sequence’) to create vectors, as illustrated below in which the point illustrated in mathematical notation is created:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)</code></pre></div>
+<p>Now this can be plotted in cartesian space, as illustrated below:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(p[<span class="dv">1</span>], p[<span class="dv">2</span>], <span class="dt">xlim =</span>  <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>))</code></pre></div>
+<p><img src="figures/unnamed-chunk-5-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Generally vector points have a high level of precision (but not necessarily accuracy) in geographic space as opposed to raster data which relies on cells which break the surface up into a discrete number or cells of the same size. This book uses simple features to work with vector data.</p>
+<div id="intro-sf" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> An introduction to Simple Features</h3>
 <p>Simple features is an open standard data model developed and endorsed by the Open Geospatial Consortium (<a href="http://portal.opengeospatial.org/files/?artifact_id=25355">OGC</a>) to represent a wide range of geographical information in a consistent data schema. Simple features is a hierarchical data model that simplifies geographic data by condensing a complex range of geographic forms into a single geometry class. Only 7 out of 68 possible types of simple feature are currently used in the vast majority of GIS operations (Figure <a href="spatial-class.html#fig:sf-ogc">2.1</a>). All of these are fully supported (with plotting methods etc) in the R package <strong>sf</strong> <span class="citation">(E. Pebesma <a href="#ref-R-sf">2017</a>)</span>.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
 <div class="figure" style="text-align: center"><span id="fig:sf-ogc"></span>
 <img src="figures/sf-classes.png" alt="The subset of the Simple Features class hierarchy supported by sf. Figure based on the Open Geospatial Consortium document [06-103r4](http://www.opengeospatial.org/standards/sfa)." width="100%" />
@@ -266,7 +273,7 @@ Figure 2.1: The subset of the Simple Features class hierarchy supported by sf. F
 Figure 2.2: A spatial plot of the world using the sf package, with a facet for each attribute.
 </p>
 </div>
-<p>Note that instead of creating a single map, as most GIS programs would, the <code>plot()</code> command has created multiple maps, one for each variable in the <code>world</code> datasets. This behavior can be useful for exploring the spatial distribution of different variables and is discussed further in <a href="spatial-class.html#basic-map">2.3</a> below.</p>
+<p>Note that instead of creating a single map, as most GIS programs would, the <code>plot()</code> command has created multiple maps, one for each variable in the <code>world</code> datasets. This behavior can be useful for exploring the spatial distribution of different variables and is discussed further in <a href="spatial-class.html#basic-map">2.1.3</a> below.</p>
 <p>Being able to treat spatial objects as regular data frames with spatial powers has many advantages, especially if you are already used to working with data frames. The commonly used <code>summary()</code> function, for example, provides a useful overview of the variables within the <code>world</code> object, but prefixed with some information about the object’s spatial component:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(world[<span class="st">&quot;lifeExp&quot;</span>])
 <span class="co">#&gt;     lifeExp                geom    </span>
@@ -292,8 +299,8 @@ Figure 2.2: A spatial plot of the world using the sf package, with a facet for e
 <span class="co">#&gt; 1     AF Afghanistan      Asia MULTIPOLYGON(((61.210817091...</span>
 <span class="co">#&gt; 2     AO      Angola    Africa MULTIPOLYGON(((16.326528354...</span></code></pre></div>
 <p>All this may seem rather complex, especially for a class system that is supposed to be simple. However, there are good reasons for organizing things this way and using <strong>sf</strong>.</p>
-<div id="exercises" class="section level3">
-<h3><span class="header-section-number">2.1.1</span> Exercises</h3>
+<div id="exercises" class="section level4">
+<h4><span class="header-section-number">2.1.1.1</span> Exercises</h4>
 <p>What does the summary of the <code>geometry</code> column tell us about the <code>world</code> dataset, in terms of:</p>
 <ul>
 <li>The geometry type?</li>
@@ -302,8 +309,8 @@ Figure 2.2: A spatial plot of the world using the sf package, with a facet for e
 </ul>
 </div>
 </div>
-<div id="why-simple-features" class="section level2">
-<h2><span class="header-section-number">2.2</span> Why Simple Features?</h2>
+<div id="why-simple-features" class="section level3">
+<h3><span class="header-section-number">2.1.2</span> Why Simple Features?</h3>
 <p>There are many advantages of <strong>sf</strong> over <strong>sp</strong>, including:</p>
 <ul>
 <li>Faster reading and writing of data (more than 10 times faster in some cases)</li>
@@ -318,8 +325,8 @@ Figure 2.2: A spatial plot of the world using the sf package, with a facet for e
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sp)
 world_sp =<span class="st"> </span><span class="kw">as</span>(<span class="dt">object =</span> world, <span class="dt">Class =</span> <span class="st">&quot;Spatial&quot;</span>)</code></pre></div>
 </div>
-<div id="basic-map" class="section level2">
-<h2><span class="header-section-number">2.3</span> Basic map making</h2>
+<div id="basic-map" class="section level3">
+<h3><span class="header-section-number">2.1.3</span> Basic map making</h3>
 <p>Basic maps in <strong>sf</strong> can be created quickly with the base <code>plot()</code> function. Unlike <strong>sp</strong>, however, <strong>sf</strong> by default creates a faceted plot, one sub-plot for each variable, as illustrated in the left-hand image in Figure <a href="spatial-class.html#fig:sfplot">2.3</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(world[<span class="dv">3</span>:<span class="dv">4</span>])
 <span class="kw">plot</span>(world[<span class="st">&quot;pop&quot;</span>])</code></pre></div>
@@ -342,8 +349,8 @@ asia =<span class="st"> </span><span class="kw">st_union</span>(asia)</code></pr
 - map export 
 -->
 <!-- Maybe show also somewhere that `world[0]` produces only a plot of the geometry which is rather useful if you do not want to plot a specific attribute. This way, you can for example dismiss the col = "white"-argument in your Nigeria example. -->
-<div id="challenge" class="section level3">
-<h3><span class="header-section-number">2.3.1</span> Challenge</h3>
+<div id="challenge" class="section level4">
+<h4><span class="header-section-number">2.1.3.1</span> Challenge</h4>
 <p>Using <strong>sf</strong>’s <code>plot()</code> command, create a map of Nigeria in context, building on the code that creates and plots Asia above (see Figure <a href="spatial-class.html#fig:nigeria">2.4</a> for an example of what this could look like).</p>
 <ul>
 <li>Hint: this used the <code>lwd</code>, <code>main</code> and <code>col</code> arguments of <code>plot()</code>.</li>
@@ -357,8 +364,8 @@ Figure 2.4: Map of Nigeria in context illustrating sf’s plotting capabilities
 </p>
 </div>
 </div>
-<div id="further-work" class="section level3">
-<h3><span class="header-section-number">2.3.2</span> Further work</h3>
+<div id="further-work" class="section level4">
+<h4><span class="header-section-number">2.1.3.2</span> Further work</h4>
 <p><strong>sf</strong> makes R data objects more closely aligned to the data model used in GDAL and GEOS, in theory making spatial data operations faster. The work here provides a taste of the way <strong>sf</strong> operates but there is much more to learn (see Chapter <a href="spatial-data-operations.html#spatial-data-operations">4</a>). And there is also a wealth of information in the highly recommended vignettes of the package.</p>
 <p>As a final exercise, we’ll see one way of how to do a spatial overlay in <strong>sf</strong>. First, we convert the countries of the world into centroids, and then subset those in Asia. Finally, the <code>summary</code>-command tells us how many centroids (countries) are part of Asia (43) and how many are not (134).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_centroids =<span class="st"> </span><span class="kw">st_centroid</span>(world)
@@ -390,8 +397,8 @@ Figure 2.5: Centroids representing country population, diameter being proportion
 <!-- identical(africa_centroids, africa_centroids2) -->
 <!-- ``` -->
 </div>
-<div id="exercises-1" class="section level3">
-<h3><span class="header-section-number">2.3.3</span> Exercises</h3>
+<div id="exercises-1" class="section level4">
+<h4><span class="header-section-number">2.1.3.3</span> Exercises</h4>
 <ul>
 <li>What does the <code>lwd</code> argument do in the <code>plot()</code> code that generates Figure <a href="spatial-class.html#fig:africa">2.5</a>.</li>
 <li>Perform the same operations and map making for another continent of your choice.</li>
@@ -399,12 +406,12 @@ Figure 2.5: Centroids representing country population, diameter being proportion
 </ul>
 </div>
 </div>
-<div id="sf_classes" class="section level2">
-<h2><span class="header-section-number">2.4</span> Simple feature classes</h2>
-<p>To understand new data formats in depth, it often helps to generate them for first principles. This section walks through vector spatial classes step-by-step, from the elementary simple feature geometry to simple feature objects, with class <code>sf</code>, representing complex spatial data. Before describing each geometry type that the <strong>sf</strong> package supports it is worth taking a step back to understand the building blocks of <code>sf</code> objects. As stated in section <a href="spatial-class.html#intro-sf">2.1</a>, simple features are simply dataframes with at least one special column that makes it spatial. These spatial columns are often called <code>geom</code> or <code>geometry</code> and can be like non-spatial columns: <code>world$geom</code> refers to the spatial element of the <code>world</code> object described above. These geometry columns are ‘list columns’ of class <code>sfc</code>: they are simple feature collections. In turn, <code>sfc</code> objects are composed of one or more objects of class <code>sfg</code>: simple feature geometries.</p>
+<div id="sf_classes" class="section level3">
+<h3><span class="header-section-number">2.1.4</span> Simple feature classes</h3>
+<p>To understand new data formats in depth, it often helps to generate them for first principles. This section walks through vector spatial classes step-by-step, from the elementary simple feature geometry to simple feature objects, with class <code>sf</code>, representing complex spatial data. Before describing each geometry type that the <strong>sf</strong> package supports it is worth taking a step back to understand the building blocks of <code>sf</code> objects. As stated in section <a href="spatial-class.html#intro-sf">2.1.1</a>, simple features are simply dataframes with at least one special column that makes it spatial. These spatial columns are often called <code>geom</code> or <code>geometry</code> and can be like non-spatial columns: <code>world$geom</code> refers to the spatial element of the <code>world</code> object described above. These geometry columns are ‘list columns’ of class <code>sfc</code>: they are simple feature collections. In turn, <code>sfc</code> objects are composed of one or more objects of class <code>sfg</code>: simple feature geometries.</p>
 <p>To understand how the spatial components of simple features work, it is vital to understand simple feature geometries. For this reason we cover each type currently supported <code>sfg</code> in the next sections before moving to describe how they can be combined to form <code>sfc</code> and eventually full <code>sf</code> objects.</p>
-<div id="geometry" class="section level3">
-<h3><span class="header-section-number">2.4.1</span> Simple feature geometry types</h3>
+<div id="geometry" class="section level4">
+<h4><span class="header-section-number">2.1.4.1</span> Simple feature geometry types</h4>
 <!-- This section demonstrates how the full range of geometry types supported by the **sf** package can be created, combined and plotted. -->
 <p>Geometries are the basic building blocks of simple features. Simple features could be represented as one of the 17 geometry types using the <strong>sf</strong> package. In this chapter we will focus on seven, the most commonly used, simple features types: <code>POINT</code>, <code>LINESTRING</code>, <code>POLYGON</code>, <code>MULTIPOINT</code>, <code>MULTILINESTRING</code>, <code>MULTIPOLYGON</code> and <code>GEOMETRYCOLLECTION</code>.<!--FIG--> The whole list of possible feature types could be found in <a href="http://postgis.net/docs/using_postgis_dbmanagement.html">the PostGIS manual</a>.</p>
 <p>Simple features, outside of an R environment, could be represented in one of two ways, ether as a well-known binary (WKB) or well-known text (WKT). Well-known binary (WKB) representations are usually hexadecimal strings, which are used to transfer and store geometry objects in databases. Well-known text (WKT), on the other hand, is a text markup description of simple features. Both formats are exchangeable, therefore we would focus only on the well-known text (WKT) representation.</p>
@@ -450,8 +457,8 @@ Figure 2.5: Centroids representing country population, diameter being proportion
 </ul>
 <p><img src="figures/geom_collection-1.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
-<div id="sfg" class="section level3">
-<h3><span class="header-section-number">2.4.2</span> Simple feature geometry (sfg) objects</h3>
+<div id="sfg" class="section level4">
+<h4><span class="header-section-number">2.1.4.2</span> Simple feature geometry (sfg) objects</h4>
 <p>Simple feature geometry types are represented in R by objects of a <code>sfg</code> class. A <code>sfg</code> object is a geometry of a single feature - a point, linestring, polygon, multipoint, multilinestring, multipolygon or geometry collection.</p>
 <p>Usually you don’t need to create geometries on your own. In most cases, geometries are read from spatial files. However, a set of function to create simple feature geometry objects (<code>sfg</code>) exists in R and could be used in special cases. The names of these functions are simple and consistent, as they start with a <code>st_</code> prefix and end with name of geometry types in lowercase letters:</p>
 <ul>
@@ -523,8 +530,8 @@ gemetrycollection_list =<span class="st"> </span><span class="kw">list</span>(<s
 <!-- lines could create mutlilines or polygons, etc. -->
 <!-- https://edzer.github.io/sfr/articles/sf1.html -->
 </div>
-<div id="sfc" class="section level3">
-<h3><span class="header-section-number">2.4.3</span> Simple feature collections</h3>
+<div id="sfc" class="section level4">
+<h4><span class="header-section-number">2.1.4.3</span> Simple feature collections</h4>
 <p>One <code>sfg</code> object contains only a single simple feature geometry. A simple feature collection (<code>sfc</code>) is a list of <code>sfg</code> objects with information about a coordinate reference system. The <code>st_sfc()</code> function can be used to create <code>sfc</code> objects. For example, we want to collect two simple features of a point type:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sfc POINT</span>
 point1 =<span class="st"> </span><span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>))
@@ -642,8 +649,8 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <!-- precision -->
 <!-- plots can be made -->
 </div>
-<div id="sf" class="section level3">
-<h3><span class="header-section-number">2.4.4</span> Simple feature objects</h3>
+<div id="sf" class="section level4">
+<h4><span class="header-section-number">2.1.4.4</span> Simple feature objects</h4>
 <p>Most of the time, geometries are related to a set of attributes. These attributes could represent the name of the geometry, measured value, group to which the geometry belongs, and many more. For example, we measured a temperature of 25°C on the Trafalgar Square in London on June 21th 2017. This can be described not only by its coordinates and temperature value, but also by the name of the point, the date of the measurement, it’s category (city or village), or if the measurement was made using an automatic station.</p>
 <p>The simple feature class, <code>sf</code>, is a combination of an attribute table (<code>data.frame</code>) and simple feature geometry collection (<code>sfc</code>). Simple features are created using the <code>st_sf()</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sfg objects</span>
@@ -680,16 +687,20 @@ sf_points =<span class="st"> </span><span class="kw">st_sf</span>(our_attributes
 <!-- methods(class = "sf") -->
 <!-- plots -->
 <!-- https://edzer.github.io/sfr/articles/sf1.html#how-attributes-relate-to-geometries -->
-<!-- ## Raster data -->
+</div>
+</div>
+</div>
+<div id="raster-data" class="section level2">
+<h2><span class="header-section-number">2.2</span> Raster data</h2>
+<p>This section is work in progress.</p>
 <!-- Suggest we save this until the raster section for now -->
 <!-- - raster data types  -->
 <!-- - RasterLayer -->
 <!-- - RasterStack -->
 <!-- - RasterBrick -->
 </div>
-</div>
 <div id="units" class="section level2">
-<h2><span class="header-section-number">2.5</span> Units</h2>
+<h2><span class="header-section-number">2.3</span> Units</h2>
 <!-- https://cran.r-project.org/web/packages/units/vignettes/measurement_units_in_R.html -->
 <p>The final thing to say about <code>sf</code> objects in this chapter is that they have units. This is illustrated by calculating the area of Nigeria:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_area</span>(nigeria)
@@ -704,6 +715,7 @@ sf_points =<span class="st"> </span><span class="kw">st_sf</span>(our_attributes
 <!-- ```{r} -->
 <!-- st_distance(sf_point1, sf_point2) -->
 <!-- ``` -->
+<!-- ## Precision -->
 
 </div>
 </div>
@@ -776,6 +788,17 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

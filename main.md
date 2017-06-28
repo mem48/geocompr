@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve42b4aba5393e52ca
+preservea2676ab51ebcb7ae
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -305,13 +305,58 @@ This chapter requires the packages **sf**, and **spData** to be installed and lo
 
 
 ```r
-install.packages("sf")
-devtools::install_github("nowosad/spData") # requires devtools to be installed
+devtools::install_github("nowosad/spData") # requires devtools
 library(sf)
 library(spData)
 ```
 
-## An introduction to Simple Features {#intro-sf}
+This section will provide brief explanations of both the fundamental geographic data types: vector and raster.
+A brief abstract description is provided of each before moving quickly to their implementation in R packages designed specifically for handling them.
+Both are vital to the sciences, although which will be of most use will largely depend on your discipline:
+
+- Because human settlements and boundaries tend to be complex with precise borders defined by legal systems, vector data tends to dominate in the social sciences.
+- In environmental sciences, by contrast, raster data tend to dominate.
+
+However, there is a substantial level of overlap:
+ecologists and demographers, for example, commonly use both vector and raster geographical data types.
+We therefore strongly recommend learning about each type of data before proceeding to understand how to manipulate them in subsequent chapters.
+
+## Vector data
+
+Vector data are based on points that located in on a cartesian (or geographic) coordinate system.
+Each point point in vector data is typically represented by 2 numbers representing distance from the $origin$ along the $x$ (horizontal) and $y$ (vertical) axis in Euclidean space.[
+In 3 dimensional coordinate systems 3 numbers are needed for each of the 3 axes, $x$, $y$ and $z$.
+]
+In mathematical notation these points are typically represented as numbers separated by commas and enclosed by a pair of enclosing brackets: 
+$(1, 3)$ for example, represents a point located 1 unit to the right and 3 units above the origin.
+There is clear link between these vector points and the `vector` class in R.
+The following line of code, for example, creates a 2 dimensional vector:
+
+
+```r
+p = vector(mode = "numeric", length = 2)
+```
+
+More commonly one would use the command `c()` (think of 'c' for 'combine') or `seq()` (short for 'sequence') to create vectors, as illustrated below in which the point illustrated in mathematical notation is created:
+
+
+```r
+p = c(1, 3)
+```
+
+Now this can be plotted in cartesian space, as illustrated below:
+
+
+```r
+plot(p[1], p[2], xlim =  c(0, 5), ylim = c(0, 5))
+```
+
+<img src="figures/unnamed-chunk-5-1.png" width="576" style="display: block; margin: auto;" />
+
+Generally vector points have a high level of precision (but not necessarily accuracy) in geographic space as opposed to raster data which relies on cells which break the surface up into a discrete number or cells of the same size.
+This book uses simple features to work with vector data.
+
+### An introduction to Simple Features {#intro-sf}
 
 Simple features is an open standard data model developed and endorsed by the Open Geospatial Consortium ([OGC](http://portal.opengeospatial.org/files/?artifact_id=25355)) to represent a wide range of geographical information in a consistent data schema.
 Simple features is a hierarchical data model that simplifies geographic data by condensing a complex range of geographic forms into a single geometry class.
@@ -435,7 +480,7 @@ world[1:2, 1:3]
 All this may seem rather complex, especially for a class system that is supposed to be simple.
 However, there are good reasons for organizing things this way and using **sf**.
 
-### Exercises
+#### Exercises
 
 What does the summary of the `geometry` column tell us about the `world` dataset, in terms of:
 
@@ -443,7 +488,7 @@ What does the summary of the `geometry` column tell us about the `world` dataset
 - How many countries there are?
 - The coordinate reference system (CRS)?
 
-## Why Simple Features?
+### Why Simple Features?
 
 There are many advantages of **sf** over **sp**, including:
 
@@ -467,7 +512,7 @@ library(sp)
 world_sp = as(object = world, Class = "Spatial")
 ```
 
-## Basic map making {#basic-map}
+### Basic map making {#basic-map}
 
 Basic maps in **sf** can be created quickly with the base `plot()` function. Unlike **sp**, however, **sf** by default creates a faceted plot, one sub-plot for each variable, as illustrated in the left-hand image in Figure \@ref(fig:sfplot). 
 
@@ -518,7 +563,7 @@ For more advanced map making we recommend using a dedicated visualisation packag
 
 
 
-### Challenge
+#### Challenge
 
 Using **sf**'s `plot()` command, create a map of Nigeria in context, building on the code that creates and plots Asia above (see Figure \@ref(fig:nigeria) for an example of what this could look like). 
 
@@ -531,7 +576,7 @@ Using **sf**'s `plot()` command, create a map of Nigeria in context, building on
 <p class="caption">(\#fig:nigeria)Map of Nigeria in context illustrating sf's plotting capabilities</p>
 </div>
 
-### Further work
+#### Further work
 
 **sf** makes R data objects more closely aligned to the data model used in GDAL and GEOS, in theory making spatial data operations faster.
 The work here provides a taste of the way **sf** operates but there is much more to learn (see Chapter \@ref(spatial-data-operations)). And there is also a wealth of information in the highly recommended vignettes of the package.
@@ -578,13 +623,13 @@ plot(world_centroids, add = TRUE, cex = world$pop / 1e8, lwd = 3)
 <!-- identical(africa_centroids, africa_centroids2) -->
 <!-- ``` -->
 
-### Exercises
+#### Exercises
 
 - What does the `lwd` argument do in the `plot()` code that generates Figure \@ref(fig:africa). 
 - Perform the same operations and map making for another continent of your choice.
 - Bonus: Download some global geographic data and add attribute variables assigning them to the continents of the world.
 
-## Simple feature classes {#sf_classes}
+### Simple feature classes {#sf_classes}
 
 To understand new data formats in depth, it often helps to generate them for first principles.
 This section walks through vector spatial classes step-by-step, from the elementary simple feature geometry to simple feature objects, with class `sf`, representing complex spatial data.
@@ -597,7 +642,7 @@ In turn, `sfc` objects are composed of one or more objects of class `sfg`: simpl
 To understand how the spatial components of simple features work, it is vital to understand simple feature geometries.
 For this reason we cover each type currently supported `sfg` in the next sections before moving to describe how they can be combined to form `sfc` and eventually full `sf` objects.
 
-### Simple feature geometry types {#geometry}
+#### Simple feature geometry types {#geometry}
 
 <!-- This section demonstrates how the full range of geometry types supported by the **sf** package can be created, combined and plotted. -->
 Geometries are the basic building blocks of simple features.
@@ -665,7 +710,7 @@ It could consists of a set of any geometry types previously mentioned, for examp
 
 <img src="figures/geom_collection-1.png" width="576" style="display: block; margin: auto;" />
 
-### Simple feature geometry (sfg) objects {#sfg}
+#### Simple feature geometry (sfg) objects {#sfg}
 
 Simple feature geometry types are represented in R by objects of a `sfg` class. 
 A `sfg` object is a geometry of a single feature - a point, linestring, polygon, multipoint, multilinestring, multipolygon or geometry collection.
@@ -776,7 +821,7 @@ st_geometrycollection(gemetrycollection_list)
 <!-- lines could create mutlilines or polygons, etc. -->
 <!-- https://edzer.github.io/sfr/articles/sf1.html -->
 
-### Simple feature collections {#sfc}
+#### Simple feature collections {#sfc}
 
 One `sfg` object contains only a single simple feature geometry. 
 A simple feature collection (`sfc`) is a list of `sfg` objects with information about a coordinate reference system.
@@ -964,7 +1009,7 @@ This is due the fact that no general method for conversion from `proj4string` to
 <!-- precision -->
 <!-- plots can be made -->
 
-### Simple feature objects {#sf}
+#### Simple feature objects {#sf}
 
 Most of the time, geometries are related to a set of attributes. 
 These attributes could represent the name of the geometry, measured value, group to which the geometry belongs, and many more.
@@ -1028,7 +1073,10 @@ class(sf_points)
 <!-- plots -->
 <!-- https://edzer.github.io/sfr/articles/sf1.html#how-attributes-relate-to-geometries -->
 
-<!-- ## Raster data -->
+## Raster data
+
+This section is work in progress.
+
 <!-- Suggest we save this until the raster section for now -->
 <!-- - raster data types  -->
 <!-- - RasterLayer -->
@@ -1068,6 +1116,8 @@ units::set_units(st_area(nigeria), km^2)
 <!-- ```{r} -->
 <!-- st_distance(sf_point1, sf_point2) -->
 <!-- ``` -->
+
+<!-- ## Precision -->
 
 <!--chapter:end:02-spatial-data.Rmd-->
 
@@ -2293,7 +2343,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.35
+#> [1] 2.45
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2309,7 +2359,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.06
+#> [1] 3.13
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2338,13 +2388,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.056   0.004   0.060
+#>    0.06    0.00    0.06
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.036   0.004   0.039
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.004   0.027
+#>   0.020   0.008   0.029
 ```
 
 
