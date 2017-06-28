@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve6e439e19c20cb86e
+preserve0c8c7a633dd7db0e
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -311,21 +311,24 @@ library(spData)
 ## An introduction to Simple Features {#intro-sf}
 
 Simple Features is an open standard data model developed and endorsed by the Open Geospatial Consortium ([OGC](http://portal.opengeospatial.org/files/?artifact_id=25355)) to describe how features with geographical and non-geographical features should be represented.
-It is a hierarchical data model that simplifies geographic data by condensing the complex range of possible geographic forms (e.g., line, point, polygon, multipolygon forms) into a single geometry class (Figure \@ref(fig:sf-ogc)).
+It is a hierarchical data model that simplifies geographic data by condensing a complex range of geographic forms into a single geometry class which includes.
+The full OGC standard includes rather exotic geometry types including surfaces and curves.
 
-<div class="figure" style="text-align: center">
-<img src="figures/sf-classes.png" alt="The subset of the Simple Features class hierarchy, based on the Open Geospatial Consortium's document 06-103r4 (see http://www.opengeospatial.org/standards/sfa)" width="100%" />
-<p class="caption">(\#fig:sf-ogc)The subset of the Simple Features class hierarchy, based on the Open Geospatial Consortium's document 06-103r4 (see http://www.opengeospatial.org/standards/sfa)</p>
-</div>
-
+The **sf** package supports the most commonly used subset of these forms and their 'MULTI' versions (features which groupt together multiple points, lines and polygones), in addition to geometry collections, which can contain multiple geometry types in a single feature (Figure \@ref(fig:sf-ogc)).
 The R implementation of Simple Features is provided by the **sf** package [@R-sf], which can be installed with the following command:^[The
-development version, which may contain new features, can be installed with `devtools::install_github("edzer/sfr")`
+development version, which may contain new features, can be installed with `devtools::install_github("edzer/sfr").`
 ]
 
 
 ```r
 install.packages("sf")
 ```
+
+
+<div class="figure" style="text-align: center">
+<img src="figures/sf-classes.png" alt="The subset of the Simple Features class hierarchy supported by sf. Figure based on the Open Geospatial Consortium document [06-103r4](http://www.opengeospatial.org/standards/sfa)." width="100%" />
+<p class="caption">(\#fig:sf-ogc)The subset of the Simple Features class hierarchy supported by sf. Figure based on the Open Geospatial Consortium document [06-103r4](http://www.opengeospatial.org/standards/sfa).</p>
+</div>
 
 **sf** incorporates the functionality of the 3 main packages of the **sp** paradigm (**sp** [@R-sp] for the class system, **rgdal** [@R-rgdal] for reading and writing data, **rgeos** [@R-rgeos] for spatial operations undertaken by GEOS) in a single, cohesive whole.
 This is well-documented in **sf**'s [vignettes](http://cran.rstudio.com/package=sf):
@@ -2283,7 +2286,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.46
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2299,7 +2302,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.85
+#> [1] 3.12
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2328,13 +2331,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.065
+#>   0.056   0.008   0.066
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.044
+#>   0.044   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.030
+#>   0.024   0.008   0.030
 ```
 
 

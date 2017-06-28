@@ -233,15 +233,15 @@ devtools::<span class="kw">install_github</span>(<span class="st">&quot;nowosad/
 </div>
 <div id="intro-sf" class="section level2">
 <h2><span class="header-section-number">2.1</span> An introduction to Simple Features</h2>
-<p>Simple Features is an open standard data model developed and endorsed by the Open Geospatial Consortium (<a href="http://portal.opengeospatial.org/files/?artifact_id=25355">OGC</a>) to describe how features with geographical and non-geographical features should be represented. It is a hierarchical data model that simplifies geographic data by condensing the complex range of possible geographic forms (e.g., line, point, polygon, multipolygon forms) into a single geometry class (Figure <a href="spatial-class.html#fig:sf-ogc">2.1</a>).</p>
+<p>Simple Features is an open standard data model developed and endorsed by the Open Geospatial Consortium (<a href="http://portal.opengeospatial.org/files/?artifact_id=25355">OGC</a>) to describe how features with geographical and non-geographical features should be represented. It is a hierarchical data model that simplifies geographic data by condensing a complex range of geographic forms into a single geometry class which includes. The full OGC standard includes rather exotic geometry types including surfaces and curves.</p>
+<p>The <strong>sf</strong> package supports the most commonly used subset of these forms and their ‘MULTI’ versions (features which groupt together multiple points, lines and polygones), in addition to geometry collections, which can contain multiple geometry types in a single feature (Figure <a href="spatial-class.html#fig:sf-ogc">2.1</a>). The R implementation of Simple Features is provided by the <strong>sf</strong> package <span class="citation">(E. Pebesma <a href="#ref-R-sf">2017</a>)</span>, which can be installed with the following command:<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;sf&quot;</span>)</code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:sf-ogc"></span>
-<img src="figures/sf-classes.png" alt="The subset of the Simple Features class hierarchy, based on the Open Geospatial Consortium's document 06-103r4 (see http://www.opengeospatial.org/standards/sfa)" width="100%" />
+<img src="figures/sf-classes.png" alt="The subset of the Simple Features class hierarchy supported by sf. Figure based on the Open Geospatial Consortium document [06-103r4](http://www.opengeospatial.org/standards/sfa)." width="100%" />
 <p class="caption">
-Figure 2.1: The subset of the Simple Features class hierarchy, based on the Open Geospatial Consortium’s document 06-103r4 (see <a href="http://www.opengeospatial.org/standards/sfa" class="uri">http://www.opengeospatial.org/standards/sfa</a>)
+Figure 2.1: The subset of the Simple Features class hierarchy supported by sf. Figure based on the Open Geospatial Consortium document <a href="http://www.opengeospatial.org/standards/sfa">06-103r4</a>.
 </p>
 </div>
-<p>The R implementation of Simple Features is provided by the <strong>sf</strong> package <span class="citation">(E. Pebesma <a href="#ref-R-sf">2017</a>)</span>, which can be installed with the following command:<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;sf&quot;</span>)</code></pre></div>
 <p><strong>sf</strong> incorporates the functionality of the 3 main packages of the <strong>sp</strong> paradigm (<strong>sp</strong> <span class="citation">(E. Pebesma and Bivand <a href="#ref-R-sp">2016</a>)</span> for the class system, <strong>rgdal</strong> <span class="citation">(Bivand, Keitt, and Rowlingson <a href="#ref-R-rgdal">2017</a>)</span> for reading and writing data, <strong>rgeos</strong> <span class="citation">(Bivand and Rundel <a href="#ref-R-rgeos">2017</a>)</span> for spatial operations undertaken by GEOS) in a single, cohesive whole. This is well-documented in <strong>sf</strong>’s <a href="http://cran.rstudio.com/package=sf">vignettes</a>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="st">&quot;sf1&quot;</span>) <span class="co"># for an introduction to the package</span>
 <span class="kw">vignette</span>(<span class="st">&quot;sf2&quot;</span>) <span class="co"># for reading, writing and converting Simple Features</span>
@@ -725,7 +725,7 @@ sf_points =<span class="st"> </span><span class="kw">st_sf</span>(our_attributes
 <div class="footnotes">
 <hr />
 <ol start="3">
-<li id="fn3"><p>The development version, which may contain new features, can be installed with <code>devtools::install_github(&quot;edzer/sfr&quot;)</code><a href="spatial-class.html#fnref3">↩</a></p></li>
+<li id="fn3"><p>The development version, which may contain new features, can be installed with <code>devtools::install_github(&quot;edzer/sfr&quot;).</code><a href="spatial-class.html#fnref3">↩</a></p></li>
 <li id="fn4"><p>In fact, when you <code>plot()</code> an <strong>sf</strong> object, R is calling <code>sf:::plot.sf()</code> behind the scenes. <code>plot()</code> is a generic method that behaves differently depending on the class of object being plotted.<a href="spatial-class.html#fnref4">↩</a></p></li>
 </ol>
 </div>
