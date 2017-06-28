@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve1f1a1d4fd67516db
+preserve0aa4a756989a149b
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -324,7 +324,7 @@ We therefore strongly recommend learning about each type of data before proceedi
 ## Vector data
 
 Vector data are based on points that are located on a cartesian (or geographic) coordinate system.
-Each point in vector data is typically described by two numbers representing distance from the $origin$ along the $x$ (horizontal) and $y$ (vertical) axis in Euclidean space.^[
+Each point in vector data is typically described by two numbers representing distance from the $origin$ along the $x$ (horizontal) and $y$ (vertical) axis in Euclidean space.[
 In 3 dimensional coordinate systems three numbers are needed for each of the three axes, $x$, $y$ and $z$.
 ]
 In mathematical notation these points are typically represented as numbers separated by commas and enclosed by a pair of brackets: 
@@ -2343,7 +2343,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.18
+#> [1] 2.27
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2359,7 +2359,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.07
+#> [1] 2.97
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2388,13 +2388,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.074
+#>   0.068   0.000   0.067
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.039
+#>   0.032   0.000   0.035
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.008   0.025
+#>   0.020   0.004   0.025
 ```
 
 
