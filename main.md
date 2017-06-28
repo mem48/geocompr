@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-06-27'
+date: '2017-06-28'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -39,7 +39,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-06-27 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-06-28 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve9ea229710b2ce61f
+preservefae393a528997e57
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -311,13 +311,12 @@ library(spData)
 ## An introduction to Simple Features {#intro-sf}
 
 Simple Features is an open standard data model developed and endorsed by the Open Geospatial Consortium ([OGC](http://portal.opengeospatial.org/files/?artifact_id=25355)) to describe how features with geographical and non-geographical features should be represented.
-It is a hierarchical data model that simplifies geographic data by condensing the complex range of possible geographic forms (e.g., line, point, polygon, multipolygon forms) into a single geometry class.
+It is a hierarchical data model that simplifies geographic data by condensing the complex range of possible geographic forms (e.g., line, point, polygon, multipolygon forms) into a single geometry class (Figure \@ref(fig:sf-ogc)).
 
-<!-- (Figure \@ref(fig:sf-ogc)). -->
-
-<!-- ```{r sf-ogc, fig.cap="The Simple Features class hierarchy, used with permission (on condition of linking to the source) from the Open Geospatial Consortium's document 06-103r4 (see http://www.opengeospatial.org/standards/sfa)", out.width="100%", echo=FALSE} -->
-<!-- knitr::include_graphics("figures/simple-feature-class-hierarchy.png") -->
-<!-- ``` -->
+<div class="figure" style="text-align: center">
+<img src="figures/sf-classes.png" alt="The subset of the Simple Features class hierarchy, based on the Open Geospatial Consortium's document 06-103r4 (see http://www.opengeospatial.org/standards/sfa)" width="100%" />
+<p class="caption">(\#fig:sf-ogc)The subset of the Simple Features class hierarchy, based on the Open Geospatial Consortium's document 06-103r4 (see http://www.opengeospatial.org/standards/sfa)</p>
+</div>
 
 The R implementation of Simple Features is provided by the **sf** package [@R-sf], which can be installed with the following command:^[The
 development version, which may contain new features, can be installed with `devtools::install_github("edzer/sfr")`
@@ -2284,7 +2283,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.38
+#> [1] 2.3
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2300,7 +2299,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.02
+#> [1] 2.89
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2329,13 +2328,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>   0.072   0.000   0.069
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.041
+#>   0.044   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.024   0.004   0.030
 ```
 
 

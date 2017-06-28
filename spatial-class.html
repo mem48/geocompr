@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-06-27">
+<meta name="date" content="2017-06-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -233,11 +233,13 @@ devtools::<span class="kw">install_github</span>(<span class="st">&quot;nowosad/
 </div>
 <div id="intro-sf" class="section level2">
 <h2><span class="header-section-number">2.1</span> An introduction to Simple Features</h2>
-<p>Simple Features is an open standard data model developed and endorsed by the Open Geospatial Consortium (<a href="http://portal.opengeospatial.org/files/?artifact_id=25355">OGC</a>) to describe how features with geographical and non-geographical features should be represented. It is a hierarchical data model that simplifies geographic data by condensing the complex range of possible geographic forms (e.g., line, point, polygon, multipolygon forms) into a single geometry class.</p>
-<!-- (Figure \@ref(fig:sf-ogc)). -->
-<!-- ```{r sf-ogc, fig.cap="The Simple Features class hierarchy, used with permission (on condition of linking to the source) from the Open Geospatial Consortium's document 06-103r4 (see http://www.opengeospatial.org/standards/sfa)", out.width="100%", echo=FALSE} -->
-<!-- knitr::include_graphics("figures/simple-feature-class-hierarchy.png") -->
-<!-- ``` -->
+<p>Simple Features is an open standard data model developed and endorsed by the Open Geospatial Consortium (<a href="http://portal.opengeospatial.org/files/?artifact_id=25355">OGC</a>) to describe how features with geographical and non-geographical features should be represented. It is a hierarchical data model that simplifies geographic data by condensing the complex range of possible geographic forms (e.g., line, point, polygon, multipolygon forms) into a single geometry class (Figure <a href="spatial-class.html#fig:sf-ogc">2.1</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:sf-ogc"></span>
+<img src="figures/sf-classes.png" alt="The subset of the Simple Features class hierarchy, based on the Open Geospatial Consortium's document 06-103r4 (see http://www.opengeospatial.org/standards/sfa)" width="100%" />
+<p class="caption">
+Figure 2.1: The subset of the Simple Features class hierarchy, based on the Open Geospatial Consortium’s document 06-103r4 (see <a href="http://www.opengeospatial.org/standards/sfa" class="uri">http://www.opengeospatial.org/standards/sfa</a>)
+</p>
+</div>
 <p>The R implementation of Simple Features is provided by the <strong>sf</strong> package <span class="citation">(E. Pebesma <a href="#ref-R-sf">2017</a>)</span>, which can be installed with the following command:<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;sf&quot;</span>)</code></pre></div>
 <p><strong>sf</strong> incorporates the functionality of the 3 main packages of the <strong>sp</strong> paradigm (<strong>sp</strong> <span class="citation">(E. Pebesma and Bivand <a href="#ref-R-sp">2016</a>)</span> for the class system, <strong>rgdal</strong> <span class="citation">(Bivand, Keitt, and Rowlingson <a href="#ref-R-rgdal">2017</a>)</span> for reading and writing data, <strong>rgeos</strong> <span class="citation">(Bivand and Rundel <a href="#ref-R-rgeos">2017</a>)</span> for spatial operations undertaken by GEOS) in a single, cohesive whole. This is well-documented in <strong>sf</strong>’s <a href="http://cran.rstudio.com/package=sf">vignettes</a>:</p>
@@ -252,7 +254,7 @@ devtools::<span class="kw">install_github</span>(<span class="st">&quot;nowosad/
 <span class="co">#&gt;  [1] &quot;iso_a2&quot;    &quot;name_long&quot; &quot;continent&quot; &quot;region_un&quot; &quot;subregion&quot;</span>
 <span class="co">#&gt;  [6] &quot;type&quot;      &quot;area_km2&quot;  &quot;pop&quot;       &quot;lifeExp&quot;   &quot;gdpPercap&quot;</span>
 <span class="co">#&gt; [11] &quot;geom&quot;</span></code></pre></div>
-<p>It is the contents of this modest-looking <code>geom</code> column that gives <code>sf</code> objects their spatial powers. It’s actually a list-column, containing all the coordinates needed to plot the result as a map using the <code>plot()</code> method, the results of which are presented in Figure <a href="spatial-class.html#fig:world-all">2.1</a>.</p>
+<p>It is the contents of this modest-looking <code>geom</code> column that gives <code>sf</code> objects their spatial powers. It’s actually a list-column, containing all the coordinates needed to plot the result as a map using the <code>plot()</code> method, the results of which are presented in Figure <a href="spatial-class.html#fig:world-all">2.2</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf) <span class="co"># must be loaded to plot sf objects</span>
 <span class="co">#&gt; Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0</span>
 <span class="kw">plot</span>(world)
@@ -261,7 +263,7 @@ devtools::<span class="kw">install_github</span>(<span class="st">&quot;nowosad/
 <div class="figure" style="text-align: center"><span id="fig:world-all"></span>
 <img src="figures/world-all-1.png" alt="A spatial plot of the world using the sf package, with a facet for each attribute." width="576" />
 <p class="caption">
-Figure 2.1: A spatial plot of the world using the sf package, with a facet for each attribute.
+Figure 2.2: A spatial plot of the world using the sf package, with a facet for each attribute.
 </p>
 </div>
 <p>Note that instead of creating a single map, as most GIS programs would, the <code>plot()</code> command has created multiple maps, one for each variable in the <code>world</code> datasets. This behavior can be useful for exploring the spatial distribution of different variables and is discussed further in <a href="spatial-class.html#basic-map">2.3</a> below.</p>
@@ -318,13 +320,13 @@ world_sp =<span class="st"> </span><span class="kw">as</span>(<span class="dt">o
 </div>
 <div id="basic-map" class="section level2">
 <h2><span class="header-section-number">2.3</span> Basic map making</h2>
-<p>Basic maps in <strong>sf</strong> can be created quickly with the base <code>plot()</code> function. Unlike <strong>sp</strong>, however, <strong>sf</strong> by default creates a faceted plot, one sub-plot for each variable, as illustrated in the left-hand image in Figure <a href="spatial-class.html#fig:sfplot">2.2</a>.</p>
+<p>Basic maps in <strong>sf</strong> can be created quickly with the base <code>plot()</code> function. Unlike <strong>sp</strong>, however, <strong>sf</strong> by default creates a faceted plot, one sub-plot for each variable, as illustrated in the left-hand image in Figure <a href="spatial-class.html#fig:sfplot">2.3</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(world[<span class="dv">3</span>:<span class="dv">4</span>])
 <span class="kw">plot</span>(world[<span class="st">&quot;pop&quot;</span>])</code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:sfplot"></span>
 <img src="figures/sfplot-1.png" alt="Plotting with sf, with multiple variables (left) and a single variable (right)." width="49%" /><img src="figures/sfplot-2.png" alt="Plotting with sf, with multiple variables (left) and a single variable (right)." width="49%" />
 <p class="caption">
-Figure 2.2: Plotting with sf, with multiple variables (left) and a single variable (right).
+Figure 2.3: Plotting with sf, with multiple variables (left) and a single variable (right).
 </p>
 </div>
 <p>As with <strong>sp</strong>, you can add layers to your maps created with <code>plot()</code>, with the argument <code>add = TRUE</code>.<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a> To illustrate this, and prepare for content covered in chapters <a href="attr.html#attr">3</a> and <a href="spatial-data-operations.html#spatial-data-operations">4</a> on attribute and spatial data operations, we will subset and combine countries in the <code>world</code> object, to create a single object that represents Asia:</p>
@@ -342,7 +344,7 @@ asia =<span class="st"> </span><span class="kw">st_union</span>(asia)</code></pr
 <!-- Maybe show also somewhere that `world[0]` produces only a plot of the geometry which is rather useful if you do not want to plot a specific attribute. This way, you can for example dismiss the col = "white"-argument in your Nigeria example. -->
 <div id="challenge" class="section level3">
 <h3><span class="header-section-number">2.3.1</span> Challenge</h3>
-<p>Using <strong>sf</strong>’s <code>plot()</code> command, create a map of Nigeria in context, building on the code that creates and plots Asia above (see Figure <a href="spatial-class.html#fig:nigeria">2.3</a> for an example of what this could look like).</p>
+<p>Using <strong>sf</strong>’s <code>plot()</code> command, create a map of Nigeria in context, building on the code that creates and plots Asia above (see Figure <a href="spatial-class.html#fig:nigeria">2.4</a> for an example of what this could look like).</p>
 <ul>
 <li>Hint: this used the <code>lwd</code>, <code>main</code> and <code>col</code> arguments of <code>plot()</code>.</li>
 <li>Bonus: make the country boundaries a dotted grey line.</li>
@@ -351,7 +353,7 @@ asia =<span class="st"> </span><span class="kw">st_union</span>(asia)</code></pr
 <div class="figure" style="text-align: center"><span id="fig:nigeria"></span>
 <img src="figures/nigeria-1.png" alt="Map of Nigeria in context illustrating sf's plotting capabilities" width="576" />
 <p class="caption">
-Figure 2.3: Map of Nigeria in context illustrating sf’s plotting capabilities
+Figure 2.4: Map of Nigeria in context illustrating sf’s plotting capabilities
 </p>
 </div>
 </div>
@@ -370,14 +372,14 @@ sel_asia =<span class="st"> </span><span class="kw">st_intersects</span>(world_c
 <span class="co">#&gt;  FALSE:134      </span>
 <span class="co">#&gt;  TRUE :43</span></code></pre></div>
 <p>Note: another way of achieving the same result is with a GEOS function for identifying spatial overlay, which we’ll cover in more datail in Chapter <a href="spatial-data-operations.html#spatial-data-operations">4</a>.</p>
-<p>Because <strong>sf</strong>’s <code>plot()</code> builds on the base <code>plot()</code> function, you have access to all the base plotting options developed for base plotting. If you are accustomed to base plotting, this will be useful, as illustrated by the variable circle sizes generated by the <code>cex</code> argument in Figure <a href="spatial-class.html#fig:africa">2.4</a>, which was generated using the code below.</p>
+<p>Because <strong>sf</strong>’s <code>plot()</code> builds on the base <code>plot()</code> function, you have access to all the base plotting options developed for base plotting. If you are accustomed to base plotting, this will be useful, as illustrated by the variable circle sizes generated by the <code>cex</code> argument in Figure <a href="spatial-class.html#fig:africa">2.5</a>, which was generated using the code below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw">plot</span>(world[<span class="st">&quot;continent&quot;</span>])
 <span class="kw">plot</span>(world_centroids, <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">cex =</span> world$pop /<span class="st"> </span><span class="fl">1e8</span>, <span class="dt">lwd =</span> <span class="dv">3</span>)</code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:africa"></span>
 <img src="figures/africa-1.png" alt="Centroids representing country population, diameter being proportional to population." width="576" />
 <p class="caption">
-Figure 2.4: Centroids representing country population, diameter being proportional to population.
+Figure 2.5: Centroids representing country population, diameter being proportional to population.
 </p>
 </div>
 <!-- More appropriate for subsequent chapters. -->
@@ -391,7 +393,7 @@ Figure 2.4: Centroids representing country population, diameter being proportion
 <div id="exercises-1" class="section level3">
 <h3><span class="header-section-number">2.3.3</span> Exercises</h3>
 <ul>
-<li>What does the <code>lwd</code> argument do in the <code>plot()</code> code that generates Figure <a href="spatial-class.html#fig:africa">2.4</a>.</li>
+<li>What does the <code>lwd</code> argument do in the <code>plot()</code> code that generates Figure <a href="spatial-class.html#fig:africa">2.5</a>.</li>
 <li>Perform the same operations and map making for another continent of your choice.</li>
 <li>Bonus: Download some global geographic data and add attribute variables assigning them to the continents of the world.</li>
 </ul>
