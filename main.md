@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea2676ab51ebcb7ae
+preserve1f1a1d4fd67516db
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -323,12 +323,12 @@ We therefore strongly recommend learning about each type of data before proceedi
 
 ## Vector data
 
-Vector data are based on points that located in on a cartesian (or geographic) coordinate system.
-Each point point in vector data is typically represented by 2 numbers representing distance from the $origin$ along the $x$ (horizontal) and $y$ (vertical) axis in Euclidean space.[
-In 3 dimensional coordinate systems 3 numbers are needed for each of the 3 axes, $x$, $y$ and $z$.
+Vector data are based on points that are located on a cartesian (or geographic) coordinate system.
+Each point in vector data is typically described by two numbers representing distance from the $origin$ along the $x$ (horizontal) and $y$ (vertical) axis in Euclidean space.^[
+In 3 dimensional coordinate systems three numbers are needed for each of the three axes, $x$, $y$ and $z$.
 ]
-In mathematical notation these points are typically represented as numbers separated by commas and enclosed by a pair of enclosing brackets: 
-$(1, 3)$ for example, represents a point located 1 unit to the right and 3 units above the origin.
+In mathematical notation these points are typically represented as numbers separated by commas and enclosed by a pair of brackets: 
+$(1, 3)$ for example, represents a point located one unit to the right and three units above the origin.
 There is clear link between these vector points and the `vector` class in R.
 The following line of code, for example, creates a 2 dimensional vector:
 
@@ -344,7 +344,7 @@ More commonly one would use the command `c()` (think of 'c' for 'combine') or `s
 p = c(1, 3)
 ```
 
-Now this can be plotted in cartesian space, as illustrated below:
+Now this can be plotted in cartesian space:
 
 
 ```r
@@ -353,7 +353,7 @@ plot(p[1], p[2], xlim =  c(0, 5), ylim = c(0, 5))
 
 <img src="figures/unnamed-chunk-5-1.png" width="576" style="display: block; margin: auto;" />
 
-Generally vector points have a high level of precision (but not necessarily accuracy) in geographic space as opposed to raster data which relies on cells which break the surface up into a discrete number or cells of the same size.
+Generally vector points have a high level of precision (but not necessarily accuracy) in geographic space as opposed to raster data which relies on cells that break the surface up into a discrete number of cells of the same size.
 This book uses simple features to work with vector data.
 
 ### An introduction to Simple Features {#intro-sf}
@@ -2343,7 +2343,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.45
+#> [1] 2.18
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2359,7 +2359,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.13
+#> [1] 3.07
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2388,13 +2388,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>    0.06    0.00    0.06
+#>   0.072   0.000   0.074
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.036   0.004   0.039
+#>   0.040   0.000   0.039
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.016   0.008   0.025
 ```
 
 
