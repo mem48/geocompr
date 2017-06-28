@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee88b8799cf23890e
+preserve42b4aba5393e52ca
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -207,7 +207,7 @@ Many posts on the list now discuss **sf** and related packages, suggesting that 
 We will see in the next chapter how Simple Features in R work and their many advantages.
 
 We propose that the release of **sf** heralds a new era for spatial data analysis and geocomputation in R.
-This era (which we refrain from labelling the **sfverse** with any sersiousness, awaiting a better name!) clearly has the wind in its sails and is set to dominate future developments in R's spatial ecosystem for years to come.
+This era (which we refrain from labelling the **sfverse** with any seriousness, awaiting a better name!) clearly has the wind in its sails and is set to dominate future developments in R's spatial ecosystem for years to come.
 So time invested in learning the 'new ways' of handling spatial data and, hopefully, reading this book, is well spent!
 
 <div class="figure" style="text-align: center">
@@ -240,32 +240,35 @@ In the next issue of R News, @bivand_more_2001 gave an introduction to the **spl
 The most notably, he mentioned the need for standardized R spatial interface, more efficient mechanisms for exchanging data with GIS, and better ways to treat spatial metadata (such as spatial projections).
 <!-- WHY? - coordinates as a numeric values, different classes/ideas, no standards -->
 <!-- it's problematic when - plot; merging data; transforming data; saving data -->
-
-Two years later, he presented an extended review of existing R spatial packages at the 3rd International Workshop on Distributed Statistical Computing (DSC 2003) [@hornik_approaches_2003]. 
-More importantly, he also proposed basis for spatial data classes in R. 
-<!-- the rise of GDAL + OGR + proj in the background -->
-<!-- more info on GDAL/OGR -->
-Based on the data types offered by GDAL/OGR, fundamental types of spatial data were highlighted - point, line, polygon and raster.
-<!-- He also suggested the use of the S4 class (the DBI package) -->
-
-
-
 <!-- It was extended by the paper ... -->
 <!-- spdep and Opportunities for advancing spatial data analysis in R --> 
 <!-- spdep -->
 <!-- opportunities; mapping capabilities -->
 <!-- https://pdfs.semanticscholar.org/9bb5/c9571d64bd3e1ae376967b6c6aca39d6fa70.pdf -->
 <!-- http://onlinelibrary.wiley.com/doi/10.1111/j.0016-7363.2005.00672.x/full -->
+Two years later, he presented an extended review of existing R spatial packages at the 3rd International Workshop on Distributed Statistical Computing (DSC 2003) [@hornik_approaches_2003]. 
+More importantly, he also proposed basis for spatial data classes in R. 
+<!-- the rise of GDAL + OGR + proj in the background -->
+<!-- more info on GDAL/OGR -->
+Based on the data types offered by GDAL/OGR, fundamental types of spatial data were highlighted - point, line, polygon and raster.
+<!-- He also suggested the use of the S4 class (the DBI package) -->
+<!-- ASDAR - p. 3 - For over 10 years, R has had an increasing number of contributed packages for handling and analysing spatial data. All these packages used to make diﬀer- ent assumptions about how spatial data were organised, and R itself had no capabilities for distinguishing coordinates from other numbers. In addition, methods for plotting spatial data and other tasks were scattered, made diﬀer- ent assumptions on the organisation of the data, and were rudimentary. This was not unlike the situation for time series data at the time. -->
+
+The creation of the **sp** package in 2003-2004 and its release in 2005 was a result of the previous discussions and an answer to the previous R spatial shortcomings.
+<!-- what's that -->
+<!-- the sp package - spatial structures, objects summary, plots (classes and methods) -->
+The organization of spatial data in this package rapidly become an R spatial standard.
+This resulted in a growing number of R packages depending on **sp**. 
+About twenty packages depended **sp** by 2008, about one hundred by 2013 and more than 125 in 2017.<!-- CITE ASDAR  -->
+On top of that, about 220 packages imports some functions from the **sp** package. 
+
+<!-- https://github.com/edzer/sfr/issues/387#issuecomment-308949140 -->
+The foundations created by **sp** enabled an introduction additional two, very closely connected packages - **rgdal** and **rgeos**.
+The first one, **rgdal** provided an interface to Geospatial Data Abstraction Library (GDAL) and the PROJ.4 library.
+It gave unmatched abilities to read and write dozens of different spatial data formats.
+Importantly, it also keeps an information about used coordinate reference system and allow for map projection and datum transformation.
 
 <!-- 2. R spatial story (from spatstat, by maptools, sp, raster, leaflet, to sf) -->
-<!-- https://pdfs.semanticscholar.org/9bb5/c9571d64bd3e1ae376967b6c6aca39d6fa70.pdf -->
-<!-- ASDAR - p. VIII - the Distributed Statistical Computing conference in Vienna in 2003 -->
-<!-- https://www.r-project.org/conferences/DSC-2003/Proceedings/Bivand.pdf -->
-<!-- ASDAR - p. 3 - For over 10 years, R has had an increasing number of contributed packages for handling and analysing spatial data. All these packages used to make diﬀer- ent assumptions about how spatial data were organised, and R itself had no capabilities for distinguishing coordinates from other numbers. In addition, methods for plotting spatial data and other tasks were scattered, made diﬀer- ent assumptions on the organisation of the data, and were rudimentary. This was not unlike the situation for time series data at the time. -->
-<!-- the creation of the sp package - sp_0.7-3.tar.gz	2005-04-28 08:20	459K	(CRAN archive) -->
-<!-- the sp package - spatial structures, objects summary, plots (classes and methods) -->
-<!-- ASDAR - p. 5 - figure -->
-<!-- https://cran.r-project.org/doc/Rnews/Rnews_2005-2.pdf -->
 <!-- https://cran.r-project.org/web/views/Spatial.html -->
 <!-- R - an interface to libraries gdal (C/C++), proj (C), geos (C++) -->
 <!-- http://onlinelibrary.wiley.com/doi/10.1111/j.0016-7363.2005.00672.x/full -->
@@ -2290,7 +2293,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.29
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2306,7 +2309,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.1
+#> [1] 3.06
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2335,13 +2338,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>   0.056   0.004   0.060
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.042
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.029
+#>   0.020   0.004   0.027
 ```
 
 
