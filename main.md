@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-06-28'
+date: '2017-06-29'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -39,7 +39,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-06-28 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-06-29 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve75195cd3b9f30e06
+preserve99d85863a7ab6107
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -310,12 +310,12 @@ library(sf)
 library(spData)
 ```
 
-This section will provide brief explanations of both the fundamental geographic data types: vector and raster.
+This chapter will provide brief explanations of both the fundamental geographic data types: vector and raster.
 A brief abstract description is provided of each before moving quickly to their implementation in R packages designed specifically for handling them.
 Both are vital to the sciences, although which will be of most use will largely depend on your discipline:
 
 - Because human settlements and boundaries tend to be complex with precise borders defined by legal systems, vector data tends to dominate in the social sciences.
-- In environmental sciences, by contrast, raster data tend to dominate.
+- In environmental sciences, by contrast, raster data tend to dominate due to its links to remote sensing.
 
 However, there is a substantial level of overlap:
 ecologists and demographers, for example, commonly use both vector and raster geographical data types.
@@ -323,10 +323,18 @@ We therefore strongly recommend learning about each type of data before proceedi
 
 ## Vector data
 
-Vector data are based on points that are located on a cartesian (or geographic) coordinate system.
-Each point in vector data is typically described by two numbers representing distance from the $origin$ along the $x$ (horizontal) and $y$ (vertical) axis in Euclidean space.^[In 3 dimensional coordinate systems three numbers are needed for each of the three axes, $x$, $y$ and $z$.]
-In mathematical notation these points are typically represented as numbers separated by commas and enclosed by a pair of brackets: 
-$(1, 3)$ for example, represents a point located one unit to the right and three units above the origin.
+Vector data are based on points that located in on a cartesian (or geographic) coordinate system.
+Each point point in vector data is typically represented by 2 numbers representing distance from the
+$origin$
+along the
+$x$
+(horizontal) and
+$y$
+(vertical) axis in Euclidean space.^[
+In 3 dimensional coordinate systems 3 numbers are needed for each of the 3 axes, $x$, $y$ and $z$.
+]
+In mathematical notation these points are typically represented as numbers separated by commas and enclosed by a pair of enclosing brackets: 
+$(1, 3)$ for example, represents a point located 1 unit to the right and 3 units above the origin.
 There is clear link between these vector points and the `vector` class in R.
 The following line of code, for example, creates a 2 dimensional vector:
 
@@ -342,7 +350,7 @@ More commonly one would use the command `c()` (think of 'c' for 'combine') or `s
 p = c(1, 3)
 ```
 
-Now this can be plotted in cartesian space:
+Now this can be plotted in cartesian space, as illustrated below:
 
 
 ```r
@@ -351,7 +359,7 @@ plot(p[1], p[2], xlim =  c(0, 5), ylim = c(0, 5))
 
 <img src="figures/unnamed-chunk-5-1.png" width="576" style="display: block; margin: auto;" />
 
-Generally vector points have a high level of precision (but not necessarily accuracy) in geographic space as opposed to raster data which relies on cells that break the surface up into a discrete number of cells of the same size.
+Generally vector points have a high level of precision (but not necessarily accuracy) in geographic space as opposed to raster data which relies on cells which break the surface up into a discrete number or cells of the same size.
 This book uses simple features to work with vector data.
 
 ### An introduction to Simple Features {#intro-sf}
@@ -2341,7 +2349,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.32
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2357,7 +2365,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.09
+#> [1] 3.05
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2386,13 +2394,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.067
+#>   0.064   0.000   0.060
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.004   0.028
+#>   0.012   0.012   0.026
 ```
 
 

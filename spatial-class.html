@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-06-28">
+<meta name="date" content="2017-06-29">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -221,23 +221,23 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">&quot;nowosad/spData&quot;</span>) <span class="co"># requires devtools</span>
 <span class="kw">library</span>(sf)
 <span class="kw">library</span>(spData)</code></pre></div>
-<p>This section will provide brief explanations of both the fundamental geographic data types: vector and raster. A brief abstract description is provided of each before moving quickly to their implementation in R packages designed specifically for handling them. Both are vital to the sciences, although which will be of most use will largely depend on your discipline:</p>
+<p>This chapter will provide brief explanations of both the fundamental geographic data types: vector and raster. A brief abstract description is provided of each before moving quickly to their implementation in R packages designed specifically for handling them. Both are vital to the sciences, although which will be of most use will largely depend on your discipline:</p>
 <ul>
 <li>Because human settlements and boundaries tend to be complex with precise borders defined by legal systems, vector data tends to dominate in the social sciences.</li>
-<li>In environmental sciences, by contrast, raster data tend to dominate.</li>
+<li>In environmental sciences, by contrast, raster data tend to dominate due to its links to remote sensing.</li>
 </ul>
 <p>However, there is a substantial level of overlap: ecologists and demographers, for example, commonly use both vector and raster geographical data types. We therefore strongly recommend learning about each type of data before proceeding to understand how to manipulate them in subsequent chapters.</p>
 </div>
 <div id="vector-data" class="section level2">
 <h2><span class="header-section-number">2.1</span> Vector data</h2>
-<p>Vector data are based on points that are located on a cartesian (or geographic) coordinate system. Each point in vector data is typically described by two numbers representing distance from the <span class="math inline">\(origin\)</span> along the <span class="math inline">\(x\)</span> (horizontal) and <span class="math inline">\(y\)</span> (vertical) axis in Euclidean space.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> In mathematical notation these points are typically represented as numbers separated by commas and enclosed by a pair of brackets: <span class="math inline">\((1, 3)\)</span> for example, represents a point located one unit to the right and three units above the origin. There is clear link between these vector points and the <code>vector</code> class in R. The following line of code, for example, creates a 2 dimensional vector:</p>
+<p>Vector data are based on points that located in on a cartesian (or geographic) coordinate system. Each point point in vector data is typically represented by 2 numbers representing distance from the <span class="math inline">\(origin\)</span> along the <span class="math inline">\(x\)</span> (horizontal) and <span class="math inline">\(y\)</span> (vertical) axis in Euclidean space.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> In mathematical notation these points are typically represented as numbers separated by commas and enclosed by a pair of enclosing brackets: <span class="math inline">\((1, 3)\)</span> for example, represents a point located 1 unit to the right and 3 units above the origin. There is clear link between these vector points and the <code>vector</code> class in R. The following line of code, for example, creates a 2 dimensional vector:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p =<span class="st"> </span><span class="kw">vector</span>(<span class="dt">mode =</span> <span class="st">&quot;numeric&quot;</span>, <span class="dt">length =</span> <span class="dv">2</span>)</code></pre></div>
 <p>More commonly one would use the command <code>c()</code> (think of ‘c’ for ‘combine’) or <code>seq()</code> (short for ‘sequence’) to create vectors, as illustrated below in which the point illustrated in mathematical notation is created:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p =<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)</code></pre></div>
-<p>Now this can be plotted in cartesian space:</p>
+<p>Now this can be plotted in cartesian space, as illustrated below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(p[<span class="dv">1</span>], p[<span class="dv">2</span>], <span class="dt">xlim =</span>  <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>))</code></pre></div>
 <p><img src="figures/unnamed-chunk-5-1.png" width="576" style="display: block; margin: auto;" /></p>
-<p>Generally vector points have a high level of precision (but not necessarily accuracy) in geographic space as opposed to raster data which relies on cells that break the surface up into a discrete number of cells of the same size. This book uses simple features to work with vector data.</p>
+<p>Generally vector points have a high level of precision (but not necessarily accuracy) in geographic space as opposed to raster data which relies on cells which break the surface up into a discrete number or cells of the same size. This book uses simple features to work with vector data.</p>
 <div id="intro-sf" class="section level3">
 <h3><span class="header-section-number">2.1.1</span> An introduction to Simple Features</h3>
 <p>Simple features is an open standard data model developed and endorsed by the Open Geospatial Consortium (<a href="http://portal.opengeospatial.org/files/?artifact_id=25355">OGC</a>) to represent a wide range of geographical information in a consistent data schema. Simple features is a hierarchical data model that simplifies geographic data by condensing a complex range of geographic forms into a single geometry class. Only 7 out of 68 possible types of simple feature are currently used in the vast majority of GIS operations (Figure <a href="spatial-class.html#fig:sf-ogc">2.1</a>). All of these are fully supported (with plotting methods etc) in the R package <strong>sf</strong> <span class="citation">(E. Pebesma <a href="#ref-R-sf">2017</a>)</span>.<a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></p>
@@ -737,7 +737,7 @@ sf_points =<span class="st"> </span><span class="kw">st_sf</span>(our_attributes
 <div class="footnotes">
 <hr />
 <ol start="3">
-<li id="fn3"><p>In 3 dimensional coordinate systems three numbers are needed for each of the three axes, <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span> and <span class="math inline">\(z\)</span>.<a href="spatial-class.html#fnref3">↩</a></p></li>
+<li id="fn3"><p>In 3 dimensional coordinate systems 3 numbers are needed for each of the 3 axes, <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span> and <span class="math inline">\(z\)</span>.<a href="spatial-class.html#fnref3">↩</a></p></li>
 <li id="fn4"><p>The full OGC standard includes rather exotic geometry types including ‘surface’ and ‘curve’ geometry types, which currently have limited application in real world applications. All 68 types can be represented in R, although (at the time of writing) all methods, such as plotting, are only supported for the 7 types that are used.<a href="spatial-class.html#fnref4">↩</a></p></li>
 <li id="fn5"><p>The development version, which may contain new features, can be installed with <code>devtools::install_github(&quot;edzer/sfr&quot;).</code><a href="spatial-class.html#fnref5">↩</a></p></li>
 <li id="fn6"><p>In fact, when you <code>plot()</code> an <strong>sf</strong> object, R is calling <code>sf:::plot.sf()</code> behind the scenes. <code>plot()</code> is a generic method that behaves differently depending on the class of object being plotted.<a href="spatial-class.html#fnref6">↩</a></p></li>
