@@ -340,7 +340,12 @@ Figure 1.3: The popularity of spatial packages in R. The y axis shows the averag
 <!-- https://edzer.github.io/UseR2017/#a-short-history-of-handling-spatial-data-in-r -->
 <!-- rgdal - 2003 CRAN -->
 <p>These ideas were converted into a reality by creation of two, very closely connected packages - <strong>rgdal</strong> and <strong>sp</strong>. The first one, <strong>rgdal</strong> was released on CRAN in 2003 and provided an interface to Geospatial Data Abstraction Library (GDAL) and the PROJ.4 library. It gave unmatched abilities to read and write dozens of different spatial data formats. Importantly, it also keeps an information about coordinate reference system and allow for map projection and datum transformation.</p>
-<p>The second one, the <strong>sp</strong> package was created in 2003-2004 and released in 2005. <!-- what's that --> <!-- the sp package - spatial structures, objects summary, plots (classes and methods) --> The organization of spatial data in this package rapidly become an R spatial standard. This resulted in a growing number of R packages depending on <strong>sp</strong>. About twenty packages depended <strong>sp</strong> by 2008, about one hundred by 2013 and more than 125 in 2017 <span class="citation">(Bivand, Pebesma, and Gómez-Rubio <a href="#ref-bivand_applied_2013">2013</a>)</span>.<!-- CITE ASDAR  --> On top of that, about 220 packages imports some functions from the <strong>sp</strong> package. <!-- https://github.com/edzer/sfr/issues/387#issuecomment-308949140 --></p>
+<p>The second one, <strong>sp</strong>, was created in 2003-2004 and its first version was released in 2005. This package was an answer to the major R spatial shortcoming - inability to distinguish spatial and non-spatial objects. Prior to the creation of <strong>sp</strong>, spatial coordinates were treated as numbers.</p>
+<!-- it was impossible to  spatial coordines were  -->
+<!-- lack of spatial classes in R. -->
+<!-- what's that -->
+<!-- the sp package - spatial structures, objects summary, plots (classes and methods) -->
+<p>The organization of spatial data in this package rapidly become an R spatial standard. This resulted in a growing number of R packages depending on <strong>sp</strong>. About twenty packages depended <strong>sp</strong> by 2008, about one hundred by 2013 and more than 125 in 2017 <span class="citation">(Bivand, Pebesma, and Gómez-Rubio <a href="#ref-bivand_applied_2013">2013</a>)</span>. On top of that, now about 220 packages imports some functions from the <strong>sp</strong> package. <!-- https://github.com/edzer/sfr/issues/387#issuecomment-308949140 --></p>
 <!-- rgeos -->
 <!-- 2. R spatial story (from spatstat, by maptools, sp, raster, leaflet, to sf) -->
 <!-- https://cran.r-project.org/web/views/Spatial.html -->
@@ -355,11 +360,6 @@ Figure 1.3: The popularity of spatial packages in R. The y axis shows the averag
 <!-- 3. short S story - an interface to Fortran and C -> nowodays R is an interface to many programming languages C, Fortran, C++, JavaScript, Go; -->
 <!-- Nowadays xx spatial packages in R -->
 <p>The most important recent evolution in R’s spatial ecosystem has without doubt been support for simple features thanks to the <strong>sf</strong> package <span class="citation">(E. Pebesma <a href="#ref-R-sf">2017</a>)</span>, described in Chapter <a href="spatial-class.html#spatial-class">2</a>.</p>
-<!-- 
-- r, rstudio, gdal, proj4, geos, udunits 
-- r packages sf, raster, etc.
-- datasets 
--->
 
 </div>
 </div>
