@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve27b30b63ce07e16e
+preservec5d4690630f321cf
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -254,19 +254,24 @@ Based on the data types offered by GDAL/OGR, fundamental types of spatial data w
 <!-- He also suggested the use of the S4 class (the DBI package) -->
 <!-- ASDAR - p. 3 - For over 10 years, R has had an increasing number of contributed packages for handling and analysing spatial data. All these packages used to make diﬀer- ent assumptions about how spatial data were organised, and R itself had no capabilities for distinguishing coordinates from other numbers. In addition, methods for plotting spatial data and other tasks were scattered, made diﬀer- ent assumptions on the organisation of the data, and were rudimentary. This was not unlike the situation for time series data at the time. -->
 
-The creation of the **sp** package in 2003-2004 and its release in 2005 was a result of the previous discussions and an answer to the previous R spatial shortcomings.
+<!-- a result of the previous discussions and an answer to the previous R spatial shortcomings. -->
+<!-- https://edzer.github.io/UseR2017/#a-short-history-of-handling-spatial-data-in-r -->
+<!-- rgdal - 2003 CRAN -->
+These ideas were converted into a reality by creation of two, very closely connected packages - **rgdal** and **sp**.
+The first one, **rgdal** was released on CRAN in 2003 and provided an interface to Geospatial Data Abstraction Library (GDAL) and the PROJ.4 library.
+It gave unmatched abilities to read and write dozens of different spatial data formats.
+Importantly, it also keeps an information about coordinate reference system and allow for map projection and datum transformation.
+
+The second one, the **sp** package was created in 2003-2004 and released in 2005. 
 <!-- what's that -->
 <!-- the sp package - spatial structures, objects summary, plots (classes and methods) -->
 The organization of spatial data in this package rapidly become an R spatial standard.
 This resulted in a growing number of R packages depending on **sp**. 
-About twenty packages depended **sp** by 2008, about one hundred by 2013 and more than 125 in 2017.<!-- CITE ASDAR  -->
+About twenty packages depended **sp** by 2008, about one hundred by 2013 and more than 125 in 2017 [@bivand_applied_2013].<!-- CITE ASDAR  -->
 On top of that, about 220 packages imports some functions from the **sp** package. 
-
 <!-- https://github.com/edzer/sfr/issues/387#issuecomment-308949140 -->
-The foundations created by **sp** enabled an introduction additional two, very closely connected packages - **rgdal** and **rgeos**.
-The first one, **rgdal** provided an interface to Geospatial Data Abstraction Library (GDAL) and the PROJ.4 library.
-It gave unmatched abilities to read and write dozens of different spatial data formats.
-Importantly, it also keeps an information about used coordinate reference system and allow for map projection and datum transformation.
+
+<!-- rgeos -->
 
 <!-- 2. R spatial story (from spatstat, by maptools, sp, raster, leaflet, to sf) -->
 <!-- https://cran.r-project.org/web/views/Spatial.html -->
@@ -2349,7 +2354,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.34
+#> [1] 2.47
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2365,7 +2370,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.07
+#> [1] 3.04
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2394,13 +2399,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.052   0.008   0.060
+#>   0.072   0.000   0.070
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.048   0.000   0.045
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.020   0.008   0.031
 ```
 
 
