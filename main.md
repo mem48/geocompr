@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve1a28dcf10185b979
+preserveaa1f9f8d9f6a6c40
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -280,6 +280,8 @@ This resulted in a growing number of R packages depending on **sp**.
 About twenty packages depended **sp** by 2008, about one hundred by 2013 and more than 125 in 2017 [@bivand_applied_2013].
 On top of that, now about 220 packages imports some functions from the **sp** package. 
 <!-- https://github.com/edzer/sfr/issues/387#issuecomment-308949140 -->
+
+<!-- name a few most important packages based on sp -->
 
 <!-- rgeos -->
 <!-- of course R spatial development was not separate from the advancment in different spatial libraries -->
@@ -2359,7 +2361,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.29
+#> [1] 2.38
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2375,7 +2377,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.11
+#> [1] 3.04
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2407,10 +2409,10 @@ system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>   0.056   0.004   0.060
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.032   0.004   0.039
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.027
+#>   0.020   0.008   0.029
 ```
 
 
