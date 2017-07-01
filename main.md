@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-06-30'
+date: '2017-07-01'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -39,7 +39,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-06-30 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-07-01 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve8d7fbd5c8d6440f0
+preservef13cb5bd1675e4b0
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -265,17 +265,16 @@ Importantly, it also keeps an information about coordinate reference system and 
 The second one, **sp**, was created in 2003-2004 and its first version was released in 2005. 
 This package was an answer to the major R spatial shortcoming - inability to distinguish spatial and non-spatial objects.
 Prior to the creation of **sp**, spatial coordinates were treated as numbers. 
-The **sp** package provided methods and classes for spatial data. 
+The **sp** package provided classes and methods for spatial data. 
 Spatial objects could be a one of four **sp** structures - points, lines, polygons and grids, all of which had two version - with and without attribute data. <!--???-->
 <!-- points, multipoints, pixels, full grid, line, lines, spatial lines, polygon, polygons, spatial polygons -->
 They were built using S4 classes, where all the information (such as bounding box, coordinate reference system, attribute table) were stored in specific slots.
-Attribute data in **sp** were represented as `data.frame`, which allow users to do non-spatial processing, for example data subsetting or adding new columns.
-<!-- spatial methods -->
-<!-- summary and retrival of spatial information (number of dimensions, bounding box, coordinates, etc.) -->
-<!-- spatial sample -->
-<!-- transform from one coordinate reference system to another (with rgdal) -->
-<!-- conversion to/from spatial -->
-<!-- plot and spplot -->
+Attribute data in **sp** were represented as `data.frame`, which enabled users to do non-spatial processing, for example data subsetting or adding new columns.
+More importantly, this package also provided set of spatial methods.
+For example, it allowed for spatial summary and retrieval of spatial information, such as a number of dimensions, bounding box, coordinates.
+The **sp** package together with **rgdal** make possible transform from one coordinate reference system to another.
+Finally, **sp** provided mapping capabilities using either the base plotting system or the lattice system.
+
 The organization of spatial data in this package rapidly become an R spatial standard.
 This resulted in a growing number of R packages depending on **sp**. 
 About twenty packages depended **sp** by 2008, about one hundred by 2013 and more than 125 in 2017 [@bivand_applied_2013].
@@ -2362,7 +2361,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.35
+#> [1] 2.38
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2378,7 +2377,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.03
+#> [1] 3.07
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2407,13 +2406,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.063
+#>   0.068   0.000   0.067
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.036   0.008   0.043
+#>   0.040   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.016   0.012   0.029
 ```
 
 
