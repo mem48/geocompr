@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-07-01'
+date: '2017-07-02'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -39,7 +39,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-07-01 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-07-02 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve47157754b4a987ae
+preserve3183dd05b30847a2
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -225,37 +225,29 @@ This not only because the incumbent packages are highly mature: there is a wealt
 
 ## The history of geocomputing with R
 
+<!-- INTRO -->
+<!-- https://cran.r-project.org/web/views/Spatial.html -->
 <!-- We would like to give you the ability to use the **sf**, raster/stars, **tmap**, **leaflet** and **mapview** packages to solve spatial problems.  -->
 <!-- However, spatial analysis in R has a long history. -->
-
 <!-- 2. R spatial story (from spatstat, by maptools, sp, raster, leaflet, to sf) -->
-In the volume 1/2 of R News (the predecessor of The R Journal), Brian Ripley created an overview of the spatial statistics state in June 2001 [@ripley_spatial_2001]. <!-- https://pdfs.semanticscholar.org/9a0a/40ac215bfc0d52605b487f66928caf6abc99.pdf -->
+In the volume 1/2 of R News (the predecessor of The R Journal), Brian Ripley created an overview of the spatial statistics state in June 2001 [@ripley_spatial_2001]. 
 He shortly described eight packages, mostly used for spatial smoothing end interpolation (such as **akima**, **spatial**, **sgeostat** and **geoR**) and spatial point patterns (**splancs** and **spatstat**).
 Most of these packages where based on the previous code written for S or S-PLUS.
 The last mentioned package, **spatstat** became a standard for analyzing spatial point patterns.
 <!-- We shortly described examples of point pattern analysis in \@ref(point-pattern). -->
-However, most of this topic goes beyond the scope of this book, so for more information we recommend book of @baddeley_spatial_2015.
+However, most of this topic goes beyond the scope of this book, so for more information we recommend the book of @baddeley_spatial_2015.
 
-In the next issue of R News, @bivand_more_2001 gave an introduction to the **splanc** package and suggested some future prospects.<!-- https://cran.r-project.org/doc/Rnews/Rnews_2001-3.pdf -->
+In the next issue of R News, @bivand_more_2001 gave an introduction to the **splanc** package and suggested some future prospects.
 The most notably, he mentioned the need for standardized R spatial interface, more efficient mechanisms for exchanging data with GIS, and better ways to treat spatial metadata (such as spatial projections).
-<!-- WHY? - coordinates as a numeric values, different classes/ideas, no standards -->
-<!-- it's problematic when - plot; merging data; transforming data; saving data -->
-<!-- It was extended by the paper ... -->
-<!-- spdep and Opportunities for advancing spatial data analysis in R --> 
-<!-- spdep -->
-<!-- opportunities; mapping capabilities -->
 <!-- https://pdfs.semanticscholar.org/9bb5/c9571d64bd3e1ae376967b6c6aca39d6fa70.pdf -->
 <!-- http://onlinelibrary.wiley.com/doi/10.1111/j.0016-7363.2005.00672.x/full -->
 Two years later, he presented an extended review of existing R spatial packages at the 3rd International Workshop on Distributed Statistical Computing (DSC 2003) [@hornik_approaches_2003]. 
 More importantly, he also proposed basis for spatial data classes in R. 
-<!-- the rise of GDAL + OGR + proj in the background -->
+<!-- of course R spatial development was not separate from the advancment in different spatial libraries -->
+<!-- R - an interface to libraries gdal (C/C++), proj (C), geos (C++) -->
 <!-- more info on GDAL/OGR -->
 Based on the data types offered by GDAL/OGR, fundamental types of spatial data were highlighted - point, line, polygon and raster.
-<!-- He also suggested the use of the S4 class (the DBI package) -->
-<!-- ASDAR - p. 3 - For over 10 years, R has had an increasing number of contributed packages for handling and analysing spatial data. All these packages used to make diﬀer- ent assumptions about how spatial data were organised, and R itself had no capabilities for distinguishing coordinates from other numbers. In addition, methods for plotting spatial data and other tasks were scattered, made diﬀer- ent assumptions on the organisation of the data, and were rudimentary. This was not unlike the situation for time series data at the time. -->
-<!-- a result of the previous discussions and an answer to the previous R spatial shortcomings. -->
 <!-- https://edzer.github.io/UseR2017/#a-short-history-of-handling-spatial-data-in-r -->
-<!-- rgdal - 2003 CRAN -->
 These ideas were converted into a reality by creation of two, very closely connected packages - **rgdal** and **sp**.
 
 The first one, **rgdal** was released on CRAN in 2003 and provided an interface to Geospatial Data Abstraction Library (GDAL) and the PROJ.4 library.
@@ -287,28 +279,31 @@ Some of the most prominent R packages using **sp** are: **gstat** - a set of fun
 A robust geometry engine to R was added in the **rgeos** package as a part of Google Summer of Code 2010.
 It integrated spatial object from **sp** with the spatial functions and operators from GEOS library.
 
-<!-- raster -->
-
-<!-- of course R spatial development was not separate from the advancment in different spatial libraries -->
-
-<!-- 2. R spatial story (from spatstat, by maptools, sp, raster, leaflet, to sf) -->
-<!-- https://cran.r-project.org/web/views/Spatial.html -->
-<!-- R - an interface to libraries gdal (C/C++), proj (C), geos (C++) -->
-<!-- http://onlinelibrary.wiley.com/doi/10.1111/j.0016-7363.2005.00672.x/full -->
-
+<!-- GIS interfaces (GRASS, spgrass6, rgrass7) + RSAGA + many more -->
 <!-- GIS integration -->
 <!-- R also as an interface to GIS software GRASS GIS, SAGA, QGIS, ArcGIS (calls from R and from the software) reference to the CLI/GUI integration chapter -->
 <!-- rgrass -->
 <!-- http://www.geocomputation.org/2000/GC009/Gc009.htm -->
 <!-- http://www.sciencedirect.com/science/article/pii/S0098300400000571 -->
+<!-- http://onlinelibrary.wiley.com/doi/10.1111/j.0016-7363.2005.00672.x/full -->
+<!-- link to the new chapter -->
 
+<!-- raster - was missing -->
+<!-- https://cran.r-project.org/web/packages/raster/vignettes/Raster.pdf -->
+<!-- https://geoscripting-wur.github.io/IntroToRaster/#Overview_of_the_raster_package -->
+<!-- https://cran.r-project.org/src/contrib/Archive/raster/ (2010) -->
+<!-- https://artax.karlin.mff.cuni.cz/r-help/library/raster/html/raster-package.html -->
 
+<!-- visualization revolution -->
+<!-- ggplot2 -->
+<!-- ggmap -->
+<!-- rasterVis -->
+<!-- tmap -->
 <!-- R - an interface to visualisation libraries - mostly java script - leaflet->mapview -->
-
-<!-- 3. short S story - an interface to Fortran and C -> nowodays R is an interface to many programming languages C, Fortran, C++, JavaScript, Go; -->
+<!-- leaflet + mapview -->
 
 <!-- Nowadays xx spatial packages in R -->
-
+<!-- https://cran.r-project.org/web/views/Spatial.html -->
 The most important recent evolution in R's spatial ecosystem has without doubt been support for simple features thanks to the **sf** package [@R-sf], described in Chapter \@ref(spatial-class).
 
 <!--chapter:end:01-introduction.Rmd-->
@@ -2366,7 +2361,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.37
+#> [1] 2.36
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2382,7 +2377,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.12
+#> [1] 3.02
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2411,13 +2406,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>    0.06    0.00    0.06
+#>   0.064   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.038
+#>   0.040   0.004   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.000   0.027
+#>   0.024   0.004   0.030
 ```
 
 
