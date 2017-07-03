@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-07-02'
+date: '2017-07-03'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -39,7 +39,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-07-02 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-07-03 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve3183dd05b30847a2
+preserveaf0b02b7ef10611b
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -242,15 +242,14 @@ The most notably, he mentioned the need for standardized R spatial interface, mo
 <!-- https://pdfs.semanticscholar.org/9bb5/c9571d64bd3e1ae376967b6c6aca39d6fa70.pdf -->
 <!-- http://onlinelibrary.wiley.com/doi/10.1111/j.0016-7363.2005.00672.x/full -->
 Two years later, he presented an extended review of existing R spatial packages at the 3rd International Workshop on Distributed Statistical Computing (DSC 2003) [@hornik_approaches_2003]. 
-More importantly, he also proposed basis for spatial data classes in R. 
-<!-- of course R spatial development was not separate from the advancment in different spatial libraries -->
-<!-- R - an interface to libraries gdal (C/C++), proj (C), geos (C++) -->
-<!-- more info on GDAL/OGR -->
-Based on the data types offered by GDAL/OGR, fundamental types of spatial data were highlighted - point, line, polygon and raster.
+At this stage, R spatial development started to be connected with the advancement in spatial software libraries, especially the Geospatial Data Abstraction Library (GDAL) and PROJ.4. <!--CITE-->
+They allow reading and writing vector and raster data formats, and conversions between coordinate reference systems. 
+<!-- More importantly, he also proposed a basis for spatial data classes in R there., which were partially based on the ESRI Shapefile format.-->
+Based on the data types offered by GDAL, Bivand also proposed a basis for spatial data classes in R, with the fundamental types of spatial data highlighted - point, line, polygon and raster.
 <!-- https://edzer.github.io/UseR2017/#a-short-history-of-handling-spatial-data-in-r -->
-These ideas were converted into a reality by creation of two, very closely connected packages - **rgdal** and **sp**.
+These ideas were converted into a reality with a creation of two, very closely connected R packages - **rgdal** and **sp**.
 
-The first one, **rgdal** was released on CRAN in 2003 and provided an interface to Geospatial Data Abstraction Library (GDAL) and the PROJ.4 library.
+The first one, **rgdal** was released on CRAN in 2003 and provided an interface to GDAL and the PROJ.4 libraries.
 It gave unmatched abilities to read and write dozens of different spatial data formats.
 Importantly, it also was able to keep an information about coordinate reference system and allowed for map projection and datum transformation.
 
@@ -2361,7 +2360,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.36
+#> [1] 2.32
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2377,7 +2376,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.02
+#> [1] 3.05
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2406,13 +2405,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.004   0.042
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.030
+#>   0.020   0.008   0.028
 ```
 
 
