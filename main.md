@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveaf0b02b7ef10611b
+preserve4a8fc54b1d870723
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -266,7 +266,7 @@ For example, it allowed for spatial summary and retrieval of spatial information
 The **sp** package together with **rgdal** made possible transform from one coordinate reference system to another.
 Finally, **sp** provided mapping capabilities using either the base plotting system or the lattice system.
 
-The organization of spatial data in this package rapidly become an R spatial standard.
+The organization of spatial data in the **sp** package rapidly become an R spatial standard.
 This resulted in a growing number of R packages built upon **sp**. 
 About twenty packages depended **sp** by 2008, about one hundred by 2013 and more than 125 in 2017 [@bivand_applied_2013].
 On top of that, now about 220 packages imports some functions from the **sp** package. 
@@ -2360,7 +2360,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.32
+#> [1] 2.34
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2376,7 +2376,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.05
+#> [1] 3.01
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2405,10 +2405,10 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.064   0.000   0.066
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.044   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
 #>   0.020   0.008   0.028
