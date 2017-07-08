@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve67d8cc37e8d44065
+preserve25da18c6a3818bd7
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -247,7 +247,7 @@ They allow reading and writing vector and raster data formats, and conversions b
 <!-- More importantly, he also proposed a basis for spatial data classes in R there., which were partially based on the ESRI Shapefile format.-->
 Based on the data types offered by GDAL, Bivand also proposed a basis for spatial data classes in R, with the fundamental types of spatial data highlighted - point, line, polygon and raster.
 <!-- https://edzer.github.io/UseR2017/#a-short-history-of-handling-spatial-data-in-r -->
-These ideas were converted into a reality with a creation of two, very closely connected R packages - **rgdal** and **sp**.
+This idea was converted into a reality with creation of two, very closely connected R packages - **rgdal** and **sp**.
 
 The first one, **rgdal** was released on CRAN in 2003 and provided an interface to GDAL and the PROJ.4 libraries.
 It gave unmatched abilities to read and write dozens of different spatial data formats.
@@ -276,30 +276,45 @@ Some of the most prominent R packages using **sp** are: **gstat** - a set of fun
 
 **rgdal** and **sp** overcome many spatial R shortcomings, however R still lacked a geometry calculation abilities.
 A robust geometry engine to R was added in the **rgeos** package as a part of Google Summer of Code 2010.
-It integrated spatial object from **sp** with the spatial functions and operators from GEOS library.
+It integrated spatial object from **sp** with the spatial functions and operators from the GEOS library.
 
-<!-- GIS interfaces (GRASS, spgrass6, rgrass7) + RSAGA + many more -->
-<!-- GIS integration -->
-<!-- R also as an interface to GIS software GRASS GIS, SAGA, QGIS, ArcGIS (calls from R and from the software) reference to the CLI/GUI integration chapter -->
-<!-- rgrass -->
-<!-- http://www.geocomputation.org/2000/GC009/Gc009.htm -->
-<!-- http://www.sciencedirect.com/science/article/pii/S0098300400000571 -->
-<!-- http://onlinelibrary.wiley.com/doi/10.1111/j.0016-7363.2005.00672.x/full -->
-<!-- link to the new chapter -->
-
-<!-- raster - was missing -->
+Although **sp** provided a possibility of reading and processing grid data, its non-vector capabilities were limited. 
+A new **raster** package was created in 2010 to fill this gap.
+It established new spatial classes for raster objects and added functions for creating, reading and writing raster data.
+Moreover, it implemented raster algebra, general raster functions and gave tools for development of more specific raster functions.
+Very important feature of **raster** was its ability to work with raster dataset that are too large to be fitted in RAM.
+<!-- one more sentence -->
 <!-- https://cran.r-project.org/web/packages/raster/vignettes/Raster.pdf -->
 <!-- https://geoscripting-wur.github.io/IntroToRaster/#Overview_of_the_raster_package -->
 <!-- https://cran.r-project.org/src/contrib/Archive/raster/ (2010) -->
 <!-- https://artax.karlin.mff.cuni.cz/r-help/library/raster/html/raster-package.html -->
 
-<!-- visualization revolution -->
-<!-- ggplot2 -->
-<!-- ggmap -->
-<!-- rasterVis -->
-<!-- tmap -->
-<!-- R - an interface to visualisation libraries - mostly java script - leaflet->mapview -->
-<!-- leaflet + mapview -->
+<!-- http://www.geocomputation.org/2000/GC009/Gc009.htm -->
+<!-- http://www.sciencedirect.com/science/article/pii/S0098300400000571 -->
+<!-- http://onlinelibrary.wiley.com/doi/10.1111/j.0016-7363.2005.00672.x/full -->
+Simultaneously with the development of spatial classes and methods, R started to be used as an interface to several GIS software.
+The most popular early example was the **GRASS** package <!--CITE-->. <!--http://www.sciencedirect.com/science/article/pii/S0098300400000571?via%3Dihub-->
+Its first version was released in 2000 and it enabled a connection between R and GRASS GIS 5.0.
+In the latter years, a two new packages were published after the release of the new GRASS GIS versions: **spgrass6** for GRASS GIS 6 and **rgrass7** for GRASS GIS 7.
+Other examples of bridges between R and GIS include RSAGA (first release in 2008), ArcGIS (2008) and RQGIS (2016). <!--CITE-->
+More information about interfaces between R and GIS software could be find in \@ref(gis).
+
+**sp** provided methods for plotting data using the two existing systems - base and lattice.
+However, a demand for convenient methods for spatial data visualizations rose with an increase in R spatial possibilities. 
+In 2007, the third system, **ggplot2**, was published.
+It gave a possibility to convert spatial objects from **sp** into `data.frames` to plot them. <!-- rewrite; check when projections were implemented -->
+**ggplot2** spatial capabilities were improved in 2011 with the release of its accompanying <!--??--> package - **ggmap**, which provided several tools for spatial data visualization.
+Among others, it allowed to create plots with static maps from Google Maps or OpenStreetMap as the base layer and gave access to the several spatial APIs, for example the Google Geocoding.
+In the same year, the support of the lattice system was added to the raster objects with publishing of the **rasterVis** package.
+The wide range of visualization methods for numerical and categorical raster data, univariate and mutlivariate raster datasets and spatiotemporal rasters was provided in this package. <!--CITE the book - http://oscarperpinan.github.io/spacetime-vis/ -->
+
+Moreover, several packages were develop with a main goal of creation of complex, ready-to-use map with only a few lines of code.
+The **tmap** package was released in 2014 and enabled creation of thematic maps. <!-- CITE the paper http://von-tijn.nl/tijn/research/presentations/tmap_user2017.pdf-->
+They could be generated based on the spatial objects and its layout is optimized for maps with the use of legends, scale bars, grid lines, north arrows, etc.
+On the other hand, the **leaflet** package (released in 2015) offered creation and modification of interactive maps. 
+It is a wrapper of the "Leaflet" JavaScript library, which output can be used on websites, R Markdown documents, and Shiny apps.
+Additionally, the **mapview** package was created on top of **leaflet**. <!--CITE-->
+It enabled quick creation of interactive visualization of spatial data containing variety of background maps, dynamic scale bar, feature attributes viewer and more.
 
 <!-- Nowadays xx spatial packages in R -->
 <!-- https://cran.r-project.org/web/views/Spatial.html -->
@@ -2400,7 +2415,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.41
+#> [1] 2.36
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2416,7 +2431,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.92
+#> [1] 3.11
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2445,13 +2460,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.064   0.000   0.065
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.041
+#>   0.048   0.000   0.047
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.020   0.008   0.032
 ```
 
 
