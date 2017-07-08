@@ -261,7 +261,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[<span class="dv">1</span>:<span class="dv">6</span>,] <span class="co"># subset rows by position</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[, <span class="dv">1</span>:<span class="dv">3</span>] <span class="co"># subset columns by position</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[, <span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span>, <span class="st">&quot;lifeExp&quot;</span>)] <span class="co"># subset columns by name</span></code></pre></div>
-<p>You can also subset using the base R <code>subset()</code> function:</p>
+<p>The <code>[</code> subsetting operator also accepts <code>logical</code> vectors corresponding to some criteria which returns <code>TRUE</code> or <code>FALSE</code>. The following code chunk, for example, creates a new object, <code>small_countries</code>, which only contains nations whose surface area is below 100,000 km<sup>2</sup>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sel_area =<span class="st"> </span>world$area_km2 &lt;<span class="st"> </span><span class="dv">10000</span>
+<span class="kw">summary</span>(sel_area)
+<span class="co">#&gt;    Mode   FALSE    TRUE </span>
+<span class="co">#&gt; logical     170       7</span>
+small_countries =<span class="st"> </span>world[sel_area,]</code></pre></div>
+<p>Note that we created the intermediary <code>sel_object</code> to illustrate the process and demonstrate that only 7 countries are ‘small’ by this definition. A more concise command, that omits the intermediary object, generates the same result:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">small_countries =<span class="st"> </span>world[world$area_km2 &lt;<span class="st"> </span><span class="dv">10000</span>,]</code></pre></div>
+<p>Another way to generate the same result is with the base R function <code>subset()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">small_countries =<span class="st"> </span><span class="kw">subset</span>(world, area_km2 &lt;<span class="st"> </span><span class="dv">10000</span>)</code></pre></div>
 <p>The <code>$</code> operator retrieves a variable by its name and returns a vector:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world$name_long</code></pre></div>
@@ -496,7 +504,7 @@ north_america
 <span class="co">#&gt; 2     GL     Greenland MULTIPOLYGON(((-46.76379 82...</span>
 <span class="co">#&gt; 3     US United States MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(north_america[<span class="dv">0</span>])</code></pre></div>
-<p><img src="figures/unnamed-chunk-30-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-32-1.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wb_north_america =<span class="st"> </span>worldbank_df %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(name %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;United States&quot;</span>)) %&gt;%
 <span class="st">  </span><span class="kw">select</span>(name, iso_a2, urban_pop, <span class="dt">unemploy =</span> unemployment)
@@ -585,7 +593,7 @@ right_join1
 <span class="co">#&gt; 3     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <p>The output shows that the result, <code>right_join1</code>, has information about Mexico, but drops information about Greenland. Furthermore, our right object, as a <code>data.frame</code>, doesn’t have a geometry representation of Mexico. As a result, the <code>right_join1</code> object contains only non-spatial data of Mexico. It could be easily illustrated using the <code>plot</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(right_join1[<span class="dv">0</span>]) <span class="co"># Canada and United States only</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-36-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-38-1.png" width="576" style="display: block; margin: auto;" /></p>
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
 <!-- right_join2 = wb_north_america %>%  -->
@@ -651,7 +659,7 @@ anti_join1
 <span class="co">#&gt;   iso_a2 name_long                           geom</span>
 <span class="co">#&gt; 1     GL Greenland MULTIPOLYGON(((-46.76379 82...</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(anti_join1[<span class="dv">0</span>])</code></pre></div>
-<p><img src="figures/unnamed-chunk-40-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-42-1.png" width="576" style="display: block; margin: auto;" /></p>
 <!-- ```{r} -->
 <!-- anti_join2 = wb_north_america %>%  -->
 <!--   anti_join(north_america, by = "iso_a2") -->

@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve3281204b087b99cd
+preservee6322187bde90ba0
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1268,7 +1268,27 @@ world[, 1:3] # subset columns by position
 world[, c("name_long", "lifeExp")] # subset columns by name
 ```
 
-You can also subset using the base R `subset()` function:
+The `[` subsetting operator also accepts `logical` vectors corresponding to some criteria which returns `TRUE` or `FALSE`.
+The following code chunk, for example, creates a new object, `small_countries`, which only contains nations whose surface area is below 100,000 km^2^:
+
+
+```r
+sel_area = world$area_km2 < 10000
+summary(sel_area)
+#>    Mode   FALSE    TRUE 
+#> logical     170       7
+small_countries = world[sel_area,]
+```
+
+Note that we created the intermediary `sel_object` to illustrate the process and demonstrate that only 7 countries are 'small' by this definition.
+A more concise command, that omits the intermediary object, generates the same result:
+
+
+```r
+small_countries = world[world$area_km2 < 10000,]
+```
+
+Another way to generate the same result is with the base R function `subset()`:
 
 
 ```r
@@ -1602,7 +1622,7 @@ north_america
 plot(north_america[0])
 ```
 
-<img src="figures/unnamed-chunk-30-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-32-1.png" width="576" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1739,7 +1759,7 @@ It could be easily illustrated using the `plot` function:
 plot(right_join1[0]) # Canada and United States only
 ```
 
-<img src="figures/unnamed-chunk-36-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-38-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
@@ -1829,7 +1849,7 @@ anti_join1
 plot(anti_join1[0])
 ```
 
-<img src="figures/unnamed-chunk-40-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-42-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- ```{r} -->
 <!-- anti_join2 = wb_north_america %>%  -->
@@ -1992,6 +2012,7 @@ library(units)
 
 ```r
 library(spData)
+data("world")
 ```
 
 ## Introduction
@@ -2376,7 +2397,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.33
+#> [1] 2.38
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2392,7 +2413,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.48
+#> [1] 3.14
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2421,13 +2442,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>   0.064   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.044
+#>   0.036   0.000   0.039
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.028
+#>   0.020   0.004   0.028
 ```
 
 
