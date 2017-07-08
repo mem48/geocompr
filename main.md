@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve3266716c3fa3925e
+preservebb7c727a81d696ed
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -304,6 +304,22 @@ It integrated spatial object from **sp** with the spatial functions and operator
 <!-- Nowadays xx spatial packages in R -->
 <!-- https://cran.r-project.org/web/views/Spatial.html -->
 The most important recent evolution in R's spatial ecosystem has without doubt been support for simple features thanks to the **sf** package [@R-sf], described in Chapter \@ref(spatial-class).
+
+## Exercises
+
+1. Think about the terms 'GIS', 'GDS' and 'Geocomputation' described above. Which is your favourite and and why?
+
+1. Provide 3 reasons for using a scriptable language such R for geocomputation instead of established GIS programs such as QGIS.
+  <!-- - Reproducibility: a sequence of operations is much easier to save and share when using a scripting language. -->
+  <!-- - Scalability: scripting languages make it easy to break-up the work and parallelise, making it more scalable. -->
+  <!-- - Flexibility: the building blocks of the language allows it to interface efficiently with external software, enabling R to perform a wide range of tasks (e.g. animations, online interactive maps). -->
+  <!-- - Efficiency: the GUI of GIS programs can be slow to use and install. -->
+
+1. Name two advantages and two disadvantages of using the older **sp** package compared with the new **sf** package.
+  <!-- - `+` Number of packages supported. -->
+  <!-- - `+` Stability -->
+  <!-- - `-` Slow performance -->
+  <!-- - `-` Non standard data format -->
 
 <!--chapter:end:01-introduction.Rmd-->
 
@@ -2358,7 +2374,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.32
+#> [1] 2.4
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2374,7 +2390,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.01
+#> [1] 3.14
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2403,13 +2419,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.071
+#>   0.064   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.043
+#>   0.044   0.000   0.040
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.029
+#>   0.020   0.008   0.027
 ```
 
 
