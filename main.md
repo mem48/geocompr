@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve4df4cd9b81574a7e
+preserve45a3d56ac234ab78
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -354,7 +354,9 @@ We recommend getting up-to-speed with the language, with reference to resources 
 
 * * *
 
-Once R is installed and set-up in a way that allows its use as part of an efficient workflow, we proceed to install and load the required packages **sf** (see the package's [README](https://github.com/edzer/sfr) for install instructions) and **spData** (which requires **devtools**):
+After R is installed and set-up, packages which extend R must be installed and loaded for it to handle spatial data.
+On Mac and Linux operating systems there are a few additional requirements: see the [README](https://github.com/edzer/sfr) of the **sf** package for instructions.
+The **sf** and **spData** packages used in this chapter can be installed and loaded with the following commands (which requires **devtools**):
 
 
 ```r
@@ -2412,10 +2414,10 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.51
+#> [1] 2.39
 ```
 
-The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -2428,7 +2430,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.05
+#> [1] 3.08
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2457,13 +2459,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>    0.06    0.00    0.06
+#>   0.064   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.044   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.020   0.008   0.030
 ```
 
 
