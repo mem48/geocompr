@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve4a48e08324069dd4
+preservea2c63ffd4c4459fb
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -499,7 +499,7 @@ summary(world["lifeExp"])
 #>  NA's   :9
 ```
 
-The result provides a quick summary of both the non-spatial and spatial data contained in `world`: the average life expectancy of countries is 73 years (ranging from less than 50 to more than 80 years) and there are 177 countries represented by the `MULTIPOLYGON` geometry type which has a geographical (longitude/latidue) coordinate reference system (CRS) with an EPSG code of `4326`.
+The result provides a quick summary of both the non-spatial and spatial data contained in `world`: the average life expectancy is 73 years (ranging from less than 50 to more than 80 years) across all countries, and these are represented by `MULTIPOLYGON`s, allowing many polygons per country (this is needed for countries with many islands such as Indonesia and Greece). 
 
 <!-- TODO: cross-reference section covering CRSs. -->
 
@@ -535,6 +535,8 @@ What does the summary of the `geometry` column tell us about the `world` dataset
 - The geometry type?
 - How many countries there are?
 - The coordinate reference system (CRS)?
+
+<!-- It's a `MULTIPOLYGON` with 177 features and a geographical (longitude/latidue) coordinate reference system (CRS) with an EPSG code of `4326`. -->
 
 ### Why Simple Features?
 
@@ -611,7 +613,7 @@ For more advanced map making we recommend using a dedicated visualisation packag
 
 
 
-#### Challenge
+#### Exercise
 
 Using **sf**'s `plot()` command, create a map of Nigeria in context, building on the code that creates and plots Asia above (see Figure \@ref(fig:nigeria) for an example of what this could look like). 
 
@@ -2414,7 +2416,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.38
+#> [1] 2.34
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2430,7 +2432,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.04
+#> [1] 3.09
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2459,13 +2461,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.069
+#>   0.056   0.004   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.040   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.016   0.012   0.029
 ```
 
 

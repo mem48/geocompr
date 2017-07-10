@@ -288,7 +288,7 @@ Figure 2.2: A spatial plot of the world using the sf package, with a facet for e
 <span class="co">#&gt;  3rd Qu.:77.1                      </span>
 <span class="co">#&gt;  Max.   :83.6                      </span>
 <span class="co">#&gt;  NA&#39;s   :9</span></code></pre></div>
-<p>The result provides a quick summary of both the non-spatial and spatial data contained in <code>world</code>: the average life expectancy of countries is 73 years (ranging from less than 50 to more than 80 years) and there are 177 countries represented by the <code>MULTIPOLYGON</code> geometry type which has a geographical (longitude/latidue) coordinate reference system (CRS) with an EPSG code of <code>4326</code>.</p>
+<p>The result provides a quick summary of both the non-spatial and spatial data contained in <code>world</code>: the average life expectancy is 73 years (ranging from less than 50 to more than 80 years) across all countries, and these are represented by <code>MULTIPOLYGON</code>s, allowing many polygons per country (this is needed for countries with many islands such as Indonesia and Greece).</p>
 <!-- TODO: cross-reference section covering CRSs. -->
 <p>Note that by appending <code>[&quot;lifeExp&quot;]</code> onto the object name in the previous code chunk, only the relevant column was summarized. We explore such ‘attribute operations’ in Chapter <a href="attr.html#attr">3</a>. First, it’s worth taking a look at the basic behavior and contents of this simple feature object, which can usefully be thought of as a ’<strong>S</strong>patial data<strong>F</strong>rame).</p>
 <p><code>sf</code> objects are easy to subset. The code below shows its first 2 rows and 3 columns. The output shows 2 major differences compared with a regular <code>data.frame</code>: the inclusion of additional geographic data (<code>geometry type</code>, <code>dimension</code>, <code>bbox</code> and CRS information - <code>epsg (SRID)</code>, <code>proj4string</code>), and the presence of final <code>geometry</code> column:</p>
@@ -311,6 +311,7 @@ Figure 2.2: A spatial plot of the world using the sf package, with a facet for e
 <li>How many countries there are?</li>
 <li>The coordinate reference system (CRS)?</li>
 </ul>
+<!-- It's a `MULTIPOLYGON` with 177 features and a geographical (longitude/latidue) coordinate reference system (CRS) with an EPSG code of `4326`. -->
 </div>
 </div>
 <div id="why-simple-features" class="section level3">
@@ -353,8 +354,8 @@ asia =<span class="st"> </span><span class="kw">st_union</span>(asia)</code></pr
 - map export 
 -->
 <!-- Maybe show also somewhere that `world[0]` produces only a plot of the geometry which is rather useful if you do not want to plot a specific attribute. This way, you can for example dismiss the col = "white"-argument in your Nigeria example. -->
-<div id="challenge" class="section level4">
-<h4><span class="header-section-number">2.1.3.1</span> Challenge</h4>
+<div id="exercise" class="section level4">
+<h4><span class="header-section-number">2.1.3.1</span> Exercise</h4>
 <p>Using <strong>sf</strong>’s <code>plot()</code> command, create a map of Nigeria in context, building on the code that creates and plots Asia above (see Figure <a href="spatial-class.html#fig:nigeria">2.4</a> for an example of what this could look like).</p>
 <ul>
 <li>Hint: this used the <code>lwd</code>, <code>main</code> and <code>col</code> arguments of <code>plot()</code>.</li>
