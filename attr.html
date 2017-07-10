@@ -421,7 +421,7 @@ world_few_rows =<span class="st"> </span>world[world$pop &gt;<span class="st"> <
 <div id="attribute-data-aggregation" class="section level2">
 <h2><span class="header-section-number">3.3</span> Attribute data aggregation</h2>
 <!-- https://github.com/ropenscilabs/skimr ?? -->
-<p>As demonstrated in chapter <a href="spatial-class.html#intro-sf">2.1.1</a>, <code>summary()</code> provides summary statistics of <code>sf</code> objects (result not shown):</p>
+<p>As demonstrated in chapter <a href="spatial-class.html#spatial-class">2</a>, <code>summary()</code> provides summary statistics of spatial objects (result not shown):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># data summary </span>
 <span class="kw">summary</span>(world)</code></pre></div>
 <p>This function usefully provides a quick glimpse of data when using R interactively, but lacks flexibility and should not be used to create new objects. The <strong>dplyr</strong> equivalent is <code>summarise()</code>, which returns summary statistics based on functions and variables defined by the user. The following code chunk, for example, calculates the total population and number of countries in the world:</p>

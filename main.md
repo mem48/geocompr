@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea2c63ffd4c4459fb
+preserve91802cb8e374e87f
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1513,7 +1513,7 @@ world %>%
 
 <!-- https://github.com/ropenscilabs/skimr ?? -->
 
-As demonstrated in chapter \@ref(intro-sf), `summary()` provides summary statistics of `sf` objects (result not shown):
+As demonstrated in chapter \@ref(spatial-class), `summary()` provides summary statistics of spatial objects (result not shown):
 
 
 ```r
@@ -2432,7 +2432,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.09
+#> [1] 3.07
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2461,13 +2461,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.056   0.004   0.062
+#>   0.060   0.004   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.041
+#>   0.044   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.029
+#>   0.020   0.008   0.029
 ```
 
 
