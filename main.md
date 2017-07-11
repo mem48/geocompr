@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee13e5cf91e6da97e
+preservef3197b74c2a4885e
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1113,6 +1113,12 @@ class(sf_points)
 #> [1] "sf"         "data.frame"
 ```
 
+The result shows that `sf` objects actually have two classes, `sf` and `data.frame`.
+Simple features are simply data frames (square tables), but with spatial attributes (usually stored in a special `geom` list-column in the data frame).
+This duality is central to the concept of simple features:
+most of the time a `sf` can be treated as and behaves like a `data.frame`.
+Simple features are, in essence, data frames with a spatial extension.
+
 <!-- methods -->
 <!-- methods(class = "sf") -->
 <!-- plots -->
@@ -1196,24 +1202,12 @@ This structure enables multiple columns to represent a range of attributes for t
 
 There is a strong overlap between geographical and non-geographical operations:
 non-spatial subset, aggregate and join each have their geographical equivalents.
-This chapter therefore provides the foundation for next (chapter \@ref(spatial-data-operations)) in terms of structure and input data.
 The subsetting functions `[` from base R and `filter()` from the **tidyverse**, for example, can also be used for spatial subsetting: the skills are cross-transferable.
+This chapter therefore provides the foundation for Chapter \@ref(spatial-data-operations), in terms of structure and input data.
 
 As outlined in Chapter \@ref(spatial-class), support for simple features in R is provided by the **sf** package.
 **sf** ensures simple feature objects work well with generic R functions such as `plot()` and `summary()`.
-The reason for this is that simple features have their own class system: 
-
-
-```r
-class(world)
-#> [1] "sf"         "data.frame"
-```
-
-The result shows that `sf` objects actually have two classes, `sf` and `data.frame`.
-Simple features are simply data frames (square tables), but with spatial attributes (usually stored in a special `geom` list-column in the data frame).
-This duality is central to the concept of simple features:
-most of the time a `sf` can be treated as and behaves like a `data.frame`.
-Simple features are, in essence, data frames with a spatial extension.
+The reason for this is that simple features have their own class, which behave simultaneously as geographic data objects (e.g. plotting as maps) and square tables (e.g. with attribute columns referred to with the `$` operator).
 
 The trusty `data.frame` (and extensions to it such as the `tibble` class used in the tidyverse) is a workhorse for data analysis in R.
 Extending this system to work with spatial data has many advantages,
@@ -1641,7 +1635,7 @@ north_america
 plot(north_america[0])
 ```
 
-<img src="figures/unnamed-chunk-32-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-31-1.png" width="576" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1778,7 +1772,7 @@ It could be easily illustrated using the `plot` function:
 plot(right_join1[0]) # Canada and United States only
 ```
 
-<img src="figures/unnamed-chunk-38-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-37-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
@@ -1868,7 +1862,7 @@ anti_join1
 plot(anti_join1[0])
 ```
 
-<img src="figures/unnamed-chunk-42-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-41-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- ```{r} -->
 <!-- anti_join2 = wb_north_america %>%  -->
@@ -2419,7 +2413,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.31
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2435,7 +2429,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.14
+#> [1] 2.96
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2464,13 +2458,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.004   0.068
+#>   0.064   0.004   0.067
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.045
+#>   0.036   0.004   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.035
+#>   0.024   0.004   0.031
 ```
 
 

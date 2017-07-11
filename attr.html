@@ -233,11 +233,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="introduction" class="section level2">
 <h2><span class="header-section-number">3.1</span> Introduction</h2>
 <p>Attribute data is non-spatial information associated with geographic data. In the context of simple features, introduced in the previous chapter, this means a data frame with a column for each variable and one row per geographic feature stored in the <code>geom</code> list-column of <code>sf</code> objects. This structure enables multiple columns to represent a range of attributes for thousands of features (one row per feature).</p>
-<p>There is a strong overlap between geographical and non-geographical operations: non-spatial subset, aggregate and join each have their geographical equivalents. This chapter therefore provides the foundation for next (chapter <a href="spatial-data-operations.html#spatial-data-operations">4</a>) in terms of structure and input data. The subsetting functions <code>[</code> from base R and <code>filter()</code> from the <strong>tidyverse</strong>, for example, can also be used for spatial subsetting: the skills are cross-transferable.</p>
-<p>As outlined in Chapter <a href="spatial-class.html#spatial-class">2</a>, support for simple features in R is provided by the <strong>sf</strong> package. <strong>sf</strong> ensures simple feature objects work well with generic R functions such as <code>plot()</code> and <code>summary()</code>. The reason for this is that simple features have their own class system:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(world)
-<span class="co">#&gt; [1] &quot;sf&quot;         &quot;data.frame&quot;</span></code></pre></div>
-<p>The result shows that <code>sf</code> objects actually have two classes, <code>sf</code> and <code>data.frame</code>. Simple features are simply data frames (square tables), but with spatial attributes (usually stored in a special <code>geom</code> list-column in the data frame). This duality is central to the concept of simple features: most of the time a <code>sf</code> can be treated as and behaves like a <code>data.frame</code>. Simple features are, in essence, data frames with a spatial extension.</p>
+<p>There is a strong overlap between geographical and non-geographical operations: non-spatial subset, aggregate and join each have their geographical equivalents. The subsetting functions <code>[</code> from base R and <code>filter()</code> from the <strong>tidyverse</strong>, for example, can also be used for spatial subsetting: the skills are cross-transferable. This chapter therefore provides the foundation for Chapter <a href="spatial-data-operations.html#spatial-data-operations">4</a>, in terms of structure and input data.</p>
+<p>As outlined in Chapter <a href="spatial-class.html#spatial-class">2</a>, support for simple features in R is provided by the <strong>sf</strong> package. <strong>sf</strong> ensures simple feature objects work well with generic R functions such as <code>plot()</code> and <code>summary()</code>. The reason for this is that simple features have their own class, which behave simultaneously as geographic data objects (e.g. plotting as maps) and square tables (e.g. with attribute columns referred to with the <code>$</code> operator).</p>
 <p>The trusty <code>data.frame</code> (and extensions to it such as the <code>tibble</code> class used in the tidyverse) is a workhorse for data analysis in R. Extending this system to work with spatial data has many advantages, meaning that all the accumulated know-how in the R community for handling data frames to be applied to geographic data which contain attributes.</p>
 <p>Before proceeding to perform various attribute operations of a dataset, it is worth taking time to think about its basic parameters. In this case, the <code>world</code> object contains 10 non-geographical columns (and one geometry list-column) with data for almost 200 countries. This can be be checked using base R functions for working with tabular data such as <code>nrow()</code> and <code>ncol()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(world) <span class="co"># it is a 2 dimensional object, with rows and columns</span>
@@ -504,7 +501,7 @@ north_america
 <span class="co">#&gt; 2     GL     Greenland MULTIPOLYGON(((-46.76379 82...</span>
 <span class="co">#&gt; 3     US United States MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(north_america[<span class="dv">0</span>])</code></pre></div>
-<p><img src="figures/unnamed-chunk-32-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-31-1.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wb_north_america =<span class="st"> </span>worldbank_df %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(name %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;United States&quot;</span>)) %&gt;%
 <span class="st">  </span><span class="kw">select</span>(name, iso_a2, urban_pop, <span class="dt">unemploy =</span> unemployment)
@@ -593,7 +590,7 @@ right_join1
 <span class="co">#&gt; 3     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
 <p>The output shows that the result, <code>right_join1</code>, has information about Mexico, but drops information about Greenland. Furthermore, our right object, as a <code>data.frame</code>, doesn’t have a geometry representation of Mexico. As a result, the <code>right_join1</code> object contains only non-spatial data of Mexico. It could be easily illustrated using the <code>plot</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(right_join1[<span class="dv">0</span>]) <span class="co"># Canada and United States only</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-38-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-37-1.png" width="576" style="display: block; margin: auto;" /></p>
 <!-- ```{r} -->
 <!-- # error: unwanted geom column added -->
 <!-- right_join2 = wb_north_america %>%  -->
@@ -659,7 +656,7 @@ anti_join1
 <span class="co">#&gt;   iso_a2 name_long                           geom</span>
 <span class="co">#&gt; 1     GL Greenland MULTIPOLYGON(((-46.76379 82...</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(anti_join1[<span class="dv">0</span>])</code></pre></div>
-<p><img src="figures/unnamed-chunk-42-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-41-1.png" width="576" style="display: block; margin: auto;" /></p>
 <!-- ```{r} -->
 <!-- anti_join2 = wb_north_america %>%  -->
 <!--   anti_join(north_america, by = "iso_a2") -->
