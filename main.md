@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-07-10'
+date: '2017-07-11'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -39,7 +39,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-07-10 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-07-11 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve80aad05d592953f6
+preserve4e6c3e0e589917f8
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -215,6 +215,8 @@ So time invested in learning the 'new ways' of handling spatial data and, hopefu
 <p class="caption">(\#fig:cranlogs)The popularity of spatial packages in R. The y axis shows the average number of downloads, within a 30 day rolling window, of R's top 5 spatial packages, defined as those with the highest number of downloads within the last 30 days.</p>
 </div>
 
+## The history of geocomputing with R
+
 This book focuses on the 'new' way of doing geocomputation for practical purposes and to ensure that what you learn here is 'future-proof'.
 There is one caveat to this, however: younger packages are generally less stable and may undergo changes to the way they function or (more commonly) add more features. In other words:
 
@@ -223,13 +225,6 @@ There is one caveat to this, however: younger packages are generally less stable
 It is therefore worth being aware of the history of the development of spatial data functionality in R.
 This not only because the incumbent packages are highly mature: there is a wealth of functions, use-cases and teaching material written using older packages in R's spatial ecosystem, so it's worth being aware of the history preceding the rise of **sf** depicted in Figure \@ref(fig:cranlogs).
 
-## The history of geocomputing with R
-
-<!-- INTRO -->
-<!-- https://cran.r-project.org/web/views/Spatial.html -->
-<!-- We would like to give you the ability to use the **sf**, raster/stars, **tmap**, **leaflet** and **mapview** packages to solve spatial problems.  -->
-<!-- However, spatial analysis in R has a long history. -->
-<!-- 2. R spatial story (from spatstat, by maptools, sp, raster, leaflet, to sf) -->
 In the volume 1/2 of R News (the predecessor of The R Journal), Brian Ripley created an overview of the spatial statistics state in June 2001 [@ripley_spatial_2001]. 
 He shortly described eight packages, mostly used for spatial smoothing end interpolation (such as **akima**, **spatial**, **sgeostat** and **geoR**) and spatial point patterns (**splancs** and **spatstat**).
 Most of these packages where based on the previous code written for S or S-PLUS.
@@ -316,8 +311,7 @@ It is a wrapper of the "Leaflet" JavaScript library, which output can be used on
 Additionally, the **mapview** package was created on top of **leaflet**. <!--CITE-->
 It enabled quick creation of interactive visualization of spatial data containing variety of background maps, dynamic scale bar, feature attributes viewer and more.
 
-<!-- Nowadays xx spatial packages in R -->
-<!-- https://cran.r-project.org/web/views/Spatial.html -->
+Nowadays, about 200 spatial packages exists in R (https://cran.r-project.org/web/views/Spatial.html).
 The most important recent evolution in R's spatial ecosystem has without doubt been support for simple features thanks to the **sf** package [@R-sf], described in Chapter \@ref(spatial-class).
 
 <!-- ## How to read this book -->
@@ -2423,7 +2417,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.19
+#> [1] 2.32
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2439,7 +2433,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.1
+#> [1] 3.08
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2468,13 +2462,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.071
+#>   0.060   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.004   0.044
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.030
+#>   0.020   0.008   0.029
 ```
 
 
