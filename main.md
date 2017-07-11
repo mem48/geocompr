@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve4e6c3e0e589917f8
+preserve29c386172679de60
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -288,7 +288,7 @@ Very important feature of **raster** was its ability to work with raster dataset
 <!-- http://www.sciencedirect.com/science/article/pii/S0098300400000571 -->
 <!-- http://onlinelibrary.wiley.com/doi/10.1111/j.0016-7363.2005.00672.x/full -->
 Simultaneously with the development of spatial classes and methods, R started to be used as an interface to several GIS software.
-The most popular early example was the **GRASS** package <!--CITE-->. <!--http://www.sciencedirect.com/science/article/pii/S0098300400000571?via%3Dihub-->
+The most popular early example was the **GRASS** package [@bivand_using_2000].
 Its first version was released in 2000 and it enabled a connection between R and GRASS GIS 5.0.
 In the latter years, a two new packages were published after the release of the new GRASS GIS versions: **spgrass6** for GRASS GIS 6 and **rgrass7** for GRASS GIS 7.
 Other examples of bridges between R and GIS include RSAGA (first release in 2008), ArcGIS (2008) and RQGIS (2016). <!--CITE-->
@@ -301,10 +301,12 @@ It gave a possibility to convert spatial objects from **sp** into `data.frames` 
 **ggplot2** spatial capabilities were improved in 2011 with the release of its accompanying <!--??--> package - **ggmap**, which provided several tools for spatial data visualization.
 Among others, it allowed to create plots with static maps from Google Maps or OpenStreetMap as the base layer and gave access to the several spatial APIs, for example the Google Geocoding.
 In the same year, the support of the lattice system was added to the raster objects with publishing of the **rasterVis** package.
-The wide range of visualization methods for numerical and categorical raster data, univariate and mutlivariate raster datasets and spatiotemporal rasters was provided in this package. <!--CITE the book - http://oscarperpinan.github.io/spacetime-vis/ -->
+The wide range of visualization methods for numerical and categorical raster data, univariate and mutlivariate raster datasets and spatiotemporal rasters was provided in this package [@lamigueiro_displaying_2014]. 
 
 Moreover, several packages were develop with a main goal of creation of complex, ready-to-use map with only a few lines of code.
-The **tmap** package was released in 2014 and enabled creation of thematic maps. <!-- CITE the paper http://von-tijn.nl/tijn/research/presentations/tmap_user2017.pdf-->
+The **tmap** package was released in 2014 and enabled creation of thematic maps. <!-- CITE the paper
+Tennekes, M. (2017) tmap: Thematic Maps in R. Forthcoming in the Journal
+of Statistical Software http://von-tijn.nl/tijn/research/presentations/tmap_user2017.pdf-->
 They could be generated based on the spatial objects and its layout is optimized for maps with the use of legends, scale bars, grid lines, north arrows, etc.
 On the other hand, the **leaflet** package (released in 2015) offered creation and modification of interactive maps. 
 It is a wrapper of the "Leaflet" JavaScript library, which output can be used on websites, R Markdown documents, and Shiny apps.
@@ -2417,7 +2419,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.32
+#> [1] 2.31
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2433,7 +2435,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.08
+#> [1] 3.05
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2462,13 +2464,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.062
+#>   0.060   0.004   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.036   0.004   0.040
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.020   0.004   0.027
 ```
 
 
