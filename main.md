@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve29c386172679de60
+preservee13e5cf91e6da97e
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1197,7 +1197,7 @@ This structure enables multiple columns to represent a range of attributes for t
 There is a strong overlap between geographical and non-geographical operations:
 non-spatial subset, aggregate and join each have their geographical equivalents.
 This chapter therefore provides the foundation for next (chapter \@ref(spatial-data-operations)) in terms of structure and input data.
-The non-spatial versions of these methods are widely used and, using functions such as `[` from base R and `filter()` from the **tidyverse**, cross-transferable to the tasks of spatial data operations.
+The subsetting functions `[` from base R and `filter()` from the **tidyverse**, for example, can also be used for spatial subsetting: the skills are cross-transferable.
 
 As outlined in Chapter \@ref(spatial-class), support for simple features in R is provided by the **sf** package.
 **sf** ensures simple feature objects work well with generic R functions such as `plot()` and `summary()`.
@@ -2435,7 +2435,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.05
+#> [1] 3.14
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2464,13 +2464,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.004   0.061
+#>   0.064   0.004   0.068
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.036   0.004   0.040
+#>   0.044   0.000   0.045
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.004   0.027
+#>   0.024   0.008   0.035
 ```
 
 
