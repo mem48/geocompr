@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservead5d66850d2ff518
+preserve27d38fbc081835b8
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -379,7 +379,11 @@ The following line of code, for example, creates a 2 dimensional vector:
 p = vector(mode = "numeric", length = 2)
 ```
 
-More commonly one would use the command `c()` (think of 'c' for 'combine') or `seq()` (short for 'sequence') to create vectors, as illustrated below in which the point illustrated in mathematical notation is created:
+More commonly one would read-in data with functions such as `read_csv()` from the **tidyverse** or `read_sf()` from the **sf** package, covered in chapter \@ref(read-write).
+To generate new data (e.g. for testing), one would more commonly use the command `c()` (think of 'c' for 'combine'), as illustrated
+below:^[Other methods for generating numbers include with the `seq()` function (short for 'sequence') for generating regular sequences or `runif()`, `rnorm()` and other functions generating random numbers following some kind of probability distribution.
+The **mapedit** package can be used to create spatial data manually on an interactive map.
+]
 
 
 ```r
@@ -2404,7 +2408,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.34
+#> [1] 2.37
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2449,13 +2453,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>    0.06    0.00    0.06
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.028
+#>   0.020   0.008   0.028
 ```
 
 
