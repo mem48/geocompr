@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve27d38fbc081835b8
+preservef3a6f86b23d9211a
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -404,7 +404,7 @@ This book uses simple features to work with vector data.
 
 ### An introduction to Simple Features {#intro-sf}
 
-Simple features is an open standard data model developed and endorsed by the Open Geospatial Consortium ([OGC](http://portal.opengeospatial.org/files/?artifact_id=25355)) to represent a wide range of geographical information in a consistent data schema.
+Simple features is an open standard data model developed and endorsed by the Open Geospatial Consortium ([OGC](http://portal.opengeospatial.org/files/?artifact_id=25355)) to represent a wide range of geographical information.
 Simple features is a hierarchical data model that simplifies geographic data by condensing a complex range of geographic forms into a single geometry class.
 Only 7 out of 68 possible types of simple feature are currently used in the vast majority of GIS operations (Figure \@ref(fig:sf-ogc)).
 All of these are fully supported (with plotting methods etc) in the R package **sf** [@R-sf].^[
@@ -2424,7 +2424,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.12
+#> [1] 3.05
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2453,13 +2453,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>    0.06    0.00    0.06
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.028   0.000   0.028
 ```
 
 
