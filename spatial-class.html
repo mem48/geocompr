@@ -707,10 +707,10 @@ sf_points =<span class="st"> </span><span class="kw">st_sf</span>(our_attributes
 <div id="units" class="section level2">
 <h2><span class="header-section-number">2.3</span> Units</h2>
 <!-- https://cran.r-project.org/web/packages/units/vignettes/measurement_units_in_R.html -->
-<p>The final thing to say about <code>sf</code> objects in this chapter is that they have units. This is illustrated by calculating the area of Nigeria:</p>
+<p>The final thing to say about <code>sf</code> objects in this chapter is that they have units. This is advantageous because it prevents confusion caused by the fact that different CRSs use different units (most use meters, some use feet). Furthermore, it also provides information on dimensionality, as illustrated by calculating the area of Nigeria:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_area</span>(nigeria)
 <span class="co">#&gt; 9.05e+11 m^2</span></code></pre></div>
-<p>To translate this figure into a more digestible size, it is tempting to divide the results by a million (the number of square meters in a square kilometer):</p>
+<p>The result, as expected, is in units of square meters (m<sup>2</sup>), representing 2 dimensional space, and that Nigeria is a large country! To translate the huge number into a more digestible size, it is tempting to divide the results by a million (the number of square meters in a square kilometer):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_area</span>(nigeria) /<span class="st"> </span><span class="fl">1e6</span>
 <span class="co">#&gt; 905072 m^2</span></code></pre></div>
 <p>However, the result is incorrectly given in the same units. The solution is to set the units with the <strong>units</strong> package:</p>

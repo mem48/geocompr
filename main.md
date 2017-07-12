@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve7cec00f9b965ce1d
+preserveaaf30947b68a66ed
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1132,8 +1132,9 @@ This section is work in progress.
 ## Units
 
 <!-- https://cran.r-project.org/web/packages/units/vignettes/measurement_units_in_R.html -->
-The final thing to say about `sf` objects in this chapter is that they have units. 
-This is illustrated by calculating the area of Nigeria:
+The final thing to say about `sf` objects in this chapter is that they have units.
+This is advantageous because it prevents confusion caused by the fact that different CRSs use different units (most use meters, some use feet).
+Furthermore, it also provides information on dimensionality, as illustrated by calculating the area of Nigeria:
 
 
 ```r
@@ -1141,7 +1142,8 @@ st_area(nigeria)
 #> 9.05e+11 m^2
 ```
 
-To translate this figure into a more digestible size, it is tempting to divide the results by a million (the number of square meters in a square kilometer):
+The result, as expected, is in units of square meters (m^2^), representing 2 dimensional space, and that Nigeria is a large country!
+To translate the huge number into a more digestible size, it is tempting to divide the results by a million (the number of square meters in a square kilometer):
 
 
 ```r
@@ -2408,7 +2410,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.19
+#> [1] 2.32
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2424,7 +2426,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.07
+#> [1] 3.15
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2453,13 +2455,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.044   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.028
+#>   0.028   0.000   0.029
 ```
 
 
