@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservef3a6f86b23d9211a
+preservefa89a64ee2b4d3cf
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -191,15 +191,15 @@ See the [r-spatial](https://github.com/r-spatial/) organisation and conversation
 ]
 
 
-Table: (\#tab:revdep)The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-07-06 there are 18 packages which import sf.
+Table: (\#tab:revdep)The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-07-10 there are 18 packages which import sf.
 
 package      Downloads
 ----------  ----------
-plotly            1669
-leaflet            525
-mapview            183
-geojsonio          138
-tigris             106
+plotly            1565
+leaflet            507
+mapview            179
+geojsonio          135
+tigris             103
 
 A surge in development time (and interest) in 'R-Geo' has followed the award of a grant by the R Consortium for the development of support for Simple Features and the resulting **sf** package (covered in \@ref(intro-sf)).
 This is illustrated in multiple places, not least the [R-sig-Geo Archives](https://stat.ethz.ch/pipermail/r-sig-geo/), a long-standing open access email list containing much R-spatial wisdom accumulated over the years.
@@ -1446,7 +1446,7 @@ world %>%
 #> Simple feature collection with 2 features and 10 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
-#> bbox:           xmin: 68.17665 ymin: 7.965535 xmax: 135.0263 ymax: 53.4588
+#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #>   iso_a2 name_long continent region_un     subregion              type
@@ -1477,7 +1477,7 @@ world %>%
 #> Simple feature collection with 2 features and 3 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
-#> bbox:           xmin: 126.1174 ymin: 31.02958 xmax: 145.5431 ymax: 45.55148
+#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #>                name    subregion gdpPercap                           geom
@@ -1616,7 +1616,7 @@ north_america
 #> Simple feature collection with 3 features and 2 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
-#> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513
+#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #>   iso_a2     name_long                           geom
@@ -2408,7 +2408,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.37
+#> [1] 2.2
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2424,7 +2424,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.05
+#> [1] 3.04
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2453,13 +2453,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>    0.06    0.00    0.06
+#>   0.068   0.000   0.068
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.044   0.000   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.000   0.028
+#>   0.016   0.012   0.030
 ```
 
 
