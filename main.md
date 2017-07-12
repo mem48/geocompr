@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservefa89a64ee2b4d3cf
+preserve7cec00f9b965ce1d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -399,7 +399,7 @@ plot(p[1], p[2], xlim =  c(0, 5), ylim = c(0, 5))
 
 <img src="figures/unnamed-chunk-5-1.png" width="576" style="display: block; margin: auto;" />
 
-Generally vector points have a high level of precision (but not necessarily accuracy) in geographic space as opposed to raster data which relies on cells that break the surface up into a discrete number of cells of the same size.
+Generally vector points have a high level of precision (but not necessarily accuracy as we will see in \@ref(units)) as opposed to raster data which relies on cells that break the surface up into a discrete number of cells of the same size.
 This book uses simple features to work with vector data.
 
 ### An introduction to Simple Features {#intro-sf}
@@ -2408,7 +2408,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.2
+#> [1] 2.19
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2424,7 +2424,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.04
+#> [1] 3.07
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2453,13 +2453,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.068
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.044
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.030
+#>   0.024   0.004   0.028
 ```
 
 
