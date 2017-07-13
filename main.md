@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-07-12'
+date: '2017-07-13'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -39,7 +39,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-07-12 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-07-13 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveed36ae76ff6456fe
+preserve79251c41932f7aee
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1448,7 +1448,7 @@ world %>%
 #> Simple feature collection with 2 features and 10 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
-#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+#> bbox:           xmin: 68.17665 ymin: 7.965535 xmax: 135.0263 ymax: 53.4588
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #>   iso_a2 name_long continent region_un     subregion              type
@@ -1479,7 +1479,7 @@ world %>%
 #> Simple feature collection with 2 features and 3 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
-#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+#> bbox:           xmin: 126.1174 ymin: 31.02958 xmax: 145.5431 ymax: 45.55148
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #>                name    subregion gdpPercap                           geom
@@ -1618,7 +1618,7 @@ north_america
 #> Simple feature collection with 3 features and 2 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
-#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+#> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #>   iso_a2     name_long                           geom
@@ -2410,7 +2410,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.45
+#> [1] 2.33
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2426,7 +2426,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.99
+#> [1] 3.12
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2455,13 +2455,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.062
+#>   0.056   0.000   0.060
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.042
+#>   0.040   0.000   0.039
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.016   0.008   0.027
 ```
 
 
