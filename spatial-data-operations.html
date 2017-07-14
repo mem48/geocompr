@@ -239,7 +239,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="spatial-subsetting" class="section level2">
 <h2><span class="header-section-number">4.2</span> Spatial subsetting</h2>
-<p>Spatial subsetting is the spatial equivalent of <em>attribute subsetting</em>, the process of creating a new object by selecting only rows whose attributes match certain criteria. In section <a href="attr.html#attribute-subsetting">3.2</a> we saw how rows could be subsetted based on their index (e.g. <code>world[1:6,]</code>) or some criteria (e.g. <code>world[world$area_km2 &lt; 10000,]</code>).</p>
+<p>Spatial subsetting is the process of selecting only those features of a spatial object that in some way <em>intersect</em> with another spatial object. Note that ‘intersect’ in this context has a precise meaning: any features in <code>x</code> that touch, overlap or are within features in <code>y</code> will be selected. Intersect is the default operation for spatial subsetting but others can be used using the <code>op =</code> argument.<a href="#fn11" class="footnoteRef" id="fnref11"><sup>11</sup></a> Overall there are 9 well-defined operations that can be used for spatial subsetting, covered in section <a href="spatial-data-operations.html#topological-relations">4.2.1</a>. The great news is that you do not have to learn all of them separately: after you understand how to spatially subset objects that <em>intersect</em> another (via <code>st_intersects()</code>) it is easy to subset based on other types of spatial operation such as <code>st_touches()</code>, <code>st_crosses()</code> and <code>st_within()</code>. For this reason now we focus only one of the spatial subsetting operation. We use <code>st_intersects()</code> instead of any of the others because not only because it the default when subsetting with the <code>[</code> operator: <code>st_intersects()</code> ‘catch all’ that identifies all types of spatial relations.</p>
+<p>In broad terms, spatial subsetting is equivalent of <em>attribute subsetting</em>, the process of creating a new object by selecting only rows whose attributes match certain criteria. In section <a href="attr.html#attribute-subsetting">3.2</a> we saw how rows could be subsetted with the <code>[</code> operator by passing into it a vector of class <code>integer</code> (whole numbers) or <code>logical</code> (a vector of <code>TRUE</code>s and <code>FALSE</code>s). This means <code>world[1:6,]</code> subsets the first 6 countries of the world and that <code>world[world$area_km2 &lt; 10000,]</code> returns the subset of countries that have a small surface area.</p>
+<p><em>Spatial</em> subsetting with the <code>[</code> operator follows the same pattern except you place <em>another spatial object</em> inside the square brackets. To illustrate this concise and consistent syntax, let’s create a hypothetical scenario: we want to select all countries in the world that lie within 5 degrees of the point where the equator (where latitude = 0 degrees) intersects the prime meridian (longitude = 0 degrees), as illustrated in Figure <a href="#eq-med"><strong>??</strong></a>.</p>
 <div id="topological-relations" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Topological relations</h3>
 <!-- https://edzer.github.io/sfr/articles/sf3.html -->
@@ -433,6 +435,12 @@ world =<span class="st"> </span>world %&gt;%
 <div id="ref-grolemund_r_2016">
 <p>Grolemund, Garrett, and Hadley Wickham. 2016. <em>R for Data Science</em>. 1 edition. O’Reilly Media.</p>
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="11">
+<li id="fn11"><p>Interested readers can see this default value of <code>op</code> set in the first line of the function call by entering its long-form name into the console: <code>sf:::`[.sf`</code><a href="spatial-data-operations.html#fnref11">↩</a></p></li>
+</ol>
 </div>
             </section>
 

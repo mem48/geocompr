@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve3467c21bc6e05801
+preserve0aafb5c91222d7df
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2034,8 +2034,26 @@ data("world")
 
 ## Spatial subsetting
 
-Spatial subsetting is the spatial equivalent of *attribute subsetting*, the process of creating a new object by selecting only rows whose attributes match certain criteria.
-In section \@ref(attribute-subsetting) we saw how rows could be subsetted based on their index (e.g. `world[1:6,]`) or some criteria (e.g.  `world[world$area_km2 < 10000,]`).
+Spatial subsetting is the process of selecting only those features of a spatial object that in some way *intersect* with another spatial object.
+Note that 'intersect' in this context has a precise meaning: any features in `x` that touch, overlap or are within features in `y` will be selected.
+Intersect is the default operation for spatial subsetting but others can be used using the `op =`
+argument.^[Interested
+readers can see this default value of `op` set in the first line of the function call by entering its long-form name into the console: 
+`` sf:::`[.sf` ``
+]
+Overall there are 9 well-defined operations that can be used for spatial subsetting, covered in section \@ref(topological-relations).
+The great news is that you do not have to learn all of them separately:
+after you understand how to spatially subset objects that *intersect* another (via `st_intersects()`) it is easy to subset based on other types of spatial operation such as `st_touches()`, `st_crosses()` and `st_within()`.
+For this reason now we focus only one of the spatial subsetting operation.
+We use `st_intersects()` instead of any of the others because not only because it the default when subsetting with the `[` operator:
+`st_intersects()` 'catch all' that identifies all types of spatial relations.
+
+In broad terms, spatial subsetting is equivalent of *attribute subsetting*, the process of creating a new object by selecting only rows whose attributes match certain criteria.
+In section \@ref(attribute-subsetting) we saw how rows could be subsetted with the `[` operator by passing into it a vector of class `integer` (whole numbers) or `logical` (a vector of `TRUE`s and `FALSE`s).
+This means `world[1:6,]` subsets the first 6 countries of the world and that `world[world$area_km2 < 10000,]` returns the subset of countries that have a small surface area.
+
+*Spatial* subsetting with the `[` operator follows the same pattern except you place *another spatial object* inside the square brackets.
+To illustrate this concise and consistent syntax, let's create a hypothetical scenario: we want to select all countries in the world that lie within 5 degrees of the point where the equator (where latitude = 0 degrees) intersects the prime meridian (longitude = 0 degrees), as illustrated in Figure \@ref(eq-med).
 
 ### Topological relations
 
@@ -2410,7 +2428,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.35
+#> [1] 2.36
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2426,7 +2444,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.09
+#> [1] 3.12
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2455,13 +2473,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.067
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.043
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.032   0.000   0.030
+#>   0.016   0.008   0.027
 ```
 
 
