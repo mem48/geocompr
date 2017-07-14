@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservef73cbbbbdfffd593
+preserve039a0066b9eec44f
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2063,8 +2063,8 @@ buf_equator = st_buffer(x = center, dist = 10)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="figures/globe.png" alt="Hypothetical subsetting scenario: select all countries which intersect with a circle of 10 degrees in radius around planet Earth." width="250" />
-<p class="caption">(\#fig:globe)Hypothetical subsetting scenario: select all countries which intersect with a circle of 10 degrees in radius around planet Earth.</p>
+<img src="figures/globe.png" alt="Hypothetical subsetting scenario: select all countries which intersect with a circle of 10 degrees in radius around planet Earth. Figure created with the **[globe](https://cran.r-project.org/package=globe)** package." width="250" />
+<p class="caption">(\#fig:globe)Hypothetical subsetting scenario: select all countries which intersect with a circle of 10 degrees in radius around planet Earth. Figure created with the **[globe](https://cran.r-project.org/package=globe)** package.</p>
 </div>
 
 
@@ -2442,7 +2442,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.23
+#> [1] 2.27
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2458,7 +2458,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.15
+#> [1] 3.18
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2487,13 +2487,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.069
+#>   0.064   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.041
+#>   0.044   0.000   0.046
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.029
+#>   0.016   0.016   0.034
 ```
 
 
