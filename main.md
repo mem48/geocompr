@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve0aafb5c91222d7df
+preserveac0db7270c3fcffb
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2053,7 +2053,21 @@ In section \@ref(attribute-subsetting) we saw how rows could be subsetted with t
 This means `world[1:6,]` subsets the first 6 countries of the world and that `world[world$area_km2 < 10000,]` returns the subset of countries that have a small surface area.
 
 *Spatial* subsetting with the `[` operator follows the same pattern except you place *another spatial object* inside the square brackets.
-To illustrate this concise and consistent syntax, let's create a hypothetical scenario: we want to select all countries in the world that lie within 5 degrees of the point where the equator (where latitude = 0 degrees) intersects the prime meridian (longitude = 0 degrees), as illustrated in Figure \@ref(eq-med).
+To illustrate this concise and consistent syntax, let's create a hypothetical scenario: we want to select all countries in the world that lie within 5 degrees of the point where the equator (where latitude = 0 degrees) intersects the prime meridian (longitude = 0 degrees), as illustrated in Figure \@ref(fig:globe).
+The input data for the subsetting layer is defined below (the data to be subset, or 'target layer', is the `world` object used in previous chapters):
+
+
+```r
+center = st_sf(st_sfc(st_point(c(0, 0))))
+buf_equator = st_buffer(x = center, dist = 10)
+```
+
+<div class="figure" style="text-align: center">
+<img src="figures/globe.png" alt="Hypothetical subsetting scenario: select all countries which intersect with a circle of 10 degrees in radius around planet Earth." width="250" />
+<p class="caption">(\#fig:globe)Hypothetical subsetting scenario: select all countries which intersect with a circle of 10 degrees in radius around planet Earth.</p>
+</div>
+
+
 
 ### Topological relations
 
@@ -2088,7 +2102,7 @@ plot(l, add = TRUE)
 plot(p, add = TRUE)
 ```
 
-<img src="figures/unnamed-chunk-4-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-5-1.png" width="576" style="display: block; margin: auto;" />
 
 Equals:
 
@@ -2209,7 +2223,7 @@ plot(b)
 plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
 ```
 
-<img src="figures/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" />
 
 The subsequent code chunk demonstrate how this works for all combinations of the 'venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
 <!-- Todo: reference r4ds -->
@@ -2428,7 +2442,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.36
+#> [1] 2.29
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2444,7 +2458,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.12
+#> [1] 3.1
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2473,13 +2487,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.060   0.004   0.065
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.044   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.008   0.027
+#>   0.016   0.012   0.030
 ```
 
 

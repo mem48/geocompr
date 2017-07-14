@@ -241,7 +241,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">4.2</span> Spatial subsetting</h2>
 <p>Spatial subsetting is the process of selecting only those features of a spatial object that in some way <em>intersect</em> with another spatial object. Note that ‘intersect’ in this context has a precise meaning: any features in <code>x</code> that touch, overlap or are within features in <code>y</code> will be selected. Intersect is the default operation for spatial subsetting but others can be used using the <code>op =</code> argument.<a href="#fn11" class="footnoteRef" id="fnref11"><sup>11</sup></a> Overall there are 9 well-defined operations that can be used for spatial subsetting, covered in section <a href="spatial-data-operations.html#topological-relations">4.2.1</a>. The great news is that you do not have to learn all of them separately: after you understand how to spatially subset objects that <em>intersect</em> another (via <code>st_intersects()</code>) it is easy to subset based on other types of spatial operation such as <code>st_touches()</code>, <code>st_crosses()</code> and <code>st_within()</code>. For this reason now we focus only one of the spatial subsetting operation. We use <code>st_intersects()</code> instead of any of the others because not only because it the default when subsetting with the <code>[</code> operator: <code>st_intersects()</code> ‘catch all’ that identifies all types of spatial relations.</p>
 <p>In broad terms, spatial subsetting is equivalent of <em>attribute subsetting</em>, the process of creating a new object by selecting only rows whose attributes match certain criteria. In section <a href="attr.html#attribute-subsetting">3.2</a> we saw how rows could be subsetted with the <code>[</code> operator by passing into it a vector of class <code>integer</code> (whole numbers) or <code>logical</code> (a vector of <code>TRUE</code>s and <code>FALSE</code>s). This means <code>world[1:6,]</code> subsets the first 6 countries of the world and that <code>world[world$area_km2 &lt; 10000,]</code> returns the subset of countries that have a small surface area.</p>
-<p><em>Spatial</em> subsetting with the <code>[</code> operator follows the same pattern except you place <em>another spatial object</em> inside the square brackets. To illustrate this concise and consistent syntax, let’s create a hypothetical scenario: we want to select all countries in the world that lie within 5 degrees of the point where the equator (where latitude = 0 degrees) intersects the prime meridian (longitude = 0 degrees), as illustrated in Figure <a href="#eq-med"><strong>??</strong></a>.</p>
+<p><em>Spatial</em> subsetting with the <code>[</code> operator follows the same pattern except you place <em>another spatial object</em> inside the square brackets. To illustrate this concise and consistent syntax, let’s create a hypothetical scenario: we want to select all countries in the world that lie within 5 degrees of the point where the equator (where latitude = 0 degrees) intersects the prime meridian (longitude = 0 degrees), as illustrated in Figure <a href="spatial-data-operations.html#fig:globe">4.1</a>. The input data for the subsetting layer is defined below (the data to be subset, or ‘target layer’, is the <code>world</code> object used in previous chapters):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">center =<span class="st"> </span><span class="kw">st_sf</span>(<span class="kw">st_sfc</span>(<span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))))
+buf_equator =<span class="st"> </span><span class="kw">st_buffer</span>(<span class="dt">x =</span> center, <span class="dt">dist =</span> <span class="dv">10</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:globe"></span>
+<img src="figures/globe.png" alt="Hypothetical subsetting scenario: select all countries which intersect with a circle of 10 degrees in radius around planet Earth." width="250" />
+<p class="caption">
+Figure 4.1: Hypothetical subsetting scenario: select all countries which intersect with a circle of 10 degrees in radius around planet Earth.
+</p>
+</div>
 <div id="topological-relations" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Topological relations</h3>
 <!-- https://edzer.github.io/sfr/articles/sf3.html -->
@@ -270,7 +278,7 @@ p =<span class="st"> </span><span class="kw">st_multipoint</span>(<span class="d
 <span class="kw">plot</span>(b, <span class="dt">border =</span> <span class="st">&quot;green&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(l, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(p, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="figures/unnamed-chunk-4-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-5-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Equals:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_equals</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p>Contains:</p>
@@ -313,7 +321,7 @@ l =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&q
 <div class="figure" style="text-align: center"><span id="fig:points"></span>
 <img src="figures/points-1.png" alt="Overlapping circles." width="576" />
 <p class="caption">
-Figure 4.1: Overlapping circles.
+Figure 4.2: Overlapping circles.
 </p>
 </div>
 <p>Imagine you want to select not one circle or the other, but the space covered by both <code>x</code> <em>and</em> <code>y</code>. This can be done using the function <code>st_intersection()</code>, illustrated using objects named <code>x</code> and <code>y</code> which represent the left and right-hand circles:</p>
@@ -322,16 +330,16 @@ y =<span class="st"> </span>b[<span class="dv">2</span>]
 x_and_y =<span class="st"> </span><span class="kw">st_intersection</span>(x, y)
 <span class="kw">plot</span>(b)
 <span class="kw">plot</span>(x_and_y, <span class="dt">col =</span> <span class="st">&quot;lightgrey&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>) <span class="co"># color intersecting area</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>The subsequent code chunk demonstrate how this works for all combinations of the ‘venn’ diagram representing <code>x</code> and <code>y</code>, inspired by <a href="http://r4ds.had.co.nz/transform.html#logical-operators">Figure 5.1</a> of the book R for Data Science <span class="citation">(Grolemund and Wickham <a href="#ref-grolemund_r_2016">2016</a>)</span>. <!-- Todo: reference r4ds --></p>
 <div class="figure" style="text-align: center"><span id="fig:venn-clip"></span>
 <img src="figures/venn-clip-1.png" alt="Spatial equivalents of logical operators" width="576" />
 <p class="caption">
-Figure 4.2: Spatial equivalents of logical operators
+Figure 4.3: Spatial equivalents of logical operators
 </p>
 </div>
-<p>To illustrate the relationship between subsetting and clipping spatial data, we will subset points that cover the bounding box of the circles <code>x</code> and <code>y</code> in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.2</a>. Some points will be inside just one circle, some will be inside both and some will be inside neither. To generate the points will use a function not yet covered in this book, <code>st_sample()</code>.</p>
-<p>There are two different ways to subset points that fit into combinations of the circles: via clipping and logical operators. But first we must generate some points. We will use the <em>simple random</em> sampling strategy to sample from a box representing the extent of <code>x</code> and <code>y</code>, using the code below to generate the situation plotted in Figure <a href="spatial-data-operations.html#fig:venn-subset">4.3</a>:</p>
+<p>To illustrate the relationship between subsetting and clipping spatial data, we will subset points that cover the bounding box of the circles <code>x</code> and <code>y</code> in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.3</a>. Some points will be inside just one circle, some will be inside both and some will be inside neither. To generate the points will use a function not yet covered in this book, <code>st_sample()</code>.</p>
+<p>There are two different ways to subset points that fit into combinations of the circles: via clipping and logical operators. But first we must generate some points. We will use the <em>simple random</em> sampling strategy to sample from a box representing the extent of <code>x</code> and <code>y</code>, using the code below to generate the situation plotted in Figure <a href="spatial-data-operations.html#fig:venn-subset">4.4</a>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bb =<span class="st"> </span><span class="kw">st_bbox</span>(<span class="kw">st_union</span>(x, y))
 pmat =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(bb[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">2</span>)]), <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)
 box =<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(pmat))
@@ -345,13 +353,13 @@ p =<span class="st"> </span><span class="kw">st_sample</span>(<span class="dt">x
 <div class="figure" style="text-align: center"><span id="fig:venn-subset"></span>
 <img src="figures/venn-subset-1.png" alt="Randomly distributed points within the bounding box enclosing circles x and y." width="576" />
 <p class="caption">
-Figure 4.3: Randomly distributed points within the bounding box enclosing circles x and y.
+Figure 4.4: Randomly distributed points within the bounding box enclosing circles x and y.
 </p>
 </div>
 </div>
 <div id="exercises-7" class="section level3">
 <h3><span class="header-section-number">4.2.4</span> Exercises</h3>
-<p>Write code that subsets points that are contained within <code>x</code> <em>and</em> <code>y</code> (illustrated by the plot in the 2<sup>nd</sup> row and the 1<sup>st</sup> column in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.2</a>).</p>
+<p>Write code that subsets points that are contained within <code>x</code> <em>and</em> <code>y</code> (illustrated by the plot in the 2<sup>nd</sup> row and the 1<sup>st</sup> column in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.3</a>).</p>
 <ul>
 <li>Create a randomly located point with the command <code>st_point()</code> (refer back to section <a href="spatial-class.html#sfg">2.1.4.2</a> to see how to create spatial data ‘from scratch’).</li>
 </ul>
