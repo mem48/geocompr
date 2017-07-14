@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve0b2c1a50ebc0a8cb
+preserve3467c21bc6e05801
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -234,7 +234,7 @@ Most of these packages where based on the previous code written for S or S-PLUS.
 The last mentioned package, **spatstat** became a standard for analyzing spatial point patterns (
 this topic goes beyond the scope of this book, so for more information we recommend the book of @baddeley_spatial_2015).
 
-In the next issue of R News, @bivand_more_2001 gave an introduction to the **splanc** package and suggested some future prospects [@bivand_more_2001].
+In the next issue of R News, @bivand_more_2001 gave an introduction to the **splanc** package and suggested some future prospects.
 The most notably, he mentioned the need for standardized R spatial interface, more efficient mechanisms for exchanging data with GIS and better ways to treat spatial metadata (such as spatial projections).
 Two years later, he presented an extended review of existing R spatial packages at the 3rd International Workshop on Distributed Statistical Computing (DSC 2003) [@hornik_approaches_2003]. 
 At this stage, R spatial development started to be connected with the advancement in spatial software libraries, especially the Geospatial Data Abstraction Library (GDAL) and PROJ.4.
@@ -2426,7 +2426,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.1
+#> [1] 3.09
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2455,13 +2455,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.052   0.004   0.060
+#>   0.068   0.000   0.067
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.039
+#>   0.044   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.012   0.012   0.027
+#>   0.032   0.000   0.030
 ```
 
 
