@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve039a0066b9eec44f
+preserve6c9ac7dc95748dd4
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2059,7 +2059,7 @@ The input data for the subsetting layer is defined below (the data to be subset,
 
 ```r
 center = st_sf(st_sfc(st_point(c(0, 0))))
-buf_equator = st_buffer(x = center, dist = 10)
+buff_equator = st_buffer(x = center, dist = 10)
 ```
 
 <div class="figure" style="text-align: center">
@@ -2442,7 +2442,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.27
+#> [1] 2.18
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2458,7 +2458,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.18
+#> [1] 2.74
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2487,13 +2487,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.092   0.000   0.094
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.046
+#>   0.052   0.000   0.052
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.016   0.034
+#>   0.028   0.008   0.038
 ```
 
 
