@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservec97d7f33b805712a
+preserve907b66bdb8b9fb41
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2034,32 +2034,42 @@ data("world")
 ## Spatial subsetting
 
 Spatial subsetting is the process of selecting only those features of a spatial object that in some way *intersect* with another spatial object.
-Note that 'intersect' in this context has a precise meaning: any features in `x` that touch, overlap or are within features in `y` will be selected.
+Note that 'intersect' in this context has a precise meaning:
+if `y` is used to subset features in a 'target' object of `x`, any features in `x` that touch, overlap or are within features in `y` will be selected.
 Intersect is the default operation for spatial subsetting but others can be used using the `op =`
 argument.^[Interested
 readers can see this default value of `op` set in the first line of the function call by entering its long-form name into the console: 
 `` sf:::`[.sf` ``
 ]
-Overall there are 9 well-defined operations that can be used for spatial subsetting, covered in section \@ref(topological-relations).
-The great news is that you do not have to learn all of them separately:
+
+There are 9 well-defined operations that can be used for spatial subsetting, covered in section \@ref(topological-relations).
+This may seem daunting but the good news is that you do not have to learn all of them separately:
 after you understand how to spatially subset objects that *intersect* another (via `st_intersects()`) it is easy to subset based on other types of spatial operation such as `st_touches()`, `st_crosses()` and `st_within()`.
 For this reason now we focus only one of the spatial subsetting operation.
 We use `st_intersects()` instead of any of the others not only because it the default when subsetting with `[`,
 `st_intersects()` is useful as a 'catch all' that identifies all types of spatial relations.
 
-In broad terms, spatial subsetting is equivalent of *attribute subsetting*, the process of creating a new object by selecting only rows whose attributes match certain criteria.
-In section \@ref(attribute-subsetting) we saw how rows could be subsetted with the `[` operator by passing into it a vector of class `integer` (whole numbers) or `logical` (a vector of `TRUE`s and `FALSE`s).
+In general terms, spatial subsetting is simply the spatial equivalent of *attribute subsetting*.
+However, to do spatial subsetting *two spatial objects are needed* the spatial relation between which is to be established.
+As with attribute subsetting, spatial subsetting is a *binary operation*: an object is either selected or not.
+As in section \@ref(attribute-subsetting), we start with base methods before describing how to do it in the **tidyverse**.
+<!-- todo: link to non-binary links, e.g. area-weighted spatial interpolation -->
+
+<!-- ### Spatial subsetting in base R -->
+
+Attribute subsetting in base R is done with the `[` operator and passing into the square brackets a vector of class `integer` (whole numbers) or `logical` (a vector of `TRUE`s and `FALSE`s).
 This means `world[1:6,]` subsets the first 6 countries of the world and that `world[world$area_km2 < 10000,]` returns the subset of countries that have a small surface area.
 
-*Spatial* subsetting with the `[` operator follows the same pattern except you place *another spatial object* inside the square brackets.
-To illustrate this concise and consistent syntax, let's create a hypothetical scenario: we want to select all countries in the world that lie within 20 degrees of the point where the equator (where latitude = 0 degrees) intersects the prime meridian (longitude = 0 degrees), as illustrated in Figure \@ref(fig:globe).
+*Spatial* subsetting in base R follows the same pattern, except *another spatial object* is placed inside the square brackets in the place of an `integer` or `logical` vector.
+This is a concise and consistent syntax, as shown in the next code chunk.
+Let's test it with a hypothetical scenario: we want to subset all countries within 20 degrees of the point where the equator (where latitude = 0 degrees) intersects the prime meridian (longitude = 0 degrees), as illustrated in Figure \@ref(fig:globe).
 The subsetting object is created below.
 The data to be subset, or 'target layer', is the `world` object used in previous chapters:
 
 
 ```r
 center = st_sf(st_sfc(st_point(c(0, 0)), crs = 4326))
-buff_equator = st_buffer(x = center, dist = 20)
+buff = st_buffer(x = center, dist = 20)
 ```
 
 <div class="figure" style="text-align: center">
@@ -2071,18 +2081,20 @@ Now that the input data is set-up, the spatial subsetting operation is a single,
 
 
 ```r
-world_buff_equator = world[buff_equator,]
+world_buff = world[buff,]
 #> although coordinates are longitude/latitude, it is assumed that they are planar
 ```
 
-Note that the command emits a message on execution: buffer and other spatial operations (especially distance and area calculations) cannot be assumed to be accurate in a geographic (longitude/latitude) CRS.
-This is justified in because of the data's proximity to the equator and its use as an illustrative example, but it's something to be aware of when working with 'lon/lat' data.
-In any case the spatial subsetting clearly worked, as illustrated by Figure \@ref(fig:buffeq), which was generated using the following commands:
+Note that the command emits a message: about assuming `planar coordinates`.
+This is because spatial operations (especially distance and area calculations) cannot be assumed to be accurate in a geographic (longitude/latitude) CRS.
+In this case there is a clear justification: the data is close to the equator where there is least distortion caused by the curvature of the earth, and the example illustrates the method, which would more usually be used on pojected ('planar') data.
+In any case, the spatial subsetting clearly worked.
+As illustrated by Figure \@ref(fig:buffeq), only countries which spatially intersect with the giant circle are returned:
 
 
 ```r
-plot(world_buff_equator$geom)
-plot(buff_equator, add = TRUE)
+plot(world_buff$geom)
+plot(buff, add = TRUE)
 ```
 
 <div class="figure" style="text-align: center">
@@ -2092,7 +2104,40 @@ plot(buff_equator, add = TRUE)
 
 Note that countries that only just touch the giant circle are selected such as the large country at the north of plot (Algeria).
 `st_relates()` includes countries that only touch (but are not within or overlapping with) the selection object.
-Other spatial subsetting operations are more conservative, as described in the next section.
+Other spatial subsetting operations such as `st_within()` are more conservative, as shown in section \@ref(topological-relations).
+
+Before we progress to explore the differences between different spatial subsetting operations, it is worth seeing alternative ways to acheive the same result,
+to deepen understanding of what is going on 'under the hood' (vital for developing advanced geocomputation applications).
+The second way to reproduce the subsetting operation illustrated in Figure \@ref(fig:buffeq) simply involves expanding the operation over 2 lines:
+
+
+```r
+sel_buff = st_intersects(x = world, y = buff, sparse = FALSE)
+#> although coordinates are longitude/latitude, it is assumed that they are planar
+world_buff2 = world[sel_buff,]
+```
+
+The third way is essentially the same as the second, but uses the `filter()` function introduced in section \@ref(attribute-subsetting), forming the foundations of a 'tidy' spatial data analysis workflow.
+If you already use **dplyr** for data manipulation, this way should seem familiar:
+
+
+```r
+world_buff3 = world %>%
+  filter(st_intersects(x = ., y = buff, sparse = FALSE))
+#> although coordinates are longitude/latitude, it is assumed that they are planar
+```
+
+How can we be sure that the results obtained through the 4 subsetting operations demonstrated above?
+We can test them as follows:
+
+
+```r
+identical(x = world_buff, y = world_buff2)
+#> [1] TRUE
+identical(x = world_buff, y = world_buff3)
+#> [1] FALSE
+```
+
 
 ### Topological relations
 
@@ -2127,7 +2172,7 @@ plot(l, add = TRUE)
 plot(p, add = TRUE)
 ```
 
-<img src="figures/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-9-1.png" width="576" style="display: block; margin: auto;" />
 
 Equals:
 
@@ -2248,7 +2293,7 @@ plot(b)
 plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
 ```
 
-<img src="figures/unnamed-chunk-18-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-21-1.png" width="576" style="display: block; margin: auto;" />
 
 The subsequent code chunk demonstrate how this works for all combinations of the 'venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
 <!-- Todo: reference r4ds -->
@@ -2467,7 +2512,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.31
+#> [1] 2.25
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2483,7 +2528,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.06
+#> [1] 3.14
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2512,13 +2557,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>    0.06    0.00    0.06
+#>   0.068   0.000   0.069
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.004   0.027
+#>   0.012   0.016   0.028
 ```
 
 
