@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveced6ac93e9ce3650
+preserveeda9fb62ffb3dc0e
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -225,7 +225,7 @@ There is one caveat to this, however: younger packages are generally less stable
 It is therefore worth being aware of the history of the development of spatial data functionality in R.
 This not only because the incumbent packages are highly mature: there is a wealth of functions, use-cases and teaching material written using older packages in R's spatial ecosystem, so it's worth being aware of the history preceding the rise of **sf** depicted in Figure \@ref(fig:cranlogs).
 
-The beginnings of spatial capabilities in R are closely connected with its predecesor - the S language [@bivand_implementing_2000].
+The beginnings of spatial capabilities in R are closely connected with its predecessor - the S language [@bivand_implementing_2000].
 The decade of the 1990s involved many significant developments of S scripts for spatial data analysis.
 Later, with the advent of R, some of these scripts were converted into R packages, including **spatial** and **sgeostat** [@venables_modern_2002; @university_sgeostat:_2016].
 
@@ -279,7 +279,7 @@ Simultaneously with the development of spatial classes and methods, R started to
 The most popular early example was the **GRASS** package [@bivand_using_2000].
 Its first version was released in 2000 and it enabled a connection between R and GRASS GIS 5.0.
 In the latter years, two new packages were published after the release of new GRASS GIS versions: **spgrass6** for GRASS GIS 6 and **rgrass7** for GRASS GIS 7 [@bivand_spgrass6:_2016;@bivand_rgrass7:_2016].
-Other examples of bridges between R and GIS include RSAGA ([@R-RSAGA]; first release in 2008), ArcGIS ([@brenning_arcgis_2012]; 2008) and RQGIS ([@R-RQGIS]; 2016).
+Other examples of bridges between R and GIS include RSAGA ([@R-RSAGA]; the first release in 2008), ArcGIS ([@brenning_arcgis_2012]; 2008) and RQGIS ([@R-RQGIS]; 2016).
 <!-- ADD THIS LATTER -->
 <!-- More information about interfaces between R and GIS software could be find in \@ref(gis). -->
 
@@ -2466,7 +2466,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.32
+#> [1] 2.19
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2482,10 +2482,10 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.06
+#> [1] 3.67
 ```
 
-In this case **sf** was around 3 times faster than **rgdal**.
+In this case **sf** was around 4 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -2511,13 +2511,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.075
+#>   0.084   0.004   0.088
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.044
+#>   0.048   0.000   0.046
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.008   0.034
+#>   0.032   0.004   0.037
 ```
 
 
