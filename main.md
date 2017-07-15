@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve85ccf51270e62e71
+preservebf89d92a4116b121
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2053,21 +2053,46 @@ In section \@ref(attribute-subsetting) we saw how rows could be subsetted with t
 This means `world[1:6,]` subsets the first 6 countries of the world and that `world[world$area_km2 < 10000,]` returns the subset of countries that have a small surface area.
 
 *Spatial* subsetting with the `[` operator follows the same pattern except you place *another spatial object* inside the square brackets.
-To illustrate this concise and consistent syntax, let's create a hypothetical scenario: we want to select all countries in the world that lie within 5 degrees of the point where the equator (where latitude = 0 degrees) intersects the prime meridian (longitude = 0 degrees), as illustrated in Figure \@ref(fig:globe).
+To illustrate this concise and consistent syntax, let's create a hypothetical scenario: we want to select all countries in the world that lie within 20 degrees of the point where the equator (where latitude = 0 degrees) intersects the prime meridian (longitude = 0 degrees), as illustrated in Figure \@ref(fig:globe).
 The input data for the subsetting layer is defined below (the data to be subset, or 'target layer', is the `world` object used in previous chapters):
 
 
 ```r
-center = st_sf(st_sfc(st_point(c(0, 0))))
-buff_equator = st_buffer(x = center, dist = 10)
+center = st_sf(st_sfc(st_point(c(0, 0)), crs = 4326))
+buff_equator = st_buffer(x = center, dist = 20)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="figures/globe.png" alt="Hypothetical subsetting scenario: select all countries which intersect with a circle of 10 degrees in radius around planet Earth. Figure created with the **[globe](https://cran.r-project.org/package=globe)** package." width="250" />
-<p class="caption">(\#fig:globe)Hypothetical subsetting scenario: select all countries which intersect with a circle of 10 degrees in radius around planet Earth. Figure created with the **[globe](https://cran.r-project.org/package=globe)** package.</p>
+<img src="figures/globe.png" alt="Hypothetical subsetting scenario: select all countries which intersect with a circle of 20 degrees in radius around planet Earth. Figure created with the **[globe](https://cran.r-project.org/package=globe)** package." width="250" />
+<p class="caption">(\#fig:globe)Hypothetical subsetting scenario: select all countries which intersect with a circle of 20 degrees in radius around planet Earth. Figure created with the **[globe](https://cran.r-project.org/package=globe)** package.</p>
 </div>
 
+Now that the input data is set-up, the spatial subsetting operation is a single, concise command:
 
+
+```r
+world_buff_equator = world[buff_equator,]
+#> although coordinates are longitude/latitude, it is assumed that they are planar
+```
+
+Note that the command emits a warning message on execution: buffer and other spatial operations (especially distance and area calculations) cannot be assumed to be accurate in a geographic (longitude/latitude) CRS.
+This is justified in because of the data's proximity to the equator and its use as an illustrative example, but it's something to be aware of when working with 'lon/lat' data.
+In any case the spatial subsetting clearly worked, as illustrated by Figure \@ref(fig:buffeq), which was generated using the following commands:
+
+
+```r
+plot(world_buff_equator$geom)
+plot(buff_equator, add = TRUE)
+```
+
+<div class="figure" style="text-align: center">
+<img src="figures/buffeq-1.png" alt="Subset of the `world` data selected based on their intersection with a circle 20 degrees in radius with a center point at 0 degrees longitude and 0 degrees latitude." width="576" />
+<p class="caption">(\#fig:buffeq)Subset of the `world` data selected based on their intersection with a circle 20 degrees in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
+</div>
+
+Note that countries that only just touch the giant circle are selected such as the large country at the north of plot (Algeria).
+This is because the default spatial subsetting operation (`st_relates()`) includes countries that only just touch the selection object.
+Other spatial subsetting operations are more conservative, as described in the next section.
 
 ### Topological relations
 
@@ -2102,7 +2127,7 @@ plot(l, add = TRUE)
 plot(p, add = TRUE)
 ```
 
-<img src="figures/unnamed-chunk-5-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;" />
 
 Equals:
 
@@ -2223,7 +2248,7 @@ plot(b)
 plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
 ```
 
-<img src="figures/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-18-1.png" width="576" style="display: block; margin: auto;" />
 
 The subsequent code chunk demonstrate how this works for all combinations of the 'venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
 <!-- Todo: reference r4ds -->
@@ -2442,7 +2467,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.02
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2458,7 +2483,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.33
+#> [1] 3.11
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2487,13 +2512,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.060   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.042
+#>   0.040   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.030
+#>   0.020   0.008   0.030
 ```
 
 
