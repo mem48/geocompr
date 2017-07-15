@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveeda9fb62ffb3dc0e
+preserved94140799a29e6a6
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2044,8 +2044,8 @@ Overall there are 9 well-defined operations that can be used for spatial subsett
 The great news is that you do not have to learn all of them separately:
 after you understand how to spatially subset objects that *intersect* another (via `st_intersects()`) it is easy to subset based on other types of spatial operation such as `st_touches()`, `st_crosses()` and `st_within()`.
 For this reason now we focus only one of the spatial subsetting operation.
-We use `st_intersects()` instead of any of the others because not only because it the default when subsetting with the `[` operator:
-`st_intersects()` 'catch all' that identifies all types of spatial relations.
+We use `st_intersects()` instead of any of the others not only because it the default when subsetting with `[`,
+`st_intersects()` is useful as a 'catch all' that identifies all types of spatial relations.
 
 In broad terms, spatial subsetting is equivalent of *attribute subsetting*, the process of creating a new object by selecting only rows whose attributes match certain criteria.
 In section \@ref(attribute-subsetting) we saw how rows could be subsetted with the `[` operator by passing into it a vector of class `integer` (whole numbers) or `logical` (a vector of `TRUE`s and `FALSE`s).
@@ -2053,7 +2053,8 @@ This means `world[1:6,]` subsets the first 6 countries of the world and that `wo
 
 *Spatial* subsetting with the `[` operator follows the same pattern except you place *another spatial object* inside the square brackets.
 To illustrate this concise and consistent syntax, let's create a hypothetical scenario: we want to select all countries in the world that lie within 20 degrees of the point where the equator (where latitude = 0 degrees) intersects the prime meridian (longitude = 0 degrees), as illustrated in Figure \@ref(fig:globe).
-The input data for the subsetting layer is defined below (the data to be subset, or 'target layer', is the `world` object used in previous chapters):
+The subsetting object is created below.
+The data to be subset, or 'target layer', is the `world` object used in previous chapters:
 
 
 ```r
@@ -2074,7 +2075,7 @@ world_buff_equator = world[buff_equator,]
 #> although coordinates are longitude/latitude, it is assumed that they are planar
 ```
 
-Note that the command emits a warning message on execution: buffer and other spatial operations (especially distance and area calculations) cannot be assumed to be accurate in a geographic (longitude/latitude) CRS.
+Note that the command emits a message on execution: buffer and other spatial operations (especially distance and area calculations) cannot be assumed to be accurate in a geographic (longitude/latitude) CRS.
 This is justified in because of the data's proximity to the equator and its use as an illustrative example, but it's something to be aware of when working with 'lon/lat' data.
 In any case the spatial subsetting clearly worked, as illustrated by Figure \@ref(fig:buffeq), which was generated using the following commands:
 
@@ -2090,7 +2091,7 @@ plot(buff_equator, add = TRUE)
 </div>
 
 Note that countries that only just touch the giant circle are selected such as the large country at the north of plot (Algeria).
-This is because the default spatial subsetting operation (`st_relates()`) includes countries that only just touch the selection object.
+`st_relates()` includes countries that only touch (but are not within or overlapping with) the selection object.
 Other spatial subsetting operations are more conservative, as described in the next section.
 
 ### Topological relations
@@ -2466,7 +2467,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.19
+#> [1] 2.46
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2482,10 +2483,10 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.67
+#> [1] 3.14
 ```
 
-In this case **sf** was around 4 times faster than **rgdal**.
+In this case **sf** was around 3 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -2511,13 +2512,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.084   0.004   0.088
+#>   0.060   0.004   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.048   0.000   0.046
+#>   0.044   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.032   0.004   0.037
+#>   0.024   0.008   0.032
 ```
 
 
