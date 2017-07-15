@@ -161,7 +161,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservebf89d92a4116b121
+preserveced6ac93e9ce3650
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -225,11 +225,11 @@ There is one caveat to this, however: younger packages are generally less stable
 It is therefore worth being aware of the history of the development of spatial data functionality in R.
 This not only because the incumbent packages are highly mature: there is a wealth of functions, use-cases and teaching material written using older packages in R's spatial ecosystem, so it's worth being aware of the history preceding the rise of **sf** depicted in Figure \@ref(fig:cranlogs).
 
-<!-- START WITH  [@bivand_implementing_2000] -->
-<!-- "pre-2003: several people doing spatial statistics or map manipulation with S-Plus, and later R (e.g. spatial in MASS; spatstat, maptools, geoR, splancs, gstat, …)" -->
+The beginnings of spatial capabilities in R are closely connected with its predecesor - the S language [@bivand_implementing_2000].
+The decade of the 1990s involved many significant developments of S scripts for spatial data analysis.
+Later, with the advent of R, some of these scripts were converted into R packages, including **spatial** and **sgeostat** [@venables_modern_2002; @university_sgeostat:_2016].
 
-In the volume 1/2 of R News (the predecessor of The R Journal), Brian Ripley created an overview of the spatial statistics state in June 2001 [@ripley_spatial_2001]. 
-He shortly described eight packages, mostly used for spatial smoothing end interpolation (such as **akima**, **spatial**, **sgeostat** and **geoR**) and spatial point patterns (**splancs** and **spatstat**) [@akima_akima:_2016; @venables_modern_2002; @jr_geor:_2016; @rowlingson_splancs:_2017; @university_sgeostat:_2016].
+In the volume 1/2 of R News (the predecessor of The R Journal), Brian Ripley created an overview of the spatial statistics state as of June 2001 [@ripley_spatial_2001]. He shortly described eight packages, mostly used for spatial smoothing end interpolation (such as **akima**, **spatial**, **sgeostat** and **geoR**) and spatial point patterns (**splancs** and **spatstat**) [@akima_akima:_2016; @rowlingson_splancs:_2017; @jr_geor:_2016].
 Most of these packages where based on the previous code written for S or S-PLUS.
 The last mentioned package, **spatstat** became a standard for analyzing spatial point patterns (
 this topic goes beyond the scope of this book, so for more information we recommend the book of @baddeley_spatial_2015).
@@ -272,22 +272,21 @@ It integrated spatial object from **sp** with the spatial functions and operator
 Although **sp** provided a possibility of reading and processing grid data, its raster capabilities were limited. 
 A new **raster** package was created in 2010 to fill this gap [@R-raster].
 It established new spatial classes for raster objects and added functions for creating, reading and writing raster data.
-Moreover, it implemented raster algebra, general raster functions and gave tools for development of more specific raster functions.
 Very important feature of **raster** was its ability to work with raster dataset that are too large to be fitted in RAM.
-<!-- one more sentence -->
+Moreover, it implemented raster algebra, general raster functions and gave tools for development of more specific raster functions.
 
 Simultaneously with the development of spatial classes and methods, R started to be used as an interface to several GIS software.
 The most popular early example was the **GRASS** package [@bivand_using_2000].
 Its first version was released in 2000 and it enabled a connection between R and GRASS GIS 5.0.
 In the latter years, two new packages were published after the release of new GRASS GIS versions: **spgrass6** for GRASS GIS 6 and **rgrass7** for GRASS GIS 7 [@bivand_spgrass6:_2016;@bivand_rgrass7:_2016].
-Other examples of bridges between R and GIS include RSAGA ([@R-RSAGA]; first release in 2008), ArcGIS ([@brenning_arcgis_2012]; 2008) and RQGIS ([@R-RQGIS]; 2016). <!--CITE-->
+Other examples of bridges between R and GIS include RSAGA ([@R-RSAGA]; first release in 2008), ArcGIS ([@brenning_arcgis_2012]; 2008) and RQGIS ([@R-RQGIS]; 2016).
 <!-- ADD THIS LATTER -->
 <!-- More information about interfaces between R and GIS software could be find in \@ref(gis). -->
 
 **sp** provided methods for plotting data using the two existing systems - base and lattice.
 However, a demand for convenient methods for spatial data visualizations rose with an increase in R spatial possibilities. 
 In 2007, the third system, **ggplot2**, was published.
-It gave a possibility to convert spatial objects from **sp** into `data.frames` to plot them. <!-- rewrite; check when projections were implemented -->
+It gave a possibility to convert spatial objects from **sp** into `data.frames` to plot them. <!--2009-->
 **ggplot2** spatial capabilities were improved in 2011 with the release of its associated package - **ggmap**, which provided several tools for spatial data visualization [@kahle_ggmap:_2013].
 Among others, it allowed to create plots with static maps from Google Maps or OpenStreetMap as the base layer and gave access to the several spatial APIs, for example the Google Geocoding.
 In the same year, the support of the lattice system was added to the raster objects with publication of the **rasterVis** package.
@@ -2467,7 +2466,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.35
+#> [1] 2.32
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2483,7 +2482,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.11
+#> [1] 3.06
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2512,13 +2511,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.062
+#>   0.072   0.000   0.075
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.043
+#>   0.044   0.000   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.030
+#>   0.028   0.008   0.034
 ```
 
 
