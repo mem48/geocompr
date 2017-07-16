@@ -162,7 +162,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve5a98ecb467d5263f
+preserveb8c71371234829ea
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1649,10 +1649,10 @@ wb_north_america
 ```
 
 In this book, we focus on spatial data. 
-All of the following examples will have a `sf` object as the first argument and a `data.frame` object as the second argument. 
+Most of the following examples will have a `sf` object as the first argument and a `data.frame` object as the second argument. 
 A new `sf` object will be a result of these joins. 
 However, the reverse order is also possible and will result in a `data.frame` object.
-This is beyond the scope of this book, but we encourage you to try it.
+This is mostly beyond the scope of this book, but we encourage you to try it.
 
 ### Left joins
 
@@ -1732,18 +1732,68 @@ left_join3
 #> 3     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...
 ```
 
-<!-- Explain the reverse order -->
-<!-- , and how to go back to sf -->
-<!-- . and how to remove geom col -->
-<!-- this apply to every case where df is the second agrument -->
-<!-- ```{r} -->
-<!-- # keeps geom col; drops sf class -->
-<!-- left_join4 = wb_north_america %>% -->
-<!--   left_join(north_america, by = c("iso_a2")) -->
-<!-- left_join4 -->
-<!-- left_join4_sf = st_as_sf(left_join4) -->
-<!-- left_join4_sf -->
-<!-- ``` -->
+It is also possible to use our objects in the reverse order, where a `data.frame` object is the first argument and a `sf` object is the second argument.
+This would always result in a new `data.frame` object.
+For example, `left_join()` would create a new `data.frame` with a `geom` column:
+
+
+```r
+# keeps the geom column, but drops the sf class
+left_join4 = wb_north_america %>%
+  left_join(north_america, by = c("iso_a2"))
+left_join4
+#>            name iso_a2 urban_pop unemploy     name_long
+#> 1        Canada     CA  29022137     6.91        Canada
+#> 2        Mexico     MX  99018446     5.25          <NA>
+#> 3 United States     US 259740511     6.17 United States
+#>                             geom
+#> 1 MULTIPOLYGON(((-63.6645 46....
+#> 2                           NULL
+#> 3 MULTIPOLYGON(((-155.54211 1...
+class(left_join4)
+#> [1] "data.frame"
+```
+
+`left_join4` has only one class - `data.frame`, however it is possible to add spatial `sf` class using the `st_as_sf()` function: 
+
+
+```r
+left_join4_sf = st_as_sf(left_join4)
+left_join4_sf
+#> Simple feature collection with 3 features and 5 fields (with 1 geometry empty)
+#> geometry type:  MULTIPOLYGON
+#> dimension:      XY
+#> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#>            name iso_a2 urban_pop unemploy     name_long
+#> 1        Canada     CA  29022137     6.91        Canada
+#> 2        Mexico     MX  99018446     5.25          <NA>
+#> 3 United States     US 259740511     6.17 United States
+#>                             geom
+#> 1 MULTIPOLYGON(((-63.6645 46....
+#> 2                 MULTIPOLYGON()
+#> 3 MULTIPOLYGON(((-155.54211 1...
+class(left_join4_sf)
+#> [1] "sf"         "data.frame"
+```
+
+On the other hand, it is also possible to remove the `geom` column using base R functions or `dplyr`:
+
+
+```r
+# base R
+left_join4_df = subset(left_join4, select = -geom)
+# or dplyr
+left_join4_df = left_join4 %>% select(-geom)
+left_join4_df
+#>            name iso_a2 urban_pop unemploy     name_long
+#> 1        Canada     CA  29022137     6.91        Canada
+#> 2        Mexico     MX  99018446     5.25          <NA>
+#> 3 United States     US 259740511     6.17 United States
+class(left_join4_df)
+#> [1] "data.frame"
+```
 
 ### Right joins
 
@@ -1776,7 +1826,7 @@ It could be easily illustrated using the `plot` function:
 plot(right_join1[0]) # Canada and United States only
 ```
 
-<img src="figures/unnamed-chunk-37-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-40-1.png" width="576" style="display: block; margin: auto;" />
 
 ### Inner joins
 
@@ -1846,7 +1896,7 @@ anti_join1
 plot(anti_join1[0])
 ```
 
-<img src="figures/unnamed-chunk-41-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-44-1.png" width="576" style="display: block; margin: auto;" />
 
 ### Full joins
 
@@ -2496,7 +2546,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.31
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2512,7 +2562,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.14
+#> [1] 3.27
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2541,13 +2591,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.062
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.039
+#>   0.040   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.027
+#>   0.016   0.008   0.028
 ```
 
 
