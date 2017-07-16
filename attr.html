@@ -251,8 +251,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="attribute-subsetting" class="section level2">
 <h2><span class="header-section-number">3.2</span> Attribute subsetting</h2>
-<!-- info about pull (dplyr 0.6): -->
-<!-- https://github.com/tidyverse/dplyr/commit/0b9aabf6c06c9cd3b784b155044d497d4b93df3e -->
 <p>Because simple feature objects are also data frames, you can use a wide range of functions (from base R and packages) for subsetting them, based on attribute data. Base R subsetting functions include <code>[</code>, <code>subset()</code> and <code>$</code>. <strong>dplyr</strong> subsetting functions include <code>select()</code>, <code>filter()</code>, and <code>pull()</code>. Both sets of functions preserve the spatial components of the data.</p>
 <p>The <code>[</code> operator subsets rows and columns. It requires two arguments, one for rows (observations) and one for columns (variables), and is appended to the object name, e.g. <code>object[rows, columns]</code>, which can be either numeric, indicating position, or character, indicating row or column names. Leaving an argument empty returns all, meaning <code>object[rows,]</code> returns just the rows of interest for all columns. This functionality is demonstrated below (results not shown - try running this on your own computer to check the output is as expected):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[<span class="dv">1</span>:<span class="dv">6</span>,] <span class="co"># subset rows by position</span></code></pre></div>
@@ -408,6 +406,7 @@ world_few_rows =<span class="st"> </span>world[world$pop &gt;<span class="st"> <
 <div id="exercises-3" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Exercises</h3>
 <!-- 
+us states data
 1. Select columns A and B
 2. Select columns with "region" -> use contains() 
 3. Find all countries that: (few points)
@@ -475,7 +474,11 @@ Figure 3.1: Geographic representation of attribute aggregation by continent: tot
 <!-- ``` -->
 <div id="exercises-4" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Exercises</h3>
-<!-- -->
+<!-- 
+us states data
+1. what's the total population of USA
+2. what's the min and max of an income
+-->
 </div>
 </div>
 <div id="attribute-data-joining" class="section level2">
@@ -565,11 +568,17 @@ left_join3
 <span class="co">#&gt; 1     CA        Canada  29022137     6.91 MULTIPOLYGON(((-63.6645 46....</span>
 <span class="co">#&gt; 2     GL     Greenland        NA       NA MULTIPOLYGON(((-46.76379 82...</span>
 <span class="co">#&gt; 3     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
+<!-- Explain the reverse order -->
+<!-- , and how to go back to sf -->
+<!-- . and how to remove geom col -->
+<!-- this apply to every case where df is the second agrument -->
 <!-- ```{r} -->
-<!-- # error: keeps geom col -->
-<!-- left_join4 = wb_north_america %>%  -->
+<!-- # keeps geom col; drops sf class -->
+<!-- left_join4 = wb_north_america %>% -->
 <!--   left_join(north_america, by = c("iso_a2")) -->
 <!-- left_join4 -->
+<!-- left_join4_sf = st_as_sf(left_join4) -->
+<!-- left_join4_sf -->
 <!-- ``` -->
 </div>
 <div id="right-joins" class="section level3">
@@ -591,12 +600,6 @@ right_join1
 <p>The output shows that the result, <code>right_join1</code>, has information about Mexico, but drops information about Greenland. Furthermore, our right object, as a <code>data.frame</code>, doesn’t have a geometry representation of Mexico. As a result, the <code>right_join1</code> object contains only non-spatial data of Mexico. It could be easily illustrated using the <code>plot</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(right_join1[<span class="dv">0</span>]) <span class="co"># Canada and United States only</span></code></pre></div>
 <p><img src="figures/unnamed-chunk-37-1.png" width="576" style="display: block; margin: auto;" /></p>
-<!-- ```{r} -->
-<!-- # error: unwanted geom column added -->
-<!-- right_join2 = wb_north_america %>%  -->
-<!--   right_join(north_america, by = "iso_a2") #%>% plot() -->
-<!-- right_join2 -->
-<!-- ``` -->
 </div>
 <div id="inner-joins" class="section level3">
 <h3><span class="header-section-number">3.4.3</span> Inner joins</h3>
@@ -613,12 +616,6 @@ inner_join1
 <span class="co">#&gt;   iso_a2     name_long urban_pop unemploy                           geom</span>
 <span class="co">#&gt; 1     CA        Canada  29022137     6.91 MULTIPOLYGON(((-63.6645 46....</span>
 <span class="co">#&gt; 2     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
-<!-- ```{r} -->
-<!-- # error: geom column added -->
-<!-- inner_join2 =  wb_north_america %>%  -->
-<!--   inner_join(north_america, by = "iso_a2")  -->
-<!-- inner_join2 -->
-<!-- ``` -->
 </div>
 <div id="semi-joins" class="section level3">
 <h3><span class="header-section-number">3.4.4</span> Semi joins</h3>
@@ -635,11 +632,6 @@ semi_join1
 <span class="co">#&gt;   iso_a2     name_long                           geom</span>
 <span class="co">#&gt; 1     CA        Canada MULTIPOLYGON(((-63.6645 46....</span>
 <span class="co">#&gt; 2     US United States MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
-<!-- ```{r} -->
-<!-- semi_join2 = wb_north_america %>% -->
-<!--   semi_join(north_america, by = "iso_a2") -->
-<!-- semi_join2 -->
-<!-- ``` -->
 </div>
 <div id="anti-joins" class="section level3">
 <h3><span class="header-section-number">3.4.5</span> Anti joins</h3>
@@ -657,11 +649,6 @@ anti_join1
 <span class="co">#&gt; 1     GL Greenland MULTIPOLYGON(((-46.76379 82...</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(anti_join1[<span class="dv">0</span>])</code></pre></div>
 <p><img src="figures/unnamed-chunk-41-1.png" width="576" style="display: block; margin: auto;" /></p>
-<!-- ```{r} -->
-<!-- anti_join2 = wb_north_america %>%  -->
-<!--   anti_join(north_america, by = "iso_a2") -->
-<!-- anti_join2 -->
-<!-- ``` -->
 </div>
 <div id="full-joins" class="section level3">
 <h3><span class="header-section-number">3.4.6</span> Full joins</h3>
@@ -685,23 +672,19 @@ full_join1
 <span class="co">#&gt; 2 MULTIPOLYGON(((-46.76379 82...</span>
 <span class="co">#&gt; 3 MULTIPOLYGON(((-155.54211 1...</span>
 <span class="co">#&gt; 4                 MULTIPOLYGON()</span></code></pre></div>
-<!-- ```{r} -->
-<!-- # error: null geom -->
-<!-- full_join2 = wb_north_america %>%  -->
-<!--   full_join(north_america, by = "iso_a2") #%>% plot() -->
-<!-- full_join2 -->
-<!-- ``` -->
 </div>
 <div id="exercises-5" class="section level3">
 <h3><span class="header-section-number">3.4.7</span> Exercises</h3>
-<!-- -->
+<!-- 
+two version of us states data - one spatial and one non-spatial
+-->
 </div>
 </div>
 <div id="attribute-data-creation" class="section level2">
 <h2><span class="header-section-number">3.5</span> Attribute data creation</h2>
 <!-- lubridate? -->
 <p>It is often the case when a new column needs to be created based on existing columns. For example, we want to calculate population density for each country. We need to divide a <code>pop</code> column (population) by a <code>area_km2</code> column (unit area in square km). It could be done this way in base R:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_new &lt;-<span class="st"> </span>world <span class="co"># not to overwrite our original data</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_new &lt;-<span class="st"> </span>world <span class="co"># do not overwrite our original data</span>
 world_new$pop_dens =<span class="st"> </span>world_new$pop /<span class="st"> </span>world_new$area_km2</code></pre></div>
 <p>Alternatively, we can use one of <strong>dplyr</strong> functions - <code>mutate()</code> or <code>transmute()</code>. <code>mutate()</code> adds new columns at second-to-last position in the <code>sf</code> object (the last one is reserved for the geometry):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world %&gt;%<span class="st"> </span>
@@ -726,7 +709,14 @@ world %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">set_names</span>(new_names)</code></pre></div>
 <div id="exercises-6" class="section level3">
 <h3><span class="header-section-number">3.5.1</span> Exercises</h3>
-<!-- calculate gdp -->
+<!-- 
+us states data
+1. pop density by state
+2. change in time of income/pop
+3. area into mln of km2
+4. rename columns
+5. rename column
+-->
 </div>
 </div>
 <div id="removing-spatial-information" class="section level2">
