@@ -109,14 +109,16 @@ By teaching these foundations we aim to empower you to create your own solutions
 
 <!-- todo: what contributions, which will we use, where in the book? -->
 
-While embracing recent developments in the field, we also wanted to pay respects to the wider field of Geography, and its 2000 year history [@roller_eratosthenes_2010], of which geocomputation is a part.
+While embracing recent developments in the field, we also wanted to pay respects to the wider field of Geography, with its 2000 history [@roller_eratosthenes_2010], and the narrower field of *Geographic Information System* (GIS) [@neteler_open_2008].
 Geography has played an important role in explaining and influencing humanity's relationship with the natural world and this book aims to be a part of the 'Geographic tradition'.
+GIS has become almost synonymous with handling spatial data on a computer, and provides a basis for excellent open source tools which can be accessed from R, as we will see in Chapter 13.
 
-This book exists at the intersection between Geography and R (Figure \@ref(fig:venn)).
+Indeed, geocomputation can be seen as the interface between Computing and the much older discipline of Geography (Figure \@ref(fig:venn)).
+
 Suggested titles were *Geography with R* and *R for GIS*, each of which has advantages.
 The former conveys the message that it's not just about spatial data: 
 non-spatial attribute data are inevitably interwoven with geometry data, and Geography is about more than where something is on the map.
-The latter option communicates that this is a book about using R as a *Geographic Information System* (GIS), to perform spatial operations on *geographic data* [@bivand_applied_2013].
+The latter option communicates that this is a book about using R as a GIS, to perform spatial operations on *geographic data* [@bivand_applied_2013].
 However, the term GIS has some negative connotations <!-- I see what you mean by negative connotations but I had to think immediately of qualitative GIS and critical GIS, i.e., scientists from the humanities criticising GIS technologies. Think of the so-called "GIS crisis", positivism, make-believe objectivity, etc.--> (see Table \@ref(tab:gdsl)) and fails to communicate one of R's greatest strengths:
 its unparalleled ability to seamlessly switch between geographic and non-geographic data processing, modeling and visualization tasks.
 
@@ -163,7 +165,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve125f80c46d728257
+preserve1b740aaa6a08a908
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2553,7 +2555,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.3
+#> [1] 2.33
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2569,7 +2571,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.09
+#> [1] 3.12
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2604,7 +2606,7 @@ system.time(st_write(world, "world.shp", quiet = TRUE))
 #>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.004   0.028
+#>   0.016   0.012   0.027
 ```
 
 
