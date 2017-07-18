@@ -162,7 +162,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve5f598ad76abee544
+preservef26c9e3f8604535f
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1490,8 +1490,8 @@ world %>%
 <!-- 
 us states data
 1. Select columns A and B
-2. Select columns with "region" -> use contains() 
-3. Find all countries that: (few points)
+2. Select columns with "total_pop" -> use contains() 
+3. Find all states that: (few points)
 4. Exercises about additional select and filter helper functions (one_of; between, is.na, near, etc.)
  -->
 
@@ -1588,8 +1588,9 @@ plot(world_continents["pop"])
 <!-- 
 us states data
 1. what's the total population of USA
-2. what's the min and max of an income
+2. what's the min and max of total_pop
 3. how many states are in each region
+4. what's the min and max of total_pop for each region? what's the total population of each region
 -->
 
 ## Attribute data joining 
@@ -1930,7 +1931,7 @@ full_join1
 ### Exercises
 
 <!-- 
-two version of us states data - one spatial and one non-spatial
+two version of us states data - one spatial (non-economical) and one non-spatial (economical)
 -->
 
 ## Attribute data creation
@@ -2011,8 +2012,8 @@ world %>%
 
 <!-- 
 us states data
-1. pop density by state
-2. change in time of income/pop
+1. pop density
+2. change in time of pop
 3. area into mln of km2
 4. rename columns
 5. rename column
@@ -2551,7 +2552,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.35
+#> [1] 2.33
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2567,7 +2568,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.07
+#> [1] 3.04
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2602,7 +2603,7 @@ system.time(st_write(world, "world.shp", quiet = TRUE))
 #>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.012   0.012   0.028
+#>   0.016   0.012   0.027
 ```
 
 

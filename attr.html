@@ -408,8 +408,8 @@ world_few_rows =<span class="st"> </span>world[world$pop &gt;<span class="st"> <
 <!-- 
 us states data
 1. Select columns A and B
-2. Select columns with "region" -> use contains() 
-3. Find all countries that: (few points)
+2. Select columns with "total_pop" -> use contains() 
+3. Find all states that: (few points)
 4. Exercises about additional select and filter helper functions (one_of; between, is.na, near, etc.)
  -->
 </div>
@@ -477,8 +477,9 @@ Figure 3.1: Geographic representation of attribute aggregation by continent: tot
 <!-- 
 us states data
 1. what's the total population of USA
-2. what's the min and max of an income
+2. what's the min and max of total_pop
 3. how many states are in each region
+4. what's the min and max of total_pop for each region? what's the total population of each region
 -->
 </div>
 </div>
@@ -711,7 +712,7 @@ full_join1
 <div id="exercises-5" class="section level3">
 <h3><span class="header-section-number">3.4.7</span> Exercises</h3>
 <!-- 
-two version of us states data - one spatial and one non-spatial
+two version of us states data - one spatial (non-economical) and one non-spatial (economical)
 -->
 </div>
 </div>
@@ -746,8 +747,8 @@ world %&gt;%<span class="st"> </span>
 <h3><span class="header-section-number">3.5.1</span> Exercises</h3>
 <!-- 
 us states data
-1. pop density by state
-2. change in time of income/pop
+1. pop density
+2. change in time of pop
 3. area into mln of km2
 4. rename columns
 5. rename column
