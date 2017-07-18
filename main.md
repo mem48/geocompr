@@ -113,19 +113,13 @@ While embracing recent developments in the field, we also wanted to pay respects
 Geography has played an important role in explaining and influencing humanity's relationship with the natural world and this book aims to be a part of the 'Geographic tradition'.
 GIS has become almost synonymous with handling spatial data on a computer, and provides a basis for excellent open source tools which can be accessed from R, as we will see in Chapter 13.
 
-Indeed, geocomputation can be seen as the interface between Computing and the much older discipline of Geography (Figure \@ref(fig:venn)).
-
-Suggested titles were *Geography with R* and *R for GIS*, each of which has advantages.
+The book's links to older disciplines were reflected in suggested titles for the book: *Geography with R* and *R for GIS*.
+Each has advantages.
 The former conveys the message that it's not just about spatial data: 
 non-spatial attribute data are inevitably interwoven with geometry data, and Geography is about more than where something is on the map.
-The latter option communicates that this is a book about using R as a GIS, to perform spatial operations on *geographic data* [@bivand_applied_2013].
+The latter communicates that this is a book about using R as a GIS, to perform spatial operations on *geographic data* [@bivand_applied_2013].
 However, the term GIS has some negative connotations <!-- I see what you mean by negative connotations but I had to think immediately of qualitative GIS and critical GIS, i.e., scientists from the humanities criticising GIS technologies. Think of the so-called "GIS crisis", positivism, make-believe objectivity, etc.--> (see Table \@ref(tab:gdsl)) and fails to communicate one of R's greatest strengths:
 its unparalleled ability to seamlessly switch between geographic and non-geographic data processing, modeling and visualization tasks.
-
-<div class="figure" style="text-align: center">
-<img src="figures/venn-1.png" alt="Venn diagram of the intersection between Geography and R." width="576" />
-<p class="caption">(\#fig:venn)Venn diagram of the intersection between Geography and R.</p>
-</div>
 
 Geocomputation in this book therefore means more than simply analyzing geographic data on a computer.
 It's about trying to make research which involves making geographic data more reproducible, scientific and socially beneficial.
@@ -165,7 +159,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve1b740aaa6a08a908
+preserveeecff98c87a40f87
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2555,7 +2549,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.33
+#> [1] 2.39
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2571,7 +2565,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.12
+#> [1] 3.09
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2600,10 +2594,10 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>    0.06    0.00    0.06
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.040   0.000   0.039
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
 #>   0.016   0.012   0.027
