@@ -216,13 +216,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="intro" class="section level1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
-<p>This book exists at the intersection between Geography and R (Figure <a href="intro.html#fig:venn">1.1</a>). Suggested titles were <em>Geography with R</em> and <em>R for GIS</em>, each of which has advantages. The former conveys the message that it’s not just about spatial data: non-spatial attribute data are inevitably interwoven with geometry data, and Geography is about more than where something is on the map. The latter option communicates that this is a book about using R as a <em>Geographic Information System</em> (GIS), to perform spatial operations on <em>geographic data</em> <span class="citation">(Bivand, Pebesma, and Gómez-Rubio <a href="#ref-bivand_applied_2013">2013</a>)</span>. However, the term GIS has some negative connotations <!-- I see what you mean by negative connotations but I had to think immediately of qualitative GIS and critical GIS, i.e., scientists from the humanities criticising GIS technologies. Think of the so-called "GIS crisis", positivism, make-believe objectivity, etc.--> (see Table <a href="intro.html#tab:gdsl">1.1</a>) and fails to communicate one of R’s greatest strengths: its unparalleled ability to seamlessly switch between geographic and non-geographic data processing, modeling and visualization tasks.</p>
-<div class="figure" style="text-align: center"><span id="fig:venn"></span>
-<img src="figures/venn-1.png" alt="Venn diagram of the intersection between Geography and R." width="576" />
-<p class="caption">
-Figure 1.1: Venn diagram of the intersection between Geography and R.
-</p>
-</div>
 <p>The title was chosen because this book is about more than routine spatial data processing. What defines geocomputation as a development on previous work is the “creative and experimental use of GIS that it entails” <span class="citation">(Longley et al. <a href="#ref-longley_geocomputation:_1998">1998</a>)</span>. Another advantage of the term is that it conveys the centrality of the concept of algorithms (which can be implemented in R functions) to advanced geographical research. This is captured in the following quote from another seminal book on the subject <span class="citation">(Openshaw and Abrahart <a href="#ref-openshaw_geocomputation_2000">2000</a>)</span>:</p>
 <blockquote>
 <p>GeoComputation is about using the various different types of geodata and about developing relevant geo-tools within the overall context of a ‘scientific’ approach.</p>
@@ -231,7 +224,15 @@ Figure 1.1: Venn diagram of the intersection between Geography and R.
 <p>But geocomputation is not just about the methods and code: it is about doing “practical work that is beneficial or useful” <span class="citation">(Openshaw and Abrahart <a href="#ref-openshaw_geocomputation_2000">2000</a>)</span>. After reading this book you should be able to do more than just <em>understand</em> geocomputational methods or <em>follow</em> the reproducible examples implemented in code chunks in each chapter. This book is about <em>doing</em> geocomputation. This means applying the methods you have learned (and skills you will master) on real-world data to solve pressing problems for social and environmental benefit.</p>
 <p>Geocomputation is a relatively young field<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> but algorithms published under the geocomputational banner have influenced the direction of geographical research, as we will see in subsequent chapters. Algorithms are powerful tools that can become highly complex. However, all algorithms are composed of smaller parts. By teaching these foundations we aim to empower you to create your own solutions to geographic data problems. This can feel like breaking free from the metaphorical ‘glass ceiling’ imposed by GUI-based proprietary geographic information systems (see Table <a href="intro.html#tab:gdsl">1.1</a> for a definition of GUI).</p>
 <!-- todo: what contributions, which will we use, where in the book? -->
-<p>While embracing recent developments in the field, we also wanted to pay respects to the wider field of Geography, and its 2000 year history <span class="citation">(Roller <a href="#ref-roller_eratosthenes_2010">2010</a>)</span>, of which geocomputation is a part. Geography has played an important role in explaining and influencing humanity’s relationship with the natural world and this book aims to be a part of the ‘Geographic tradition’. Geocomputation in this book therefore means more than simply analyzing geographic data on a computer. It’s about trying to make research which involves making geographic data more reproducible, scientific and socially beneficial. This book is also part of the movement towards Geographic Data Science (GDS) which differs from GIS in several ways, some of which are outlined in Table <a href="intro.html#tab:gdsl">1.1</a>. Inspired by the emphasis of GDS research on reproducible research, this book aims to teach how to do geocomputation rather than just think about it.</p>
+<p>While embracing recent developments in the field, we also wanted to pay respects to the wider field of Geography, and its 2000 year history <span class="citation">(Roller <a href="#ref-roller_eratosthenes_2010">2010</a>)</span>, of which geocomputation is a part. Geography has played an important role in explaining and influencing humanity’s relationship with the natural world and this book aims to be a part of the ‘Geographic tradition’.</p>
+<p>This book exists at the intersection between Geography and R (Figure <a href="intro.html#fig:venn">1.1</a>). Suggested titles were <em>Geography with R</em> and <em>R for GIS</em>, each of which has advantages. The former conveys the message that it’s not just about spatial data: non-spatial attribute data are inevitably interwoven with geometry data, and Geography is about more than where something is on the map. The latter option communicates that this is a book about using R as a <em>Geographic Information System</em> (GIS), to perform spatial operations on <em>geographic data</em> <span class="citation">(Bivand, Pebesma, and Gómez-Rubio <a href="#ref-bivand_applied_2013">2013</a>)</span>. However, the term GIS has some negative connotations <!-- I see what you mean by negative connotations but I had to think immediately of qualitative GIS and critical GIS, i.e., scientists from the humanities criticising GIS technologies. Think of the so-called "GIS crisis", positivism, make-believe objectivity, etc.--> (see Table <a href="intro.html#tab:gdsl">1.1</a>) and fails to communicate one of R’s greatest strengths: its unparalleled ability to seamlessly switch between geographic and non-geographic data processing, modeling and visualization tasks.</p>
+<div class="figure" style="text-align: center"><span id="fig:venn"></span>
+<img src="figures/venn-1.png" alt="Venn diagram of the intersection between Geography and R." width="576" />
+<p class="caption">
+Figure 1.1: Venn diagram of the intersection between Geography and R.
+</p>
+</div>
+<p>Geocomputation in this book therefore means more than simply analyzing geographic data on a computer. It’s about trying to make research which involves making geographic data more reproducible, scientific and socially beneficial. This book is also part of the movement towards Geographic Data Science (GDS) which differs from GIS in several ways, some of which are outlined in Table <a href="intro.html#tab:gdsl">1.1</a>. Inspired by the emphasis of GDS research on reproducible research, this book aims to teach how to do geocomputation rather than just think about it.</p>
 <table>
 <caption><span id="tab:gdsl">Table 1.1: </span>Differences in emphasis between the fields of Geographic Information Systems (GIS) and Geographic Data Science (GDS).</caption>
 <thead>
@@ -359,9 +360,6 @@ of Statistical Software http://von-tijn.nl/tijn/research/presentations/tmap_user
 </div>
 <h3> References</h3>
 <div id="refs" class="references">
-<div id="ref-bivand_applied_2013">
-<p>Bivand, Roger, Edzer J Pebesma, and Virgilio Gómez-Rubio. 2013. <em>Applied Spatial Data Analysis with R</em>. Vol. 747248717. Springer.</p>
-</div>
 <div id="ref-longley_geocomputation:_1998">
 <p>Longley, Paul A., Sue M. Brooks, Rachael McDonnell, and Bill MacMillan, eds. 1998. <em>Geocomputation: A Primer</em>. 1 edition. Chichester, Eng. ; New York: Wiley.</p>
 </div>
@@ -373,6 +371,9 @@ of Statistical Software http://von-tijn.nl/tijn/research/presentations/tmap_user
 </div>
 <div id="ref-roller_eratosthenes_2010">
 <p>Roller, D. 2010. <em>Eratosthenes’ “Geography”</em>. Princeton University Press. <a href="http://books.google.co.uk/books?id=8peKyWK_SWsC" class="uri">http://books.google.co.uk/books?id=8peKyWK_SWsC</a>.</p>
+</div>
+<div id="ref-bivand_applied_2013">
+<p>Bivand, Roger, Edzer J Pebesma, and Virgilio Gómez-Rubio. 2013. <em>Applied Spatial Data Analysis with R</em>. Vol. 747248717. Springer.</p>
 </div>
 <div id="ref-R-leaflet">
 <p>Cheng, Joe, Bhaskar Karambelkar, and Yihui Xie. 2017. <em>Leaflet: Create Interactive Web Maps with the JavaScript ’Leaflet’ Library</em>. <a href="https://CRAN.R-project.org/package=leaflet" class="uri">https://CRAN.R-project.org/package=leaflet</a>.</p>
