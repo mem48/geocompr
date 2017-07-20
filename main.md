@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve46c3def7420025db
+preservecd00a05e866512f4
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -238,7 +238,7 @@ This is captured by the saying "if you live on the cutting edge you risk getting
 Another reason for knowing about the history of geocomputation with R is that there is a wealth of functions, use-cases and teaching material written using older packages in R's spatial ecosystem, which can still be useful today provided you know where to look.
 
 The beginnings of spatial capabilities in R are closely connected with its predecessor - the S language [@bivand_implementing_2000].
-The 1990s saw the development of many S scripts, and some packages such as **splancs**, which eventually became an R package [@rowlingson_splancs:_2017], for spatial data analysis.
+The 1990s saw the development of many S scripts, and some packages such as **splancs**, which eventually became an R package, for spatial data analysis [@rowlingson_splancs:_1993; @rowlingson_splancs:_2017].
 Later, with the advent of R, some of these scripts were converted into R packages, including **spatial** and **sgeostat** [@venables_modern_2002; @university_sgeostat:_2016].
 
 In the volume 1/2 of R News (the predecessor of The R Journal), Brian Ripley created an overview of the spatial statistics state as of June 2001 [@ripley_spatial_2001]. He shortly described eight packages, mostly used for spatial smoothing end interpolation (such as **akima**, **spatial**, **sgeostat** and **geoR**) and spatial point patterns (**splancs** and **spatstat**) [@akima_akima:_2016; @rowlingson_splancs:_2017; @jr_geor:_2016].
@@ -2592,7 +2592,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.33
+#> [1] 2.3
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2608,7 +2608,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.08
+#> [1] 3.07
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2637,13 +2637,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.004   0.064
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.043
+#>   0.036   0.004   0.040
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.016   0.031
+#>   0.024   0.004   0.028
 ```
 
 
