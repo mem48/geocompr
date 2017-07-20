@@ -78,6 +78,7 @@ For further details see the book's GitHub page at [Robinlovelace/geocompr](https
 <!--chapter:end:index.Rmd-->
 
 
+
 # Introduction {#intro}
 
 This book is about harnessing the power of modern computers to *do things* with geographic data.
@@ -172,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservec7032cf587e8376b
+preserve872298a8b1a16f50
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -194,7 +195,7 @@ There are many ways to handle spatial data in R, with dozens of packages in the 
 In this book we endeavour to teach the state-of-the-art in the field whilst ensuring that the methods are future-proof.
 Like many areas of software development, R's spatial ecosystem is rapidly evolving.
 Because R is open source, these developments can easily build on previous work, by 'standing on the shoulders of giants', as Isaac Newton put it in [1675](http://digitallibrary.hsp.org/index.php/Detail/Object/Show/object_id/9285).
-This approach is advantageous as it encourages innovation and avoids 'reinventing the wheel'.
+This approach is advantageous because it encourages collaboration and avoids 'reinventing the wheel'.
 The package **sf** (covered in Chapter \@ref(spatial-class)), for example, builds on its predecesor **sp**.
 
 Shifts in R's spatial ecosystem have been influenced by shifts in the wider R community, as exemplified by the visualisation and data processing packages **ggplot2** and **dplyr** (released in [2007](https://cran.r-project.org/src/contrib/Archive/ggplot2/) and [2014](https://cran.r-project.org/src/contrib/Archive/dplyr/) respectively).
@@ -207,15 +208,15 @@ See the [r-spatial](https://github.com/r-spatial/) organisation and conversation
 ]
 
 
-Table: (\#tab:revdep)The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-07-18 there are 18 packages which import sf.
+Table: (\#tab:revdep)The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-07-19 there are 18 packages which import sf.
 
 package      Downloads
 ----------  ----------
-plotly            1503
+plotly            1506
 leaflet            495
-mapview            180
-geojsonio          134
-tigris             102
+mapview            182
+geojsonio          137
+tigris             105
 
 A surge in development time (and interest) in 'R-Geo' has followed the award of a grant by the R Consortium for the development of support for Simple Features and the resulting **sf** package (covered in \@ref(intro-sf)).
 This is illustrated in multiple places, not least the [R-sig-Geo Archives](https://stat.ethz.ch/pipermail/r-sig-geo/), a long-standing open access email list containing much R-spatial wisdom accumulated over the years.
@@ -2595,7 +2596,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.34
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2611,7 +2612,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.07
+#> [1] 3.11
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2640,13 +2641,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.064   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.044   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.000   0.028
+#>   0.024   0.004   0.030
 ```
 
 
