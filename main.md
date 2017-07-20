@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve1b118bde9f666968
+preserve46c3def7420025db
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -233,13 +233,12 @@ So time invested in learning the 'new ways' of handling spatial data and, hopefu
 
 ## The history of geocomputing with R
 
-There are many benefits of using recent packages such as **sf**, with the caveat that they are generally less stable that mature packages such as **sp**.
-This is captured by the saying "if you live on the cutting edge you risk getting hurt".
-This is a good reason to know about the history of the development of support for spatial data in R.
-Another is that there is a wealth of functions, use-cases and teaching material written using older packages in R's spatial ecosystem.
+There are many benefits of using recent packages such as **sf**, with the caveat that they are generally less stable than mature packages such as **sp**.
+This is captured by the saying "if you live on the cutting edge you risk getting hurt", meaning that older packages may be more appropriate for applications requiring stability and backwards-compatibility with other mature packages.
+Another reason for knowing about the history of geocomputation with R is that there is a wealth of functions, use-cases and teaching material written using older packages in R's spatial ecosystem, which can still be useful today provided you know where to look.
 
 The beginnings of spatial capabilities in R are closely connected with its predecessor - the S language [@bivand_implementing_2000].
-The decade of the 1990s involved many significant developments of S scripts for spatial data analysis.
+The 1990s saw the development of many S scripts, and some packages such as **splancs**, which eventually became an R package [@rowlingson_splancs:_2017], for spatial data analysis.
 Later, with the advent of R, some of these scripts were converted into R packages, including **spatial** and **sgeostat** [@venables_modern_2002; @university_sgeostat:_2016].
 
 In the volume 1/2 of R News (the predecessor of The R Journal), Brian Ripley created an overview of the spatial statistics state as of June 2001 [@ripley_spatial_2001]. He shortly described eight packages, mostly used for spatial smoothing end interpolation (such as **akima**, **spatial**, **sgeostat** and **geoR**) and spatial point patterns (**splancs** and **spatstat**) [@akima_akima:_2016; @rowlingson_splancs:_2017; @jr_geor:_2016].
@@ -2609,7 +2608,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.12
+#> [1] 3.08
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2638,13 +2637,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.060   0.004   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.040   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.012   0.016   0.029
+#>   0.016   0.016   0.031
 ```
 
 
