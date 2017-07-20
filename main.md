@@ -104,8 +104,7 @@ It is also about developing new methods [@openshaw_geocomputation_2000]:
 developing relevant geo-tools within the overall context of a 'scientific'
 approach.
 
-R is a [functional language](http://adv-r.had.co.nz/Functional-programming.html) [@wickham_advanced_2014].
-It has many 'bridges' that allow access to a treasure trove of GIS algorithms.
+R is a [functional language](http://adv-r.had.co.nz/Functional-programming.html) [@wickham_advanced_2014] with many 'bridges' that allow access to a treasure trove of GIS algorithms.
 <!-- todo - add this reference to end of previous line: -->
 <!-- (\@ref(gis)). -->
 It is thus ideal for quickly creating 'geo-tools', without needing to master low level languages such as C, FORTRAN and Java. 
@@ -173,7 +172,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea5ef99929b79e20f
+preserve4b10c3c45c10c6a3
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -190,12 +189,12 @@ But before cracking-on with the action, a few introductory remarks are needed to
 <!-- paragraphs (with references to chapters in the book): -->
 <!-- 1. this book focus -> sf + raster/stars + leaflet/mapview (the recent state of spatial R); the history of R spatial is way longer -->
 
-This book teaches Geocomputational techniques using an ecosystem of R packages that in many ways supersede their predecessors in terms of speed and performance.
+This book teaches geocomputation using modern R packages that supersede their predecessors in terms of features and performance.
 This evolution is common in open source software: because all the code is open, developers can learn from the experiences of prior work, 'standing on the shoulders of giants', as Isaac Newton put it in [1675](http://digitallibrary.hsp.org/index.php/Detail/Object/Show/object_id/9285), rather than constantly reinventing the wheel.
-In the context of spatial vector data classes in R, this can be clearly seen in the evolution of the **sf** package which in many ways evolved from the earlier **sp** package.
+An example that we will use heavily in this book is the package **sf**, which evolved from its predecessor **sp**.
 
-R's evolving spatial ecosystem should also be understood in the context of developments in the wider R community.
-The visualisation and data processing packages **ggplot2** and **dplyr** (released on CRAN in [2007](https://cran.r-project.org/src/contrib/Archive/ggplot2/) and [2014](https://cran.r-project.org/src/contrib/Archive/dplyr/) respectively) exemplify these shifts.
+R's spatial ecosystem, including the evolution of **sf**, should be understood in the context of developments in the wider R community.
+The visualisation and data processing packages **ggplot2** and **dplyr** (released in [2007](https://cran.r-project.org/src/contrib/Archive/ggplot2/) and [2014](https://cran.r-project.org/src/contrib/Archive/dplyr/) respectively) exemplify these shifts.
 These and other packages written by Hadley Wickham and collaborators share a common style, with a focus on 'tidy data' (hence the emergence of the term 'Hadleyverse' in [2013](https://trends.google.com/trends/explore?q=hadleyverse)).
 For ease of installation and to harmonize packages in this style, the **tidyverse** 'metapackage' was released in late [2016](https://cran.r-project.org/src/contrib/Archive/tidyverse/).
 Although there is no equivalent **sfverse**, there are a growing number of actively developed package which use **sf** (Table \@ref(tab:revdep)) and discussion of harmonization among R's many spatial packages.^[
@@ -2576,10 +2575,10 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.52
+#> [1] 2.11
 ```
 
-The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -2592,7 +2591,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.15
+#> [1] 3.1
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2621,13 +2620,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.088   0.004   0.094
+#>   0.064   0.000   0.067
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.047
+#>   0.044   0.000   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.030
+#>   0.024   0.008   0.031
 ```
 
 
