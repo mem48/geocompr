@@ -727,13 +727,21 @@ world %&gt;%<span class="st"> </span>
 <span class="kw">data</span>(<span class="st">&quot;us_states&quot;</span>)
 <span class="kw">data</span>(<span class="st">&quot;us_states_df&quot;</span>)</code></pre></div>
 <!-- Attribute subsetting -->
-<!-- 
-us states data
+<ol style="list-style-type: decimal">
+<li>Select only the <code>NAME</code> column in <code>us_states</code> and create a new object called <code>us_states_name</code>. What is the class of new object?</li>
+<li>Select columns which contain information about a total population. Think about as many ways as possible to do it. Hint: try to use helper functions, such as <code>contains</code> or <code>starts_with</code>.</li>
+<li>Find all states that:</li>
+</ol>
+<ul>
+<li>Belongs to the Midwest region <!-- us_states %>% filter(total_pop_15 < 750000) --></li>
+<li>Had a total population in 2015 smaller than 750,000 residents <!-- us_states %>% filter(total_pop_15 < 750000) --> <!-- -  --> <!-- -  --> <!-- 
+1. 
 1. Select columns A and B
 2. Select columns with "total_pop" -> use contains() 
 3. Find all states that: (few points)
 4. Exercises about additional select and filter helper functions (one_of; between, is.na, near, etc.)
- -->
+ --></li>
+</ul>
 <!-- Attribute aggregation -->
 <!-- 
 us states data
