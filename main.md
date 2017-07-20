@@ -80,12 +80,17 @@ For further details see the book's GitHub page at [Robinlovelace/geocompr](https
 
 # Introduction {#intro}
 
-This book is about harnessing the power of modern computers to *do things* with geographical data.
-After reading it, and attempting the exercises contained in each chapter, you should be able to: read and write geographic data; visualize the results, in static and interactive maps; model geographic data; and understand how to create new functions for geographic research.
+This book is about harnessing the power of modern computers to *do things* with geographic data.
+It teaches a range of spatial skills, including: reading, writing and manipulating geographic data; making static and interactive maps; and modelling geographic data.
+By joining together various spatial operations in scripts and functions, the book shows how these skills can be used as part of a reproducible workflow.
+Not only will you learn how to use existing tools.
+By the end of the book you should have an idea of how to create new ones, that can be implemented as new functions for others to use.
 
 Over the last few decades a huge amount of work has gone into developing free and open source software for geospatial applications (FOSS4G).
-This means that spatial data analysis no longer needs to be the preserve of those who can afford expensive programs, and the hardware to run them.
-However, despite the growth of geospatial software that is *open source*, much of it is still inaccessible.
+This means that spatial data analysis is no longer the preserve of those who can afford expensive programs, and the hardware to run them.
+Anyone can now download high performance spatial libraries on their computer.
+However, despite the growth of geospatial software that is *open source*, much of it is still not *accessible* and requires expert knowledge to use.
+
 A major aim of this book is to make geographical data analysis more accessible.
 As we will see in section \@ref(why-geocomputation-with-r), R is flexible language that allows access to many spatial software libraries.
 Before going into the details of the software, however, it is worth taking a step back and thinking about what we mean by geocomputation.
@@ -168,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve37de64a875cdab57
+preservea5ef99929b79e20f
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2571,10 +2576,10 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.24
+#> [1] 2.52
 ```
 
-The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -2587,7 +2592,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.13
+#> [1] 3.15
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2616,13 +2621,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>    0.06    0.00    0.06
+#>   0.088   0.004   0.094
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.044   0.000   0.047
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.020   0.008   0.030
 ```
 
 
