@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve872298a8b1a16f50
+preservef98c0587aa64ea13
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1934,7 +1934,8 @@ It could be done this way in base R:
 
 
 ```r
-world_new <- world # do not overwrite our original data
+data("world")
+world_new = world # do not overwrite our original data
 world_new$pop_dens = world_new$pop / world_new$area_km2
 ```
 
@@ -2596,7 +2597,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.35
+#> [1] 2.36
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2612,7 +2613,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.11
+#> [1] 3.22
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2641,13 +2642,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.062
+#>   0.060   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.043
+#>   0.048   0.000   0.046
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.030
+#>   0.020   0.008   0.030
 ```
 
 

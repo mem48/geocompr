@@ -689,7 +689,8 @@ full_join1
 <h2><span class="header-section-number">3.5</span> Attribute data creation</h2>
 <!-- lubridate? -->
 <p>It is often the case when a new column needs to be created based on existing columns. For example, we want to calculate population density for each country. We need to divide a <code>pop</code> column (population) by a <code>area_km2</code> column (unit area in square km). It could be done this way in base R:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_new &lt;-<span class="st"> </span>world <span class="co"># do not overwrite our original data</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;world&quot;</span>)
+world_new =<span class="st"> </span>world <span class="co"># do not overwrite our original data</span>
 world_new$pop_dens =<span class="st"> </span>world_new$pop /<span class="st"> </span>world_new$area_km2</code></pre></div>
 <p>Alternatively, we can use one of <strong>dplyr</strong> functions - <code>mutate()</code> or <code>transmute()</code>. <code>mutate()</code> adds new columns at second-to-last position in the <code>sf</code> object (the last one is reserved for the geometry):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world %&gt;%<span class="st"> </span>
