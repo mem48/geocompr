@@ -172,7 +172,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve0d244371eb578927
+preservec7032cf587e8376b
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -189,15 +189,20 @@ But before cracking-on with the action, a few introductory remarks are needed to
 <!-- paragraphs (with references to chapters in the book): -->
 <!-- 1. this book focus -> sf + raster/stars + leaflet/mapview (the recent state of spatial R); the history of R spatial is way longer -->
 
-This book teaches geocomputation using modern R packages that supersede their predecessors in terms of features and performance.
-This evolution is common in open source software: because all the code is open, developers can learn from the experiences of prior work, 'standing on the shoulders of giants', as Isaac Newton put it in [1675](http://digitallibrary.hsp.org/index.php/Detail/Object/Show/object_id/9285), rather than constantly reinventing the wheel.
-An example that we will use heavily in this book is the package **sf**, which evolved from its predecessor **sp**.
+There are many ways to handle spatial data in R, with dozens of packages in the area.^[An overview of R's spatial ecosystem can be found in the CRAN Task View on the Analysis of Spatial Data
+(see [cran.r-project.org/web/views/Spatial.html](https://cran.r-project.org/web/views/Spatial.html)).]
+In this book we endeavour to teach the state-of-the-art in the field whilst ensuring that the methods are future-proof.
+Like many areas of software development, R's spatial ecosystem is rapidly evolving.
+Because R is open source, these developments can easily build on previous work, by 'standing on the shoulders of giants', as Isaac Newton put it in [1675](http://digitallibrary.hsp.org/index.php/Detail/Object/Show/object_id/9285).
+This approach is advantageous as it encourages innovation and avoids 'reinventing the wheel'.
+The package **sf** (covered in Chapter \@ref(spatial-class)), for example, builds on its predecesor **sp**.
 
-R's spatial ecosystem, including the evolution of **sf**, should be understood in the context of developments in the wider R community.
-The visualisation and data processing packages **ggplot2** and **dplyr** (released in [2007](https://cran.r-project.org/src/contrib/Archive/ggplot2/) and [2014](https://cran.r-project.org/src/contrib/Archive/dplyr/) respectively) exemplify these shifts.
-These and other packages written by Hadley Wickham and collaborators share a common style, with a focus on 'tidy data' (hence the emergence of the term 'Hadleyverse' in [2013](https://trends.google.com/trends/explore?q=hadleyverse)).
-For ease of installation and to harmonize packages in this style, the **tidyverse** 'metapackage' was released in late [2016](https://cran.r-project.org/src/contrib/Archive/tidyverse/).
-Although there is no equivalent **sfverse**, there are a growing number of actively developed package which use **sf** (Table \@ref(tab:revdep)) and discussion of harmonization among R's many spatial packages.^[
+Shifts in R's spatial ecosystem have been influenced by shifts in the wider R community, as exemplified by the visualisation and data processing packages **ggplot2** and **dplyr** (released in [2007](https://cran.r-project.org/src/contrib/Archive/ggplot2/) and [2014](https://cran.r-project.org/src/contrib/Archive/dplyr/) respectively).
+Alongside other packages that have a shared style and emphasis on 'tidy data', these were placed in the **tidyverse** 'metapackage' in late [2016](https://cran.r-project.org/src/contrib/Archive/tidyverse/).
+The **tidyverse** approach, with its focus on long-form data and fast, intuitively named function, has become immensely popular.
+This has led to demand for 'tidy spatial data' which has been partly met by **sf** and other approaches such as the GitHub package [**tabularaster**](https://hypertidy.github.io/tabularaster/).
+Another feature of the **tidyverse**, which was already present in the trio of packages that **sf** supercedes (**sp**, **rgeos** and **rgdal**), is the tendency for packages to work in harmony.
+Although there is presently no equivalent **geoverse**, there are a growing number of actively developed package which are designed to work in harmony with **sf** (Table \@ref(tab:revdep)) and discussion of harmonization among R's many spatial packages.^[
 See the [r-spatial](https://github.com/r-spatial/) organisation and conversations in the [discussion](https://github.com/r-spatial/discuss/issues/11) repo for more on this.
 ]
 
@@ -2590,7 +2595,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.43
+#> [1] 2.34
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2606,10 +2611,10 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.17
+#> [1] 3.07
 ```
 
-In this case **sf** was around 2 times faster than **rgdal**.
+In this case **sf** was around 3 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -2635,13 +2640,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.076   0.000   0.076
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.052   0.000   0.050
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.033
+#>   0.024   0.000   0.028
 ```
 
 

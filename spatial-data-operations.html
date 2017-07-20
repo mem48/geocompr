@@ -234,7 +234,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="spatial-subsetting" class="section level2">
 <h2><span class="header-section-number">4.2</span> Spatial subsetting</h2>
-<p>Spatial subsetting is the process of selecting only those features of a spatial object that in some way <em>intersect</em> with another spatial object. Note that ‘intersect’ in this context has a precise meaning: if <code>y</code> is used to subset features in a ‘target’ object of <code>x</code>, any features in <code>x</code> that touch, overlap or are within features in <code>y</code> will be selected. Intersect is the default operation for spatial subsetting but others can be used using the <code>op =</code> argument.<a href="#fn11" class="footnoteRef" id="fnref11"><sup>11</sup></a></p>
+<p>Spatial subsetting is the process of selecting only those features of a spatial object that in some way <em>intersect</em> with another spatial object. Note that ‘intersect’ in this context has a precise meaning: if <code>y</code> is used to subset features in a ‘target’ object of <code>x</code>, any features in <code>x</code> that touch, overlap or are within features in <code>y</code> will be selected. Intersect is the default operation for spatial subsetting but others can be used using the <code>op =</code> argument.<a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a></p>
 <p>There are 9 well-defined operations that can be used for spatial subsetting, covered in section <a href="spatial-data-operations.html#topological-relations">4.2.1</a>. This may seem daunting but the good news is that you do not have to learn all of them separately: after you understand how to spatially subset objects that <em>intersect</em> another (via <code>st_intersects()</code>) it is easy to subset based on other types of spatial operation such as <code>st_touches()</code>, <code>st_crosses()</code> and <code>st_within()</code>. For this reason now we focus only one of the spatial subsetting operation. We use <code>st_intersects()</code> instead of any of the others not only because it the default when subsetting with <code>[</code>, <code>st_intersects()</code> is useful as a ‘catch all’ that identifies all types of spatial relations.</p>
 <p>In general terms, spatial subsetting is simply the spatial equivalent of <em>attribute subsetting</em>. However, to do spatial subsetting <em>two spatial objects are needed</em> the spatial relation between which is to be established. As with attribute subsetting, spatial subsetting is a <em>binary operation</em>: an object is either selected or not. As in section <a href="attr.html#attribute-subsetting">3.2</a>, we start with base methods before describing how to do it in the <strong>tidyverse</strong>. <!-- todo: link to non-binary links, e.g. area-weighted spatial interpolation --></p>
 <!-- ### Spatial subsetting in base R -->
@@ -470,8 +470,8 @@ world =<span class="st"> </span>world %&gt;%
 </div>
 <div class="footnotes">
 <hr />
-<ol start="11">
-<li id="fn11"><p>Interested readers can see this default value of <code>op</code> set in the first line of the function call by entering its long-form name into the console: <code>sf:::`[.sf`</code><a href="spatial-data-operations.html#fnref11">↩</a></p></li>
+<ol start="12">
+<li id="fn12"><p>Interested readers can see this default value of <code>op</code> set in the first line of the function call by entering its long-form name into the console: <code>sf:::`[.sf`</code><a href="spatial-data-operations.html#fnref12">↩</a></p></li>
 </ol>
 </div>
             </section>
