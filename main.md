@@ -92,7 +92,7 @@ Anyone can now download high performance spatial libraries on their computer.
 However, despite the growth of geospatial software that is *open source*, much of it is still not *accessible* and requires expert knowledge to use.
 
 A major aim of this book is to make geographical data analysis more accessible.
-As we will see in section \@ref(why-geocomputation-with-r), R is flexible language that allows access to many spatial software libraries.
+R is flexible language that allows access to many spatial software libraries (see section \@ref(why-geocomputation-with-r)).
 Before going into the details of the software, however, it is worth taking a step back and thinking about what we mean by geocomputation.
 
 ## What is geocomputation?
@@ -116,6 +116,7 @@ This book is about *doing* geocomputation.
 This means applying the methods you have learned (and skills you will master) on real-world data to solve pressing problems for social and environmental benefit.
 
 Geocomputation is a relatively young field^[Geocomputation has a ~30 year history dating back to the first [conference](http://www.geocomputation.org/) on the subject in 1996 (at the University of Leeds where the concept for this book was dreamt up) which was followed by a flurry of subsequent publications.] but algorithms published under the geocomputational banner have influenced the direction of geographical research, as we will see in subsequent chapters.
+<!-- todo: which chapters? -->
 Algorithms are powerful tools that can become highly complex.
 However, all algorithms are composed of smaller parts.
 By teaching these foundations we aim to empower you to create your own solutions to geographic data problems. This can feel like breaking free from the metaphorical 'glass ceiling' imposed by GUI-based proprietary geographic information systems (see Table \@ref(tab:gdsl) for a definition of GUI).
@@ -172,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee8b75a87f4c2a220
+preserve1b118bde9f666968
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -220,10 +221,9 @@ tigris             105
 A surge in development time (and interest) in 'R-Geo' has followed the award of a grant by the R Consortium for the development of support for Simple Features and the resulting **sf** package (covered in \@ref(intro-sf)).
 This is illustrated in multiple places, not least the [R-sig-Geo Archives](https://stat.ethz.ch/pipermail/r-sig-geo/), a long-standing open access email list containing much R-spatial wisdom accumulated over the years.
 Many posts on the list now discuss **sf** and related packages, suggesting that R's spatial software developers are using the package and, therefore, it is here to stay.
-We will see in the next chapter how Simple Features in R work and their many advantages.
 
 We propose that the release of **sf** heralds a new era for spatial data analysis and geocomputation in R.
-This era (which we refrain from labeling the **sfverse** with any seriousness, awaiting a better name!) clearly has the wind in its sails and is set to dominate future developments in R's spatial ecosystem for years to come.
+This era (which we refrain from labeling the **geoverse** with any seriousness, awaiting a better name!) clearly has the wind in its sails and is set to dominate future developments in R's spatial ecosystem for years to come.
 So time invested in learning the 'new ways' of handling spatial data and, hopefully, reading this book, is well spent!
 
 <div class="figure" style="text-align: center">
@@ -233,13 +233,10 @@ So time invested in learning the 'new ways' of handling spatial data and, hopefu
 
 ## The history of geocomputing with R
 
-This book focuses on the 'new' way of doing geocomputation for practical purposes and to ensure that what you learn here is 'future-proof'.
-There is one caveat to this, however: younger packages are generally less stable and may undergo changes to the way they function or (more commonly) add more features. In other words:
-
-> If you live on the cutting edge you risk getting hurt.
-
-It is therefore worth being aware of the history of the development of spatial data functionality in R.
-This not only because the incumbent packages are highly mature: there is a wealth of functions, use-cases and teaching material written using older packages in R's spatial ecosystem, so it's worth being aware of the history preceding the rise of **sf** depicted in Figure \@ref(fig:cranlogs).
+There are many benefits of using recent packages such as **sf**, with the caveat that they are generally less stable that mature packages such as **sp**.
+This is captured by the saying "if you live on the cutting edge you risk getting hurt".
+This is a good reason to know about the history of the development of support for spatial data in R.
+Another is that there is a wealth of functions, use-cases and teaching material written using older packages in R's spatial ecosystem.
 
 The beginnings of spatial capabilities in R are closely connected with its predecessor - the S language [@bivand_implementing_2000].
 The decade of the 1990s involved many significant developments of S scripts for spatial data analysis.
@@ -2596,7 +2593,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.37
+#> [1] 2.33
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2612,7 +2609,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.08
+#> [1] 3.12
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2641,13 +2638,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.004   0.064
+#>   0.064   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.043
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.031
+#>   0.012   0.016   0.029
 ```
 
 
