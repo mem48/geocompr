@@ -172,7 +172,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve4b10c3c45c10c6a3
+preserve51f9b34aa8419e50
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1495,29 +1495,6 @@ world %>%
 #> 2 Republic of Korea Eastern Asia     33640 MULTIPOLYGON(((128.34971642...
 ```
 
-### Exercises
-
-In the exercises we’ll use the `us_states` and `us_states_df` datasets.
-The first one is a `sf` object, which contains geometry and basic information (region, area, and population) about the contiguous United States.
-The second one is `data.frame` with names of states (the contiguous United States, Alaska, Hawaii and Puerto Rico), and basic socioeconomic variables, median income and poverty level, for years 2010 and 2015.
-The data comes from the US Census Bureau, and is documented in `?us_states` and `?us_states_df`.
-
-<!-- Where should we load `us_states` and `us_states_df`? At the beginning of this chapter or before the first exercises? -->
-
-```r
-library(spData)
-data("us_states")
-data("us_states_df")
-```
-
-<!-- 
-us states data
-1. Select columns A and B
-2. Select columns with "total_pop" -> use contains() 
-3. Find all states that: (few points)
-4. Exercises about additional select and filter helper functions (one_of; between, is.na, near, etc.)
- -->
-
 ## Attribute data aggregation 
 
 <!-- https://github.com/ropenscilabs/skimr ?? -->
@@ -1606,16 +1583,6 @@ plot(world_continents["pop"])
 <!--   arrange(-pop) -->
 <!-- ``` -->
 
-### Exercises
-
-<!-- 
-us states data
-1. what's the total population of USA
-2. what's the min and max of total_pop
-3. how many states are in each region
-4. what's the min and max of total_pop for each region? what's the total population of each region
--->
-
 ## Attribute data joining 
 
 <!-- https://github.com/dgrtwo/fuzzyjoin -->
@@ -1658,7 +1625,7 @@ north_america
 plot(north_america[0])
 ```
 
-<img src="figures/unnamed-chunk-32-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-31-1.png" width="576" style="display: block; margin: auto;" />
 
 
 ```r
@@ -1851,7 +1818,7 @@ It could be easily illustrated using the `plot` function:
 plot(right_join1[0]) # Canada and United States only
 ```
 
-<img src="figures/unnamed-chunk-41-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-40-1.png" width="576" style="display: block; margin: auto;" />
 
 ### Inner joins
 
@@ -1921,7 +1888,7 @@ anti_join1
 plot(anti_join1[0])
 ```
 
-<img src="figures/unnamed-chunk-45-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-44-1.png" width="576" style="display: block; margin: auto;" />
 
 ### Full joins
 
@@ -1950,12 +1917,6 @@ full_join1
 #> 3 MULTIPOLYGON(((-155.54211 1...
 #> 4                 MULTIPOLYGON()
 ```
-
-### Exercises
-
-<!-- 
-two version of us states data - one spatial (non-economical) and one non-spatial (economical)
--->
 
 ## Attribute data creation
 <!-- lubridate? -->
@@ -2031,17 +1992,6 @@ world %>%
   set_names(new_names)
 ```
 
-### Exercises
-
-<!-- 
-us states data
-1. pop density
-2. change in time of pop
-3. area into mln of km2
-4. rename columns
-5. rename column
--->
-
 ## Removing spatial information
 
 It is important to note that the attribute data operations preserve the geometry of the simple features.
@@ -2061,6 +2011,61 @@ class(world_data)
 
 <!-- Should we have exercises for the whole chapter? -->
 <!-- combination of use of select, mutate, group_by, summarise, etc  -->
+
+## Exercises
+
+In the exercises we’ll use the `us_states` and `us_states_df` datasets.
+The first one is a `sf` object, which contains geometry and basic information (region, area, and population) about the contiguous United States.
+The second one is `data.frame` with names of states (the contiguous United States, Alaska, Hawaii and Puerto Rico), and basic socioeconomic variables, median income and poverty level, for years 2010 and 2015.
+The data comes from the US Census Bureau, and is documented in `?us_states` and `?us_states_df`.
+
+
+```r
+library(spData)
+data("us_states")
+data("us_states_df")
+```
+
+<!-- Attribute subsetting -->
+<!-- 
+us states data
+1. Select columns A and B
+2. Select columns with "total_pop" -> use contains() 
+3. Find all states that: (few points)
+4. Exercises about additional select and filter helper functions (one_of; between, is.na, near, etc.)
+ -->
+
+<!-- Attribute aggregation -->
+<!-- 
+us states data
+1. what's the total population of USA
+2. what's the min and max of total_pop
+3. how many states are in each region
+4. what's the min and max of total_pop for each region? what's the total population of each region
+-->
+
+<!-- Attribute joining -->
+<!-- 
+two version of us states data - one spatial (non-economical) and one non-spatial (economical)
+-->
+
+
+<!-- Attribute creation -->
+<!-- 
+us states data
+1. pop density
+2. change in time of pop
+3. area into mln of km2
+4. rename columns
+5. rename column
+-->
+
+<!-- Mixed excersises -->
+<!-- 1. -->
+<!-- 2. -->
+<!-- 3. -->
+<!-- 4. -->
+<!-- 5. -->
 
 <!--chapter:end:03-attribute-operations.Rmd-->
 
@@ -2575,7 +2580,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.11
+#> [1] 2.34
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2591,7 +2596,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.1
+#> [1] 3.43
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2620,13 +2625,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.067
+#>    0.06    0.00    0.06
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.044
+#>   0.040   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.031
+#>   0.016   0.012   0.028
 ```
 
 
