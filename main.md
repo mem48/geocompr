@@ -81,9 +81,8 @@ For further details see the book's GitHub page at [Robinlovelace/geocompr](https
 # Introduction {#intro}
 
 This book is about harnessing the power of modern computers to *do things* with geographical data.
-What defines geocomputation as a development on previous work its emphasis on "creative and experimental" applications that a computational perspective enables [@longley_geocomputation:_1998]
-The book is also about algorithms, which are vital for advanced geographical research.
-This is captured in the following quote from another seminal book on the subject [@openshaw_geocomputation_2000]:
+What defines geocomputation as a development on previous work its emphasis on "creative and experimental" applications that a computational perspective enables [@longley_geocomputation:_1998].
+This book shows how to use and developing new methods, 'geo-tools' for advanced geographical research [@openshaw_geocomputation_2000]:
 
 > GeoComputation is about using the various different types of geodata and about
 developing relevant geo-tools within the overall context of a 'scientific'
@@ -159,7 +158,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserved1695d3e7914204b
+preserve43541124eac83903
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2562,7 +2561,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.31
+#> [1] 2.32
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2578,7 +2577,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.8
+#> [1] 3.04
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2607,13 +2606,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.076   0.000   0.075
+#>   0.056   0.004   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.052   0.000   0.052
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.032
+#>   0.012   0.012   0.028
 ```
 
 
