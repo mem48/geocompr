@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-07-20'
+date: '2017-07-21'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -40,7 +40,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-07-20 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-07-21 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservecd00a05e866512f4
+preserve10f992f51e00e4d2
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -238,16 +238,15 @@ This is captured by the saying "if you live on the cutting edge you risk getting
 Another reason for knowing about the history of geocomputation with R is that there is a wealth of functions, use-cases and teaching material written using older packages in R's spatial ecosystem, which can still be useful today provided you know where to look.
 
 The beginnings of spatial capabilities in R are closely connected with its predecessor - the S language [@bivand_implementing_2000].
-The 1990s saw the development of many S scripts, and some packages such as **splancs**, which eventually became an R package, for spatial data analysis [@rowlingson_splancs:_1993; @rowlingson_splancs:_2017].
-Later, with the advent of R, some of these scripts were converted into R packages, including **spatial** and **sgeostat** [@venables_modern_2002; @university_sgeostat:_2016].
+The 1990s saw the development of numerous S scripts and a handful of packages for spatial statistics.
+Some of these, including **spatial**, **sgeostat** and **splancs**,  eventually became R packages [@rowlingson_splancs:_1993; @rowlingson_splancs:_2017;@venables_modern_2002; @university_sgeostat:_2016].
 
-In the volume 1/2 of R News (the predecessor of The R Journal), Brian Ripley created an overview of the spatial statistics state as of June 2001 [@ripley_spatial_2001]. He shortly described eight packages, mostly used for spatial smoothing end interpolation (such as **akima**, **spatial**, **sgeostat** and **geoR**) and spatial point patterns (**splancs** and **spatstat**) [@akima_akima:_2016; @rowlingson_splancs:_2017; @jr_geor:_2016].
-Most of these packages where based on the previous code written for S or S-PLUS.
-The last mentioned package, **spatstat** became a standard for analyzing spatial point patterns (
-this topic goes beyond the scope of this book, so for more information we recommend the book of @baddeley_spatial_2015).
+Volume 1/2 of R News (the predecessor of The R Journal) contained an overview of spatial statistical software in R at the time, much of which was based on previous code written for S/S-PLUS [@ripley_spatial_2001].
+This overview described packages for spatial smoothing and interpolation (e.g. **akima**, **spatial**, **sgeostat** and **geoR**) and point pattern analysis (**splancs** and **spatstat**) [@akima_akima:_2016; @rowlingson_splancs:_2017; @jr_geor:_2016].
+While all these are still available on CRAN, **spatstat** stands out among them, as it remains dominant in the field of spatial point pattern analysis [@baddeley_spatial_2015].
 
-In the next issue of R News, @bivand_more_2001 gave an introduction to the **splanc** package and suggested some future prospects.
-The most notably, he mentioned the need for standardized R spatial interface, more efficient mechanisms for exchanging data with GIS and better ways to treat spatial metadata (such as spatial projections).
+The subsequent issue of R News also put spatial packages in the spotlight, with an introduction **splancs** and commentary on future prospects [@bivand_more_2001].
+Notably, the paper mentions the need for standardization of spatial interfaces, efficient mechanisms for exchanging data with GIS, and handling of spatial metadata such as coordinate reference systems (CRS).
 Two years later, he presented an extended review of existing R spatial packages at the 3rd International Workshop on Distributed Statistical Computing (DSC 2003) [@hornik_approaches_2003]. 
 At this stage, R spatial development started to be connected with the advancement in spatial software libraries, especially the Geospatial Data Abstraction Library (GDAL) and PROJ.4.
 They allow reading and writing vector and raster data formats, and conversions between coordinate reference systems. 
@@ -2592,7 +2591,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.3
+#> [1] 2.34
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2601,14 +2600,14 @@ To illustrate this point, we performed the same operation on a geojson file and 
 
 
 ```r
-f = system.file("shapes/lnd.geojson", package = "spData")
+f = system.file("shapes/cycle_hire_osm.geojson", package = "spData")
 read_lnd_geojson = bench_read(file = f, n = 5)
 ```
 
 
 ```r
 read_lnd_geojson
-#> [1] 3.07
+#> [1] 3.27
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2637,13 +2636,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>    0.06    0.00    0.06
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.036   0.004   0.040
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.028
+#>   0.020   0.008   0.028
 ```
 
 
