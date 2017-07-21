@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservefdc26d59e9e16fde
+preservea39a53c9ef79139b
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -263,27 +263,22 @@ The sophisticated class system supported points, lines, polygons and grids, with
 <!-- points, multipoints, pixels, full grid, line, lines, spatial lines, polygon, polygons, spatial polygons -->
 **sp** used the S4 class system, which allowed each piece of 'spatially specific' information (such as bounding box, coordinate reference system, attribute table) to stored in slots, accessed with the `@` symbol.
 Attribute data in **sp** were stored as a `data.frame` in the `@data` slot, enabling non-spatial data operations to work alongside spatial operations (covered in chapters \@ref(attr) and \@ref(spatial-data-operations) respectively).
-Equally Important, this package also implemented a set of spatial methods.
-For example, it allowed for spatial summary and retrieval of spatial information, such as a number of dimensions, bounding box or spatial coordinates of the data.
-The **sp** package together with **rgdal** made possible transformations between coordinate reference systems and provided mapping capabilities using either the base plotting system or the lattice system.
+**sp** implemented generic methods for spatial data, making functions well-known to R users such as `summary()` and `plot()` work seemlessly with a wide range of spatial data types.
+Spatial information such as bounding box and CRS could also be retrieved by **sp** functions.
+<!-- The **sp** package together with **rgdal** made possible transformations between coordinate reference systems and provided mapping capabilities using either the base plotting system or the lattice system. -->
 
-The organization of spatial data in the **sp** package rapidly become an R spatial standard.
-This resulted in a growing number of R packages built upon **sp**. 
-About twenty packages depended **sp** by 2008, about one hundred by 2013 and more than 125 in 2017 [@bivand_applied_2013].
-On top of that, now about 220 packages imports some functions from the **sp** package. 
+**sp** classes rapidly became the go-to standard for spatial data in R, resulting in a proliferation of packages that depended on it from around 20 in 2008 and over 100 in 2013 [@bivand_applied_2013].
+Now more than 200 packages rely on **sp**, making it an important part of the R ecosystem. 
 <!-- https://github.com/Robinlovelace/geocompr/issues/58 -->
 <!-- https://github.com/edzer/sfr/issues/387#issuecomment-308949140 -->
-Some of the most prominent R packages using **sp** are: **gstat** - a set of functions for spatial and spatio-temporal geostatistics, **geosphere** used for spherical trigonometry, and **adehabitat** used for the analysis of habitat selection by animals [@R-gstat; @calenge_package_2006; @hijmans_geosphere:_2016].
 
-**rgdal** and **sp** overcome many spatial R shortcomings, however R still lacked a geometry calculation abilities.
-A robust geometry engine to R was added as a part of Google Summer of Code 2010 with creation of the **rgeos** package [@R-rgeos].
-It integrated spatial object from **sp** with the spatial functions and operators from the GEOS library.
+Prominent R packages using **sp** include: **gstat**, for spatial and spatio-temporal geostatistics; **geosphere**, for spherical trigonometry; and **adehabitat** used for the analysis of habitat selection by animals [@R-gstat; @calenge_package_2006; @hijmans_geosphere:_2016].
 
-Although **sp** provided a possibility of reading and processing grid data, its raster capabilities were limited. 
-A new **raster** package was created in 2010 to fill this gap [@R-raster].
-It established new spatial classes for raster objects and added functions for creating, reading and writing raster data.
-Very important feature of **raster** was its ability to work with raster dataset that are too large to be fitted in RAM.
-Moreover, it implemented raster algebra, general raster functions and gave tools for development of more specific raster functions.
+While **rgdal** and **sp** solved many spatial issues, R still lacked a geometry calculation abilities.
+This issue was resolved in 2010 with the release of **rgeos** package [@R-rgeos], which allowed functions and operators from the GEOS library to manipulate **sp** objects.
+**sp**'s limited support of raster data was also tackled in 2010, with the creation of the **raster** [@R-raster], which defined the `raster` class and provided functions for creating, reading and writing raster data.
+A key feature of **raster** is its ability to work with datasets too large to be fitted in RAM, increasing the scale of spatial datasets R could handle.^[The
+**raster** package also provided tools for raster algebra, general raster functions and the development of more additional raster functions.]
 
 Simultaneously with the development of spatial classes and methods, R started to be used as an interface to several GIS software.
 The most popular early example was the **GRASS** package [@bivand_using_2000].
@@ -2590,7 +2585,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.36
+#> [1] 2.39
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2606,7 +2601,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.21
+#> [1] 3.32
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2635,13 +2630,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>   0.060   0.004   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.041
+#>   0.036   0.004   0.040
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.028
+#>   0.020   0.012   0.029
 ```
 
 
