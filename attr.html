@@ -729,20 +729,16 @@ world %&gt;%<span class="st"> </span>
 <span class="kw">data</span>(<span class="st">&quot;us_states_df&quot;</span>)</code></pre></div>
 <!-- Attribute subsetting -->
 <ol style="list-style-type: decimal">
-<li>Select only the <code>NAME</code> column in <code>us_states</code> and create a new object called <code>us_states_name</code>. What is the class of new object?</li>
-<li>Select columns which contain information about a total population. Think about as many ways as possible to do it. Hint: try to use helper functions, such as <code>contains</code> or <code>starts_with</code>.</li>
+<li>Select only the <code>NAME</code> column in <code>us_states</code> and create a new object called <code>us_states_name</code>. What is the class of new object? <!--why there is a "sf" part? --> <!-- ```{r} --> <!-- us_states_name = us_states %>% select(NAME) --> <!-- class(us_states_name) --> <!-- ``` --></li>
+<li>Select columns which contain information about a total population. Think about as many ways as possible to do it. Hint: try to use helper functions, such as <code>contains</code> or <code>starts_with</code>. <!-- ```{r} --> <!-- us_states %>% select(total_pop_10, total_pop_15) --> <!-- us_states %>% select(starts_with("total_pop")) --> <!-- us_states %>% select(contains("total_pop")) --> <!-- ``` --></li>
 <li>Find all states that:</li>
 </ol>
 <ul>
-<li>Belongs to the Midwest region <!-- us_states %>% filter(total_pop_15 < 750000) --></li>
-<li>Had a total population in 2015 smaller than 750,000 residents <!-- us_states %>% filter(total_pop_15 < 750000) --> <!-- -  --> <!-- -  --> <!-- 
-1. 
-1. Select columns A and B
-2. Select columns with "total_pop" -> use contains() 
-3. Find all states that: (few points)
-4. Exercises about additional select and filter helper functions (one_of; between, is.na, near, etc.)
- --></li>
+<li>Belongs to the Midwest region <!-- ```{r} --> <!-- us_states %>% filter(total_pop_15 < 750000) --> <!-- ``` --></li>
+<li>Had a total population in 2015 lower than 750,000 residents <!-- ```{r} --> <!-- us_states %>% filter(total_pop_15 < 750000) --> <!-- ``` --> <!-- UNITS PROBLEM! --> <!-- - Belongs to the West region, had an area smaller than 250,000 km^2 and total population in 2015 larger than 5,000,000 residents --> <!-- ```{r} --> <!-- us_states %>% filter(REGION == "West", AREA < 250000, total_pop_15 > 5000000) --> <!-- ``` --></li>
+<li>Belongs to the South region, had an area larger than 150,000 km^2 or total population in 2015 larger than 7,000,000 residents <!-- ```{r} --> <!-- us_states %>% filter(REGION == "South", AREA > 150000, total_pop_15 > 7000000)  --> <!-- ``` --></li>
 </ul>
+<!-- 4. Exercises about additional select and filter helper functions (one_of; between, is.na, near, etc.) -->
 <!-- Attribute aggregation -->
 <!-- 
 us states data

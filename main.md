@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve42ead90f212303a1
+preserve6838bdc6fc829db5
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2011,24 +2011,39 @@ data("us_states_df")
 
 <!-- Attribute subsetting -->
 1. Select only the `NAME` column in `us_states` and create a new object called `us_states_name`. 
-What is the class of new object? 
-2. Select columns which contain information about a total population. 
+What is the class of new object? <!--why there is a "sf" part? -->
+<!-- ```{r} -->
+<!-- us_states_name = us_states %>% select(NAME) -->
+<!-- class(us_states_name) -->
+<!-- ``` -->
+2. Select columns which contain information about a total population.
 Think about as many ways as possible to do it. 
 Hint: try to use helper functions, such as `contains` or `starts_with`.
+<!-- ```{r} -->
+<!-- us_states %>% select(total_pop_10, total_pop_15) -->
+<!-- us_states %>% select(starts_with("total_pop")) -->
+<!-- us_states %>% select(contains("total_pop")) -->
+<!-- ``` -->
 3. Find all states that:
 - Belongs to the Midwest region
+<!-- ```{r} -->
 <!-- us_states %>% filter(total_pop_15 < 750000) -->
-- Had a total population in 2015 smaller than 750,000 residents
+<!-- ``` -->
+- Had a total population in 2015 lower than 750,000 residents
+<!-- ```{r} -->
 <!-- us_states %>% filter(total_pop_15 < 750000) -->
-<!-- -  -->
-<!-- -  -->
-<!-- 
-1. 
-1. Select columns A and B
-2. Select columns with "total_pop" -> use contains() 
-3. Find all states that: (few points)
-4. Exercises about additional select and filter helper functions (one_of; between, is.na, near, etc.)
- -->
+<!-- ``` -->
+<!-- UNITS PROBLEM! -->
+<!-- - Belongs to the West region, had an area smaller than 250,000 km^2 and total population in 2015 larger than 5,000,000 residents -->
+<!-- ```{r} -->
+<!-- us_states %>% filter(REGION == "West", AREA < 250000, total_pop_15 > 5000000) -->
+<!-- ``` -->
+- Belongs to the South region, had an area larger than 150,000 km^2 or total population in 2015 larger than 7,000,000 residents
+<!-- ```{r} -->
+<!-- us_states %>% filter(REGION == "South", AREA > 150000, total_pop_15 > 7000000)  -->
+<!-- ``` -->
+
+<!-- 4. Exercises about additional select and filter helper functions (one_of; between, is.na, near, etc.) -->
 
 <!-- Attribute aggregation -->
 <!-- 
@@ -2576,7 +2591,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.33
+#> [1] 2.38
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2592,7 +2607,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.33
+#> [1] 3.29
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2621,13 +2636,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>    0.06    0.00    0.06
+#>   0.060   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.036   0.004   0.039
+#>   0.040   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.024   0.004   0.030
 ```
 
 
