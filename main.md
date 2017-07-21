@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea39a53c9ef79139b
+preserve8e4638f97d8983b0
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -280,11 +280,9 @@ This issue was resolved in 2010 with the release of **rgeos** package [@R-rgeos]
 A key feature of **raster** is its ability to work with datasets too large to be fitted in RAM, increasing the scale of spatial datasets R could handle.^[The
 **raster** package also provided tools for raster algebra, general raster functions and the development of more additional raster functions.]
 
-Simultaneously with the development of spatial classes and methods, R started to be used as an interface to several GIS software.
-The most popular early example was the **GRASS** package [@bivand_using_2000].
-Its first version was released in 2000 and it enabled a connection between R and GRASS GIS 5.0.
-In the latter years, two new packages were published after the release of new GRASS GIS versions: **spgrass6** for GRASS GIS 6 and **rgrass7** for GRASS GIS 7 [@bivand_spgrass6:_2016;@bivand_rgrass7:_2016].
-Other examples of bridges between R and GIS include RSAGA ([@R-RSAGA]; the first release in 2008), ArcGIS ([@brenning_arcgis_2012]; 2008) and RQGIS ([@R-RQGIS]; 2016).
+In parallel with the development of spatial classes and methods came support for R to be used as an interface to dedicated GIS software.
+The **GRASS** package [@bivand_using_2000] and follow-on packages **spgrass6** and **rgrass7** (for GRASS GIS 6 and 7 respectively) were prominent examples in thid direction [@bivand_spgrass6:_2016;@bivand_rgrass7:_2016].
+Other examples of bridges between R and GIS included **RSAGA** [@R-RSAGA, first published 2008], **ArcGIS** [@brenning_arcgis_2012, first publish 2008], and **RQGIS** [@R-RQGIS, first published 2016].
 <!-- ADD THIS LATTER -->
 <!-- More information about interfaces between R and GIS software could be find in \@ref(gis). -->
 
@@ -2585,7 +2583,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.39
+#> [1] 2.37
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2601,7 +2599,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.32
+#> [1] 3.38
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2630,13 +2628,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.004   0.061
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.036   0.004   0.040
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.029
+#>   0.020   0.008   0.028
 ```
 
 
