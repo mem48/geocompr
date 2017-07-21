@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve40aa4329e5703d10
+preservefa2941bf4ad2a651
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -287,13 +287,13 @@ Other examples of bridges between R and GIS included **RSAGA** [@R-RSAGA, first 
 <!-- More information about interfaces between R and GIS software could be find in \@ref(gis). -->
 
 Map making was not a focus of R's early spatial capabilities.
-Although **sp** provided methods for plotting using base and lattice systems, demand for alternatives was growing in the 2000s, especially with the publication of **ggplot2** in 2006.
+Although **sp** provided methods for plotting using base and lattice systems, demand for alternatives was growing in the 2000s, especially with the publication of **ggplot2** in 2007.
 **ggplot2**'s spatial capabilities were improved in 2011 with the release of **ggmap**, which provided several tools for spatial data visualization [@kahle_ggmap:_2013].
 **ggmap** provided support for base maps with Google Maps or OpenStreetMap and spatial APIs such as Google's Geocoding service.
 In the next year, raster visualisation methods received a boost with the release of **rasterVis** [@lamigueiro_displaying_2014]. 
 
 More recently, packages have been developed with the aim of easing the creation of complex, publication-quality maps with minimal code.
-The **tmap** package (released in 2014) is the archetype in this area [@R-tmap] and facilitates the user-friendly creation of thematic maps with an intuitive command-line interfact  (also see [**mapmisc**](https://cran.r-project.org/package=mapmisc)) . 
+The **tmap** package (released in 2014) is the archetype in this area [@R-tmap] and facilitates the user-friendly creation of thematic maps with an intuitive command-line interface  (also see [**mapmisc**](https://cran.r-project.org/package=mapmisc)) . 
 <!-- ADD THIS LATTER -->
 <!-- CITE the paper Tennekes, M. (2017) tmap: Thematic Maps in R. Forthcoming in the Journal
 of Statistical Software http://von-tijn.nl/tijn/research/presentations/tmap_user2017.pdf-->
@@ -2576,7 +2576,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.34
+#> [1] 2.49
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2592,7 +2592,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.27
+#> [1] 3.28
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2621,7 +2621,7 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.056   0.004   0.060
+#>   0.064   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.040   0.000   0.042
