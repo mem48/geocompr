@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve10f992f51e00e4d2
+preserve2601c6db1834c5f5
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -247,7 +247,7 @@ While all these are still available on CRAN, **spatstat** stands out among them,
 
 The subsequent issue of R News also put spatial packages in the spotlight, with an introduction **splancs** and commentary on future prospects [@bivand_more_2001].
 Notably, the paper mentions the need for standardization of spatial interfaces, efficient mechanisms for exchanging data with GIS, and handling of spatial metadata such as coordinate reference systems (CRS).
-Two years later, he presented an extended review of existing R spatial packages at the 3rd International Workshop on Distributed Statistical Computing (DSC 2003) [@hornik_approaches_2003]. 
+Two years later an extended review of spatial packages was published [@hornik_approaches_2003]. 
 At this stage, R spatial development started to be connected with the advancement in spatial software libraries, especially the Geospatial Data Abstraction Library (GDAL) and PROJ.4.
 They allow reading and writing vector and raster data formats, and conversions between coordinate reference systems. 
 Based on the data types offered by GDAL, Bivand also proposed a basis for spatial data classes in R, with the fundamental types of spatial data highlighted - point, line, polygon and grid.
@@ -2591,7 +2591,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.34
+#> [1] 2.32
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2607,7 +2607,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.27
+#> [1] 3.3
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2636,13 +2636,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>    0.06    0.00    0.06
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.024   0.004   0.028
 ```
 
 
