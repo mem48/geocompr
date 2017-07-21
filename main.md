@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve8e4638f97d8983b0
+preserve40aa4329e5703d10
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -286,28 +286,21 @@ Other examples of bridges between R and GIS included **RSAGA** [@R-RSAGA, first 
 <!-- ADD THIS LATTER -->
 <!-- More information about interfaces between R and GIS software could be find in \@ref(gis). -->
 
-**sp** provided methods for plotting data using the two existing systems - base and lattice.
-However, a demand for convenient methods for spatial data visualizations rose with an increase in R spatial possibilities. 
-In 2007, the third system, **ggplot2**, was published.
-It gave a possibility to convert spatial objects from **sp** into `data.frames` to plot them. <!--2009-->
-**ggplot2** spatial capabilities were improved in 2011 with the release of its associated package - **ggmap**, which provided several tools for spatial data visualization [@kahle_ggmap:_2013].
-Among others, it allowed to create plots with static maps from Google Maps or OpenStreetMap as the base layer and gave access to the several spatial APIs, for example the Google Geocoding.
-In the same year, the support of the lattice system was added to the raster objects with publication of the **rasterVis** package.
-The wide range of visualization methods for numerical and categorical raster data, univariate and mutlivariate raster datasets and spatiotemporal rasters was provided in this package [@lamigueiro_displaying_2014]. 
+Map making was not a focus of R's early spatial capabilities.
+Although **sp** provided methods for plotting using base and lattice systems, demand for alternatives was growing in the 2000s, especially with the publication of **ggplot2** in 2006.
+**ggplot2**'s spatial capabilities were improved in 2011 with the release of **ggmap**, which provided several tools for spatial data visualization [@kahle_ggmap:_2013].
+**ggmap** provided support for base maps with Google Maps or OpenStreetMap and spatial APIs such as Google's Geocoding service.
+In the next year, raster visualisation methods received a boost with the release of **rasterVis** [@lamigueiro_displaying_2014]. 
 
-Moreover, several packages were develop with a main goal of creation of complex, ready-to-use map with only a few lines of code.
-The **tmap** package was released in 2014 and enabled creation of thematic maps [@R-tmap]. 
+More recently, packages have been developed with the aim of easing the creation of complex, publication-quality maps with minimal code.
+The **tmap** package (released in 2014) is the archetype in this area [@R-tmap] and facilitates the user-friendly creation of thematic maps with an intuitive command-line interfact  (also see [**mapmisc**](https://cran.r-project.org/package=mapmisc)) . 
 <!-- ADD THIS LATTER -->
 <!-- CITE the paper Tennekes, M. (2017) tmap: Thematic Maps in R. Forthcoming in the Journal
 of Statistical Software http://von-tijn.nl/tijn/research/presentations/tmap_user2017.pdf-->
-Using this package, they could be generated based on the spatial objects and its layout is optimized for maps with the use of legends, scale bars, grid lines, north arrows, etc.
-On the other hand, the **leaflet** package (released in 2015) offered creation and modification of interactive maps [@R-leaflet]. 
-It is a wrapper of the "Leaflet" JavaScript library, which output can be used on websites, R Markdown documents and Shiny apps.
-Additionally, the **mapview** package was created on top of **leaflet** [@R-mapview]. 
-It enabled quick creation of interactive visualization of spatial data containing variety of background maps, dynamic scale bar, feature attributes viewer and more.
+**tmap** provides legends, scale bars, grid lines, north arrows, optimised for mapping and integrates with the **leaflet** package (released in 2015) to offer interactive maps [@R-leaflet]. 
+Additionally, the **mapview** package was created on top of **leaflet** [@R-mapview], enabling interactive maps to be created rapidly from **sp** or **sf** objects using a range of background maps, scale bars and more.
 
-Nowadays, about 200 spatial packages exists in R (https://cran.r-project.org/web/views/Spatial.html).
-The most important recent evolution in R's spatial ecosystem has without doubt been support for simple features thanks to the **sf** package [@R-sf], described in Chapter \@ref(spatial-class).
+Among all this development, most important recent evolution in R's spatial ecosystem has without doubt been support for simple features thanks to the **sf** package [@R-sf], described in Chapter \@ref(spatial-class).
 
 <!-- ## How to read this book -->
 
@@ -2583,7 +2576,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.37
+#> [1] 2.34
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2599,7 +2592,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.38
+#> [1] 3.27
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2628,13 +2621,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.056   0.004   0.060
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.040   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.024   0.004   0.029
 ```
 
 
