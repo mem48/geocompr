@@ -735,7 +735,8 @@ world %&gt;%<span class="st"> </span>
 </ol>
 <ul>
 <li>Belongs to the Midwest region <!-- ```{r} --> <!-- us_states %>% filter(total_pop_15 < 750000) --> <!-- ``` --></li>
-<li>Had a total population in 2015 lower than 750,000 residents <!-- ```{r} --> <!-- us_states %>% filter(total_pop_15 < 750000) --> <!-- ``` --> <!-- UNITS PROBLEM! --> <!-- - Belongs to the West region, had an area smaller than 250,000 km^2 and total population in 2015 larger than 5,000,000 residents --> <!-- ```{r} --> <!-- us_states %>% filter(REGION == "West", AREA < 250000, total_pop_15 > 5000000) --> <!-- ``` --></li>
+<li>Had a total population in 2015 lower than 750,000 residents <!-- ```{r} --> <!-- us_states %>% filter(total_pop_15 < 750000) --> <!-- ``` --> <!-- UNITS PROBLEM! --></li>
+<li>Belongs to the West region, had an area smaller than 250,000 km^2 and total population in 2015 larger than 5,000,000 residents <!-- ```{r} --> <!-- us_states %>% filter(REGION == "West", AREA < 250000, total_pop_15 > 5000000) --> <!-- ``` --></li>
 <li>Belongs to the South region, had an area larger than 150,000 km^2 or total population in 2015 larger than 7,000,000 residents <!-- ```{r} --> <!-- us_states %>% filter(REGION == "South", AREA > 150000, total_pop_15 > 7000000)  --> <!-- ``` --></li>
 </ul>
 <!-- 4. Exercises about additional select and filter helper functions (one_of; between, is.na, near, etc.) -->
