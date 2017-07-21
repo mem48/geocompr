@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve2601c6db1834c5f5
+preservefdc26d59e9e16fde
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -248,22 +248,21 @@ While all these are still available on CRAN, **spatstat** stands out among them,
 The subsequent issue of R News also put spatial packages in the spotlight, with an introduction **splancs** and commentary on future prospects [@bivand_more_2001].
 Notably, the paper mentions the need for standardization of spatial interfaces, efficient mechanisms for exchanging data with GIS, and handling of spatial metadata such as coordinate reference systems (CRS).
 Two years later an extended review of spatial packages was published [@hornik_approaches_2003]. 
-At this stage, R spatial development started to be connected with the advancement in spatial software libraries, especially the Geospatial Data Abstraction Library (GDAL) and PROJ.4.
-They allow reading and writing vector and raster data formats, and conversions between coordinate reference systems. 
-Based on the data types offered by GDAL, Bivand also proposed a basis for spatial data classes in R, with the fundamental types of spatial data highlighted - point, line, polygon and grid.
-This idea was converted into a reality with creation of two, very closely connected R packages - **rgdal** and **sp**.
+Around this time the development of R's spatial capabilities started to be augmented with links to external libraries, especially GDAL) and PROJ.4, which facilitate geographic data I/O (covered in chapter \@ref(read-write)) CRS transformations respectively.
+Based on the wide range of data formats that could be read-in by GDAL, @hornik_approaches_2003 also proposed a spatial data class system, including support for points, lines, polygons and grids.
+These ideas can be seen in **rgdal** and **sp**, which became foundational packages for spatial data analysis with R [@bivand_applied_2013].
 
-The first one, **rgdal** was released on CRAN in 2003 and provided an interface to GDAL and the PROJ.4 libraries [@R-rgdal].
-It gave unmatched abilities to read and write dozens of different spatial data formats.
+**rgdal**, first released in 2003, greatly extended R's spatial capabilities in terms of access to spatial data formats previously unnavaible to R users.
 Importantly, it enabled storing information about coordinate reference system and allowed for map projection and datum transformation.
+**sp**, released in 2005, overcame R's inability to distinguish spatial and non-spatial objects.
+Prior to 2005, spatial coordinates were generally were treated as any other number. 
+**sp** provided generic classes and methods for spatial data.
+The sophisticated class system supported points, lines, polygons and grids, with and without attribute data. 
 
-The second one, **sp**, was created in 2003-2004 and its first version was released on CRAN in 2005. 
-This package was an answer to the major R spatial shortcoming - inability to distinguish spatial and non-spatial objects, as prior to the creation of **sp**, spatial coordinates were treated as numbers. 
-**sp** provided classes and methods for spatial data. 
-Spatial objects in this package could be represented as a one of four **sp** structures - points, lines, polygons and grids, all of which had two version - with and without attribute data. <!--???-->
+<!--???-->
 <!-- points, multipoints, pixels, full grid, line, lines, spatial lines, polygon, polygons, spatial polygons -->
-These objects were built using S4 classes, where all the information (such as bounding box, coordinate reference system, attribute table) were stored in specific slots.
-Attribute data in **sp** were represented as `data.frame`, which enabled users to do non-spatial processing, for example data subsetting or manipulation.
+**sp** used the S4 class system, which allowed each piece of 'spatially specific' information (such as bounding box, coordinate reference system, attribute table) to stored in slots, accessed with the `@` symbol.
+Attribute data in **sp** were stored as a `data.frame` in the `@data` slot, enabling non-spatial data operations to work alongside spatial operations (covered in chapters \@ref(attr) and \@ref(spatial-data-operations) respectively).
 Equally Important, this package also implemented a set of spatial methods.
 For example, it allowed for spatial summary and retrieval of spatial information, such as a number of dimensions, bounding box or spatial coordinates of the data.
 The **sp** package together with **rgdal** made possible transformations between coordinate reference systems and provided mapping capabilities using either the base plotting system or the lattice system.
@@ -2591,7 +2590,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.32
+#> [1] 2.36
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2607,7 +2606,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.3
+#> [1] 3.21
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2636,13 +2635,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.040   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.028
+#>   0.016   0.012   0.028
 ```
 
 
