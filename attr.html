@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-07-21">
+<meta name="date" content="2017-07-22">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -737,15 +737,14 @@ world %&gt;%<span class="st"> </span>
 <li>Belongs to the Midwest region <!-- ```{r} --> <!-- us_states %>% filter(total_pop_15 < 750000) --> <!-- ``` --></li>
 <li>Had a total population in 2015 lower than 750,000 residents <!-- ```{r} --> <!-- us_states %>% filter(total_pop_15 < 750000) --> <!-- ``` --> <!-- UNITS PROBLEM! --></li>
 <li>Belongs to the West region, had an area smaller than 250,000 km^2 and total population in 2015 larger than 5,000,000 residents <!-- ```{r} --> <!-- us_states %>% filter(REGION == "West", AREA < 250000, total_pop_15 > 5000000) --> <!-- ``` --></li>
-<li>Belongs to the South region, had an area larger than 150,000 km^2 or total population in 2015 larger than 7,000,000 residents <!-- ```{r} --> <!-- us_states %>% filter(REGION == "South", AREA > 150000, total_pop_15 > 7000000)  --> <!-- ``` --></li>
+<li>Belongs to the South region, had an area larger than 150,000 km^2 or total population in 2015 larger than 7,000,000 residents <!-- ```{r} --> <!-- us_states %>% filter(REGION == "South", AREA > 150000, total_pop_15 > 7000000)  --> <!-- ``` --> <!-- 4. Exercises about additional select and filter helper functions (one_of; between, is.na, near, etc.) --></li>
 </ul>
-<!-- 4. Exercises about additional select and filter helper functions (one_of; between, is.na, near, etc.) -->
 <!-- Attribute aggregation -->
+<ol start="4" style="list-style-type: decimal">
+<li>What was the total population in 2015 in the <code>us_states</code> database? What’s the minumum and maximum value of the total population in 2015? <!-- ```{r} --> <!-- us_states %>% summarize(total_pop = sum(total_pop_15),  --> <!--                         min_pop = min(total_pop_15),  --> <!--                         max_pop = max(total_pop_15)) --> <!-- ``` --></li>
+<li>How many states are in each region? <!-- ```{r} --> <!-- us_states %>%  --> <!--   group_by(REGION) %>%  --> <!--   summarize(nr_of_states = n()) --> <!-- ``` --></li>
+</ol>
 <!-- 
-us states data
-1. what's the total population of USA
-2. what's the min and max of total_pop
-3. how many states are in each region
 4. what's the min and max of total_pop for each region? what's the total population of each region
 -->
 <!-- Attribute joining -->

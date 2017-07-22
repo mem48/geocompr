@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-07-21'
+date: '2017-07-22'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -40,7 +40,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-07-21 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-07-22 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveeab2f83a437f99b7
+preserve7ee26fe1e89ec268
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2042,15 +2042,24 @@ Hint: try to use helper functions, such as `contains` or `starts_with`.
 <!-- ```{r} -->
 <!-- us_states %>% filter(REGION == "South", AREA > 150000, total_pop_15 > 7000000)  -->
 <!-- ``` -->
-
 <!-- 4. Exercises about additional select and filter helper functions (one_of; between, is.na, near, etc.) -->
 
 <!-- Attribute aggregation -->
+4. What was the total population in 2015 in the `us_states` database? What's the minumum and maximum value of the total population in 2015?
+<!-- ```{r} -->
+<!-- us_states %>% summarize(total_pop = sum(total_pop_15),  -->
+<!--                         min_pop = min(total_pop_15),  -->
+<!--                         max_pop = max(total_pop_15)) -->
+<!-- ``` -->
+5. How many states are in each region?
+<!-- ```{r} -->
+<!-- us_states %>%  -->
+<!--   group_by(REGION) %>%  -->
+<!--   summarize(nr_of_states = n()) -->
+<!-- ``` -->
+
+
 <!-- 
-us states data
-1. what's the total population of USA
-2. what's the min and max of total_pop
-3. how many states are in each region
 4. what's the min and max of total_pop for each region? what's the total population of each region
 -->
 
@@ -2591,7 +2600,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.34
+#> [1] 2.39
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2636,13 +2645,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.061
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.044   0.000   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.020   0.008   0.030
 ```
 
 
