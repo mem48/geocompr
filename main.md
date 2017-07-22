@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserved20d042d9419328d
+preserve00d63d360b273b8b
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2067,9 +2067,18 @@ Hint: try to use helper functions, such as `contains` or `starts_with`.
 <!-- ``` -->
 
 <!-- Attribute joining -->
-<!-- 
-two version of us states data - one spatial (non-economical) and one non-spatial (economical)
--->
+7. Add variables from `us_states_df` to `us_states` and create a new object called `us_states_stats`. What is the best function to do it? Which variable is the key in the both datasets? What is the class of a new object?
+<!-- maybe it's better to have a different colname in us_states_df? change this before the next CRAN version -->
+<!-- ```{r} -->
+<!-- us_states_stats = us_states %>% -->
+<!--   left_join(us_states_df, by = "NAME") -->
+<!-- class(us_states_stats) -->
+<!-- ``` -->
+8. `us_states_df` has two more variables than `us_states`. How you can find them?
+<!-- ```{r} -->
+<!-- us_states_df %>%  -->
+<!--   anti_join(us_states, by = "NAME") -->
+<!-- ``` -->
 
 
 <!-- Attribute creation -->
@@ -2603,7 +2612,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.4
+#> [1] 2.29
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2619,7 +2628,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.23
+#> [1] 3.28
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2648,13 +2657,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.043
+#>   0.048   0.000   0.046
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.033
+#>   0.024   0.008   0.033
 ```
 
 

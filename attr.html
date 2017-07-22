@@ -746,9 +746,10 @@ world %&gt;%<span class="st"> </span>
 <li>What was the minumum and maximum total population in 2015 in each region? What was the total population in 2015 in each region? <!-- ```{r} --> <!-- us_states %>%  --> <!--   group_by(REGION) %>%  --> <!--   summarize(min_pop = min(total_pop_15), --> <!--             max_pop = max(total_pop_15), --> <!--             tot_pop = sum(total_pop_15)) --> <!-- ``` --></li>
 </ol>
 <!-- Attribute joining -->
-<!-- 
-two version of us states data - one spatial (non-economical) and one non-spatial (economical)
--->
+<ol start="7" style="list-style-type: decimal">
+<li>Add variables from <code>us_states_df</code> to <code>us_states</code> and create a new object called <code>us_states_stats</code>. What is the best function to do it? Which variable is the key in the both datasets? What is the class of a new object? <!-- maybe it's better to have a different colname in us_states_df? change this before the next CRAN version --> <!-- ```{r} --> <!-- us_states_stats = us_states %>% --> <!--   left_join(us_states_df, by = "NAME") --> <!-- class(us_states_stats) --> <!-- ``` --></li>
+<li><code>us_states_df</code> has two more variables than <code>us_states</code>. How you can find them? <!-- ```{r} --> <!-- us_states_df %>%  --> <!--   anti_join(us_states, by = "NAME") --> <!-- ``` --></li>
+</ol>
 <!-- Attribute creation -->
 <!-- 
 us states data
