@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve7ee26fe1e89ec268
+preserve67ecb91a655303c2
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2045,7 +2045,7 @@ Hint: try to use helper functions, such as `contains` or `starts_with`.
 <!-- 4. Exercises about additional select and filter helper functions (one_of; between, is.na, near, etc.) -->
 
 <!-- Attribute aggregation -->
-4. What was the total population in 2015 in the `us_states` database? What's the minumum and maximum value of the total population in 2015?
+4. What was the total population in 2015 in the `us_states` database? What was the minumum and maximum total population in 2015?
 <!-- ```{r} -->
 <!-- us_states %>% summarize(total_pop = sum(total_pop_15),  -->
 <!--                         min_pop = min(total_pop_15),  -->
@@ -2057,11 +2057,14 @@ Hint: try to use helper functions, such as `contains` or `starts_with`.
 <!--   group_by(REGION) %>%  -->
 <!--   summarize(nr_of_states = n()) -->
 <!-- ``` -->
-
-
-<!-- 
-4. what's the min and max of total_pop for each region? what's the total population of each region
--->
+6. What was the minumum and maximum total population in 2015 in each region? What was the total population in 2015 in each region?
+<!-- ```{r} -->
+<!-- us_states %>%  -->
+<!--   group_by(REGION) %>%  -->
+<!--   summarize(min_pop = min(total_pop_15), -->
+<!--             max_pop = max(total_pop_15), -->
+<!--             tot_pop = sum(total_pop_15)) -->
+<!-- ``` -->
 
 <!-- Attribute joining -->
 <!-- 
@@ -2600,7 +2603,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.39
+#> [1] 2.27
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2616,7 +2619,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.36
+#> [1] 3.13
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2645,10 +2648,10 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>   0.088   0.000   0.089
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.044
+#>   0.048   0.000   0.045
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
 #>   0.020   0.008   0.030

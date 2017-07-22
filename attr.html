@@ -741,12 +741,10 @@ world %&gt;%<span class="st"> </span>
 </ul>
 <!-- Attribute aggregation -->
 <ol start="4" style="list-style-type: decimal">
-<li>What was the total population in 2015 in the <code>us_states</code> database? What’s the minumum and maximum value of the total population in 2015? <!-- ```{r} --> <!-- us_states %>% summarize(total_pop = sum(total_pop_15),  --> <!--                         min_pop = min(total_pop_15),  --> <!--                         max_pop = max(total_pop_15)) --> <!-- ``` --></li>
+<li>What was the total population in 2015 in the <code>us_states</code> database? What was the minumum and maximum total population in 2015? <!-- ```{r} --> <!-- us_states %>% summarize(total_pop = sum(total_pop_15),  --> <!--                         min_pop = min(total_pop_15),  --> <!--                         max_pop = max(total_pop_15)) --> <!-- ``` --></li>
 <li>How many states are in each region? <!-- ```{r} --> <!-- us_states %>%  --> <!--   group_by(REGION) %>%  --> <!--   summarize(nr_of_states = n()) --> <!-- ``` --></li>
+<li>What was the minumum and maximum total population in 2015 in each region? What was the total population in 2015 in each region? <!-- ```{r} --> <!-- us_states %>%  --> <!--   group_by(REGION) %>%  --> <!--   summarize(min_pop = min(total_pop_15), --> <!--             max_pop = max(total_pop_15), --> <!--             tot_pop = sum(total_pop_15)) --> <!-- ``` --></li>
 </ol>
-<!-- 
-4. what's the min and max of total_pop for each region? what's the total population of each region
--->
 <!-- Attribute joining -->
 <!-- 
 two version of us states data - one spatial (non-economical) and one non-spatial (economical)
