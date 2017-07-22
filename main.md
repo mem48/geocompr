@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve371024294bd2606c
+preservec1446821e3e3c117
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2045,7 +2045,7 @@ Hint: try to use helper functions, such as `contains` or `starts_with`.
 <!-- 4. Exercises about additional select and filter helper functions (one_of; between, is.na, near, etc.) -->
 
 <!-- Attribute aggregation -->
-4. What was the total population in 2015 in the `us_states` database? What was the minumum and maximum total population in 2015?
+4. What was the total population in 2015 in the `us_states` database? What was the minimum and maximum total population in 2015?
 <!-- ```{r} -->
 <!-- us_states %>% summarize(total_pop = sum(total_pop_15),  -->
 <!--                         min_pop = min(total_pop_15),  -->
@@ -2057,7 +2057,7 @@ Hint: try to use helper functions, such as `contains` or `starts_with`.
 <!--   group_by(REGION) %>%  -->
 <!--   summarize(nr_of_states = n()) -->
 <!-- ``` -->
-6. What was the minumum and maximum total population in 2015 in each region? What was the total population in 2015 in each region?
+6. What was the minimum and maximum total population in 2015 in each region? What was the total population in 2015 in each region?
 <!-- ```{r} -->
 <!-- us_states %>%  -->
 <!--   group_by(REGION) %>%  -->
@@ -2068,25 +2068,32 @@ Hint: try to use helper functions, such as `contains` or `starts_with`.
 
 <!-- Attribute joining -->
 7. Add variables from `us_states_df` to `us_states` and create a new object called `us_states_stats`. What is the best function to do it? Which variable is the key in the both datasets? What is the class of a new object?
-<!-- maybe it's better to have a different colname in us_states_df? change this before the next CRAN version -->
 <!-- ```{r} -->
 <!-- us_states_stats = us_states %>% -->
-<!--   left_join(us_states_df, by = "NAME") -->
+<!--   left_join(us_states_df, by = c("NAME" = "state")) -->
 <!-- class(us_states_stats) -->
 <!-- ``` -->
 8. `us_states_df` has two more variables than `us_states`. How you can find them?
 <!-- ```{r} -->
-<!-- us_states_df %>%  -->
-<!--   anti_join(us_states, by = "NAME") -->
+<!-- us_states_df %>% -->
+<!--   anti_join(us_states, by = c("state" = "NAME")) -->
 <!-- ``` -->
 
-
 <!-- Attribute creation -->
+9. What was the population density in 2015 in each state? What was the population density in 2010 in each state?
+<!-- ```{r} -->
+<!-- us_states2 = us_states %>%  -->
+<!--   mutate(pop_dens_15 = total_pop_15/AREA,  -->
+<!--          pop_dens_10 = total_pop_10/AREA) -->
+<!-- ``` -->
+10. How much the population density changed between 2010 and 2015 in each state? Calculate the change in percentages.
+<!-- ```{r} -->
+<!-- us_states2 %>%  -->
+<!--   mutate(pop_dens_diff_10_15 = pop_dens_15 - pop_dens_10, -->
+<!--          pop_dens_diff_10_15p = (pop_dens_diff_10_15/pop_dens_15) * 100) -->
+<!-- ``` -->
+
 <!-- 
-us states data
-1. pop density
-2. change in time of pop
-3. area into mln of km2
 4. rename columns
 5. rename column
 -->
@@ -2612,7 +2619,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.3
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2628,7 +2635,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.27
+#> [1] 3.25
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2657,13 +2664,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.043
+#>   0.040   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.020   0.008   0.028
 ```
 
 
