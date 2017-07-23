@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-07-22'
+date: '2017-07-23'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -40,7 +40,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-07-22 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-07-23 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservec1446821e3e3c117
+preserve120b9345de95d30d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2011,7 +2011,7 @@ data("us_states_df")
 
 <!-- Attribute subsetting -->
 1. Select only the `NAME` column in `us_states` and create a new object called `us_states_name`. 
-What is the class of new object? <!--why there is a "sf" part? -->
+What is the class of the new object? <!--why there is a "sf" part? -->
 <!-- ```{r} -->
 <!-- us_states_name = us_states %>% select(NAME) -->
 <!-- class(us_states_name) -->
@@ -2092,19 +2092,33 @@ Hint: try to use helper functions, such as `contains` or `starts_with`.
 <!--   mutate(pop_dens_diff_10_15 = pop_dens_15 - pop_dens_10, -->
 <!--          pop_dens_diff_10_15p = (pop_dens_diff_10_15/pop_dens_15) * 100) -->
 <!-- ``` -->
+11. Change the columns names in `us_states` to lowercase. Try to use two helper functions - `tolower()` and `colnames()`.
+<!-- ```{r} -->
+<!-- us_states %>%  -->
+<!--   set_names(tolower(colnames(.))) -->
+<!-- ``` -->
 
-<!-- 
-4. rename columns
-5. rename column
--->
-
-<!-- Mixed excersises -->
+<!-- Mixed exercises -->
 <!-- combination of use of select, mutate, group_by, summarize, etc  -->
-<!-- 1. -->
-<!-- 2. -->
-<!-- 3. -->
-<!-- 4. -->
-<!-- 5. -->
+12. Using `us_states` and `us_states_df` create a new object called `us_states_sel`. The new object should have only two variables - `median_income_15` and `geometry`. Change the name of the `median_income_15` column to `Income`.
+<!-- ```{r} -->
+<!-- us_states %>%  -->
+<!--   left_join(us_states_df, by = c("NAME" = "state")) %>%  -->
+<!--   select(Income = median_income_15) -->
+<!-- ``` -->
+13. Calculate the change in median income between 2010 and 2015 for each state. What was the minimum, average and maximum median income in 2015 for each region? What is the region with the largest increase of the median income?
+<!-- ```{r} -->
+<!-- us_states %>%  -->
+<!--   left_join(us_states_df, by = c("NAME" = "state")) %>% -->
+<!--   mutate(income_change = median_income_15 - median_income_10) %>%  -->
+<!--   group_by(REGION) %>%  -->
+<!--   summarize(min_income_change = min(income_change), -->
+<!--             mean_income_change = mean(income_change), -->
+<!--             max_income_change = max(income_change)) %>%  -->
+<!--   filter(mean_income_change == max(mean_income_change)) %>%  -->
+<!--   pull(REGION) %>%  -->
+<!--   as.character() -->
+<!-- ``` -->
 
 <!--chapter:end:03-attribute-operations.Rmd-->
 
@@ -2619,7 +2633,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.35
+#> [1] 2.3
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2635,7 +2649,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.25
+#> [1] 3.38
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2664,13 +2678,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.060   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.041
+#>   0.044   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.024   0.004   0.029
 ```
 
 

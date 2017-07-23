@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-07-22">
+<meta name="date" content="2017-07-23">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -729,7 +729,7 @@ world %&gt;%<span class="st"> </span>
 <span class="kw">data</span>(<span class="st">&quot;us_states_df&quot;</span>)</code></pre></div>
 <!-- Attribute subsetting -->
 <ol style="list-style-type: decimal">
-<li>Select only the <code>NAME</code> column in <code>us_states</code> and create a new object called <code>us_states_name</code>. What is the class of new object? <!--why there is a "sf" part? --> <!-- ```{r} --> <!-- us_states_name = us_states %>% select(NAME) --> <!-- class(us_states_name) --> <!-- ``` --></li>
+<li>Select only the <code>NAME</code> column in <code>us_states</code> and create a new object called <code>us_states_name</code>. What is the class of the new object? <!--why there is a "sf" part? --> <!-- ```{r} --> <!-- us_states_name = us_states %>% select(NAME) --> <!-- class(us_states_name) --> <!-- ``` --></li>
 <li>Select columns which contain information about a total population. Think about as many ways as possible to do it. Hint: try to use helper functions, such as <code>contains</code> or <code>starts_with</code>. <!-- ```{r} --> <!-- us_states %>% select(total_pop_10, total_pop_15) --> <!-- us_states %>% select(starts_with("total_pop")) --> <!-- us_states %>% select(contains("total_pop")) --> <!-- ``` --></li>
 <li>Find all states that:</li>
 </ol>
@@ -754,18 +754,14 @@ world %&gt;%<span class="st"> </span>
 <ol start="9" style="list-style-type: decimal">
 <li>What was the population density in 2015 in each state? What was the population density in 2010 in each state? <!-- ```{r} --> <!-- us_states2 = us_states %>%  --> <!--   mutate(pop_dens_15 = total_pop_15/AREA,  --> <!--          pop_dens_10 = total_pop_10/AREA) --> <!-- ``` --></li>
 <li>How much the population density changed between 2010 and 2015 in each state? Calculate the change in percentages. <!-- ```{r} --> <!-- us_states2 %>%  --> <!--   mutate(pop_dens_diff_10_15 = pop_dens_15 - pop_dens_10, --> <!--          pop_dens_diff_10_15p = (pop_dens_diff_10_15/pop_dens_15) * 100) --> <!-- ``` --></li>
+<li>Change the columns names in <code>us_states</code> to lowercase. Try to use two helper functions - <code>tolower()</code> and <code>colnames()</code>. <!-- ```{r} --> <!-- us_states %>%  --> <!--   set_names(tolower(colnames(.))) --> <!-- ``` --></li>
 </ol>
-<!-- 
-4. rename columns
-5. rename column
--->
-<!-- Mixed excersises -->
+<!-- Mixed exercises -->
 <!-- combination of use of select, mutate, group_by, summarize, etc  -->
-<!-- 1. -->
-<!-- 2. -->
-<!-- 3. -->
-<!-- 4. -->
-<!-- 5. -->
+<ol start="12" style="list-style-type: decimal">
+<li>Using <code>us_states</code> and <code>us_states_df</code> create a new object called <code>us_states_sel</code>. The new object should have only two variables - <code>median_income_15</code> and <code>geometry</code>. Change the name of the <code>median_income_15</code> column to <code>Income</code>. <!-- ```{r} --> <!-- us_states %>%  --> <!--   left_join(us_states_df, by = c("NAME" = "state")) %>%  --> <!--   select(Income = median_income_15) --> <!-- ``` --></li>
+<li>Calculate the change in median income between 2010 and 2015 for each state. What was the minimum, average and maximum median income in 2015 for each region? What is the region with the largest increase of the median income? <!-- ```{r} --> <!-- us_states %>%  --> <!--   left_join(us_states_df, by = c("NAME" = "state")) %>% --> <!--   mutate(income_change = median_income_15 - median_income_10) %>%  --> <!--   group_by(REGION) %>%  --> <!--   summarize(min_income_change = min(income_change), --> <!--             mean_income_change = mean(income_change), --> <!--             max_income_change = max(income_change)) %>%  --> <!--   filter(mean_income_change == max(mean_income_change)) %>%  --> <!--   pull(REGION) %>%  --> <!--   as.character() --> <!-- ``` --></li>
+</ol>
 
 </div>
 </div>
