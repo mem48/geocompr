@@ -282,7 +282,7 @@ Figure 1.1: World at night imagery from NASA overlaid by the authors’ approxim
 <p>There are many ways to handle spatial data in R, with dozens of packages in the area.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> In this book we endeavor to teach the state-of-the-art in the field whilst ensuring that the methods are future-proof. Like many areas of software development, R’s spatial ecosystem is rapidly evolving. Because R is open source, these developments can easily build on previous work, by ‘standing on the shoulders of giants’, as Isaac Newton put it in <a href="http://digitallibrary.hsp.org/index.php/Detail/Object/Show/object_id/9285">1675</a>. This approach is advantageous because it encourages collaboration and avoids ‘reinventing the wheel’. The package <strong>sf</strong> (covered in Chapter <a href="spatial-class.html#spatial-class">2</a>), for example, builds on its predecessor <strong>sp</strong>.</p>
 <p>Shifts in R’s spatial ecosystem have been influenced by shifts in the wider R community, as exemplified by the visualisation and data processing packages <strong>ggplot2</strong> and <strong>dplyr</strong> (released in <a href="https://cran.r-project.org/src/contrib/Archive/ggplot2/">2007</a> and <a href="https://cran.r-project.org/src/contrib/Archive/dplyr/">2014</a> respectively). Alongside other packages that have a shared style and emphasis on ‘tidy data’, these were placed in the <strong>tidyverse</strong> ‘metapackage’ in late <a href="https://cran.r-project.org/src/contrib/Archive/tidyverse/">2016</a>. The <strong>tidyverse</strong> approach, with its focus on long-form data and fast, intuitively named function, has become immensely popular. This has led to demand for ‘tidy spatial data’ which has been partly met by <strong>sf</strong> and other approaches such as the GitHub package <a href="https://hypertidy.github.io/tabularaster/"><strong>tabularaster</strong></a>. Another feature of the <strong>tidyverse</strong>, which was already present in the trio of packages that <strong>sf</strong> supersedes (<strong>sp</strong>, <strong>rgeos</strong> and <strong>rgdal</strong>), is the tendency for packages to work in harmony. Although there is presently no equivalent <strong>geoverse</strong>, there are a growing number of actively developed package which are designed to work in harmony with <strong>sf</strong> (Table <a href="intro.html#tab:revdep">1.2</a>) and discussion of harmonization among R’s many spatial packages.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
 <table>
-<caption><span id="tab:revdep">Table 1.2: </span>The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-07-19 there are 18 packages which import sf.</caption>
+<caption><span id="tab:revdep">Table 1.2: </span>The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-07-21 there are 18 packages which import sf.</caption>
 <thead>
 <tr class="header">
 <th align="left">package</th>
@@ -292,11 +292,11 @@ Figure 1.1: World at night imagery from NASA overlaid by the authors’ approxim
 <tbody>
 <tr class="odd">
 <td align="left">plotly</td>
-<td align="right">1506</td>
+<td align="right">1484</td>
 </tr>
 <tr class="even">
 <td align="left">leaflet</td>
-<td align="right">495</td>
+<td align="right">491</td>
 </tr>
 <tr class="odd">
 <td align="left">mapview</td>
@@ -308,7 +308,7 @@ Figure 1.1: World at night imagery from NASA overlaid by the authors’ approxim
 </tr>
 <tr class="odd">
 <td align="left">tigris</td>
-<td align="right">105</td>
+<td align="right">108</td>
 </tr>
 </tbody>
 </table>
@@ -372,10 +372,10 @@ of Statistical Software http://von-tijn.nl/tijn/research/presentations/tmap_user
 <p>Bivand, Roger, Edzer J Pebesma, and Virgilio Gómez-Rubio. 2013. <em>Applied Spatial Data Analysis with R</em>. Vol. 747248717. Springer.</p>
 </div>
 <div id="ref-R-leaflet">
-<p>Cheng, Joe, Bhaskar Karambelkar, and Yihui Xie. 2017. <em>Leaflet: Create Interactive Web Maps with the JavaScript ’Leaflet’ Library</em>. <a href="http://rstudio.github.io/leaflet/" class="uri">http://rstudio.github.io/leaflet/</a>.</p>
+<p>Cheng, Joe, Bhaskar Karambelkar, and Yihui Xie. 2017. <em>Leaflet: Create Interactive Web Maps with the JavaScript ’Leaflet’ Library</em>. <a href="https://CRAN.R-project.org/package=leaflet" class="uri">https://CRAN.R-project.org/package=leaflet</a>.</p>
 </div>
 <div id="ref-R-tmap">
-<p>Tennekes, Martijn. 2017. <em>Tmap: Thematic Maps</em>. <a href="https://CRAN.R-project.org/package=tmap" class="uri">https://CRAN.R-project.org/package=tmap</a>.</p>
+<p>Tennekes, Martijn. 2017. <em>Tmap: Thematic Maps</em>. <a href="https://github.com/mtennekes/tmap" class="uri">https://github.com/mtennekes/tmap</a>.</p>
 </div>
 <div id="ref-R-mapview">
 <p>Appelhans, Tim, Florian Detsch, Christoph Reudenbach, and Stefan Woellauer. 2017. <em>Mapview: Interactive Viewing of Spatial Objects in R</em>. <a href="https://CRAN.R-project.org/package=mapview" class="uri">https://CRAN.R-project.org/package=mapview</a>.</p>
@@ -453,7 +453,7 @@ of Statistical Software http://von-tijn.nl/tijn/research/presentations/tmap_user
 <p>Lamigueiro, Óscar Perpiñán. 2014. <em>Displaying Time Series, Spatial, and Space-Time Data with R</em>. CRC Press.</p>
 </div>
 <div id="ref-R-sf">
-<p>Pebesma, Edzer. 2017. <em>Sf: Simple Features for R</em>. <a href="https://CRAN.R-project.org/package=sf" class="uri">https://CRAN.R-project.org/package=sf</a>.</p>
+<p>Pebesma, Edzer. 2017. <em>Sf: Simple Features for R</em>. <a href="https://github.com/r-spatial/sf/" class="uri">https://github.com/r-spatial/sf/</a>.</p>
 </div>
 </div>
 <div class="footnotes">
