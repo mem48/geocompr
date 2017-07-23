@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservecef1b1e44270f6e3
+preserve2a926f303d22e803
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -208,15 +208,15 @@ See the [r-spatial](https://github.com/r-spatial/) organisation and conversation
 ]
 
 
-Table: (\#tab:revdep)The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-07-21 there are 18 packages which import sf.
+Table: (\#tab:revdep)The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-07-22 there are 20 packages which import sf.
 
 package      Downloads
 ----------  ----------
-plotly            1484
-leaflet            491
-mapview            182
-geojsonio          137
-tigris             108
+plotly            1441
+leaflet            477
+mapview            178
+geojsonio          134
+tigris             105
 
 A surge in development time (and interest) in 'R-Geo' has followed the award of a grant by the R Consortium for the development of support for Simple Features and the resulting **sf** package (covered in \@ref(intro-sf)).
 This is illustrated in multiple places, not least the [R-sig-Geo Archives](https://stat.ethz.ch/pipermail/r-sig-geo/), a long-standing open access email list containing much R-spatial wisdom accumulated over the years.
@@ -2629,7 +2629,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.28
+#> [1] 2.4
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2645,7 +2645,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.27
+#> [1] 3.19
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2674,13 +2674,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>   0.068   0.000   0.067
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.042
+#>   0.044   0.000   0.045
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.008   0.029
+#>   0.020   0.008   0.030
 ```
 
 
