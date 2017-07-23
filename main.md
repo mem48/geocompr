@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve757bc79519d61713
+preservecef1b1e44270f6e3
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2034,16 +2034,15 @@ Hint: try to use helper functions, such as `contains` or `starts_with`.
 <!-- us_states %>% filter(total_pop_15 < 750000) -->
 <!-- ``` -->
 <!-- UNITS PROBLEM! -->
-- Belongs to the West region, had an area smaller than 250,000 km^2 and total population in 2015 larger than 5,000,000 residents
+- Belongs to the West region, had an area smaller than 250,000 km^2^ and total population in 2015 larger than 5,000,000 residents
 <!-- ```{r} -->
 <!-- us_states %>% filter(REGION == "West", AREA < 250000, total_pop_15 > 5000000) -->
 <!-- ``` -->
-- Belongs to the South region, had an area larger than 150,000 km^2 or total population in 2015 larger than 7,000,000 residents
+- Belongs to the South region, had an area larger than 150,000 km^2^ or total population in 2015 larger than 7,000,000 residents
 <!-- ```{r} -->
 <!-- us_states %>% filter(REGION == "South", AREA > 150000, total_pop_15 > 7000000)  -->
 <!-- ``` -->
 <!-- 4. Exercises about additional select and filter helper functions (one_of; between, is.na, near, etc.) -->
-
 <!-- Attribute aggregation -->
 4. What was the total population in 2015 in the `us_states` database? What was the minimum and maximum total population in 2015?
 <!-- ```{r} -->
@@ -2065,7 +2064,6 @@ Hint: try to use helper functions, such as `contains` or `starts_with`.
 <!--             max_pop = max(total_pop_15), -->
 <!--             tot_pop = sum(total_pop_15)) -->
 <!-- ``` -->
-
 <!-- Attribute joining -->
 7. Add variables from `us_states_df` to `us_states` and create a new object called `us_states_stats`. What is the best function to do it? Which variable is the key in the both datasets? What is the class of a new object?
 <!-- ```{r} -->
@@ -2078,7 +2076,6 @@ Hint: try to use helper functions, such as `contains` or `starts_with`.
 <!-- us_states_df %>% -->
 <!--   anti_join(us_states, by = c("state" = "NAME")) -->
 <!-- ``` -->
-
 <!-- Attribute creation -->
 9. What was the population density in 2015 in each state? What was the population density in 2010 in each state?
 <!-- ```{r} -->
@@ -2097,7 +2094,6 @@ Hint: try to use helper functions, such as `contains` or `starts_with`.
 <!-- us_states %>%  -->
 <!--   set_names(tolower(colnames(.))) -->
 <!-- ``` -->
-
 <!-- Mixed exercises -->
 <!-- combination of use of select, mutate, group_by, summarize, etc  -->
 12. Using `us_states` and `us_states_df` create a new object called `us_states_sel`. The new object should have only two variables - `median_income_15` and `geometry`. Change the name of the `median_income_15` column to `Income`.
@@ -2633,7 +2629,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.31
+#> [1] 2.28
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2649,7 +2645,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.24
+#> [1] 3.27
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2678,13 +2674,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.042
+#>   0.044   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.012   0.012   0.029
+#>   0.016   0.008   0.029
 ```
 
 
