@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve991f3ff4db4116f1
+preservebdb131bb1956ff89
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -198,7 +198,7 @@ Because R is open source, these developments can easily build on previous work, 
 This approach is advantageous because it encourages collaboration and avoids 'reinventing the wheel'.
 The package **sf** (covered in Chapter \@ref(spatial-class)), for example, builds on its predecessor **sp**.
 
-Shifts in R's spatial ecosystem have been influenced by shifts in the wider R community, as exemplified by the visualisation and data processing packages **ggplot2** and **dplyr** (released in [2007](https://cran.r-project.org/src/contrib/Archive/ggplot2/) and [2014](https://cran.r-project.org/src/contrib/Archive/dplyr/) respectively).
+Shifts in R's spatial ecosystem have been influenced by shifts in the wider R community, as exemplified by the visualization and data processing packages **ggplot2** and **dplyr** (released in [2007](https://cran.r-project.org/src/contrib/Archive/ggplot2/) and [2014](https://cran.r-project.org/src/contrib/Archive/dplyr/) respectively).
 Alongside other packages that have a shared style and emphasis on 'tidy data', these were placed in the **tidyverse** 'metapackage' in late [2016](https://cran.r-project.org/src/contrib/Archive/tidyverse/).
 The **tidyverse** approach, with its focus on long-form data and fast, intuitively named function, has become immensely popular.
 This has led to demand for 'tidy spatial data' which has been partly met by **sf** and other approaches such as the GitHub package [**tabularaster**](https://hypertidy.github.io/tabularaster/).
@@ -290,7 +290,7 @@ Map making was not a focus of R's early spatial capabilities.
 Although **sp** provided methods for plotting using base and lattice systems, demand for alternatives was growing in the 2000s, especially with the publication of **ggplot2** in 2007.
 **ggplot2**'s spatial capabilities were improved in 2011 with the release of **ggmap**, which provided several tools for spatial data visualization [@kahle_ggmap:_2013].
 **ggmap** provided support for base maps with Google Maps or OpenStreetMap and spatial APIs such as Google's Geocoding service.
-In the next year, raster visualisation methods received a boost with the release of **rasterVis** [@lamigueiro_displaying_2014]. 
+In the next year, raster visualization methods received a boost with the release of **rasterVis** [@lamigueiro_displaying_2014]. 
 
 More recently, packages have been developed with the aim of easing the creation of complex, publication-quality maps with minimal code.
 The **tmap** package (released in 2014) is the archetype in this area [@R-tmap] and facilitates the user-friendly creation of thematic maps with an intuitive command-line interface  (also see [**mapmisc**](https://cran.r-project.org/package=mapmisc)) . 
@@ -385,22 +385,27 @@ The **mapedit** package can be used to create spatial data manually on an intera
 p = c(1, 3)
 ```
 
-Now this can be plotted in Cartesian space:
+Now this can be plotted in Cartesian space, as illustrated in figure \@ref(fig:cartesian):
 
 
 ```r
 plot(p[1], p[2], xlim =  c(0, 5), ylim = c(0, 5))
 ```
 
-<img src="figures/unnamed-chunk-5-1.png" width="576" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="figures/cartesian-1.png" alt="Illustration of vector point data in base R." width="576" />
+<p class="caption">(\#fig:cartesian)Illustration of vector point data in base R.</p>
+</div>
 
-Generally vector points have a high level of precision (but not necessarily accuracy as we will see in \@ref(units)) as opposed to raster data which relies on cells that break the surface up into a discrete number of cells of the same size.
-This book uses simple features to work with vector data.
+Generally vector datasets have a high level of precision (but not necessarily accuracy as we will see in \@ref(units)).
+Raster datasets, by contrast, use cells that break the surface up into a cells of constant size (*resolution*). Rasters therefore aggregate spatially specific features to a given resolution resulting in small features being blurred or lost in raster datasets.
+<!-- todo: add figure(s) showing raster data and blurring? -->
+This book uses **sf** and **raster** packages to work with vector data and raster datasets respectively.
 
-### An introduction to Simple Features {#intro-sf}
+### An introduction to simple features {#intro-sf}
 
-Simple features is an open standard data model developed and endorsed by the Open Geospatial Consortium ([OGC](http://portal.opengeospatial.org/files/?artifact_id=25355)) to represent a wide range of geographical information.
-Simple features is a hierarchical data model that simplifies geographic data by condensing a complex range of geographic forms into a single geometry class.
+Simple features is an open standard developed and endorsed by the Open Geospatial Consortium ([OGC](http://portal.opengeospatial.org/files/?artifact_id=25355)) to represent a wide range of geographical information.
+It is a hierarchical data model that simplifies geographic data by condensing a complex range of geographic forms into a single geometry class.
 Only 7 out of 68 possible types of simple feature are currently used in the vast majority of GIS operations (Figure \@ref(fig:sf-ogc)).
 All of these are fully supported (with plotting methods etc) in the R package **sf** [@R-sf].^[
 The full OGC standard includes rather exotic geometry types including 'surface' and 'curve' geometry types, which currently have limited application in real world applications.
@@ -534,7 +539,7 @@ There are many advantages of **sf** over **sp**, including:
 - **sf** functions can be combined using `%>%` operator and works well with the [tidyverse](http://tidyverse.org/) collection of R packages
 - **sf** function names are relatively consistent and intuitive (all begin with `st_`) compared with the function names and syntax of the **sp**, **rgdal** and **rgeos** packages that it supersedes.
 
-A broader advantage is that simple features are so well supported by other software products, not least PostGIS, which has heavily influenced the design of **sf**.
+A broader advantage is that simple features are so well-supported by other software products, not least PostGIS, which has heavily influenced the design of **sf**.
 
 A disadvantage you should be aware of, however, is that **sf** is not *feature complete* and that it continues to evolve.
 The transition from **sp** to **sf** will likely take many years, and many spatial packages may never switch.
@@ -587,7 +592,7 @@ plot(asia, add = TRUE, col = "red")
 
 This can be very useful for quickly checking the geographic correspondence between two or more layers: 
 the `plot()` function is fast to execute and requires few lines of code, but does not create interactive maps with a wide range of options.
-For more advanced map making we recommend using a dedicated visualisation package such as **tmap**, **ggplot2**, **mapview**, or **leaflet**.
+For more advanced map making we recommend using a dedicated visualization package such as **tmap**, **ggplot2**, **mapview**, or **leaflet**.
 <!-- TODO: cross reference advanced mapping chapter -->
 
 <!-- 
@@ -860,8 +865,7 @@ st_geometrycollection(gemetrycollection_list)
 
 One `sfg` object contains only a single simple feature geometry. 
 A simple feature collection (`sfc`) is a list of `sfg` objects with information about a coordinate reference system.
-The `st_sfc()` function can be used to create `sfc` objects.
-For example, we want to collect two simple features of a point type:
+The `st_sfc()` function can be used to create `sfc` objects, as illustrated in the code below, which combines two simple features of a point type into a single feature:
 
 
 ```r
@@ -1058,13 +1062,13 @@ Simple features are created using the `st_sf()` function:
 ```r
 # sfg objects
 london_point = st_point(c(0.1, 51.5))
-craggy_island_point = st_point(c(-9.6, 53.0))
+ruan_point = st_point(c(-9, 53))
 
 # sfc object
-our_geometry = st_sfc(london_point, craggy_island_point, crs = 4326)
+our_geometry = st_sfc(london_point, ruan_point, crs = 4326)
 
 # data.frame object
-our_attributes = data.frame(name = c("London", "Craggy Island"),
+our_attributes = data.frame(name = c("London", "Ruan"),
                             temperature = c(25, 13),
                             date = c(as.Date("2017-06-21"), as.Date("2017-06-22")),
                             category = c("city", "village"),
@@ -1087,12 +1091,12 @@ sf_points
 #> Simple feature collection with 2 features and 5 fields
 #> geometry type:  POINT
 #> dimension:      XY
-#> bbox:           xmin: -9.6 ymin: 51.5 xmax: 0.1 ymax: 53
+#> bbox:           xmin: -9 ymin: 51.5 xmax: 0.1 ymax: 53
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>            name temperature       date category automatic        geometry
-#> 1        London          25 2017-06-21     city     FALSE POINT(0.1 51.5)
-#> 2 Craggy Island          13 2017-06-22  village      TRUE  POINT(-9.6 53)
+#>     name temperature       date category automatic        geometry
+#> 1 London          25 2017-06-21     city     FALSE POINT(0.1 51.5)
+#> 2   Ruan          13 2017-06-22  village      TRUE    POINT(-9 53)
 ```
 
 The resulting object has two classes - `sf` and `data.frame`:
@@ -1123,6 +1127,90 @@ This section is work in progress.
 <!-- - RasterLayer -->
 <!-- - RasterStack -->
 <!-- - RasterBrick -->
+
+## Coordinate Reference Systems
+
+This section is in progress.
+
+Despite the differences between vector and raster spatial data types, they are united by shared concepts intrinsic to spatial data. Perhaps the most important of these is Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other body).
+
+In **sf** the CRS of an object can be retrieved and set using `st_crs()` and `st_set_crs()` respectively:
+
+
+```r
+old_crs = st_crs(sf_points) # get CRS
+old_crs # print CRS
+#> $epsg
+#> [1] 4326
+#> 
+#> $proj4string
+#> [1] "+proj=longlat +datum=WGS84 +no_defs"
+#> 
+#> attr(,"class")
+#> [1] "crs"
+sf_points = st_set_crs(sf_points, 27700) # set CRS
+#> Warning: st_crs<- : replacing crs does not reproject data; use st_transform
+#> for that
+```
+
+Note the warning emitted after the CRS for `sf_points` was set to `27700`.
+This is a good thing: we have imposed a spatial reference onto data without knowing what that means.
+To discover what the 'magic number' `27700` means, we can retrieve the CRS again:
+
+
+```r
+st_crs(sf_points)
+#> $epsg
+#> [1] 27700
+#> 
+#> $proj4string
+#> [1] "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs"
+#> 
+#> attr(,"class")
+#> [1] "crs"
+```
+
+Note that the result shows that the `epsg` has been updated and that `proj4string` element of the CRS has been updated to contain, among other things `+proj=tmerc` (meaning it is a projected CRS using the [tranverse Mercator](https://en.wikipedia.org/wiki/Transverse_Mercator_projection) projection) and `+units=m` (meaning the units of the coordinates are meters).
+Another function, from the **rgdal** library, provides a note about the CRS (its name):
+
+
+```r
+crs_codes = rgdal::make_EPSG()[1:2]
+dplyr::filter(crs_codes, code == 27700)
+#>    code                                note
+#> 1 27700 # OSGB 1936 / British National Grid
+```
+
+The result shows that the EPSG code 27700 represents the British National Grid, a result that could have been found by searching online for "[CRS 27700](https://www.google.co.uk/search?q=CRS+27700)".
+This projection is clearly inappropriate for the data: the coordinates represent degrees of longitude and latitude, and this can also be seen by plotting it over a basemap, e.g. with the **mapview** package: `mapview::mapview(sf_points)`.
+
+The formula that converts a geographic point into a point on the surface of the Earth is provided by the `proj4string` element of the `crs` (see [proj4.org](http://proj4.org/) for further details):
+
+
+```r
+st_crs(27700)$proj4string
+#> [1] "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs"
+```
+
+The CRS of `sf_points` can be restored to its orginial, correct value as follows (which demonstrates another way of setting CRSs):
+
+
+```r
+st_crs(sf_points) = old_crs
+#> Warning: st_crs<- : replacing crs does not reproject data; use st_transform
+#> for that
+```
+
+### Pro tip {-}
+
+The EPSG code can be found inside the `crs` attribute of the object's geometry.
+It is hidden from view for most of the time except when the object is printed but can be can identified and set using the functions `attribute()` and `attr()`, as illustrated below:
+
+
+```r
+attr(sf_points$geometry, which = "crs")$epsg
+#> [1] 4326
+```
 
 ## Units
 
@@ -2629,7 +2717,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.38
+#> [1] 2.37
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2645,7 +2733,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.25
+#> [1] 3.23
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2674,13 +2762,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.056   0.004   0.061
+#>   0.060   0.004   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.043
+#>   0.044   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.024   0.004   0.031
 ```
 
 
