@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve8b8b171e60bdf1c3
+preserve76f1346f7ec67f2c
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2084,10 +2084,7 @@ class(world_data)
 
 ## Exercises
 
-In the exercises we’ll use the `us_states` and `us_states_df` datasets.
-The first one is a `sf` object, which contains geometry and basic information (region, area, and population) about the contiguous United States.
-The second one is `data.frame` with names of states (the contiguous United States, Alaska, Hawaii and Puerto Rico), and basic socioeconomic variables, median income and poverty level, for years 2010 and 2015.
-The data comes from the US Census Bureau, and is documented in `?us_states` and `?us_states_df`.
+For these exercises we’ll use the `us_states` and `us_states_df` datasets from the **spData** package:
 
 
 ```r
@@ -2095,6 +2092,10 @@ library(spData)
 data("us_states")
 data("us_states_df")
 ```
+
+`us_states` is a spatial object (of class `sf`), containing geometry and a few attributes (including name, region, area, and population) of states within the contiguous United States.
+`us_states_df` is a data frame (of class `data.frame`) containing the name and additional variables (including median income and poverty level, for years 2010 and 2015) of US states, including Alaska, Hawaii and Puerto Rico.
+The data comes from the US Census Bureau, and is documented in `?us_states` and `?us_states_df`.
 
 <!-- Attribute subsetting -->
 1. Select only the `NAME` column in `us_states` and create a new object called `us_states_name`. 
@@ -2716,7 +2717,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.41
+#> [1] 2.36
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2732,7 +2733,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.24
+#> [1] 3.14
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2761,13 +2762,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.065
+#>   0.068   0.000   0.070
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.044   0.000   0.045
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.032
+#>   0.020   0.012   0.033
 ```
 
 

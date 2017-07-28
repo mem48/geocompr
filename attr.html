@@ -726,10 +726,11 @@ world %&gt;%<span class="st"> </span>
 </div>
 <div id="exercises-3" class="section level2">
 <h2><span class="header-section-number">3.7</span> Exercises</h2>
-<p>In the exercises we’ll use the <code>us_states</code> and <code>us_states_df</code> datasets. The first one is a <code>sf</code> object, which contains geometry and basic information (region, area, and population) about the contiguous United States. The second one is <code>data.frame</code> with names of states (the contiguous United States, Alaska, Hawaii and Puerto Rico), and basic socioeconomic variables, median income and poverty level, for years 2010 and 2015. The data comes from the US Census Bureau, and is documented in <code>?us_states</code> and <code>?us_states_df</code>.</p>
+<p>For these exercises we’ll use the <code>us_states</code> and <code>us_states_df</code> datasets from the <strong>spData</strong> package:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spData)
 <span class="kw">data</span>(<span class="st">&quot;us_states&quot;</span>)
 <span class="kw">data</span>(<span class="st">&quot;us_states_df&quot;</span>)</code></pre></div>
+<p><code>us_states</code> is a spatial object (of class <code>sf</code>), containing geometry and a few attributes (including name, region, area, and population) of states within the contiguous United States. <code>us_states_df</code> is a data frame (of class <code>data.frame</code>) containing the name and additional variables (including median income and poverty level, for years 2010 and 2015) of US states, including Alaska, Hawaii and Puerto Rico. The data comes from the US Census Bureau, and is documented in <code>?us_states</code> and <code>?us_states_df</code>.</p>
 <!-- Attribute subsetting -->
 <ol style="list-style-type: decimal">
 <li>Select only the <code>NAME</code> column in <code>us_states</code> and create a new object called <code>us_states_name</code>. What is the class of the new object? <!--why there is a "sf" part? --> <!-- ```{r} --> <!-- us_states_name = us_states %>% select(NAME) --> <!-- class(us_states_name) --> <!-- ``` --></li>
