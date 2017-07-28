@@ -733,18 +733,25 @@ world %&gt;%<span class="st"> </span>
 <p><code>us_states</code> is a spatial object (of class <code>sf</code>), containing geometry and a few attributes (including name, region, area, and population) of states within the contiguous United States. <code>us_states_df</code> is a data frame (of class <code>data.frame</code>) containing the name and additional variables (including median income and poverty level, for years 2010 and 2015) of US states, including Alaska, Hawaii and Puerto Rico. The data comes from the US Census Bureau, and is documented in <code>?us_states</code> and <code>?us_states_df</code>.</p>
 <!-- Attribute subsetting -->
 <ol style="list-style-type: decimal">
-<li>Select only the <code>NAME</code> column in <code>us_states</code> and create a new object called <code>us_states_name</code>. What is the class of the new object? <!--why there is a "sf" part? --> <!-- ```{r} --> <!-- us_states_name = us_states %>% select(NAME) --> <!-- class(us_states_name) --> <!-- ``` --></li>
-<li>Select columns which contain information about a total population. Think about as many ways as possible to do it. Hint: try to use helper functions, such as <code>contains</code> or <code>starts_with</code>. <!-- ```{r} --> <!-- us_states %>% select(total_pop_10, total_pop_15) --> <!-- us_states %>% select(starts_with("total_pop")) --> <!-- us_states %>% select(contains("total_pop")) --> <!-- ``` --></li>
-<li>Find all states that:</li>
+<li>Create a new object called <code>us_states_name</code> that contains only the <code>NAME</code> column from the <code>us_states</code> object. What is the class of the new object? <!--why there is a "sf" part? --> <!-- ```{r} --> <!-- us_states_name = us_states %>% select(NAME) --> <!-- class(us_states_name) --> <!-- ``` --></li>
+<li>Select columns from the <code>us_states</code> object which contain population data. Obtain the same result using a different command (bonus: try to find 3 ways of obtaining the same result). Hint: try to use helper functions, such as <code>contains</code> or <code>starts_with</code> from <strong>dplyr</strong> (see <code>?contains</code>).</li>
+</ol>
+<!-- ```{r} -->
+<!-- us_states %>% select(total_pop_10, total_pop_15) -->
+<!-- us_states %>% select(starts_with("total_pop")) -->
+<!-- us_states %>% select(contains("total_pop")) -->
+<!-- ``` -->
+<ol start="3" style="list-style-type: decimal">
+<li>Find all states with the following characteristics (bonus find <em>and</em> plot them):</li>
 </ol>
 <ul>
 <li>Belongs to the Midwest region <!-- ```{r} --> <!-- us_states %>% filter(total_pop_15 < 750000) --> <!-- ``` --></li>
-<li>Had a total population in 2015 lower than 750,000 residents <!-- ```{r} --> <!-- us_states %>% filter(total_pop_15 < 750000) --> <!-- ``` --> <!-- UNITS PROBLEM! --></li>
-<li>Belongs to the West region, had an area smaller than 250,000 km<sup>2</sup> and total population in 2015 larger than 5,000,000 residents <!-- ```{r} --> <!-- us_states %>% filter(REGION == "West", AREA < 250000, total_pop_15 > 5000000) --> <!-- ``` --></li>
+<li>Had a population of fewer than 750,000 residents in 2015 <!-- ```{r} --> <!-- us_states %>% filter(total_pop_15 < 750000) --> <!-- ``` --> <!-- UNITS PROBLEM! --></li>
+<li>Belongs to the West region, has an area below 250,000 km<sup>2</sup> <em>and</em> 20015 population greater than 5,000,000 residents <!-- ```{r} --> <!-- us_states %>% filter(REGION == "West", AREA < 250000, total_pop_15 > 5000000) --> <!-- ``` --></li>
 <li>Belongs to the South region, had an area larger than 150,000 km<sup>2</sup> or total population in 2015 larger than 7,000,000 residents <!-- ```{r} --> <!-- us_states %>% filter(REGION == "South", AREA > 150000, total_pop_15 > 7000000)  --> <!-- ``` --> <!-- 4. Exercises about additional select and filter helper functions (one_of; between, is.na, near, etc.) --> <!-- Attribute aggregation --></li>
 </ul>
 <ol start="4" style="list-style-type: decimal">
-<li>What was the total population in 2015 in the <code>us_states</code> database? What was the minimum and maximum total population in 2015? <!-- ```{r} --> <!-- us_states %>% summarize(total_pop = sum(total_pop_15),  --> <!--                         min_pop = min(total_pop_15),  --> <!--                         max_pop = max(total_pop_15)) --> <!-- ``` --></li>
+<li>What was the total population in 2015 in the <code>us_states</code> dataset? What was the minimum and maximum total population in 2015? <!-- ```{r} --> <!-- us_states %>% summarize(total_pop = sum(total_pop_15),  --> <!--                         min_pop = min(total_pop_15),  --> <!--                         max_pop = max(total_pop_15)) --> <!-- ``` --></li>
 <li>How many states are in each region? <!-- ```{r} --> <!-- us_states %>%  --> <!--   group_by(REGION) %>%  --> <!--   summarize(nr_of_states = n()) --> <!-- ``` --></li>
 <li>What was the minimum and maximum total population in 2015 in each region? What was the total population in 2015 in each region? <!-- ```{r} --> <!-- us_states %>%  --> <!--   group_by(REGION) %>%  --> <!--   summarize(min_pop = min(total_pop_15), --> <!--             max_pop = max(total_pop_15), --> <!--             tot_pop = sum(total_pop_15)) --> <!-- ``` --> <!-- Attribute joining --></li>
 <li>Add variables from <code>us_states_df</code> to <code>us_states</code> and create a new object called <code>us_states_stats</code>. What is the best function to do it? Which variable is the key in the both datasets? What is the class of a new object? <!-- ```{r} --> <!-- us_states_stats = us_states %>% --> <!--   left_join(us_states_df, by = c("NAME" = "state")) --> <!-- class(us_states_stats) --> <!-- ``` --></li>
