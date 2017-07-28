@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee8eff227a7912749
+preservec06b2a42684cad96
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -337,7 +337,7 @@ We recommend getting up-to-speed with the language, with reference to resources 
 * * *
 
 After R is installed and set-up, packages which extend R must be installed and loaded for it to handle spatial data.
-On Mac and Linux operating systems there are a few additional requirements: see the [README](https://github.com/edzer/sfr) of the **sf** package for instructions.
+On Mac and Linux operating systems there are a few additional requirements: see the [README](https://github.com/r-spatial/sf) of the **sf** package for instructions.
 The **sf** and **spData** packages used in this chapter can be installed and loaded with the following commands:
 
 
@@ -420,7 +420,7 @@ All 68 types can be represented in R, although (at the time of writing) all meth
 **sf** can represent all common vector geometry types (raster data classes are not supported by **sf**): points, lines, polygons and their respective 'multi' versions (which group together features of the same type into a single feature).
 **sf** also supports geometry collections, which can contain multiple geometry types in a single feature.
 Given the breadth of geographic data forms, it may come as a surprise that a class system to support all of them is provided in a single package, which can be installed from CRAN:^[The
-development version, which may contain new features, can be installed with `devtools::install_github("edzer/sfr").`
+development version, which may contain new features, can be installed with `devtools::install_github("r-spatial/sf").`
 ]
 **sf** incorporates the functionality of the 3 main packages of the **sp** paradigm (**sp** [@R-sp] for the class system, **rgdal** [@R-rgdal] for reading and writing data, **rgeos** [@R-rgeos] for spatial operations undertaken by GEOS) in a single, cohesive whole.
 This is well-documented in **sf**'s [vignettes](http://cran.rstudio.com/package=sf):
@@ -2219,7 +2219,7 @@ library(tidyverse)
 library(units)
 ```
 
-- You must have loaded the `world` data from the spData package:
+- You must have loaded the `world` data from the **spData** package:
 
 
 ```r
@@ -2732,7 +2732,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.33
+#> [1] 3.31
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2761,13 +2761,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.062
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.041
+#>   0.040   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.028   0.000   0.029
 ```
 
 
