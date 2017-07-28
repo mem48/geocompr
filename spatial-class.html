@@ -534,7 +534,7 @@ gemetrycollection_list =<span class="st"> </span><span class="kw">list</span>(<s
 <!-- figure - image/fig1.jpg -->
 <!-- they are interconnected - points could create mulitpoints or lines; -->
 <!-- lines could create mutlilines or polygons, etc. -->
-<!-- https://edzer.github.io/sfr/articles/sf1.html -->
+<!-- https://r-spatial.github.io/sf/articles/sf1.html -->
 </div>
 <div id="sfc" class="section level4">
 <h4><span class="header-section-number">2.1.4.3</span> Simple feature collections</h4>
@@ -693,7 +693,7 @@ sf_points =<span class="st"> </span><span class="kw">st_sf</span>(our_attributes
 <!-- methods -->
 <!-- methods(class = "sf") -->
 <!-- plots -->
-<!-- https://edzer.github.io/sfr/articles/sf1.html#how-attributes-relate-to-geometries -->
+<!-- https://r-spatial.github.io/sf/articles/sf1.html#how-attributes-relate-to-geometries -->
 </div>
 </div>
 </div>
@@ -739,7 +739,7 @@ sf_points =<span class="st"> </span><span class="kw">st_set_crs</span>(sf_points
 dplyr::<span class="kw">filter</span>(crs_codes, code ==<span class="st"> </span><span class="dv">27700</span>)
 <span class="co">#&gt;    code                                note</span>
 <span class="co">#&gt; 1 27700 # OSGB 1936 / British National Grid</span></code></pre></div>
-<p>The result shows that the EPSG code 27700 represents the British National Grid, a result that could have been found by searching online for “<a href="https://www.google.co.uk/search?q=CRS+27700">CRS 27700</a>”. This projection is clearly inappropriate for the data: the coordinates represent degrees of longitude and latitude, and this can also be seen by plotting it over a basemap, e.g. with the <strong>mapview</strong> package: <code>mapview::mapview(sf_points)</code>.</p>
+<p>The result shows that the EPSG code 27700 represents the British National Grid, a result that could have been found by searching online for “<a href="https://www.google.com/search?q=CRS+27700">CRS 27700</a>”. This projection is clearly inappropriate for the data: the coordinates represent degrees of longitude and latitude, and this can also be seen by plotting it over a basemap, e.g. with the <strong>mapview</strong> package: <code>mapview::mapview(sf_points)</code>.</p>
 <p>The formula that converts a geographic point into a point on the surface of the Earth is provided by the <code>proj4string</code> element of the <code>crs</code> (see <a href="http://proj4.org/">proj4.org</a> for further details):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crs</span>(<span class="dv">27700</span>)$proj4string
 <span class="co">#&gt; [1] &quot;+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs&quot;</span></code></pre></div>
