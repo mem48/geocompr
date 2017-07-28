@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea589ff64568f319e
+preservee8eff227a7912749
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -231,7 +231,7 @@ So time invested in learning the 'new ways' of handling spatial data and, hopefu
 <p class="caption">(\#fig:cranlogs)The popularity of spatial packages in R. The y-axis shows the average number of downloads, within a 30-day rolling window, of R's top 5 spatial packages, defined as those with the highest number of downloads within the last 30 days.</p>
 </div>
 
-## The history of geocomputing with R
+## R's spatial history
 
 There are many benefits of using recent packages such as **sf**, with the caveat that they are generally less stable than mature packages such as **sp**.
 This is captured by the saying "if you live on the cutting edge you risk getting hurt", meaning that older packages may be more appropriate for applications requiring stability and backwards-compatibility with other mature packages.
@@ -2716,7 +2716,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.3
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2732,7 +2732,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.36
+#> [1] 3.33
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2761,13 +2761,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>   0.064   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.042
+#>   0.044   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.020   0.008   0.029
 ```
 
 
