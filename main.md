@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservecb831d6b49079d53
+preserve85e6273f7d792b0a
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -411,7 +411,6 @@ The full OGC standard includes rather exotic geometry types including 'surface' 
 All 68 types can be represented in R, although (at the time of writing) all methods, such as plotting, are only supported for the 7 types that are used.
 ]
 
-
 <div class="figure" style="text-align: center">
 <img src="figures/sf-classes.png" alt="The subset of the Simple Features class hierarchy supported by sf. Figure based on the Open Geospatial Consortium document [06-103r4](http://www.opengeospatial.org/standards/sfa)." width="100%" />
 <p class="caption">(\#fig:sf-ogc)The subset of the Simple Features class hierarchy supported by sf. Figure based on the Open Geospatial Consortium document [06-103r4](http://www.opengeospatial.org/standards/sfa).</p>
@@ -441,7 +440,7 @@ library(spData)
 data("world")
 ```
 
-In the above code **spData** silently loaded the `world` dataset (and many other spatial datasets - see [nowosad/spData](https://nowosad.github.io/spData/) for a full list).
+In the above code **spData** silently loaded the `world` dataset (and many other spatial datasets - see [the spData website](https://nowosad.github.io/spData/) for a full list).
 The dataset contains spatial and non-spatial information, as shown by the function `names()`, which reports the column headings in data frames. 
 This can be seen as the final column name of `world`:
 
@@ -517,14 +516,6 @@ world[1:2, 1:3]
 
 All this may seem rather complex, especially for a class system that is supposed to be simple.
 However, there are good reasons for organizing things this way and using **sf**.
-
-#### Exercises
-
-What does the summary of the `geometry` column tell us about the `world` dataset, in terms of:
-
-- The geometry type?
-- How many countries there are?
-- The coordinate reference system (CRS)?
 
 <!-- It's a `MULTIPOLYGON` with 177 features and a geographical (longitude/latidue) coordinate reference system (CRS) with an EPSG code of `4326`. -->
 
@@ -603,19 +594,6 @@ For more advanced map making we recommend using a dedicated visualization packag
 
 
 
-#### Exercise
-
-Using **sf**'s `plot()` command, create a map of Nigeria in context, building on the code that creates and plots Asia above (see Figure \@ref(fig:nigeria) for an example of what this could look like). 
-
-- Hint: this used the `lwd`, `main` and `col` arguments of `plot()`. 
-- Bonus: make the country boundaries a dotted grey line.
-- Hint: `border` is an additional argument of `plot()` for **sf** objects.
-
-<div class="figure" style="text-align: center">
-<img src="figures/nigeria-1.png" alt="Map of Nigeria in context illustrating sf's plotting capabilities" width="576" />
-<p class="caption">(\#fig:nigeria)Map of Nigeria in context illustrating sf's plotting capabilities</p>
-</div>
-
 #### Further work
 
 **sf** makes R data objects more closely aligned to the data model used in GDAL and GEOS, in theory making spatial data operations faster.
@@ -661,12 +639,6 @@ plot(world_centroids, add = TRUE, cex = world$pop / 1e8, lwd = 3)
 <!-- africa_centroids2 = world_centroids[sel_africa,] -->
 <!-- identical(africa_centroids, africa_centroids2) -->
 <!-- ``` -->
-
-#### Exercises
-
-- What does the `lwd` argument do in the `plot()` code that generates Figure \@ref(fig:africa). 
-- Perform the same operations and map making for another continent of your choice.
-- Bonus: Download some global geographic data and add attribute variables assigning them to the continents of the world.
 
 ### Simple feature classes {#sf_classes}
 
@@ -1220,6 +1192,11 @@ Furthermore, it also provides information on dimensionality, as illustrated by c
 
 
 ```r
+nigeria = world[world$name_long == "Nigeria",]
+```
+
+
+```r
 st_area(nigeria)
 #> 9.05e+11 m^2
 ```
@@ -1248,6 +1225,31 @@ units::set_units(st_area(nigeria), km^2)
 <!-- ``` -->
 
 <!-- ## Precision -->
+
+## Exercises
+
+1. What does the summary of the `geometry` column tell us about the `world` dataset, in terms of:
+
+- The geometry type?
+- How many countries there are?
+- The coordinate reference system (CRS)?
+
+2. Using **sf**'s `plot()` command, create a map of Nigeria in context, building on the code that creates and plots Asia above (see Figure \@ref(fig:nigeria) for an example of what this could look like). 
+
+- Hint: this used the `lwd`, `main` and `col` arguments of `plot()`. 
+- Bonus: make the country boundaries a dotted grey line.
+- Hint: `border` is an additional argument of `plot()` for **sf** objects.
+
+<div class="figure" style="text-align: center">
+<img src="figures/nigeria-1.png" alt="Map of Nigeria in context illustrating sf's plotting capabilities" width="576" />
+<p class="caption">(\#fig:nigeria)Map of Nigeria in context illustrating sf's plotting capabilities</p>
+</div>
+
+3. Exercise 3 <!--missing title-->
+
+- What does the `lwd` argument do in the `plot()` code that generates Figure \@ref(fig:africa). 
+- Perform the same operations and map making for another continent of your choice.
+- Bonus: Download some global geographic data and add attribute variables assigning them to the continents of the world.
 
 <!--chapter:end:02-spatial-data.Rmd-->
 
@@ -2718,7 +2720,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.39
+#> [1] 2.37
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2734,7 +2736,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.3
+#> [1] 3.23
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2766,10 +2768,10 @@ system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>   0.060   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.041
+#>   0.036   0.004   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.029
+#>   0.020   0.008   0.030
 ```
 
 
