@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve771e3439e8bda1d0
+preserve1cc865ff7c4daa50
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -309,16 +309,9 @@ Among all this development, most important recent evolution in R's spatial ecosy
 1. Think about the terms 'GIS', 'GDS' and 'Geocomputation' described above. Which is your favorite and and why?
 
 1. Provide 3 reasons for using a scriptable language such R for geocomputation instead of established GIS programs such as QGIS.
-  <!-- - Reproducibility: a sequence of operations is much easier to save and share when using a scripting language. -->
-  <!-- - Scalability: scripting languages make it easy to break-up the work and parallelise, making it more scalable. -->
-  <!-- - Flexibility: the building blocks of the language allows it to interface efficiently with external software, enabling R to perform a wide range of tasks (e.g. animations, online interactive maps). -->
-  <!-- - Efficiency: the GUI of GIS programs can be slow to use and install. -->
 
 1. Name two advantages and two disadvantages of using the older **sp** package compared with the new **sf** package.
-  <!-- - `+` Number of packages supported. -->
-  <!-- - `+` Stability -->
-  <!-- - `-` Slow performance -->
-  <!-- - `-` Non standard data format -->
+
 
 <!--chapter:end:01-introduction.Rmd-->
 
@@ -1240,11 +1233,6 @@ units::set_units(st_area(nigeria), km^2)
 - Bonus: make the country boundaries a dotted grey line.
 - Hint: `border` is an additional argument of `plot()` for **sf** objects.
 
-<div class="figure" style="text-align: center">
-<img src="figures/nigeria-1.png" alt="Map of Nigeria in context illustrating sf's plotting capabilities" width="576" />
-<p class="caption">(\#fig:nigeria)Map of Nigeria in context illustrating sf's plotting capabilities</p>
-</div>
-
 3. Exercise 3 <!--missing title-->
 
 - What does the `lwd` argument do in the `plot()` code that generates Figure \@ref(fig:africa). 
@@ -2102,110 +2090,28 @@ The data comes from the US Census Bureau, and is documented in `?us_states` and 
 <!-- Attribute subsetting -->
 1. Create a new object called `us_states_name` that contains only the `NAME` column from the `us_states` object. 
 What is the class of the new object? <!--why there is a "sf" part? -->
-<!-- ```{r} -->
-<!-- us_states_name = us_states %>% select(NAME) -->
-<!-- class(us_states_name) -->
-<!-- ``` -->
 2. Select columns from the `us_states` object which contain population data.
 Obtain the same result using a different command (bonus: try to find 3 ways of obtaining the same result).
 Hint: try to use helper functions, such as `contains` or `starts_with` from **dplyr** (see `?contains`).
-
-<!-- ```{r} -->
-<!-- us_states %>% select(total_pop_10, total_pop_15) -->
-<!-- us_states %>% select(starts_with("total_pop")) -->
-<!-- us_states %>% select(contains("total_pop")) -->
-<!-- ``` -->
 3. Find all states with the following characteristics (bonus find *and* plot them):
 - Belongs to the Midwest region
-<!-- ```{r} -->
-<!-- us_states %>% filter(total_pop_15 < 750000) -->
-<!-- ``` -->
-- Had a population of fewer than 750,000 residents in 2015
-<!-- ```{r} -->
-<!-- us_states %>% filter(total_pop_15 < 750000) -->
-<!-- ``` -->
-<!-- UNITS PROBLEM! -->
 - Belongs to the West region, has an area below 250,000 km^2^ *and* 20015 population greater than 5,000,000 residents
-<!-- ```{r} -->
-<!-- us_states %>% filter(REGION == "West", AREA < 250000, total_pop_15 > 5000000) -->
-<!-- ``` -->
 - Belongs to the South region, had an area larger than 150,000 km^2^ or total population in 2015 larger than 7,000,000 residents
-<!-- ```{r} -->
-<!-- us_states %>% filter(REGION == "South", AREA > 150000, total_pop_15 > 7000000)  -->
-<!-- ``` -->
-<!-- 4. Exercises about additional select and filter helper functions (one_of; between, is.na, near, etc.) -->
 <!-- Attribute aggregation -->
 4. What was the total population in 2015 in the `us_states` dataset? What was the minimum and maximum total population in 2015?
-<!-- ```{r} -->
-<!-- us_states %>% summarize(total_pop = sum(total_pop_15),  -->
-<!--                         min_pop = min(total_pop_15),  -->
-<!--                         max_pop = max(total_pop_15)) -->
-<!-- ``` -->
 5. How many states are in each region?
-<!-- ```{r} -->
-<!-- us_states %>%  -->
-<!--   group_by(REGION) %>%  -->
-<!--   summarize(nr_of_states = n()) -->
-<!-- ``` -->
 6. What was the minimum and maximum total population in 2015 in each region? What was the total population in 2015 in each region?
-<!-- ```{r} -->
-<!-- us_states %>%  -->
-<!--   group_by(REGION) %>%  -->
-<!--   summarize(min_pop = min(total_pop_15), -->
-<!--             max_pop = max(total_pop_15), -->
-<!--             tot_pop = sum(total_pop_15)) -->
-<!-- ``` -->
 <!-- Attribute joining -->
 7. Add variables from `us_states_df` to `us_states` and create a new object called `us_states_stats`. What is the best function to do it? Which variable is the key in the both datasets? What is the class of a new object?
-<!-- ```{r} -->
-<!-- us_states_stats = us_states %>% -->
-<!--   left_join(us_states_df, by = c("NAME" = "state")) -->
-<!-- class(us_states_stats) -->
-<!-- ``` -->
 8. `us_states_df` has two more variables than `us_states`. How you can find them?
-<!-- ```{r} -->
-<!-- us_states_df %>% -->
-<!--   anti_join(us_states, by = c("state" = "NAME")) -->
-<!-- ``` -->
 <!-- Attribute creation -->
 9. What was the population density in 2015 in each state? What was the population density in 2010 in each state?
-<!-- ```{r} -->
-<!-- us_states2 = us_states %>%  -->
-<!--   mutate(pop_dens_15 = total_pop_15/AREA,  -->
-<!--          pop_dens_10 = total_pop_10/AREA) -->
-<!-- ``` -->
 10. How much the population density changed between 2010 and 2015 in each state? Calculate the change in percentages.
-<!-- ```{r} -->
-<!-- us_states2 %>%  -->
-<!--   mutate(pop_dens_diff_10_15 = pop_dens_15 - pop_dens_10, -->
-<!--          pop_dens_diff_10_15p = (pop_dens_diff_10_15/pop_dens_15) * 100) -->
-<!-- ``` -->
 11. Change the columns names in `us_states` to lowercase. Try to use two helper functions - `tolower()` and `colnames()`.
-<!-- ```{r} -->
-<!-- us_states %>%  -->
-<!--   set_names(tolower(colnames(.))) -->
-<!-- ``` -->
 <!-- Mixed exercises -->
 <!-- combination of use of select, mutate, group_by, summarize, etc  -->
 12. Using `us_states` and `us_states_df` create a new object called `us_states_sel`. The new object should have only two variables - `median_income_15` and `geometry`. Change the name of the `median_income_15` column to `Income`.
-<!-- ```{r} -->
-<!-- us_states %>%  -->
-<!--   left_join(us_states_df, by = c("NAME" = "state")) %>%  -->
-<!--   select(Income = median_income_15) -->
-<!-- ``` -->
 13. Calculate the change in median income between 2010 and 2015 for each state. What was the minimum, average and maximum median income in 2015 for each region? What is the region with the largest increase of the median income?
-<!-- ```{r} -->
-<!-- us_states %>%  -->
-<!--   left_join(us_states_df, by = c("NAME" = "state")) %>% -->
-<!--   mutate(income_change = median_income_15 - median_income_10) %>%  -->
-<!--   group_by(REGION) %>%  -->
-<!--   summarize(min_income_change = min(income_change), -->
-<!--             mean_income_change = mean(income_change), -->
-<!--             max_income_change = max(income_change)) %>%  -->
-<!--   filter(mean_income_change == max(mean_income_change)) %>%  -->
-<!--   pull(REGION) %>%  -->
-<!--   as.character() -->
-<!-- ``` -->
 
 <!--chapter:end:03-attribute-operations.Rmd-->
 
@@ -2720,7 +2626,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.34
+#> [1] 2.28
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2736,7 +2642,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.18
+#> [1] 3.34
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2765,13 +2671,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.056   0.004   0.060
+#>   0.064   0.004   0.066
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.036   0.004   0.041
+#>   0.048   0.000   0.045
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.028
+#>   0.020   0.008   0.031
 ```
 
 
