@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservebb37ba5aa7d8502b
+preserve7c371fc2545605b8
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -208,15 +208,15 @@ See the [r-spatial](https://github.com/r-spatial/) organisation and conversation
 ]
 
 
-Table: (\#tab:revdep)The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-07-30 there are 21 packages which import sf.
+Table: (\#tab:revdep)The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-08-01 there are 21 packages which import sf.
 
 package      Downloads
 ----------  ----------
-plotly            1474
-leaflet            460
-mapview            198
-geojsonio          164
-tigris              97
+plotly            1600
+leaflet            489
+mapview            208
+geojsonio          173
+tigris              99
 
 A surge in development time (and interest) in 'R-Geo' has followed the award of a grant by the R Consortium for the development of support for Simple Features and the resulting **sf** package (covered in \@ref(intro-sf)).
 This is illustrated in multiple places, not least the [R-sig-Geo Archives](https://stat.ethz.ch/pipermail/r-sig-geo/), a long-standing open access email list containing much R-spatial wisdom accumulated over the years.
@@ -1254,13 +1254,11 @@ library(sf)
 library(tidyverse)
 ```
 
-- You must have loaded the `world` and `worldbank_df` data from the **spData** package:
+- You must have loaded the `world` and `worldbank_df` data which are loaded automatically by the **spData** package:
 
 
 ```r
 library(spData)
-data("world")
-data("worldbank_df")
 ```
 
 ## Introduction
@@ -2626,7 +2624,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.34
+#> [1] 2.29
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2642,7 +2640,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.23
+#> [1] 3.35
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2671,13 +2669,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.060   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.041
+#>   0.044   0.000   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.012   0.016   0.028
+#>   0.020   0.008   0.031
 ```
 
 
