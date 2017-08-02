@@ -283,7 +283,7 @@ world_buff2 =<span class="st"> </span>world[sel_buff,]</code></pre></div>
 <span class="co">#&gt; [1] &quot;2&quot;  &quot;14&quot; &quot;15&quot; &quot;27&quot; &quot;32&quot; &quot;33&quot;</span>
 <span class="kw">head</span>(<span class="kw">row.names</span>(world_buff3))
 <span class="co">#&gt; [1] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; &quot;5&quot; &quot;6&quot;</span></code></pre></div>
-<p>This discarding of row names is not something that is specific to spatial data:</p>
+<p>This discarding of row names is not something that is specific to spatial data:<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">row.names</span>(world[world$subregion ==<span class="st"> &quot;Northern Europe&quot;</span>,])
 <span class="co">#&gt;  [1] &quot;44&quot;  &quot;51&quot;  &quot;53&quot;  &quot;58&quot;  &quot;75&quot;  &quot;78&quot;  &quot;97&quot;  &quot;99&quot;  &quot;119&quot; &quot;152&quot;</span>
 <span class="kw">row.names</span>(<span class="kw">filter</span>(world, subregion ==<span class="st"> &quot;Northern Europe&quot;</span>))
@@ -486,6 +486,7 @@ world =<span class="st"> </span>world %&gt;%
 <hr />
 <ol start="13">
 <li id="fn13"><p>Interested readers can see this default value of <code>op</code> set in the first line of the function call by entering its long-form name into the console: <code>sf:::`[.sf`</code><a href="spatial-data-operations.html#fnref13">↩</a></p></li>
+<li id="fn14"><p><strong>dplyr</strong> discards row names by design. For further discussion of this decision, and some controversy, see the (closed) issue <a href="https://github.com/tidyverse/dplyr/issues/366">#366</a> in the package’s issue tracker.<a href="spatial-data-operations.html#fnref14">↩</a></p></li>
 </ol>
 </div>
             </section>

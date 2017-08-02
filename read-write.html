@@ -216,7 +216,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="read-write" class="section level1">
 <h1><span class="header-section-number">5</span> Geographic data I/O</h1>
 <p>The previous chapters provided an overview of spatial data classes in R, with a focus on simple features. This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world. <!-- Not sure if this is the place for the following two sentences... Or if so, some kind of link is missing.--> We include a section (<a href="read-write.html#visual-outputs">5.4</a>) on visualization because outputting data in a human (not just computer) readable format enables non-programmers to benefit from your work. If your aim is to use geocomputation to improve the world, e.g. by encouraging evidence-based policies, this final stage is vital.</p>
-<p>I/O is short for “input/output” which means, in plain English, “reading and writing data”. We use the acronym instead of plain English not to confuse you or to make chapter names short, but because that’s the term used in computer science and it is useful to think of data import and export from a computing perspective.<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a></p>
+<p>I/O is short for “input/output” which means, in plain English, “reading and writing data”. We use the acronym instead of plain English not to confuse you or to make chapter names short, but because that’s the term used in computer science and it is useful to think of data import and export from a computing perspective.<a href="#fn15" class="footnoteRef" id="fnref15"><sup>15</sup></a></p>
 <!-- todo: check we mention computational efficiency, disk-space and 'idempotence' -->
 <!-- Old intro to this chapter - can we salvage anything from this? -->
 <!-- Reading, writing and plotting are 3 of the most important initial stages in geocomputation. -->
@@ -252,12 +252,12 @@ world =<span class="st"> </span><span class="kw">st_read</span>(f)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(microbenchmark)
 read_world_gpkg =<span class="st"> </span><span class="kw">bench_read</span>(<span class="dt">file =</span> f, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read_world_gpkg
-<span class="co">#&gt; [1] 2.31</span></code></pre></div>
+<span class="co">#&gt; [1] 2.45</span></code></pre></div>
 <p>The results demonstrate that <strong>sf</strong> was around 2 times faster than <strong>rgdal</strong> at reading-in the world countries shapefile. The relative performance of <code>st_read()</code> compared with other functions will vary depending on file format and the nature of the data. To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/cycle_hire_osm.geojson&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
 read_lnd_geojson =<span class="st"> </span><span class="kw">bench_read</span>(<span class="dt">file =</span> f, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read_lnd_geojson
-<span class="co">#&gt; [1] 3.31</span></code></pre></div>
+<span class="co">#&gt; [1] 3.33</span></code></pre></div>
 <p>In this case <strong>sf</strong> was around 3 times faster than <strong>rgdal</strong>.</p>
 <p>To find out which data formats <strong>sf</strong> supports, run <code>st_drivers()</code>. Here, we show only the first two drivers:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_drivers =<span class="st"> </span><span class="kw">st_drivers</span>()
@@ -271,13 +271,13 @@ read_lnd_geojson =<span class="st"> </span><span class="kw">bench_read</span>(<s
 <p>The counterpart of <code>st_read()</code> is <code>st_write()</code>. It allows to write <strong>sf</strong> objects to a wide range of geographic vector file formats, including the most common ones such as <code>.geojson</code>, <code>.shp</code> and <code>.gpkg</code>. Based on the file name <code>st_write()</code> decides automatically which driver to use. How fast the writing process is depends also on the driver: <!-- Is this comparison here necessary, or shouldn't we instead focus on the automatic driver selection? --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.geojson&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;    0.06    0.00    0.06</span>
+<span class="co">#&gt;   0.064   0.000   0.063</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.shp&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)) 
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.040   0.000   0.039</span>
+<span class="co">#&gt;    0.04    0.00    0.04</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.016   0.012   0.029</span></code></pre></div>
+<span class="co">#&gt;   0.024   0.004   0.029</span></code></pre></div>
 <!-- ```{r} -->
 <!-- st_write(obj = world, dsn = "world.gpkg") -->
 <!-- ``` -->
@@ -328,8 +328,8 @@ read_lnd_geojson =<span class="st"> </span><span class="kw">bench_read</span>(<s
 </div>
 <div class="footnotes">
 <hr />
-<ol start="14">
-<li id="fn14"><p>Concepts such as computational efficiency, hard disk space and ‘idempotence’ are useful when thinking about reading and writing geographic datasets, which can become large and difficult to handle. Loading/saving data is yet another way of saying the same thing.<a href="read-write.html#fnref14">↩</a></p></li>
+<ol start="15">
+<li id="fn15"><p>Concepts such as computational efficiency, hard disk space and ‘idempotence’ are useful when thinking about reading and writing geographic datasets, which can become large and difficult to handle. Loading/saving data is yet another way of saying the same thing.<a href="read-write.html#fnref15">↩</a></p></li>
 </ol>
 </div>
             </section>
