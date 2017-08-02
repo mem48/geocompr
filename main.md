@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-08-01'
+date: '2017-08-02'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -40,7 +40,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-08-01 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-08-02 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve4e7c93de3bca4f34
+preservefa35e7cd5929c1d3
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2095,23 +2095,23 @@ Obtain the same result using a different command (bonus: try to find 3 ways of o
 Hint: try to use helper functions, such as `contains` or `starts_with` from **dplyr** (see `?contains`).
 3. Find all states with the following characteristics (bonus find *and* plot them):
 - Belongs to the Midwest region
-- Belongs to the West region, has an area below 250,000 km^2^ *and* 20015 population greater than 5,000,000 residents
+- Belongs to the West region, has an area below 250,000 km^2^ *and* 20015 population greater than 5,000,000 residents (hint: you may need to use the function `units::set_units()` or `as.numeric()`)
 - Belongs to the South region, had an area larger than 150,000 km^2^ or total population in 2015 larger than 7,000,000 residents
 <!-- Attribute aggregation -->
 4. What was the total population in 2015 in the `us_states` dataset? What was the minimum and maximum total population in 2015?
-5. How many states are in each region?
+5. How many states are there in each region?
 6. What was the minimum and maximum total population in 2015 in each region? What was the total population in 2015 in each region?
 <!-- Attribute joining -->
-7. Add variables from `us_states_df` to `us_states` and create a new object called `us_states_stats`. What is the best function to do it? Which variable is the key in the both datasets? What is the class of a new object?
+7. Add variables from `us_states_df` to `us_states` and create a new object called `us_states_stats`. What function did you use and why? Which variable is the key in the both datasets? What is the class of a new object?
 8. `us_states_df` has two more variables than `us_states`. How you can find them?
 <!-- Attribute creation -->
 9. What was the population density in 2015 in each state? What was the population density in 2010 in each state?
-10. How much the population density changed between 2010 and 2015 in each state? Calculate the change in percentages.
-11. Change the columns names in `us_states` to lowercase. Try to use two helper functions - `tolower()` and `colnames()`.
+10. How much has population density changed between 2010 and 2015 in each state? Calculate the change in percentages and map them.
+11. Change the columns names in `us_states` to lowercase. (Hint: helper functions - `tolower()` and `colnames()` may help).
 <!-- Mixed exercises -->
 <!-- combination of use of select, mutate, group_by, summarize, etc  -->
 12. Using `us_states` and `us_states_df` create a new object called `us_states_sel`. The new object should have only two variables - `median_income_15` and `geometry`. Change the name of the `median_income_15` column to `Income`.
-13. Calculate the change in median income between 2010 and 2015 for each state. What was the minimum, average and maximum median income in 2015 for each region? What is the region with the largest increase of the median income?
+13. Calculate the change in median income between 2010 and 2015 for each state. Bonuse: what was the minimum, average and maximum median income in 2015 for each region? What is the region with the largest increase of the median income?
 
 <!--chapter:end:03-attribute-operations.Rmd-->
 
@@ -2626,7 +2626,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.29
+#> [1] 2.39
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2642,7 +2642,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.26
+#> [1] 3.11
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2671,13 +2671,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.076   0.000   0.078
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.043
+#>   0.052   0.000   0.053
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.012   0.016   0.031
+#>   0.020   0.016   0.037
 ```
 
 
