@@ -278,6 +278,16 @@ world_buff2 =<span class="st"> </span>world[sel_buff,]</code></pre></div>
 <span class="co">#&gt; [1] TRUE</span>
 <span class="kw">identical</span>(<span class="dt">x =</span> world_buff, <span class="dt">y =</span> world_buff3)
 <span class="co">#&gt; [1] FALSE</span></code></pre></div>
+<p>The only difference with the third spatially subset object (<code>world_buff3</code>) is that does not retain the row names from the original object, unlike the objects created using base subsetting methods:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">row.names</span>(world_buff))
+<span class="co">#&gt; [1] &quot;2&quot;  &quot;14&quot; &quot;15&quot; &quot;27&quot; &quot;32&quot; &quot;33&quot;</span>
+<span class="kw">head</span>(<span class="kw">row.names</span>(world_buff3))
+<span class="co">#&gt; [1] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; &quot;5&quot; &quot;6&quot;</span></code></pre></div>
+<p>This discarding of row names is not something that is specific to spatial data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">row.names</span>(world[world$subregion ==<span class="st"> &quot;Northern Europe&quot;</span>,])
+<span class="co">#&gt;  [1] &quot;44&quot;  &quot;51&quot;  &quot;53&quot;  &quot;58&quot;  &quot;75&quot;  &quot;78&quot;  &quot;97&quot;  &quot;99&quot;  &quot;119&quot; &quot;152&quot;</span>
+<span class="kw">row.names</span>(<span class="kw">filter</span>(world, subregion ==<span class="st"> &quot;Northern Europe&quot;</span>))
+<span class="co">#&gt;  [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot;</span></code></pre></div>
 <div id="topological-relations" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Topological relations</h3>
 <!-- https://edzer.github.io/sfr/articles/sf3.html -->
@@ -306,7 +316,7 @@ p =<span class="st"> </span><span class="kw">st_multipoint</span>(<span class="d
 <span class="kw">plot</span>(b, <span class="dt">border =</span> <span class="st">&quot;green&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(l, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(p, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="figures/unnamed-chunk-9-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-11-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Equals:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_equals</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p>Contains:</p>
@@ -358,7 +368,7 @@ y =<span class="st"> </span>b[<span class="dv">2</span>]
 x_and_y =<span class="st"> </span><span class="kw">st_intersection</span>(x, y)
 <span class="kw">plot</span>(b)
 <span class="kw">plot</span>(x_and_y, <span class="dt">col =</span> <span class="st">&quot;lightgrey&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>) <span class="co"># color intersecting area</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-21-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-23-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>The subsequent code chunk demonstrate how this works for all combinations of the ‘venn’ diagram representing <code>x</code> and <code>y</code>, inspired by <a href="http://r4ds.had.co.nz/transform.html#logical-operators">Figure 5.1</a> of the book R for Data Science <span class="citation">(Grolemund and Wickham <a href="#ref-grolemund_r_2016">2016</a>)</span>. <!-- Todo: reference r4ds --></p>
 <div class="figure" style="text-align: center"><span id="fig:venn-clip"></span>
 <img src="figures/venn-clip-1.png" alt="Spatial equivalents of logical operators" width="576" />
