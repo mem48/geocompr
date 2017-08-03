@@ -301,7 +301,18 @@ world_buff2 =<span class="st"> </span>world[sel_buff,]</code></pre></div>
 <div id="spatial-data-aggregation" class="section level2">
 <h2><span class="header-section-number">4.3</span> Spatial data aggregation</h2>
 <p>Like attribute data aggregation, covered in section <a href="attr.html#attribute-data-aggregation">3.3</a>, spatial data aggregation is a way of <em>condensing</em> data. Aggregated data show some statistic about a variable (typically mean average or total) in relation to some kind of <em>grouping variable</em>. For attribute data aggregation the grouping variable is another variable, typically one with few unique values relative to the number of rows. The <code>continent</code> variable in the <code>world</code> dataset is a good example: there are only 8 unique continents but 177 countries. In section <a href="attr.html#attribute-data-aggregation">3.3</a> the aggregation process condensed the <code>world</code> dataset down into only 8 rows and an aggregated <code>pop</code> variable representing the total population per continent (see Figure <a href="attr.html#fig:continent-pop">3.1</a>).</p>
-<p>Spatial data aggregation is the same conceptually but uses a <em>spatial</em> grouping object: the number of rows in the output represents the number of features in the <em>grouping object</em> that relate to the <em>geometries</em> of the input dataset.</p>
+<p>Spatial data aggregation is the same conceptually but uses a <em>spatial</em> grouping object: the number of rows in the output represents the number of features in the <em>grouping object</em> that relate to the <em>geometries</em> of the input dataset. As with spatial subsetting, spatial aggregation operations work by extending existing functions. Since mid-2017 (with the release of <strong>sf</strong> <code>0.5-3</code>) the base R function <code>aggregate()</code> works with a spatial object as a grouping variable. Building on the example presented the previous section (<a href="spatial-data-operations.html#spatial-subsetting">4.2</a>), we demonstrate this by aggregating all countries in the <code>world</code> that intersect with the buffer at zero degrees longitude at latitude (represented by the <code>buff</code> object). The command below allows to answer the question, :</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">aggregate</span>(world[<span class="st">&quot;pop&quot;</span>], buff, <span class="dt">FUN =</span> sum)
+<span class="co">#&gt; although coordinates are longitude/latitude, it is assumed that they are planar</span>
+<span class="co">#&gt; Simple feature collection with 1 feature and 1 field</span>
+<span class="co">#&gt; geometry type:  POLYGON</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: -20 ymin: -20 xmax: 20 ymax: 20</span>
+<span class="co">#&gt; epsg (SRID):    4326</span>
+<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
+<span class="co">#&gt;        pop                       geometry</span>
+<span class="co">#&gt; 1 5.29e+08 POLYGON((20 0, 19.972590695...</span></code></pre></div>
+<p>Of course, the same result ()</p>
 <!-- - `aggregate.sf()` - aggregate an sf object, possibly union-ing geometries -->
 <!-- - disaggregation?? `st_cast()` - https://github.com/edzer/sfr/wiki/migrating -->
 <!-- - `group_by()` + `summarise()` - potential errors -->
@@ -390,7 +401,7 @@ p =<span class="st"> </span><span class="kw">st_multipoint</span>(<span class="d
 <span class="kw">plot</span>(b, <span class="dt">border =</span> <span class="st">&quot;green&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(l, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(p, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="figures/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Equals:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_equals</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p>Contains:</p>
@@ -442,7 +453,7 @@ y =<span class="st"> </span>b[<span class="dv">2</span>]
 x_and_y =<span class="st"> </span><span class="kw">st_intersection</span>(x, y)
 <span class="kw">plot</span>(b)
 <span class="kw">plot</span>(x_and_y, <span class="dt">col =</span> <span class="st">&quot;lightgrey&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>) <span class="co"># color intersecting area</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-26-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-27-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>The subsequent code chunk demonstrate how this works for all combinations of the ‘venn’ diagram representing <code>x</code> and <code>y</code>, inspired by <a href="http://r4ds.had.co.nz/transform.html#logical-operators">Figure 5.1</a> of the book R for Data Science <span class="citation">(Grolemund and Wickham <a href="#ref-grolemund_r_2016">2016</a>)</span>. <!-- Todo: reference r4ds --></p>
 <div class="figure" style="text-align: center"><span id="fig:venn-clip"></span>
 <img src="figures/venn-clip-1.png" alt="Spatial equivalents of logical operators" width="576" />
@@ -471,11 +482,24 @@ Figure 4.5: Randomly distributed points within the bounding box enclosing circle
 </div>
 <div id="exercises-3" class="section level3">
 <h3><span class="header-section-number">4.5.4</span> Exercises</h3>
-<p>Write code that subsets points that are contained within <code>x</code> <em>and</em> <code>y</code> (illustrated by the plot in the 2<sup>nd</sup> row and the 1<sup>st</sup> column in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.4</a>).</p>
+<ol style="list-style-type: decimal">
+<li>Write code that subsets points that are contained within <code>x</code> <em>and</em> <code>y</code> (illustrated by the plot in the 2<sup>nd</sup> row and the 1<sup>st</sup> column in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.4</a>).</li>
+</ol>
 <ul>
 <li>Create a randomly located point with the command <code>st_point()</code> (refer back to section <a href="spatial-class.html#sfg">2.1.4.2</a> to see how to create spatial data ‘from scratch’).</li>
 </ul>
-<p>scattered points with the command</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Write code that uses functions <code>aggregate()</code> and <code>st_buffer()</code> to answers the following question: What proportion of the world’s population is found within a 10 degree radius of the intersection between the equator and the <a href="https://en.wikipedia.org/wiki/9th_meridian_east">9<sup>th</sup> meridian</a>? (Advanced challenge: find the point with the highest number of people within a 10 degree radius.)</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">center9 =<span class="st"> </span><span class="kw">st_sf</span>(<span class="kw">st_sfc</span>(<span class="kw">st_point</span>(<span class="kw">c</span>(-<span class="dv">9</span>, <span class="dv">0</span>)), <span class="dt">crs =</span> <span class="dv">4326</span>))
+buff9 =<span class="st"> </span><span class="kw">st_buffer</span>(center9, <span class="dt">dist =</span> <span class="dv">10</span>)
+<span class="co">#&gt; Warning in st_buffer.sfc(st_geometry(x), dist, nQuadSegs): st_buffer does</span>
+<span class="co">#&gt; not correctly buffer longitude/latitude data, dist needs to be in decimal</span>
+<span class="co">#&gt; degrees.</span>
+agg9 =<span class="st"> </span><span class="kw">aggregate</span>(world[<span class="st">&quot;pop&quot;</span>], buff9, <span class="dt">FUN =</span> sum)
+<span class="co">#&gt; although coordinates are longitude/latitude, it is assumed that they are planar</span>
+agg9$pop /<span class="st"> </span><span class="kw">sum</span>(world$pop, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; [1] 0.00998</span></code></pre></div>
 <!-- TODO? create a series of polygons distributed evenly over the surface of the Earth and clip them. -->
 <!-- ```{r} -->
 <!-- set.seed(2018) -->

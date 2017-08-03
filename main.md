@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve23d55a793f03e4ac
+preserve3172b31e7cd37311
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2303,6 +2303,26 @@ In section \@ref(attribute-data-aggregation) the aggregation process condensed t
 
 Spatial data aggregation is the same conceptually but uses a *spatial* grouping object:
 the number of rows in the output represents the number of features in the *grouping object* that relate to the *geometries* of the input dataset.
+As with spatial subsetting, spatial aggregation operations work by extending existing functions.
+Since mid-2017 (with the release of **sf** `0.5-3`) the base R function `aggregate()` works with a spatial object as a grouping variable.
+Building on the example presented the previous section (\@ref(spatial-subsetting)), we demonstrate this by aggregating all countries in the `world` that intersect with the buffer at zero degrees longitude at latitude (represented by the `buff` object).
+The command below allows to answer the question, :
+
+
+```r
+aggregate(world["pop"], buff, FUN = sum)
+#> although coordinates are longitude/latitude, it is assumed that they are planar
+#> Simple feature collection with 1 feature and 1 field
+#> geometry type:  POLYGON
+#> dimension:      XY
+#> bbox:           xmin: -20 ymin: -20 xmax: 20 ymax: 20
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+#>        pop                       geometry
+#> 1 5.29e+08 POLYGON((20 0, 19.972590695...
+```
+
+Of course, the same result ()
 
 <!-- - `aggregate.sf()` - aggregate an sf object, possibly union-ing geometries -->
 <!-- - disaggregation?? `st_cast()` - https://github.com/edzer/sfr/wiki/migrating -->
@@ -2414,7 +2434,7 @@ plot(l, add = TRUE)
 plot(p, add = TRUE)
 ```
 
-<img src="figures/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto;" />
 
 Equals:
 
@@ -2535,7 +2555,7 @@ plot(b)
 plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
 ```
 
-<img src="figures/unnamed-chunk-26-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-27-1.png" width="576" style="display: block; margin: auto;" />
 
 The subsequent code chunk demonstrate how this works for all combinations of the 'venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
 <!-- Todo: reference r4ds -->
@@ -2576,11 +2596,23 @@ text(x = c(-0.5, 1.5), y = 1, labels = l)
 
 ### Exercises
 
-Write code that subsets points that are contained within `x` *and* `y` (illustrated by the plot in the 2^nd^ row and the 1^st^ column in Figure \@ref(fig:venn-clip)).
-
+1. Write code that subsets points that are contained within `x` *and* `y` (illustrated by the plot in the 2^nd^ row and the 1^st^ column in Figure \@ref(fig:venn-clip)).
 - Create a randomly located point with the command `st_point()` (refer back to section \@ref(sfg) to see how to create spatial data 'from scratch').
+2. Write code that uses functions `aggregate()` and `st_buffer()` to answers the following question: What proportion of the world's population is found within a 10 degree radius of the intersection between the equator and the [9^th^ meridian](https://en.wikipedia.org/wiki/9th_meridian_east)? (Advanced challenge: find the point with the highest number of people within a 10 degree radius.)
 
-scattered points with the command 
+
+```r
+center9 = st_sf(st_sfc(st_point(c(-9, 0)), crs = 4326))
+buff9 = st_buffer(center9, dist = 10)
+#> Warning in st_buffer.sfc(st_geometry(x), dist, nQuadSegs): st_buffer does
+#> not correctly buffer longitude/latitude data, dist needs to be in decimal
+#> degrees.
+agg9 = aggregate(world["pop"], buff9, FUN = sum)
+#> although coordinates are longitude/latitude, it is assumed that they are planar
+agg9$pop / sum(world$pop, na.rm = TRUE)
+#> [1] 0.00998
+```
+
 
 <!-- TODO? create a series of polygons distributed evenly over the surface of the Earth and clip them. -->
 
@@ -2691,7 +2723,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.35
+#> [1] 3.26
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2720,13 +2752,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>    0.06    0.00    0.06
+#>   0.064   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.040   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.027
+#>   0.016   0.012   0.028
 ```
 
 
