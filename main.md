@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserved760f0610453bf4a
+preserve4b3e36a5cd3ec2c9
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2249,7 +2249,7 @@ identical(x = world_buff, y = world_buff3)
 #> [1] FALSE
 ```
 
-The only difference with the third spatially subset object (`world_buff3`) is that does not retain the row names from the original object, unlike the objects created using base subsetting methods:
+One difference with the third spatially subset object (`world_buff3`) is that does not retain the row names from the original object, unlike the objects created using base subsetting methods:
 
 
 ```r
@@ -2258,6 +2258,14 @@ head(row.names(world_buff))
 head(row.names(world_buff3))
 #> [1] "1" "2" "3" "4" "5" "6"
 ```
+
+<!-- If the row names are re-set, the objects become identical: -->
+
+<!-- ```{r} -->
+<!-- row.names(world_buff3) = row.names(world_buff) -->
+<!-- identical(world_buff, world_buff3) -->
+<!-- ``` -->
+
 
 ### Note {-}
 
@@ -2646,7 +2654,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.39
+#> [1] 2.24
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2662,7 +2670,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.14
+#> [1] 3.19
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2691,13 +2699,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.076   0.000   0.075
+#>   0.060   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.045
+#>   0.044   0.004   0.047
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.016   0.016   0.032
 ```
 
 
