@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-08-02">
+<meta name="date" content="2017-08-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -175,6 +175,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#prerequisites-2"><i class="fa fa-check"></i>Prerequisites</a></li>
 <li class="chapter" data-level="4.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
 <li class="chapter" data-level="4.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-subsetting"><i class="fa fa-check"></i><b>4.2</b> Spatial subsetting</a><ul>
+<li class="chapter" data-level="" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#note"><i class="fa fa-check"></i>Note</a></li>
 <li class="chapter" data-level="4.2.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#topological-relations"><i class="fa fa-check"></i><b>4.2.1</b> Topological relations</a></li>
 <li class="chapter" data-level="4.2.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#distance-relations"><i class="fa fa-check"></i><b>4.2.2</b> Distance relations</a></li>
 <li class="chapter" data-level="4.2.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-clipping"><i class="fa fa-check"></i><b>4.2.3</b> Spatial clipping</a></li>
@@ -226,8 +227,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <ul>
 <li>You must have loaded the <code>world</code> data from the <strong>spData</strong> package:</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spData)
-<span class="kw">data</span>(<span class="st">&quot;world&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spData)</code></pre></div>
 </div>
 <div id="introduction-1" class="section level2">
 <h2><span class="header-section-number">4.1</span> Introduction</h2>
@@ -283,11 +283,14 @@ world_buff2 =<span class="st"> </span>world[sel_buff,]</code></pre></div>
 <span class="co">#&gt; [1] &quot;2&quot;  &quot;14&quot; &quot;15&quot; &quot;27&quot; &quot;32&quot; &quot;33&quot;</span>
 <span class="kw">head</span>(<span class="kw">row.names</span>(world_buff3))
 <span class="co">#&gt; [1] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; &quot;5&quot; &quot;6&quot;</span></code></pre></div>
+<div id="note" class="section level3 unnumbered">
+<h3>Note</h3>
 <p>This discarding of row names is not something that is specific to spatial data:<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">row.names</span>(world[world$subregion ==<span class="st"> &quot;Northern Europe&quot;</span>,])
 <span class="co">#&gt;  [1] &quot;44&quot;  &quot;51&quot;  &quot;53&quot;  &quot;58&quot;  &quot;75&quot;  &quot;78&quot;  &quot;97&quot;  &quot;99&quot;  &quot;119&quot; &quot;152&quot;</span>
 <span class="kw">row.names</span>(<span class="kw">filter</span>(world, subregion ==<span class="st"> &quot;Northern Europe&quot;</span>))
 <span class="co">#&gt;  [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot;</span></code></pre></div>
+</div>
 <div id="topological-relations" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Topological relations</h3>
 <!-- https://edzer.github.io/sfr/articles/sf3.html -->
