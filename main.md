@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservefa3ff754d096457e
+preserve4205570263a75c73
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2283,9 +2283,15 @@ row.names(filter(world, subregion == "Northern Europe"))
 
 ## Spatial data aggregation 
 
-Like attribute data aggregation, covered in section \@ref(attribute-data-aggregation), spatial data aggregation is a way of *condensing* data, to show some statistic about a data object (typically mean average or total) in relation to a *grouping variable*. 
-For attribute data aggregation on the world dataset, we used the `continent` variable to group the data.
-There are only 8 distinct continents so the aggregation process resulted in a map of the world divided into 8 parts represented by 8 rows of data and an aggregated `pop` variable representing the total population per continent (see Figure \@ref(fig:continent-pop)).
+Like attribute data aggregation, covered in section \@ref(attribute-data-aggregation), spatial data aggregation is a way of *condensing* data.
+Aggregated data show some statistic about a variable (typically mean average or total) in relation to some kind of *grouping variable*. 
+For attribute data aggregation the grouping variable is another variable, typically one with few unique values relative to the number of rows.
+The `continent` variable in the `world` dataset is a good example:
+there are only 8 unique continents but 177 countries.
+In section \@ref(attribute-data-aggregation) the aggregation process condensed the `world` dataset down into only 8 rows and an aggregated `pop` variable representing the total population per continent (see Figure \@ref(fig:continent-pop)).
+
+Spatial data aggregation is the same conceptually but uses a *spatial* grouping object:
+the number of rows in the output represents the number of features in the *grouping object* that relate to the *geometries* of the input dataset.
 
 <!-- - `aggregate.sf()` - aggregate an sf object, possibly union-ing geometries -->
 <!-- - disaggregation?? `st_cast()` - https://github.com/edzer/sfr/wiki/migrating -->
@@ -2658,7 +2664,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.4
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2674,7 +2680,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.28
+#> [1] 3.27
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2706,10 +2712,10 @@ system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    0.06    0.00    0.06
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.039
+#>   0.036   0.000   0.039
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.004   0.027
+#>   0.028   0.000   0.030
 ```
 
 
