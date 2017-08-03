@@ -300,6 +300,7 @@ world_buff2 =<span class="st"> </span>world[sel_buff,]</code></pre></div>
 </div>
 <div id="spatial-data-aggregation" class="section level2">
 <h2><span class="header-section-number">4.3</span> Spatial data aggregation</h2>
+<p>Like attribute data aggregation, covered in section <a href="attr.html#attribute-data-aggregation">3.3</a>, spatial data aggregation is a way of <em>condensing</em> data, to show some statistic about a data object (typically mean average or total) in relation to a <em>grouping variable</em>. For attribute data aggregation on the world dataset, we used the <code>continent</code> variable to group the data. There are only 8 distinct continents so the aggregation process resulted in a map of the world divided into 8 parts represented by 8 rows of data and an aggregated <code>pop</code> variable representing the total population per continent (see Figure <a href="attr.html#fig:continent-pop">3.1</a>).</p>
 <!-- - `aggregate.sf()` - aggregate an sf object, possibly union-ing geometries -->
 <!-- - disaggregation?? `st_cast()` - https://github.com/edzer/sfr/wiki/migrating -->
 <!-- - `group_by()` + `summarise()` - potential errors -->
