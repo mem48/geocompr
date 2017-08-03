@@ -176,14 +176,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
 <li class="chapter" data-level="4.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-subsetting"><i class="fa fa-check"></i><b>4.2</b> Spatial subsetting</a><ul>
 <li class="chapter" data-level="" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#note"><i class="fa fa-check"></i>Note</a></li>
-<li class="chapter" data-level="4.2.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#topological-relations"><i class="fa fa-check"></i><b>4.2.1</b> Topological relations</a></li>
-<li class="chapter" data-level="4.2.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#distance-relations"><i class="fa fa-check"></i><b>4.2.2</b> Distance relations</a></li>
-<li class="chapter" data-level="4.2.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-clipping"><i class="fa fa-check"></i><b>4.2.3</b> Spatial clipping</a></li>
-<li class="chapter" data-level="4.2.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#exercises-3"><i class="fa fa-check"></i><b>4.2.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-aggregation"><i class="fa fa-check"></i><b>4.3</b> Spatial data aggregation</a></li>
 <li class="chapter" data-level="4.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-joining"><i class="fa fa-check"></i><b>4.4</b> Spatial data joining</a></li>
-<li class="chapter" data-level="4.5" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-creation"><i class="fa fa-check"></i><b>4.5</b> Spatial data creation</a></li>
+<li class="chapter" data-level="4.5" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-creation"><i class="fa fa-check"></i><b>4.5</b> Spatial data creation</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#topological-relations"><i class="fa fa-check"></i><b>4.5.1</b> Topological relations</a></li>
+<li class="chapter" data-level="4.5.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#distance-relations"><i class="fa fa-check"></i><b>4.5.2</b> Distance relations</a></li>
+<li class="chapter" data-level="4.5.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-clipping"><i class="fa fa-check"></i><b>4.5.3</b> Spatial clipping</a></li>
+<li class="chapter" data-level="4.5.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#exercises-3"><i class="fa fa-check"></i><b>4.5.4</b> Exercises</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="read-write.html"><a href="read-write.html"><i class="fa fa-check"></i><b>5</b> Geographic data I/O</a><ul>
 <li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#data-input-i"><i class="fa fa-check"></i><b>5.1</b> Data Input (I)</a></li>
@@ -239,7 +240,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="spatial-subsetting" class="section level2">
 <h2><span class="header-section-number">4.2</span> Spatial subsetting</h2>
 <p>Spatial subsetting is the process of selecting only those features of a spatial object that in some way <em>intersect</em> with another spatial object. Note that ‘intersect’ in this context has a precise meaning: if <code>y</code> is used to subset features in a ‘target’ object of <code>x</code>, any features in <code>x</code> that touch, overlap or are within features in <code>y</code> will be selected. Intersect is the default operation for spatial subsetting but others can be used using the <code>op =</code> argument.<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a></p>
-<p>There are 9 well-defined operations that can be used for spatial subsetting, covered in section <a href="spatial-data-operations.html#topological-relations">4.2.1</a>. This may seem daunting but the good news is that you do not have to learn all of them separately: after you understand how to spatially subset objects that <em>intersect</em> another (via <code>st_intersects()</code>) it is easy to subset based on other types of spatial operation such as <code>st_touches()</code>, <code>st_crosses()</code> and <code>st_within()</code>. For this reason now we focus only one of the spatial subsetting operation. We use <code>st_intersects()</code> instead of any of the others not only because it the default when subsetting with <code>[</code>, <code>st_intersects()</code> is useful as a ‘catch all’ that identifies all types of spatial relations.</p>
+<p>There are 9 well-defined operations that can be used for spatial subsetting, covered in section <a href="spatial-data-operations.html#topological-relations">4.5.1</a>. This may seem daunting but the good news is that you do not have to learn all of them separately: after you understand how to spatially subset objects that <em>intersect</em> another (via <code>st_intersects()</code>) it is easy to subset based on other types of spatial operation such as <code>st_touches()</code>, <code>st_crosses()</code> and <code>st_within()</code>. For this reason now we focus only one of the spatial subsetting operation. We use <code>st_intersects()</code> instead of any of the others not only because it the default when subsetting with <code>[</code>, <code>st_intersects()</code> is useful as a ‘catch all’ that identifies all types of spatial relations.</p>
 <p>In general terms, spatial subsetting is simply the spatial equivalent of <em>attribute subsetting</em>. However, to do spatial subsetting <em>two spatial objects are needed</em> the spatial relation between which is to be established. As with attribute subsetting, spatial subsetting is a <em>binary operation</em>: an object is either selected or not. As in section <a href="attr.html#attribute-subsetting">3.2</a>, we start with base methods before describing how to do it in the <strong>tidyverse</strong>. <!-- todo: link to non-binary links, e.g. area-weighted spatial interpolation --></p>
 <!-- ### Spatial subsetting in base R -->
 <p>Attribute subsetting in base R is done with the <code>[</code> operator and passing into the square brackets a vector of class <code>integer</code> (whole numbers) or <code>logical</code> (a vector of <code>TRUE</code>s and <code>FALSE</code>s). This means <code>world[1:6,]</code> subsets the first 6 countries of the world and that <code>world[world$area_km2 &lt; 10000,]</code> returns the subset of countries that have a small surface area.</p>
@@ -264,7 +265,7 @@ Figure 4.1: Hypothetical subsetting scenario: select all countries which interse
 Figure 4.2: Subset of the <code>world</code> data selected based on their intersection with a circle 20 degrees in radius with a center point at 0 degrees longitude and 0 degrees latitude.
 </p>
 </div>
-<p>Note that countries that only just touch the giant circle are selected such as the large country at the north of plot (Algeria). <code>st_relates()</code> includes countries that only touch (but are not within or overlapping with) the selection object. Other spatial subsetting operations such as <code>st_within()</code> are more conservative, as shown in section <a href="spatial-data-operations.html#topological-relations">4.2.1</a>.</p>
+<p>Note that countries that only just touch the giant circle are selected such as the large country at the north of plot (Algeria). <code>st_relates()</code> includes countries that only touch (but are not within or overlapping with) the selection object. Other spatial subsetting operations such as <code>st_within()</code> are more conservative, as shown in section <a href="spatial-data-operations.html#topological-relations">4.5.1</a>.</p>
 <p>Before we progress to explore the differences between different spatial subsetting operations, it is worth seeing alternative ways to acheive the same result, to deepen understanding of what is going on ‘under the hood’ (vital for developing advanced geocomputation applications). The second way to reproduce the subsetting operation illustrated in Figure <a href="spatial-data-operations.html#fig:buffeq">4.2</a> simply involves expanding the operation over 2 lines:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sel_buff =<span class="st"> </span><span class="kw">st_intersects</span>(<span class="dt">x =</span> world, <span class="dt">y =</span> buff, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)
 <span class="co">#&gt; although coordinates are longitude/latitude, it is assumed that they are planar</span>
@@ -290,128 +291,6 @@ world_buff2 =<span class="st"> </span>world[sel_buff,]</code></pre></div>
 <span class="co">#&gt;  [1] &quot;44&quot;  &quot;51&quot;  &quot;53&quot;  &quot;58&quot;  &quot;75&quot;  &quot;78&quot;  &quot;97&quot;  &quot;99&quot;  &quot;119&quot; &quot;152&quot;</span>
 <span class="kw">row.names</span>(<span class="kw">filter</span>(world, subregion ==<span class="st"> &quot;Northern Europe&quot;</span>))
 <span class="co">#&gt;  [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot;</span></code></pre></div>
-</div>
-<div id="topological-relations" class="section level3">
-<h3><span class="header-section-number">4.2.1</span> Topological relations</h3>
-<!-- https://edzer.github.io/sfr/articles/sf3.html -->
-<!-- https://github.com/edzer/sfr/wiki/migrating#relevant-commands-exported-by-rgeos -->
-<!-- Relations and inverse relations -->
-<!-- http://desktop.arcgis.com/en/arcmap/latest/extensions/data-reviewer/types-of-spatial-relationships-that-can-be-validated.htm -->
-<!-- Topological relations: + difference between datatypes -->
-<!-- ?geos_binary_pred -->
-<!-- Distance relations -->
-<!-- Subset (1) points in polygons <-> (2) -->
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a1 =<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(-<span class="dv">1</span>, -<span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>, -<span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="kw">c</span>(-<span class="dv">1</span>, -<span class="dv">1</span>))))
-a2 =<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>))))
-a =<span class="st"> </span><span class="kw">st_sfc</span>(a1, a2)
-
-b1 =<span class="st"> </span>a1 *<span class="st"> </span><span class="fl">0.5</span>
-b2 =<span class="st"> </span>a2 *<span class="st"> </span><span class="fl">0.4</span> +<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>)
-b =<span class="st"> </span><span class="kw">st_sfc</span>(b1, b2)
-
-l1 =<span class="st"> </span><span class="kw">st_linestring</span>(<span class="dt">x =</span> <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">3</span>, -<span class="dv">1</span>, <span class="dv">1</span>), , <span class="dv">2</span>))
-l2 =<span class="st"> </span><span class="kw">st_linestring</span>(<span class="dt">x =</span> <span class="kw">matrix</span>(<span class="kw">c</span>(-<span class="dv">1</span>, -<span class="dv">1</span>, -<span class="fl">0.5</span>, <span class="dv">1</span>), , <span class="dv">2</span>))
-l =<span class="st"> </span><span class="kw">st_sfc</span>(l1, l2)
-
-p =<span class="st"> </span><span class="kw">st_multipoint</span>(<span class="dt">x =</span> <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, -<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.5</span>), , <span class="dv">2</span>))
-
-<span class="kw">plot</span>(a, <span class="dt">border =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">axes =</span> <span class="ot">TRUE</span>)
-<span class="kw">plot</span>(b, <span class="dt">border =</span> <span class="st">&quot;green&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
-<span class="kw">plot</span>(l, <span class="dt">add =</span> <span class="ot">TRUE</span>)
-<span class="kw">plot</span>(p, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="figures/unnamed-chunk-11-1.png" width="576" style="display: block; margin: auto;" /></p>
-<p>Equals:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_equals</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Contains:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_contains</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)
-<span class="kw">st_contains_properly</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Covers:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_covers</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)
-<span class="kw">st_covered_by</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Within:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_within</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Overlaps:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_overlaps</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Intersects:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_intersects</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Disjoint:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_disjoint</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Touches:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_touches</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Crosses:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crosses</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>DE9-IM - <a href="https://en.wikipedia.org/wiki/DE-9IM" class="uri">https://en.wikipedia.org/wiki/DE-9IM</a> <!-- https://edzer.github.io/sfr/reference/st_relate.html --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_relate</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<!-- examples (points/polygons) -->
-<!-- examples (points/lines) -->
-<!-- examples (lines/polygons) -->
-</div>
-<div id="distance-relations" class="section level3">
-<h3><span class="header-section-number">4.2.2</span> Distance relations</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_distance</span>(a, b)</code></pre></div>
-</div>
-<div id="spatial-clipping" class="section level3">
-<h3><span class="header-section-number">4.2.3</span> Spatial clipping</h3>
-<p>Spatial clipping is a form of spatial subsetting that involves changes to the <code>geometry</code> columns of at least some of the affected features.</p>
-<p>Clipping can only apply to features more complex than points: lines, polygons and their ‘multi’ equivalents. To illustrate the concept we will start with a simple example: two overlapping circles with a centrepoint 1 unit away from each other and radius of 1:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b =<span class="st"> </span><span class="kw">st_sfc</span>(<span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)), <span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))) <span class="co"># create 2 points</span>
-b =<span class="st"> </span><span class="kw">st_buffer</span>(b, <span class="dt">dist =</span> <span class="dv">1</span>) <span class="co"># convert points to circles</span>
-l =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)
-<span class="kw">plot</span>(b)
-<span class="kw">text</span>(<span class="dt">x =</span> <span class="kw">c</span>(-<span class="fl">0.5</span>, <span class="fl">1.5</span>), <span class="dt">y =</span> <span class="dv">1</span>, <span class="dt">labels =</span> l) <span class="co"># add text</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:points"></span>
-<img src="figures/points-1.png" alt="Overlapping circles." width="576" />
-<p class="caption">
-Figure 4.3: Overlapping circles.
-</p>
-</div>
-<p>Imagine you want to select not one circle or the other, but the space covered by both <code>x</code> <em>and</em> <code>y</code>. This can be done using the function <code>st_intersection()</code>, illustrated using objects named <code>x</code> and <code>y</code> which represent the left and right-hand circles:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x =<span class="st"> </span>b[<span class="dv">1</span>]
-y =<span class="st"> </span>b[<span class="dv">2</span>]
-x_and_y =<span class="st"> </span><span class="kw">st_intersection</span>(x, y)
-<span class="kw">plot</span>(b)
-<span class="kw">plot</span>(x_and_y, <span class="dt">col =</span> <span class="st">&quot;lightgrey&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>) <span class="co"># color intersecting area</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-23-1.png" width="576" style="display: block; margin: auto;" /></p>
-<p>The subsequent code chunk demonstrate how this works for all combinations of the ‘venn’ diagram representing <code>x</code> and <code>y</code>, inspired by <a href="http://r4ds.had.co.nz/transform.html#logical-operators">Figure 5.1</a> of the book R for Data Science <span class="citation">(Grolemund and Wickham <a href="#ref-grolemund_r_2016">2016</a>)</span>. <!-- Todo: reference r4ds --></p>
-<div class="figure" style="text-align: center"><span id="fig:venn-clip"></span>
-<img src="figures/venn-clip-1.png" alt="Spatial equivalents of logical operators" width="576" />
-<p class="caption">
-Figure 4.4: Spatial equivalents of logical operators
-</p>
-</div>
-<p>To illustrate the relationship between subsetting and clipping spatial data, we will subset points that cover the bounding box of the circles <code>x</code> and <code>y</code> in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.4</a>. Some points will be inside just one circle, some will be inside both and some will be inside neither. To generate the points will use a function not yet covered in this book, <code>st_sample()</code>.</p>
-<p>There are two different ways to subset points that fit into combinations of the circles: via clipping and logical operators. But first we must generate some points. We will use the <em>simple random</em> sampling strategy to sample from a box representing the extent of <code>x</code> and <code>y</code>, using the code below to generate the situation plotted in Figure <a href="spatial-data-operations.html#fig:venn-subset">4.5</a>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bb =<span class="st"> </span><span class="kw">st_bbox</span>(<span class="kw">st_union</span>(x, y))
-pmat =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(bb[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">2</span>)]), <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)
-box =<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(pmat))
-<span class="kw">set.seed</span>(<span class="dv">2017</span>)
-p =<span class="st"> </span><span class="kw">st_sample</span>(<span class="dt">x =</span> box, <span class="dt">size =</span> <span class="dv">10</span>)
-<span class="kw">plot</span>(box)
-<span class="kw">plot</span>(x, <span class="dt">add =</span> T)
-<span class="kw">plot</span>(y, <span class="dt">add =</span> T)
-<span class="kw">plot</span>(p, <span class="dt">add =</span> T)
-<span class="kw">text</span>(<span class="dt">x =</span> <span class="kw">c</span>(-<span class="fl">0.5</span>, <span class="fl">1.5</span>), <span class="dt">y =</span> <span class="dv">1</span>, <span class="dt">labels =</span> l)</code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:venn-subset"></span>
-<img src="figures/venn-subset-1.png" alt="Randomly distributed points within the bounding box enclosing circles x and y." width="576" />
-<p class="caption">
-Figure 4.5: Randomly distributed points within the bounding box enclosing circles x and y.
-</p>
-</div>
-</div>
-<div id="exercises-3" class="section level3">
-<h3><span class="header-section-number">4.2.4</span> Exercises</h3>
-<p>Write code that subsets points that are contained within <code>x</code> <em>and</em> <code>y</code> (illustrated by the plot in the 2<sup>nd</sup> row and the 1<sup>st</sup> column in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.4</a>).</p>
-<ul>
-<li>Create a randomly located point with the command <code>st_point()</code> (refer back to section <a href="spatial-class.html#sfg">2.1.4.2</a> to see how to create spatial data ‘from scratch’).</li>
-</ul>
-<p>scattered points with the command</p>
-<!-- TODO? create a series of polygons distributed evenly over the surface of the Earth and clip them. -->
-<!-- ```{r} -->
-<!-- set.seed(2018) -->
-<!-- blob_points = st_sample(x = world, size = 2) -->
-<!-- blobs = st_buffer(x = blob_points, dist = 1) -->
-<!-- plot(blobs) -->
-<!-- ``` -->
 </div>
 </div>
 <div id="spatial-data-aggregation" class="section level2">
@@ -476,7 +355,129 @@ world =<span class="st"> </span>world %&gt;%
 <span class="kw">attributes</span>(world$pop_density) =<span class="st"> </span><span class="ot">NULL</span></code></pre></div>
 <!-- ## Spatial data transformation -->
 <!-- changes classes; polygonize, etc-->
+<div id="topological-relations" class="section level3">
+<h3><span class="header-section-number">4.5.1</span> Topological relations</h3>
+<!-- https://edzer.github.io/sfr/articles/sf3.html -->
+<!-- https://github.com/edzer/sfr/wiki/migrating#relevant-commands-exported-by-rgeos -->
+<!-- Relations and inverse relations -->
+<!-- http://desktop.arcgis.com/en/arcmap/latest/extensions/data-reviewer/types-of-spatial-relationships-that-can-be-validated.htm -->
+<!-- Topological relations: + difference between datatypes -->
+<!-- ?geos_binary_pred -->
+<!-- Distance relations -->
+<!-- Subset (1) points in polygons <-> (2) -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a1 =<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(-<span class="dv">1</span>, -<span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>, -<span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="kw">c</span>(-<span class="dv">1</span>, -<span class="dv">1</span>))))
+a2 =<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>))))
+a =<span class="st"> </span><span class="kw">st_sfc</span>(a1, a2)
 
+b1 =<span class="st"> </span>a1 *<span class="st"> </span><span class="fl">0.5</span>
+b2 =<span class="st"> </span>a2 *<span class="st"> </span><span class="fl">0.4</span> +<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>)
+b =<span class="st"> </span><span class="kw">st_sfc</span>(b1, b2)
+
+l1 =<span class="st"> </span><span class="kw">st_linestring</span>(<span class="dt">x =</span> <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">3</span>, -<span class="dv">1</span>, <span class="dv">1</span>), , <span class="dv">2</span>))
+l2 =<span class="st"> </span><span class="kw">st_linestring</span>(<span class="dt">x =</span> <span class="kw">matrix</span>(<span class="kw">c</span>(-<span class="dv">1</span>, -<span class="dv">1</span>, -<span class="fl">0.5</span>, <span class="dv">1</span>), , <span class="dv">2</span>))
+l =<span class="st"> </span><span class="kw">st_sfc</span>(l1, l2)
+
+p =<span class="st"> </span><span class="kw">st_multipoint</span>(<span class="dt">x =</span> <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, -<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.5</span>), , <span class="dv">2</span>))
+
+<span class="kw">plot</span>(a, <span class="dt">border =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">axes =</span> <span class="ot">TRUE</span>)
+<span class="kw">plot</span>(b, <span class="dt">border =</span> <span class="st">&quot;green&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
+<span class="kw">plot</span>(l, <span class="dt">add =</span> <span class="ot">TRUE</span>)
+<span class="kw">plot</span>(p, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="figures/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Equals:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_equals</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>Contains:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_contains</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)
+<span class="kw">st_contains_properly</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>Covers:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_covers</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)
+<span class="kw">st_covered_by</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>Within:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_within</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>Overlaps:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_overlaps</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>Intersects:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_intersects</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>Disjoint:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_disjoint</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>Touches:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_touches</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>Crosses:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crosses</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>DE9-IM - <a href="https://en.wikipedia.org/wiki/DE-9IM" class="uri">https://en.wikipedia.org/wiki/DE-9IM</a> <!-- https://edzer.github.io/sfr/reference/st_relate.html --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_relate</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<!-- examples (points/polygons) -->
+<!-- examples (points/lines) -->
+<!-- examples (lines/polygons) -->
+</div>
+<div id="distance-relations" class="section level3">
+<h3><span class="header-section-number">4.5.2</span> Distance relations</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_distance</span>(a, b)</code></pre></div>
+</div>
+<div id="spatial-clipping" class="section level3">
+<h3><span class="header-section-number">4.5.3</span> Spatial clipping</h3>
+<p>Spatial clipping is a form of spatial subsetting that involves changes to the <code>geometry</code> columns of at least some of the affected features.</p>
+<p>Clipping can only apply to features more complex than points: lines, polygons and their ‘multi’ equivalents. To illustrate the concept we will start with a simple example: two overlapping circles with a centrepoint 1 unit away from each other and radius of 1:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b =<span class="st"> </span><span class="kw">st_sfc</span>(<span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)), <span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))) <span class="co"># create 2 points</span>
+b =<span class="st"> </span><span class="kw">st_buffer</span>(b, <span class="dt">dist =</span> <span class="dv">1</span>) <span class="co"># convert points to circles</span>
+l =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)
+<span class="kw">plot</span>(b)
+<span class="kw">text</span>(<span class="dt">x =</span> <span class="kw">c</span>(-<span class="fl">0.5</span>, <span class="fl">1.5</span>), <span class="dt">y =</span> <span class="dv">1</span>, <span class="dt">labels =</span> l) <span class="co"># add text</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:points"></span>
+<img src="figures/points-1.png" alt="Overlapping circles." width="576" />
+<p class="caption">
+Figure 4.3: Overlapping circles.
+</p>
+</div>
+<p>Imagine you want to select not one circle or the other, but the space covered by both <code>x</code> <em>and</em> <code>y</code>. This can be done using the function <code>st_intersection()</code>, illustrated using objects named <code>x</code> and <code>y</code> which represent the left and right-hand circles:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x =<span class="st"> </span>b[<span class="dv">1</span>]
+y =<span class="st"> </span>b[<span class="dv">2</span>]
+x_and_y =<span class="st"> </span><span class="kw">st_intersection</span>(x, y)
+<span class="kw">plot</span>(b)
+<span class="kw">plot</span>(x_and_y, <span class="dt">col =</span> <span class="st">&quot;lightgrey&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>) <span class="co"># color intersecting area</span></code></pre></div>
+<p><img src="figures/unnamed-chunk-26-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>The subsequent code chunk demonstrate how this works for all combinations of the ‘venn’ diagram representing <code>x</code> and <code>y</code>, inspired by <a href="http://r4ds.had.co.nz/transform.html#logical-operators">Figure 5.1</a> of the book R for Data Science <span class="citation">(Grolemund and Wickham <a href="#ref-grolemund_r_2016">2016</a>)</span>. <!-- Todo: reference r4ds --></p>
+<div class="figure" style="text-align: center"><span id="fig:venn-clip"></span>
+<img src="figures/venn-clip-1.png" alt="Spatial equivalents of logical operators" width="576" />
+<p class="caption">
+Figure 4.4: Spatial equivalents of logical operators
+</p>
+</div>
+<p>To illustrate the relationship between subsetting and clipping spatial data, we will subset points that cover the bounding box of the circles <code>x</code> and <code>y</code> in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.4</a>. Some points will be inside just one circle, some will be inside both and some will be inside neither. To generate the points will use a function not yet covered in this book, <code>st_sample()</code>.</p>
+<p>There are two different ways to subset points that fit into combinations of the circles: via clipping and logical operators. But first we must generate some points. We will use the <em>simple random</em> sampling strategy to sample from a box representing the extent of <code>x</code> and <code>y</code>, using the code below to generate the situation plotted in Figure <a href="spatial-data-operations.html#fig:venn-subset">4.5</a>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bb =<span class="st"> </span><span class="kw">st_bbox</span>(<span class="kw">st_union</span>(x, y))
+pmat =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(bb[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">2</span>)]), <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)
+box =<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(pmat))
+<span class="kw">set.seed</span>(<span class="dv">2017</span>)
+p =<span class="st"> </span><span class="kw">st_sample</span>(<span class="dt">x =</span> box, <span class="dt">size =</span> <span class="dv">10</span>)
+<span class="kw">plot</span>(box)
+<span class="kw">plot</span>(x, <span class="dt">add =</span> T)
+<span class="kw">plot</span>(y, <span class="dt">add =</span> T)
+<span class="kw">plot</span>(p, <span class="dt">add =</span> T)
+<span class="kw">text</span>(<span class="dt">x =</span> <span class="kw">c</span>(-<span class="fl">0.5</span>, <span class="fl">1.5</span>), <span class="dt">y =</span> <span class="dv">1</span>, <span class="dt">labels =</span> l)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:venn-subset"></span>
+<img src="figures/venn-subset-1.png" alt="Randomly distributed points within the bounding box enclosing circles x and y." width="576" />
+<p class="caption">
+Figure 4.5: Randomly distributed points within the bounding box enclosing circles x and y.
+</p>
+</div>
+</div>
+<div id="exercises-3" class="section level3">
+<h3><span class="header-section-number">4.5.4</span> Exercises</h3>
+<p>Write code that subsets points that are contained within <code>x</code> <em>and</em> <code>y</code> (illustrated by the plot in the 2<sup>nd</sup> row and the 1<sup>st</sup> column in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.4</a>).</p>
+<ul>
+<li>Create a randomly located point with the command <code>st_point()</code> (refer back to section <a href="spatial-class.html#sfg">2.1.4.2</a> to see how to create spatial data ‘from scratch’).</li>
+</ul>
+<p>scattered points with the command</p>
+<!-- TODO? create a series of polygons distributed evenly over the surface of the Earth and clip them. -->
+<!-- ```{r} -->
+<!-- set.seed(2018) -->
+<!-- blob_points = st_sample(x = world, size = 2) -->
+<!-- blobs = st_buffer(x = blob_points, dist = 1) -->
+<!-- plot(blobs) -->
+<!-- ``` -->
+
+</div>
 </div>
 </div>
 <h3> References</h3>

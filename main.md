@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservead8538992f7a7aff
+preserved760f0610453bf4a
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2273,6 +2273,85 @@ row.names(filter(world, subregion == "Northern Europe"))
 #>  [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10"
 ```
 
+## Spatial data aggregation 
+
+<!-- - `aggregate.sf()` - aggregate an sf object, possibly union-ing geometries -->
+<!-- - disaggregation?? `st_cast()` - https://github.com/edzer/sfr/wiki/migrating -->
+<!-- - `group_by()` + `summarise()` - potential errors -->
+<!-- - ? generalization **rmapsharper** - https://github.com/ateucher/rmapshaper -->
+<!-- `st_union` -->
+
+## Spatial data joining 
+
+<!-- e.g. two point's datasets (non-overlapping) -->
+<!-- e.g. two point's datasets (overlapping) -->
+<!-- ? topological problems of joining lines/polygons? -->
+<!-- joining different types (e.g. points + polygons = geometry) -> save as GPKG? -->
+<!-- `merge()`; `st_interpolate_aw()` -->
+
+## Spatial data creation
+
+<!-- where should "area" example be? in this or the previous chapter? -->
+<!-- `st_centroid()` -->
+<!-- `st_buffer()` -->
+<!-- http://r-spatial.org//r/2017/06/09/mapedit_0-2-0.html -->
+
+
+```r
+# add a new column
+world$area = set_units(st_area(world), value = km^2)
+world$pop_density = world$pop / world$area
+
+# OR
+world = world %>%
+        mutate(area = set_units(st_area(.), value = km^2)) %>%
+        mutate(pop_density = pop / area)
+```
+
+Note that this has created a attributes for the area and population density variables:
+
+
+```r
+attributes(world$area)
+#> $units
+#> $numerator
+#> [1] "km" "km"
+#> 
+#> $denominator
+#> character(0)
+#> 
+#> attr(,"class")
+#> [1] "symbolic_units"
+#> 
+#> $class
+#> [1] "units"
+attributes(world$pop_density)
+#> $units
+#> $numerator
+#> character(0)
+#> 
+#> $denominator
+#> [1] "km" "km"
+#> 
+#> attr(,"class")
+#> [1] "symbolic_units"
+#> 
+#> $class
+#> [1] "units"
+```
+
+These can be set to `NULL` as follows:
+
+
+```r
+attributes(world$area) = NULL
+attributes(world$pop_density) = NULL
+```
+
+
+<!-- ## Spatial data transformation -->
+<!-- changes classes; polygonize, etc-->
+
 ### Topological relations
 
 <!-- https://edzer.github.io/sfr/articles/sf3.html -->
@@ -2306,7 +2385,7 @@ plot(l, add = TRUE)
 plot(p, add = TRUE)
 ```
 
-<img src="figures/unnamed-chunk-11-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" />
 
 Equals:
 
@@ -2427,7 +2506,7 @@ plot(b)
 plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
 ```
 
-<img src="figures/unnamed-chunk-23-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-26-1.png" width="576" style="display: block; margin: auto;" />
 
 The subsequent code chunk demonstrate how this works for all combinations of the 'venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
 <!-- Todo: reference r4ds -->
@@ -2482,85 +2561,6 @@ scattered points with the command
 <!-- blobs = st_buffer(x = blob_points, dist = 1) -->
 <!-- plot(blobs) -->
 <!-- ``` -->
-
-## Spatial data aggregation 
-
-<!-- - `aggregate.sf()` - aggregate an sf object, possibly union-ing geometries -->
-<!-- - disaggregation?? `st_cast()` - https://github.com/edzer/sfr/wiki/migrating -->
-<!-- - `group_by()` + `summarise()` - potential errors -->
-<!-- - ? generalization **rmapsharper** - https://github.com/ateucher/rmapshaper -->
-<!-- `st_union` -->
-
-## Spatial data joining 
-
-<!-- e.g. two point's datasets (non-overlapping) -->
-<!-- e.g. two point's datasets (overlapping) -->
-<!-- ? topological problems of joining lines/polygons? -->
-<!-- joining different types (e.g. points + polygons = geometry) -> save as GPKG? -->
-<!-- `merge()`; `st_interpolate_aw()` -->
-
-## Spatial data creation
-
-<!-- where should "area" example be? in this or the previous chapter? -->
-<!-- `st_centroid()` -->
-<!-- `st_buffer()` -->
-<!-- http://r-spatial.org//r/2017/06/09/mapedit_0-2-0.html -->
-
-
-```r
-# add a new column
-world$area = set_units(st_area(world), value = km^2)
-world$pop_density = world$pop / world$area
-
-# OR
-world = world %>%
-        mutate(area = set_units(st_area(.), value = km^2)) %>%
-        mutate(pop_density = pop / area)
-```
-
-Note that this has created a attributes for the area and population density variables:
-
-
-```r
-attributes(world$area)
-#> $units
-#> $numerator
-#> [1] "km" "km"
-#> 
-#> $denominator
-#> character(0)
-#> 
-#> attr(,"class")
-#> [1] "symbolic_units"
-#> 
-#> $class
-#> [1] "units"
-attributes(world$pop_density)
-#> $units
-#> $numerator
-#> character(0)
-#> 
-#> $denominator
-#> [1] "km" "km"
-#> 
-#> attr(,"class")
-#> [1] "symbolic_units"
-#> 
-#> $class
-#> [1] "units"
-```
-
-These can be set to `NULL` as follows:
-
-
-```r
-attributes(world$area) = NULL
-attributes(world$pop_density) = NULL
-```
-
-
-<!-- ## Spatial data transformation -->
-<!-- changes classes; polygonize, etc-->
 
 <!--chapter:end:04-spatial-operations.Rmd-->
 
@@ -2646,7 +2646,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.34
+#> [1] 2.39
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2662,7 +2662,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.32
+#> [1] 3.14
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2691,13 +2691,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.064
+#>   0.076   0.000   0.075
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.039
+#>   0.044   0.000   0.045
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.004   0.027
+#>   0.020   0.008   0.029
 ```
 
 
