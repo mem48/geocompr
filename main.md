@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve8a37a8f38bff944c
+preservebf6c2baed0ad2c1e
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2260,7 +2260,7 @@ identical(x = world_buff, y = world_buff3)
 #> [1] FALSE
 ```
 
-One difference with the third spatially subset object (`world_buff3`) is that does not retain the row names from the original object, unlike the objects created using base subsetting methods:
+The reason that the third spatially subset object (`world_buff3`) is not identical is that **dplyr** changes the row names:
 
 
 ```r
@@ -2270,12 +2270,14 @@ head(row.names(world_buff3))
 #> [1] "1" "2" "3" "4" "5" "6"
 ```
 
-<!-- If the row names are re-set, the objects become identical: -->
+If the row names are re-set, the objects become identical:
 
-<!-- ```{r} -->
-<!-- row.names(world_buff3) = row.names(world_buff) -->
-<!-- identical(world_buff, world_buff3) -->
-<!-- ``` -->
+
+```r
+attr(world_buff3, "row.names") = attr(x = world_buff, "row.names")
+identical(world_buff, world_buff3)
+#> [1] TRUE
+```
 
 
 ### Note {-}
@@ -2434,7 +2436,7 @@ plot(l, add = TRUE)
 plot(p, add = TRUE)
 ```
 
-<img src="figures/unnamed-chunk-15-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" />
 
 Equals:
 
@@ -2555,7 +2557,7 @@ plot(b)
 plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
 ```
 
-<img src="figures/unnamed-chunk-27-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-28-1.png" width="576" style="display: block; margin: auto;" />
 
 The subsequent code chunk demonstrate how this works for all combinations of the 'venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
 <!-- Todo: reference r4ds -->
@@ -2707,7 +2709,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.31
+#> [1] 2.39
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2723,7 +2725,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.16
+#> [1] 3.32
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2752,13 +2754,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.066
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.046
+#>   0.040   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.033
+#>   0.020   0.008   0.031
 ```
 
 
