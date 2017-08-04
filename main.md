@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservebf6c2baed0ad2c1e
+preserve0910808c5080a0d8
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2307,24 +2307,26 @@ Spatial data aggregation is the same conceptually but uses a *spatial* grouping 
 the number of rows in the output represents the number of features in the *grouping object* that relate to the *geometries* of the input dataset.
 As with spatial subsetting, spatial aggregation operations work by extending existing functions.
 Since mid-2017 (with the release of **sf** `0.5-3`) the base R function `aggregate()` works with a spatial object as a grouping variable.
-Building on the example presented the previous section (\@ref(spatial-subsetting)), we demonstrate this by aggregating all countries in the `world` that intersect with the buffer at zero degrees longitude at latitude (represented by the `buff` object).
+Building on the example presented the previous section (\@ref(spatial-subsetting)), we demonstrate this by aggregating countries that by the buffer represented by the `buff` object.
 The command below allows to answer the question, :
 
 
 ```r
-aggregate(world["pop"], buff, FUN = sum)
+buff_agg = aggregate(x = world["pop"], by = buff, FUN = sum)
 #> although coordinates are longitude/latitude, it is assumed that they are planar
-#> Simple feature collection with 1 feature and 1 field
-#> geometry type:  POLYGON
-#> dimension:      XY
-#> bbox:           xmin: -20 ymin: -20 xmax: 20 ymax: 20
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>        pop                       geometry
-#> 1 5.29e+08 POLYGON((20 0, 19.972590695...
 ```
 
-Of course, the same result ()
+The result, `buff_agg`, is a spatial object with the same geometry as `by` (the circular buffer in this case) but with an additional variable, `pop` reporting summary statistics for all features in `x` that intersect with `by` (the total population of the countries that touch the buffer in this case).
+Plotting the result (with `plot(buff_agg)`) shows that the operation does not really make sense:
+Figure \@ref(fig:buff_agg) shows a population of over half a billion people in a giant circle floating off the west coast of Africa!  
+
+<div class="figure" style="text-align: center">
+<img src="figures/buff_agg-1.png" alt="Result of spatial aggregation showing the total population of countries that intersect with a large circle whose center lies at 0 degrees longitude and latituge" width="576" />
+<p class="caption">(\#fig:buff_agg)Result of spatial aggregation showing the total population of countries that intersect with a large circle whose center lies at 0 degrees longitude and latituge</p>
+</div>
+
+
+
 
 <!-- - `aggregate.sf()` - aggregate an sf object, possibly union-ing geometries -->
 <!-- - disaggregation?? `st_cast()` - https://github.com/edzer/sfr/wiki/migrating -->
@@ -2709,7 +2711,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.39
+#> [1] 2.27
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2725,7 +2727,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.32
+#> [1] 3.27
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2754,13 +2756,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.043
+#>   0.040   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.031
+#>   0.020   0.008   0.029
 ```
 
 
