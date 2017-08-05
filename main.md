@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve7a092ae021387a89
+preserveec85aac098377e96
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -208,14 +208,14 @@ See the [r-spatial](https://github.com/r-spatial/) organisation and conversation
 ]
 
 
-Table: (\#tab:revdep)The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-08-01 there are 21 packages which import sf.
+Table: (\#tab:revdep)The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-08-03 there are 22 packages which import sf.
 
 package      Downloads
 ----------  ----------
-plotly            1600
-leaflet            489
-mapview            208
-geojsonio          173
+plotly            1651
+leaflet            496
+mapview            205
+geojsonio          171
 tigris              99
 
 A surge in development time (and interest) in 'R-Geo' has followed the award of a grant by the R Consortium for the development of support for Simple Features and the resulting **sf** package (covered in \@ref(intro-sf)).
@@ -246,9 +246,9 @@ This overview described packages for spatial smoothing and interpolation (e.g. *
 While all these are still available on CRAN, **spatstat** stands out among them, as it remains dominant in the field of spatial point pattern analysis [@baddeley_spatial_2015].
 
 The subsequent issue of R News also put spatial packages in the spotlight, with an introduction **splancs** and commentary on future prospects [@bivand_more_2001].
-Notably, the paper mentions the need for standardization of spatial interfaces, efficient mechanisms for exchanging data with GIS, and handling of spatial metadata such as coordinate reference systems (CRS). Two packages for testing for spatial autocorrelation were mentioned; they were subsequently folded into **spdep** [@R-spdep].
+Notably, the paper mentions the need for standardization of spatial interfaces, efficient mechanisms for exchanging data with GIS, and handling of spatial metadata such as coordinate reference systems (CRS). Two packages for testing for spatial autocorrelation were mentioned; they were subsequently folded into **spdep** [@bivand_spdep:_2017].
 
-A package not mentioned in these overviews was **maptools** [@R-maptools], initially containing a wrapper for shapelib written by Nicholas Lewin-Koh permitting the reading of ESRI Shapefiles into nested lists. An obsolete S3 class called "Map" was used to contain a geometry nested list and a data.frame, but work on the class representation in **maptools** fed directly into **sp** before **sp** was published on CRAN.
+A package not mentioned in these overviews was **maptools** [@bivand_maptools:_2017], initially containing a wrapper for shapelib written by Nicholas Lewin-Koh permitting the reading of ESRI Shapefiles into nested lists. An obsolete S3 class called "Map" was used to contain a geometry nested list and a data.frame, but work on the class representation in **maptools** fed directly into **sp** before **sp** was published on CRAN.
 
 Two years later an extended review of spatial packages was published [@hornik_approaches_2003]. 
 Around this time the development of R's spatial capabilities started to be augmented with links to external libraries, especially GDAL) and PROJ.4, which facilitate geographic data I/O (covered in chapter \@ref(read-write)) CRS transformations respectively.
@@ -2716,7 +2716,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.41
+#> [1] 2.22
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2732,7 +2732,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.04
+#> [1] 3.36
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2761,13 +2761,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.066
+#>   0.060   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.048   0.000   0.049
+#>   0.040   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.033
+#>   0.020   0.012   0.031
 ```
 
 

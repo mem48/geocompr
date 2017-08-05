@@ -288,7 +288,7 @@ Figure 1.1: World at night imagery from NASA overlaid by the authors’ approxim
 <p>There are many ways to handle spatial data in R, with dozens of packages in the area.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a> In this book we endeavor to teach the state-of-the-art in the field whilst ensuring that the methods are future-proof. Like many areas of software development, R’s spatial ecosystem is rapidly evolving. Because R is open source, these developments can easily build on previous work, by ‘standing on the shoulders of giants’, as Isaac Newton put it in <a href="http://digitallibrary.hsp.org/index.php/Detail/Object/Show/object_id/9285">1675</a>. This approach is advantageous because it encourages collaboration and avoids ‘reinventing the wheel’. The package <strong>sf</strong> (covered in Chapter <a href="spatial-class.html#spatial-class">2</a>), for example, builds on its predecessor <strong>sp</strong>.</p>
 <p>Shifts in R’s spatial ecosystem have been influenced by shifts in the wider R community, as exemplified by the visualization and data processing packages <strong>ggplot2</strong> and <strong>dplyr</strong> (released in <a href="https://cran.r-project.org/src/contrib/Archive/ggplot2/">2007</a> and <a href="https://cran.r-project.org/src/contrib/Archive/dplyr/">2014</a> respectively). Alongside other packages that have a shared style and emphasis on ‘tidy data’, these were placed in the <strong>tidyverse</strong> ‘metapackage’ in late <a href="https://cran.r-project.org/src/contrib/Archive/tidyverse/">2016</a>. The <strong>tidyverse</strong> approach, with its focus on long-form data and fast, intuitively named function, has become immensely popular. This has led to demand for ‘tidy spatial data’ which has been partly met by <strong>sf</strong> and other approaches such as the GitHub package <a href="https://hypertidy.github.io/tabularaster/"><strong>tabularaster</strong></a>. Another feature of the <strong>tidyverse</strong>, which was already present in the trio of packages that <strong>sf</strong> supersedes (<strong>sp</strong>, <strong>rgeos</strong> and <strong>rgdal</strong>), is the tendency for packages to work in harmony. Although there is presently no equivalent <strong>geoverse</strong>, there are a growing number of actively developed package which are designed to work in harmony with <strong>sf</strong> (Table <a href="intro.html#tab:revdep">1.2</a>) and discussion of harmonization among R’s many spatial packages.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
 <table>
-<caption><span id="tab:revdep">Table 1.2: </span>The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-08-01 there are 21 packages which import sf.</caption>
+<caption><span id="tab:revdep">Table 1.2: </span>The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-08-03 there are 22 packages which import sf.</caption>
 <thead>
 <tr class="header">
 <th align="left">package</th>
@@ -298,19 +298,19 @@ Figure 1.1: World at night imagery from NASA overlaid by the authors’ approxim
 <tbody>
 <tr class="odd">
 <td align="left">plotly</td>
-<td align="right">1600</td>
+<td align="right">1651</td>
 </tr>
 <tr class="even">
 <td align="left">leaflet</td>
-<td align="right">489</td>
+<td align="right">496</td>
 </tr>
 <tr class="odd">
 <td align="left">mapview</td>
-<td align="right">208</td>
+<td align="right">205</td>
 </tr>
 <tr class="even">
 <td align="left">geojsonio</td>
-<td align="right">173</td>
+<td align="right">171</td>
 </tr>
 <tr class="odd">
 <td align="left">tigris</td>
@@ -332,8 +332,8 @@ Figure 1.2: The popularity of spatial packages in R. The y-axis shows the averag
 <p>There are many benefits of using recent packages such as <strong>sf</strong>, with the caveat that they are generally less stable than mature packages such as <strong>sp</strong>. This is captured by the saying “if you live on the cutting edge you risk getting hurt”, meaning that older packages may be more appropriate for applications requiring stability and backwards-compatibility with other mature packages. Another reason for knowing about the history of geocomputation with R is that there is a wealth of functions, use-cases and teaching material written using older packages in R’s spatial ecosystem, which can still be useful today provided you know where to look.</p>
 <p>The beginnings of spatial capabilities in R are closely connected with its predecessor - the S language <span class="citation">(Bivand and Gebhardt <a href="#ref-bivand_implementing_2000">2000</a>)</span>. The 1990s saw the development of numerous S scripts and a handful of packages for spatial statistics. Some of these, including <strong>spatial</strong>, <strong>sgeostat</strong> and <strong>splancs</strong>, eventually became R packages <span class="citation">(Rowlingson and Diggle <a href="#ref-rowlingson_splancs:_1993">1993</a>; Rowlingson and Diggle <a href="#ref-rowlingson_splancs:_2017">2017</a>; Venables and Ripley <a href="#ref-venables_modern_2002">2002</a>; University and Gebhardt <a href="#ref-university_sgeostat:_2016">2016</a>)</span>.</p>
 <p>Volume 1/2 of R News (the predecessor of The R Journal) contained an overview of spatial statistical software in R at the time, much of which was based on previous code written for S/S-PLUS <span class="citation">(Ripley <a href="#ref-ripley_spatial_2001">2001</a>)</span>. This overview described packages for spatial smoothing and interpolation (e.g. <strong>akima</strong>, <strong>spatial</strong>, <strong>sgeostat</strong> and <strong>geoR</strong>) and point pattern analysis (<strong>splancs</strong> and <strong>spatstat</strong>) <span class="citation">(Akima and Gebhardt <a href="#ref-akima_akima:_2016">2016</a>; Rowlingson and Diggle <a href="#ref-rowlingson_splancs:_2017">2017</a>; Jr and Diggle <a href="#ref-jr_geor:_2016">2016</a>)</span>. While all these are still available on CRAN, <strong>spatstat</strong> stands out among them, as it remains dominant in the field of spatial point pattern analysis <span class="citation">(Baddeley, Rubak, and Turner <a href="#ref-baddeley_spatial_2015">2015</a>)</span>.</p>
-<p>The subsequent issue of R News also put spatial packages in the spotlight, with an introduction <strong>splancs</strong> and commentary on future prospects <span class="citation">(Bivand <a href="#ref-bivand_more_2001">2001</a>)</span>. Notably, the paper mentions the need for standardization of spatial interfaces, efficient mechanisms for exchanging data with GIS, and handling of spatial metadata such as coordinate reference systems (CRS). Two packages for testing for spatial autocorrelation were mentioned; they were subsequently folded into <strong>spdep</strong> <span class="citation">(Bivand <a href="#ref-R-spdep">2017</a>)</span>.</p>
-<p>A package not mentioned in these overviews was <strong>maptools</strong> <span class="citation">(Bivand and Lewin-Koh <a href="#ref-R-maptools">2017</a>)</span>, initially containing a wrapper for shapelib written by Nicholas Lewin-Koh permitting the reading of ESRI Shapefiles into nested lists. An obsolete S3 class called “Map” was used to contain a geometry nested list and a data.frame, but work on the class representation in <strong>maptools</strong> fed directly into <strong>sp</strong> before <strong>sp</strong> was published on CRAN.</p>
+<p>The subsequent issue of R News also put spatial packages in the spotlight, with an introduction <strong>splancs</strong> and commentary on future prospects <span class="citation">(Bivand <a href="#ref-bivand_more_2001">2001</a>)</span>. Notably, the paper mentions the need for standardization of spatial interfaces, efficient mechanisms for exchanging data with GIS, and handling of spatial metadata such as coordinate reference systems (CRS). Two packages for testing for spatial autocorrelation were mentioned; they were subsequently folded into <strong>spdep</strong> <span class="citation">(Bivand <a href="#ref-bivand_spdep:_2017">2017</a>)</span>.</p>
+<p>A package not mentioned in these overviews was <strong>maptools</strong> <span class="citation">(Bivand and Lewin-Koh <a href="#ref-bivand_maptools:_2017">2017</a>)</span>, initially containing a wrapper for shapelib written by Nicholas Lewin-Koh permitting the reading of ESRI Shapefiles into nested lists. An obsolete S3 class called “Map” was used to contain a geometry nested list and a data.frame, but work on the class representation in <strong>maptools</strong> fed directly into <strong>sp</strong> before <strong>sp</strong> was published on CRAN.</p>
 <p>Two years later an extended review of spatial packages was published <span class="citation">(Bivand <a href="#ref-hornik_approaches_2003">2003</a>)</span>. Around this time the development of R’s spatial capabilities started to be augmented with links to external libraries, especially GDAL) and PROJ.4, which facilitate geographic data I/O (covered in chapter <a href="read-write.html#read-write">5</a>) CRS transformations respectively. Based on the wide range of data formats that could be read-in by GDAL, <span class="citation">Bivand (<a href="#ref-hornik_approaches_2003">2003</a>)</span> also proposed a spatial data class system, including support for points, lines, polygons and grids. These ideas can be seen in <strong>rgdal</strong> and <strong>sp</strong>, which became foundational packages for spatial data analysis with R <span class="citation">(Bivand, Pebesma, and Gómez-Rubio <a href="#ref-bivand_applied_2013">2013</a>)</span>.</p>
 <p><strong>rgdal</strong>, first released in 2003, greatly extended R’s spatial capabilities in terms of access to spatial data formats previously unavailable to R users. Initially, only raster drivers were supported, based on Tim Keitt’s GDAL bindings for R. Importantly, it enabled storing information about coordinate reference system and allowed for map projection and datum transformation. Many of these additional capabilities were developed by Barry Rowlingson and folded into the <strong>rgdal</strong> codebase because the same underlying external dependencies were needed.</p>
 <p><strong>sp</strong>, released in 2005, overcame R’s inability to distinguish spatial and non-spatial objects. It grew from a workshop before, and a session at the 2003 R conference in Vienna, gathering input from most interested package developers. At the same time, sourceforge was chosen for development collaboration (migrated to R-Forge five years later) and the R-sig-geo mailing list was started.</p>
@@ -382,10 +382,10 @@ of Statistical Software http://von-tijn.nl/tijn/research/presentations/tmap_user
 <p>Bivand, Roger, Edzer J Pebesma, and Virgilio Gómez-Rubio. 2013. <em>Applied Spatial Data Analysis with R</em>. Vol. 747248717. Springer.</p>
 </div>
 <div id="ref-R-leaflet">
-<p>Cheng, Joe, Bhaskar Karambelkar, and Yihui Xie. 2017. <em>Leaflet: Create Interactive Web Maps with the JavaScript ’Leaflet’ Library</em>. <a href="http://rstudio.github.io/leaflet/" class="uri">http://rstudio.github.io/leaflet/</a>.</p>
+<p>Cheng, Joe, Bhaskar Karambelkar, and Yihui Xie. 2017. <em>Leaflet: Create Interactive Web Maps with the JavaScript ’Leaflet’ Library</em>. <a href="https://CRAN.R-project.org/package=leaflet" class="uri">https://CRAN.R-project.org/package=leaflet</a>.</p>
 </div>
 <div id="ref-R-tmap">
-<p>Tennekes, Martijn. 2017. <em>Tmap: Thematic Maps</em>. <a href="https://CRAN.R-project.org/package=tmap" class="uri">https://CRAN.R-project.org/package=tmap</a>.</p>
+<p>Tennekes, Martijn. 2017. <em>Tmap: Thematic Maps</em>. <a href="https://github.com/mtennekes/tmap" class="uri">https://github.com/mtennekes/tmap</a>.</p>
 </div>
 <div id="ref-R-mapview">
 <p>Appelhans, Tim, Florian Detsch, Christoph Reudenbach, and Stefan Woellauer. 2017. <em>Mapview: Interactive Viewing of Spatial Objects in R</em>. <a href="https://CRAN.R-project.org/package=mapview" class="uri">https://CRAN.R-project.org/package=mapview</a>.</p>
@@ -420,10 +420,10 @@ of Statistical Software http://von-tijn.nl/tijn/research/presentations/tmap_user
 <div id="ref-bivand_more_2001">
 <p>Bivand, Roger. 2001. “More on Spatial Data Analysis.” <em>R News</em> 1 (3): 13–17.</p>
 </div>
-<div id="ref-R-spdep">
+<div id="ref-bivand_spdep:_2017">
 <p>Bivand, Roger. 2017. <em>Spdep: Spatial Dependence: Weighting Schemes, Statistics and Models</em>. <a href="https://CRAN.R-project.org/package=spdep" class="uri">https://CRAN.R-project.org/package=spdep</a>.</p>
 </div>
-<div id="ref-R-maptools">
+<div id="ref-bivand_maptools:_2017">
 <p>Bivand, Roger, and Nicholas Lewin-Koh. 2017. <em>Maptools: Tools for Reading and Handling Spatial Objects</em>. <a href="https://CRAN.R-project.org/package=maptools" class="uri">https://CRAN.R-project.org/package=maptools</a>.</p>
 </div>
 <div id="ref-hornik_approaches_2003">
@@ -469,7 +469,7 @@ of Statistical Software http://von-tijn.nl/tijn/research/presentations/tmap_user
 <p>Lamigueiro, Óscar Perpiñán. 2014. <em>Displaying Time Series, Spatial, and Space-Time Data with R</em>. CRC Press.</p>
 </div>
 <div id="ref-R-sf">
-<p>Pebesma, Edzer. 2017. <em>Sf: Simple Features for R</em>. <a href="https://CRAN.R-project.org/package=sf" class="uri">https://CRAN.R-project.org/package=sf</a>.</p>
+<p>Pebesma, Edzer. 2017. <em>Sf: Simple Features for R</em>. <a href="https://github.com/r-spatial/sf/" class="uri">https://github.com/r-spatial/sf/</a>.</p>
 </div>
 </div>
 <div class="footnotes">
