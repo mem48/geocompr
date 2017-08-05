@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve9947ec04a900b2d8
+preserve7a092ae021387a89
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -246,15 +246,20 @@ This overview described packages for spatial smoothing and interpolation (e.g. *
 While all these are still available on CRAN, **spatstat** stands out among them, as it remains dominant in the field of spatial point pattern analysis [@baddeley_spatial_2015].
 
 The subsequent issue of R News also put spatial packages in the spotlight, with an introduction **splancs** and commentary on future prospects [@bivand_more_2001].
-Notably, the paper mentions the need for standardization of spatial interfaces, efficient mechanisms for exchanging data with GIS, and handling of spatial metadata such as coordinate reference systems (CRS).
+Notably, the paper mentions the need for standardization of spatial interfaces, efficient mechanisms for exchanging data with GIS, and handling of spatial metadata such as coordinate reference systems (CRS). Two packages for testing for spatial autocorrelation were mentioned; they were subsequently folded into **spdep** [@R-spdep].
+
+A package not mentioned in these overviews was **maptools** [@R-maptools], initially containing a wrapper for shapelib written by Nicholas Lewin-Koh permitting the reading of ESRI Shapefiles into nested lists. An obsolete S3 class called "Map" was used to contain a geometry nested list and a data.frame, but work on the class representation in **maptools** fed directly into **sp** before **sp** was published on CRAN.
+
 Two years later an extended review of spatial packages was published [@hornik_approaches_2003]. 
 Around this time the development of R's spatial capabilities started to be augmented with links to external libraries, especially GDAL) and PROJ.4, which facilitate geographic data I/O (covered in chapter \@ref(read-write)) CRS transformations respectively.
 Based on the wide range of data formats that could be read-in by GDAL, @hornik_approaches_2003 also proposed a spatial data class system, including support for points, lines, polygons and grids.
 These ideas can be seen in **rgdal** and **sp**, which became foundational packages for spatial data analysis with R [@bivand_applied_2013].
 
-**rgdal**, first released in 2003, greatly extended R's spatial capabilities in terms of access to spatial data formats previously unavailable to R users.
-Importantly, it enabled storing information about coordinate reference system and allowed for map projection and datum transformation.
-**sp**, released in 2005, overcame R's inability to distinguish spatial and non-spatial objects.
+**rgdal**, first released in 2003, greatly extended R's spatial capabilities in terms of access to spatial data formats previously unavailable to R users. Initially, only raster drivers were supported, based on Tim Keitt's GDAL bindings for R.
+Importantly, it enabled storing information about coordinate reference system and allowed for map projection and datum transformation. Many of these additional capabilities were developed by Barry Rowlingson and folded into the **rgdal** codebase because the same underlying external dependencies were needed.
+
+**sp**, released in 2005, overcame R's inability to distinguish spatial and non-spatial objects. It grew from a workshop before, and a session at the 2003 R conference in Vienna, gathering input from most interested package developers. At the same time, sourceforge was chosen for development collaboration (migrated to R-Forge five years later) and the R-sig-geo mailing list was started.
+
 Prior to 2005, spatial coordinates were generally were treated as any other number. 
 **sp** provided generic classes and methods for spatial data.
 The sophisticated class system supported points, lines, polygons and grids, with and without attribute data. 
@@ -275,7 +280,7 @@ Now more than 200 packages rely on **sp**, making it an important part of the R 
 Prominent R packages using **sp** include: **gstat**, for spatial and spatio-temporal geostatistics; **geosphere**, for spherical trigonometry; and **adehabitat** used for the analysis of habitat selection by animals [@R-gstat; @calenge_package_2006; @hijmans_geosphere:_2016].
 
 While **rgdal** and **sp** solved many spatial issues, R still lacked a geometry calculation abilities.
-This issue was resolved in 2010 with the release of **rgeos** package [@R-rgeos], which allowed functions and operators from the GEOS library to manipulate **sp** objects.
+This issue was resolved in 2010 with the release of **rgeos** package [@R-rgeos], which allowed functions and operators from the GEOS library to manipulate **sp** objects; **rgeos** was developed by Colin Rundel as a Google Summer of Coding project.
 **sp**'s limited support of raster data was also tackled in 2010, with the creation of the **raster** [@R-raster], which defined the `raster` class and provided functions for creating, reading and writing raster data.
 A key feature of **raster** is its ability to work with datasets too large to be fitted in RAM, increasing the scale of spatial datasets R could handle.^[The
 **raster** package also provided tools for raster algebra, general raster functions and the development of more additional raster functions.]
@@ -2711,7 +2716,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.35
+#> [1] 2.41
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2727,7 +2732,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.26
+#> [1] 3.04
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2756,13 +2761,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.004   0.064
+#>   0.068   0.000   0.066
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.042
+#>   0.048   0.000   0.049
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.004   0.032
+#>   0.024   0.008   0.033
 ```
 
 
