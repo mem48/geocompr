@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve17cd16a62251f816
+preservec9dd5f19a7636c0b
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -246,9 +246,11 @@ This overview described packages for spatial smoothing and interpolation (e.g. *
 While all these are still available on CRAN, **spatstat** stands out among them, as it remains dominant in the field of spatial point pattern analysis [@baddeley_spatial_2015].
 
 The subsequent issue of R News also put spatial packages in the spotlight, with an introduction **splancs** and commentary on future prospects [@bivand_more_2001].
-Notably, the paper mentions the need for standardization of spatial interfaces, efficient mechanisms for exchanging data with GIS, and handling of spatial metadata such as coordinate reference systems (CRS). Two packages for testing for spatial autocorrelation were mentioned; they were subsequently folded into **spdep** [@bivand_spdep:_2017].
+Notably, the paper mentions the need for standardization of spatial interfaces, efficient mechanisms for exchanging data with GIS, and handling of spatial metadata such as coordinate reference systems (CRS).
+Two packages for testing for spatial autocorrelation were mentioned; they were subsequently folded into **spdep** [@bivand_spdep:_2017].
 
-A package not mentioned in these overviews was **maptools** [@bivand_maptools:_2017], initially containing a wrapper for shapelib written by Nicholas Lewin-Koh permitting the reading of ESRI Shapefiles into nested lists. An obsolete S3 class called "Map" was used to contain a geometry nested list and a data.frame, but work on the class representation in **maptools** fed directly into **sp** before **sp** was published on CRAN.
+A package not mentioned in these overviews was **maptools** [@bivand_maptools:_2017], initially containing a wrapper for shapelib written by Nicholas Lewin-Koh permitting the reading of ESRI Shapefiles into nested lists. 
+An obsolete S3 class called "Map" was used to contain a geometry nested list and a data.frame, but work on the class representation in **maptools** fed directly into **sp** before **sp** was published on CRAN.
 
 Two years later an extended review of spatial packages was published [@hornik_approaches_2003]. 
 Around this time the development of R's spatial capabilities started to be augmented with links to external libraries, especially GDAL) and PROJ.4, which facilitate geographic data I/O (covered in chapter \@ref(read-write)) CRS transformations respectively.
@@ -256,9 +258,12 @@ Based on the wide range of data formats that could be read-in by GDAL, @hornik_a
 These ideas can be seen in **rgdal** and **sp**, which became foundational packages for spatial data analysis with R [@bivand_applied_2013].
 
 **rgdal**, first released in 2003, greatly extended R's spatial capabilities in terms of access to spatial data formats previously unavailable to R users. Initially, only raster drivers were supported, based on Tim Keitt's GDAL bindings for R.
-Importantly, it enabled storing information about coordinate reference system and allowed for map projection and datum transformation. Many of these additional capabilities were developed by Barry Rowlingson and folded into the **rgdal** codebase because the same underlying external dependencies were needed.
+Importantly, it enabled storing information about coordinate reference system and allowed for map projection and datum transformation. 
+Many of these additional capabilities were developed by Barry Rowlingson and folded into the **rgdal** codebase because the same underlying external dependencies were needed.
 
-**sp**, released in 2005, overcame R's inability to distinguish spatial and non-spatial objects. It grew from a workshop before, and a session at the 2003 R conference in Vienna, gathering input from most interested package developers. At the same time, sourceforge was chosen for development collaboration (migrated to R-Forge five years later) and the R-sig-geo mailing list was started.
+**sp**, released in 2005, overcame R's inability to distinguish spatial and non-spatial objects.
+It grew from a workshop before, and a session at the 2003 R conference in Vienna, gathering input from most interested package developers. 
+At the same time, sourceforge was chosen for development collaboration (migrated to R-Forge five years later) and the R-sig-geo mailing list was started.
 
 Prior to 2005, spatial coordinates were generally were treated as any other number. 
 **sp** provided generic classes and methods for spatial data.
@@ -2716,10 +2721,10 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.54
+#> [1] 2.29
 ```
 
-The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -2732,7 +2737,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.18
+#> [1] 3.34
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2761,13 +2766,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.080   0.000   0.079
+#>   0.060   0.004   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.056   0.000   0.058
+#>   0.040   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.012   0.035
+#>   0.012   0.012   0.028
 ```
 
 
