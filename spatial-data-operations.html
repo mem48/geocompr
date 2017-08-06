@@ -372,6 +372,7 @@ world =<span class="st"> </span>world %&gt;%
 <!-- changes classes; polygonize, etc-->
 <div id="topological-relations" class="section level3">
 <h3><span class="header-section-number">4.5.1</span> Topological relations</h3>
+<!-- http://lin-ear-th-inking.blogspot.com/2007/06/subtleties-of-ogc-covers-spatial.html -->
 <!-- https://edzer.github.io/sfr/articles/sf3.html -->
 <!-- https://github.com/edzer/sfr/wiki/migrating#relevant-commands-exported-by-rgeos -->
 <!-- Relations and inverse relations -->
@@ -399,25 +400,25 @@ p =<span class="st"> </span><span class="kw">st_multipoint</span>(<span class="d
 <span class="kw">plot</span>(l, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(p, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="figures/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" /></p>
-<p>Equals:</p>
+<p>Equals: <!-- https://postgis.net/docs/ST_Equals.html --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_equals</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Contains:</p>
+<p>Contains: <!-- https://postgis.net/docs/ST_Contains.html --> <!-- https://postgis.net/docs/ST_ContainsProperly.html --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_contains</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)
 <span class="kw">st_contains_properly</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Covers:</p>
+<p>Covers: <!-- https://postgis.net/docs/ST_Covers.html --> <!-- https://postgis.net/docs/ST_CoveredBy.html --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_covers</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)
 <span class="kw">st_covered_by</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Within:</p>
+<p>Within: <!-- https://postgis.net/docs/ST_Within.html --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_within</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p>Overlaps: <!-- https://postgis.net/docs/ST_Overlaps.html --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_overlaps</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Intersects:</p>
+<p>Intersects: <!-- https://postgis.net/docs/ST_Intersects.html --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_intersects</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Disjoint:</p>
+<p>Disjoint: <!-- https://postgis.net/docs/ST_Disjoint.html --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_disjoint</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Touches:</p>
+<p>Touches: <!-- https://postgis.net/docs/ST_Touches.html --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_touches</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Crosses:</p>
+<p>Crosses: <!-- https://postgis.net/docs/ST_Crosses.html --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crosses</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p>DE9-IM - <a href="https://en.wikipedia.org/wiki/DE-9IM" class="uri">https://en.wikipedia.org/wiki/DE-9IM</a> <!-- https://edzer.github.io/sfr/reference/st_relate.html --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_relate</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>

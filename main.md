@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea706f59b44bf8da6
+preserve8216b25ed6aecc44
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2417,6 +2417,7 @@ attributes(world$pop_density) = NULL
 
 ### Topological relations
 
+<!-- http://lin-ear-th-inking.blogspot.com/2007/06/subtleties-of-ogc-covers-spatial.html -->
 <!-- https://edzer.github.io/sfr/articles/sf3.html -->
 <!-- https://github.com/edzer/sfr/wiki/migrating#relevant-commands-exported-by-rgeos -->
 <!-- Relations and inverse relations -->
@@ -2451,6 +2452,7 @@ plot(p, add = TRUE)
 <img src="figures/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" />
 
 Equals:
+<!-- https://postgis.net/docs/ST_Equals.html -->
 
 
 ```r
@@ -2458,6 +2460,8 @@ st_equals(a, b, sparse = FALSE)
 ```
 
 Contains:
+<!-- https://postgis.net/docs/ST_Contains.html -->
+<!-- https://postgis.net/docs/ST_ContainsProperly.html -->
 
 
 ```r
@@ -2466,6 +2470,8 @@ st_contains_properly(a, b, sparse = FALSE)
 ```
 
 Covers:
+<!-- https://postgis.net/docs/ST_Covers.html -->
+<!-- https://postgis.net/docs/ST_CoveredBy.html -->
 
 
 ```r
@@ -2474,6 +2480,7 @@ st_covered_by(a, b, sparse = FALSE)
 ```
 
 Within:
+<!-- https://postgis.net/docs/ST_Within.html -->
 
 
 ```r
@@ -2483,11 +2490,13 @@ st_within(a, b, sparse = FALSE)
 Overlaps:
 <!-- https://postgis.net/docs/ST_Overlaps.html -->
 
+
 ```r
 st_overlaps(a, b, sparse = FALSE)
 ```
 
 Intersects:
+<!-- https://postgis.net/docs/ST_Intersects.html -->
 
 
 ```r
@@ -2495,6 +2504,7 @@ st_intersects(a, b, sparse = FALSE)
 ```
 
 Disjoint:
+<!-- https://postgis.net/docs/ST_Disjoint.html -->
 
 
 ```r
@@ -2502,6 +2512,7 @@ st_disjoint(a, b, sparse = FALSE)
 ```
 
 Touches:
+<!-- https://postgis.net/docs/ST_Touches.html -->
 
 
 ```r
@@ -2509,6 +2520,7 @@ st_touches(a, b, sparse = FALSE)
 ```
 
 Crosses:
+<!-- https://postgis.net/docs/ST_Crosses.html -->
 
 
 ```r
@@ -2721,7 +2733,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.34
+#> [1] 2.28
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2737,7 +2749,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.32
+#> [1] 3.22
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2766,13 +2778,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>    0.06    0.00    0.06
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.039
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.030
+#>   0.012   0.016   0.029
 ```
 
 
