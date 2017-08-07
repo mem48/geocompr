@@ -315,13 +315,14 @@ Figure 4.3: Result of spatial aggregation showing the total population of countr
 <div id="spatial-congruence-and-areal-interpolation" class="section level3">
 <h3><span class="header-section-number">4.3.1</span> Spatial congruence and areal interpolation</h3>
 <p>Spatial congruence is an important concept when interpreting the results of spatial aggregation and other operations. An <em>aggregating object</em> object (which we will refer to as <code>y</code>, representing the buffer object in the previous section) is <em>congruent</em> with the target object <code>x</code>, corresponding to the first argument of <code>aggregate()</code> in the previous section, if the two objects have shared borders: no feature in <code>x</code> overlaps one or more features in <code>y</code>. <em>Incongruent</em> objects, by contrast do not share common borders <span class="citation">(Qiu, Zhang, and Zhou <a href="#ref-qiu_development_2012">2012</a>)</span>. This is the case illustrated in Figure <a href="spatial-data-operations.html#fig:buff-agg">4.3</a>, where the borders of the countries in the ‘target’ object bear no relation to, and frequently cross, the outline of the aggregating buffer.</p>
-<p>This is problematic if one wants to convert from type of <em>areal</em> unit that is incongruent with another, as illustrated in Figure <a href="spatial-data-operations.html#fig:areal-example">4.4</a>.</p>
+<p>This is problematic if one wants to convert from type of <em>areal</em> unit that is incongruent with another, as illustrated in Figure <a href="spatial-data-operations.html#fig:areal-example">4.4</a>. Areal interpolation resolves this problem. A number of methods have been developed to for the task, all of which start from the following constraint, succinctly described in a classic paper on the subject <span class="citation">(Tobler <a href="#ref-tobler_smooth_1979">1979</a>)</span>: “that the original [target] data arrive packaged in discrete collection regions.”</p>
 <div class="figure" style="text-align: center"><span id="fig:areal-example"></span>
 <img src="figures/areal-example-1.png" alt="Illustration of congruent (left) and incongruent (right) areal units." width="576" />
 <p class="caption">
 Figure 4.4: Illustration of congruent (left) and incongruent (right) areal units.
 </p>
 </div>
+<p>The simplest useful method for spatial interpolation is <em>area weighted</em> spatial interpolation. This is implemented in <code>st_interpolate_aw()</code>, as demonstrated below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">buff_agg_aw =<span class="st"> </span><span class="kw">st_interpolate_aw</span>(<span class="dt">x =</span> world[<span class="st">&quot;pop&quot;</span>], <span class="dt">to =</span> buff, <span class="dt">extensive =</span> <span class="ot">TRUE</span>)
 <span class="co">#&gt; Warning in st_interpolate_aw(x = world[&quot;pop&quot;], to = buff, extensive =</span>
 <span class="co">#&gt; TRUE): st_interpolate_aw assumes attributes are constant over areas of x</span></code></pre></div>
@@ -535,6 +536,9 @@ agg9$pop /<span class="st"> </span><span class="kw">sum</span>(world$pop, <span 
 <div id="refs" class="references">
 <div id="ref-qiu_development_2012">
 <p>Qiu, Fang, Caiyun Zhang, and Yuhong Zhou. 2012. “The Development of an Areal Interpolation ArcGIS Extension and a Comparative Study.” <em>GIScience &amp; Remote Sensing</em> 49 (5): 644–63. doi:<a href="https://doi.org/10.2747/1548-1603.49.5.644">10.2747/1548-1603.49.5.644</a>.</p>
+</div>
+<div id="ref-tobler_smooth_1979">
+<p>Tobler, Waldo R. 1979. “Smooth Pycnophylactic Interpolation for Geographical Regions.” <em>Journal of the American Statistical Association</em> 74 (367): 519–30. doi:<a href="https://doi.org/10.1080/01621459.1979.10481647">10.1080/01621459.1979.10481647</a>.</p>
 </div>
 <div id="ref-grolemund_r_2016">
 <p>Grolemund, Garrett, and Hadley Wickham. 2016. <em>R for Data Science</em>. 1 edition. O’Reilly Media.</p>

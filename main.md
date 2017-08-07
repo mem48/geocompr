@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservebd6328d190853ef4
+preserve465d2c4716330def
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2345,12 +2345,17 @@ no feature in `x` overlaps one or more features in `y`.
 This is the case illustrated in Figure \@ref(fig:buff-agg), where the borders of the countries in the 'target' object bear no relation to, and frequently cross, the outline of the aggregating buffer.
 
 This is problematic if one wants to convert from type of *areal* unit that is incongruent with another, as illustrated in Figure \@ref(fig:areal-example).
+Areal interpolation resolves this problem.
+A number of methods have been developed to for the task, all of which start from the following constraint, succinctly described in a classic paper on the subject [@tobler_smooth_1979]:
+"that the original [target] data arrive packaged in discrete  collection regions."
 
 <div class="figure" style="text-align: center">
 <img src="figures/areal-example-1.png" alt="Illustration of congruent (left) and incongruent (right) areal units." width="576" />
 <p class="caption">(\#fig:areal-example)Illustration of congruent (left) and incongruent (right) areal units.</p>
 </div>
 
+The simplest useful method for spatial interpolation is *area weighted* spatial interpolation.
+This is implemented in `st_interpolate_aw()`, as demonstrated below:
 
 
 ```r
@@ -2766,7 +2771,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.37
+#> [1] 2.33
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2782,7 +2787,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.2
+#> [1] 3.34
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2811,13 +2816,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.062
+#>   0.068   0.000   0.068
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.039
+#>   0.040   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.029
+#>   0.020   0.012   0.030
 ```
 
 
