@@ -487,7 +487,7 @@ Figure 4.6: Randomly distributed points within the bounding box enclosing circle
 <li>Create a randomly located point with the command <code>st_point()</code> (refer back to section <a href="spatial-class.html#sfg">2.1.4.2</a> to see how to create spatial data ‘from scratch’).</li>
 </ul>
 <ol start="2" style="list-style-type: decimal">
-<li>Write code that uses functions <code>aggregate()</code> and <code>st_buffer()</code> to answers the following question: What proportion of the world’s population is found within a 10 degree radius of the intersection between the equator and the <a href="https://en.wikipedia.org/wiki/9th_meridian_east">9<sup>th</sup> meridian</a>? (Advanced challenge: find the point with the highest number of people within a 10 degree radius.)</li>
+<li>Write code that uses functions <code>aggregate()</code> and <code>st_buffer()</code> to answers the following question: What proportion of the world’s population lives in countries that intersect a circle with a 10 degree radius of the intersection between the equator and the <a href="https://en.wikipedia.org/wiki/9th_meridian_east">9<sup>th</sup> meridian</a>? (Advanced challenge: find the point with the highest number of people within a 10 degree radius.)</li>
 </ol>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">center9 =<span class="st"> </span><span class="kw">st_sf</span>(<span class="kw">st_sfc</span>(<span class="kw">st_point</span>(<span class="kw">c</span>(-<span class="dv">9</span>, <span class="dv">0</span>)), <span class="dt">crs =</span> <span class="dv">4326</span>))
 buff9 =<span class="st"> </span><span class="kw">st_buffer</span>(center9, <span class="dt">dist =</span> <span class="dv">10</span>)
