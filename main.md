@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveb16beb79eb394ebc
+preservef029022dff10180e
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2749,7 +2749,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.27
+#> [1] 3.28
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2778,13 +2778,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.064   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.044   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.000   0.029
+#>   0.020   0.008   0.031
 ```
 
 
