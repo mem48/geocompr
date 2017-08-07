@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservebbafcf91dc32724e
+preservef4ef29c5bf075e0f
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2335,6 +2335,29 @@ Figure \@ref(fig:buff-agg) shows a population of over half a billion people in a
 <p class="caption">(\#fig:buff-agg)Result of spatial aggregation showing the total population of countries that intersect with a large circle whose center lies at 0 degrees longitude and latituge</p>
 </div>
 
+### Spatial congruence and areal interpolation
+
+
+Spatial congruence is an important concept when interpreting the results of spatial aggregation and other operations.
+An *aggregating object* object (which we will refer to as `y`, representing the buffer object in the previous section) is *congruent* with the target object `x`, corresponding to the first argument of `aggregate()` in the previous section, if the two objects have shared borders:
+no feature in `x` overlaps one or more features in `y`.
+*Incongruent* objects, by contrast do not share common borders [@qiu_development_2012].
+This is the case illustrated in Figure \@ref(fig:buff-agg), where the borders of the countries in the 'target' object bear no relation to, and frequently cross, the outline of the aggregating buffer.
+
+This is problematic if one wants to convert from type of *areal* unit that is incongruent with another, as illustrated in Figure \@ref(fig:areal-example).
+
+<div class="figure" style="text-align: center">
+<img src="figures/areal-example-1.png" alt="Illustration of congruent (left) and incongruent (right) areal units." width="576" />
+<p class="caption">(\#fig:areal-example)Illustration of congruent (left) and incongruent (right) areal units.</p>
+</div>
+
+
+
+```r
+buff_agg_aw = st_interpolate_aw(x = world["pop"], to = buff, extensive = TRUE)
+#> Warning in st_interpolate_aw(x = world["pop"], to = buff, extensive =
+#> TRUE): st_interpolate_aw assumes attributes are constant over areas of x
+```
 
 
 
@@ -2449,7 +2472,7 @@ plot(l, add = TRUE)
 plot(p, add = TRUE)
 ```
 
-<img src="figures/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" />
 
 Equals:
 <!-- https://postgis.net/docs/ST_Equals.html -->
@@ -2581,7 +2604,7 @@ plot(b)
 plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
 ```
 
-<img src="figures/unnamed-chunk-28-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-29-1.png" width="576" style="display: block; margin: auto;" />
 
 The subsequent code chunk demonstrate how this works for all combinations of the 'venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
 <!-- Todo: reference r4ds -->
@@ -2638,6 +2661,16 @@ agg9 = aggregate(world["pop"], buff9, FUN = sum)
 agg9$pop / sum(world$pop, na.rm = TRUE)
 #> [1] 0.00998
 ```
+
+3. Assuming that people are evenly distributed across countries, estimate the population living *within* the circle created to answer the previous question.
+
+
+```r
+interp9 = st_interpolate_aw(x = world["pop"], to = buff9, extensive = TRUE)
+#> Warning in st_interpolate_aw(x = world["pop"], to = buff9, extensive =
+#> TRUE): st_interpolate_aw assumes attributes are constant over areas of x
+```
+
 
 
 <!-- TODO? create a series of polygons distributed evenly over the surface of the Earth and clip them. -->
@@ -2733,7 +2766,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.35
+#> [1] 2.27
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2749,7 +2782,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.23
+#> [1] 3.31
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2778,13 +2811,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.056   0.004   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.040   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.028
+#>   0.020   0.008   0.029
 ```
 
 

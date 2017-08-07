@@ -177,7 +177,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-subsetting"><i class="fa fa-check"></i><b>4.2</b> Spatial subsetting</a><ul>
 <li class="chapter" data-level="" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#note"><i class="fa fa-check"></i>Note</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-aggregation"><i class="fa fa-check"></i><b>4.3</b> Spatial data aggregation</a></li>
+<li class="chapter" data-level="4.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-aggregation"><i class="fa fa-check"></i><b>4.3</b> Spatial data aggregation</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-congruence-and-areal-interpolation"><i class="fa fa-check"></i><b>4.3.1</b> Spatial congruence and areal interpolation</a></li>
+</ul></li>
 <li class="chapter" data-level="4.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-joining"><i class="fa fa-check"></i><b>4.4</b> Spatial data joining</a></li>
 <li class="chapter" data-level="4.5" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-creation"><i class="fa fa-check"></i><b>4.5</b> Spatial data creation</a><ul>
 <li class="chapter" data-level="4.5.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#topological-relations"><i class="fa fa-check"></i><b>4.5.1</b> Topological relations</a></li>
@@ -310,11 +312,25 @@ world_buff2 =<span class="st"> </span>world[sel_buff,]</code></pre></div>
 Figure 4.3: Result of spatial aggregation showing the total population of countries that intersect with a large circle whose center lies at 0 degrees longitude and latituge
 </p>
 </div>
+<div id="spatial-congruence-and-areal-interpolation" class="section level3">
+<h3><span class="header-section-number">4.3.1</span> Spatial congruence and areal interpolation</h3>
+<p>Spatial congruence is an important concept when interpreting the results of spatial aggregation and other operations. An <em>aggregating object</em> object (which we will refer to as <code>y</code>, representing the buffer object in the previous section) is <em>congruent</em> with the target object <code>x</code>, corresponding to the first argument of <code>aggregate()</code> in the previous section, if the two objects have shared borders: no feature in <code>x</code> overlaps one or more features in <code>y</code>. <em>Incongruent</em> objects, by contrast do not share common borders <span class="citation">(<span class="citeproc-not-found" data-reference-id="qiu_development_2012"><strong>???</strong></span>)</span>. This is the case illustrated in Figure <a href="spatial-data-operations.html#fig:buff-agg">4.3</a>, where the borders of the countries in the ‘target’ object bear no relation to, and frequently cross, the outline of the aggregating buffer.</p>
+<p>This is problematic if one wants to convert from type of <em>areal</em> unit that is incongruent with another, as illustrated in Figure <a href="spatial-data-operations.html#fig:areal-example">4.4</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:areal-example"></span>
+<img src="figures/areal-example-1.png" alt="Illustration of congruent (left) and incongruent (right) areal units." width="576" />
+<p class="caption">
+Figure 4.4: Illustration of congruent (left) and incongruent (right) areal units.
+</p>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">buff_agg_aw =<span class="st"> </span><span class="kw">st_interpolate_aw</span>(<span class="dt">x =</span> world[<span class="st">&quot;pop&quot;</span>], <span class="dt">to =</span> buff, <span class="dt">extensive =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; Warning in st_interpolate_aw(x = world[&quot;pop&quot;], to = buff, extensive =</span>
+<span class="co">#&gt; TRUE): st_interpolate_aw assumes attributes are constant over areas of x</span></code></pre></div>
 <!-- - `aggregate.sf()` - aggregate an sf object, possibly union-ing geometries -->
 <!-- - disaggregation?? `st_cast()` - https://github.com/edzer/sfr/wiki/migrating -->
 <!-- - `group_by()` + `summarise()` - potential errors -->
 <!-- - ? generalization **rmapsharper** - https://github.com/ateucher/rmapshaper -->
 <!-- `st_union` -->
+</div>
 </div>
 <div id="spatial-data-joining" class="section level2">
 <h2><span class="header-section-number">4.4</span> Spatial data joining</h2>
@@ -399,7 +415,7 @@ p =<span class="st"> </span><span class="kw">st_multipoint</span>(<span class="d
 <span class="kw">plot</span>(b, <span class="dt">border =</span> <span class="st">&quot;green&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(l, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(p, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="figures/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Equals: <!-- https://postgis.net/docs/ST_Equals.html --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_equals</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p>Contains: <!-- https://postgis.net/docs/ST_Contains.html --> <!-- https://postgis.net/docs/ST_ContainsProperly.html --></p>
@@ -442,7 +458,7 @@ l =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&q
 <div class="figure" style="text-align: center"><span id="fig:points"></span>
 <img src="figures/points-1.png" alt="Overlapping circles." width="576" />
 <p class="caption">
-Figure 4.4: Overlapping circles.
+Figure 4.5: Overlapping circles.
 </p>
 </div>
 <p>Imagine you want to select not one circle or the other, but the space covered by both <code>x</code> <em>and</em> <code>y</code>. This can be done using the function <code>st_intersection()</code>, illustrated using objects named <code>x</code> and <code>y</code> which represent the left and right-hand circles:</p>
@@ -451,16 +467,16 @@ y =<span class="st"> </span>b[<span class="dv">2</span>]
 x_and_y =<span class="st"> </span><span class="kw">st_intersection</span>(x, y)
 <span class="kw">plot</span>(b)
 <span class="kw">plot</span>(x_and_y, <span class="dt">col =</span> <span class="st">&quot;lightgrey&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>) <span class="co"># color intersecting area</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-28-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-29-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>The subsequent code chunk demonstrate how this works for all combinations of the ‘venn’ diagram representing <code>x</code> and <code>y</code>, inspired by <a href="http://r4ds.had.co.nz/transform.html#logical-operators">Figure 5.1</a> of the book R for Data Science <span class="citation">(Grolemund and Wickham <a href="#ref-grolemund_r_2016">2016</a>)</span>. <!-- Todo: reference r4ds --></p>
 <div class="figure" style="text-align: center"><span id="fig:venn-clip"></span>
 <img src="figures/venn-clip-1.png" alt="Spatial equivalents of logical operators" width="576" />
 <p class="caption">
-Figure 4.5: Spatial equivalents of logical operators
+Figure 4.6: Spatial equivalents of logical operators
 </p>
 </div>
-<p>To illustrate the relationship between subsetting and clipping spatial data, we will subset points that cover the bounding box of the circles <code>x</code> and <code>y</code> in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.5</a>. Some points will be inside just one circle, some will be inside both and some will be inside neither. To generate the points will use a function not yet covered in this book, <code>st_sample()</code>.</p>
-<p>There are two different ways to subset points that fit into combinations of the circles: via clipping and logical operators. But first we must generate some points. We will use the <em>simple random</em> sampling strategy to sample from a box representing the extent of <code>x</code> and <code>y</code>, using the code below to generate the situation plotted in Figure <a href="spatial-data-operations.html#fig:venn-subset">4.6</a>:</p>
+<p>To illustrate the relationship between subsetting and clipping spatial data, we will subset points that cover the bounding box of the circles <code>x</code> and <code>y</code> in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.6</a>. Some points will be inside just one circle, some will be inside both and some will be inside neither. To generate the points will use a function not yet covered in this book, <code>st_sample()</code>.</p>
+<p>There are two different ways to subset points that fit into combinations of the circles: via clipping and logical operators. But first we must generate some points. We will use the <em>simple random</em> sampling strategy to sample from a box representing the extent of <code>x</code> and <code>y</code>, using the code below to generate the situation plotted in Figure <a href="spatial-data-operations.html#fig:venn-subset">4.7</a>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bb =<span class="st"> </span><span class="kw">st_bbox</span>(<span class="kw">st_union</span>(x, y))
 pmat =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(bb[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">2</span>)]), <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)
 box =<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(pmat))
@@ -474,14 +490,14 @@ p =<span class="st"> </span><span class="kw">st_sample</span>(<span class="dt">x
 <div class="figure" style="text-align: center"><span id="fig:venn-subset"></span>
 <img src="figures/venn-subset-1.png" alt="Randomly distributed points within the bounding box enclosing circles x and y." width="576" />
 <p class="caption">
-Figure 4.6: Randomly distributed points within the bounding box enclosing circles x and y.
+Figure 4.7: Randomly distributed points within the bounding box enclosing circles x and y.
 </p>
 </div>
 </div>
 <div id="exercises-3" class="section level3">
 <h3><span class="header-section-number">4.5.4</span> Exercises</h3>
 <ol style="list-style-type: decimal">
-<li>Write code that subsets points that are contained within <code>x</code> <em>and</em> <code>y</code> (illustrated by the plot in the 2<sup>nd</sup> row and the 1<sup>st</sup> column in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.5</a>).</li>
+<li>Write code that subsets points that are contained within <code>x</code> <em>and</em> <code>y</code> (illustrated by the plot in the 2<sup>nd</sup> row and the 1<sup>st</sup> column in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.6</a>).</li>
 </ol>
 <ul>
 <li>Create a randomly located point with the command <code>st_point()</code> (refer back to section <a href="spatial-class.html#sfg">2.1.4.2</a> to see how to create spatial data ‘from scratch’).</li>
@@ -498,6 +514,12 @@ agg9 =<span class="st"> </span><span class="kw">aggregate</span>(world[<span cla
 <span class="co">#&gt; although coordinates are longitude/latitude, it is assumed that they are planar</span>
 agg9$pop /<span class="st"> </span><span class="kw">sum</span>(world$pop, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
 <span class="co">#&gt; [1] 0.00998</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Assuming that people are evenly distributed across countries, estimate the population living <em>within</em> the circle created to answer the previous question.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">interp9 =<span class="st"> </span><span class="kw">st_interpolate_aw</span>(<span class="dt">x =</span> world[<span class="st">&quot;pop&quot;</span>], <span class="dt">to =</span> buff9, <span class="dt">extensive =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; Warning in st_interpolate_aw(x = world[&quot;pop&quot;], to = buff9, extensive =</span>
+<span class="co">#&gt; TRUE): st_interpolate_aw assumes attributes are constant over areas of x</span></code></pre></div>
 <!-- TODO? create a series of polygons distributed evenly over the surface of the Earth and clip them. -->
 <!-- ```{r} -->
 <!-- set.seed(2018) -->
