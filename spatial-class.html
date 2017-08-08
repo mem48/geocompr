@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-08-07">
+<meta name="date" content="2017-08-08">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -147,7 +147,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.1.3" data-path="spatial-class.html"><a href="spatial-class.html#basic-map"><i class="fa fa-check"></i><b>2.1.3</b> Basic map making</a></li>
 <li class="chapter" data-level="2.1.4" data-path="spatial-class.html"><a href="spatial-class.html#sf_classes"><i class="fa fa-check"></i><b>2.1.4</b> Simple feature classes</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="spatial-class.html"><a href="spatial-class.html#raster-data"><i class="fa fa-check"></i><b>2.2</b> Raster data</a></li>
+<li class="chapter" data-level="2.2" data-path="spatial-class.html"><a href="spatial-class.html#raster-data"><i class="fa fa-check"></i><b>2.2</b> Raster data</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="spatial-class.html"><a href="spatial-class.html#an-introdution-to-raster"><i class="fa fa-check"></i><b>2.2.1</b> An introdution to raster</a></li>
+<li class="chapter" data-level="2.2.2" data-path="spatial-class.html"><a href="spatial-class.html#basic-map-making"><i class="fa fa-check"></i><b>2.2.2</b> Basic map making</a></li>
+<li class="chapter" data-level="2.2.3" data-path="spatial-class.html"><a href="spatial-class.html#raster-classes"><i class="fa fa-check"></i><b>2.2.3</b> Raster classes</a></li>
+</ul></li>
 <li class="chapter" data-level="2.3" data-path="spatial-class.html"><a href="spatial-class.html#coordinate-reference-systems"><i class="fa fa-check"></i><b>2.3</b> Coordinate Reference Systems</a><ul>
 <li class="chapter" data-level="" data-path="spatial-class.html"><a href="spatial-class.html#pro-tip"><i class="fa fa-check"></i>Pro tip</a></li>
 </ul></li>
@@ -672,12 +676,52 @@ sf_points =<span class="st"> </span><span class="kw">st_sf</span>(our_attributes
 </div>
 <div id="raster-data" class="section level2">
 <h2><span class="header-section-number">2.2</span> Raster data</h2>
-<p>This section is work in progress.</p>
-<!-- Suggest we save this until the raster section for now -->
-<!-- - raster data types  -->
-<!-- - RasterLayer -->
-<!-- - RasterStack -->
-<!-- - RasterBrick -->
+<div id="an-introdution-to-raster" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> An introdution to raster</h3>
+<p>Raster objects in R are supported by the <code>raster</code> package. <!-- Wykorzystuje on klasy z pakietu `sp` do obsługi danych wektorowych, jednocześnie dodając nowe klasy danych rastrowych. Zawarte w tym pakiecie funkcje pozwalają również na tworzenie, wczytywanie, przetwarzanie i zapisywanie danych rastrowych.  --> <!-- Bardzo istotną zaletą pakietu `raster` jest możliwość obsługi zbiorów danych rastrowych, które mają znaczne rozmiary i nie jest możliwe ich wczytanie do pamięci RAM. Pakiet `raster`, zamiast zapisania obiektów do pamięci RAM, tworzy obiekt zawierający cechy struktury pliku. Obejmują one, między innymi, liczbę wierszy i kolumn, zasięg przestrzenny oraz nazwę pliku, natomiast nie zawierają wartości kolejnych komórek siatki. Dane podczas przetwarzania wczytywane są w mniejszych blokach. --></p>
+</div>
+<div id="basic-map-making" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Basic map making</h3>
+</div>
+<div id="raster-classes" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> Raster classes</h3>
+<p>The <code>raster</code> package provides three main classes of objects - <code>RasterLayer</code>, <code>RasterBrick</code> and <code>RasterStack</code>. <code>RasterLayer</code> represents the simplest raster object, consisting of only one layer and store information about a number of rows and columns, spatial object extent and coordinate reference system used. <!-- CRS as proj4 --> This raster class could store raster values in a RAM memory or only point to a file on hard drive that holds the values.</p>
+<p>Object of the <code>RasterLayer</code> class is created by the <code>raster</code> function: <!-- explanation that this function can do many more things --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
+<span class="co">#&gt; Loading required package: sp</span>
+r =<span class="st"> </span><span class="kw">raster</span>() <span class="co"># creation of an empty RasterLayer object</span>
+r
+<span class="co">#&gt; class       : RasterLayer </span>
+<span class="co">#&gt; dimensions  : 180, 360, 64800  (nrow, ncol, ncell)</span>
+<span class="co">#&gt; resolution  : 1, 1  (x, y)</span>
+<span class="co">#&gt; extent      : -180, 180, -90, 90  (xmin, xmax, ymin, ymax)</span>
+<span class="co">#&gt; coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># creation of the RasterLayer object with given number of columns and rows, and extent</span>
+r1 =<span class="st"> </span><span class="kw">raster</span>(<span class="dt">ncol =</span> <span class="dv">20</span>, <span class="dt">nrow =</span> <span class="dv">20</span>, <span class="dt">xmn =</span> <span class="dv">10</span>, <span class="dt">xmx =</span> <span class="dv">30</span>, <span class="dt">ymn =</span> <span class="dv">40</span>, <span class="dt">ymx =</span> <span class="dv">50</span>)
+r1
+<span class="co">#&gt; class       : RasterLayer </span>
+<span class="co">#&gt; dimensions  : 20, 20, 400  (nrow, ncol, ncell)</span>
+<span class="co">#&gt; resolution  : 1, 0.5  (x, y)</span>
+<span class="co">#&gt; extent      : 10, 30, 40, 50  (xmin, xmax, ymin, ymax)</span>
+<span class="co">#&gt; coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0</span>
+<span class="kw">values</span>(r1) &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span>:<span class="kw">ncell</span>(r1)) <span class="co"># adding random values to the new raster object</span></code></pre></div>
+<!-- ### RasterBrick oraz RasterStack -->
+<!-- W przypadku, gdy dane są bardziej złożone, tj. zawierają więcej niż jedną warstwę, konieczne jest wykorzystanie innych klas obiektów - `RasterBrick` lub `RasterStack`. Różnią się one liczbą obsługiwanych plików, sposobem ich reprezentacji i prędkością przetwarzania.  -->
+<!-- `RasterBrick` jest wielowarstwowym obiektem, łączącym się z pojedynczym, wielowarstwowym plikiem. `RasterStack` natomiast jest kolekcją obiektow klasy RasterLayer i może być stworzony na podstawie oddzielnych plików składających się z wielu warstw. -->
+<!-- Z uwagi na sposób reprezentacji, przetwarzanie obiektów klasy `RasterBrick` może być bardziej wydajne niż klasy `RasterStack`. -->
+<!-- ```{r} -->
+<!-- r2 <- r1 -->
+<!-- values(r2) <- sample(1:ncell(r1)) -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- r_stack <- stack(r1, r2) -->
+<!-- r_stack -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- r_brick <- brick(r1, r2) -->
+<!-- r_brick -->
+<!-- ``` -->
+</div>
 </div>
 <div id="coordinate-reference-systems" class="section level2">
 <h2><span class="header-section-number">2.3</span> Coordinate Reference Systems</h2>

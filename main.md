@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-08-07'
+date: '2017-08-08'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -40,7 +40,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-08-07 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-08-08 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve465d2c4716330def
+preserve943025b9ec143b7d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1094,13 +1094,73 @@ Simple features are, in essence, data frames with a spatial extension.
 
 ## Raster data
 
-This section is work in progress.
+### An introdution to raster
 
-<!-- Suggest we save this until the raster section for now -->
-<!-- - raster data types  -->
-<!-- - RasterLayer -->
-<!-- - RasterStack -->
-<!-- - RasterBrick -->
+Raster objects in R are supported by the `raster` package. 
+<!-- Wykorzystuje on klasy z pakietu `sp` do obsługi danych wektorowych, jednocześnie dodając nowe klasy danych rastrowych. Zawarte w tym pakiecie funkcje pozwalają również na tworzenie, wczytywanie, przetwarzanie i zapisywanie danych rastrowych.  -->
+<!-- Bardzo istotną zaletą pakietu `raster` jest możliwość obsługi zbiorów danych rastrowych, które mają znaczne rozmiary i nie jest możliwe ich wczytanie do pamięci RAM. Pakiet `raster`, zamiast zapisania obiektów do pamięci RAM, tworzy obiekt zawierający cechy struktury pliku. Obejmują one, między innymi, liczbę wierszy i kolumn, zasięg przestrzenny oraz nazwę pliku, natomiast nie zawierają wartości kolejnych komórek siatki. Dane podczas przetwarzania wczytywane są w mniejszych blokach. -->
+
+### Basic map making
+
+### Raster classes
+
+The `raster` package provides three main classes of objects - `RasterLayer`, `RasterBrick` and `RasterStack`.
+`RasterLayer` represents the simplest raster object, consisting of only one layer and store information about a number of rows and columns, spatial object extent and coordinate reference system used. 
+<!-- CRS as proj4 -->
+This raster class could store raster values in a RAM memory or only point to a file on hard drive that holds the values.
+
+Object of the `RasterLayer` class is created by the `raster` function:
+<!-- explanation that this function can do many more things -->
+
+
+```r
+library(raster)
+#> Loading required package: sp
+r = raster() # creation of an empty RasterLayer object
+r
+#> class       : RasterLayer 
+#> dimensions  : 180, 360, 64800  (nrow, ncol, ncell)
+#> resolution  : 1, 1  (x, y)
+#> extent      : -180, 180, -90, 90  (xmin, xmax, ymin, ymax)
+#> coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0
+```
+
+
+```r
+# creation of the RasterLayer object with given number of columns and rows, and extent
+r1 = raster(ncol = 20, nrow = 20, xmn = 10, xmx = 30, ymn = 40, ymx = 50)
+r1
+#> class       : RasterLayer 
+#> dimensions  : 20, 20, 400  (nrow, ncol, ncell)
+#> resolution  : 1, 0.5  (x, y)
+#> extent      : 10, 30, 40, 50  (xmin, xmax, ymin, ymax)
+#> coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0
+values(r1) <- sample(1:ncell(r1)) # adding random values to the new raster object
+```
+
+<!-- ### RasterBrick oraz RasterStack -->
+
+<!-- W przypadku, gdy dane są bardziej złożone, tj. zawierają więcej niż jedną warstwę, konieczne jest wykorzystanie innych klas obiektów - `RasterBrick` lub `RasterStack`. Różnią się one liczbą obsługiwanych plików, sposobem ich reprezentacji i prędkością przetwarzania.  -->
+
+<!-- `RasterBrick` jest wielowarstwowym obiektem, łączącym się z pojedynczym, wielowarstwowym plikiem. `RasterStack` natomiast jest kolekcją obiektow klasy RasterLayer i może być stworzony na podstawie oddzielnych plików składających się z wielu warstw. -->
+
+<!-- Z uwagi na sposób reprezentacji, przetwarzanie obiektów klasy `RasterBrick` może być bardziej wydajne niż klasy `RasterStack`. -->
+
+<!-- ```{r} -->
+<!-- r2 <- r1 -->
+<!-- values(r2) <- sample(1:ncell(r1)) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- r_stack <- stack(r1, r2) -->
+<!-- r_stack -->
+<!-- ``` -->
+
+
+<!-- ```{r} -->
+<!-- r_brick <- brick(r1, r2) -->
+<!-- r_brick -->
+<!-- ``` -->
 
 ## Coordinate Reference Systems
 
@@ -2771,7 +2831,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.33
+#> [1] 2.28
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2787,7 +2847,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.34
+#> [1] 3.31
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2816,10 +2876,10 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.068
+#>   0.064   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.041
+#>   0.044   0.000   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
 #>   0.020   0.012   0.030
