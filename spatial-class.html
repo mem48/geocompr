@@ -689,7 +689,7 @@ sf_points =<span class="st"> </span><span class="kw">st_sf</span>(our_attributes
 <h3><span class="header-section-number">2.2.3</span> Raster classes</h3>
 <p>The <code>raster</code> package provides three main classes of objects - <code>RasterLayer</code>, <code>RasterBrick</code> and <code>RasterStack</code>.</p>
 <p><code>RasterLayer</code> represents the simplest raster object, consisting of only one layer and store information about a number of rows and columns, spatial object extent and coordinate reference system used. <!-- CRS as proj4 --> This raster class could store raster values in a RAM memory or only point to a file on hard drive that holds the values.</p>
-<p>Object of the <code>RasterLayer</code> class is created by the <code>raster</code> function: <!-- explanation that this function can do many more things --></p>
+<p>Object of the <code>RasterLayer</code> class is created by the <code>raster()</code> function: <!-- explanation that this function can do many more things --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
 <span class="co">#&gt; Loading required package: sp</span>
 r =<span class="st"> </span><span class="kw">raster</span>() <span class="co"># creation of an empty RasterLayer object</span>
@@ -708,22 +708,34 @@ r1
 <span class="co">#&gt; extent      : 10, 30, 40, 50  (xmin, xmax, ymin, ymax)</span>
 <span class="co">#&gt; coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0</span>
 <span class="kw">values</span>(r1) &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span>:<span class="kw">ncell</span>(r1)) <span class="co"># adding random values to the new raster object</span></code></pre></div>
-<!-- ### RasterBrick oraz RasterStack -->
-<!-- W przypadku, gdy dane są bardziej złożone, tj. zawierają więcej niż jedną warstwę, konieczne jest wykorzystanie innych klas obiektów - `RasterBrick` lub `RasterStack`. Różnią się one liczbą obsługiwanych plików, sposobem ich reprezentacji i prędkością przetwarzania.  -->
-<!-- `RasterBrick` jest wielowarstwowym obiektem, łączącym się z pojedynczym, wielowarstwowym plikiem. `RasterStack` natomiast jest kolekcją obiektow klasy RasterLayer i może być stworzony na podstawie oddzielnych plików składających się z wielu warstw. -->
-<!-- Z uwagi na sposób reprezentacji, przetwarzanie obiektów klasy `RasterBrick` może być bardziej wydajne niż klasy `RasterStack`. -->
-<!-- ```{r} -->
-<!-- r2 <- r1 -->
-<!-- values(r2) <- sample(1:ncell(r1)) -->
-<!-- ``` -->
-<!-- ```{r} -->
-<!-- r_stack <- stack(r1, r2) -->
-<!-- r_stack -->
-<!-- ``` -->
-<!-- ```{r} -->
-<!-- r_brick <- brick(r1, r2) -->
-<!-- r_brick -->
-<!-- ``` -->
+<p>Two additional classes, <code>RasterBrick</code> and <code>RasterStack</code> are used when dealing with multiple layers. These two classes differ in terms of a number of supported files, type of representation and processing speed.</p>
+<p>A <code>RasterBrick</code> contain multiple layers of raster data, which refer to only a single, mutlilayer file. <!-- ... --> <!-- (such as mulitspectral satellite images). --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r2 &lt;-<span class="st"> </span>r1
+<span class="kw">values</span>(r2) &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span>:<span class="kw">ncell</span>(r1))</code></pre></div>
+<!-- change this example to a file one -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r_brick &lt;-<span class="st"> </span><span class="kw">brick</span>(r1, r2)
+r_brick
+<span class="co">#&gt; class       : RasterBrick </span>
+<span class="co">#&gt; dimensions  : 20, 20, 400, 2  (nrow, ncol, ncell, nlayers)</span>
+<span class="co">#&gt; resolution  : 1, 0.5  (x, y)</span>
+<span class="co">#&gt; extent      : 10, 30, 40, 50  (xmin, xmax, ymin, ymax)</span>
+<span class="co">#&gt; coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 </span>
+<span class="co">#&gt; data source : in memory</span>
+<span class="co">#&gt; names       : layer.1, layer.2 </span>
+<span class="co">#&gt; min values  :       1,       1 </span>
+<span class="co">#&gt; max values  :     400,     400</span></code></pre></div>
+<p>A <code>RasterStack</code> is a collection of <code>RasterLayer</code> objects with the same extent and resolution. It can be created based on a group of object from many sources, either different files, another band in a multi-band file or a <code>RasterLayer</code> object created in R. <!--check it!--></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r_stack &lt;-<span class="st"> </span><span class="kw">stack</span>(r1, r2)
+r_stack
+<span class="co">#&gt; class       : RasterStack </span>
+<span class="co">#&gt; dimensions  : 20, 20, 400, 2  (nrow, ncol, ncell, nlayers)</span>
+<span class="co">#&gt; resolution  : 1, 0.5  (x, y)</span>
+<span class="co">#&gt; extent      : 10, 30, 40, 50  (xmin, xmax, ymin, ymax)</span>
+<span class="co">#&gt; coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 </span>
+<span class="co">#&gt; names       : layer.1, layer.2 </span>
+<span class="co">#&gt; min values  :       1,       1 </span>
+<span class="co">#&gt; max values  :     400,     400</span></code></pre></div>
+<p>Due to its properties, <code>RasterBrick</code> objects should be processed in a shorter time than <code>RasterStack</code>. On the other hand, <code>RasterStack</code> give more flexibility. <!-- single object could be stored in memory and on disk (??in the same time) --> <!-- RasterBrick objects could be stored in memory OR on disk (??check) --></p>
 </div>
 </div>
 <div id="coordinate-reference-systems" class="section level2">

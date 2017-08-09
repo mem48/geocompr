@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservefe04760dd612d9fd
+preserve3c23597e065e48c1
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1112,7 +1112,7 @@ The `raster` package provides three main classes of objects - `RasterLayer`, `Ra
 <!-- CRS as proj4 -->
 This raster class could store raster values in a RAM memory or only point to a file on hard drive that holds the values.
 
-Object of the `RasterLayer` class is created by the `raster` function:
+Object of the `RasterLayer` class is created by the `raster()` function:
 <!-- explanation that this function can do many more things -->
 
 
@@ -1141,30 +1141,57 @@ r1
 values(r1) <- sample(1:ncell(r1)) # adding random values to the new raster object
 ```
 
+Two additional classes, `RasterBrick` and `RasterStack` are used when dealing with multiple layers.
+These two classes differ in terms of a number of supported files, type of representation and processing speed.
 
-<!-- ### RasterBrick oraz RasterStack -->
-
-<!-- W przypadku, gdy dane są bardziej złożone, tj. zawierają więcej niż jedną warstwę, konieczne jest wykorzystanie innych klas obiektów - `RasterBrick` lub `RasterStack`. Różnią się one liczbą obsługiwanych plików, sposobem ich reprezentacji i prędkością przetwarzania.  -->
-
-<!-- `RasterBrick` jest wielowarstwowym obiektem, łączącym się z pojedynczym, wielowarstwowym plikiem. `RasterStack` natomiast jest kolekcją obiektow klasy RasterLayer i może być stworzony na podstawie oddzielnych plików składających się z wielu warstw. -->
-
-<!-- Z uwagi na sposób reprezentacji, przetwarzanie obiektów klasy `RasterBrick` może być bardziej wydajne niż klasy `RasterStack`. -->
-
-<!-- ```{r} -->
-<!-- r2 <- r1 -->
-<!-- values(r2) <- sample(1:ncell(r1)) -->
-<!-- ``` -->
-
-<!-- ```{r} -->
-<!-- r_stack <- stack(r1, r2) -->
-<!-- r_stack -->
-<!-- ``` -->
+A `RasterBrick` contain multiple layers of raster data, which refer to only a single, mutlilayer file.
+<!-- ... -->
+<!-- (such as mulitspectral satellite images). -->
 
 
-<!-- ```{r} -->
-<!-- r_brick <- brick(r1, r2) -->
-<!-- r_brick -->
-<!-- ``` -->
+```r
+r2 <- r1
+values(r2) <- sample(1:ncell(r1))
+```
+
+<!-- change this example to a file one -->
+
+```r
+r_brick <- brick(r1, r2)
+r_brick
+#> class       : RasterBrick 
+#> dimensions  : 20, 20, 400, 2  (nrow, ncol, ncell, nlayers)
+#> resolution  : 1, 0.5  (x, y)
+#> extent      : 10, 30, 40, 50  (xmin, xmax, ymin, ymax)
+#> coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 
+#> data source : in memory
+#> names       : layer.1, layer.2 
+#> min values  :       1,       1 
+#> max values  :     400,     400
+```
+
+A `RasterStack` is a collection of `RasterLayer` objects with the same extent and resolution. 
+It can be created based on a group of object from many sources, either different files, another band in a multi-band file or a `RasterLayer` object created in R. <!--check it!--> 
+
+
+
+```r
+r_stack <- stack(r1, r2)
+r_stack
+#> class       : RasterStack 
+#> dimensions  : 20, 20, 400, 2  (nrow, ncol, ncell, nlayers)
+#> resolution  : 1, 0.5  (x, y)
+#> extent      : 10, 30, 40, 50  (xmin, xmax, ymin, ymax)
+#> coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 
+#> names       : layer.1, layer.2 
+#> min values  :       1,       1 
+#> max values  :     400,     400
+```
+
+Due to its properties, `RasterBrick` objects should be processed in a shorter time than `RasterStack`.
+On the other hand, `RasterStack` give more flexibility. 
+<!-- single object could be stored in memory and on disk (??in the same time) -->
+<!-- RasterBrick objects could be stored in memory OR on disk (??check) -->
 
 ## Coordinate Reference Systems
 
@@ -2841,7 +2868,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.38
+#> [1] 2.49
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2857,7 +2884,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.24
+#> [1] 3.27
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2886,7 +2913,7 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>    0.06    0.00    0.06
+#>   0.064   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.040   0.000   0.042
