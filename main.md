@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve57b06bc7803487cc
+preservee3819674e1da14ec
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2388,12 +2388,18 @@ buff_agg = aggregate(x = world["pop"], by = buff, FUN = sum)
 
 The result, `buff_agg`, is a spatial object with the same geometry as `by` (the circular buffer in this case) but with an additional variable, `pop` reporting summary statistics for all features in `x` that intersect with `by` (the total population of the countries that touch the buffer in this case).
 Plotting the result (with `plot(buff_agg)`) shows that the operation does not really make sense:
-Figure \@ref(fig:buff-agg) shows a population of over half a billion people in a giant circle floating off the west coast of Africa!  
+Figure \@ref(fig:buff-agg) shows a population of over half a billion people mostly located in a giant circle floating off the west coast of Africa!  
 
 <div class="figure" style="text-align: center">
 <img src="figures/buff-agg-1.png" alt="Result of spatial aggregation showing the total population of countries that intersect with a large circle whose center lies at 0 degrees longitude and latituge" width="576" />
 <p class="caption">(\#fig:buff-agg)Result of spatial aggregation showing the total population of countries that intersect with a large circle whose center lies at 0 degrees longitude and latituge</p>
 </div>
+
+The results of the spatial aggregation exercise presented in Figure \@ref(fig:buff-agg) are unrealistic for at least two reasons: people do not live in the sea, and it is wrong to assume that all the people living in countries that *touch* the buffer reside *within* it.
+The most extreme example of this is Sudan, the most northerly country selected:
+the spatial aggregation operation assumes that all 39 Sudanese people reside in the tiny southerly tip that is within the circular buffer.
+
+
 
 ### Spatial congruence and areal interpolation
 
@@ -2831,7 +2837,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.37
+#> [1] 2.34
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2847,7 +2853,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.33
+#> [1] 3.32
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2876,13 +2882,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>    0.06    0.00    0.06
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.042
+#>   0.036   0.004   0.039
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.032   0.000   0.030
+#>   0.024   0.004   0.028
 ```
 
 
