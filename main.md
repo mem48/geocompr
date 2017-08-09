@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-08-08'
+date: '2017-08-09'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -40,7 +40,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-08-08 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-08-09 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservefcb196416a48b3b9
+preserve57b06bc7803487cc
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2374,11 +2374,11 @@ there are only 8 unique continents but 177 countries.
 In section \@ref(attribute-data-aggregation) the aggregation process condensed the `world` dataset down into only 8 rows and an aggregated `pop` variable representing the total population per continent (see Figure \@ref(fig:continent-pop)).
 
 Spatial data aggregation is the same conceptually but uses a *spatial* grouping object:
-the number of rows in the output represents the number of features in the *grouping object* that relate to the *geometries* of the input dataset.
+the *output* is the same, in terms of number of rows/features and geometry, as the *grouping object*, but with new variables corresponding to the input dataset.
 As with spatial subsetting, spatial aggregation operations work by extending existing functions.
 Since mid-2017 (with the release of **sf** `0.5-3`) the base R function `aggregate()` works with a spatial object as a grouping variable.
-Building on the example presented the previous section (\@ref(spatial-subsetting)), we demonstrate this by aggregating countries that by the buffer represented by the `buff` object.
-The command below allows to answer the question, :
+
+Building on the example presented the previous section (\@ref(spatial-subsetting)), we demonstrate this by aggregating the population of countries that intersect with the buffer represented by the circular `buff` object created in the previous section.
 
 
 ```r
@@ -2831,7 +2831,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.3
+#> [1] 2.37
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2847,7 +2847,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.3
+#> [1] 3.33
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2876,13 +2876,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.062
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.041
+#>   0.040   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.004   0.029
+#>   0.032   0.000   0.030
 ```
 
 
