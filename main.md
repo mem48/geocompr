@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee3819674e1da14ec
+preservefe04760dd612d9fd
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -341,13 +341,15 @@ We recommend getting up-to-speed with the language, with reference to resources 
 
 After R is installed and set-up, packages which extend R must be installed and loaded for it to handle spatial data.
 On Mac and Linux operating systems there are a few additional requirements: see the [README](https://github.com/r-spatial/sf) of the **sf** package for instructions.
-The **sf** and **spData** packages used in this chapter can be installed and loaded with the following commands:
+The **sf**, **raster**, and **spData** packages used in this chapter can be installed and loaded with the following commands:
 
 
 ```r
 install.packages("sf")
+install.packages("raster")
 install.packages("spData")
 library(sf)
+library(raster)
 library(spData)
 ```
 
@@ -1105,6 +1107,7 @@ Raster objects in R are supported by the `raster` package.
 ### Raster classes
 
 The `raster` package provides three main classes of objects - `RasterLayer`, `RasterBrick` and `RasterStack`.
+
 `RasterLayer` represents the simplest raster object, consisting of only one layer and store information about a number of rows and columns, spatial object extent and coordinate reference system used. 
 <!-- CRS as proj4 -->
 This raster class could store raster values in a RAM memory or only point to a file on hard drive that holds the values.
@@ -1137,6 +1140,7 @@ r1
 #> coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0
 values(r1) <- sample(1:ncell(r1)) # adding random values to the new raster object
 ```
+
 
 <!-- ### RasterBrick oraz RasterStack -->
 
@@ -2837,7 +2841,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.34
+#> [1] 2.38
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2853,7 +2857,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.32
+#> [1] 3.24
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2885,10 +2889,10 @@ system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    0.06    0.00    0.06
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.036   0.004   0.039
+#>   0.040   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.028
+#>   0.020   0.008   0.029
 ```
 
 
