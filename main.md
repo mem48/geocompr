@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea138e64f23b59abf
+preserve7cb908c152c4702c
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2441,8 +2441,8 @@ Figure \@ref(fig:buff-agg) shows a population of over half a billion people most
 </div>
 
 The results of the spatial aggregation exercise presented in Figure \@ref(fig:buff-agg) are unrealistic for at least two reasons: people do not live in the sea, and it is wrong to assume that all the people living in countries that *touch* the buffer reside *within* it.
-The most extreme example of this is Sudan, the most northerly country selected:
-the spatial aggregation operation assumes that all 39 Sudanese people reside in the tiny southerly tip that is within the circular buffer.
+The most extreme example of this is Algeria, the most northerly country selected:
+the spatial aggregation operation assumes that all 39 Algerian citizens reside in the tiny southerly tip that is within the circular buffer.
 
 
 
@@ -2882,7 +2882,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.4
+#> [1] 2.28
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2898,10 +2898,10 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.54
+#> [1] 3.19
 ```
 
-In this case **sf** was around 4 times faster than **rgdal**.
+In this case **sf** was around 3 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -2927,13 +2927,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.064   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.046
+#>   0.044   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.032
+#>   0.020   0.008   0.030
 ```
 
 
