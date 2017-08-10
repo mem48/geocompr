@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve1f046980b14c935c
+preserve7fbd4d7d37497c17
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1131,14 +1131,14 @@ r
 
 ```r
 # creation of the RasterLayer object with given number of columns and rows, and extent
-r1 = raster(ncol = 20, nrow = 20, xmn = 10, xmx = 30, ymn = 40, ymx = 50)
+r1 = raster(ncol = 101, nrow = 77, xmn = 0, xmx = 101, ymn = 0, ymx = 77)
 r1
 #> class       : RasterLayer 
-#> dimensions  : 20, 20, 400  (nrow, ncol, ncell)
-#> resolution  : 1, 0.5  (x, y)
-#> extent      : 10, 30, 40, 50  (xmin, xmax, ymin, ymax)
+#> dimensions  : 77, 101, 7777  (nrow, ncol, ncell)
+#> resolution  : 1, 1  (x, y)
+#> extent      : 0, 101, 0, 77  (xmin, xmax, ymin, ymax)
 #> coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0
-values(r1) <- sample(1:ncell(r1)) # adding random values to the new raster object
+values(r1) = sample(1:ncell(r1)) # adding random values to the new raster object
 ```
 
 Two additional classes, `RasterBrick` and `RasterStack` are used when dealing with multiple layers.
@@ -1147,12 +1147,6 @@ These two classes differ in terms of a number of supported files, type of repres
 A `RasterBrick` contain multiple layers of raster data, which refer to only a single, mutlilayer file.
 <!-- ... -->
 <!-- (such as mulitspectral satellite images). -->
-
-
-```r
-r2 <- r1
-values(r2) <- sample(1:ncell(r1))
-```
 
 `RasterBrick` objects are created using the `brick()` function. 
 This function usually takes a filename to a multilayer raster file.
@@ -1184,30 +1178,38 @@ nlayers(r_brick)
 ```
 
 A `RasterStack` is a list of `RasterLayer` objects with the same extent and resolution. 
-It can be created based on a group of object from many sources, either different files, another band in a multi-band file or a `RasterLayer` object created in R. <!--check it!--> 
+It can be created based on a group of object from many sources - different files, another bands in a multi-band file and `RasterLayer` objects created in R. 
 
 
 ```r
-r_stack <- stack(r1, r2)
+raster_on_disk = raster(multilayer_raster_filepath, layer = 1)
+raster_in_memory = raster(xmn = 0, xmx = 101, ymn = 0, ymx = 77, res = 1)
+values(raster_in_memory) = sample(1:ncell(raster_in_memory))
+crs(raster_in_memory) = crs(raster_on_disk)
+```
+
+
+```r
+r_stack <- stack(raster_in_memory, raster_on_disk)
 r_stack
 #> class       : RasterStack 
-#> dimensions  : 20, 20, 400, 2  (nrow, ncol, ncell, nlayers)
-#> resolution  : 1, 0.5  (x, y)
-#> extent      : 10, 30, 40, 50  (xmin, xmax, ymin, ymax)
-#> coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 
-#> names       : layer.1, layer.2 
-#> min values  :       1,       1 
-#> max values  :     400,     400
+#> dimensions  : 77, 101, 7777, 2  (nrow, ncol, ncell, nlayers)
+#> resolution  : 1, 1  (x, y)
+#> extent      : 0, 101, 0, 77  (xmin, xmax, ymin, ymax)
+#> coord. ref. : +proj=merc +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 
+#> names       : layer,  red 
+#> min values  :     1,    0 
+#> max values  :  7777,  255
 ```
 
 Due to its properties, `RasterBrick` objects should be processed in a shorter time than `RasterStack`.
-On the other hand, `RasterStack` give more flexibility. 
-<!-- single object could be stored in memory and on disk (??in the same time) -->
-<!-- RasterBrick objects could be stored in memory OR on disk (??check) -->
+Additionally, operations on `RasterBrick` and `RasterStack` objects will typically return `RasterBrick`.
+On the other hand, `RasterStack` give more flexibility, as a single object could be related to data stored in a memory and on disk in the same time.
+`RasterBrick` objects could be stored only in a memory or on disk.
 
 ## Coordinate Reference Systems
 
-This section is in progress.
+This section is work in progress.
 
 Despite the differences between vector and raster spatial data types, they are united by shared concepts intrinsic to spatial data. Perhaps the most important of these is Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other body).
 
@@ -2880,7 +2882,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.34
+#> [1] 2.31
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2896,7 +2898,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.33
+#> [1] 3.29
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2925,13 +2927,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>   0.060   0.004   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.043
+#>   0.040   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.031
+#>   0.020   0.008   0.029
 ```
 
 
