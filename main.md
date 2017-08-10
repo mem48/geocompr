@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve7cb908c152c4702c
+preserve767e9718ac778245
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2444,7 +2444,7 @@ The results of the spatial aggregation exercise presented in Figure \@ref(fig:bu
 The most extreme example of this is Algeria, the most northerly country selected:
 the spatial aggregation operation assumes that all 39 Algerian citizens reside in the tiny southerly tip that is within the circular buffer.
 
-
+<!-- Todo: total population in centroids -->
 
 ### Spatial congruence and areal interpolation
 
@@ -2898,7 +2898,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.19
+#> [1] 3.25
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2927,13 +2927,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.062
+#>   0.064   0.000   0.065
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.042
+#>   0.044   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.030
+#>   0.024   0.008   0.032
 ```
 
 
