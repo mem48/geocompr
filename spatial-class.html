@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-08-09">
+<meta name="date" content="2017-08-10">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -712,19 +712,23 @@ r1
 <p>A <code>RasterBrick</code> contain multiple layers of raster data, which refer to only a single, mutlilayer file. <!-- ... --> <!-- (such as mulitspectral satellite images). --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r2 &lt;-<span class="st"> </span>r1
 <span class="kw">values</span>(r2) &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span>:<span class="kw">ncell</span>(r1))</code></pre></div>
-<!-- change this example to a file one -->
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r_brick &lt;-<span class="st"> </span><span class="kw">brick</span>(r1, r2)
+<p><code>RasterBrick</code> objects are created using the <code>brick()</code> function. This function usually takes a filename to a multilayer raster file. However, it is also possible to provide a <code>Raster*</code> object, <code>array</code>, and a few more. All of possible formats could be found on the help file - <code>?brick</code>. <!-- should we use this example or have our own multilayer dataset? --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">multilayer_raster_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;external/rlogo.grd&quot;</span>, <span class="dt">package=</span><span class="st">&quot;raster&quot;</span>)
+r_brick =<span class="st"> </span><span class="kw">brick</span>(multilayer_raster_filepath)
 r_brick
 <span class="co">#&gt; class       : RasterBrick </span>
-<span class="co">#&gt; dimensions  : 20, 20, 400, 2  (nrow, ncol, ncell, nlayers)</span>
-<span class="co">#&gt; resolution  : 1, 0.5  (x, y)</span>
-<span class="co">#&gt; extent      : 10, 30, 40, 50  (xmin, xmax, ymin, ymax)</span>
-<span class="co">#&gt; coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 </span>
-<span class="co">#&gt; data source : in memory</span>
-<span class="co">#&gt; names       : layer.1, layer.2 </span>
-<span class="co">#&gt; min values  :       1,       1 </span>
-<span class="co">#&gt; max values  :     400,     400</span></code></pre></div>
-<p>A <code>RasterStack</code> is a collection of <code>RasterLayer</code> objects with the same extent and resolution. It can be created based on a group of object from many sources, either different files, another band in a multi-band file or a <code>RasterLayer</code> object created in R. <!--check it!--></p>
+<span class="co">#&gt; dimensions  : 77, 101, 7777, 3  (nrow, ncol, ncell, nlayers)</span>
+<span class="co">#&gt; resolution  : 1, 1  (x, y)</span>
+<span class="co">#&gt; extent      : 0, 101, 0, 77  (xmin, xmax, ymin, ymax)</span>
+<span class="co">#&gt; coord. ref. : +proj=merc +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 </span>
+<span class="co">#&gt; data source : /home/travis/R/Library/raster/external/rlogo.grd </span>
+<span class="co">#&gt; names       : red, green, blue </span>
+<span class="co">#&gt; min values  :   0,     0,    0 </span>
+<span class="co">#&gt; max values  : 255,   255,  255</span></code></pre></div>
+<p>The <code>nlayers</code> function helps to get the number of layers in a <code>Raster*</code> object:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nlayers</span>(r_brick)
+<span class="co">#&gt; [1] 3</span></code></pre></div>
+<p>A <code>RasterStack</code> is a list of <code>RasterLayer</code> objects with the same extent and resolution. It can be created based on a group of object from many sources, either different files, another band in a multi-band file or a <code>RasterLayer</code> object created in R. <!--check it!--></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r_stack &lt;-<span class="st"> </span><span class="kw">stack</span>(r1, r2)
 r_stack
 <span class="co">#&gt; class       : RasterStack </span>

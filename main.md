@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-08-09'
+date: '2017-08-10'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -40,7 +40,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-08-09 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-08-10 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve3c23597e065e48c1
+preserve1f046980b14c935c
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1154,25 +1154,37 @@ r2 <- r1
 values(r2) <- sample(1:ncell(r1))
 ```
 
-<!-- change this example to a file one -->
+`RasterBrick` objects are created using the `brick()` function. 
+This function usually takes a filename to a multilayer raster file.
+However, it is also possible to provide a `Raster*` object, `array`, and a few more.
+All of possible formats could be found on the help file - `?brick`.
+<!-- should we use this example or have our own multilayer dataset? -->
 
 ```r
-r_brick <- brick(r1, r2)
+multilayer_raster_filepath = system.file("external/rlogo.grd", package="raster")
+r_brick = brick(multilayer_raster_filepath)
 r_brick
 #> class       : RasterBrick 
-#> dimensions  : 20, 20, 400, 2  (nrow, ncol, ncell, nlayers)
-#> resolution  : 1, 0.5  (x, y)
-#> extent      : 10, 30, 40, 50  (xmin, xmax, ymin, ymax)
-#> coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 
-#> data source : in memory
-#> names       : layer.1, layer.2 
-#> min values  :       1,       1 
-#> max values  :     400,     400
+#> dimensions  : 77, 101, 7777, 3  (nrow, ncol, ncell, nlayers)
+#> resolution  : 1, 1  (x, y)
+#> extent      : 0, 101, 0, 77  (xmin, xmax, ymin, ymax)
+#> coord. ref. : +proj=merc +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 
+#> data source : /home/travis/R/Library/raster/external/rlogo.grd 
+#> names       : red, green, blue 
+#> min values  :   0,     0,    0 
+#> max values  : 255,   255,  255
 ```
 
-A `RasterStack` is a collection of `RasterLayer` objects with the same extent and resolution. 
-It can be created based on a group of object from many sources, either different files, another band in a multi-band file or a `RasterLayer` object created in R. <!--check it!--> 
+The `nlayers` function helps to get the number of layers in a `Raster*` object:
 
+
+```r
+nlayers(r_brick)
+#> [1] 3
+```
+
+A `RasterStack` is a list of `RasterLayer` objects with the same extent and resolution. 
+It can be created based on a group of object from many sources, either different files, another band in a multi-band file or a `RasterLayer` object created in R. <!--check it!--> 
 
 
 ```r
@@ -2868,7 +2880,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.49
+#> [1] 2.34
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2884,7 +2896,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.27
+#> [1] 3.33
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2913,13 +2925,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.061
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.042
+#>   0.044   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.020   0.008   0.031
 ```
 
 
