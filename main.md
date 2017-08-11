@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve29c69a850298542a
+preserve4f0907339e80fd7c
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2258,7 +2258,7 @@ This means `world[1:6,]` subsets the first 6 countries of the world and that `wo
 This is a concise and consistent syntax, as shown in the next code chunk.
 Let's test it with a hypothetical scenario: we want to subset all countries within 20 degrees of the point where the equator (where latitude = 0 degrees) intersects the prime meridian (longitude = 0 degrees), as illustrated in Figure \@ref(fig:globe).
 The subsetting object is created below.
-Note that this must have the same CRS as the target object (as ensured by the `crs` argument):
+Note that this must have the same CRS as the target object (set with the `crs` argument):
 
 
 ```r
@@ -2850,7 +2850,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.36
+#> [1] 2.33
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2866,7 +2866,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.35
+#> [1] 3.22
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2898,7 +2898,7 @@ system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.004   0.043
+#>   0.040   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
 #>   0.020   0.008   0.030
