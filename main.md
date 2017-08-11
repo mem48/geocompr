@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservecda3aa719f38ebf9
+preservef61439807a25d75f
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1170,8 +1170,15 @@ Simple features are, in essence, data frames with a spatial extension.
 ### An introduction to raster
 
 Raster objects in R are supported by the `raster` package. 
-<!-- Wykorzystuje on klasy z pakietu `sp` do obsługi danych wektorowych, jednocześnie dodając nowe klasy danych rastrowych. Zawarte w tym pakiecie funkcje pozwalają również na tworzenie, wczytywanie, przetwarzanie i zapisywanie danych rastrowych.  -->
-<!-- Bardzo istotną zaletą pakietu `raster` jest możliwość obsługi zbiorów danych rastrowych, które mają znaczne rozmiary i nie jest możliwe ich wczytanie do pamięci RAM. Pakiet `raster`, zamiast zapisania obiektów do pamięci RAM, tworzy obiekt zawierający cechy struktury pliku. Obejmują one, między innymi, liczbę wierszy i kolumn, zasięg przestrzenny oraz nazwę pliku, natomiast nie zawierają wartości kolejnych komórek siatki. Dane podczas przetwarzania wczytywane są w mniejszych blokach. -->
+It provides functions to create, read, processed and write of raster datasets.
+Beside the general raster data manipulation, `raster` provides many low level functions that can be used to create and develop new concepts.
+<!-- raster algebra -->
+
+`raster` also supports work on large raster datasets that are stored on a hard drive, but are too large to fit into memory. 
+Instead of recreating the whole file in RAM, this package extracts information about the structure of the dataset, such as a number of rows and columns, spatial extent and the name of the file.
+When manipulating this dataset, values are read and processed in a small chunk and written either to a specified file on a disk or temporary file.
+
+The list of the `raster` function could be found using /home/travis/R/Library/raster/help/raster-package.
 
 ### Basic map making
 
@@ -2526,8 +2533,6 @@ buff_agg_aw = st_interpolate_aw(x = africa["pop"], to = buff, extensive = TRUE)
 #> TRUE): st_interpolate_aw assumes attributes are constant over areas of x
 ```
 
-
-
 <!-- - `aggregate.sf()` - aggregate an sf object, possibly union-ing geometries -->
 <!-- - disaggregation?? `st_cast()` - https://github.com/edzer/sfr/wiki/migrating -->
 <!-- - `group_by()` + `summarise()` - potential errors -->
@@ -2600,7 +2605,6 @@ These can be set to `NULL` as follows:
 attributes(africa$area) = NULL
 attributes(africa$pop_density) = NULL
 ```
-
 
 <!-- ## Spatial data transformation -->
 <!-- changes classes; polygonize, etc-->
@@ -2838,8 +2842,6 @@ interp9 = st_interpolate_aw(x = world["pop"], to = buff9, extensive = TRUE)
 #> TRUE): st_interpolate_aw assumes attributes are constant over areas of x
 ```
 
-
-
 <!-- TODO? create a series of polygons distributed evenly over the surface of the Earth and clip them. -->
 
 <!-- ```{r} -->
@@ -2933,7 +2935,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.31
+#> [1] 2.17
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2949,7 +2951,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.21
+#> [1] 3.47
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2978,13 +2980,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.064   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.044   0.000   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.030
+#>   0.020   0.008   0.029
 ```
 
 
