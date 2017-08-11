@@ -117,8 +117,10 @@ But there is much more.
 This book aims to teach how to do geocomputation rather than just to think about it.
 Hence, you should be also able to apply the learned methods and mastered skills to real-world data, i.e. your data.
 Moreover, throughout the book we encourage you to make geographic research more reproducible, scientific and socially beneficial. 
-Please note that this book is also part of the movement towards Geographical Information Science (GDS) which supports the above mentioned concepts.
-GSD also differs from GIS in several ways, some of which are outlined in Table \@ref(tab:gdsl).
+
+This book is also part of the movement towards Geographical Information Science (GDS), a more recent concept which incorporates elements of 'data science' into GIS.
+Like Geocomputation, GSD can be defined in terms of its relation with GIS, some of which are outlined in Table \@ref(tab:gdsl).
+The focus on reproducibility and a command-line interface in this book is aligned with GDS.
 
 
 Table: (\#tab:gdsl)Differences in emphasis between the fields of Geographic Information Systems (GIS) and Geographic Data Science (GDS).
@@ -195,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve5fdbce1a05bbad99
+preservee14a2c10152dfc41
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2940,7 +2942,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.3
+#> [1] 2.36
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2956,7 +2958,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.22
+#> [1] 3.2
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2985,13 +2987,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>    0.06    0.00    0.06
+#>   0.060   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.043
+#>   0.040   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.020   0.012   0.030
 ```
 
 
