@@ -259,7 +259,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </tr>
 </tbody>
 </table>
-<p>While embracing recent developments in the field, we also wanted to pay respects to the wider field of Geography, with its 2000 history <span class="citation">(Roller <a href="#ref-roller_eratosthenes_2010">2010</a>)</span>, and the narrower field of <em>Geographic Information System</em> (GIS) <span class="citation">(Neteler and Mitasova <a href="#ref-neteler_open_2008">2008</a>)</span>. Geography has played an important role in explaining and influencing humanity’s relationship with the natural world <span class="citation">(just think of Humboldt’s travels to South America which laid the foundations, among others, for physical and plant geography; <span class="citeproc-not-found" data-reference-id="wulf_invention_2015"><strong>???</strong></span>)</span> and this book aims to contribute to this so-called ‘Geographic tradition’ <span class="citation">(Livingstone <a href="#ref-livingstone_geographical_1992">1992</a>)</span>. GIS has become almost synonymous with handling spatial data on a computer, and provides a basis for excellent open source tools which can be accessed from R, as we will see in Chapter 13. <!--
+<p>While embracing recent developments in the field, we also wanted to pay respects to the wider field of Geography, with its 2000 history <span class="citation">(Roller <a href="#ref-roller_eratosthenes_2010">2010</a>)</span>, and the narrower field of <em>Geographic Information System</em> (GIS) <span class="citation">(Neteler and Mitasova <a href="#ref-neteler_open_2008">2008</a>)</span>. Geography has played an important role in explaining and influencing humanity’s relationship with the natural world <span class="citation">(just think of Humboldt’s travels to South America which laid the foundations, among others, for physical and plant geography; Wulf <a href="#ref-wulf_invention_2015">2015</a>)</span> and this book aims to contribute to this so-called ‘Geographic tradition’ <span class="citation">(Livingstone <a href="#ref-livingstone_geographical_1992">1992</a>)</span>. GIS has become almost synonymous with handling spatial data on a computer, and provides a basis for excellent open source tools which can be accessed from R, as we will see in Chapter 13. <!--
 todo - add this reference to end of previous line:
 (\@ref(gis)).
 --></p>
@@ -308,7 +308,7 @@ Figure 1.2: The popularity of spatial packages in R. The y-axis shows the averag
 </div>
 <p>It is noteworthy that shifts in the wider R community, as exemplified by the data processing package <strong>dplyr</strong> (released in <a href="https://cran.r-project.org/src/contrib/Archive/dplyr/">2014</a>) influenced shifts in R’s spatial ecosystem. Alongside other packages that have a shared style and emphasis on ‘tidy data’ (including e.g., <strong>ggplot2</strong>), <strong>dplyr</strong> was placed in the <strong>tidyverse</strong> ‘metapackage’ in late <a href="https://cran.r-project.org/src/contrib/Archive/tidyverse/">2016</a>. The <strong>tidyverse</strong> approach, with its focus on long-form data and fast, intuitively named functions, has become immensely popular. This has led to a demand for ‘tidy spatial data’ which has been partly met by <strong>sf</strong> and other approaches such as the GitHub package <a href="https://hypertidy.github.io/tabularaster/"><strong>tabularaster</strong></a>. An obvious feature of the <strong>tidyverse</strong> is the tendency for packages to work in harmony. Although an equivalent <strong>geoverse</strong> is presently missing, there is an on-going discussion of harmonizing R’s many spatial packages.<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a> and a growing number of actively developed packages which are designed to work in harmony with <strong>sf</strong> (Table <a href="intro.html#tab:revdep">1.2</a>) and</p>
 <table>
-<caption><span id="tab:revdep">Table 1.2: </span>The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-08-03 there are 22 packages which import sf.</caption>
+<caption><span id="tab:revdep">Table 1.2: </span>The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-08-09 there are 23 packages which import sf.</caption>
 <thead>
 <tr class="header">
 <th align="left">package</th>
@@ -318,23 +318,23 @@ Figure 1.2: The popularity of spatial packages in R. The y-axis shows the averag
 <tbody>
 <tr class="odd">
 <td align="left">plotly</td>
-<td align="right">1651</td>
+<td align="right">1702</td>
 </tr>
 <tr class="even">
 <td align="left">leaflet</td>
-<td align="right">496</td>
+<td align="right">485</td>
 </tr>
 <tr class="odd">
 <td align="left">mapview</td>
-<td align="right">205</td>
+<td align="right">202</td>
 </tr>
 <tr class="even">
 <td align="left">geojsonio</td>
-<td align="right">171</td>
+<td align="right">174</td>
 </tr>
 <tr class="odd">
 <td align="left">tigris</td>
-<td align="right">99</td>
+<td align="right">95</td>
 </tr>
 </tbody>
 </table>
@@ -387,6 +387,9 @@ of Statistical Software http://von-tijn.nl/tijn/research/presentations/tmap_user
 <div id="ref-neteler_open_2008">
 <p>Neteler, Markus, and Helena Mitasova. 2008. <em>Open Source GIS: A GRASS GIS Approach</em>. 3. ed. New York, NY: Springer.</p>
 </div>
+<div id="ref-wulf_invention_2015">
+<p>Wulf, Andrea. 2015. <em>The Invention of Nature: Alexander von Humboldt’s New World</em>. First American Edition. New York: Alfred A. Knopf.</p>
+</div>
 <div id="ref-livingstone_geographical_1992">
 <p>Livingstone, David N. 1992. <em>The Geographical Tradition: Episodes in the History of a Contested Enterprise</em>. Oxford, UK ; Cambridge, USA: John Wiley &amp; Sons Ltd.</p>
 </div>
@@ -400,10 +403,10 @@ of Statistical Software http://von-tijn.nl/tijn/research/presentations/tmap_user
 <p>Chambers, John M. 2016. <em>Extending R</em>. CRC Press.</p>
 </div>
 <div id="ref-R-leaflet">
-<p>Cheng, Joe, Bhaskar Karambelkar, and Yihui Xie. 2017. <em>Leaflet: Create Interactive Web Maps with the JavaScript ’Leaflet’ Library</em>. <a href="http://rstudio.github.io/leaflet/" class="uri">http://rstudio.github.io/leaflet/</a>.</p>
+<p>Cheng, Joe, Bhaskar Karambelkar, and Yihui Xie. 2017. <em>Leaflet: Create Interactive Web Maps with the JavaScript ’Leaflet’ Library</em>. <a href="https://CRAN.R-project.org/package=leaflet" class="uri">https://CRAN.R-project.org/package=leaflet</a>.</p>
 </div>
 <div id="ref-R-tmap">
-<p>Tennekes, Martijn. 2017. <em>Tmap: Thematic Maps</em>. <a href="https://CRAN.R-project.org/package=tmap" class="uri">https://CRAN.R-project.org/package=tmap</a>.</p>
+<p>Tennekes, Martijn. 2017. <em>Tmap: Thematic Maps</em>. <a href="https://github.com/mtennekes/tmap" class="uri">https://github.com/mtennekes/tmap</a>.</p>
 </div>
 <div id="ref-R-mapview">
 <p>Appelhans, Tim, Florian Detsch, Christoph Reudenbach, and Stefan Woellauer. 2017. <em>Mapview: Interactive Viewing of Spatial Objects in R</em>. <a href="https://CRAN.R-project.org/package=mapview" class="uri">https://CRAN.R-project.org/package=mapview</a>.</p>
