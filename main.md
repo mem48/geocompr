@@ -99,9 +99,10 @@ Before going into the details of the software, however, it is worth taking a ste
 
 ## What is geocomputation?
 
-Geocomputation is a relatively young field with its [~30 year history dating back to the first [conference](http://www.geocomputation.org/) on the subject in 1996^[The conference took place at the University of Leeds where the concept for this book was dreamt up, and followed by a flurry of subsequent publications. However, algorithms published under the geocomputational banner have also influenced the direction of geographical research, as we will see in subsequent chapters.
+Geocomputation is a relatively young field with a ~30 year history, dating back to the first conference on the subject in 1996.^[The conference took place at the University of Leeds, where one of the authors (Robin) is currently based and where the 21^st^ GeoComputation was hosted in 2017 (see
+[geocomputation.org](http://www.geocomputation.org/)).
+]
 <!-- todo: which chapters? -->
-].
 What distinguishes geocomputation from the older quantitative geography, is its emphasis on "creative and experimental" GIS applications [@longley_geocomputation:_1998].
 Additionally, it is also about developing new, research-driven methods [@openshaw_geocomputation_2000]:
 
@@ -191,7 +192,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveb0d817dff2f3528d
+preserveeaeab68213ed8bb0
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2936,7 +2937,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.13
+#> [1] 2.29
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2952,7 +2953,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.37
+#> [1] 3.3
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2981,13 +2982,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.062
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.048   0.000   0.047
+#>   0.040   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.030
+#>   0.020   0.004   0.027
 ```
 
 
