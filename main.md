@@ -87,10 +87,11 @@ Learning how to use the wealth of geospatial 'tools' this computational approach
 However, it is even more liberating to create new tools.
 By the end of the book you should be able to create new tools in the form of shareable R functions.
 
-Over the last few decades a huge amount of work has gone into developing open source software for handling geographic data or 'FOSS4G' (see [foss4g.org](http://foss4g.org/)).
+Over the last few decades a huge amount of work has gone into developing open source software for handling geographic data (see [foss4g.org](http://foss4g.org/)).
 This means that spatial data analysis is no longer the preserve of those who can afford expensive programs, and the hardware to run them.
 Anyone can now download high performance spatial libraries on their computer.
-However, despite the growth of geospatial software that is *open source*, much of it remains *inaccessible* to many potential users due to the required expert knowledge to handle it.
+However, despite the growth of geospatial software that is *open source*, much of it remains *inaccessible*, in a form that is scriptable and therefore easily reproducible and 'comptuational'.
+Open source Geographic Information Systems (GIS) such as QGIS (see [qgis.org](http://qgis.org/en/site/)) have greatly reduced the 'barrier to entry', but the emphasis of such programs on a Graphical User Interface (GUI) can discourage reproducibility and an emphasis on the code that the Geocomputational approach requires, as we will see in Chapter 13.
 
 A major aim of this book is to make geographical data analysis more accessible.
 R is a flexible language that allows access to many spatial software libraries (see section \@ref(why-geocomputation-with-r)).
@@ -190,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve4648677d4419d1c3
+preserve60a65ea4701b67ac
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2935,7 +2936,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.34
+#> [1] 2.32
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2951,7 +2952,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.34
+#> [1] 3.22
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2980,13 +2981,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.084   0.000   0.083
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.043
+#>   0.052   0.004   0.053
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.032   0.004   0.038
 ```
 
 
