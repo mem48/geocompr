@@ -91,9 +91,9 @@ Over the last few decades a huge amount of work has gone into developing open so
 This means that spatial data analysis is no longer the preserve of those who can afford expensive programs, and the hardware to run them.
 Anyone can now download high performance spatial libraries on their computer.
 However, despite the growth of geospatial software that is *open source*, much of it remains *inaccessible*, in a form that is scriptable and therefore easily reproducible and 'comptuational'.
-Open source Geographic Information Systems (GIS) such as QGIS (see [qgis.org](http://qgis.org/en/site/)) have greatly reduced the 'barrier to entry', but the emphasis of such programs on a Graphical User Interface (GUI) can discourage reproducibility and an emphasis on the code that the Geocomputational approach requires, as we will see in Chapter 13.
+Open source Geographic Information Systems (GIS) such as QGIS (see [qgis.org](http://qgis.org/en/site/)) have greatly reduced the 'barrier to entry', but the emphasis of such programs on a Graphical User Interface (GUI) can discourage reproducibility and an emphasis on the code that the Geocomputational approach requires, as discussed in Chapter 13.
 
-A major aim of this book is to make geographical data analysis more accessible.
+A major aim of this book is to make geographical data analysis more accessible as part of a reproducible workflow.
 R is a flexible language that allows access to many spatial software libraries (see section \@ref(why-geocomputation-with-r)).
 Before going into the details of the software, however, it is worth taking a step back and thinking about what we mean by geocomputation.
 
@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve60a65ea4701b67ac
+preserveb0d817dff2f3528d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2936,7 +2936,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.32
+#> [1] 2.13
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2952,7 +2952,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.22
+#> [1] 3.37
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2981,13 +2981,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.084   0.000   0.083
+#>   0.064   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.052   0.004   0.053
+#>   0.048   0.000   0.047
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.032   0.004   0.038
+#>   0.024   0.008   0.030
 ```
 
 
