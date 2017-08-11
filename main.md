@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-08-10'
+date: '2017-08-11'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -40,7 +40,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-08-10 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-08-11 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve767e9718ac778245
+preserve1ab8cef193d99fea
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2440,14 +2440,24 @@ Figure \@ref(fig:buff-agg) shows a population of over half a billion people most
 <p class="caption">(\#fig:buff-agg)Result of spatial aggregation showing the total population of countries that intersect with a large circle whose center lies at 0 degrees longitude and latituge</p>
 </div>
 
-The results of the spatial aggregation exercise presented in Figure \@ref(fig:buff-agg) are unrealistic for at least two reasons: people do not live in the sea, and it is wrong to assume that all the people living in countries that *touch* the buffer reside *within* it.
-The most extreme example of this is Algeria, the most northerly country selected:
-the spatial aggregation operation assumes that all 39 Algerian citizens reside in the tiny southerly tip that is within the circular buffer.
+The results of the spatial aggregation exercise presented in Figure \@ref(fig:buff-agg) are unrealistic for three reasons:
 
-<!-- Todo: total population in centroids -->
+- People do not live in the sea (the geometry of the aggregating object is not appropriate for the geometry target object).
+- This method would 'double count' countries whose borders cross aggregating polygons when multiple, spatially contiguous, features are used as the aggregating object.
+- It is wrong to assume that all the people living in countries that *touch* the buffer reside *within* it (the default spatial operator `st_intersects()` is too 'greedy'). The most extreme example of this is Algeria, the most northerly country selected:
+the spatial aggregation operation assumes that all 39 million Algerian citizens reside in the tiny southerly tip that is within the circular buffer.
+
+A number of methods can be used to overcome these issues, which result in unrealistically high population attributed to the circular buffer illustrated in Figure \@ref(fig:buff-agg).
+The simplest of these is to convert the country polygons into points representing their *geographic centroids* before aggregation.
+<!-- Todo: reference section where we demonstrate geographic centroid generation -->
+This would ensure that any spatially contiguous aggregating object covering the target object (the Earth in this case) would result in the same total: there would be no double counting.
+The estimated total population residing within the study area would be more realistic if geographic centroids were used.
+(The centroid of Algeria, for example, is far outside the aggregating buffer.)
+Except in cases where the number of target features per aggregating feature is very large, or where the aggregating object is *spatially congruent* with the target (covered in section \@ref(spatial-congruence-and-areal-interpolation)), using centroids can also lead to errors due to boundary effects:
+imagine a buffer that covers a large area but contains no centroids.
+These issues can be tackled when aggregating areal target data with areal interpolation.
 
 ### Spatial congruence and areal interpolation
-
 
 Spatial congruence is an important concept when interpreting the results of spatial aggregation and other operations.
 An *aggregating object* object (which we will refer to as `y`, representing the buffer object in the previous section) is *congruent* with the target object `x`, corresponding to the first argument of `aggregate()` in the previous section, if the two objects have shared borders:
@@ -2882,10 +2892,10 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.28
+#> [1] 2.59
 ```
 
-The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -2898,7 +2908,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.25
+#> [1] 3.09
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2927,13 +2937,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.065
+#>   0.112   0.000   0.112
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.043
+#>   0.080   0.000   0.078
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.032
+#>   0.036   0.012   0.049
 ```
 
 
