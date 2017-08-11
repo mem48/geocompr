@@ -244,11 +244,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="spatial-subsetting" class="section level2">
 <h2><span class="header-section-number">4.2</span> Spatial subsetting</h2>
-<p>Spatial subsetting is the process of selecting only those features of a spatial object that in some way <em>intersect</em> with another spatial object. Note that ‘intersect’ in this context has a precise meaning: if <code>y</code> is used to subset features in a ‘target’ object of <code>x</code>, any features in <code>x</code> that touch, overlap or are within features in <code>y</code> will be selected. Intersect is the default operation for spatial subsetting but others can be used using the <code>op =</code> argument.<a href="#fn17" class="footnoteRef" id="fnref17"><sup>17</sup></a></p>
+<p>Spatial subsetting is the process of selecting only those features of a spatial object that in some way <em>intersect</em> with another spatial object. Note that ‘intersect’ in this context has a precise meaning: if <code>y</code> is used to subset features in a ‘target’ object of <code>x</code>, any features in <code>x</code> that touch, overlap or are within features in <code>y</code> will be selected. Intersect is the default operation for spatial subsetting but others can be used using the <code>op =</code> argument.<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a></p>
 <p>There are 9 well-defined operations that can be used for spatial subsetting, covered in section <a href="spatial-data-operations.html#topological-relations">4.5.1</a>. This may seem daunting but the good news is that you do not have to learn all of them separately: after you understand how to spatially subset objects that <em>intersect</em> another (via <code>st_intersects()</code>) it is easy to subset based on other types of spatial operation such as <code>st_touches()</code>, <code>st_crosses()</code> and <code>st_within()</code>. For this reason now we focus only pn one of the spatial subsetting operations. We use <code>st_intersects()</code> instead of any of the others not only because it the default when subsetting with <code>[</code>, but also <code>st_intersects()</code> is useful as a ‘catch all’ that identifies all types of spatial relations.</p>
 <p>In general terms, spatial subsetting is simply the spatial equivalent of <em>attribute subsetting</em>. However, to do spatial subsetting <em>two spatial objects are needed</em> the spatial relation between which is to be established. As with attribute subsetting, spatial subsetting is a <em>binary operation</em>: an object is either selected or not. As in section <a href="attr.html#attribute-subsetting">3.2</a>, we start with base methods before describing how to do it in the <strong>tidyverse</strong>. <!-- todo: link to non-binary links, e.g. area-weighted spatial interpolation --></p>
 <!-- ### Spatial subsetting in base R -->
-<p>Attribute subsetting in base R is done with the <code>[</code> operator and passing into the square brackets a vector of class <code>integer</code> (whole numbers) or <code>logical</code> (a vector of <code>TRUE</code>s and <code>FALSE</code>s). This means <code>world[1:6,]</code> subsets the first 6 countries of the world and that <code>world[world$area_km2 &lt; 10000,]</code> returns the subset of countries that have a small surface area. For this chapter we will use countries in Africa, which can be generated using this method as follows:<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a></p>
+<p>Attribute subsetting in base R is done with the <code>[</code> operator and passing into the square brackets a vector of class <code>integer</code> (whole numbers) or <code>logical</code> (a vector of <code>TRUE</code>s and <code>FALSE</code>s). This means <code>world[1:6,]</code> subsets the first 6 countries of the world and that <code>world[world$area_km2 &lt; 10000,]</code> returns the subset of countries that have a small surface area. For this chapter we will use countries in Africa, which can be generated using this method as follows:<a href="#fn19" class="footnoteRef" id="fnref19"><sup>19</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">africa_wgs =<span class="st"> </span>world[world$subregion ==<span class="st"> &quot;Western Africa&quot;</span>, ]</code></pre></div>
 <p>To further set-up the input data, we will reproject the data to the coordinate reference system (CRS) 32630 (it’s EPSG code, explained in Chapter 6):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">africa =<span class="st"> </span><span class="kw">st_transform</span>(africa_wgs, <span class="dt">crs =</span> <span class="dv">32630</span>) </code></pre></div>
@@ -296,7 +296,7 @@ africa_buff2 =<span class="st"> </span>africa[sel_buff,]</code></pre></div>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
 <div id="note" class="section level3 unnumbered">
 <h3>Note</h3>
-<p>This discarding of row names is not something that is specific to spatial data:<a href="#fn19" class="footnoteRef" id="fnref19"><sup>19</sup></a></p>
+<p>This discarding of row names is not something that is specific to spatial data:<a href="#fn20" class="footnoteRef" id="fnref20"><sup>20</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">row.names</span>(africa[africa$subregion ==<span class="st"> &quot;Northern Europe&quot;</span>,])
 <span class="co">#&gt; character(0)</span>
 <span class="kw">row.names</span>(<span class="kw">filter</span>(africa, subregion ==<span class="st"> &quot;Northern Europe&quot;</span>))
@@ -557,10 +557,10 @@ agg9$pop /<span class="st"> </span><span class="kw">sum</span>(world$pop, <span 
 </div>
 <div class="footnotes">
 <hr />
-<ol start="17">
-<li id="fn17"><p>Interested readers can see this default value of <code>op</code> set in the first line of the function call by entering its long-form name into the console: <code>sf:::`[.sf`</code><a href="spatial-data-operations.html#fnref17">↩</a></p></li>
-<li id="fn18"><p>Recall that we can also subset simple features using the <code>filter()</code> function, e.g. with <code>filter(world, continent == &quot;Africa&quot;)</code><a href="spatial-data-operations.html#fnref18">↩</a></p></li>
-<li id="fn19"><p><strong>dplyr</strong> discards row names by design. For further discussion of this decision, and some controversy, see the (closed) issue <a href="https://github.com/tidyverse/dplyr/issues/366">#366</a> in the package’s issue tracker.<a href="spatial-data-operations.html#fnref19">↩</a></p></li>
+<ol start="18">
+<li id="fn18"><p>Interested readers can see this default value of <code>op</code> set in the first line of the function call by entering its long-form name into the console: <code>sf:::`[.sf`</code><a href="spatial-data-operations.html#fnref18">↩</a></p></li>
+<li id="fn19"><p>Recall that we can also subset simple features using the <code>filter()</code> function, e.g. with <code>filter(world, continent == &quot;Africa&quot;)</code><a href="spatial-data-operations.html#fnref19">↩</a></p></li>
+<li id="fn20"><p><strong>dplyr</strong> discards row names by design. For further discussion of this decision, and some controversy, see the (closed) issue <a href="https://github.com/tidyverse/dplyr/issues/366">#366</a> in the package’s issue tracker.<a href="spatial-data-operations.html#fnref20">↩</a></p></li>
 </ol>
 </div>
             </section>

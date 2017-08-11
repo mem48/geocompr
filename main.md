@@ -130,7 +130,10 @@ Software focus     Graphical User Interface   Code
 Reproduciblility   Minimal                    Maximal                          
 
 While embracing recent developments in the field, we also wanted to pay respects to the wider field of Geography, with its 2000 history [@roller_eratosthenes_2010], and the narrower field of *Geographic Information System* (GIS) [@neteler_open_2008].
-Geography has played an important role in explaining and influencing humanity's relationship with the natural world [just think of Humboldt's travels to South America which laid the foundations, among others, for physical and plant geography; @wulf_invention_2015] and this book aims to contribute to this so-called 'Geographic tradition' [@livingstone_geographical_1992].
+Geography has played an important role in explaining and influencing humanity's relationship with the natural
+world^[A good example of this is Alexander von Humboldt's travels to South America, which laid the foundations for physical and plant geography [@wulf_invention_2015].
+]
+and this book aims to contribute to this so-called 'Geographic Tradition' [@livingstone_geographical_1992].
 GIS has become almost synonymous with handling spatial data on a computer, and provides a basis for excellent open source tools which can be accessed from R, as we will see in Chapter 13.
 <!--
 todo - add this reference to end of previous line:
@@ -192,7 +195,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveeaeab68213ed8bb0
+preserve5fdbce1a05bbad99
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2937,7 +2940,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.29
+#> [1] 2.3
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2953,7 +2956,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.3
+#> [1] 3.22
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2982,13 +2985,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>    0.06    0.00    0.06
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.041
+#>   0.044   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.004   0.027
+#>   0.020   0.008   0.028
 ```
 
 
