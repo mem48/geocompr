@@ -124,7 +124,7 @@ By teaching these foundations we aim to empower you to create your own solutions
 <!-- todo: what contributions, which will we use, where in the book? -->
 
 While embracing recent developments in the field, we also wanted to pay respects to the wider field of Geography, with its 2000 history [@roller_eratosthenes_2010], and the narrower field of *Geographic Information System* (GIS) [@neteler_open_2008].
-Geography has played an important role in explaining and influencing humanity's relationship with the natural world and this book aims to be a part of the 'Geographic tradition'.
+Geography has played an important role in explaining and influencing humanity's relationship with the natural world and this book aims to be a part of the 'Geographic tradition' following in the footsteps of great geographers such as Alexander von Humboldt [@livingstone_geographical_1992].
 GIS has become almost synonymous with handling spatial data on a computer, and provides a basis for excellent open source tools which can be accessed from R, as we will see in Chapter 13.
 
 The book's links to older disciplines were reflected in suggested titles for the book: *Geography with R* and *R for GIS*.
@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve5c0e584d1c11fb3e
+preservedff33d81874be35a
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2253,8 +2253,23 @@ As in section \@ref(attribute-subsetting), we start with base methods before des
 
 Attribute subsetting in base R is done with the `[` operator and passing into the square brackets a vector of class `integer` (whole numbers) or `logical` (a vector of `TRUE`s and `FALSE`s).
 This means `world[1:6,]` subsets the first 6 countries of the world and that `world[world$area_km2 < 10000,]` returns the subset of countries that have a small surface area.
+For this chapter we will use countries in Africa, which can be generated using this method as
+follows:^[Recall
+that we can also subset simple features using the `filter()` function, e.g. with `filter(world, continent == "Africa")`]
 
-*Spatial* subsetting in base R follows the same pattern, except *another spatial object* is placed inside the square brackets in the place of an `integer` or `logical` vector.
+
+```r
+africa_wgs = world[world$subregion == "Western Africa", ]
+```
+
+To further set-up the input data, we will reproject the data to the coordinate reference system (CRS) 32630 (it's EPSG code, explained in Chapter 6):
+
+
+```r
+africa = st_transform(africa_wgs, crs = 32630) 
+```
+
+*Spatial* subsetting in base R use the same method as attribute subsetting, except *another spatial object* is placed inside the square brackets in the place of an `integer` or `logical` vector.
 This is a concise and consistent syntax, as shown in the next code chunk.
 Let's test it with a hypothetical scenario: we want to subset all countries within 20 degrees of the point where the equator (where latitude = 0 degrees) intersects the prime meridian (longitude = 0 degrees), as illustrated in Figure \@ref(fig:globe).
 The subsetting object is created below.
@@ -2264,6 +2279,7 @@ Note that this must have the same CRS as the target object (set with the `crs` a
 ```r
 center = st_sf(st_sfc(st_point(c(0, 0)), crs = 4326))
 buff = st_buffer(x = center, dist = 20)
+buff = st_transform(buff, 32630)
 ```
 
 <div class="figure" style="text-align: center">
@@ -2271,13 +2287,12 @@ buff = st_buffer(x = center, dist = 20)
 <p class="caption">(\#fig:globe)Hypothetical subsetting scenario: select all countries which intersect with a circle of 20 degrees in radius around planet Earth. Figure created with the **[globe](https://cran.r-project.org/package=globe)** package.</p>
 </div>
 
-The data to be subset, or 'target layer', is the `world` object used in previous chapters, which has a geographic CRS (`4326`).
+The data to be subset, or 'target layer', is the `africa` created above, which has a projected CRS (`32630`).
 Now that the input data is set-up, the spatial subsetting operation is a single, concise command:
 
 
 ```r
-world_buff = world[buff,]
-#> although coordinates are longitude/latitude, it is assumed that they are planar
+africa_buff = africa[buff,]
 ```
 
 Note that the command emits a message: about assuming `planar coordinates`.
@@ -2288,13 +2303,13 @@ As illustrated by Figure \@ref(fig:buffeq), only countries which spatially inter
 
 
 ```r
-plot(world_buff$geom)
+plot(africa_buff["pop"])
 plot(buff, add = TRUE)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="figures/buffeq-1.png" alt="Subset of the `world` data selected based on their intersection with a circle 20 degrees in radius with a center point at 0 degrees longitude and 0 degrees latitude." width="576" />
-<p class="caption">(\#fig:buffeq)Subset of the `world` data selected based on their intersection with a circle 20 degrees in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
+<img src="figures/buffeq-1.png" alt="Subset of the `africa` data selected based on their intersection with a circle 20 degrees in radius with a center point at 0 degrees longitude and 0 degrees latitude." width="576" />
+<p class="caption">(\#fig:buffeq)Subset of the `africa` data selected based on their intersection with a circle 20 degrees in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 
 Note that countries that only just touch the giant circle are selected such as the large country at the north of plot (Algeria).
@@ -2307,9 +2322,8 @@ The second way to reproduce the subsetting operation illustrated in Figure \@ref
 
 
 ```r
-sel_buff = st_intersects(x = world, y = buff, sparse = FALSE)
-#> although coordinates are longitude/latitude, it is assumed that they are planar
-world_buff2 = world[sel_buff,]
+sel_buff = st_intersects(x = africa, y = buff, sparse = FALSE)
+africa_buff2 = africa[sel_buff,]
 ```
 
 The third way is essentially the same as the second, but uses the `filter()` function introduced in section \@ref(attribute-subsetting), forming the foundations of a 'tidy' spatial data analysis workflow.
@@ -2317,9 +2331,8 @@ If you already use **dplyr** for data manipulation, this way should seem familia
 
 
 ```r
-world_buff3 = world %>%
+africa_buff3 = africa %>%
   filter(st_intersects(x = ., y = buff, sparse = FALSE))
-#> although coordinates are longitude/latitude, it is assumed that they are planar
 ```
 
 How can we be sure that the results obtained through the 4 subsetting operations demonstrated above?
@@ -2327,19 +2340,19 @@ We can test them as follows:
 
 
 ```r
-identical(x = world_buff, y = world_buff2)
+identical(x = africa_buff, y = africa_buff2)
 #> [1] TRUE
-identical(x = world_buff, y = world_buff3)
+identical(x = africa_buff, y = africa_buff3)
 #> [1] FALSE
 ```
 
-The reason that the third spatially subset object (`world_buff3`) is not identical is that **dplyr** changes the row names:
+The reason that the third spatially subset object (`africa_buff3`) is not identical is that **dplyr** changes the row names:
 
 
 ```r
-head(row.names(world_buff))
-#> [1] "2"  "14" "15" "27" "32" "33"
-head(row.names(world_buff3))
+head(row.names(africa_buff))
+#> [1] "14" "15" "32" "60" "61" "62"
+head(row.names(africa_buff3))
 #> [1] "1" "2" "3" "4" "5" "6"
 ```
 
@@ -2347,8 +2360,8 @@ If the row names are re-set, the objects become identical:
 
 
 ```r
-attr(world_buff3, "row.names") = attr(x = world_buff, "row.names")
-identical(world_buff, world_buff3)
+attr(africa_buff3, "row.names") = attr(x = africa_buff, "row.names")
+identical(africa_buff, africa_buff3)
 #> [1] TRUE
 ```
 
@@ -2361,10 +2374,10 @@ For further discussion of this decision, and some controversy, see the (closed) 
 
 
 ```r
-row.names(world[world$subregion == "Northern Europe",])
-#>  [1] "44"  "51"  "53"  "58"  "75"  "78"  "97"  "99"  "119" "152"
-row.names(filter(world, subregion == "Northern Europe"))
-#>  [1] "1"  "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9"  "10"
+row.names(africa[africa$subregion == "Northern Europe",])
+#> character(0)
+row.names(filter(africa, subregion == "Northern Europe"))
+#> character(0)
 ```
 
 ## Spatial data aggregation 
@@ -2385,8 +2398,7 @@ Building on the example presented the previous section (\@ref(spatial-subsetting
 
 
 ```r
-buff_agg = aggregate(x = world["pop"], by = buff, FUN = sum)
-#> although coordinates are longitude/latitude, it is assumed that they are planar
+buff_agg = aggregate(x = africa["pop"], by = buff, FUN = sum)
 ```
 
 The result, `buff_agg`, is a spatial object with the same geometry as `by` (the circular buffer in this case) but with an additional variable, `pop` reporting summary statistics for all features in `x` that intersect with `by` (the total population of the countries that touch the buffer in this case).
@@ -2438,8 +2450,8 @@ This is implemented in `st_interpolate_aw()`, as demonstrated below:
 
 
 ```r
-buff_agg_aw = st_interpolate_aw(x = world["pop"], to = buff, extensive = TRUE)
-#> Warning in st_interpolate_aw(x = world["pop"], to = buff, extensive =
+buff_agg_aw = st_interpolate_aw(x = africa["pop"], to = buff, extensive = TRUE)
+#> Warning in st_interpolate_aw(x = africa["pop"], to = buff, extensive =
 #> TRUE): st_interpolate_aw assumes attributes are constant over areas of x
 ```
 
@@ -2469,11 +2481,11 @@ buff_agg_aw = st_interpolate_aw(x = world["pop"], to = buff, extensive = TRUE)
 
 ```r
 # add a new column
-world$area = set_units(st_area(world), value = km^2)
-world$pop_density = world$pop / world$area
+africa$area = set_units(st_area(africa), value = km^2)
+africa$pop_density = africa$pop / africa$area
 
 # OR
-world = world %>%
+africa = africa %>%
         mutate(area = set_units(st_area(.), value = km^2)) %>%
         mutate(pop_density = pop / area)
 ```
@@ -2482,7 +2494,7 @@ Note that this has created a attributes for the area and population density vari
 
 
 ```r
-attributes(world$area)
+attributes(africa$area)
 #> $units
 #> $numerator
 #> [1] "km" "km"
@@ -2495,7 +2507,7 @@ attributes(world$area)
 #> 
 #> $class
 #> [1] "units"
-attributes(world$pop_density)
+attributes(africa$pop_density)
 #> $units
 #> $numerator
 #> character(0)
@@ -2514,8 +2526,8 @@ These can be set to `NULL` as follows:
 
 
 ```r
-attributes(world$area) = NULL
-attributes(world$pop_density) = NULL
+attributes(africa$area) = NULL
+attributes(africa$pop_density) = NULL
 ```
 
 
@@ -2556,7 +2568,7 @@ plot(l, add = TRUE)
 plot(p, add = TRUE)
 ```
 
-<img src="figures/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-19-1.png" width="576" style="display: block; margin: auto;" />
 
 Equals:
 <!-- https://postgis.net/docs/ST_Equals.html -->
@@ -2688,7 +2700,7 @@ plot(b)
 plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
 ```
 
-<img src="figures/unnamed-chunk-29-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-31-1.png" width="576" style="display: block; margin: auto;" />
 
 The subsequent code chunk demonstrate how this works for all combinations of the 'venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
 <!-- Todo: reference r4ds -->
@@ -2850,7 +2862,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.34
+#> [1] 2.3
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2866,7 +2878,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.35
+#> [1] 3.34
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2895,10 +2907,10 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>    0.06    0.00    0.06
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.041
+#>   0.040   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
 #>   0.020   0.008   0.029
