@@ -135,9 +135,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#what-is-geocomputation"><i class="fa fa-check"></i><b>1.1</b> What is geocomputation?</a></li>
 <li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#why-geocomputation-with-r"><i class="fa fa-check"></i><b>1.2</b> Why Geocomputation with R?</a></li>
-<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#rs-spatial-ecosystem"><i class="fa fa-check"></i><b>1.3</b> R’s spatial ecosystem</a></li>
-<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#rs-spatial-history"><i class="fa fa-check"></i><b>1.4</b> R’s spatial history</a></li>
-<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#exercises"><i class="fa fa-check"></i><b>1.5</b> Exercises</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#software-for-geocomputation"><i class="fa fa-check"></i><b>1.3</b> Software for geocomputation</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#rs-spatial-ecosystem"><i class="fa fa-check"></i><b>1.4</b> R’s spatial ecosystem</a></li>
+<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#rs-spatial-history"><i class="fa fa-check"></i><b>1.5</b> R’s spatial history</a></li>
+<li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#exercises"><i class="fa fa-check"></i><b>1.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="spatial-class.html"><a href="spatial-class.html"><i class="fa fa-check"></i><b>2</b> Geographic data in R</a><ul>
 <li class="chapter" data-level="" data-path="spatial-class.html"><a href="spatial-class.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
@@ -250,7 +251,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_df =<span class="st"> </span><span class="kw">st_set_geometry</span>(world, <span class="ot">NULL</span>)
 <span class="kw">class</span>(world_df)
 <span class="co">#&gt; [1] &quot;data.frame&quot;</span></code></pre></div>
-<p>This can be useful if the geometry column causes problems, e.g. by occupying large amounts of RAM, or to focus attention on the non-spatial data. For most cases, however, there is no harm in keeping the geometry column because non-spatial data operations on <code>sf</code> objects act only on the attribute data. For this reason, being good at working with attribute data in geographic data is the same being proficient at handling data frames in R. For many applications, the most effective and intuitive way of working with data frames is with the <strong>dplyr</strong> package, as we will see in the next section.<a href="#fn10" class="footnoteRef" id="fnref10"><sup>10</sup></a></p>
+<p>This can be useful if the geometry column causes problems, e.g. by occupying large amounts of RAM, or to focus attention on the non-spatial data. For most cases, however, there is no harm in keeping the geometry column because non-spatial data operations on <code>sf</code> objects act only on the attribute data. For this reason, being good at working with attribute data in geographic data is the same being proficient at handling data frames in R. For many applications, the most effective and intuitive way of working with data frames is with the <strong>dplyr</strong> package, as we will see in the next section.<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a></p>
 </div>
 <div id="attribute-subsetting" class="section level2">
 <h2><span class="header-section-number">3.2</span> Attribute subsetting</h2>
@@ -389,7 +390,7 @@ world %&gt;%
 <span class="co">#&gt;   area_km2      pop lifeExp gdpPercap                           geom</span>
 <span class="co">#&gt; 1  9409832 1.36e+09    75.8     12759 MULTIPOLYGON(((110.33918786...</span>
 <span class="co">#&gt; 2  3142892 1.30e+09    68.0      5392 MULTIPOLYGON(((77.837450799...</span></code></pre></div>
-<p>This is equivalent to the following base R code (not run to preserve the NAs):<a href="#fn11" class="footnoteRef" id="fnref11"><sup>11</sup></a></p>
+<p>This is equivalent to the following base R code (not run to preserve the NAs):<a href="#fn15" class="footnoteRef" id="fnref15"><sup>15</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># subsetting simple feature rows by values</span>
 world$pop[<span class="kw">is.na</span>(world$pop)] =<span class="st"> </span><span class="dv">0</span> <span class="co"># set NAs to 0</span>
 world_few_rows =<span class="st"> </span>world[world$pop &gt;<span class="st"> </span><span class="fl">1e9</span>,]</code></pre></div>
@@ -728,7 +729,7 @@ world %&gt;%<span class="st"> </span>
 </div>
 <div id="removing-spatial-information" class="section level2">
 <h2><span class="header-section-number">3.6</span> Removing spatial information</h2>
-<p>It is important to note that the attribute data operations preserve the geometry of the simple features. As mentioned at the outset of the chapter, however, it can be useful to remove the geometry. In the case of the <code>world</code> dataset we’ve been using, this can be done using <code>st_set_geometry()</code><a href="#fn12" class="footnoteRef" id="fnref12"><sup>12</sup></a>.</p>
+<p>It is important to note that the attribute data operations preserve the geometry of the simple features. As mentioned at the outset of the chapter, however, it can be useful to remove the geometry. In the case of the <code>world</code> dataset we’ve been using, this can be done using <code>st_set_geometry()</code><a href="#fn16" class="footnoteRef" id="fnref16"><sup>16</sup></a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_data =<span class="st"> </span>world %&gt;%<span class="st"> </span><span class="kw">st_set_geometry</span>(<span class="ot">NULL</span>)
 <span class="kw">class</span>(world_data)
 <span class="co">#&gt; [1] &quot;data.frame&quot;</span></code></pre></div>
@@ -774,10 +775,10 @@ world %&gt;%<span class="st"> </span>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="10">
-<li id="fn10"><p>Unlike objects of class <code>Spatial</code> defined by the <strong>sp</strong> package, <code>sf</code> objects are also compatible with <strong>dplyr</strong> and <strong>data.table</strong> packages, which provide fast and powerful functions for data manipulation (see <a href="https://csgillespie.github.io/efficientR/data-carpentry.html#data-processing-with-data.table">Section 6.7</a> of <span class="citation">Gillespie and Lovelace (<a href="#ref-gillespie_efficient_2016">2016</a>)</span>). This chapter focuses on <strong>dplyr</strong> because of its intuitive function names and ability to perform multiple chained operations using the pipe operator.<a href="attr.html#fnref10">↩</a></p></li>
-<li id="fn11"><p><a href="https://github.com/Robinlovelace/geocompr/issues/28">Note</a> NAs do not work for subsetting by inequalities in base R, hence conversion of NAs to 0s in this version)<a href="attr.html#fnref11">↩</a></p></li>
-<li id="fn12"><p>Note that <code>st_geometry(world_st) = NULL</code> also works to remove the geometry from <code>world</code> but overwrites the original object.<a href="attr.html#fnref12">↩</a></p></li>
+<ol start="14">
+<li id="fn14"><p>Unlike objects of class <code>Spatial</code> defined by the <strong>sp</strong> package, <code>sf</code> objects are also compatible with <strong>dplyr</strong> and <strong>data.table</strong> packages, which provide fast and powerful functions for data manipulation (see <a href="https://csgillespie.github.io/efficientR/data-carpentry.html#data-processing-with-data.table">Section 6.7</a> of <span class="citation">Gillespie and Lovelace (<a href="#ref-gillespie_efficient_2016">2016</a>)</span>). This chapter focuses on <strong>dplyr</strong> because of its intuitive function names and ability to perform multiple chained operations using the pipe operator.<a href="attr.html#fnref14">↩</a></p></li>
+<li id="fn15"><p><a href="https://github.com/Robinlovelace/geocompr/issues/28">Note</a> NAs do not work for subsetting by inequalities in base R, hence conversion of NAs to 0s in this version)<a href="attr.html#fnref15">↩</a></p></li>
+<li id="fn16"><p>Note that <code>st_geometry(world_st) = NULL</code> also works to remove the geometry from <code>world</code> but overwrites the original object.<a href="attr.html#fnref16">↩</a></p></li>
 </ol>
 </div>
             </section>
