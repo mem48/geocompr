@@ -173,7 +173,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve1ab8cef193d99fea
+preserve29c69a850298542a
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1234,7 +1234,7 @@ sf_points = st_set_crs(sf_points, 27700) # set CRS
 
 Note the warning emitted after the CRS for `sf_points` was set to `27700`.
 This is a good thing: we have imposed a spatial reference onto data without knowing what that means.
-To discover what the 'magic number' `27700` means, we can retrieve the CRS again:
+To discover what the 'magic number' `27700` means, we can retrieve the CRS again (see Chapter \@ref(coord) for more on CRSs):
 
 
 ```r
@@ -1247,48 +1247,6 @@ st_crs(sf_points)
 #> 
 #> attr(,"class")
 #> [1] "crs"
-```
-
-Note that the result shows that the `epsg` has been updated and that `proj4string` element of the CRS has been updated to contain, among other things `+proj=tmerc` (meaning it is a projected CRS using the [tranverse Mercator](https://en.wikipedia.org/wiki/Transverse_Mercator_projection) projection) and `+units=m` (meaning the units of the coordinates are meters).
-Another function, from the **rgdal** library, provides a note about the CRS (its name):
-
-
-```r
-crs_codes = rgdal::make_EPSG()[1:2]
-dplyr::filter(crs_codes, code == 27700)
-#>    code                                note
-#> 1 27700 # OSGB 1936 / British National Grid
-```
-
-The result shows that the EPSG code 27700 represents the British National Grid, a result that could have been found by searching online for "[CRS 27700](https://www.google.com/search?q=CRS+27700)".
-This projection is clearly inappropriate for the data: the coordinates represent degrees of longitude and latitude, and this can also be seen by plotting it over a basemap, e.g. with the **mapview** package: `mapview::mapview(sf_points)`.
-
-The formula that converts a geographic point into a point on the surface of the Earth is provided by the `proj4string` element of the `crs` (see [proj4.org](http://proj4.org/) for further details):
-
-
-```r
-st_crs(27700)$proj4string
-#> [1] "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs"
-```
-
-The CRS of `sf_points` can be restored to its orginial, correct value as follows (which demonstrates another way of setting CRSs):
-
-
-```r
-st_crs(sf_points) = old_crs
-#> Warning: st_crs<- : replacing crs does not reproject data; use st_transform
-#> for that
-```
-
-### Pro tip {-}
-
-The EPSG code can be found inside the `crs` attribute of the object's geometry.
-It is hidden from view for most of the time except when the object is printed but can be can identified and set using the functions `attribute()` and `attr()`, as illustrated below:
-
-
-```r
-attr(sf_points$geometry, which = "crs")$epsg
-#> [1] 4326
 ```
 
 ## Units
@@ -2892,10 +2850,10 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.59
+#> [1] 2.36
 ```
 
-The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries shapefile.
+The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -2908,7 +2866,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.09
+#> [1] 3.35
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2937,13 +2895,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.112   0.000   0.112
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.080   0.000   0.078
+#>   0.040   0.004   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.036   0.012   0.049
+#>   0.020   0.008   0.030
 ```
 
 

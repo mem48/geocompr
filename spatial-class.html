@@ -152,9 +152,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.2.2" data-path="spatial-class.html"><a href="spatial-class.html#basic-map-making"><i class="fa fa-check"></i><b>2.2.2</b> Basic map making</a></li>
 <li class="chapter" data-level="2.2.3" data-path="spatial-class.html"><a href="spatial-class.html#raster-classes"><i class="fa fa-check"></i><b>2.2.3</b> Raster classes</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="spatial-class.html"><a href="spatial-class.html#coordinate-reference-systems"><i class="fa fa-check"></i><b>2.3</b> Coordinate Reference Systems</a><ul>
-<li class="chapter" data-level="" data-path="spatial-class.html"><a href="spatial-class.html#pro-tip"><i class="fa fa-check"></i>Pro tip</a></li>
-</ul></li>
+<li class="chapter" data-level="2.3" data-path="spatial-class.html"><a href="spatial-class.html#coordinate-reference-systems"><i class="fa fa-check"></i><b>2.3</b> Coordinate Reference Systems</a></li>
 <li class="chapter" data-level="2.4" data-path="spatial-class.html"><a href="spatial-class.html#units"><i class="fa fa-check"></i><b>2.4</b> Units</a></li>
 <li class="chapter" data-level="2.5" data-path="spatial-class.html"><a href="spatial-class.html#exercises-1"><i class="fa fa-check"></i><b>2.5</b> Exercises</a></li>
 </ul></li>
@@ -762,7 +760,7 @@ old_crs <span class="co"># print CRS</span>
 sf_points =<span class="st"> </span><span class="kw">st_set_crs</span>(sf_points, <span class="dv">27700</span>) <span class="co"># set CRS</span>
 <span class="co">#&gt; Warning: st_crs&lt;- : replacing crs does not reproject data; use st_transform</span>
 <span class="co">#&gt; for that</span></code></pre></div>
-<p>Note the warning emitted after the CRS for <code>sf_points</code> was set to <code>27700</code>. This is a good thing: we have imposed a spatial reference onto data without knowing what that means. To discover what the ‘magic number’ <code>27700</code> means, we can retrieve the CRS again:</p>
+<p>Note the warning emitted after the CRS for <code>sf_points</code> was set to <code>27700</code>. This is a good thing: we have imposed a spatial reference onto data without knowing what that means. To discover what the ‘magic number’ <code>27700</code> means, we can retrieve the CRS again (see Chapter <a href="#coord"><strong>??</strong></a> for more on CRSs):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crs</span>(sf_points)
 <span class="co">#&gt; $epsg</span>
 <span class="co">#&gt; [1] 27700</span>
@@ -772,25 +770,6 @@ sf_points =<span class="st"> </span><span class="kw">st_set_crs</span>(sf_points
 <span class="co">#&gt; </span>
 <span class="co">#&gt; attr(,&quot;class&quot;)</span>
 <span class="co">#&gt; [1] &quot;crs&quot;</span></code></pre></div>
-<p>Note that the result shows that the <code>epsg</code> has been updated and that <code>proj4string</code> element of the CRS has been updated to contain, among other things <code>+proj=tmerc</code> (meaning it is a projected CRS using the <a href="https://en.wikipedia.org/wiki/Transverse_Mercator_projection">tranverse Mercator</a> projection) and <code>+units=m</code> (meaning the units of the coordinates are meters). Another function, from the <strong>rgdal</strong> library, provides a note about the CRS (its name):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crs_codes =<span class="st"> </span>rgdal::<span class="kw">make_EPSG</span>()[<span class="dv">1</span>:<span class="dv">2</span>]
-dplyr::<span class="kw">filter</span>(crs_codes, code ==<span class="st"> </span><span class="dv">27700</span>)
-<span class="co">#&gt;    code                                note</span>
-<span class="co">#&gt; 1 27700 # OSGB 1936 / British National Grid</span></code></pre></div>
-<p>The result shows that the EPSG code 27700 represents the British National Grid, a result that could have been found by searching online for “<a href="https://www.google.com/search?q=CRS+27700">CRS 27700</a>”. This projection is clearly inappropriate for the data: the coordinates represent degrees of longitude and latitude, and this can also be seen by plotting it over a basemap, e.g. with the <strong>mapview</strong> package: <code>mapview::mapview(sf_points)</code>.</p>
-<p>The formula that converts a geographic point into a point on the surface of the Earth is provided by the <code>proj4string</code> element of the <code>crs</code> (see <a href="http://proj4.org/">proj4.org</a> for further details):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crs</span>(<span class="dv">27700</span>)$proj4string
-<span class="co">#&gt; [1] &quot;+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs&quot;</span></code></pre></div>
-<p>The CRS of <code>sf_points</code> can be restored to its orginial, correct value as follows (which demonstrates another way of setting CRSs):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crs</span>(sf_points) =<span class="st"> </span>old_crs
-<span class="co">#&gt; Warning: st_crs&lt;- : replacing crs does not reproject data; use st_transform</span>
-<span class="co">#&gt; for that</span></code></pre></div>
-<div id="pro-tip" class="section level3 unnumbered">
-<h3>Pro tip</h3>
-<p>The EPSG code can be found inside the <code>crs</code> attribute of the object’s geometry. It is hidden from view for most of the time except when the object is printed but can be can identified and set using the functions <code>attribute()</code> and <code>attr()</code>, as illustrated below:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attr</span>(sf_points$geometry, <span class="dt">which =</span> <span class="st">&quot;crs&quot;</span>)$epsg
-<span class="co">#&gt; [1] 4326</span></code></pre></div>
-</div>
 </div>
 <div id="units" class="section level2">
 <h2><span class="header-section-number">2.4</span> Units</h2>
