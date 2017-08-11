@@ -83,9 +83,9 @@ For further details see the book's GitHub page at [Robinlovelace/geocompr](https
 This book is about harnessing the power of modern computers to *do things* with geographic data.
 It teaches a range of spatial skills, including: reading, writing and manipulating geographic data; making static and interactive maps; and modeling geographic phenomena.
 By demonstrating how various spatial operations can be linked, in the reproducible 'code chunks' that intersperse the prose, the book also shows how these skills support a transparent and thus scientific workflow.
-Learning how to use existing tools is exciting.
-However, it is even more liberating, if you can create new tools yourself.
-By the end of the book you should be well-equipped enough to create new tools in the form of shareable R functions.
+Learning how to use existing tools can be exciting and liberating.
+However, it is even more liberating to create new tools.
+By the end of the book you should be able to create new tools in the form of shareable R functions.
 
 Over the last few decades a huge amount of work has gone into developing Free and Open Source Software for Geospatial Applications (FOSS4G).
 This means that spatial data analysis is no longer the preserve of those who can afford expensive programs, and the hardware to run them.
@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve79a9ed8150a50309
+preserved3da0986d9dbe9b5
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2935,7 +2935,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.28
+#> [1] 2.09
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2951,7 +2951,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.35
+#> [1] 3.27
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2980,13 +2980,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.065
+#>   0.088   0.000   0.085
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.046
+#>   0.044   0.004   0.049
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.030
+#>   0.020   0.008   0.030
 ```
 
 
