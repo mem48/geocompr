@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-08-11'
+date: '2017-08-12'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -40,7 +40,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-08-11 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-08-12 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee14a2c10152dfc41
+preserveb17150f7d9a5978f
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -327,10 +327,10 @@ All these ideas contributed to the packages **rgdal** and **sp**, which became t
 Naturally, **rgdal**, first released in 2003, greatly extended R's spatial capabilities in terms of access to previously unavailable spatial data formats.
 Initially, only raster drivers were supported, based on Tim Keitt's GDAL bindings for R.
 Importantly, **rgdal** enabled storing information about coordinate reference system, and allowed map projections and datum transformations. 
-Many of these additional capabilities were developed by Barry Rowlingson, and folded into the **rgdal** codebase (because the same underlying external dependencies were needed).
+Many of these additional capabilities were developed by Barry Rowlingson, and folded into the **rgdal** codebase n March 2006 (because the same underlying external dependencies were needed). A presentation at the 2003 DSC conference in Vienna gives the background as he saw it then [@rowlingson03]; see also his announcement of the **Rmap** package on [R-help](https://stat.ethz.ch/pipermail/r-help/2003-January/028413.html) in early 2003.
 
 **sp**, released in 2005, overcame R's inability to distinguish spatial and non-spatial objects.
-It grew from a workshop before, and a session at the 2003 R conference in Vienna, gathering input from most interested package developers. 
+It grew from a [workshop](http://spatial.nhh.no/meetings/vienna/index.html) before, and a session at the 2003 DSC conference in Vienna, gathering input from most interested package developers. 
 At the same time, [sourceforge](https://sourceforge.net/) was chosen for development collaboration (migrated to [R-Forge](https://r-forge.r-project.org) five years later) and the [R-sig-geo mailing list](https://stat.ethz.ch/mailman/listinfo/r-sig-geo) was started.
 
 Prior to 2005, spatial coordinates were generally treated as any other number. 
@@ -2942,7 +2942,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.36
+#> [1] 2.32
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2958,7 +2958,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.2
+#> [1] 3.24
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2987,13 +2987,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.062
+#>   0.064   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.043
+#>   0.044   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.030
+#>   0.020   0.008   0.032
 ```
 
 
