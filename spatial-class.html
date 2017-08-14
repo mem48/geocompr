@@ -677,20 +677,25 @@ sf_points =<span class="st"> </span><span class="kw">st_sf</span>(our_attributes
 </div>
 <div id="raster-data" class="section level2">
 <h2><span class="header-section-number">2.2</span> Raster data</h2>
+<!-- what is raster ?? -->
 <div id="an-introduction-to-raster" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> An introduction to raster</h3>
-<p>Raster objects in R are supported by the <code>raster</code> package. It provides functions to create, read, processed and write of raster datasets. Beside the general raster data manipulation, <code>raster</code> provides many low level functions that can be used to create and develop new concepts. <!-- raster algebra --></p>
-<p><code>raster</code> also supports work on large raster datasets that are stored on a hard drive, but are too large to fit into memory. Instead of recreating the whole file in RAM, this package extracts information about the structure of the dataset, such as a number of rows and columns, spatial extent and the name of the file. When manipulating this dataset, values are read and processed in a small chunk and written either to a specified file on a disk or temporary file.</p>
-<p>The list of the <code>raster</code> function could be found using /home/travis/R/Library/raster/help/raster-package.</p>
+<p>Raster objects in R are supported by the <code>raster</code> package. It provides na extensive set of functions to create, read, processed and write of raster datasets. Beside the general raster data manipulation, <code>raster</code> provides many low level functions that can be used to create and develop new concepts. <code>raster</code> also supports work on large raster datasets that are stored on a hard drive, but are too large to fit into memory. Instead of recreating the whole file in RAM, this package extracts information about the structure of the dataset, such as a number of rows and columns, spatial extent and the name of the file. When manipulating this dataset, values are read and processed in a small chunk and written either to a specified file on a disk or temporary file. The full list of the <code>raster</code> function could be found using <code>help(package = &quot;raster&quot;, topic = &quot;raster-package&quot;)</code>.</p>
+<!-- `RasterLayer` - what's that;  -->
+<!-- what's the data stored (spatial, nonspatial); -->
+<!-- example dataset from spData -->
+<!-- extracting the values/spatial info + summary -->
 </div>
 <div id="basic-map-making" class="section level3">
 <h3><span class="header-section-number">2.2.2</span> Basic map making</h3>
+<!-- examples of using plot() and maybe image()? -->
+<!-- more advanced options - rasterVis, tmap, mapview, leaflet -->
 </div>
 <div id="raster-classes" class="section level3">
 <h3><span class="header-section-number">2.2.3</span> Raster classes</h3>
 <p>The <code>raster</code> package provides three main classes of objects - <code>RasterLayer</code>, <code>RasterBrick</code> and <code>RasterStack</code>.</p>
 <p><code>RasterLayer</code> represents the simplest raster object, consisting of only one layer and store information about a number of rows and columns, spatial object extent and coordinate reference system used. <!-- CRS as proj4 --> This raster class could store raster values in a RAM memory or only point to a file on hard drive that holds the values.</p>
-<p>Object of the <code>RasterLayer</code> class is created by the <code>raster()</code> function: <!-- explanation that this function can do many more things --></p>
+<p>Object of the <code>RasterLayer</code> class is created by the <code>raster()</code> function: <!-- explanation that this function can do many more things --> <!-- how to add crs --> <!-- how to add values --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
 <span class="co">#&gt; Loading required package: sp</span>
 r =<span class="st"> </span><span class="kw">raster</span>() <span class="co"># creation of an empty RasterLayer object</span>

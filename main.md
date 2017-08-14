@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserved66f9c3c2fe2a572
+preserve6c9af7c47ceb4ab5
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1180,20 +1180,25 @@ Simple features are, in essence, data frames with a spatial extension.
 
 ## Raster data
 
+<!-- what is raster ?? -->
+
 ### An introduction to raster
 
 Raster objects in R are supported by the `raster` package. 
-It provides functions to create, read, processed and write of raster datasets.
-Beside the general raster data manipulation, `raster` provides many low level functions that can be used to create and develop new concepts.
-<!-- raster algebra -->
-
-`raster` also supports work on large raster datasets that are stored on a hard drive, but are too large to fit into memory. 
+It provides na extensive set of functions to create, read, processed and write of raster datasets.
+Beside the general raster data manipulation, `raster` provides many low level functions that can be used to create and develop new concepts. `raster` also supports work on large raster datasets that are stored on a hard drive, but are too large to fit into memory. 
 Instead of recreating the whole file in RAM, this package extracts information about the structure of the dataset, such as a number of rows and columns, spatial extent and the name of the file.
-When manipulating this dataset, values are read and processed in a small chunk and written either to a specified file on a disk or temporary file.
+When manipulating this dataset, values are read and processed in a small chunk and written either to a specified file on a disk or temporary file. The full list of the `raster` function could be found using `help(package = "raster", topic = "raster-package")`.
 
-The list of the `raster` function could be found using /home/travis/R/Library/raster/help/raster-package.
+<!-- `RasterLayer` - what's that;  -->
+<!-- what's the data stored (spatial, nonspatial); -->
+<!-- example dataset from spData -->
+<!-- extracting the values/spatial info + summary -->
 
 ### Basic map making
+
+<!-- examples of using plot() and maybe image()? -->
+<!-- more advanced options - rasterVis, tmap, mapview, leaflet -->
 
 ### Raster classes
 
@@ -1205,6 +1210,8 @@ This raster class could store raster values in a RAM memory or only point to a f
 
 Object of the `RasterLayer` class is created by the `raster()` function:
 <!-- explanation that this function can do many more things -->
+<!-- how to add crs -->
+<!-- how to add values -->
 
 
 ```r
@@ -2948,7 +2955,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.35
+#> [1] 2.33
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2964,7 +2971,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.27
+#> [1] 3.3
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2993,13 +3000,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.060   0.004   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.004   0.042
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.016   0.012   0.029
 ```
 
 
