@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve6c9af7c47ceb4ab5
+preserve50fa62bf38d18108
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -654,7 +654,7 @@ To illustrate this, and prepare for content covered in chapters \@ref(attr) and 
 
 
 ```r
-asia = world[world$continent == "Asia",]
+asia = world[world$continent == "Asia", ]
 asia = st_union(asia)
 ```
 
@@ -1356,7 +1356,7 @@ Furthermore, it also provides information on dimensionality, as illustrated by c
 
 
 ```r
-nigeria = world[world$name_long == "Nigeria",]
+nigeria = world[world$name_long == "Nigeria", ]
 ```
 
 
@@ -1497,7 +1497,7 @@ This functionality is demonstrated below (results not shown - try running this o
 
 
 ```r
-world[1:6,] # subset rows by position
+world[1:6, ] # subset rows by position
 ```
 
 
@@ -1519,7 +1519,7 @@ sel_area = world$area_km2 < 10000
 summary(sel_area)
 #>    Mode   FALSE    TRUE 
 #> logical     170       7
-small_countries = world[sel_area,]
+small_countries = world[sel_area, ]
 ```
 
 Note that we created the intermediary `sel_object` to illustrate the process and demonstrate that only 7 countries are 'small' by this definition.
@@ -1527,7 +1527,7 @@ A more concise command, that omits the intermediary object, generates the same r
 
 
 ```r
-small_countries = world[world$area_km2 < 10000,]
+small_countries = world[world$area_km2 < 10000, ]
 ```
 
 Another way to generate the same result is with the base R function `subset()`:
@@ -1704,7 +1704,7 @@ This is equivalent to the following base R code (not run to preserve the NAs):^[
 ```r
 # subsetting simple feature rows by values
 world$pop[is.na(world$pop)] = 0 # set NAs to 0
-world_few_rows = world[world$pop > 1e9,]
+world_few_rows = world[world$pop > 1e9, ]
 ```
 
 The ` %>% ` operator works the best for combining many operations.
@@ -2421,7 +2421,7 @@ The second way to reproduce the subsetting operation illustrated in Figure \@ref
 
 ```r
 sel_buff = st_intersects(x = africa, y = buff, sparse = FALSE)
-africa_buff2 = africa[sel_buff,]
+africa_buff2 = africa[sel_buff, ]
 ```
 
 The third way is essentially the same as the second, but uses the `filter()` function introduced in section \@ref(attribute-subsetting), forming the foundations of a 'tidy' spatial data analysis workflow.
@@ -2887,7 +2887,6 @@ We use the acronym instead of plain English not to confuse you or to make chapte
 Concepts such as computational efficiency, hard disk space and 'idempotence' are useful when thinking about reading and writing geographic datasets, which can become large and difficult to handle.
 Loading/saving data is yet another way of saying the same thing.
 ]
-
 <!-- todo: check we mention computational efficiency, disk-space and 'idempotence' -->
 
 <!-- Old intro to this chapter - can we salvage anything from this? -->
@@ -2971,7 +2970,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.3
+#> [1] 3.32
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3000,10 +2999,10 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.004   0.062
+#>   0.064   0.000   0.066
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.044   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
 #>   0.016   0.012   0.029

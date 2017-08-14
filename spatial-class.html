@@ -345,7 +345,7 @@ Figure 2.4: Plotting with sf, with multiple variables (left) and a single variab
 </p>
 </div>
 <p>As with <strong>sp</strong>, you can add layers to your maps created with <code>plot()</code>, with the argument <code>add = TRUE</code>.<a href="#fn16" class="footnoteRef" id="fnref16"><sup>16</sup></a> To illustrate this, and prepare for content covered in chapters <a href="attr.html#attr">3</a> and <a href="spatial-data-operations.html#spatial-data-operations">4</a> on attribute and spatial data operations, we will subset and combine countries in the <code>world</code> object, to create a single object that represents Asia:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">asia =<span class="st"> </span>world[world$continent ==<span class="st"> &quot;Asia&quot;</span>,]
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">asia =<span class="st"> </span>world[world$continent ==<span class="st"> &quot;Asia&quot;</span>, ]
 asia =<span class="st"> </span><span class="kw">st_union</span>(asia)</code></pre></div>
 <p>We can now plot the Asian continent over a map of the world. Note, however, that this only works if the initial plot has only 1 layer:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(world[<span class="st">&quot;pop&quot;</span>])
@@ -783,7 +783,7 @@ sf_points =<span class="st"> </span><span class="kw">st_set_crs</span>(sf_points
 <h2><span class="header-section-number">2.4</span> Units</h2>
 <!-- https://cran.r-project.org/web/packages/units/vignettes/measurement_units_in_R.html -->
 <p>The final thing to say about <code>sf</code> objects in this chapter is that they have units. This is advantageous because it prevents confusion caused by the fact that different CRSs use different units (most use meters, some use feet). Furthermore, it also provides information on dimensionality, as illustrated by calculating the area of Nigeria:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nigeria =<span class="st"> </span>world[world$name_long ==<span class="st"> &quot;Nigeria&quot;</span>,]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nigeria =<span class="st"> </span>world[world$name_long ==<span class="st"> &quot;Nigeria&quot;</span>, ]</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_area</span>(nigeria)
 <span class="co">#&gt; 9.05e+11 m^2</span></code></pre></div>
 <p>The result, as expected, is in units of square meters (m<sup>2</sup>), representing 2 dimensional space, and that Nigeria is a large country! To translate the huge number into a more digestible size, it is tempting to divide the results by a million (the number of square meters in a square kilometer):</p>

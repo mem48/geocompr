@@ -257,7 +257,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">3.2</span> Attribute subsetting</h2>
 <p>Because simple feature objects are also data frames, you can use a wide range of functions (from base R and packages) for subsetting them, based on attribute data. Base R subsetting functions include <code>[</code>, <code>subset()</code> and <code>$</code>. <strong>dplyr</strong> subsetting functions include <code>select()</code>, <code>filter()</code>, and <code>pull()</code>. Both sets of functions preserve the spatial components of the data.</p>
 <p>The <code>[</code> operator subsets rows and columns. It requires two arguments, one for rows (observations) and one for columns (variables), and is appended to the object name, e.g. <code>object[rows, columns]</code>, which can be either numeric, indicating position, or character, indicating row or column names. Leaving an argument empty returns all, meaning <code>object[rows,]</code> returns just the rows of interest for all columns. This functionality is demonstrated below (results not shown - try running this on your own computer to check the output is as expected):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[<span class="dv">1</span>:<span class="dv">6</span>,] <span class="co"># subset rows by position</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[<span class="dv">1</span>:<span class="dv">6</span>, ] <span class="co"># subset rows by position</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[, <span class="dv">1</span>:<span class="dv">3</span>] <span class="co"># subset columns by position</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[, <span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span>, <span class="st">&quot;lifeExp&quot;</span>)] <span class="co"># subset columns by name</span></code></pre></div>
 <p>The <code>[</code> subsetting operator also accepts <code>logical</code> vectors corresponding to some criteria which returns <code>TRUE</code> or <code>FALSE</code>. The following code chunk, for example, creates a new object, <code>small_countries</code>, which only contains nations whose surface area is below 100,000 km<sup>2</sup>:</p>
@@ -265,9 +265,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">summary</span>(sel_area)
 <span class="co">#&gt;    Mode   FALSE    TRUE </span>
 <span class="co">#&gt; logical     170       7</span>
-small_countries =<span class="st"> </span>world[sel_area,]</code></pre></div>
+small_countries =<span class="st"> </span>world[sel_area, ]</code></pre></div>
 <p>Note that we created the intermediary <code>sel_object</code> to illustrate the process and demonstrate that only 7 countries are ‘small’ by this definition. A more concise command, that omits the intermediary object, generates the same result:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">small_countries =<span class="st"> </span>world[world$area_km2 &lt;<span class="st"> </span><span class="dv">10000</span>,]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">small_countries =<span class="st"> </span>world[world$area_km2 &lt;<span class="st"> </span><span class="dv">10000</span>, ]</code></pre></div>
 <p>Another way to generate the same result is with the base R function <code>subset()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">small_countries =<span class="st"> </span><span class="kw">subset</span>(world, area_km2 &lt;<span class="st"> </span><span class="dv">10000</span>)</code></pre></div>
 <p>The <code>$</code> operator retrieves a variable by its name and returns a vector:</p>
@@ -393,7 +393,7 @@ world %&gt;%
 <p>This is equivalent to the following base R code (not run to preserve the NAs):<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># subsetting simple feature rows by values</span>
 world$pop[<span class="kw">is.na</span>(world$pop)] =<span class="st"> </span><span class="dv">0</span> <span class="co"># set NAs to 0</span>
-world_few_rows =<span class="st"> </span>world[world$pop &gt;<span class="st"> </span><span class="fl">1e9</span>,]</code></pre></div>
+world_few_rows =<span class="st"> </span>world[world$pop &gt;<span class="st"> </span><span class="fl">1e9</span>, ]</code></pre></div>
 <p>The <code>%&gt;%</code> operator works the best for combining many operations. For example, we want to (1) rename the <code>name_long</code> column into a <code>name</code> column, (2) picks only <code>name</code>, <code>subregion</code> and <code>gdpPercap</code> and (3) subset countries from “Eastern Asia” with gross domestic product per capita larger than 30,000$:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">select</span>(<span class="dt">name =</span> name_long, subregion, gdpPercap) %&gt;%<span class="st"> </span>
