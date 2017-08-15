@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserved8c0cd67de62d8c1
+preserve55cd430db459086f
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1185,16 +1185,16 @@ Simple features are, in essence, data frames with a spatial extension.
 ### An introduction to raster
 
 Raster objects in R are supported by the `raster` package. 
-It provides na extensive set of functions to create, read, processed and write of raster datasets.
+It provides an extensive set of functions to create, read, processed and write of raster datasets.
 Beside the general raster data manipulation, `raster` provides many low level functions that can be used to create and develop new concepts. `raster` also supports work on large raster datasets that are stored on a hard drive, but are too large to fit into memory. 
 Instead of recreating the whole file in RAM, this package extracts information about the structure of the dataset, such as a number of rows and columns, spatial extent and the name of the file.
 When manipulating this dataset, values are read and processed in a small chunk and written either to a specified file on a disk or temporary file.
-The full list of the `raster` function could be found using `help(package = "raster", topic = "raster-package")`.
 
 The `raster` package provides three main classes of objects - `RasterLayer`, `RasterBrick` and `RasterStack`. 
 We would refer to all of them as `Raster*`.
 
 <!-- we should replace it with our own dataset -->
+<!-- example dataset from spData -->
 
 ```r
 library(raster)
@@ -1203,18 +1203,8 @@ raster_filepath = system.file("external/test.grd", package="raster")
 new_raster = raster(raster_filepath)
 ```
 
-The `names` function will report names of layer in the `Raster*` object.
-
-
-```r
-names(new_raster)
-#> [1] "test"
-```
-
-<!-- `RasterLayer` - what's that;  -->
-<!-- what's the data stored (spatial, nonspatial); -->
-<!-- example dataset from spData -->
-<!-- extracting the values/spatial info + summary -->
+The `Raster*` objects store three types of information: spatial, non-spatial and metadata.
+All of them could be shown by just typing the name of the object: 
 
 
 ```r
@@ -1229,8 +1219,46 @@ new_raster
 #> values      : 128, 1806  (min, max)
 ```
 
+Spatial properties are expressed as the dimensions (number of rows, number of columns, number of cells), extent and coordinate reference system of the data.
+
 
 ```r
+# the dimensions (number of rows, number of columns, number of cells)
+dim(new_raster)
+#> [1] 115  80   1
+```
+
+
+```r
+# the spatial extent
+extent(new_raster)
+#> class       : Extent 
+#> xmin        : 178400 
+#> xmax        : 181600 
+#> ymin        : 329400 
+#> ymax        : 334000
+```
+
+
+```r
+# the coordinate reference system
+crs(new_raster)
+#> CRS arguments:
+#>  +init=epsg:28992
+#> +towgs84=565.237,50.0087,465.658,-0.406857,0.350733,-1.87035,4.0812
+#> +proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889
+#> +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +units=m
+#> +no_defs
+```
+
+Unlike the `sf` package, `raster` only use `proj4string` representation of the coordinate reference system.
+
+Values of the cells are the only non-spatial information in the `Raster*` object.
+They could be summarized and plotted using the base R functions, such as `summary()` and `hist()`.
+
+
+```r
+# the numerical summary of the data
 summary(new_raster)
 #>         test
 #> Min.     128
@@ -1243,19 +1271,30 @@ summary(new_raster)
 
 
 ```r
-dim(new_raster)
-#> [1] 115  80   1
+# the histogram of the values
+hist(new_raster)
 ```
+
+<img src="figures/unnamed-chunk-39-1.png" width="576" style="display: block; margin: auto;" />
+
+`getValues()` can be used to extract the values as a numerical vector.
 
 
 ```r
-extent(new_raster)
-#> class       : Extent 
-#> xmin        : 178400 
-#> xmax        : 181600 
-#> ymin        : 329400 
-#> ymax        : 334000
+new_raster_values = getValues(new_raster)
+head(new_raster_values)
+#> [1] NA NA NA NA NA NA
 ```
+
+The `names` function will report the names of layer in the `Raster*` object.
+
+
+```r
+names(new_raster)
+#> [1] "test"
+```
+
+The full list of the `raster` function could be found using `help(package = "raster", topic = "raster-package")`.
 
 ### Basic map making
 
@@ -1264,7 +1303,7 @@ extent(new_raster)
 plot(new_raster)
 ```
 
-<img src="figures/unnamed-chunk-39-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-42-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- examples of using plot() and maybe image()? -->
 <!-- more advanced options - rasterVis, tmap, mapview, leaflet -->
@@ -2994,7 +3033,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.31
+#> [1] 2.27
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -3010,7 +3049,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.24
+#> [1] 3.21
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3039,13 +3078,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.061
+#>   0.060   0.004   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.041
+#>   0.044   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.012   0.012   0.029
+#>   0.024   0.004   0.029
 ```
 
 
