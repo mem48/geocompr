@@ -681,23 +681,57 @@ sf_points =<span class="st"> </span><span class="kw">st_sf</span>(our_attributes
 <div id="an-introduction-to-raster" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> An introduction to raster</h3>
 <p>Raster objects in R are supported by the <code>raster</code> package. It provides na extensive set of functions to create, read, processed and write of raster datasets. Beside the general raster data manipulation, <code>raster</code> provides many low level functions that can be used to create and develop new concepts. <code>raster</code> also supports work on large raster datasets that are stored on a hard drive, but are too large to fit into memory. Instead of recreating the whole file in RAM, this package extracts information about the structure of the dataset, such as a number of rows and columns, spatial extent and the name of the file. When manipulating this dataset, values are read and processed in a small chunk and written either to a specified file on a disk or temporary file. The full list of the <code>raster</code> function could be found using <code>help(package = &quot;raster&quot;, topic = &quot;raster-package&quot;)</code>.</p>
+<p>The <code>raster</code> package provides three main classes of objects - <code>RasterLayer</code>, <code>RasterBrick</code> and <code>RasterStack</code>. We would refer to all of them as <code>Raster*</code>.</p>
+<!-- we should replace it with our own dataset -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
+<span class="co">#&gt; Loading required package: sp</span>
+raster_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;external/test.grd&quot;</span>, <span class="dt">package=</span><span class="st">&quot;raster&quot;</span>)
+new_raster =<span class="st"> </span><span class="kw">raster</span>(raster_filepath)</code></pre></div>
+<p>The <code>names</code> function will report names of layer in the <code>Raster*</code> object.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(new_raster)
+<span class="co">#&gt; [1] &quot;test&quot;</span></code></pre></div>
 <!-- `RasterLayer` - what's that;  -->
 <!-- what's the data stored (spatial, nonspatial); -->
 <!-- example dataset from spData -->
 <!-- extracting the values/spatial info + summary -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_raster
+<span class="co">#&gt; class       : RasterLayer </span>
+<span class="co">#&gt; dimensions  : 115, 80, 9200  (nrow, ncol, ncell)</span>
+<span class="co">#&gt; resolution  : 40, 40  (x, y)</span>
+<span class="co">#&gt; extent      : 178400, 181600, 329400, 334000  (xmin, xmax, ymin, ymax)</span>
+<span class="co">#&gt; coord. ref. : +init=epsg:28992 +towgs84=565.237,50.0087,465.658,-0.406857,0.350733,-1.87035,4.0812 +proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +no_defs </span>
+<span class="co">#&gt; data source : /home/travis/R/Library/raster/external/test.grd </span>
+<span class="co">#&gt; names       : test </span>
+<span class="co">#&gt; values      : 128, 1806  (min, max)</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(new_raster)
+<span class="co">#&gt;         test</span>
+<span class="co">#&gt; Min.     128</span>
+<span class="co">#&gt; 1st Qu.  293</span>
+<span class="co">#&gt; Median   371</span>
+<span class="co">#&gt; 3rd Qu.  500</span>
+<span class="co">#&gt; Max.    1806</span>
+<span class="co">#&gt; NA&#39;s    6097</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(new_raster)
+<span class="co">#&gt; [1] 115  80   1</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">extent</span>(new_raster)
+<span class="co">#&gt; class       : Extent </span>
+<span class="co">#&gt; xmin        : 178400 </span>
+<span class="co">#&gt; xmax        : 181600 </span>
+<span class="co">#&gt; ymin        : 329400 </span>
+<span class="co">#&gt; ymax        : 334000</span></code></pre></div>
 </div>
 <div id="basic-map-making" class="section level3">
 <h3><span class="header-section-number">2.2.2</span> Basic map making</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(new_raster)</code></pre></div>
+<p><img src="figures/unnamed-chunk-39-1.png" width="576" style="display: block; margin: auto;" /></p>
 <!-- examples of using plot() and maybe image()? -->
 <!-- more advanced options - rasterVis, tmap, mapview, leaflet -->
 </div>
 <div id="raster-classes" class="section level3">
 <h3><span class="header-section-number">2.2.3</span> Raster classes</h3>
-<p>The <code>raster</code> package provides three main classes of objects - <code>RasterLayer</code>, <code>RasterBrick</code> and <code>RasterStack</code>.</p>
 <p><code>RasterLayer</code> represents the simplest raster object, consisting of only one layer and store information about a number of rows and columns, spatial object extent and coordinate reference system used. <!-- CRS as proj4 --> This raster class could store raster values in a RAM memory or only point to a file on hard drive that holds the values.</p>
 <p>Object of the <code>RasterLayer</code> class is created by the <code>raster()</code> function: <!-- explanation that this function can do many more things --> <!-- how to add crs --> <!-- how to add values --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
-<span class="co">#&gt; Loading required package: sp</span>
 r =<span class="st"> </span><span class="kw">raster</span>() <span class="co"># creation of an empty RasterLayer object</span>
 r
 <span class="co">#&gt; class       : RasterLayer </span>
