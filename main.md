@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea0af3ad3f09eb841
+preserve974434a4ac1e9b68
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1425,7 +1425,7 @@ library(sf)
 library(tidyverse)
 ```
 
-- We will also make use of the the `world` and `worldbank_df` data sets. Note that loading the **spData** package automatically attaches these data sets to your global environment:
+- We will also make use of the `world` and `worldbank_df` data sets. Note that loading the **spData** package automatically attaches these data sets to your global environment:
 
 
 ```r
@@ -1456,7 +1456,7 @@ As outlined in Chapter \@ref(spatial-class), **sf** provided support for simple 
 
 The reliable `data.frame` (and modifications to it such as the `tibble` class used in the tidyverse) is the basis for data analysis in R.
 Extending this system to work with spatial data has many advantages. 
-The most important one is that the accumulated know-how in the R community for handling data frames can be tranferred to geographic attribute data.
+The most important one is that the accumulated know-how in the R community for handling data frames can be transferred to geographic attribute data.
 
 Before proceeding to perform various attribute operations on a dataset, let's explore its structure.
 To find out more about the structure of our use case dataset `world`, we use base R functions for working with tabular data such as `nrow()` and `ncol()`:
@@ -1690,8 +1690,8 @@ world %>%
 #> # ... with 1 more rows
 ```
 
-The pipe operator supports an intuitive data analysis workflow (first do that, then do that, then...). 
-It also lets you read the workflow from left to right, and avoids less easier to read nesting, i.e., to read workflows from the inside to the outside as is commonly the case when using base R.
+The pipe operator supports an intuitive data analysis workflow.
+It allows operations to be written in a clear order, line-by-line and from left to right (as with most languages), avoiding 'nesting', whereby one function is burried inside another (without pipes the code in the previous chunk would be written as `slice(select(world, name_long, continent), 1:5)` which is harder for most people to read, write and understand).
 Another advantage over the nesting approach is that you can easily comment out certain parts of a pipe.
 **dplyr** works especially well with the pipe operator because its fundamental functions (or 'verbs', like `select()`) expect a data frame object as input and also return one.^[If you want **dplyr** to return a vector, use `pull`.]
 
@@ -1865,7 +1865,7 @@ This is mostly beyond the scope of this book, but we encourage you to try it.
 
 The left join is the most often used type of joins.
 The `left_join()` returns all observations from the left object (`north_america`) and the matched observations from the right object (`wb_north_america`). 
-In cases, like `Greenland`, inexistent in the right object, `NA` values will show up.
+In cases, like `Greenland`, absent in the right object, `NA` values will show up.
 
 To join two objects we need to specify a key.
 This is a variable (or a set of variables) that uniquely identifies each observation (row). 
@@ -2928,7 +2928,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.3
+#> [1] 2.43
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2944,7 +2944,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.33
+#> [1] 3.38
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -2973,13 +2973,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.004   0.062
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.041
+#>   0.044   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.024   0.008   0.031
 ```
 
 
