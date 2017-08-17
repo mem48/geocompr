@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-08-16'
+date: '2017-08-17'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -40,7 +40,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-08-16 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-08-17 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve5e7b10bfb25611a9
+preserveb9b66c60507c4542
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1181,6 +1181,7 @@ Simple features are, in essence, data frames with a spatial extension.
 ## Raster data
 
 <!-- what is raster ?? -->
+<!-- Raster data is a matrix or cube with additional spatial metadata (e.g. extent, resolution, and projection) that allow its values to be mapped onto geographical space. -->
 
 ### An introduction to raster
 
@@ -1223,14 +1224,14 @@ Raster's spatial properties are expressed as the dimensions (number of rows, num
 
 
 ```r
-# the dimensions (number of rows, number of columns, number of cells)
+# dimensions (number of rows, number of columns, number of cells)
 dim(new_raster)
 #> [1] 115  80   1
 ```
 
 
 ```r
-# the spatial extent
+# spatial extent
 extent(new_raster)
 #> class       : Extent 
 #> xmin        : 178400 
@@ -1241,7 +1242,7 @@ extent(new_raster)
 
 
 ```r
-# the coordinate reference system
+# coordinate reference system
 crs(new_raster)
 #> CRS arguments:
 #>  +init=epsg:28992
@@ -1258,7 +1259,7 @@ They could be summarized and plotted using the base R functions, such as `summar
 
 
 ```r
-# the numerical summary of the data
+# numerical summary of the data
 summary(new_raster)
 #>         test
 #> Min.     128
@@ -1271,7 +1272,7 @@ summary(new_raster)
 
 
 ```r
-# the histogram of the values
+# histogram of the values
 hist(new_raster)
 ```
 
@@ -1292,7 +1293,7 @@ Metadata in `Raster*` include, for example a class of the object, path to the so
 
 
 ```r
-# the object class
+# class of the object
 class(new_raster)
 #> [1] "RasterLayer"
 #> attr(,"package")
@@ -1301,14 +1302,14 @@ class(new_raster)
 
 
 ```r
-# the file path to the data source
+# file path to the data source
 filename(new_raster)
 #> [1] "/home/travis/R/Library/raster/external/test.grd"
 ```
 
 
 ```r
-# the names of layer in the `Raster*` object
+# names of layer in the `Raster*` object
 names(new_raster)
 #> [1] "test"
 ```
@@ -1334,9 +1335,10 @@ plot(new_raster)
 
 <img src="figures/unnamed-chunk-45-1.png" width="576" style="display: block; margin: auto;" />
 
-<!-- more advanced options - rasterVis, tmap, mapview, leaflet -->
 <!-- combining raster with vector for a plot -->
+
 <!-- TODO: cross reference advanced mapping chapter -->
+<!-- more advanced options - rasterVis, tmap, mapview, leaflet -->
 
 ### Raster classes
 
@@ -1377,14 +1379,11 @@ values(r1) = sample(1:ncell(r1)) # adding random values to the new raster object
 Two additional classes, `RasterBrick` and `RasterStack` are used when dealing with multiple layers.
 These two classes differ in terms of a number of supported files, type of representation and processing speed.
 
-A `RasterBrick` contain multiple layers of raster data, which refer to only a single, mutlilayer file.
-<!-- ... -->
-<!-- (such as mulitspectral satellite images). -->
-
+A `RasterBrick` contain multiple layers of raster data, which refer to only a single, mutlilayer file, such as multispectral satellite image.
 `RasterBrick` objects are created using the `brick()` function. 
 This function usually takes a filename to a multilayer raster file.
-However, it is also possible to provide a `Raster*` object, `array`, and a few more.
-All of possible formats could be found on the help file - `?brick`.
+However, it is also possible to provide a `Raster*` object, `array` and a few more.
+All of possible formats could be found on the help file of this function - `?brick`.
 <!-- should we use this example or have our own multilayer dataset? -->
 
 ```r
@@ -3063,7 +3062,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.33
+#> [1] 2.3
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -3079,7 +3078,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.43
+#> [1] 3.28
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3108,13 +3107,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.060   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.048   0.000   0.049
+#>   0.040   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.016   0.032
+#>   0.020   0.008   0.029
 ```
 
 
