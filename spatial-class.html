@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-08-17">
+<meta name="date" content="2017-08-18">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -677,8 +677,15 @@ sf_points =<span class="st"> </span><span class="kw">st_sf</span>(our_attributes
 </div>
 <div id="raster-data" class="section level2">
 <h2><span class="header-section-number">2.2</span> Raster data</h2>
-<!-- what is raster ?? -->
-<!-- Raster data is a matrix or cube with additional spatial metadata (e.g. extent, resolution, and projection) that allow its values to be mapped onto geographical space. -->
+<p>Raster data is a matrix (or a grid) of values with additional spatial metadata, such as extent, resolution and coordinate reference system. This grid consists of cells (often called pixels) representing an area on the surface. All cells in a raster must to have the same size.</p>
+<!-- a plot idea: -->
+<!-- 2 x 2 panels: -->
+<!-- 1. empty grid -->
+<!-- 2. numbered cells -->
+<!-- 3. cells values -->
+<!-- 4. a map -->
+<!-- Types of rasters (continous and categorical) with examples (one, two panel plot) -->
+<p>Raster formats</p>
 <div id="an-introduction-to-raster" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> An introduction to raster</h3>
 <p>Raster objects in R are supported by the <strong>raster</strong> package. It provides an extensive set of functions to create, read, processed and write of raster datasets. Beside the general raster data manipulation, <strong>raster</strong> provides many low level functions that can be used to create and develop new concepts. <strong>raster</strong> also supports work on large raster datasets that are stored on a hard drive, but are too large to fit into memory. Instead of recreating the whole file in RAM, this package extracts information about the structure of the dataset, such as a number of rows and columns, spatial extent and the name of the file. When manipulating this dataset, values are read and processed in a small chunk and written either to a specified file on a disk or temporary file.</p>
@@ -699,10 +706,13 @@ new_raster =<span class="st"> </span><span class="kw">raster</span>(raster_filep
 <span class="co">#&gt; data source : /home/travis/R/Library/raster/external/test.grd </span>
 <span class="co">#&gt; names       : test </span>
 <span class="co">#&gt; values      : 128, 1806  (min, max)</span></code></pre></div>
-<p>Raster’s spatial properties are expressed as the dimensions (number of rows, number of columns, number of cells and number of layers for multilayer objects), extent and coordinate reference system of the data.</p>
+<p>Raster’s spatial properties are expressed as the dimensions (number of rows, number of columns, number of cells and number of layers for multilayer objects), resolution, extent and coordinate reference system of the data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># dimensions (number of rows, number of columns, number of cells)</span>
 <span class="kw">dim</span>(new_raster)
 <span class="co">#&gt; [1] 115  80   1</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># spatial resolution</span>
+<span class="kw">res</span>(new_raster)
+<span class="co">#&gt; [1] 40 40</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># spatial extent</span>
 <span class="kw">extent</span>(new_raster)
 <span class="co">#&gt; class       : Extent </span>
@@ -731,7 +741,7 @@ new_raster =<span class="st"> </span><span class="kw">raster</span>(raster_filep
 <span class="co">#&gt; NA&#39;s    6097</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># histogram of the values</span>
 <span class="kw">hist</span>(new_raster)</code></pre></div>
-<p><img src="figures/unnamed-chunk-39-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-40-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p><code>getValues()</code> can be used to extract the values as a numerical vector.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_raster_values =<span class="st"> </span><span class="kw">getValues</span>(new_raster)
 <span class="kw">head</span>(new_raster_values)
@@ -758,7 +768,7 @@ new_raster =<span class="st"> </span><span class="kw">raster</span>(raster_filep
 <h3><span class="header-section-number">2.2.2</span> Basic map making</h3>
 <p>Just as in the <strong>sf</strong> package, basic raster maps can be created with the <code>plot()</code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(new_raster)</code></pre></div>
-<p><img src="figures/unnamed-chunk-45-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-46-1.png" width="576" style="display: block; margin: auto;" /></p>
 <!-- combining raster with vector for a plot -->
 <!-- TODO: cross reference advanced mapping chapter -->
 <!-- more advanced options - rasterVis, tmap, mapview, leaflet -->

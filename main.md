@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-08-17'
+date: '2017-08-18'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -40,7 +40,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-08-17 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-08-18 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve511abf746ed1939b
+preserve01508bc6ef78d45f
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1180,8 +1180,20 @@ Simple features are, in essence, data frames with a spatial extension.
 
 ## Raster data
 
-<!-- what is raster ?? -->
-<!-- Raster data is a matrix or cube with additional spatial metadata (e.g. extent, resolution, and projection) that allow its values to be mapped onto geographical space. -->
+Raster data is a matrix (or a grid) of values with additional spatial metadata, such as extent, resolution and coordinate reference system.
+This grid consists of cells (often called pixels) representing an area on the surface.
+All cells in a raster must to have the same size.
+
+<!-- a plot idea: -->
+<!-- 2 x 2 panels: -->
+<!-- 1. empty grid -->
+<!-- 2. numbered cells -->
+<!-- 3. cells values -->
+<!-- 4. a map -->
+
+<!-- Types of rasters (continous and categorical) with examples (one, two panel plot) -->
+
+Raster formats
 
 ### An introduction to raster
 
@@ -1220,13 +1232,20 @@ new_raster
 #> values      : 128, 1806  (min, max)
 ```
 
-Raster's spatial properties are expressed as the dimensions (number of rows, number of columns, number of cells and number of layers for multilayer objects), extent and coordinate reference system of the data.
+Raster's spatial properties are expressed as the dimensions (number of rows, number of columns, number of cells and number of layers for multilayer objects), resolution, extent and coordinate reference system of the data.
 
 
 ```r
 # dimensions (number of rows, number of columns, number of cells)
 dim(new_raster)
 #> [1] 115  80   1
+```
+
+
+```r
+# spatial resolution
+res(new_raster)
+#> [1] 40 40
 ```
 
 
@@ -1276,7 +1295,7 @@ summary(new_raster)
 hist(new_raster)
 ```
 
-<img src="figures/unnamed-chunk-39-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-40-1.png" width="576" style="display: block; margin: auto;" />
 
 `getValues()` can be used to extract the values as a numerical vector.
 
@@ -1333,7 +1352,7 @@ Just as in the **sf** package, basic raster maps can be created with the `plot()
 plot(new_raster)
 ```
 
-<img src="figures/unnamed-chunk-45-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-46-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- combining raster with vector for a plot -->
 
@@ -3062,7 +3081,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.32
+#> [1] 2.33
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -3078,7 +3097,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.19
+#> [1] 3.12
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3107,13 +3126,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.068   0.000   0.066
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.044   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.020   0.008   0.029
 ```
 
 
