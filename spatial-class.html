@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-08-18">
+<meta name="date" content="2017-08-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -677,15 +677,26 @@ sf_points =<span class="st"> </span><span class="kw">st_sf</span>(our_attributes
 </div>
 <div id="raster-data" class="section level2">
 <h2><span class="header-section-number">2.2</span> Raster data</h2>
-<p>Raster data is a matrix (or a grid) of values with additional spatial metadata, such as extent, resolution and coordinate reference system. This grid consists of cells (often called pixels) representing an area on the surface. All cells in a raster must to have the same size.</p>
+<p>Raster data is a matrix (or a grid) of values with additional spatial metadata, such as extent, resolution and coordinate reference system. This grid consists of cells (often called pixels) representing an area on the surface. All cells in a raster must to have the same size. <!-- cells units - degrees vs meters --></p>
 <!-- a plot idea: -->
 <!-- 2 x 2 panels: -->
 <!-- 1. empty grid -->
 <!-- 2. numbered cells -->
 <!-- 3. cells values -->
 <!-- 4. a map -->
-<!-- Types of rasters (continous and categorical) with examples (one, two panel plot) -->
+<!-- Types of rasters -->
+<!-- continous: -->
+<!-- - elevation -->
+<!-- - temperature -->
+<!-- - population density -->
+<!-- - ndvi -->
+<!-- categorical: -->
+<!-- - landcover -->
+<!-- - soils -->
+<!-- - climate cattegories -->
+<!-- (one, two panel plot)  -->
 <!-- Raster formats -->
+<!-- geotiff + its metadata -->
 <div id="an-introduction-to-raster" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> An introduction to raster</h3>
 <p>Raster objects in R are supported by the <strong>raster</strong> package. It provides an extensive set of functions to create, read, processed and write of raster datasets. Beside the general raster data manipulation, <strong>raster</strong> provides many low level functions that can be used to create and develop new concepts. <strong>raster</strong> also supports work on large raster datasets that are stored on a hard drive, but are too large to fit into memory. Instead of recreating the whole file in RAM, this package extracts information about the structure of the dataset, such as a number of rows and columns, spatial extent and the name of the file. When manipulating this dataset, values are read and processed in a small chunk and written either to a specified file on a disk or temporary file.</p>
@@ -811,7 +822,7 @@ r_brick
 <p>The <code>nlayers</code> function helps to get the number of layers in a <code>Raster*</code> object:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nlayers</span>(r_brick)
 <span class="co">#&gt; [1] 3</span></code></pre></div>
-<p>A <code>RasterStack</code> is a list of <code>RasterLayer</code> objects with the same extent and resolution. It can be created based on a group of object from many sources - different files, another bands in a multi-band file and <code>RasterLayer</code> objects created in R.</p>
+<p>A <code>RasterStack</code> is a list of <code>RasterLayer</code> objects with the same extent and resolution. These layers could contain the same variable over some time or many different variables. <code>RasterStack</code> can be created based on a group of object from many sources - different files, another bands in a multi-band file and <code>RasterLayer</code> objects created in R.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">raster_on_disk =<span class="st"> </span><span class="kw">raster</span>(multilayer_raster_filepath, <span class="dt">layer =</span> <span class="dv">1</span>)
 raster_in_memory =<span class="st"> </span><span class="kw">raster</span>(<span class="dt">xmn =</span> <span class="dv">0</span>, <span class="dt">xmx =</span> <span class="dv">101</span>, <span class="dt">ymn =</span> <span class="dv">0</span>, <span class="dt">ymx =</span> <span class="dv">77</span>, <span class="dt">res =</span> <span class="dv">1</span>)
 <span class="kw">values</span>(raster_in_memory) =<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span>:<span class="kw">ncell</span>(raster_in_memory))

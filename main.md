@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-08-18'
+date: '2017-08-19'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -40,7 +40,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-08-18 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-08-19 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve3305870597558ece
+preserved597d87221edcf2d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1183,6 +1183,7 @@ Simple features are, in essence, data frames with a spatial extension.
 Raster data is a matrix (or a grid) of values with additional spatial metadata, such as extent, resolution and coordinate reference system.
 This grid consists of cells (often called pixels) representing an area on the surface.
 All cells in a raster must to have the same size.
+<!-- cells units - degrees vs meters -->
 
 <!-- a plot idea: -->
 <!-- 2 x 2 panels: -->
@@ -1191,9 +1192,20 @@ All cells in a raster must to have the same size.
 <!-- 3. cells values -->
 <!-- 4. a map -->
 
-<!-- Types of rasters (continous and categorical) with examples (one, two panel plot) -->
+<!-- Types of rasters -->
+<!-- continous: -->
+<!-- - elevation -->
+<!-- - temperature -->
+<!-- - population density -->
+<!-- - ndvi -->
+<!-- categorical: -->
+<!-- - landcover -->
+<!-- - soils -->
+<!-- - climate cattegories -->
+<!-- (one, two panel plot)  -->
 
 <!-- Raster formats -->
+<!-- geotiff + its metadata -->
 
 ### An introduction to raster
 
@@ -1429,7 +1441,8 @@ nlayers(r_brick)
 ```
 
 A `RasterStack` is a list of `RasterLayer` objects with the same extent and resolution. 
-It can be created based on a group of object from many sources - different files, another bands in a multi-band file and `RasterLayer` objects created in R. 
+These layers could contain the same variable over some time or many different variables.
+`RasterStack` can be created based on a group of object from many sources - different files, another bands in a multi-band file and `RasterLayer` objects created in R. 
 
 
 ```r
@@ -3081,7 +3094,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.14
+#> [1] 2.31
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -3097,7 +3110,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.26
+#> [1] 3.3
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3126,13 +3139,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.070
+#>   0.060   0.004   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.036   0.000   0.037
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.008   0.026
+#>   0.016   0.016   0.030
 ```
 
 
