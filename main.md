@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve25db27cef7408361
+preserve99583b76d3771ef4
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1181,11 +1181,15 @@ Simple features are, in essence, data frames with a spatial extension.
 ## Raster data
 
 Raster data is a matrix (or a grid) of values with additional spatial metadata, such as extent, resolution and coordinate reference system.
-This grid consists of cells (often called pixels) representing an area on the surface.
-All cells in a raster must to have the same size.
-<!-- cells units - degrees vs meters -->
+This grid consists of cells (often called pixels) representing an area on the surface \@ref(fig:raster_intro_plot:A).
+All cells in a raster must have the same size, which could be represented by a Cartesian (e.g. meters) or geographic coordinate system (degrees).
 
-<img src="figures/raster_intro_plot.png" width="750" style="display: block; margin: auto;" />
+<!-- Cell numbers start at 1 in the upper left corner, and increase from left to right, and then from top to bottom.  -->
+
+<div class="figure" style="text-align: center">
+<img src="figures/raster_intro_plot.png" alt="Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map" width="750" />
+<p class="caption">(\#fig:raster_intro_plot)Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map</p>
+</div>
 
 <!-- Types of rasters -->
 <!-- continous: -->
@@ -1214,7 +1218,7 @@ The **raster** package provides three main classes of objects - `RasterLayer`, `
 We would refer to all of them as `Raster*`.
 
 <!-- we should replace it with our own dataset -->
-<!-- example dataset from spData -->
+<!-- example dataset from spDataLarge -->
 
 ```r
 library(raster)
@@ -3089,7 +3093,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.34
+#> [1] 2.21
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -3105,10 +3109,10 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.29
+#> [1] 3.52
 ```
 
-In this case **sf** was around 3 times faster than **rgdal**.
+In this case **sf** was around 4 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -3134,13 +3138,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.060   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.042
+#>   0.048   0.000   0.046
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.028
+#>   0.028   0.004   0.030
 ```
 
 
