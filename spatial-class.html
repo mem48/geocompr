@@ -747,7 +747,7 @@ new_raster =<span class="st"> </span><span class="kw">raster</span>(raster_filep
 <span class="co">#&gt; NA&#39;s    6097</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># histogram of the values</span>
 <span class="kw">hist</span>(new_raster)</code></pre></div>
-<p><img src="figures/unnamed-chunk-40-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/new_raster_hist-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p><code>getValues()</code> can be used to extract the values as a numerical vector.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_raster_values =<span class="st"> </span><span class="kw">getValues</span>(new_raster)
 <span class="kw">head</span>(new_raster_values)
@@ -774,7 +774,7 @@ new_raster =<span class="st"> </span><span class="kw">raster</span>(raster_filep
 <h3><span class="header-section-number">2.2.2</span> Basic map making</h3>
 <p>Just as in the <strong>sf</strong> package, basic raster maps can be created with the <code>plot()</code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(new_raster)</code></pre></div>
-<p><img src="figures/unnamed-chunk-46-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/basic_new_raster_plot-1.png" width="576" style="display: block; margin: auto;" /></p>
 <!-- combining raster with vector for a plot -->
 <!-- TODO: cross reference advanced mapping chapter -->
 <!-- more advanced options - rasterVis, tmap, mapview, leaflet -->

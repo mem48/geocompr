@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve0c7e5661d2bf6c34
+preserve25db27cef7408361
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1302,7 +1302,7 @@ summary(new_raster)
 hist(new_raster)
 ```
 
-<img src="figures/unnamed-chunk-40-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/new_raster_hist-1.png" width="576" style="display: block; margin: auto;" />
 
 `getValues()` can be used to extract the values as a numerical vector.
 
@@ -1359,7 +1359,7 @@ Just as in the **sf** package, basic raster maps can be created with the `plot()
 plot(new_raster)
 ```
 
-<img src="figures/unnamed-chunk-46-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/basic_new_raster_plot-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- combining raster with vector for a plot -->
 
@@ -3089,7 +3089,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.36
+#> [1] 2.34
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -3105,7 +3105,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.98
+#> [1] 3.29
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3134,13 +3134,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.066
+#>   0.064   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.052   0.000   0.051
+#>   0.044   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.036   0.000   0.040
+#>   0.016   0.012   0.028
 ```
 
 
