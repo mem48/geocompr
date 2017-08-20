@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve7a0f01cbb5ebc333
+preserved4ff4a797a964cb7
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2540,14 +2540,9 @@ As illustrated by Figure \@ref(fig:buffeq), only countries which spatially inter
 
 
 ```r
-plot(africa_buff["pop"])
-plot(buff, add = TRUE)
+# plot(africa_buff["pop"])
+# plot(buff, add = TRUE)
 ```
-
-<div class="figure" style="text-align: center">
-<img src="figures/buffeq-1.png" alt="Subset of the `africa` data selected based on their intersection with a circle 20 degrees in radius with a center point at 0 degrees longitude and 0 degrees latitude." width="576" />
-<p class="caption">(\#fig:buffeq)Subset of the `africa` data selected based on their intersection with a circle 20 degrees in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
-</div>
 
 Note that countries that only just touch the giant circle are selected such as the large country at the north of plot (Algeria).
 `st_relates()` includes countries that only touch (but are not within or overlapping with) the selection object.
@@ -2666,16 +2661,13 @@ These issues can be tackled when aggregating areal target data with areal interp
 
 ### Spatial congruence and areal interpolation
 
-Spatial congruence is an important concept when interpreting the results of spatial aggregation and other operations.
-An *aggregating object* object (which we will refer to as `y`, representing the buffer object in the previous section) is *congruent* with the target object `x`, corresponding to the first argument of `aggregate()` in the previous section, if the two objects have shared borders:
-no feature in `x` overlaps one or more features in `y`.
-*Incongruent* objects, by contrast do not share common borders [@qiu_development_2012].
-This is the case illustrated in Figure \@ref(fig:buff-agg), where the borders of the countries in the 'target' object bear no relation to, and frequently cross, the outline of the aggregating buffer.
+Spatial congruence is an important concept related to spatial aggregation.
+An *aggregating object* object (which we will refer to as `y`, representing the buffer object in the previous section) is *congruent* with the target object (`x`, representing the countries in the previous section) if the two objects have shared borders.
 
-This is problematic if one wants to convert from type of *areal* unit that is incongruent with another, as illustrated in Figure \@ref(fig:areal-example).
-Areal interpolation resolves this problem.
-A number of methods have been developed to for the task, all of which start from the following constraint, succinctly described in a classic paper on the subject [@tobler_smooth_1979]:
-"that the original [target] data arrive packaged in discrete  collection regions."
+*Incongruent* aggregating objects, by contrast, do not share common borders with the target [@qiu_development_2012].
+This is problematic for spatial aggregation (and other spatial operations) illustrated in Figure \@ref(fig:areal-example).
+Areal interpolation resolves this issue.
+A number of algorithms have been developed for areal interpolation, including area weighted and pycnophylactic interpolation methods task [@tobler_smooth_1979].
 
 <div class="figure" style="text-align: center">
 <img src="figures/areal-example-1.png" alt="Illustration of congruent (left) and incongruent (right) areal units." width="576" />
@@ -3093,7 +3085,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.41
+#> [1] 2.29
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -3109,7 +3101,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.2
+#> [1] 3.32
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3138,13 +3130,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.064   0.000   0.066
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.047
+#>   0.044   0.000   0.046
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.000   0.030
+#>   0.020   0.008   0.030
 ```
 
 
