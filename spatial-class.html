@@ -704,7 +704,6 @@ Figure 2.6: Raster data: A - a grid representation; B - numbers of the cells; C 
 <!-- we should replace it with our own dataset -->
 <!-- example dataset from spDataLarge -->
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
-<span class="co">#&gt; Loading required package: sp</span>
 raster_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;external/test.grd&quot;</span>, <span class="dt">package=</span><span class="st">&quot;raster&quot;</span>)
 new_raster =<span class="st"> </span><span class="kw">raster</span>(raster_filepath)</code></pre></div>
 <p>The <code>Raster*</code> objects store three types of information: spatial, non-spatial and metadata. All of them could be shown by just typing the name of the object:</p>
@@ -788,8 +787,7 @@ new_raster =<span class="st"> </span><span class="kw">raster</span>(raster_filep
 <h3><span class="header-section-number">2.2.3</span> Raster classes</h3>
 <p><code>RasterLayer</code> represents the simplest raster object, consisting of only one layer and store information about a number of rows and columns, spatial object extent and coordinate reference system used. <!-- CRS as proj4 --> This raster class could store raster values in a RAM memory or only point to a file on hard drive that holds the values.</p>
 <p>Object of the <code>RasterLayer</code> class is created by the <code>raster()</code> function: <!-- explanation that this function can do many more things --> <!-- how to add crs --> <!-- how to add values --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
-r =<span class="st"> </span><span class="kw">raster</span>() <span class="co"># creation of an empty RasterLayer object</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r =<span class="st"> </span><span class="kw">raster</span>() <span class="co"># creation of an empty RasterLayer object</span>
 r
 <span class="co">#&gt; class       : RasterLayer </span>
 <span class="co">#&gt; dimensions  : 180, 360, 64800  (nrow, ncol, ncell)</span>
