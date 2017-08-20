@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservefcea26709369ebe6
+preservea7a8c01b4edfc639
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1186,7 +1186,8 @@ All cells in a raster must have the same size, which could be represented by a C
 Cell numbers in rasters start at 1 in the upper left corner, and its number increase from left to right and then from top to bottom (\@ref(fig:raster-intro-plot):B).
 Each cell in raster data could hold a value, which could be an integer or float (\@ref(fig:raster-intro-plot):C).
 Additionally, it is possible to set the NA (*not available*) value which indicates cells without the value or these outside of the area of interests.
-You can see them as grey cells in the C panel of the figure \@ref(fig:raster-intro-plot).
+You can see them as the gray cells in the C and D panel of the figure \@ref(fig:raster-intro-plot).
+The final raster map, as seen in the D panel of the \@ref(fig:raster-intro-plot) figure, is a color presentation of the raster values.
 
 <div class="figure" style="text-align: center">
 <img src="figures/raster_intro_plot.png" alt="Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map" width="750" />
@@ -3087,7 +3088,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.27
+#> [1] 2.39
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -3103,7 +3104,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.25
+#> [1] 3.41
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3132,13 +3133,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.062
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.042
+#>   0.044   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.029
+#>   0.024   0.004   0.031
 ```
 
 
