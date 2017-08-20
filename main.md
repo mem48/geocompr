@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve99583b76d3771ef4
+preserve7a0f01cbb5ebc333
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1181,14 +1181,14 @@ Simple features are, in essence, data frames with a spatial extension.
 ## Raster data
 
 Raster data is a matrix (or a grid) of values with additional spatial metadata, such as extent, resolution and coordinate reference system.
-This grid consists of cells (often called pixels) representing an area on the surface \@ref(fig:raster_intro_plot:A).
+This grid consists of cells (often called pixels) representing an area on the surface \@ref(fig:raster-intro-plot:A).
 All cells in a raster must have the same size, which could be represented by a Cartesian (e.g. meters) or geographic coordinate system (degrees).
 
 <!-- Cell numbers start at 1 in the upper left corner, and increase from left to right, and then from top to bottom.  -->
 
 <div class="figure" style="text-align: center">
 <img src="figures/raster_intro_plot.png" alt="Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map" width="750" />
-<p class="caption">(\#fig:raster_intro_plot)Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map</p>
+<p class="caption">(\#fig:raster-intro-plot)Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map</p>
 </div>
 
 <!-- Types of rasters -->
@@ -1306,7 +1306,7 @@ summary(new_raster)
 hist(new_raster)
 ```
 
-<img src="figures/new_raster_hist-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/new_raster-hist-1.png" width="576" style="display: block; margin: auto;" />
 
 `getValues()` can be used to extract the values as a numerical vector.
 
@@ -1363,7 +1363,7 @@ Just as in the **sf** package, basic raster maps can be created with the `plot()
 plot(new_raster)
 ```
 
-<img src="figures/basic_new_raster_plot-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/basic-new-raster-plot-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- combining raster with vector for a plot -->
 
@@ -3093,7 +3093,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.21
+#> [1] 2.41
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -3109,10 +3109,10 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.52
+#> [1] 3.2
 ```
 
-In this case **sf** was around 4 times faster than **rgdal**.
+In this case **sf** was around 3 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -3138,13 +3138,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.063
+#>   0.064   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.048   0.000   0.046
+#>   0.044   0.000   0.047
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.004   0.030
+#>   0.028   0.000   0.030
 ```
 
 
