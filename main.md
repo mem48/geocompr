@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserved4ff4a797a964cb7
+preservefcea26709369ebe6
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1181,10 +1181,12 @@ Simple features are, in essence, data frames with a spatial extension.
 ## Raster data
 
 Raster data is a matrix (or a grid) of values with additional spatial metadata, such as extent, resolution and coordinate reference system.
-This grid consists of cells (often called pixels) representing an area on the surface \@ref(fig:raster-intro-plot:A).
+This grid consists of cells (often called pixels) representing an area on the surface (\@ref(fig:raster-intro-plot):A).
 All cells in a raster must have the same size, which could be represented by a Cartesian (e.g. meters) or geographic coordinate system (degrees).
-
-<!-- Cell numbers start at 1 in the upper left corner, and increase from left to right, and then from top to bottom.  -->
+Cell numbers in rasters start at 1 in the upper left corner, and its number increase from left to right and then from top to bottom (\@ref(fig:raster-intro-plot):B).
+Each cell in raster data could hold a value, which could be an integer or float (\@ref(fig:raster-intro-plot):C).
+Additionally, it is possible to set the NA (*not available*) value which indicates cells without the value or these outside of the area of interests.
+You can see them as grey cells in the C panel of the figure \@ref(fig:raster-intro-plot).
 
 <div class="figure" style="text-align: center">
 <img src="figures/raster_intro_plot.png" alt="Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map" width="750" />
@@ -3085,7 +3087,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.29
+#> [1] 2.27
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -3101,7 +3103,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.32
+#> [1] 3.25
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3130,13 +3132,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.066
+#>   0.060   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.046
+#>   0.040   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.030
+#>   0.024   0.004   0.029
 ```
 
 
