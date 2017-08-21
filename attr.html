@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Geocomputation with R</title>
   <meta name="description" content="Forthcoming book on geographical data with R.">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Geocomputation with R" />
   <meta property="og:type" content="book" />
@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-08-20">
+<meta name="date" content="2017-08-21">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -164,11 +164,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3" data-path="attr.html"><a href="attr.html#attribute-data-aggregation"><i class="fa fa-check"></i><b>3.3</b> Attribute data aggregation</a></li>
 <li class="chapter" data-level="3.4" data-path="attr.html"><a href="attr.html#attribute-data-joining"><i class="fa fa-check"></i><b>3.4</b> Attribute data joining</a><ul>
 <li class="chapter" data-level="3.4.1" data-path="attr.html"><a href="attr.html#left-joins"><i class="fa fa-check"></i><b>3.4.1</b> Left joins</a></li>
-<li class="chapter" data-level="3.4.2" data-path="attr.html"><a href="attr.html#right-joins"><i class="fa fa-check"></i><b>3.4.2</b> Right joins</a></li>
-<li class="chapter" data-level="3.4.3" data-path="attr.html"><a href="attr.html#inner-joins"><i class="fa fa-check"></i><b>3.4.3</b> Inner joins</a></li>
-<li class="chapter" data-level="3.4.4" data-path="attr.html"><a href="attr.html#semi-joins"><i class="fa fa-check"></i><b>3.4.4</b> Semi joins</a></li>
-<li class="chapter" data-level="3.4.5" data-path="attr.html"><a href="attr.html#anti-joins"><i class="fa fa-check"></i><b>3.4.5</b> Anti joins</a></li>
-<li class="chapter" data-level="3.4.6" data-path="attr.html"><a href="attr.html#full-joins"><i class="fa fa-check"></i><b>3.4.6</b> Full joins</a></li>
+<li class="chapter" data-level="3.4.2" data-path="attr.html"><a href="attr.html#inner-joins"><i class="fa fa-check"></i><b>3.4.2</b> Inner joins</a></li>
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="attr.html"><a href="attr.html#attribute-data-creation"><i class="fa fa-check"></i><b>3.5</b> Attribute data creation</a></li>
 <li class="chapter" data-level="3.6" data-path="attr.html"><a href="attr.html#removing-spatial-information"><i class="fa fa-check"></i><b>3.6</b> Removing spatial information</a></li>
@@ -462,7 +458,7 @@ world_continents2 =<span class="st"> </span><span class="kw">aggregate</span>(wo
 <!-- https://github.com/dgrtwo/fuzzyjoin -->
 <!-- http://r4ds.had.co.nz/relational-data.html -->
 <!-- non-unique keys -->
-<p>Combining data from different sources is one of the most common tasks in data preparation. Joins are methods to combine pair of tables based on a shared key variable. The <strong>dplyr</strong> package has a set of verbs to easily join <code>data.frames</code> - <code>left_join()</code>, <code>right_join()</code>, <code>inner_join()</code>, <code>full_join</code>, <code>semi_join()</code> and <code>anti_join()</code>. The function names follow SQL naming conventions, and <span class="citation">Grolemund and Wickham (<a href="#ref-grolemund_r_2016">2016</a>)</span> explain these functions thoroughly in the Relational data chapter in the book R for Data Science .</p>
+<p>Combining data from different sources is one of the most common tasks in data preparation. Joins are methods to combine pair of tables based on a shared key variable. The <strong>dplyr</strong> package has a set of verbs to easily join <code>data.frames</code> - <code>left_join()</code>, <code>right_join()</code>, <code>inner_join()</code>, <code>full_join</code>, <code>semi_join()</code> and <code>anti_join()</code>. These function names follow conventions used in the database language SQL, as explained in <a href="http://r4ds.had.co.nz/relational-data.html">Chapter 13</a> of <em>R for Data Science</em> <span class="citation">(Grolemund and Wickham <a href="#ref-grolemund_r_2016">2016</a>)</span>.</p>
 <p>Working with spatial data, however, usually involves a connection between spatial data (<code>sf</code> objects) and tables (<code>data.frame</code> objects). Fortunately, the <strong>sf</strong> package has all of the <strong>dplyr</strong> join functions adapted to work with <code>sf</code> objects. The only important difference between combining two <code>data.frames</code> and combining <code>sf</code> and <code>data.frame</code> objects is the special <code>sf</code> column storing the geometry information. Therefore, the result of data joins can be either an <code>sf</code> or <code>data.frame</code> object.</p>
 <p>The easiest way to understand the concept of joins is to show how they work with a smaller dataset. We will use an <code>sf</code> object <code>north_america</code> with country codes (<code>iso_a2</code>), names and geometries, as well as a <code>data.frame</code> object <code>wb_north_america</code> containing information about urban population and unemployment for three countries. It is important to add that the first object contains data about Canada, Greenland and the United States and the second one about Canada, Mexico and the United States:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">north_america =<span class="st"> </span>world %&gt;%
@@ -491,9 +487,10 @@ wb_north_america
 <span class="co">#&gt; 2        Mexico     MX  99018446     5.25</span>
 <span class="co">#&gt; 3 United States     US 259740511     6.17</span></code></pre></div>
 <p>In this book, we focus on spatial data. Most of the following join examples will have a <code>sf</code> object as the first argument and a <code>data.frame</code> object as the second argument which results in a new <code>sf</code> object. However, the reverse order is also possible and will give you back a <code>data.frame</code> object. This is mostly beyond the scope of this book, but we encourage you to try it.</p>
+<p>The next subsections focuses on the commonly used left and inner joins, which use the same syntax as the other join types <span class="citation">(Grolemund and Wickham <a href="#ref-grolemund_r_2016">2016</a>)</span>.</p>
 <div id="left-joins" class="section level3">
 <h3><span class="header-section-number">3.4.1</span> Left joins</h3>
-<p>The left join is the most often used type of joins. The <code>left_join()</code> returns all observations from the left object (<code>north_america</code>) and the matched observations from the right object (<code>wb_north_america</code>). In cases, like <code>Greenland</code>, absent in the right object, <code>NA</code> values will show up.</p>
+<p>Left joins are the most commonly used operation for adding attributes to spatial data. The <code>left_join()</code> returns all observations from the left object (<code>north_america</code>) and the matched observations from the right object (<code>wb_north_america</code>). In cases, like <code>Greenland</code>, absent in the right object, <code>NA</code> values will show up.</p>
 <p>To join two objects we need to specify a key. This is a variable (or a set of variables) that uniquely identifies each observation (row). The <code>by</code> argument of <strong>dplyr</strong>’s join functions lets you identify the key variable. In simple cases, a single, unique variable exist in both objects like the <code>iso_a2</code> column in our example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
@@ -591,28 +588,8 @@ left_join4_df
 <span class="kw">class</span>(left_join4_df)
 <span class="co">#&gt; [1] &quot;data.frame&quot;</span></code></pre></div>
 </div>
-<div id="right-joins" class="section level3">
-<h3><span class="header-section-number">3.4.2</span> Right joins</h3>
-<p><code>right_join()</code> keeps all observations from the second object (<code>wb_north_america</code> in this case) but preserves the <code>sf</code> class from the left object (<code>north_america</code>).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">right_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">right_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso_a2&quot;</span>, <span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
-right_join1
-<span class="co">#&gt; Simple feature collection with 3 features and 4 fields (with 1 geometry empty)</span>
-<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324</span>
-<span class="co">#&gt; epsg (SRID):    4326</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;   iso_a2     name_long urban_pop unemploy                           geom</span>
-<span class="co">#&gt; 1     CA        Canada  29022137     6.91 MULTIPOLYGON(((-63.6645 46....</span>
-<span class="co">#&gt; 2     MX        Mexico  99018446     5.25                 MULTIPOLYGON()</span>
-<span class="co">#&gt; 3     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
-<p>The output shows that the result, <code>right_join1</code>, has information about Mexico, but drops information about Greenland. Furthermore, our right object, as a <code>data.frame</code>, doesn’t have a geometry representation of Mexico. As a result, the <code>right_join1</code> object contains only non-spatial data of Mexico. It could be easily illustrated using the <code>plot</code> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(right_join1[<span class="dv">0</span>]) <span class="co"># Canada and United States only</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-36-1.png" width="576" style="display: block; margin: auto;" /></p>
-</div>
 <div id="inner-joins" class="section level3">
-<h3><span class="header-section-number">3.4.3</span> Inner joins</h3>
+<h3><span class="header-section-number">3.4.2</span> Inner joins</h3>
 <p>The <code>inner_join()</code> keeps only observations from the left object (<code>north_america</code>) where there are matching observations in the right object (<code>wb_north_america</code>). Additionally, all columns from the left and right object are kept:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inner_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">inner_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso_a2&quot;</span>, <span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
@@ -626,62 +603,6 @@ inner_join1
 <span class="co">#&gt;   iso_a2     name_long urban_pop unemploy                           geom</span>
 <span class="co">#&gt; 1     CA        Canada  29022137     6.91 MULTIPOLYGON(((-63.6645 46....</span>
 <span class="co">#&gt; 2     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
-</div>
-<div id="semi-joins" class="section level3">
-<h3><span class="header-section-number">3.4.4</span> Semi joins</h3>
-<p>The <code>semi_join()</code> is very similar to the <code>inner_join()</code>. It also keeps only observations from the left object (<code>north_america</code>) where there are matching observations in the right object, but keeping just columns from the left one: <!-- filtering? --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">semi_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">semi_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
-semi_join1
-<span class="co">#&gt; Simple feature collection with 2 features and 2 fields</span>
-<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324</span>
-<span class="co">#&gt; epsg (SRID):    4326</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;   iso_a2     name_long                           geom</span>
-<span class="co">#&gt; 1     CA        Canada MULTIPOLYGON(((-63.6645 46....</span>
-<span class="co">#&gt; 2     US United States MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
-</div>
-<div id="anti-joins" class="section level3">
-<h3><span class="header-section-number">3.4.5</span> Anti joins</h3>
-<p>The <code>anti_join()</code> returns all rows from the left object that are not matching observations in the right object. Only columns from the right object are kept:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">anti_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">anti_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
-anti_join1
-<span class="co">#&gt; Simple feature collection with 1 feature and 2 fields</span>
-<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -73.297 ymin: 60.03676 xmax: -12.20855 ymax: 83.64513</span>
-<span class="co">#&gt; epsg (SRID):    4326</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;   iso_a2 name_long                           geom</span>
-<span class="co">#&gt; 1     GL Greenland MULTIPOLYGON(((-46.76379 82...</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(anti_join1[<span class="dv">0</span>])</code></pre></div>
-<p><img src="figures/unnamed-chunk-40-1.png" width="576" style="display: block; margin: auto;" /></p>
-</div>
-<div id="full-joins" class="section level3">
-<h3><span class="header-section-number">3.4.6</span> Full joins</h3>
-<p>The <code>full_join()</code> returns all rows and all columns from both the left and right object. It also puts <code>NA</code> in cases where there are not matching values and returns an empty geometry for cases that only exist in the right object:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">full_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">full_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
-full_join1
-<span class="co">#&gt; Simple feature collection with 4 features and 5 fields (with 1 geometry empty)</span>
-<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513</span>
-<span class="co">#&gt; epsg (SRID):    4326</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;   iso_a2     name_long          name urban_pop unemploy</span>
-<span class="co">#&gt; 1     CA        Canada        Canada  29022137     6.91</span>
-<span class="co">#&gt; 2     GL     Greenland          &lt;NA&gt;        NA       NA</span>
-<span class="co">#&gt; 3     US United States United States 259740511     6.17</span>
-<span class="co">#&gt; 4     MX          &lt;NA&gt;        Mexico  99018446     5.25</span>
-<span class="co">#&gt;                             geom</span>
-<span class="co">#&gt; 1 MULTIPOLYGON(((-63.6645 46....</span>
-<span class="co">#&gt; 2 MULTIPOLYGON(((-46.76379 82...</span>
-<span class="co">#&gt; 3 MULTIPOLYGON(((-155.54211 1...</span>
-<span class="co">#&gt; 4                 MULTIPOLYGON()</span></code></pre></div>
 </div>
 </div>
 <div id="attribute-data-creation" class="section level2">
@@ -744,7 +665,7 @@ world %&gt;%<span class="st"> </span>
 <li>How many states are there in each region?</li>
 <li>What was the minimum and maximum total population in 2015 in each region? What was the total population in 2015 in each region? <!-- Attribute joining --></li>
 <li>Add variables from <code>us_states_df</code> to <code>us_states</code> and create a new object called <code>us_states_stats</code>. What function did you use and why? Which variable is the key in the both datasets? What is the class of a new object?</li>
-<li><code>us_states_df</code> has two more variables than <code>us_states</code>. How you can find them? <!-- Attribute creation --></li>
+<li><code>us_states_df</code> has two more variables than <code>us_states</code>. How you can find them? (hint: try to use the <code>dplyr::anti_join</code> function) <!-- Attribute creation --></li>
 <li>What was the population density in 2015 in each state? What was the population density in 2010 in each state?</li>
 <li>How much has population density changed between 2010 and 2015 in each state? Calculate the change in percentages and map them.</li>
 <li>Change the columns names in <code>us_states</code> to lowercase. (Hint: helper functions - <code>tolower()</code> and <code>colnames()</code> may help). <!-- Mixed exercises --> <!-- combination of use of select, mutate, group_by, summarize, etc  --></li>
@@ -785,7 +706,7 @@ world %&gt;%<span class="st"> </span>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,

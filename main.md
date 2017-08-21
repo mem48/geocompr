@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-08-20'
+date: '2017-08-21'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -40,7 +40,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-08-20 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-08-21 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveba2f5419e703315b
+preserve8233db6fc5964766
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1973,7 +1973,7 @@ world_continents2 = aggregate(world["pop"], by = ag_var, FUN = sum, na.rm = TRUE
 Combining data from different sources is one of the most common tasks in data preparation. 
 Joins are methods to combine pair of tables based on a shared key variable.
 The **dplyr** package has a set of verbs to easily join `data.frames` - `left_join()`, `right_join()`,  `inner_join()`, `full_join`, `semi_join()` and `anti_join()`.
-The function names follow SQL naming conventions, and @grolemund_r_2016 explain these functions thoroughly in the Relational data chapter in the book R for Data Science .
+These function names follow conventions used in the database language SQL, as explained in [Chapter 13](http://r4ds.had.co.nz/relational-data.html) of *R for Data Science* [@grolemund_r_2016].
 
 Working with spatial data, however, usually involves a connection between spatial data (`sf` objects) and tables (`data.frame` objects).
 Fortunately, the **sf** package has all of the **dplyr** join functions adapted to work with `sf` objects.
@@ -2027,9 +2027,11 @@ Most of the following join examples will have a `sf` object as the first argumen
 However, the reverse order is also possible and will give you back a `data.frame` object.
 This is mostly beyond the scope of this book, but we encourage you to try it.
 
+The next subsections focuses on the commonly used left and inner joins, which use the same syntax as the other join types [@grolemund_r_2016].
+
 ### Left joins
 
-The left join is the most often used type of joins.
+Left joins are the most commonly used operation for adding attributes to spatial data. 
 The `left_join()` returns all observations from the left object (`north_america`) and the matched observations from the right object (`wb_north_america`). 
 In cases, like `Greenland`, absent in the right object, `NA` values will show up.
 
@@ -2168,39 +2170,6 @@ class(left_join4_df)
 #> [1] "data.frame"
 ```
 
-### Right joins
-
-`right_join()` keeps all observations from the second object (`wb_north_america` in this case) but preserves the `sf` class from the left object (`north_america`).
-
-
-```r
-right_join1 = north_america %>% 
-  right_join(wb_north_america, by = c("iso_a2", "name_long" = "name"))
-right_join1
-#> Simple feature collection with 3 features and 4 fields (with 1 geometry empty)
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>   iso_a2     name_long urban_pop unemploy                           geom
-#> 1     CA        Canada  29022137     6.91 MULTIPOLYGON(((-63.6645 46....
-#> 2     MX        Mexico  99018446     5.25                 MULTIPOLYGON()
-#> 3     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...
-```
-
-The output shows that the result, `right_join1`, has information about Mexico, but drops information about Greenland.
-Furthermore, our right object, as a `data.frame`, doesn't have a geometry representation of Mexico.
-As a result, the `right_join1` object contains only non-spatial data of Mexico.
-It could be easily illustrated using the `plot` function:
-
-
-```r
-plot(right_join1[0]) # Canada and United States only
-```
-
-<img src="figures/unnamed-chunk-36-1.png" width="576" style="display: block; margin: auto;" />
-
 ### Inner joins
 
 The `inner_join()` keeps only observations from the left object (`north_america`) where there are matching observations in the right object (`wb_north_america`). 
@@ -2220,83 +2189,6 @@ inner_join1
 #>   iso_a2     name_long urban_pop unemploy                           geom
 #> 1     CA        Canada  29022137     6.91 MULTIPOLYGON(((-63.6645 46....
 #> 2     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...
-```
-
-### Semi joins
-
-The `semi_join()` is very similar to the `inner_join()`. 
-It also keeps only observations from the left object (`north_america`) where there are matching observations in the right object, but keeping just columns from the left one:
-<!-- filtering? -->
-
-
-```r
-semi_join1 = north_america %>% 
-  semi_join(wb_north_america, by = "iso_a2")
-semi_join1
-#> Simple feature collection with 2 features and 2 fields
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>   iso_a2     name_long                           geom
-#> 1     CA        Canada MULTIPOLYGON(((-63.6645 46....
-#> 2     US United States MULTIPOLYGON(((-155.54211 1...
-```
-
-### Anti joins
-
-The `anti_join()` returns all rows from the left object that are not matching observations in the right object.
-Only columns from the right object are kept:
-
-
-```r
-anti_join1 = north_america %>% 
-  anti_join(wb_north_america, by = "iso_a2")
-anti_join1
-#> Simple feature collection with 1 feature and 2 fields
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: -73.297 ymin: 60.03676 xmax: -12.20855 ymax: 83.64513
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>   iso_a2 name_long                           geom
-#> 1     GL Greenland MULTIPOLYGON(((-46.76379 82...
-```
-
-
-```r
-plot(anti_join1[0])
-```
-
-<img src="figures/unnamed-chunk-40-1.png" width="576" style="display: block; margin: auto;" />
-
-### Full joins
-
-The `full_join()` returns all rows and all columns from both the left and right object. 
-It also puts `NA` in cases where there are not matching values and returns an empty geometry for cases that only exist in the right object:
-
-
-```r
-full_join1 = north_america %>% 
-  full_join(wb_north_america, by = "iso_a2")
-full_join1
-#> Simple feature collection with 4 features and 5 fields (with 1 geometry empty)
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>   iso_a2     name_long          name urban_pop unemploy
-#> 1     CA        Canada        Canada  29022137     6.91
-#> 2     GL     Greenland          <NA>        NA       NA
-#> 3     US United States United States 259740511     6.17
-#> 4     MX          <NA>        Mexico  99018446     5.25
-#>                             geom
-#> 1 MULTIPOLYGON(((-63.6645 46....
-#> 2 MULTIPOLYGON(((-46.76379 82...
-#> 3 MULTIPOLYGON(((-155.54211 1...
-#> 4                 MULTIPOLYGON()
 ```
 
 ## Attribute data creation
@@ -2423,7 +2315,7 @@ Hint: try to use helper functions, such as `contains` or `starts_with` from **dp
 6. What was the minimum and maximum total population in 2015 in each region? What was the total population in 2015 in each region?
 <!-- Attribute joining -->
 7. Add variables from `us_states_df` to `us_states` and create a new object called `us_states_stats`. What function did you use and why? Which variable is the key in the both datasets? What is the class of a new object?
-8. `us_states_df` has two more variables than `us_states`. How you can find them?
+8. `us_states_df` has two more variables than `us_states`. How you can find them? (hint: try to use the `dplyr::anti_join` function)
 <!-- Attribute creation -->
 9. What was the population density in 2015 in each state? What was the population density in 2010 in each state?
 10. How much has population density changed between 2010 and 2015 in each state? Calculate the change in percentages and map them.
@@ -3086,7 +2978,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.36
+#> [1] 2.32
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -3102,7 +2994,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.27
+#> [1] 3.29
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3131,13 +3023,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.056   0.004   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.044
+#>   0.040   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.027
+#>   0.024   0.008   0.030
 ```
 
 
