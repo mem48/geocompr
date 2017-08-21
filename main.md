@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve8233db6fc5964766
+preserve0405c155a6cf73ee
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1185,7 +1185,8 @@ This grid consists of cells (often called pixels) representing an area on the su
 All cells in a raster must have the same size, which could be represented by a Cartesian (e.g. meters) or geographic coordinate system (degrees).
 Cell numbers in rasters start at 1 in the upper left corner, and its number increase from left to right and then from top to bottom (\@ref(fig:raster-intro-plot):B).
 Each cell in raster data could hold a value, which could be an integer or float (\@ref(fig:raster-intro-plot):C).
-Additionally, it is possible to set the NA (*not available*) value which indicates cells without the value or these outside of the area of interests.
+<!-- -->
+Additionally, it is possible to set the NA (*not available*) value which indicates the absence of data or cells outside of the area of interests.
 You can see them as the gray cells in the C and D panel of the figure \@ref(fig:raster-intro-plot).
 The final raster map, as seen in the D panel of the \@ref(fig:raster-intro-plot) figure, is a color presentation of the raster values.
 
@@ -1194,16 +1195,10 @@ The final raster map, as seen in the D panel of the \@ref(fig:raster-intro-plot)
 <p class="caption">(\#fig:raster-intro-plot)Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map</p>
 </div>
 
-<!-- Types of rasters -->
-<!-- continous: -->
-<!-- - elevation -->
-<!-- - temperature -->
-<!-- - population density -->
-<!-- - ndvi -->
-<!-- categorical: -->
-<!-- - landcover -->
-<!-- - soils -->
-<!-- - climate cattegories -->
+Raster data can be continuous or categorical. 
+Continuous rasters have a range of quantitative values, which could represent phenomena such as elevation, temperature, population density or spectral data.
+Categorical rasters, also known as discrete, represent features or categories.
+This could be landcover, soils, or climate categories data.
 <!-- (one, two panel plot)  -->
 
 <!-- Raster formats -->
@@ -2978,7 +2973,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.32
+#> [1] 2.14
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2994,7 +2989,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.29
+#> [1] 3.03
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3023,13 +3018,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.056   0.004   0.062
+#>   0.060   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.042
+#>   0.044   0.000   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.030
+#>   0.016   0.012   0.027
 ```
 
 
@@ -3093,6 +3088,10 @@ This is not generally recommended, as it will not work for multi-file data sourc
 ```r
 file.remove("world.gpkg")
 ```
+
+
+<!-- RASTER DATA -->
+<!-- + datatypes -->
 
 ## File formats
 
