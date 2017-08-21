@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve0405c155a6cf73ee
+preserveb8dafc4cd4640f3f
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1185,7 +1185,6 @@ This grid consists of cells (often called pixels) representing an area on the su
 All cells in a raster must have the same size, which could be represented by a Cartesian (e.g. meters) or geographic coordinate system (degrees).
 Cell numbers in rasters start at 1 in the upper left corner, and its number increase from left to right and then from top to bottom (\@ref(fig:raster-intro-plot):B).
 Each cell in raster data could hold a value, which could be an integer or float (\@ref(fig:raster-intro-plot):C).
-<!-- -->
 Additionally, it is possible to set the NA (*not available*) value which indicates the absence of data or cells outside of the area of interests.
 You can see them as the gray cells in the C and D panel of the figure \@ref(fig:raster-intro-plot).
 The final raster map, as seen in the D panel of the \@ref(fig:raster-intro-plot) figure, is a color presentation of the raster values.
@@ -1200,9 +1199,6 @@ Continuous rasters have a range of quantitative values, which could represent ph
 Categorical rasters, also known as discrete, represent features or categories.
 This could be landcover, soils, or climate categories data.
 <!-- (one, two panel plot)  -->
-
-<!-- Raster formats -->
-<!-- geotiff + its metadata -->
 
 ### An introduction to raster
 
@@ -2973,7 +2969,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.14
+#> [1] 2.32
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2989,7 +2985,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.03
+#> [1] 3.32
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3018,13 +3014,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.064
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.044
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.027
+#>   0.016   0.012   0.029
 ```
 
 
@@ -3089,13 +3085,18 @@ This is not generally recommended, as it will not work for multi-file data sourc
 file.remove("world.gpkg")
 ```
 
-
 <!-- RASTER DATA -->
 <!-- + datatypes -->
 
 ## File formats
 
+<!-- vector formats --> 
+<!-- .gpkg + geojson? -->
 <!-- don't use shp -->
+
+<!-- Raster formats -->
+<!-- geotiff + its metadata -->
+<!-- ncdf mention -->
 
 ## Visual outputs
 
