@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveb8201cf20e6ab3a5
+preserve3974fe99ae5c7141
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1196,11 +1196,15 @@ The final raster map, as seen in the D panel of the \@ref(fig:raster-intro-plot)
 <p class="caption">(\#fig:raster-intro-plot)Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map</p>
 </div>
 
-Raster data can be continuous or categorical. 
+Raster data can be continuous or categorical \@ref(fig:raster-intro-plot2). 
 Continuous rasters have a range of quantitative values, which could represent phenomena such as elevation, temperature, population density or spectral data.
 Categorical rasters, also known as discrete, represent features or categories.
 This could be landcover, soils, or climate categories data.
-<!-- (one, two panel plot)  -->
+
+<div class="figure" style="text-align: center">
+<img src="figures/raster_intro_plot2.png" alt="Exampled of continuous (left) and categorical (right) raster" width="475" />
+<p class="caption">(\#fig:raster-intro-plot2)Exampled of continuous (left) and categorical (right) raster</p>
+</div>
 
 ### An introduction to raster
 
@@ -2971,7 +2975,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.27
+#> [1] 2.33
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2987,7 +2991,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.36
+#> [1] 3.26
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3016,13 +3020,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.004   0.062
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.043
+#>   0.040   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.029
+#>   0.016   0.012   0.031
 ```
 
 

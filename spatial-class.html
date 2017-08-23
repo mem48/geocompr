@@ -682,7 +682,13 @@ sf_points =<span class="st"> </span><span class="kw">st_sf</span>(our_attributes
 Figure 2.6: Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map
 </p>
 </div>
-<p>Raster data can be continuous or categorical. Continuous rasters have a range of quantitative values, which could represent phenomena such as elevation, temperature, population density or spectral data. Categorical rasters, also known as discrete, represent features or categories. This could be landcover, soils, or climate categories data. <!-- (one, two panel plot)  --></p>
+<p>Raster data can be continuous or categorical <a href="spatial-class.html#fig:raster-intro-plot2">2.7</a>. Continuous rasters have a range of quantitative values, which could represent phenomena such as elevation, temperature, population density or spectral data. Categorical rasters, also known as discrete, represent features or categories. This could be landcover, soils, or climate categories data.</p>
+<div class="figure" style="text-align: center"><span id="fig:raster-intro-plot2"></span>
+<img src="figures/raster_intro_plot2.png" alt="Exampled of continuous (left) and categorical (right) raster" width="475" />
+<p class="caption">
+Figure 2.7: Exampled of continuous (left) and categorical (right) raster
+</p>
+</div>
 <div id="an-introduction-to-raster" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> An introduction to raster</h3>
 <p>Raster objects in R are supported by the <strong>raster</strong> package. It provides an extensive set of functions to create, read, processed and write of raster datasets. Beside the general raster data manipulation, <strong>raster</strong> provides many low level functions that can be used to create and develop new concepts. <strong>raster</strong> also supports work on large raster datasets that are stored on a hard drive, but are too large to fit into memory. Instead of recreating the whole file in RAM, this package extracts information about the structure of the dataset, such as a number of rows and columns, spatial extent and the name of the file. When manipulating this dataset, values are read and processed in a small chunk and written either to a specified file on a disk or temporary file.</p>
