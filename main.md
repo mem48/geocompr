@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve33f28b48cc5eb5b5
+preserved4237c390a75bda0
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -432,10 +432,10 @@ The **sf**, **raster**, **spData**, and **spDataLarge** packages used in this ch
 install.packages("sf")
 install.packages("raster")
 install.packages("spData")
-install.packages("spDataLarge", repos="http://nowosad.github.io/drat")
 library(sf)
 library(raster)
 library(spData)
+install.packages("spDataLarge")
 library(spDataLarge)
 ```
 
@@ -3017,7 +3017,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.47
+#> [1] 3.23
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3046,13 +3046,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.062
+#>   0.076   0.000   0.076
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.004   0.043
+#>   0.052   0.004   0.055
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.012   0.016   0.032
 ```
 
 
