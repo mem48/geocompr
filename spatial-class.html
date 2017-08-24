@@ -227,10 +227,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;sf&quot;</span>)
 <span class="kw">install.packages</span>(<span class="st">&quot;raster&quot;</span>)
 <span class="kw">install.packages</span>(<span class="st">&quot;spData&quot;</span>)
-<span class="kw">install.packages</span>(<span class="st">&quot;spDataLarge&quot;</span>)
 <span class="kw">library</span>(sf)
 <span class="kw">library</span>(raster)
 <span class="kw">library</span>(spData)
+<span class="kw">install.packages</span>(<span class="st">&quot;spDataLarge&quot;</span>)
 <span class="kw">library</span>(spDataLarge)</code></pre></div>
 <p>This chapter will provide brief explanations of the fundamental geographic data models: vector and raster. We will introduce briefly the theory behind both data models, and then move quickly towards how these are implemented in R. Vector and raster models are vital to geospatial analysis <span class="citation">(Longley <a href="#ref-longley_geographic_2015">2015</a>)</span>. The vector data model represents the world using points, lines and polygons. This means, it supports data with discrete, well-defined borders. Generally, vector datasets have a high level of precision (but not necessarily accuracy as we will see in <a href="spatial-class.html#units">2.4</a>). On the other hand, the raster data model is good at representing continuous phenomena such as elevation or rainfall with the help of grid cell that break the surface up into a cells of constant size (<em>resolution</em>). Rasters, therefore, aggregate spatially specific features to a given resolution resulting in small features being blurred or lost. <!-- todo: add figure(s) showing raster data and blurring? --> Naturally, it depends on your discipline if you more often user raster or vector data:</p>
 <ul>
