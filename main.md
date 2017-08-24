@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserved4237c390a75bda0
+preserve870b437baf0e803b
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1217,13 +1217,17 @@ When manipulating this dataset, values are read and processed in a small chunk a
 The **raster** package provides three main classes of objects - `RasterLayer`, `RasterBrick` and `RasterStack`. 
 We would refer to all of them as `Raster*`.
 
-<!-- short description of the data -->
+For the illustration of the **raster** concepts, we will use datasets from the **spDataLarge** package.
+It consists of a few raster and one vector datasets representing an area of Zion National Park.
+For example, `srtm.tif` is a digital elevation model of this area.
+<!-- for more details - see the documentation ADD DOCS -->
+Firstly, we would create a new `RasterLayer` object `new_raster`:
 
 
 ```r
 library(spDataLarge)
 library(raster)
-raster_filepath = system.file("raster/srtm.tif", package="spDataLarge")
+raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge")
 new_raster = raster(raster_filepath)
 ```
 
@@ -1392,8 +1396,10 @@ plot(new_vector, add = TRUE)
 
 <img src="figures/basic-new-raster-vector-plot-1.png" width="576" style="display: block; margin: auto;" />
 
+There are several different approaches to plot raster data in R. 
+The **rasterVis** package provides a set of methods for visualization of univariate and multivariate (such as spatiotemporal) rasters.
+Moreover, packages such as **tmap**, **mapview** and **leaflet** facilitate presentation of both, raster and vector, objects. 
 <!-- TODO: cross reference advanced mapping chapter -->
-<!-- more advanced options - rasterVis, tmap, mapview, leaflet -->
 
 ### Raster classes
 
@@ -3001,7 +3007,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.36
+#> [1] 2.32
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -3017,7 +3023,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.23
+#> [1] 3.3
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3046,13 +3052,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.076   0.000   0.076
+#>   0.064   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.052   0.004   0.055
+#>   0.044   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.012   0.016   0.032
+#>   0.016   0.012   0.030
 ```
 
 

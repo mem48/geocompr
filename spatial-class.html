@@ -693,10 +693,10 @@ Figure 2.7: Exampled of continuous (left) and categorical (right) raster
 <h3><span class="header-section-number">2.2.1</span> An introduction to raster</h3>
 <p>Raster objects in R are supported by the <strong>raster</strong> package. It provides an extensive set of functions to create, read, processed and write of raster datasets. Beside the general raster data manipulation, <strong>raster</strong> provides many low level functions that can be used to create and develop new concepts. <strong>raster</strong> also supports work on large raster datasets that are stored on a hard drive, but are too large to fit into memory. Instead of recreating the whole file in RAM, this package extracts information about the structure of the dataset, such as a number of rows and columns, spatial extent and the name of the file. When manipulating this dataset, values are read and processed in a small chunk and written either to a specified file on a disk or temporary file.</p>
 <p>The <strong>raster</strong> package provides three main classes of objects - <code>RasterLayer</code>, <code>RasterBrick</code> and <code>RasterStack</code>. We would refer to all of them as <code>Raster*</code>.</p>
-<!-- short description of the data -->
+<p>For the illustration of the <strong>raster</strong> concepts, we will use datasets from the <strong>spDataLarge</strong> package. It consists of a few raster and one vector datasets representing an area of Zion National Park. For example, <code>srtm.tif</code> is a digital elevation model of this area. <!-- for more details - see the documentation ADD DOCS --> Firstly, we would create a new <code>RasterLayer</code> object <code>new_raster</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spDataLarge)
 <span class="kw">library</span>(raster)
-raster_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/srtm.tif&quot;</span>, <span class="dt">package=</span><span class="st">&quot;spDataLarge&quot;</span>)
+raster_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/srtm.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
 new_raster =<span class="st"> </span><span class="kw">raster</span>(raster_filepath)</code></pre></div>
 <p>The <code>Raster*</code> objects store three types of information: spatial, non-spatial and metadata. All of them could be shown by just typing the name of the object:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_raster
@@ -785,8 +785,7 @@ new_vector =<span class="st"> </span><span class="kw">st_read</span>(vector_file
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(new_raster)
 <span class="kw">plot</span>(new_vector, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="figures/basic-new-raster-vector-plot-1.png" width="576" style="display: block; margin: auto;" /></p>
-<!-- TODO: cross reference advanced mapping chapter -->
-<!-- more advanced options - rasterVis, tmap, mapview, leaflet -->
+<p>There are several different approaches to plot raster data in R. The <strong>rasterVis</strong> package provides a set of methods for visualization of univariate and multivariate (such as spatiotemporal) rasters. Moreover, packages such as <strong>tmap</strong>, <strong>mapview</strong> and <strong>leaflet</strong> facilitate presentation of both, raster and vector, objects. <!-- TODO: cross reference advanced mapping chapter --></p>
 </div>
 <div id="raster-classes" class="section level3">
 <h3><span class="header-section-number">2.2.3</span> Raster classes</h3>
