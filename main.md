@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-08-23'
+date: '2017-08-24'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -40,7 +40,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-08-23 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-08-24 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve3974fe99ae5c7141
+preserveacdd1b2407ad4a1f
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -425,17 +425,17 @@ We recommend getting up-to-speed with the language, with reference to resources 
 
 After R is installed and set-up, packages which extend R must be installed and loaded for it to handle spatial data.
 On Mac and Linux operating systems there are a few additional requirements: see the [README](https://github.com/r-spatial/sf) of the **sf** package for instructions.
-The **sf**, **raster**, and **spData** packages used in this chapter can be installed and loaded with the following commands:
+The **sf**, **raster**, **spData**, and **spDataLarge** packages used in this chapter can be installed and loaded with the following commands:
 
 
 ```r
 install.packages("sf")
 install.packages("raster")
 install.packages("spData")
+install.packages("spDataLarge", repos="http://nowosad.github.io/drat")
 library(sf)
 library(raster)
 library(spData)
-install.packages("spDataLarge")
 library(spDataLarge)
 ```
 
@@ -1217,12 +1217,13 @@ When manipulating this dataset, values are read and processed in a small chunk a
 The **raster** package provides three main classes of objects - `RasterLayer`, `RasterBrick` and `RasterStack`. 
 We would refer to all of them as `Raster*`.
 
-<!-- we should replace it with our own dataset -->
-<!-- example dataset from spDataLarge -->
+<!-- short description of the data -->
+
 
 ```r
+library(spDataLarge)
 library(raster)
-raster_filepath = system.file("external/test.grd", package="raster")
+raster_filepath = system.file("raster/srtm.tif", package="spDataLarge")
 new_raster = raster(raster_filepath)
 ```
 
@@ -1233,13 +1234,13 @@ All of them could be shown by just typing the name of the object:
 ```r
 new_raster
 #> class       : RasterLayer 
-#> dimensions  : 115, 80, 9200  (nrow, ncol, ncell)
-#> resolution  : 40, 40  (x, y)
-#> extent      : 178400, 181600, 329400, 334000  (xmin, xmax, ymin, ymax)
-#> coord. ref. : +init=epsg:28992 +towgs84=565.237,50.0087,465.658,-0.406857,0.350733,-1.87035,4.0812 +proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +no_defs 
-#> data source : /home/travis/R/Library/raster/external/test.grd 
-#> names       : test 
-#> values      : 128, 1806  (min, max)
+#> dimensions  : 463, 459, 212517  (nrow, ncol, ncell)
+#> resolution  : 73.7, 92.5  (x, y)
+#> extent      : 301929, 335757, 4111262, 4154089  (xmin, xmax, ymin, ymax)
+#> coord. ref. : +proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 
+#> data source : /home/travis/R/Library/spDataLarge/raster/srtm.tif 
+#> names       : srtm 
+#> values      : 1050, 2895  (min, max)
 ```
 
 Raster's spatial properties are expressed as the dimensions (number of rows, number of columns, number of cells and number of layers for multilayer objects), resolution, extent and coordinate reference system of the data.
@@ -1248,14 +1249,14 @@ Raster's spatial properties are expressed as the dimensions (number of rows, num
 ```r
 # dimensions (number of rows, number of columns, number of cells)
 dim(new_raster)
-#> [1] 115  80   1
+#> [1] 463 459   1
 ```
 
 
 ```r
 # spatial resolution
 res(new_raster)
-#> [1] 40 40
+#> [1] 73.7 92.5
 ```
 
 
@@ -1263,10 +1264,10 @@ res(new_raster)
 # spatial extent
 extent(new_raster)
 #> class       : Extent 
-#> xmin        : 178400 
-#> xmax        : 181600 
-#> ymin        : 329400 
-#> ymax        : 334000
+#> xmin        : 301929 
+#> xmax        : 335757 
+#> ymin        : 4111262 
+#> ymax        : 4154089
 ```
 
 
@@ -1274,10 +1275,7 @@ extent(new_raster)
 # coordinate reference system
 crs(new_raster)
 #> CRS arguments:
-#>  +init=epsg:28992
-#> +towgs84=565.237,50.0087,465.658,-0.406857,0.350733,-1.87035,4.0812
-#> +proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889
-#> +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +units=m
+#>  +proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m
 #> +no_defs
 ```
 
@@ -1290,19 +1288,22 @@ They could be summarized and plotted using the base R functions, such as `summar
 ```r
 # numerical summary of the data
 summary(new_raster)
-#>         test
-#> Min.     128
-#> 1st Qu.  293
-#> Median   371
-#> 3rd Qu.  500
-#> Max.    1806
-#> NA's    6097
+#> Warning in .local(object, ...): summary is an estimate based on a sample of 1e+05 cells (47.06% of all cells)
+#>         srtm
+#> Min.    1050
+#> 1st Qu. 1544
+#> Median  1840
+#> 3rd Qu. 2121
+#> Max.    2895
+#> NA's       0
 ```
 
 
 ```r
 # histogram of the values
 hist(new_raster)
+#> Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...):
+#> 47% of the raster cells were used. 100000 values used.
 ```
 
 <img src="figures/new_raster-hist-1.png" width="576" style="display: block; margin: auto;" />
@@ -1313,7 +1314,7 @@ hist(new_raster)
 ```r
 new_raster_values = getValues(new_raster)
 head(new_raster_values)
-#> [1] NA NA NA NA NA NA
+#> [1] 1743 1739 1730 1721 1715 1709
 ```
 
 The new vector, `new_raster_values`, could be an input for many statistical operations.
@@ -1333,14 +1334,14 @@ class(new_raster)
 ```r
 # file path to the data source
 filename(new_raster)
-#> [1] "/home/travis/R/Library/raster/external/test.grd"
+#> [1] "/home/travis/R/Library/spDataLarge/raster/srtm.tif"
 ```
 
 
 ```r
 # names of layer in the `Raster*` object
 names(new_raster)
-#> [1] "test"
+#> [1] "srtm"
 ```
 
 Sometimes it could be important to know if the values of the files are in RAM or on disk using the `inMemory()` function:
@@ -1364,7 +1365,32 @@ plot(new_raster)
 
 <img src="figures/basic-new-raster-plot-1.png" width="576" style="display: block; margin: auto;" />
 
-<!-- combining raster with vector for a plot -->
+Moreover, it is possible to plot raster together with vector data.
+For this purpose, we need to read a vector dataset:
+
+
+```r
+vector_filepath = system.file("vector/zion.gpkg", package="spDataLarge")
+new_vector = st_read(vector_filepath)
+#> Reading layer `zion' from data source `/home/travis/R/Library/spDataLarge/vector/zion.gpkg' using driver `GPKG'
+#> Simple feature collection with 1 feature and 11 fields
+#> geometry type:  POLYGON
+#> dimension:      XY
+#> bbox:           xmin: 302903.1 ymin: 4112244 xmax: 334735.5 ymax: 4153087
+#> epsg (SRID):    NA
+#> proj4string:    +proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs
+```
+
+Our new object, `new_vector`, is a polygon representing borders of Zion National Park.
+We could impose these borders on a elevation map with the second use of the `plot()` function, this time with the `add` argument set to `TRUE`:
+
+
+```r
+plot(new_raster)
+plot(new_vector, add = TRUE)
+```
+
+<img src="figures/basic-new-raster-vector-plot-1.png" width="576" style="display: block; margin: auto;" />
 
 <!-- TODO: cross reference advanced mapping chapter -->
 <!-- more advanced options - rasterVis, tmap, mapview, leaflet -->
@@ -1415,18 +1441,18 @@ All of possible formats could be found on the help file of this function - `?bri
 <!-- should we use this example or have our own multilayer dataset? -->
 
 ```r
-multilayer_raster_filepath = system.file("external/rlogo.grd", package="raster")
+multilayer_raster_filepath = system.file("raster/landsat.tif", package="spDataLarge")
 r_brick = brick(multilayer_raster_filepath)
 r_brick
 #> class       : RasterBrick 
-#> dimensions  : 77, 101, 7777, 3  (nrow, ncol, ncell, nlayers)
-#> resolution  : 1, 1  (x, y)
-#> extent      : 0, 101, 0, 77  (xmin, xmax, ymin, ymax)
-#> coord. ref. : +proj=merc +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 
-#> data source : /home/travis/R/Library/raster/external/rlogo.grd 
-#> names       : red, green, blue 
-#> min values  :   0,     0,    0 
-#> max values  : 255,   255,  255
+#> dimensions  : 1428, 1128, 1610784, 4  (nrow, ncol, ncell, nlayers)
+#> resolution  : 30, 30  (x, y)
+#> extent      : 301905, 335745, 4111245, 4154085  (xmin, xmax, ymin, ymax)
+#> coord. ref. : +proj=utm +zone=12 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+#> data source : /home/travis/R/Library/spDataLarge/raster/landsat.tif 
+#> names       : landsat.1, landsat.2, landsat.3, landsat.4 
+#> min values  :      7550,      6404,      5678,      5252 
+#> max values  :     19071,     22051,     25780,     31961
 ```
 
 The `nlayers` function helps to get the number of layers in a `Raster*` object:
@@ -1434,7 +1460,7 @@ The `nlayers` function helps to get the number of layers in a `Raster*` object:
 
 ```r
 nlayers(r_brick)
-#> [1] 3
+#> [1] 4
 ```
 
 A `RasterStack` is a list of `RasterLayer` objects with the same extent and resolution. 
@@ -1443,8 +1469,8 @@ These layers could contain the same variable over some time or many different va
 
 
 ```r
-raster_on_disk = raster(multilayer_raster_filepath, layer = 1)
-raster_in_memory = raster(xmn = 0, xmx = 101, ymn = 0, ymx = 77, res = 1)
+raster_on_disk = raster(r_brick, layer = 1)
+raster_in_memory = raster(xmn = 301905, xmx = 335745, ymn = 4111245, ymx = 4154085, res = 30)
 values(raster_in_memory) = sample(1:ncell(raster_in_memory))
 crs(raster_in_memory) = crs(raster_on_disk)
 ```
@@ -1454,13 +1480,13 @@ crs(raster_in_memory) = crs(raster_on_disk)
 r_stack <- stack(raster_in_memory, raster_on_disk)
 r_stack
 #> class       : RasterStack 
-#> dimensions  : 77, 101, 7777, 2  (nrow, ncol, ncell, nlayers)
-#> resolution  : 1, 1  (x, y)
-#> extent      : 0, 101, 0, 77  (xmin, xmax, ymin, ymax)
-#> coord. ref. : +proj=merc +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 
-#> names       : layer,  red 
-#> min values  :     1,    0 
-#> max values  :  7777,  255
+#> dimensions  : 1428, 1128, 1610784, 2  (nrow, ncol, ncell, nlayers)
+#> resolution  : 30, 30  (x, y)
+#> extent      : 301905, 335745, 4111245, 4154085  (xmin, xmax, ymin, ymax)
+#> coord. ref. : +proj=utm +zone=12 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+#> names       :   layer, landsat.1 
+#> min values  :       1,      7550 
+#> max values  : 1610784,     19071
 ```
 
 Due to its properties, `RasterBrick` objects should be processed in a shorter time than `RasterStack`.
@@ -2975,7 +3001,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.33
+#> [1] 2.32
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2991,7 +3017,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.26
+#> [1] 3.37
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3020,10 +3046,10 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.064   0.000   0.065
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.041
+#>   0.060   0.000   0.057
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
 #>   0.016   0.012   0.031
