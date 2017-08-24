@@ -248,7 +248,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_df =<span class="st"> </span><span class="kw">st_set_geometry</span>(world, <span class="ot">NULL</span>)
 <span class="kw">class</span>(world_df)
 <span class="co">#&gt; [1] &quot;data.frame&quot;</span></code></pre></div>
-<p>This can be useful if the geometry column causes problems, e.g., by occupying large amounts of RAM, or to focus the attention on the attribute data. For most cases, however, there is no harm in keeping the geometry column because non-spatial data operations on <code>sf</code> objects act only on the attribute data. For this reason, being good at working with attribute data of spatial objects is the same as being proficient at handling data frames in R. For many applications, <strong>dplyr</strong> offers the most effective and most intuitive approach of working with data frames, as we will see in the next section.<a href="#fn17" class="footnoteRef" id="fnref17"><sup>17</sup></a> This chapter focuses on <strong>dplyr</strong> because of its intuitive function names and ability to perform multiple chained operations using the pipe operator.</p>
+<p>This can be useful if the geometry column causes problems, e.g., by occupying large amounts of RAM, or to focus the attention on the attribute data. For most cases, however, there is no harm in keeping the geometry column because non-spatial data operations on <code>sf</code> objects act only on the attribute data. For this reason, being good at working with attribute data of spatial objects is the same as being proficient at handling data frames in R. For many applications, <strong>dplyr</strong> offers the most effective and most intuitive approach of working with data frames, as we will see in the next section.<a href="#fn19" class="footnoteRef" id="fnref19"><sup>19</sup></a> This chapter focuses on <strong>dplyr</strong> because of its intuitive function names and ability to perform multiple chained operations using the pipe operator.</p>
 </div>
 <div id="attribute-subsetting" class="section level2">
 <h2><span class="header-section-number">3.2</span> Attribute subsetting</h2>
@@ -380,7 +380,7 @@ world6 =<span class="st"> </span><span class="kw">filter</span>(world, lifeExp &
 <span class="co">#&gt; 3              Albania    Europe &lt;MULTIPOLYGON...&gt;</span>
 <span class="co">#&gt; 4 United Arab Emirates      Asia &lt;MULTIPOLYGON...&gt;</span>
 <span class="co">#&gt; # ... with 1 more rows</span></code></pre></div>
-<p>The pipe operator supports an intuitive data analysis workflow. It allows operations to be written in a clear order, line-by-line and from left to right (as with most languages), avoiding ‘nesting’, whereby one function is burried inside another (without pipes the code in the previous chunk would be written as <code>slice(select(world, name_long, continent), 1:5)</code> which is harder for most people to read, write and understand). Another advantage over the nesting approach is that you can easily comment out certain parts of a pipe. <strong>dplyr</strong> works especially well with the pipe operator because its fundamental functions (or ‘verbs’, like <code>select()</code>) expect a data frame object as input and also return one.<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a></p>
+<p>The pipe operator supports an intuitive data analysis workflow. It allows operations to be written in a clear order, line-by-line and from left to right (as with most languages), avoiding ‘nesting’, whereby one function is burried inside another (without pipes the code in the previous chunk would be written as <code>slice(select(world, name_long, continent), 1:5)</code> which is harder for most people to read, write and understand). Another advantage over the nesting approach is that you can easily comment out certain parts of a pipe. <strong>dplyr</strong> works especially well with the pipe operator because its fundamental functions (or ‘verbs’, like <code>select()</code>) expect a data frame object as input and also return one.<a href="#fn20" class="footnoteRef" id="fnref20"><sup>20</sup></a></p>
 </div>
 <div id="attribute-data-aggregation" class="section level2">
 <h2><span class="header-section-number">3.3</span> Attribute data aggregation</h2>
@@ -637,7 +637,7 @@ world %&gt;%<span class="st"> </span>
 <div id="removing-spatial-information" class="section level2">
 <h2><span class="header-section-number">3.6</span> Removing spatial information</h2>
 <!-- Shouln't that be part of chapter 2-->
-<p>It is important to note that the attribute data operations preserve the geometry of the simple features. As mentioned at the outset of the chapter, however, it can be useful to remove the geometry. In the case of the <code>world</code> dataset, this can be done using <code>st_set_geometry()</code><a href="#fn19" class="footnoteRef" id="fnref19"><sup>19</sup></a>.</p>
+<p>It is important to note that the attribute data operations preserve the geometry of the simple features. As mentioned at the outset of the chapter, however, it can be useful to remove the geometry. In the case of the <code>world</code> dataset, this can be done using <code>st_set_geometry()</code><a href="#fn21" class="footnoteRef" id="fnref21"><sup>21</sup></a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_data =<span class="st"> </span>world %&gt;%<span class="st"> </span><span class="kw">st_set_geometry</span>(<span class="ot">NULL</span>)
 <span class="kw">class</span>(world_data)
 <span class="co">#&gt; [1] &quot;data.frame&quot;</span></code></pre></div>
@@ -683,10 +683,10 @@ world %&gt;%<span class="st"> </span>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="17">
-<li id="fn17"><p>Unlike objects of class <code>Spatial</code> of the <strong>sp</strong> package, <code>sf</code> objects are also compatible with the <strong>tidyverse</strong> packages <strong>dplyr</strong> and <strong>ggplot2</strong>. The former provides fast and powerful functions for data manipulation (see <a href="https://csgillespie.github.io/efficientR/data-carpentry.html#data-processing-with-data.table">Section 6.7</a> of <span class="citation">Gillespie and Lovelace (<a href="#ref-gillespie_efficient_2016">2016</a>)</span>), and the latter provides powerful plotting capabilities.<a href="attr.html#fnref17">↩</a></p></li>
-<li id="fn18"><p>If you want <strong>dplyr</strong> to return a vector, use <code>pull</code>.<a href="attr.html#fnref18">↩</a></p></li>
-<li id="fn19"><p>Note that <code>st_geometry(world_st) = NULL</code> also works to remove the geometry from <code>world</code> but overwrites the original object.<a href="attr.html#fnref19">↩</a></p></li>
+<ol start="19">
+<li id="fn19"><p>Unlike objects of class <code>Spatial</code> of the <strong>sp</strong> package, <code>sf</code> objects are also compatible with the <strong>tidyverse</strong> packages <strong>dplyr</strong> and <strong>ggplot2</strong>. The former provides fast and powerful functions for data manipulation (see <a href="https://csgillespie.github.io/efficientR/data-carpentry.html#data-processing-with-data.table">Section 6.7</a> of <span class="citation">Gillespie and Lovelace (<a href="#ref-gillespie_efficient_2016">2016</a>)</span>), and the latter provides powerful plotting capabilities.<a href="attr.html#fnref19">↩</a></p></li>
+<li id="fn20"><p>If you want <strong>dplyr</strong> to return a vector, use <code>pull</code>.<a href="attr.html#fnref20">↩</a></p></li>
+<li id="fn21"><p>Note that <code>st_geometry(world_st) = NULL</code> also works to remove the geometry from <code>world</code> but overwrites the original object.<a href="attr.html#fnref21">↩</a></p></li>
 </ol>
 </div>
             </section>
