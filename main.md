@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservecb9b337b6b0f32ff
+preservebc20d75e66067997
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1342,8 +1342,8 @@ vector_filepath = system.file("vector/zion.gpkg", package="spDataLarge")
 new_vector = st_read(vector_filepath)
 ```
 
-Our new object, `new_vector`, is a polygon representing borders of Zion National Park (`?zion`).
-We could impose these borders on a elevation map with the second use of the `plot()` function, this time with the `add` argument set to `TRUE`:
+Our new object, `new_vector`, is a polygon representing the borders of Zion National Park (`?zion`).
+We could impose these borders on the elevation map again using the `plot()` function, this time with the `add` argument set to `TRUE`:
 
 
 ```r
@@ -1361,12 +1361,7 @@ Moreover, packages such as **tmap**, **mapview** and **leaflet** facilitate pres
 ### Raster classes
 
 The `RasterLayer` class represents the simplest form of a raster object, and consists of only one layer.
-<!-- CRS as proj4 -->
-
 To create an object of class `RasterLayer`, we can use the `raster()` function:
-<!-- explanation that this function can do many more things -->
-<!-- how to add crs -->
-<!-- how to add values -->
 
 
 ```r
@@ -1378,6 +1373,7 @@ r
 #> extent      : -180, 180, -90, 90  (xmin, xmax, ymin, ymax)
 #> coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0
 ```
+
 
 
 ```r
@@ -1392,14 +1388,17 @@ r1
 values(r1) = sample(1:ncell(r1)) # adding random values to the new raster object
 ```
 
+<!-- explanation that this function can do many more things -->
+<!-- how to add crs -->
+<!-- how to add values -->
+
 Aside from the `RasterLayer`, there are two additional classes: `RasterBrick` and `RasterStack`.
-<!--What do you mean by type of representation?-->
-Both can handle multiple layers, but differ regarding the number of supported file formats, type of representation and processing speed.
+Both can handle multiple layers, but differ regarding the number of supported file formats, type of iternal representation and processing speed.
 
 A `RasterBrick` consists of multiple layers, which typically correspond to a multispectral satellite file. 
 The `brick()` function creates a `RasterBrick` object.
 Usually, you provide it with a filename to a multilayer raster file but might also use another raster object and other spatial objects (see its help page for all supported formats).
-<!-- should we use this example or have our own multilayer dataset? -->
+
 
 ```r
 multilayer_raster_filepath = system.file("raster/landsat.tif", package="spDataLarge")
@@ -2947,7 +2946,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.34
+#> [1] 2.22
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2963,10 +2962,10 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.4
+#> [1] 3.75
 ```
 
-In this case **sf** was around 3 times faster than **rgdal**.
+In this case **sf** was around 4 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -2992,13 +2991,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>    0.06    0.00    0.06
+#>   0.084   0.004   0.089
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.036   0.000   0.035
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.027
+#>   0.020   0.008   0.028
 ```
 
 

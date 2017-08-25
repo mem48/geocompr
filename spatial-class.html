@@ -750,7 +750,7 @@ new_raster =<span class="st"> </span><span class="kw">raster</span>(raster_filep
 <p>Moreover, it is possible to plot raster together with vector data. For this purpose, we need to read a vector dataset:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vector_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;vector/zion.gpkg&quot;</span>, <span class="dt">package=</span><span class="st">&quot;spDataLarge&quot;</span>)
 new_vector =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)</code></pre></div>
-<p>Our new object, <code>new_vector</code>, is a polygon representing borders of Zion National Park (<code>?zion</code>). We could impose these borders on a elevation map with the second use of the <code>plot()</code> function, this time with the <code>add</code> argument set to <code>TRUE</code>:</p>
+<p>Our new object, <code>new_vector</code>, is a polygon representing the borders of Zion National Park (<code>?zion</code>). We could impose these borders on the elevation map again using the <code>plot()</code> function, this time with the <code>add</code> argument set to <code>TRUE</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(new_raster)
 <span class="kw">plot</span>(new_vector, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="figures/basic-new-raster-vector-plot-1.png" width="576" style="display: block; margin: auto;" /></p>
@@ -758,8 +758,7 @@ new_vector =<span class="st"> </span><span class="kw">st_read</span>(vector_file
 </div>
 <div id="raster-classes" class="section level3">
 <h3><span class="header-section-number">2.2.3</span> Raster classes</h3>
-<p>The <code>RasterLayer</code> class represents the simplest form of a raster object, and consists of only one layer. <!-- CRS as proj4 --></p>
-<p>To create an object of class <code>RasterLayer</code>, we can use the <code>raster()</code> function: <!-- explanation that this function can do many more things --> <!-- how to add crs --> <!-- how to add values --></p>
+<p>The <code>RasterLayer</code> class represents the simplest form of a raster object, and consists of only one layer. To create an object of class <code>RasterLayer</code>, we can use the <code>raster()</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r =<span class="st"> </span><span class="kw">raster</span>() <span class="co"># creation of an empty RasterLayer object</span>
 r
 <span class="co">#&gt; class       : RasterLayer </span>
@@ -776,8 +775,11 @@ r1
 <span class="co">#&gt; extent      : 0, 101, 0, 77  (xmin, xmax, ymin, ymax)</span>
 <span class="co">#&gt; coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0</span>
 <span class="kw">values</span>(r1) =<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span>:<span class="kw">ncell</span>(r1)) <span class="co"># adding random values to the new raster object</span></code></pre></div>
-<p>Aside from the <code>RasterLayer</code>, there are two additional classes: <code>RasterBrick</code> and <code>RasterStack</code>. <!--What do you mean by type of representation?--> Both can handle multiple layers, but differ regarding the number of supported file formats, type of representation and processing speed.</p>
-<p>A <code>RasterBrick</code> consists of multiple layers, which typically correspond to a multispectral satellite file. The <code>brick()</code> function creates a <code>RasterBrick</code> object. Usually, you provide it with a filename to a multilayer raster file but might also use another raster object and other spatial objects (see its help page for all supported formats). <!-- should we use this example or have our own multilayer dataset? --></p>
+<!-- explanation that this function can do many more things -->
+<!-- how to add crs -->
+<!-- how to add values -->
+<p>Aside from the <code>RasterLayer</code>, there are two additional classes: <code>RasterBrick</code> and <code>RasterStack</code>. Both can handle multiple layers, but differ regarding the number of supported file formats, type of iternal representation and processing speed.</p>
+<p>A <code>RasterBrick</code> consists of multiple layers, which typically correspond to a multispectral satellite file. The <code>brick()</code> function creates a <code>RasterBrick</code> object. Usually, you provide it with a filename to a multilayer raster file but might also use another raster object and other spatial objects (see its help page for all supported formats).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">multilayer_raster_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat.tif&quot;</span>, <span class="dt">package=</span><span class="st">&quot;spDataLarge&quot;</span>)
 r_brick =<span class="st"> </span><span class="kw">brick</span>(multilayer_raster_filepath)
 r_brick
