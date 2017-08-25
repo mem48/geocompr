@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve13ae8d7f9b63d8c4
+preserve0284c49b4dd69953
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1716,21 +1716,13 @@ As a special bonus, **dplyr** is compatible with `sf` objects.
 The main **dplyr** subsetting functions are `select()`, `slice()`, `filter()` and `pull()`.
 
 The `select()` function selects columns by name or position.
-For example, you could select only two columns, `name_long` and `pop`, with the following command:
+For example, you could select only two columns, `name_long` and `pop`, with the following command (note the `geom` column remains):
 
 
 ```r
 world1 = select(world, name_long, pop)
-head(world1, n = 2)
-#> Simple feature collection with 2 features and 2 fields
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: 11.6401 ymin: -17.93064 xmax: 75.15803 ymax: 38.48628
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>     name_long      pop                           geom
-#> 1 Afghanistan 31627506 MULTIPOLYGON(((61.210817091...
-#> 2      Angola 24227524 MULTIPOLYGON(((16.326528354...
+names(world1)
+#> [1] "name_long" "pop"       "geom"
 ```
 
 `select()` also allows subsetting of a range of columns with the help of the `:` operator: 
@@ -1739,7 +1731,7 @@ head(world1, n = 2)
 ```r
 # all columns between name_long and pop (inclusive)
 world2 = select(world, name_long:pop)
-head(world2, n = 2)
+names(world2)
 ```
 
 Omit specific columns with the `-` operator:
@@ -1748,7 +1740,6 @@ Omit specific columns with the `-` operator:
 ```r
 # all columns except subregion and area_km2 (inclusive)
 world3 = select(world, -subregion, -area_km2)
-head(world3, n = 2)
 ```
 
 Conveniently, `select()` lets you subset and rename columns at the same time, for example:
@@ -1756,16 +1747,8 @@ Conveniently, `select()` lets you subset and rename columns at the same time, fo
 
 ```r
 world4 = select(world, name_long, population = pop)
-head(world4, n = 2)
-#> Simple feature collection with 2 features and 2 fields
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: 11.6401 ymin: -17.93064 xmax: 75.15803 ymax: 38.48628
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>     name_long population                           geom
-#> 1 Afghanistan   31627506 MULTIPOLYGON(((61.210817091...
-#> 2      Angola   24227524 MULTIPOLYGON(((16.326528354...
+names(world4)
+#> [1] "name_long"  "population" "geom"
 ```
 
 This is more concise than the base R equivalent:
@@ -1776,8 +1759,7 @@ world5 = world[, c("name_long", "pop")] # subset columns by name
 names(world5)[2] = "population" # rename column manually
 ```
 
-The `select()` function works with a number of special functions that help with more advanced subsetting operations such as `contains()`, `starts_with()` and `num_range()`. 
-Find out more about the details on the function's help page - `?select`.
+`select()` also works with 'helper functions' for advanced subsetting operations, including `contains()`, `starts_with()` and `num_range()` (see the help page with `?select` for details).
 
 `slice()` is the row-equivalent of `select()`.
 The following code chunk, for example, selects the 3^rd^ to 5^th^ rows:
@@ -2963,7 +2945,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.41
+#> [1] 2.4
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2979,7 +2961,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.02
+#> [1] 3.28
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3008,13 +2990,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.048   0.000   0.046
+#>   0.044   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.033
+#>   0.024   0.004   0.031
 ```
 
 

@@ -271,42 +271,25 @@ small_countries =<span class="st"> </span>world[sel_area, ]</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world$name_long</code></pre></div>
 <!-- , after the package has been loaded: [or - it is a part of tidyverse] -->
 <p>Base R functions are essential, and we recommend that you have a working knowledge of them. However, <strong>dplyr</strong> often makes working with data frames easier. Moreover, <strong>dplyr</strong> is usually much faster than base R since it makes use of C++ in the background. This comes in especially handy when working with large data sets. As a special bonus, <strong>dplyr</strong> is compatible with <code>sf</code> objects. The main <strong>dplyr</strong> subsetting functions are <code>select()</code>, <code>slice()</code>, <code>filter()</code> and <code>pull()</code>.</p>
-<p>The <code>select()</code> function selects columns by name or position. For example, you could select only two columns, <code>name_long</code> and <code>pop</code>, with the following command:</p>
+<p>The <code>select()</code> function selects columns by name or position. For example, you could select only two columns, <code>name_long</code> and <code>pop</code>, with the following command (note the <code>geom</code> column remains):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world1 =<span class="st"> </span><span class="kw">select</span>(world, name_long, pop)
-<span class="kw">head</span>(world1, <span class="dt">n =</span> <span class="dv">2</span>)
-<span class="co">#&gt; Simple feature collection with 2 features and 2 fields</span>
-<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: 11.6401 ymin: -17.93064 xmax: 75.15803 ymax: 38.48628</span>
-<span class="co">#&gt; epsg (SRID):    4326</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;     name_long      pop                           geom</span>
-<span class="co">#&gt; 1 Afghanistan 31627506 MULTIPOLYGON(((61.210817091...</span>
-<span class="co">#&gt; 2      Angola 24227524 MULTIPOLYGON(((16.326528354...</span></code></pre></div>
+<span class="kw">names</span>(world1)
+<span class="co">#&gt; [1] &quot;name_long&quot; &quot;pop&quot;       &quot;geom&quot;</span></code></pre></div>
 <p><code>select()</code> also allows subsetting of a range of columns with the help of the <code>:</code> operator:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># all columns between name_long and pop (inclusive)</span>
 world2 =<span class="st"> </span><span class="kw">select</span>(world, name_long:pop)
-<span class="kw">head</span>(world2, <span class="dt">n =</span> <span class="dv">2</span>)</code></pre></div>
+<span class="kw">names</span>(world2)</code></pre></div>
 <p>Omit specific columns with the <code>-</code> operator:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># all columns except subregion and area_km2 (inclusive)</span>
-world3 =<span class="st"> </span><span class="kw">select</span>(world, -subregion, -area_km2)
-<span class="kw">head</span>(world3, <span class="dt">n =</span> <span class="dv">2</span>)</code></pre></div>
+world3 =<span class="st"> </span><span class="kw">select</span>(world, -subregion, -area_km2)</code></pre></div>
 <p>Conveniently, <code>select()</code> lets you subset and rename columns at the same time, for example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world4 =<span class="st"> </span><span class="kw">select</span>(world, name_long, <span class="dt">population =</span> pop)
-<span class="kw">head</span>(world4, <span class="dt">n =</span> <span class="dv">2</span>)
-<span class="co">#&gt; Simple feature collection with 2 features and 2 fields</span>
-<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: 11.6401 ymin: -17.93064 xmax: 75.15803 ymax: 38.48628</span>
-<span class="co">#&gt; epsg (SRID):    4326</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;     name_long population                           geom</span>
-<span class="co">#&gt; 1 Afghanistan   31627506 MULTIPOLYGON(((61.210817091...</span>
-<span class="co">#&gt; 2      Angola   24227524 MULTIPOLYGON(((16.326528354...</span></code></pre></div>
+<span class="kw">names</span>(world4)
+<span class="co">#&gt; [1] &quot;name_long&quot;  &quot;population&quot; &quot;geom&quot;</span></code></pre></div>
 <p>This is more concise than the base R equivalent:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world5 =<span class="st"> </span>world[, <span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span>, <span class="st">&quot;pop&quot;</span>)] <span class="co"># subset columns by name</span>
 <span class="kw">names</span>(world5)[<span class="dv">2</span>] =<span class="st"> &quot;population&quot;</span> <span class="co"># rename column manually</span></code></pre></div>
-<p>The <code>select()</code> function works with a number of special functions that help with more advanced subsetting operations such as <code>contains()</code>, <code>starts_with()</code> and <code>num_range()</code>. Find out more about the details on the function’s help page - <code>?select</code>.</p>
+<p><code>select()</code> also works with ‘helper functions’ for advanced subsetting operations, including <code>contains()</code>, <code>starts_with()</code> and <code>num_range()</code> (see the help page with <code>?select</code> for details).</p>
 <p><code>slice()</code> is the row-equivalent of <code>select()</code>. The following code chunk, for example, selects the 3<sup>rd</sup> to 5<sup>th</sup> rows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">slice</span>(world, <span class="dv">3</span>:<span class="dv">5</span>)</code></pre></div>
 <p><code>filter()</code> is <strong>dplyr</strong>’s equivalent of base R’s <code>subset()</code> function. It keeps only rows matching given criteria, e.g., only countries with a very high average of life expectancy:</p>
