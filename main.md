@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservefdebab32a5e12e63
+preserve316589019091ec83
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1172,7 +1172,7 @@ Simple features are, in essence, data frames with a spatial extension.
 ## Raster data
 
 <div class="figure" style="text-align: center">
-<img src="figures/raster_intro_plot.png" alt="Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map" width="750" />
+<img src="figures/raster_intro_plot.png" alt="Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map" width="1050" />
 <p class="caption">(\#fig:raster-intro-plot)Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map</p>
 </div>
 
@@ -1186,10 +1186,6 @@ This and matrix algebra makes raster processing much more efficient and faster t
 However, in contrast to vector data, a raster cell can only hold a single value.
 The value might be numeric or categorical (\@ref(fig:raster-intro-plot):C).
 You can also specify a no-data value in the header of a raster, frequently -9999 (in R we often use `NA`).
-<!--
-Use NA instead of gray values in Fig. C
-You can see them as the gray cells in the C and D panel of the figure \@ref(fig:raster-intro-plot).
--->
 Raster maps usually represent continuous phenomena such as elevation, temperature, population density or spectral data (\@ref(fig:raster-intro-plot2).
 Of course, we can represent discrete features such as soil or landcover classes also with the help of a raster data model (\@ref(fig:raster-intro-plot2).
 Consequently, the discrete borders of these features become blurred, and depending on the spatial task a vector representation might be more suitable.
@@ -2978,7 +2974,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.25
+#> [1] 1.99
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2994,7 +2990,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.33
+#> [1] 3.39
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3023,10 +3019,10 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.064
+#>   0.060   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.041
+#>   0.044   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
 #>   0.024   0.008   0.031
