@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-08-24">
+<meta name="date" content="2017-08-25">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -681,7 +681,7 @@ Figure 2.7: Exampled of continuous (left) and categorical (right) raster
 <div id="an-introduction-to-raster" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> An introduction to raster</h3>
 <p>The <strong>raster</strong> package supports raster objects in R. It provides an extensive set of functions to create, read, export, manipulate and process raster datasets. Aside from general raster data manipulation, <strong>raster</strong> provides many low level functions that can form the basis to develop more advanced raster functionality. <strong>raster</strong> also lets you work on large raster datasets that are too large to fit into the main memory . In this case, <strong>raster</strong> provides the possibility to divide the raster into smaller chunks (rows or blocks), and processes these iteratively instead of loading the whole raster file into RAM (for more information, please refer to `vignette(“functions”, package = “raster”).</p>
-<p>For the illustration of the <strong>raster</strong> concepts, we will use datasets from the <strong>spDataLarge</strong> package. It consists of a few raster and one vector datasets representing an area of Zion National Park. For example, <code>srtm.tif</code> is a digital elevation model of this area. <!-- for more details - see the documentation ADD DOCS --> Firstly, we would create a new <code>RasterLayer</code> object <code>new_raster</code>:</p>
+<p>For the illustration of the <strong>raster</strong> concepts, we will use datasets from the <strong>spDataLarge</strong> package. It consists of a few raster and one vector datasets representing an area of Zion National Park. For example, <code>srtm.tif</code> is a digital elevation model of this area (for more details - see its documentation <code>?srtm</code>) Firstly, we would create a new <code>RasterLayer</code> object <code>new_raster</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spDataLarge)
 <span class="kw">library</span>(raster)
 raster_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/srtm.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
@@ -757,7 +757,7 @@ new_vector =<span class="st"> </span><span class="kw">st_read</span>(vector_file
 <span class="co">#&gt; bbox:           xmin: 302903.1 ymin: 4112244 xmax: 334735.5 ymax: 4153087</span>
 <span class="co">#&gt; epsg (SRID):    NA</span>
 <span class="co">#&gt; proj4string:    +proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs</span></code></pre></div>
-<p>Our new object, <code>new_vector</code>, is a polygon representing borders of Zion National Park. We could impose these borders on a elevation map with the second use of the <code>plot()</code> function, this time with the <code>add</code> argument set to <code>TRUE</code>:</p>
+<p>Our new object, <code>new_vector</code>, is a polygon representing borders of Zion National Park (<code>?zion</code>). We could impose these borders on a elevation map with the second use of the <code>plot()</code> function, this time with the <code>add</code> argument set to <code>TRUE</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(new_raster)
 <span class="kw">plot</span>(new_vector, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="figures/basic-new-raster-vector-plot-1.png" width="576" style="display: block; margin: auto;" /></p>
