@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservebc20d75e66067997
+preservec465061ed5de4bc9
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1172,7 +1172,7 @@ Simple features are, in essence, data frames with a spatial extension.
 ## Raster data
 
 <div class="figure" style="text-align: center">
-<img src="figures/raster_intro_plot.png" alt="Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map" width="750" />
+<img src="figures/raster_intro_plot.png" alt="Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map" width="1050" />
 <p class="caption">(\#fig:raster-intro-plot)Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map</p>
 </div>
 
@@ -1361,11 +1361,22 @@ Moreover, packages such as **tmap**, **mapview** and **leaflet** facilitate pres
 ### Raster classes
 
 The `RasterLayer` class represents the simplest form of a raster object, and consists of only one layer.
-To create an object of class `RasterLayer`, we can use the `raster()` function:
+To create an object of class `RasterLayer`, we can use the `raster()` function.
+This function behavior changes based on a given arguments.
+
+For example, a new `RasterLayer` object could be created from a file, when a path to a raster file is provided:
 
 
 ```r
-r = raster() # creation of an empty RasterLayer object
+raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge")
+new_raster = raster(raster_filepath)
+```
+
+Without any arguments, the `raster()` function would create an empty `RasterLayer`:
+
+
+```r
+r = raster()
 r
 #> class       : RasterLayer 
 #> dimensions  : 180, 360, 64800  (nrow, ncol, ncell)
@@ -1374,6 +1385,21 @@ r
 #> coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0
 ```
 
+An existing raster could be used a as a template for a new object when a main argument `x` is of the `Raster*` class (note that `new_raster2` do not keep the values of `new_raster`):
+
+
+```r
+new_raster2 = raster(new_raster)
+new_raster2
+#> class       : RasterLayer 
+#> dimensions  : 463, 459, 212517  (nrow, ncol, ncell)
+#> resolution  : 73.7, 92.5  (x, y)
+#> extent      : 301929, 335757, 4111262, 4154089  (xmin, xmax, ymin, ymax)
+#> coord. ref. : +proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs
+```
+
+Creation of the `RasterLayer` object is also possible with parameters given by the user.
+In this kind of situations, a number of columns and rows and extent needs to be specified:
 
 
 ```r
@@ -1385,15 +1411,21 @@ r1
 #> resolution  : 1, 1  (x, y)
 #> extent      : 0, 101, 0, 77  (xmin, xmax, ymin, ymax)
 #> coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0
-values(r1) = sample(1:ncell(r1)) # adding random values to the new raster object
 ```
 
-<!-- explanation that this function can do many more things -->
+Finally, this function could create `RasterLayer` based on many types of objects, such as a `matrix`, `Extent` or `Spatial*` (from **sp**) object.
+For more information take a look at the help file - `?raster`.
+
 <!-- how to add crs -->
 <!-- how to add values -->
 
+
+```r
+values(r1) = sample(1:ncell(r1)) # adding random values to the new raster object
+```
+
 Aside from the `RasterLayer`, there are two additional classes: `RasterBrick` and `RasterStack`.
-Both can handle multiple layers, but differ regarding the number of supported file formats, type of iternal representation and processing speed.
+Both can handle multiple layers, but differ regarding the number of supported file formats, type of internal representation and processing speed.
 
 A `RasterBrick` consists of multiple layers, which typically correspond to a multispectral satellite file. 
 The `brick()` function creates a `RasterBrick` object.
@@ -2946,7 +2978,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.22
+#> [1] 2.36
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2962,10 +2994,10 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.75
+#> [1] 3.3
 ```
 
-In this case **sf** was around 4 times faster than **rgdal**.
+In this case **sf** was around 3 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -2991,13 +3023,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.084   0.004   0.089
+#>   0.060   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.036   0.000   0.035
+#>   0.040   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.012   0.016   0.029
 ```
 
 
