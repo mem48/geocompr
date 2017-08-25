@@ -278,7 +278,9 @@ small_countries =<span class="st"> </span>world[sel_area, ]</code></pre></div>
 <p><code>select()</code> also allows subsetting of a range of columns with the help of the <code>:</code> operator:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># all columns between name_long and pop (inclusive)</span>
 world2 =<span class="st"> </span><span class="kw">select</span>(world, name_long:pop)
-<span class="kw">names</span>(world2)</code></pre></div>
+<span class="kw">names</span>(world2)
+<span class="co">#&gt; [1] &quot;name_long&quot; &quot;continent&quot; &quot;region_un&quot; &quot;subregion&quot; &quot;type&quot;      &quot;area_km2&quot; </span>
+<span class="co">#&gt; [7] &quot;pop&quot;       &quot;geom&quot;</span></code></pre></div>
 <p>Omit specific columns with the <code>-</code> operator:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># all columns except subregion and area_km2 (inclusive)</span>
 world3 =<span class="st"> </span><span class="kw">select</span>(world, -subregion, -area_km2)</code></pre></div>
