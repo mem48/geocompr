@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve636b7a60a5bf59c1
+preserve13ae8d7f9b63d8c4
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1340,13 +1340,6 @@ For this purpose, we need to read a vector dataset:
 ```r
 vector_filepath = system.file("vector/zion.gpkg", package="spDataLarge")
 new_vector = st_read(vector_filepath)
-#> Reading layer `zion' from data source `/home/travis/R/Library/spDataLarge/vector/zion.gpkg' using driver `GPKG'
-#> Simple feature collection with 1 feature and 11 fields
-#> geometry type:  POLYGON
-#> dimension:      XY
-#> bbox:           xmin: 302903.1 ymin: 4112244 xmax: 334735.5 ymax: 4153087
-#> epsg (SRID):    NA
-#> proj4string:    +proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs
 ```
 
 Our new object, `new_vector`, is a polygon representing borders of Zion National Park (`?zion`).
@@ -2970,7 +2963,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.35
+#> [1] 2.41
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -2986,7 +2979,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.23
+#> [1] 3.02
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3015,13 +3008,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.062
+#>   0.064   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.042
+#>   0.048   0.000   0.046
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.030
+#>   0.020   0.012   0.033
 ```
 
 

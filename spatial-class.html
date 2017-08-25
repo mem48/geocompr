@@ -749,14 +749,7 @@ new_raster =<span class="st"> </span><span class="kw">raster</span>(raster_filep
 <p><img src="figures/basic-new-raster-plot-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Moreover, it is possible to plot raster together with vector data. For this purpose, we need to read a vector dataset:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vector_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;vector/zion.gpkg&quot;</span>, <span class="dt">package=</span><span class="st">&quot;spDataLarge&quot;</span>)
-new_vector =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)
-<span class="co">#&gt; Reading layer `zion&#39; from data source `/home/travis/R/Library/spDataLarge/vector/zion.gpkg&#39; using driver `GPKG&#39;</span>
-<span class="co">#&gt; Simple feature collection with 1 feature and 11 fields</span>
-<span class="co">#&gt; geometry type:  POLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: 302903.1 ymin: 4112244 xmax: 334735.5 ymax: 4153087</span>
-<span class="co">#&gt; epsg (SRID):    NA</span>
-<span class="co">#&gt; proj4string:    +proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs</span></code></pre></div>
+new_vector =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)</code></pre></div>
 <p>Our new object, <code>new_vector</code>, is a polygon representing borders of Zion National Park (<code>?zion</code>). We could impose these borders on a elevation map with the second use of the <code>plot()</code> function, this time with the <code>add</code> argument set to <code>TRUE</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(new_raster)
 <span class="kw">plot</span>(new_vector, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
