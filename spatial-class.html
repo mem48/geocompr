@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-08-25">
+<meta name="date" content="2017-08-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -713,7 +713,8 @@ new_raster =<span class="st"> </span><span class="kw">raster</span>(raster_filep
 <span class="co">#&gt;  +proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m</span>
 <span class="co">#&gt; +no_defs</span></code></pre></div>
 <!--CRSargs(CRS("+init=epsg:4326"))-->
-<p>Note that in contrast to the <strong>sf</strong> package, <strong>raster</strong> only accepts the <code>proj4string</code> representation of the coordinate reference system. You can also summarize and plot raster cell values in a non-spatial fashion using base R functions such as <code>summary()</code> and <code>hist()</code>.</p>
+<p>Note that in contrast to the <strong>sf</strong> package, <strong>raster</strong> only accepts the <code>proj4string</code> representation of the coordinate reference system.</p>
+<p>You can also summarize and plot raster cell values in a non-spatial fashion using base R functions such as <code>summary()</code> and <code>hist()</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># numerical summary of the data</span>
 <span class="kw">summary</span>(new_raster)
 <span class="co">#&gt; Warning in .local(object, ...): summary is an estimate based on a sample of 1e+05 cells (47.06% of all cells)</span>
@@ -760,16 +761,16 @@ new_vector =<span class="st"> </span><span class="kw">st_read</span>(vector_file
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">raster_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/srtm.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
 new_raster =<span class="st"> </span><span class="kw">raster</span>(raster_filepath)</code></pre></div>
 <p>Without any arguments, the <code>raster()</code> function would create an empty <code>RasterLayer</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r =<span class="st"> </span><span class="kw">raster</span>()
-r
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_raster2 =<span class="st"> </span><span class="kw">raster</span>()
+new_raster2
 <span class="co">#&gt; class       : RasterLayer </span>
 <span class="co">#&gt; dimensions  : 180, 360, 64800  (nrow, ncol, ncell)</span>
 <span class="co">#&gt; resolution  : 1, 1  (x, y)</span>
 <span class="co">#&gt; extent      : -180, 180, -90, 90  (xmin, xmax, ymin, ymax)</span>
 <span class="co">#&gt; coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0</span></code></pre></div>
 <p>An existing raster could be used a as a template for a new object when a main argument <code>x</code> is of the <code>Raster*</code> class (note that <code>new_raster2</code> do not keep the values of <code>new_raster</code>):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_raster2 =<span class="st"> </span><span class="kw">raster</span>(new_raster)
-new_raster2
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_raster3 =<span class="st"> </span><span class="kw">raster</span>(new_raster)
+new_raster3
 <span class="co">#&gt; class       : RasterLayer </span>
 <span class="co">#&gt; dimensions  : 463, 459, 212517  (nrow, ncol, ncell)</span>
 <span class="co">#&gt; resolution  : 73.7, 92.5  (x, y)</span>
@@ -777,17 +778,31 @@ new_raster2
 <span class="co">#&gt; coord. ref. : +proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs</span></code></pre></div>
 <p>Creation of the <code>RasterLayer</code> object is also possible with parameters given by the user. In this kind of situations, a number of columns and rows and extent needs to be specified:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># creation of the RasterLayer object with a given number of columns and rows, and extent</span>
-r1 =<span class="st"> </span><span class="kw">raster</span>(<span class="dt">ncol =</span> <span class="dv">101</span>, <span class="dt">nrow =</span> <span class="dv">77</span>, <span class="dt">xmn =</span> <span class="dv">0</span>, <span class="dt">xmx =</span> <span class="dv">101</span>, <span class="dt">ymn =</span> <span class="dv">0</span>, <span class="dt">ymx =</span> <span class="dv">77</span>)
-r1
+new_raster4 =<span class="st"> </span><span class="kw">raster</span>(<span class="dt">ncol =</span> <span class="dv">101</span>, <span class="dt">nrow =</span> <span class="dv">77</span>, <span class="dt">xmn =</span> <span class="dv">0</span>, <span class="dt">xmx =</span> <span class="dv">101</span>, <span class="dt">ymn =</span> <span class="dv">0</span>, <span class="dt">ymx =</span> <span class="dv">77</span>)
+new_raster4
 <span class="co">#&gt; class       : RasterLayer </span>
 <span class="co">#&gt; dimensions  : 77, 101, 7777  (nrow, ncol, ncell)</span>
 <span class="co">#&gt; resolution  : 1, 1  (x, y)</span>
 <span class="co">#&gt; extent      : 0, 101, 0, 77  (xmin, xmax, ymin, ymax)</span>
 <span class="co">#&gt; coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0</span></code></pre></div>
 <p>Finally, this function could create <code>RasterLayer</code> based on many types of objects, such as a <code>matrix</code>, <code>Extent</code> or <code>Spatial*</code> (from <strong>sp</strong>) object. For more information take a look at the help file - <code>?raster</code>.</p>
-<!-- how to add crs -->
-<!-- how to add values -->
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">values</span>(r1) =<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span>:<span class="kw">ncell</span>(r1)) <span class="co"># adding random values to the new raster object</span></code></pre></div>
+<p>There are several ways to add new values to the <code>Raster*</code> objects. Values for the whole object could be add with <code>setValues()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># adding random values to the raster object</span>
+new_random_values =<span class="st"> </span><span class="kw">sample</span>(<span class="kw">seq_len</span>(<span class="kw">ncell</span>(new_raster4)))
+<span class="kw">setValues</span>(new_raster4, new_random_values)
+<span class="co">#&gt; class       : RasterLayer </span>
+<span class="co">#&gt; dimensions  : 77, 101, 7777  (nrow, ncol, ncell)</span>
+<span class="co">#&gt; resolution  : 1, 1  (x, y)</span>
+<span class="co">#&gt; extent      : 0, 101, 0, 77  (xmin, xmax, ymin, ymax)</span>
+<span class="co">#&gt; coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 </span>
+<span class="co">#&gt; data source : in memory</span>
+<span class="co">#&gt; names       : layer </span>
+<span class="co">#&gt; values      : 1, 7777  (min, max)</span></code></pre></div>
+<p>It is also possible to replace cell values by specifing cell numbers, or row and column numbers:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># change the value of 15th cell to 826</span>
+new_raster4[<span class="dv">15</span>] =<span class="st"> </span><span class="dv">826</span>
+<span class="co"># change the value of the cell in the second row and forth column to 826</span>
+new_raster4[<span class="dv">2</span>, <span class="dv">4</span>] =<span class="st"> </span><span class="dv">826</span> </code></pre></div>
 <p>Aside from the <code>RasterLayer</code>, there are two additional classes: <code>RasterBrick</code> and <code>RasterStack</code>. Both can handle multiple layers, but differ regarding the number of supported file formats, type of internal representation and processing speed.</p>
 <p>A <code>RasterBrick</code> consists of multiple layers, which typically correspond to a multispectral satellite file. The <code>brick()</code> function creates a <code>RasterBrick</code> object. Usually, you provide it with a filename to a multilayer raster file but might also use another raster object and other spatial objects (see its help page for all supported formats).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">multilayer_raster_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat.tif&quot;</span>, <span class="dt">package=</span><span class="st">&quot;spDataLarge&quot;</span>)
