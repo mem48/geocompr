@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveef5ebcf851c9ae05
+preserve4cbe04bbb8a1e46b
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1382,7 +1382,7 @@ new_raster2
 #> coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0
 ```
 
-An existing raster could be used a as a template for a new object when a main argument `x` is of the `Raster*` class (note that `new_raster2` do not keep the values of `new_raster`):
+An existing raster could be used a as a template for a new object when a main argument `x` is of the `Raster*` class (note that `new_raster3` do not keep the values of `new_raster`):
 
 
 ```r
@@ -1431,7 +1431,7 @@ setValues(new_raster4, new_random_values)
 #> values      : 1, 7777  (min, max)
 ```
 
-It is also possible to replace cell values by specifing cell numbers, or row and column numbers:
+It is also possible to replace cell values by specifying cell numbers, or row and column numbers:
 
 
 ```r
@@ -2995,7 +2995,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.3
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -3011,7 +3011,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.34
+#> [1] 3.29
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3040,13 +3040,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.062
+#>   0.064   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.004   0.042
+#>   0.040   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.030
+#>   0.016   0.012   0.030
 ```
 
 

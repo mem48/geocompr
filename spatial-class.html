@@ -768,7 +768,7 @@ new_raster2
 <span class="co">#&gt; resolution  : 1, 1  (x, y)</span>
 <span class="co">#&gt; extent      : -180, 180, -90, 90  (xmin, xmax, ymin, ymax)</span>
 <span class="co">#&gt; coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0</span></code></pre></div>
-<p>An existing raster could be used a as a template for a new object when a main argument <code>x</code> is of the <code>Raster*</code> class (note that <code>new_raster2</code> do not keep the values of <code>new_raster</code>):</p>
+<p>An existing raster could be used a as a template for a new object when a main argument <code>x</code> is of the <code>Raster*</code> class (note that <code>new_raster3</code> do not keep the values of <code>new_raster</code>):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_raster3 =<span class="st"> </span><span class="kw">raster</span>(new_raster)
 new_raster3
 <span class="co">#&gt; class       : RasterLayer </span>
@@ -798,7 +798,7 @@ new_random_values =<span class="st"> </span><span class="kw">sample</span>(<span
 <span class="co">#&gt; data source : in memory</span>
 <span class="co">#&gt; names       : layer </span>
 <span class="co">#&gt; values      : 1, 7777  (min, max)</span></code></pre></div>
-<p>It is also possible to replace cell values by specifing cell numbers, or row and column numbers:</p>
+<p>It is also possible to replace cell values by specifying cell numbers, or row and column numbers:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># change the value of 15th cell to 826</span>
 new_raster4[<span class="dv">15</span>] =<span class="st"> </span><span class="dv">826</span>
 <span class="co"># change the value of the cell in the second row and forth column to 826</span>
