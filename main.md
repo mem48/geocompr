@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve7f2fe2247c0980e7
+preserve82f0bed0d46e7696
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1176,18 +1176,18 @@ Simple features are, in essence, data frames with a spatial extension.
 <p class="caption">(\#fig:raster-intro-plot)Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map</p>
 </div>
 
-The geographic raster data model consists of a raster header and a matrix (with rows and columns) representing equally spaced cells (often also called pixels; \@ref(fig:raster-intro-plot):A).
+The geographic raster data model consists of a raster header and a matrix (with rows and columns) representing equally spaced cells (often also called pixels; Figure \@ref(fig:raster-intro-plot):A).
 The raster header defines the coordinate reference system, the extent and the origin.
-The origin (or starting point) is frequently the coordinate of the lower-left corner of the matrix (the **raster** package, however, uses the upper left corner, by default (\@ref(fig:raster-intro-plot):B)).
+The origin (or starting point) is frequently the coordinate of the lower-left corner of the matrix (the **raster** package, however, uses the upper left corner, by default (Figure  \@ref(fig:raster-intro-plot):B)).
 The header defines the extent via the number of columns, the number of rows and the cell size resolution.
-Hence, starting from the origin, we can easily access and modify each single cell by either using the ID of a cell  (\@ref(fig:raster-intro-plot):B) or by explicitly specifying the rows and columns.
+Hence, starting from the origin, we can easily access and modify each single cell by either using the ID of a cell  (Figure  \@ref(fig:raster-intro-plot):B) or by explicitly specifying the rows and columns.
 This matrix representation avoids storing explicitly the coordinates for the four corner points (in fact it only stores one coordinate, namely the origin) of each cell corner as would be the case for rectangular vector polygons.
 This and matrix algebra makes raster processing much more efficient and faster than vector data processing.
 However, in contrast to vector data, a raster cell can only hold a single value.
-The value might be numeric or categorical (\@ref(fig:raster-intro-plot):C).
+The value might be numeric or categorical (Figure  \@ref(fig:raster-intro-plot):C).
 You can also specify a no-data value in the header of a raster, frequently -9999 (in R we often use `NA`).
-Raster maps usually represent continuous phenomena such as elevation, temperature, population density or spectral data (\@ref(fig:raster-intro-plot2).
-Of course, we can represent discrete features such as soil or landcover classes also with the help of a raster data model (\@ref(fig:raster-intro-plot2).
+Raster maps usually represent continuous phenomena such as elevation, temperature, population density or spectral data (Figure \@ref(fig:raster-intro-plot2)).
+Of course, we can represent discrete features such as soil or landcover classes also with the help of a raster data model (Figure \@ref(fig:raster-intro-plot2)).
 Consequently, the discrete borders of these features become blurred, and depending on the spatial task a vector representation might be more suitable.
 
 <div class="figure" style="text-align: center">
@@ -1505,10 +1505,10 @@ Note that operations on `RasterBrick` and `RasterStack` objects will typically r
 
 ## Coordinate Reference Systems
 
-This section is work in progress.
-
+<!-- This section is work in progress. -->
 Despite the differences between vector and raster spatial data types, they are united by shared concepts intrinsic to spatial data.
 Perhaps the most important of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other body).
+<!-- an intro -->
 
 In **sf** the CRS of an object can be retrieved and set using `st_crs()` and `st_set_crs()` respectively:
 
@@ -1531,7 +1531,7 @@ sf_points = st_set_crs(sf_points, 27700) # set CRS
 
 Note the warning emitted after the CRS for `sf_points` was set to `27700`.
 This is a good thing: we have imposed a spatial reference onto data without knowing what that means.
-To discover what the 'magic number' `27700` means, we can retrieve the CRS again (see Chapter \@ref(coord) for more on CRSs):
+To discover what the 'magic number' `27700` means, we can retrieve the CRS again <!--(see Chapter \@ref(coord)--> for more on CRSs):
 
 
 ```r
@@ -1546,8 +1546,12 @@ st_crs(sf_points)
 #> [1] "crs"
 ```
 
+
+
+
+
 ## Units
-<!-- If this is the final thing about sf, we should move it up before starting to explain raster stuff -->
+
 <!-- https://cran.r-project.org/web/packages/units/vignettes/measurement_units_in_R.html -->
 The final thing to say about `sf` objects in this chapter is that they have units.
 This is advantageous because it prevents confusion caused by the fact that different CRSs use different units (most use meters, some use feet).
@@ -2995,7 +2999,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.47
+#> [1] 2.32
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -3011,7 +3015,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.11
+#> [1] 3.34
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3040,13 +3044,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.068
+#>   0.060   0.004   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.048   0.000   0.048
+#>   0.036   0.004   0.040
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.033
+#>   0.020   0.008   0.028
 ```
 
 
