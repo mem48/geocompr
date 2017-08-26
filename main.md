@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve3e37dacfffc8ee8f
+preserve5230489f3d5760dd
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1532,7 +1532,7 @@ new_vector = st_set_crs(new_vector, 4326) # set CRS
 <!-- the difference between `st_set_crs()` and `st_transform()` -->
 
 <div class="figure" style="text-align: center">
-<img src="figures/02_vector_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a vector data type"  />
+<img src="figures/02_vector_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a vector data type" width="765" />
 <p class="caption">(\#fig:vector-crs)Examples of projected (left) and geographic (right) coordinate systems for a vector data type</p>
 </div>
 
@@ -1554,7 +1554,7 @@ st_crs(new_vector)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="figures/02_raster_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a raster data type"  />
+<img src="figures/02_raster_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a raster data type" width="475" />
 <p class="caption">(\#fig:raster-crs)Examples of projected (left) and geographic (right) coordinate systems for a raster data type</p>
 </div>
 
@@ -3007,7 +3007,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.34
+#> [1] 2.41
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -3023,7 +3023,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.2
+#> [1] 3
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3052,13 +3052,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.070
+#>   0.068   0.004   0.070
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.048   0.000   0.047
+#>   0.044   0.000   0.047
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.004   0.032
+#>   0.024   0.008   0.031
 ```
 
 
