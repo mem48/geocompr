@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve82f0bed0d46e7696
+preserveb2255c762550ea4f
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1172,7 +1172,7 @@ Simple features are, in essence, data frames with a spatial extension.
 ## Raster data
 
 <div class="figure" style="text-align: center">
-<img src="figures/raster_intro_plot.png" alt="Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map" width="1050" />
+<img src="figures/02_raster_intro_plot.png" alt="Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map" width="750" />
 <p class="caption">(\#fig:raster-intro-plot)Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map</p>
 </div>
 
@@ -1191,8 +1191,8 @@ Of course, we can represent discrete features such as soil or landcover classes 
 Consequently, the discrete borders of these features become blurred, and depending on the spatial task a vector representation might be more suitable.
 
 <div class="figure" style="text-align: center">
-<img src="figures/raster_intro_plot2.png" alt="Exampled of continuous (left) and categorical (right) raster" width="475" />
-<p class="caption">(\#fig:raster-intro-plot2)Exampled of continuous (left) and categorical (right) raster</p>
+<img src="figures/02_raster_intro_plot2.png" alt="Examples of continuous (left) and categorical (right) raster" width="475" />
+<p class="caption">(\#fig:raster-intro-plot2)Examples of continuous (left) and categorical (right) raster</p>
 </div>
 
 ### An introduction to raster
@@ -1514,8 +1514,35 @@ In **sf** the CRS of an object can be retrieved and set using `st_crs()` and `st
 
 
 ```r
-old_crs = st_crs(sf_points) # get CRS
+old_crs = st_crs(new_vector) # get CRS
 old_crs # print CRS
+#> $epsg
+#> [1] NA
+#> 
+#> $proj4string
+#> [1] "+proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
+#> 
+#> attr(,"class")
+#> [1] "crs"
+new_vector = st_set_crs(new_vector, 4326) # set CRS
+#> Warning: st_crs<- : replacing crs does not reproject data; use st_transform
+#> for that
+```
+
+<!-- the difference between `st_set_crs()` and `st_transform()` -->
+
+<div class="figure" style="text-align: center">
+<img src="figures/02_vector_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems"  />
+<p class="caption">(\#fig:vector-crs)Examples of projected (left) and geographic (right) coordinate systems</p>
+</div>
+
+Note the warning emitted after the CRS for `sf_points` was set to `27700`.
+This is a good thing: we have imposed a spatial reference onto data without knowing what that means.
+To discover what the 'magic number' `27700` means, we can retrieve the CRS again <!--(see Chapter \@ref(coord)--> for more on CRSs):
+
+
+```r
+st_crs(new_vector)
 #> $epsg
 #> [1] 4326
 #> 
@@ -1524,27 +1551,8 @@ old_crs # print CRS
 #> 
 #> attr(,"class")
 #> [1] "crs"
-sf_points = st_set_crs(sf_points, 27700) # set CRS
-#> Warning: st_crs<- : replacing crs does not reproject data; use st_transform
-#> for that
 ```
 
-Note the warning emitted after the CRS for `sf_points` was set to `27700`.
-This is a good thing: we have imposed a spatial reference onto data without knowing what that means.
-To discover what the 'magic number' `27700` means, we can retrieve the CRS again <!--(see Chapter \@ref(coord)--> for more on CRSs):
-
-
-```r
-st_crs(sf_points)
-#> $epsg
-#> [1] 27700
-#> 
-#> $proj4string
-#> [1] "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs"
-#> 
-#> attr(,"class")
-#> [1] "crs"
-```
 
 
 
@@ -3015,7 +3023,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.34
+#> [1] 3.33
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3044,13 +3052,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.004   0.063
+#>   0.060   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.036   0.004   0.040
+#>   0.044   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.028
+#>   0.024   0.004   0.029
 ```
 
 
