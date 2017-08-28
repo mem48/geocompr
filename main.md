@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserved10a3b0cde874d74
+preserve37795498556cb168
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1578,11 +1578,12 @@ st_crs(new_vector)
 An important feature of CRSs is that they contain information about spatial units.
 Clearly it's vital to know whether a house's measurements are in feet or meters and the same applies to maps.
 It is good cartographic practice to add a *scale bar* onto maps to demonstrate the relationship between distances on the page or screen and distances on the ground.
-Likewise, it is good practice for anyone working with geographic data to know, and formaly specify the units in which the geometry data or pixels are measured.
+Likewise, it is important know, and formaly specify the units in which the geometry data or pixels are measured to provide context and ensure that subsequent calculations are done in context.
 
-`sf` objects in this chapter is that they have units.
+A novel feature of geometry data in `sf` objects is that they have *native support* for units.
+This means that distance, area and other geometric calculations in **sf** return values that come with a `units` attribute, defined by the **units** package [@pebesma_measurement_2016].
 This is advantageous because it prevents confusion caused by the fact that different CRSs use different units (most use meters, some use feet).
-Furthermore, it also provides information on dimensionality, as illustrated by calculating the area of Nigeria:
+Furthermore, it also provides information on dimensionality, as illustrated by the following calculation which reports to area of Nigeria:
 
 
 ```r
@@ -1595,7 +1596,11 @@ st_area(nigeria)
 #> 9.05e+11 m^2
 ```
 
-The result, as expected, is in units of square meters (m^2^), representing two dimensional space, and that Nigeria is a large country!
+The result is in units of square meters (m^2^), showing a) that the result represents two-dimensional space and b) and that Nigeria is a large country!
+This information, stored as an attribute (which interested readers can discover with `attributes(st_area(nigeria))`) is advantageous for many reasons.
+It could feed-into subsequent calculations such as population density.
+The reporting of units prevents confusion due to mis-understanding units.
+To take the Nigeria example, if the units were not specified, one could incorrectly assume that the units were in km^2^.
 To translate the huge number into a more digestible size, it is tempting to divide the results by a million (the number of square meters in a square kilometer):
 
 
@@ -3042,7 +3047,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.24
+#> [1] 2.27
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3058,7 +3063,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.68
+#> [1] 3.75
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3506,13 +3511,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.060   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.004   0.042
+#>   0.040   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.000   0.027
+#>   0.016   0.016   0.035
 ```
 
 
