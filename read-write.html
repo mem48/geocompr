@@ -188,8 +188,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="read-write.html"><a href="read-write.html"><i class="fa fa-check"></i><b>5</b> Geographic data I/O</a><ul>
-<li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#data-input-i"><i class="fa fa-check"></i><b>5.1</b> Data Input (I)</a></li>
-<li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#data-output-o"><i class="fa fa-check"></i><b>5.2</b> Data output (O)</a></li>
+<li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#data-input-i"><i class="fa fa-check"></i><b>5.1</b> Data Input (I)</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="read-write.html"><a href="read-write.html#vector-data-1"><i class="fa fa-check"></i><b>5.1.1</b> Vector data</a></li>
+<li class="chapter" data-level="5.1.2" data-path="read-write.html"><a href="read-write.html#raster-data-1"><i class="fa fa-check"></i><b>5.1.2</b> Raster data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#data-output-o"><i class="fa fa-check"></i><b>5.2</b> Data output (O)</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="read-write.html"><a href="read-write.html#vector-data-2"><i class="fa fa-check"></i><b>5.2.1</b> Vector data</a></li>
+<li class="chapter" data-level="5.2.2" data-path="read-write.html"><a href="read-write.html#raster-data-2"><i class="fa fa-check"></i><b>5.2.2</b> Raster data</a></li>
+</ul></li>
 <li class="chapter" data-level="5.3" data-path="read-write.html"><a href="read-write.html#file-formats"><i class="fa fa-check"></i><b>5.3</b> File formats</a></li>
 <li class="chapter" data-level="5.4" data-path="read-write.html"><a href="read-write.html#visual-outputs"><i class="fa fa-check"></i><b>5.4</b> Visual outputs</a></li>
 <li class="chapter" data-level="5.5" data-path="read-write.html"><a href="read-write.html#exercises-4"><i class="fa fa-check"></i><b>5.5</b> Exercises</a></li>
@@ -218,8 +224,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="read-write" class="section level1">
 <h1><span class="header-section-number">5</span> Geographic data I/O</h1>
-<p>The previous chapters provided an overview of spatial data classes in R, with a focus on simple features. This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world. <!-- Not sure if this is the place for the following two sentences... Or if so, some kind of link is missing.--> We include a section (<a href="read-write.html#visual-outputs">5.4</a>) on visualization because outputting data in a human (not just computer) readable format enables non-programmers to benefit from your work. If your aim is to use geocomputation to improve the world, e.g. by encouraging evidence-based policies, this final stage is vital.</p>
-<p>I/O is short for “input/output” which means, in plain English, “reading and writing data”. We use the acronym instead of plain English not to confuse you or to make chapter names short, but because that’s the term used in computer science and it is useful to think of data import and export from a computing perspective.<a href="#fn25" class="footnoteRef" id="fnref25"><sup>25</sup></a> <!-- todo: check we mention computational efficiency, disk-space and 'idempotence' --></p>
+<p>The previous chapters provided an overview of spatial data classes in R, with a focus on simple features and raster. This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world. <!-- Not sure if this is the place for the following two sentences... Or if so, some kind of link is missing.--> We include a section (<a href="read-write.html#visual-outputs">5.4</a>) on visualization because outputting data in a human (not just computer) readable format enables non-programmers to benefit from your work. If your aim is to use geocomputation to improve the world, e.g. by encouraging evidence-based policies, this final stage is vital.</p>
+<p>I/O is short for “input/output” which means, in plain English, “reading and writing data”. We use the acronym instead of plain English not to confuse you or to make chapter names short, but because that’s the term used in computer science and it is useful to think of data import and export from a computing perspective.<a href="#fn25" class="footnoteRef" id="fnref25"><sup>25</sup></a></p>
 <!-- Old intro to this chapter - can we salvage anything from this? -->
 <!-- Reading, writing and plotting are 3 of the most important initial stages in geocomputation. -->
 <!-- If you cannot load your data, it's not even worth starting. -->
@@ -228,7 +234,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <!-- For this reason this introductory chapter also has a section on basic map making. -->
 <div id="data-input-i" class="section level2">
 <h2><span class="header-section-number">5.1</span> Data Input (I)</h2>
-<p>To efficiently read data into R, it helps to have an understanding of what happens ‘under the hood’. Executing commands such as <code>sf::st_read()</code> (the main function we use for loading spatial data, from the <strong>sf</strong> package) or <code>readr::read_csv()</code> silently sets off a chain of events that loads objects. <!-- I would suggest to avoid confusion. readr::read_csv cannot load spatial objects. Since you write "happens under the hood", I would also expect a bit more detail on "silently sets off a chain of events". --> “Loading” in this context means loading the data into R or, more precisely, assigning objects to your workspace, stored in RAM accessible from the <code>.GlobalEnv</code> of your current R session. <!-- What is your understanding of workspace? Or what is the difference between workspace and the global environment here?--> <!-- coud add a footnote here mentioning `.GlobalEnv` --></p>
+<p>To efficiently read data into R, it helps to have an understanding of what happens ‘under the hood’. Executing commands such as <code>sf::st_read()</code> (the main function we use for loading vector data, from the <strong>sf</strong> package), <code>raster::raster()</code> (the main function used for loading raster data, from the <strong>raster</strong> package), or <code>readr::read_csv()</code> (which can we used to read spatial data from text files) silently sets off a chain of events that loads objects. “Loading” in this context means loading the data into R or, more precisely, assigning objects to your workspace, stored in RAM accessible from the <code>.GlobalEnv</code> of your current R session. <!-- What is your understanding of workspace? Or what is the difference between workspace and the global environment here?--> <!-- coud add a footnote here mentioning `.GlobalEnv` --></p>
+<div id="vector-data-1" class="section level3">
+<h3><span class="header-section-number">5.1.1</span> Vector data</h3>
 <p>Spatial data comes in a wide variety of file formats, and <strong>sf</strong> is able to handle most of them <!-- is that right? --> via its <code>st_read()</code> command. Behind the scenes it uses GDAL, which supports the import of a very wide range of spatial data formats. The first argument of <code>st_read()</code> is <code>file</code>, which should be a text string or an object containing a single text string:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
 <span class="co">#&gt; Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0</span>
@@ -254,12 +262,12 @@ world =<span class="st"> </span><span class="kw">st_read</span>(f)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(microbenchmark)
 read_world_gpkg =<span class="st"> </span><span class="kw">bench_read</span>(<span class="dt">file =</span> f, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read_world_gpkg
-<span class="co">#&gt; [1] 2.3</span></code></pre></div>
+<span class="co">#&gt; [1] 2.31</span></code></pre></div>
 <p>The results demonstrate that <strong>sf</strong> was around 2 times faster than <strong>rgdal</strong> at reading-in the world countries shapefile. The relative performance of <code>st_read()</code> compared with other functions will vary depending on file format and the nature of the data. To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">f =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/cycle_hire_osm.geojson&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
 read_lnd_geojson =<span class="st"> </span><span class="kw">bench_read</span>(<span class="dt">file =</span> f, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read_lnd_geojson
-<span class="co">#&gt; [1] 3.32</span></code></pre></div>
+<span class="co">#&gt; [1] 3.24</span></code></pre></div>
 <p>In this case <strong>sf</strong> was around 3 times faster than <strong>rgdal</strong>.</p>
 <p>To find out which data formats <strong>sf</strong> supports, run <code>st_drivers()</code>. Here, we show only the first two drivers:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_drivers =<span class="st"> </span><span class="kw">st_drivers</span>()
@@ -268,18 +276,24 @@ read_lnd_geojson =<span class="st"> </span><span class="kw">bench_read</span>(<s
 <span class="co">#&gt; PCIDSK PCIDSK       PCIDSK Database File  TRUE FALSE      TRUE      TRUE</span>
 <span class="co">#&gt; netCDF netCDF Network Common Data Format  TRUE  TRUE      TRUE      TRUE</span></code></pre></div>
 </div>
+<div id="raster-data-1" class="section level3">
+<h3><span class="header-section-number">5.1.2</span> Raster data</h3>
+</div>
+</div>
 <div id="data-output-o" class="section level2">
 <h2><span class="header-section-number">5.2</span> Data output (O)</h2>
+<div id="vector-data-2" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Vector data</h3>
 <p>The counterpart of <code>st_read()</code> is <code>st_write()</code>. It allows to write <strong>sf</strong> objects to a wide range of geographic vector file formats, including the most common ones such as <code>.geojson</code>, <code>.shp</code> and <code>.gpkg</code>. Based on the file name <code>st_write()</code> decides automatically which driver to use. How fast the writing process is depends also on the driver: <!-- Is this comparison here necessary, or shouldn't we instead focus on the automatic driver selection? --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.geojson&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.060   0.000   0.061</span>
+<span class="co">#&gt;   0.064   0.000   0.064</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.shp&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)) 
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;    0.04    0.00    0.04</span>
+<span class="co">#&gt;   0.040   0.000   0.042</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.020   0.004   0.028</span></code></pre></div>
+<span class="co">#&gt;   0.020   0.008   0.029</span></code></pre></div>
 <!-- ```{r} -->
 <!-- st_write(obj = world, dsn = "world.gpkg") -->
 <!-- ``` -->
@@ -297,8 +311,11 @@ read_lnd_geojson =<span class="st"> </span><span class="kw">bench_read</span>(<s
 <!-- Is the file.remove()-part important? -->
 <p>A blunter way to update file-based geographic data sources such as <code>.gpkg</code> files is to simply delete them. This is not generally recommended, as it will not work for multi-file data sources such as <code>.shp</code> files:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">file.remove</span>(<span class="st">&quot;world.gpkg&quot;</span>)</code></pre></div>
-<!-- RASTER DATA -->
+</div>
+<div id="raster-data-2" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> Raster data</h3>
 <!-- + datatypes -->
+</div>
 </div>
 <div id="file-formats" class="section level2">
 <h2><span class="header-section-number">5.3</span> File formats</h2>

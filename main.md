@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve152ce67d83c6e627
+preservea743a5622b2d9232
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1532,6 +1532,7 @@ new_vector = st_set_crs(new_vector, 4326) # set CRS
 ```
 
 <!-- the difference between `st_set_crs()` and `st_transform()` !!! -->
+<!-- `st_set_crs()` doesn't change coordinates -->
 <!-- vectors: transformation means change of the coordinates of nodes -->
 <!-- change shape (no change in attributes) -->
 
@@ -1557,7 +1558,7 @@ st_crs(new_vector)
 #> [1] "crs"
 ```
 
-rasters: transformation means change of the coordinates of (special case of resampling)
+<!-- rasters: transformation means change of the coordinates of (special case of resampling) -->
 <!-- changes in dimensions, resolution, extent -->
 <!-- change shape and attributes) -->
 <!-- different methods of computing values after transformation, such as ngb or bilinear  -->
@@ -1632,6 +1633,12 @@ units::set_units(st_area(nigeria), km^2)
 - What does the `lwd` argument do in the `plot()` code that generates Figure \@ref(fig:africa). 
 - Perform the same operations and map making for another continent of your choice.
 - Bonus: Download some global geographic data and add attribute variables assigning them to the continents of the world.
+
+<!-- raster exercises -->
+
+<!-- crs exercises -->
+
+<!-- units exercises -->
 
 <!--chapter:end:02-spatial-data.Rmd-->
 
@@ -2941,7 +2948,7 @@ interp9 = st_interpolate_aw(x = world["pop"], to = buff9, extensive = TRUE)
 
 # Geographic data I/O {#read-write}
 
-The previous chapters provided an overview of spatial data classes in R, with a focus on simple features.
+The previous chapters provided an overview of spatial data classes in R, with a focus on simple features and raster.
 This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world.
 <!-- Not sure if this is the place for the following two sentences... Or if so, some kind of link is missing.-->
 We include a section (\@ref(visual-outputs)) on visualization because outputting data in a human (not just computer) readable format enables non-programmers to benefit from your work.
@@ -2952,7 +2959,6 @@ We use the acronym instead of plain English not to confuse you or to make chapte
 Concepts such as computational efficiency, hard disk space and 'idempotence' are useful when thinking about reading and writing geographic datasets, which can become large and difficult to handle.
 Loading/saving data is yet another way of saying the same thing.
 ]
-<!-- todo: check we mention computational efficiency, disk-space and 'idempotence' -->
 
 <!-- Old intro to this chapter - can we salvage anything from this? -->
 <!-- Reading, writing and plotting are 3 of the most important initial stages in geocomputation. -->
@@ -2964,11 +2970,12 @@ Loading/saving data is yet another way of saying the same thing.
 ## Data Input (I)
 
 To efficiently read data into R, it helps to have an understanding of what happens 'under the hood'.
-Executing commands such as `sf::st_read()` (the main function we use for loading spatial data, from the **sf** package) or `readr::read_csv()` silently sets off a chain of events that loads objects.
-<!-- I would suggest to avoid confusion. readr::read_csv cannot load spatial objects. Since you write "happens under the hood", I would also expect a bit more detail on "silently sets off a chain of events". -->
+Executing commands such as `sf::st_read()` (the main function we use for loading vector data, from the **sf** package), `raster::raster()` (the main function used for loading raster data, from the **raster** package),  or `readr::read_csv()` (which can we used to read spatial data from text files) silently sets off a chain of events that loads objects.
 "Loading" in this context means loading the data into R or, more precisely, assigning objects to your workspace, stored in RAM accessible from the `.GlobalEnv` of your current R session.
 <!-- What is your understanding of workspace? Or what is the difference between workspace and the global environment here?-->
 <!-- coud add a footnote here mentioning `.GlobalEnv` -->
+
+### Vector data
 
 Spatial data comes in a wide variety of file formats, and **sf** is able to handle most of them <!-- is that right? --> via its `st_read()` command.
 Behind the scenes it uses GDAL, which supports the import of a very wide range of spatial data formats.
@@ -3019,7 +3026,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.3
+#> [1] 2.31
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -3035,7 +3042,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.32
+#> [1] 3.24
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3051,7 +3058,11 @@ head(sf_drivers, n = 2)
 #> netCDF netCDF Network Common Data Format  TRUE  TRUE      TRUE      TRUE
 ```
 
+### Raster data
+
 ## Data output (O)
+
+### Vector data
 
 
 
@@ -3064,13 +3075,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.064   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.040   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.004   0.028
+#>   0.020   0.008   0.029
 ```
 
 
@@ -3135,7 +3146,7 @@ This is not generally recommended, as it will not work for multi-file data sourc
 file.remove("world.gpkg")
 ```
 
-<!-- RASTER DATA -->
+### Raster data
 <!-- + datatypes -->
 
 ## File formats

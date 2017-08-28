@@ -188,8 +188,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="read-write.html"><a href="read-write.html"><i class="fa fa-check"></i><b>5</b> Geographic data I/O</a><ul>
-<li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#data-input-i"><i class="fa fa-check"></i><b>5.1</b> Data Input (I)</a></li>
-<li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#data-output-o"><i class="fa fa-check"></i><b>5.2</b> Data output (O)</a></li>
+<li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#data-input-i"><i class="fa fa-check"></i><b>5.1</b> Data Input (I)</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="read-write.html"><a href="read-write.html#vector-data-1"><i class="fa fa-check"></i><b>5.1.1</b> Vector data</a></li>
+<li class="chapter" data-level="5.1.2" data-path="read-write.html"><a href="read-write.html#raster-data-1"><i class="fa fa-check"></i><b>5.1.2</b> Raster data</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#data-output-o"><i class="fa fa-check"></i><b>5.2</b> Data output (O)</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="read-write.html"><a href="read-write.html#vector-data-2"><i class="fa fa-check"></i><b>5.2.1</b> Vector data</a></li>
+<li class="chapter" data-level="5.2.2" data-path="read-write.html"><a href="read-write.html#raster-data-2"><i class="fa fa-check"></i><b>5.2.2</b> Raster data</a></li>
+</ul></li>
 <li class="chapter" data-level="5.3" data-path="read-write.html"><a href="read-write.html#file-formats"><i class="fa fa-check"></i><b>5.3</b> File formats</a></li>
 <li class="chapter" data-level="5.4" data-path="read-write.html"><a href="read-write.html#visual-outputs"><i class="fa fa-check"></i><b>5.4</b> Visual outputs</a></li>
 <li class="chapter" data-level="5.5" data-path="read-write.html"><a href="read-write.html#exercises-4"><i class="fa fa-check"></i><b>5.5</b> Exercises</a></li>
@@ -857,6 +863,7 @@ new_vector =<span class="st"> </span><span class="kw">st_set_crs</span>(new_vect
 <span class="co">#&gt; Warning: st_crs&lt;- : replacing crs does not reproject data; use st_transform</span>
 <span class="co">#&gt; for that</span></code></pre></div>
 <!-- the difference between `st_set_crs()` and `st_transform()` !!! -->
+<!-- `st_set_crs()` doesn't change coordinates -->
 <!-- vectors: transformation means change of the coordinates of nodes -->
 <!-- change shape (no change in attributes) -->
 <div class="figure" style="text-align: center"><span id="fig:vector-crs"></span>
@@ -875,7 +882,10 @@ Figure 2.8: Examples of projected (left) and geographic (right) coordinate syste
 <span class="co">#&gt; </span>
 <span class="co">#&gt; attr(,&quot;class&quot;)</span>
 <span class="co">#&gt; [1] &quot;crs&quot;</span></code></pre></div>
-<p>rasters: transformation means change of the coordinates of (special case of resampling) <!-- changes in dimensions, resolution, extent --> <!-- change shape and attributes) --> <!-- different methods of computing values after transformation, such as ngb or bilinear  --></p>
+<!-- rasters: transformation means change of the coordinates of (special case of resampling) -->
+<!-- changes in dimensions, resolution, extent -->
+<!-- change shape and attributes) -->
+<!-- different methods of computing values after transformation, such as ngb or bilinear  -->
 <div class="figure" style="text-align: center"><span id="fig:raster-crs"></span>
 <img src="figures/02_raster_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a raster data type" width="475" />
 <p class="caption">
@@ -930,6 +940,9 @@ Figure 2.9: Examples of projected (left) and geographic (right) coordinate syste
 <li>Perform the same operations and map making for another continent of your choice.</li>
 <li>Bonus: Download some global geographic data and add attribute variables assigning them to the continents of the world.</li>
 </ul>
+<!-- raster exercises -->
+<!-- crs exercises -->
+<!-- units exercises -->
 
 </div>
 </div>
