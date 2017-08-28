@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve957dc6f9bb1ce9cb
+preserved10a3b0cde874d74
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1575,7 +1575,12 @@ st_crs(new_vector)
 ## Units
 
 <!-- https://cran.r-project.org/web/packages/units/vignettes/measurement_units_in_R.html -->
-The final thing to say about `sf` objects in this chapter is that they have units.
+An important feature of CRSs is that they contain information about spatial units.
+Clearly it's vital to know whether a house's measurements are in feet or meters and the same applies to maps.
+It is good cartographic practice to add a *scale bar* onto maps to demonstrate the relationship between distances on the page or screen and distances on the ground.
+Likewise, it is good practice for anyone working with geographic data to know, and formaly specify the units in which the geometry data or pixels are measured.
+
+`sf` objects in this chapter is that they have units.
 This is advantageous because it prevents confusion caused by the fact that different CRSs use different units (most use meters, some use feet).
 Furthermore, it also provides information on dimensionality, as illustrated by calculating the area of Nigeria:
 
@@ -3037,7 +3042,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.21
+#> [1] 2.24
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3501,13 +3506,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.008   0.071
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.043
+#>   0.040   0.004   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.032
+#>   0.028   0.000   0.027
 ```
 
 
