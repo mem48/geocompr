@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve37795498556cb168
+preserve3543bd11f5556edc
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3047,7 +3047,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.27
+#> [1] 2.25
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3063,7 +3063,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.75
+#> [1] 3.58
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3091,405 +3091,6 @@ Raster data also could exist in many different file formats.
 
 ```r
 rgdal::gdalDrivers()
-#>                name
-#> 1           AAIGrid
-#> 2              ACE2
-#> 3              ADRG
-#> 4               AIG
-#> 5            AirSAR
-#> 6               ARG
-#> 7               BAG
-#> 8            BIGGIF
-#> 9               BLX
-#> 10              BMP
-#> 11              BSB
-#> 12               BT
-#> 13             CALS
-#> 14             CEOS
-#> 15            COASP
-#> 16            COSAR
-#> 17              CPG
-#> 18          CTable2
-#> 19              CTG
-#> 20            DIMAP
-#> 21            DIPEx
-#> 22             DODS
-#> 23             DOQ1
-#> 24             DOQ2
-#> 25             DTED
-#> 26          E00GRID
-#> 27          ECRGTOC
-#> 28             EHdr
-#> 29              EIR
-#> 30             ELAS
-#> 31             ENVI
-#> 32          EPSILON
-#> 33              ERS
-#> 34             ESAT
-#> 35             FAST
-#> 36              FIT
-#> 37          FujiBAS
-#> 38           GenBin
-#> 39              GFF
-#> 40              GIF
-#> 41              GMT
-#> 42             GPKG
-#> 43   GRASSASCIIGrid
-#> 44             GRIB
-#> 45            GS7BG
-#> 46             GSAG
-#> 47             GSBG
-#> 48              GSC
-#> 49            GTiff
-#> 50              GTX
-#> 51              GXF
-#> 52             HDF4
-#> 53        HDF4Image
-#> 54             HDF5
-#> 55        HDF5Image
-#> 56              HF2
-#> 57              HFA
-#> 58             HTTP
-#> 59              IDA
-#> 60            ILWIS
-#> 61             INGR
-#> 62             IRIS
-#> 63             ISCE
-#> 64            ISIS2
-#> 65            ISIS3
-#> 66       JAXAPALSAR
-#> 67             JDEM
-#> 68      JP2OpenJPEG
-#> 69             JPEG
-#> 70  KMLSUPEROVERLAY
-#> 71              KRO
-#> 72              L1B
-#> 73              LAN
-#> 74              LCP
-#> 75         Leveller
-#> 76           LOSLAS
-#> 77              MAP
-#> 78          MBTiles
-#> 79              MEM
-#> 80              MFF
-#> 81             MFF2
-#> 82              MRF
-#> 83             MSGN
-#> 84              NDF
-#> 85           netCDF
-#> 86         NGSGEOID
-#> 87             NITF
-#> 88             NTv2
-#> 89          NWT_GRC
-#> 90          NWT_GRD
-#> 91             OGDI
-#> 92              OZI
-#> 93             PAux
-#> 94           PCIDSK
-#> 95         PCRaster
-#> 96              PDF
-#> 97              PDS
-#> 98         PLMOSAIC
-#> 99         PLSCENES
-#> 100             PNG
-#> 101             PNM
-#> 102   PostGISRaster
-#> 103               R
-#> 104      Rasterlite
-#> 105             RIK
-#> 106             RMF
-#> 107         ROI_PAC
-#> 108          RPFTOC
-#> 109             RS2
-#> 110             RST
-#> 111            SAFE
-#> 112            SAGA
-#> 113        SAR_CEOS
-#> 114            SDTS
-#> 115       SENTINEL2
-#> 116             SGI
-#> 117          SNODAS
-#> 118             SRP
-#> 119         SRTMHGT
-#> 120        Terragen
-#> 121             TIL
-#> 122             TSX
-#> 123         USGSDEM
-#> 124           VICAR
-#> 125             VRT
-#> 126             WCS
-#> 127            WEBP
-#> 128             WMS
-#> 129            WMTS
-#> 130             XPM
-#> 131             XYZ
-#> 132            ZMap
-#>                                                    long_name create  copy
-#> 1                                        Arc/Info ASCII Grid  FALSE  TRUE
-#> 2                                                       ACE2  FALSE FALSE
-#> 3                              ARC Digitized Raster Graphics   TRUE FALSE
-#> 4                                       Arc/Info Binary Grid  FALSE FALSE
-#> 5                                  AirSAR Polarimetric Image  FALSE FALSE
-#> 6                                  Azavea Raster Grid format  FALSE  TRUE
-#> 7                                 Bathymetry Attributed Grid  FALSE FALSE
-#> 8                         Graphics Interchange Format (.gif)  FALSE FALSE
-#> 9                                       Magellan topo (.blx)  FALSE  TRUE
-#> 10                      MS Windows Device Independent Bitmap   TRUE FALSE
-#> 11                               Maptech BSB Nautical Charts  FALSE FALSE
-#> 12                       VTP .bt (Binary Terrain) 1.3 Format   TRUE FALSE
-#> 13                                             CALS (Type 1)  FALSE  TRUE
-#> 14                                                CEOS Image  FALSE FALSE
-#> 15                           DRDC COASP SAR Processor Raster  FALSE FALSE
-#> 16                COSAR Annotated Binary Matrix (TerraSAR-X)  FALSE FALSE
-#> 17                                           Convair PolGASP  FALSE FALSE
-#> 18                                  CTable2 Datum Grid Shift   TRUE FALSE
-#> 19                            USGS LULC Composite Theme Grid  FALSE FALSE
-#> 20                                                SPOT DIMAP  FALSE FALSE
-#> 21                                                     DIPEx  FALSE FALSE
-#> 22                                           DAP 3.x servers  FALSE FALSE
-#> 23                                      USGS DOQ (Old Style)  FALSE FALSE
-#> 24                                      USGS DOQ (New Style)  FALSE FALSE
-#> 25                                     DTED Elevation Raster  FALSE  TRUE
-#> 26                                  Arc/Info Export E00 GRID  FALSE FALSE
-#> 27                                           ECRG TOC format  FALSE FALSE
-#> 28                                        ESRI .hdr Labelled   TRUE  TRUE
-#> 29                                         Erdas Imagine Raw  FALSE FALSE
-#> 30                                                      ELAS   TRUE FALSE
-#> 31                                        ENVI .hdr Labelled   TRUE FALSE
-#> 32                                          Epsilon wavelets  FALSE  TRUE
-#> 33                                    ERMapper .ers Labelled   TRUE FALSE
-#> 34                                      Envisat Image Format  FALSE FALSE
-#> 35                                         EOSAT FAST Format  FALSE FALSE
-#> 36                                                 FIT Image  FALSE  TRUE
-#> 37                                    Fuji BAS Scanner Image  FALSE FALSE
-#> 38                            Generic Binary (.hdr Labelled)  FALSE FALSE
-#> 39  Ground-based SAR Applications Testbed File Format (.gff)  FALSE FALSE
-#> 40                        Graphics Interchange Format (.gif)  FALSE  TRUE
-#> 41                                    GMT NetCDF Grid Format  FALSE  TRUE
-#> 42                                                GeoPackage   TRUE  TRUE
-#> 43                                          GRASS ASCII Grid  FALSE FALSE
-#> 44                                     GRIdded Binary (.grb)  FALSE FALSE
-#> 45                      Golden Software 7 Binary Grid (.grd)   TRUE  TRUE
-#> 46                         Golden Software ASCII Grid (.grd)  FALSE  TRUE
-#> 47                        Golden Software Binary Grid (.grd)   TRUE  TRUE
-#> 48                                               GSC Geogrid  FALSE FALSE
-#> 49                                                   GeoTIFF   TRUE  TRUE
-#> 50                                  NOAA Vertical Datum .GTX   TRUE FALSE
-#> 51                              GeoSoft Grid Exchange Format  FALSE FALSE
-#> 52                        Hierarchical Data Format Release 4  FALSE FALSE
-#> 53                                              HDF4 Dataset   TRUE FALSE
-#> 54                        Hierarchical Data Format Release 5  FALSE FALSE
-#> 55                                              HDF5 Dataset  FALSE FALSE
-#> 56                                HF2/HFZ heightfield raster  FALSE  TRUE
-#> 57                               Erdas Imagine Images (.img)   TRUE  TRUE
-#> 58                                     HTTP Fetching Wrapper  FALSE FALSE
-#> 59                                   Image Data and Analysis   TRUE FALSE
-#> 60                                          ILWIS Raster Map   TRUE  TRUE
-#> 61                                         Intergraph Raster   TRUE  TRUE
-#> 62                              IRIS data (.PPI, .CAPPi etc)  FALSE FALSE
-#> 63                                               ISCE raster   TRUE FALSE
-#> 64                   USGS Astrogeology ISIS cube (Version 2)   TRUE FALSE
-#> 65                   USGS Astrogeology ISIS cube (Version 3)  FALSE FALSE
-#> 66                JAXA PALSAR Product Reader (Level 1.1/1.5)  FALSE FALSE
-#> 67                                       Japanese DEM (.mem)  FALSE FALSE
-#> 68                JPEG-2000 driver based on OpenJPEG library  FALSE  TRUE
-#> 69                                                 JPEG JFIF  FALSE  TRUE
-#> 70                                         Kml Super Overlay  FALSE  TRUE
-#> 71                                                 KOLOR Raw   TRUE FALSE
-#> 72                      NOAA Polar Orbiter Level 1b Data Set  FALSE FALSE
-#> 73                                           Erdas .LAN/.GIS   TRUE FALSE
-#> 74                         FARSITE v.4 Landscape File (.lcp)  FALSE  TRUE
-#> 75                                      Leveller heightfield   TRUE FALSE
-#> 76                         NADCON .los/.las Datum Grid Shift  FALSE FALSE
-#> 77                                          OziExplorer .MAP  FALSE FALSE
-#> 78                                                   MBTiles   TRUE  TRUE
-#> 79                                          In Memory Raster   TRUE FALSE
-#> 80                                         Vexcel MFF Raster   TRUE  TRUE
-#> 81                                  Vexcel MFF2 (HKV) Raster   TRUE  TRUE
-#> 82                                        Meta Raster Format   TRUE  TRUE
-#> 83                            EUMETSAT Archive native (.nat)  FALSE FALSE
-#> 84                                         NLAPS Data Format  FALSE FALSE
-#> 85                                Network Common Data Format   TRUE  TRUE
-#> 86                               NOAA NGS Geoid Height Grids  FALSE FALSE
-#> 87                      National Imagery Transmission Format   TRUE  TRUE
-#> 88                                     NTv2 Datum Grid Shift   TRUE FALSE
-#> 89                Northwood Classified Grid Format .grc/.tab  FALSE FALSE
-#> 90                   Northwood Numeric Grid Format .grd/.tab  FALSE FALSE
-#> 91                                               OGDI Bridge  FALSE FALSE
-#> 92                                    OziExplorer Image File  FALSE FALSE
-#> 93                                         PCI .aux Labelled   TRUE FALSE
-#> 94                                      PCIDSK Database File   TRUE FALSE
-#> 95                                      PCRaster Raster File   TRUE  TRUE
-#> 96                                            Geospatial PDF   TRUE  TRUE
-#> 97                                NASA Planetary Data System  FALSE FALSE
-#> 98                                   Planet Labs Mosaics API  FALSE FALSE
-#> 99                                    Planet Labs Scenes API  FALSE FALSE
-#> 100                                Portable Network Graphics  FALSE  TRUE
-#> 101                          Portable Pixmap Format (netpbm)   TRUE FALSE
-#> 102                                    PostGIS Raster driver  FALSE  TRUE
-#> 103                                      R Object Data Store  FALSE  TRUE
-#> 104                                               Rasterlite  FALSE  TRUE
-#> 105                                  Swedish Grid RIK (.rik)  FALSE FALSE
-#> 106                                     Raster Matrix Format   TRUE FALSE
-#> 107                                           ROI_PAC raster   TRUE FALSE
-#> 108                         Raster Product Format TOC format  FALSE FALSE
-#> 109                                   RadarSat 2 XML Product  FALSE FALSE
-#> 110                                        Idrisi Raster A.1   TRUE  TRUE
-#> 111                              Sentinel-1 SAR SAFE Product  FALSE FALSE
-#> 112                             SAGA GIS Binary Grid (.sdat)   TRUE  TRUE
-#> 113                                           CEOS SAR Image  FALSE FALSE
-#> 114                                              SDTS Raster  FALSE FALSE
-#> 115                                               Sentinel 2  FALSE FALSE
-#> 116                                SGI Image File Format 1.0   TRUE FALSE
-#> 117                            Snow Data Assimilation System  FALSE FALSE
-#> 118                      Standard Raster Product (ASRP/USRP)  FALSE FALSE
-#> 119                                      SRTMHGT File Format  FALSE  TRUE
-#> 120                                     Terragen heightfield   TRUE FALSE
-#> 121                                          EarthWatch .TIL  FALSE FALSE
-#> 122                                       TerraSAR-X Product  FALSE FALSE
-#> 123                       USGS Optional ASCII DEM (and CDED)  FALSE  TRUE
-#> 124                                          MIPL VICAR file  FALSE FALSE
-#> 125                                           Virtual Raster   TRUE  TRUE
-#> 126                                 OGC Web Coverage Service  FALSE FALSE
-#> 127                                                     WEBP  FALSE  TRUE
-#> 128                                      OGC Web Map Service  FALSE  TRUE
-#> 129                                 OGC Web Mab Tile Service  FALSE  TRUE
-#> 130                                        X11 PixMap Format  FALSE  TRUE
-#> 131                                        ASCII Gridded XYZ  FALSE  TRUE
-#> 132                                           ZMap Plus Grid  FALSE  TRUE
-#>     isRaster
-#> 1       TRUE
-#> 2       TRUE
-#> 3       TRUE
-#> 4       TRUE
-#> 5       TRUE
-#> 6       TRUE
-#> 7       TRUE
-#> 8       TRUE
-#> 9       TRUE
-#> 10      TRUE
-#> 11      TRUE
-#> 12      TRUE
-#> 13      TRUE
-#> 14      TRUE
-#> 15      TRUE
-#> 16      TRUE
-#> 17      TRUE
-#> 18      TRUE
-#> 19      TRUE
-#> 20      TRUE
-#> 21      TRUE
-#> 22      TRUE
-#> 23      TRUE
-#> 24      TRUE
-#> 25      TRUE
-#> 26      TRUE
-#> 27      TRUE
-#> 28      TRUE
-#> 29      TRUE
-#> 30      TRUE
-#> 31      TRUE
-#> 32      TRUE
-#> 33      TRUE
-#> 34      TRUE
-#> 35      TRUE
-#> 36      TRUE
-#> 37      TRUE
-#> 38      TRUE
-#> 39      TRUE
-#> 40      TRUE
-#> 41      TRUE
-#> 42      TRUE
-#> 43      TRUE
-#> 44      TRUE
-#> 45      TRUE
-#> 46      TRUE
-#> 47      TRUE
-#> 48      TRUE
-#> 49      TRUE
-#> 50      TRUE
-#> 51      TRUE
-#> 52      TRUE
-#> 53      TRUE
-#> 54      TRUE
-#> 55      TRUE
-#> 56      TRUE
-#> 57      TRUE
-#> 58      TRUE
-#> 59      TRUE
-#> 60      TRUE
-#> 61      TRUE
-#> 62      TRUE
-#> 63      TRUE
-#> 64      TRUE
-#> 65      TRUE
-#> 66      TRUE
-#> 67      TRUE
-#> 68      TRUE
-#> 69      TRUE
-#> 70      TRUE
-#> 71      TRUE
-#> 72      TRUE
-#> 73      TRUE
-#> 74      TRUE
-#> 75      TRUE
-#> 76      TRUE
-#> 77      TRUE
-#> 78      TRUE
-#> 79      TRUE
-#> 80      TRUE
-#> 81      TRUE
-#> 82      TRUE
-#> 83      TRUE
-#> 84      TRUE
-#> 85      TRUE
-#> 86      TRUE
-#> 87      TRUE
-#> 88      TRUE
-#> 89      TRUE
-#> 90      TRUE
-#> 91      TRUE
-#> 92      TRUE
-#> 93      TRUE
-#> 94      TRUE
-#> 95      TRUE
-#> 96      TRUE
-#> 97      TRUE
-#> 98      TRUE
-#> 99      TRUE
-#> 100     TRUE
-#> 101     TRUE
-#> 102     TRUE
-#> 103     TRUE
-#> 104     TRUE
-#> 105     TRUE
-#> 106     TRUE
-#> 107     TRUE
-#> 108     TRUE
-#> 109     TRUE
-#> 110     TRUE
-#> 111     TRUE
-#> 112     TRUE
-#> 113     TRUE
-#> 114     TRUE
-#> 115     TRUE
-#> 116     TRUE
-#> 117     TRUE
-#> 118     TRUE
-#> 119     TRUE
-#> 120     TRUE
-#> 121     TRUE
-#> 122     TRUE
-#> 123     TRUE
-#> 124     TRUE
-#> 125     TRUE
-#> 126     TRUE
-#> 127     TRUE
-#> 128     TRUE
-#> 129     TRUE
-#> 130     TRUE
-#> 131     TRUE
-#> 132     TRUE
 ```
 
 <!-- additional save to text subsection? -->
@@ -3511,13 +3112,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.063
+#>   0.060   0.004   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.042
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.016   0.035
+#>   0.020   0.008   0.029
 ```
 
 
@@ -3592,56 +3193,6 @@ file.remove("world.gpkg")
 
 ```r
 raster::writeFormats()
-#>       name        long_name                                
-#>  [1,] "raster"    "R-raster"                               
-#>  [2,] "SAGA"      "SAGA GIS"                               
-#>  [3,] "IDRISI"    "IDRISI"                                 
-#>  [4,] "IDRISIold" "IDRISI (img/doc)"                       
-#>  [5,] "BIL"       "Band by Line"                           
-#>  [6,] "BSQ"       "Band Sequential"                        
-#>  [7,] "BIP"       "Band by Pixel"                          
-#>  [8,] "ascii"     "Arc ASCII"                              
-#>  [9,] "CDF"       "NetCDF"                                 
-#> [10,] "big"       "big.matrix"                             
-#> [11,] "ADRG"      "ARC Digitized Raster Graphics"          
-#> [12,] "BMP"       "MS Windows Device Independent Bitmap"   
-#> [13,] "BT"        "VTP .bt (Binary Terrain) 1.3 Format"    
-#> [14,] "CTable2"   "CTable2 Datum Grid Shift"               
-#> [15,] "EHdr"      "ESRI .hdr Labelled"                     
-#> [16,] "ELAS"      "ELAS"                                   
-#> [17,] "ENVI"      "ENVI .hdr Labelled"                     
-#> [18,] "ERS"       "ERMapper .ers Labelled"                 
-#> [19,] "GPKG"      "GeoPackage"                             
-#> [20,] "GS7BG"     "Golden Software 7 Binary Grid (.grd)"   
-#> [21,] "GSBG"      "Golden Software Binary Grid (.grd)"     
-#> [22,] "GTiff"     "GeoTIFF"                                
-#> [23,] "GTX"       "NOAA Vertical Datum .GTX"               
-#> [24,] "HDF4Image" "HDF4 Dataset"                           
-#> [25,] "HFA"       "Erdas Imagine Images (.img)"            
-#> [26,] "IDA"       "Image Data and Analysis"                
-#> [27,] "ILWIS"     "ILWIS Raster Map"                       
-#> [28,] "INGR"      "Intergraph Raster"                      
-#> [29,] "ISCE"      "ISCE raster"                            
-#> [30,] "ISIS2"     "USGS Astrogeology ISIS cube (Version 2)"
-#> [31,] "KRO"       "KOLOR Raw"                              
-#> [32,] "LAN"       "Erdas .LAN/.GIS"                        
-#> [33,] "Leveller"  "Leveller heightfield"                   
-#> [34,] "MBTiles"   "MBTiles"                                
-#> [35,] "MRF"       "Meta Raster Format"                     
-#> [36,] "netCDF"    "Network Common Data Format"             
-#> [37,] "NITF"      "National Imagery Transmission Format"   
-#> [38,] "NTv2"      "NTv2 Datum Grid Shift"                  
-#> [39,] "PAux"      "PCI .aux Labelled"                      
-#> [40,] "PCIDSK"    "PCIDSK Database File"                   
-#> [41,] "PCRaster"  "PCRaster Raster File"                   
-#> [42,] "PDF"       "Geospatial PDF"                         
-#> [43,] "PNM"       "Portable Pixmap Format (netpbm)"        
-#> [44,] "RMF"       "Raster Matrix Format"                   
-#> [45,] "ROI_PAC"   "ROI_PAC raster"                         
-#> [46,] "RST"       "Idrisi Raster A.1"                      
-#> [47,] "SAGA"      "SAGA GIS Binary Grid (.sdat)"           
-#> [48,] "SGI"       "SGI Image File Format 1.0"              
-#> [49,] "Terragen"  "Terragen heightfield"
 ```
 
 ## File formats
