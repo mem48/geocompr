@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve2646f1e0447ee68a
+preservef2430eebdb937758
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -604,8 +604,8 @@ world[1:2, 1:3]
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #>   iso_a2   name_long continent                           geom
-#> 1     AF Afghanistan      Asia MULTIPOLYGON(((61.210817091...
-#> 2     AO      Angola    Africa MULTIPOLYGON(((16.326528354...
+#> 1     AF Afghanistan      Asia MULTIPOLYGON (((61.21081709...
+#> 2     AO      Angola    Africa MULTIPOLYGON (((16.32652835...
 ```
 
 All this may seem rather complex, especially for a class system that is supposed to be simple.
@@ -703,8 +703,9 @@ First, we convert the countries of the world into centroids, and then subset tho
 
 ```r
 world_centroids = st_centroid(world)
-#> Warning in st_centroid.sfc(st_geometry(x)): st_centroid does not give
-#> correct centroids for longitude/latitude data
+#> Warning in st_centroid.sfc(st_geometry(x), of_largest_polygon =
+#> of_largest_polygon): st_centroid does not give correct centroids for
+#> longitude/latitude data
 sel_asia = st_intersects(world_centroids, asia, sparse = FALSE)
 #> although coordinates are longitude/latitude, it is assumed that they are planar
 summary(sel_asia)
@@ -736,7 +737,7 @@ plot(world_centroids, add = TRUE, cex = world$pop / 1e8, lwd = 3)
 <!-- We can check if they are the same countries as follows: -->
 
 <!-- ```{r} -->
-<!-- africa_centroids2 = world_centroids[sel_africa,] -->
+<!-- africa_centroids2 = world_centroids[sel_africa, ] -->
 <!-- identical(africa_centroids, africa_centroids2) -->
 <!-- ``` -->
 
@@ -835,13 +836,13 @@ To create point objects, we use the `st_point()` function in conjunction with a 
 ```r
 # note that we use a numeric vector for points
 st_point(c(5, 2)) # XY point
-#> POINT(5 2)
+#> POINT (5 2)
 st_point(c(5, 2, 3)) # XYZ point
-#> POINTZ(5 2 3)
+#> POINT Z (5 2 3)
 st_point(c(5, 2, 1), dim = "XYM") # XYM point
-#> POINTM(5 2 1)
+#> POINT M (5 2 1)
 st_point(c(5, 2, 3, 1)) # XYZM point
-#> POINTZM(5 2 3 1)
+#> POINT ZM (5 2 3 1)
 ```
 
 <!-- is this really important? -->
@@ -856,12 +857,12 @@ By contrast, use matrices in the case of multipoint (`st_multipoint()`) and line
 ## MULTIPOINT
 multipoint_matrix = rbind(c(5, 2), c(1, 3), c(3, 4), c(3, 2))
 st_multipoint(multipoint_matrix)
-#> MULTIPOINT(5 2, 1 3, 3 4, 3 2)
+#> MULTIPOINT (5 2, 1 3, 3 4, 3 2)
 
 ## LINESTRING
 linestring_matrix = rbind(c(1, 5), c(4, 4), c(4, 1), c(2, 2), c(3, 2))
 st_linestring(linestring_matrix)
-#> LINESTRING(1 5, 4 4, 4 1, 2 2, 3 2)
+#> LINESTRING (1 5, 4 4, 4 1, 2 2, 3 2)
 ```
 
 Finally, use lists for the creation of multilinestrings, (multi-)polygons and geometry collections:
@@ -871,7 +872,7 @@ Finally, use lists for the creation of multilinestrings, (multi-)polygons and ge
 ## POLYGON
 polygon_list = list(rbind(c(1, 5), c(2, 2), c(4, 1), c(4, 4), c(1, 5)))
 st_polygon(polygon_list)
-#> POLYGON((1 5, 2 2, 4 1, 4 4, 1 5))
+#> POLYGON ((1 5, 2 2, 4 1, 4 4, 1 5))
 ```
 
 
@@ -881,7 +882,7 @@ polygon_border = rbind(c(1, 5), c(2, 2), c(4, 1), c(4, 4), c(1, 5))
 polygon_hole = rbind(c(2, 4), c(3, 4), c(3, 3), c(2, 3), c(2, 4))
 polygon_with_hole_list = list(polygon_border, polygon_hole)
 st_polygon(polygon_with_hole_list)
-#> POLYGON((1 5, 2 2, 4 1, 4 4, 1 5), (2 4, 3 4, 3 3, 2 3, 2 4))
+#> POLYGON ((1 5, 2 2, 4 1, 4 4, 1 5), (2 4, 3 4, 3 3, 2 3, 2 4))
 ```
 
 
@@ -890,7 +891,7 @@ st_polygon(polygon_with_hole_list)
 multilinestring_list = list(rbind(c(1, 5), c(4, 4), c(4, 1), c(2, 2), c(3, 2)), 
                             rbind(c(1, 2), c(2, 4)))
 st_multilinestring((multilinestring_list))
-#> MULTILINESTRING((1 5, 4 4, 4 1, 2 2, 3 2), (1 2, 2 4))
+#> MULTILINESTRING ((1 5, 4 4, 4 1, 2 2, 3 2), (1 2, 2 4))
 ```
 
 
@@ -899,7 +900,7 @@ st_multilinestring((multilinestring_list))
 multipolygon_list = list(list(rbind(c(1, 5), c(2, 2), c(4, 1), c(4, 4), c(1, 5))),
                          list(rbind(c(0, 2), c(1, 2), c(1, 3), c(0, 3), c(0, 2))))
 st_multipolygon(multipolygon_list)
-#> MULTIPOLYGON(((1 5, 2 2, 4 1, 4 4, 1 5)), ((0 2, 1 2, 1 3, 0 3, 0 2)))
+#> MULTIPOLYGON (((1 5, 2 2, 4 1, 4 4, 1 5)), ((0 2, 1 2, 1 3, 0 3, 0 2)))
 ```
 
 
@@ -908,7 +909,7 @@ st_multipolygon(multipolygon_list)
 gemetrycollection_list = list(st_multipoint(multipoint_matrix),
                               st_linestring(linestring_matrix))
 st_geometrycollection(gemetrycollection_list)
-#> GEOMETRYCOLLECTION(MULTIPOINT(5 2, 1 3, 3 4, 3 2), LINESTRING(1 5, 4 4, 4 1, 2 2, 3 2))
+#> GEOMETRYCOLLECTION (MULTIPOINT (5 2, 1 3, 3 4, 3 2), LINESTRING (1 5, 4 4, 4 1, 2 2, 3 2))
 ```
 
 <!-- table -->
@@ -936,8 +937,8 @@ st_sfc(point1, point2)
 #> bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3
 #> epsg (SRID):    NA
 #> proj4string:    NA
-#> POINT(5 2)
-#> POINT(1 3)
+#> POINT (5 2)
+#> POINT (1 3)
 ```
 
 In most cases, an `sfc` object contains objects of the same geometry type.
@@ -958,8 +959,8 @@ st_sfc(polygon1, polygon2)
 #> bbox:           xmin: 0 ymin: 1 xmax: 4 ymax: 5
 #> epsg (SRID):    NA
 #> proj4string:    NA
-#> POLYGON((1 5, 2 2, 4 1, 4 4, 1 5))
-#> POLYGON((0 2, 1 2, 1 3, 0 3, 0 2))
+#> POLYGON ((1 5, 2 2, 4 1, 4 4, 1 5))
+#> POLYGON ((0 2, 1 2, 1 3, 0 3, 0 2))
 ```
 
 
@@ -978,8 +979,8 @@ st_sfc(multilinestring1, multilinestring2)
 #> bbox:           xmin: 1 ymin: 1 xmax: 7 ymax: 9
 #> epsg (SRID):    NA
 #> proj4string:    NA
-#> MULTILINESTRING((1 5, 4 4, 4 1, 2 2, 3 2), (1 2...
-#> MULTILINESTRING((2 9, 7 9, 5 6, 4 7, 2 7), (1 7...
+#> MULTILINESTRING ((1 5, 4 4, 4 1, 2 2, 3 2), (1 ...
+#> MULTILINESTRING ((2 9, 7 9, 5 6, 4 7, 2 7), (1 ...
 ```
 
 It is also possible to create an `sfc` object from `sfg` objects with different geometry types:
@@ -994,8 +995,8 @@ st_sfc(point1, multilinestring1)
 #> bbox:           xmin: 1 ymin: 1 xmax: 5 ymax: 5
 #> epsg (SRID):    NA
 #> proj4string:    NA
-#> POINT(5 2)
-#> MULTILINESTRING((1 5, 4 4, 4 1, 2 2, 3 2), (1 2...
+#> POINT (5 2)
+#> MULTILINESTRING ((1 5, 4 4, 4 1, 2 2, 3 2), (1 ...
 ```
 
 <!-- if you want to use it - st_cast() to a proper geometry type -->
@@ -1017,8 +1018,8 @@ st_sfc(point1, point2)
 #> bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3
 #> epsg (SRID):    NA
 #> proj4string:    NA
-#> POINT(5 2)
-#> POINT(1 3)
+#> POINT (5 2)
+#> POINT (1 3)
 ```
 
 Of course, all geometries in an `sfc` object must have the same CRS. 
@@ -1036,8 +1037,8 @@ st_sfc(point1, point2, crs = 4326)
 #> bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#> POINT(5 2)
-#> POINT(1 3)
+#> POINT (5 2)
+#> POINT (1 3)
 ```
 
 
@@ -1050,8 +1051,8 @@ st_sfc(point1, point2, crs = "+proj=longlat +datum=WGS84 +no_defs")
 #> bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#> POINT(5 2)
-#> POINT(1 3)
+#> POINT (5 2)
+#> POINT (1 3)
 ```
 
 Both of these approaches have advantages and disadvantages. 
@@ -1074,8 +1075,8 @@ st_sfc(point1, point2, crs = 2955)
 #> bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3
 #> epsg (SRID):    2955
 #> proj4string:    +proj=utm +zone=11 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs
-#> POINT(5 2)
-#> POINT(1 3)
+#> POINT (5 2)
+#> POINT (1 3)
 ```
 
 As you can see above, the `proj4string` definition was automatically added.
@@ -1090,8 +1091,8 @@ st_sfc(point1, point2, crs = "+proj=utm +zone=11 +ellps=GRS80 +towgs84=0,0,0,0,0
 #> bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3
 #> epsg (SRID):    NA
 #> proj4string:    +proj=utm +zone=11 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs
-#> POINT(5 2)
-#> POINT(1 3)
+#> POINT (5 2)
+#> POINT (1 3)
 ```
 
 However, the `epsg` string of our result remained empty. 
@@ -1147,9 +1148,9 @@ sf_points
 #> bbox:           xmin: -9 ymin: 51.5 xmax: 0.1 ymax: 53
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>     name temperature       date category automatic        geometry
-#> 1 London          25 2017-06-21     city     FALSE POINT(0.1 51.5)
-#> 2   Ruan          13 2017-06-22  village      TRUE    POINT(-9 53)
+#>     name temperature       date category automatic         geometry
+#> 1 London          25 2017-06-21     city     FALSE POINT (0.1 51.5)
+#> 2   Ruan          13 2017-06-22  village      TRUE    POINT (-9 53)
 ```
 
 
@@ -1891,7 +1892,7 @@ world %>%
 #> Simple feature collection with 5 features and 2 fields
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
-#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+#> bbox:           xmin: -73.41544 ymin: -55.25 xmax: 75.15803 ymax: 42.68825
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #> # A tibble: 5 x 3
@@ -1938,7 +1939,7 @@ world_summary
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #>        pop country_n                           geom
-#> 1 7.21e+09       177 MULTIPOLYGON(((-159.2081835...
+#> 1 7.21e+09       177 MULTIPOLYGON (((-159.208183...
 ```
 
 The new object, `world_summary`, is an aggregation of all 177 world's countries.
@@ -2045,9 +2046,9 @@ north_america
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #>   iso_a2     name_long                           geom
-#> 1     CA        Canada MULTIPOLYGON(((-63.6645 46....
-#> 2     GL     Greenland MULTIPOLYGON(((-46.76379 82...
-#> 3     US United States MULTIPOLYGON(((-155.54211 1...
+#> 1     CA        Canada MULTIPOLYGON (((-63.6645 46...
+#> 2     GL     Greenland MULTIPOLYGON (((-46.76379 8...
+#> 3     US United States MULTIPOLYGON (((-155.54211 ...
 ```
 
 
@@ -2104,9 +2105,9 @@ left_join1
 #> 2     GL     Greenland          <NA>        NA       NA
 #> 3     US United States United States 259740511     6.17
 #>                             geom
-#> 1 MULTIPOLYGON(((-63.6645 46....
-#> 2 MULTIPOLYGON(((-46.76379 82...
-#> 3 MULTIPOLYGON(((-155.54211 1...
+#> 1 MULTIPOLYGON (((-63.6645 46...
+#> 2 MULTIPOLYGON (((-46.76379 8...
+#> 3 MULTIPOLYGON (((-155.54211 ...
 ```
 
 It is also possible to join objects by different variables.
@@ -2130,9 +2131,9 @@ left_join2
 #> 2       GL     Greenland     <NA>        NA       NA
 #> 3       US United States       US 259740511     6.17
 #>                             geom
-#> 1 MULTIPOLYGON(((-63.6645 46....
-#> 2 MULTIPOLYGON(((-46.76379 82...
-#> 3 MULTIPOLYGON(((-155.54211 1...
+#> 1 MULTIPOLYGON (((-63.6645 46...
+#> 2 MULTIPOLYGON (((-46.76379 8...
+#> 3 MULTIPOLYGON (((-155.54211 ...
 ```
 
 The new object `left_join2`, however, contains two duplicated variables - `iso_a2.x` and `iso_a2.y` because both of the input tables possessed a variable named `iso_a2`.
@@ -2150,9 +2151,9 @@ left_join3
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #>   iso_a2     name_long urban_pop unemploy                           geom
-#> 1     CA        Canada  29022137     6.91 MULTIPOLYGON(((-63.6645 46....
-#> 2     GL     Greenland        NA       NA MULTIPOLYGON(((-46.76379 82...
-#> 3     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...
+#> 1     CA        Canada  29022137     6.91 MULTIPOLYGON (((-63.6645 46...
+#> 2     GL     Greenland        NA       NA MULTIPOLYGON (((-46.76379 8...
+#> 3     US United States 259740511     6.17 MULTIPOLYGON (((-155.54211 ...
 ```
 
 It is also possible to use our objects in the reverse order, where a `data.frame` object is the first argument and a `sf` object is the second argument.
@@ -2169,9 +2170,9 @@ left_join4
 #> 2        Mexico     MX  99018446     5.25          <NA>
 #> 3 United States     US 259740511     6.17 United States
 #>                             geom
-#> 1 MULTIPOLYGON(((-63.6645 46....
+#> 1 MULTIPOLYGON (((-63.6645 46...
 #> 2                           NULL
-#> 3 MULTIPOLYGON(((-155.54211 1...
+#> 3 MULTIPOLYGON (((-155.54211 ...
 class(left_join4)
 #> [1] "data.frame"
 ```
@@ -2185,7 +2186,7 @@ left_join4_sf
 #> Simple feature collection with 3 features and 5 fields (with 1 geometry empty)
 #> geometry type:  MULTIPOLYGON
 #> dimension:      XY
-#> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513
+#> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #>            name iso_a2 urban_pop unemploy     name_long
@@ -2193,9 +2194,9 @@ left_join4_sf
 #> 2        Mexico     MX  99018446     5.25          <NA>
 #> 3 United States     US 259740511     6.17 United States
 #>                             geom
-#> 1 MULTIPOLYGON(((-63.6645 46....
-#> 2                 MULTIPOLYGON()
-#> 3 MULTIPOLYGON(((-155.54211 1...
+#> 1 MULTIPOLYGON (((-63.6645 46...
+#> 2             MULTIPOLYGON EMPTY
+#> 3 MULTIPOLYGON (((-155.54211 ...
 class(left_join4_sf)
 #> [1] "sf"         "data.frame"
 ```
@@ -2235,8 +2236,8 @@ inner_join1
 #> epsg (SRID):    4326
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 #>   iso_a2     name_long urban_pop unemploy                           geom
-#> 1     CA        Canada  29022137     6.91 MULTIPOLYGON(((-63.6645 46....
-#> 2     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...
+#> 1     CA        Canada  29022137     6.91 MULTIPOLYGON (((-63.6645 46...
+#> 2     US United States 259740511     6.17 MULTIPOLYGON (((-155.54211 ...
 ```
 
 ## Attribute data creation
@@ -2275,10 +2276,12 @@ Existing columns could be also paste together using `unite()`.
 For example, we want to stick together `continent` and `region_un` columns into a new `con_reg` column.
 We could specify a separator to use between values and if input columns should be removed:
 
+<!-- todo: set eval = TRUE when travis issue resolved -->
+
 
 ```r
 world_unite = world %>%
-  unite(con_reg, continent:region_un, sep = ":", remove = TRUE)
+  unite("con_reg", continent:region_un, sep = ":", remove = TRUE)
 ```
 
 The `separate()` function is the complement of the `unite()` function.
@@ -2398,10 +2401,18 @@ library(spData)
 
 ## Introduction
 
-<!-- references to the previos chapter -->
-<!-- short description to the next sections -->
-<!-- should be done after the first draft of the next sections -->
-<!-- Note about that datasets should have the same projections -->
+Spatial operations are an important component of any geospatial software and vital for many applications involving spatial data.
+There are clear overlaps between spatial and non-spatial operations.
+Common spatial attribute data processing tasks include spatial subsetting (as we will see in section \@ref(spatial-subsetting)) aggregation (\@ref(spatial-aggregation)) and joining (covered in \@ref(spatial-joining)).
+Each of these spatial operations has a non-spatial equivalent, as demonstrated in sections \@ref(attribute-subsetting), \@ref(attribute-data-aggregation) and \@ref(attribute-data-joining) respectively in Chapter \@ref(attr).
+
+In addition to these basic spatial operations, the chapter will briefly demonstrate how new spatial data can be created 'from scratch' in section \@ref(spatial-data-creation), setting the scene for the subsequent chapter (\@ref(read-write)).
+There are some topics that make spatial data operations more complex:
+a variety of *topological relations* can be used for any spatial operation;
+all spatial objects are nearer or further away from each other in space;
+and the geometry of spatial objects can be modified, e.g. by clipping.
+These topics are covered in sections \@ref(topological-relations), \@ref(distance-relations) and \@ref(spatial-clipping) respectively.
+It is important to note that spatial operations that use two spatial objects rely on both objects having the same coordinate reference system, a topic that was introduced in \@ref(coordinate-reference-systems) and which will be covered in more depth in Chapter 6.
 
 ## Spatial subsetting
 
@@ -2470,7 +2481,7 @@ Now that the input data is set-up, the spatial subsetting operation is a single,
 
 
 ```r
-africa_buff = africa[buff,]
+africa_buff = africa[buff, ]
 ```
 
 Note that the command emits a message: about assuming `planar coordinates`.
@@ -2553,7 +2564,7 @@ row.names(filter(africa, subregion == "Northern Europe"))
 #> character(0)
 ```
 
-## Spatial data aggregation 
+## Spatial aggregation 
 
 Like attribute data aggregation, covered in section \@ref(attribute-data-aggregation), spatial data aggregation is a way of *condensing* data.
 Aggregated data show some statistic about a variable (typically mean average or total) in relation to some kind of *grouping variable*. 
@@ -2631,7 +2642,7 @@ buff_agg_aw = st_interpolate_aw(x = africa["pop"], to = buff, extensive = TRUE)
 <!-- - ? generalization **rmapsharper** - https://github.com/ateucher/rmapshaper -->
 <!-- `st_union` -->
 
-## Spatial data joining 
+## Spatial joining 
 
 <!-- e.g. two point's datasets (non-overlapping) -->
 <!-- e.g. two point's datasets (overlapping) -->
@@ -2701,7 +2712,7 @@ attributes(africa$pop_density) = NULL
 <!-- ## Spatial data transformation -->
 <!-- changes classes; polygonize, etc-->
 
-### Topological relations
+## Topological relations
 
 <!-- http://lin-ear-th-inking.blogspot.com/2007/06/subtleties-of-ogc-covers-spatial.html -->
 <!-- https://edzer.github.io/sfr/articles/sf3.html -->
@@ -2825,14 +2836,14 @@ st_relate(a, b, sparse = FALSE)
 <!-- examples (points/lines) -->
 <!-- examples (lines/polygons) -->
 
-### Distance relations
+## Distance relations
 
 
 ```r
 st_distance(a, b)
 ```
 
-### Spatial clipping
+## Spatial clipping
 
 Spatial clipping is a form of spatial subsetting that involves changes to the `geometry` columns of at least some of the affected features.
 
@@ -3026,7 +3037,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.19
+#> [1] 2.28
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3042,10 +3053,10 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.34
+#> [1] 3.68
 ```
 
-In this case **sf** was around 3 times faster than **rgdal**.
+In this case **sf** was around 4 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -3490,13 +3501,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>    0.08    0.00    0.08
+#>   0.064   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.042
+#>   0.048   0.000   0.045
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.000   0.030
+#>   0.020   0.008   0.031
 ```
 
 

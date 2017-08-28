@@ -176,15 +176,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-subsetting"><i class="fa fa-check"></i><b>4.2</b> Spatial subsetting</a><ul>
 <li class="chapter" data-level="" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#note"><i class="fa fa-check"></i>Note</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-aggregation"><i class="fa fa-check"></i><b>4.3</b> Spatial data aggregation</a><ul>
+<li class="chapter" data-level="4.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-aggregation"><i class="fa fa-check"></i><b>4.3</b> Spatial aggregation</a><ul>
 <li class="chapter" data-level="4.3.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-congruence-and-areal-interpolation"><i class="fa fa-check"></i><b>4.3.1</b> Spatial congruence and areal interpolation</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-joining"><i class="fa fa-check"></i><b>4.4</b> Spatial data joining</a></li>
-<li class="chapter" data-level="4.5" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-creation"><i class="fa fa-check"></i><b>4.5</b> Spatial data creation</a><ul>
-<li class="chapter" data-level="4.5.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#topological-relations"><i class="fa fa-check"></i><b>4.5.1</b> Topological relations</a></li>
-<li class="chapter" data-level="4.5.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#distance-relations"><i class="fa fa-check"></i><b>4.5.2</b> Distance relations</a></li>
-<li class="chapter" data-level="4.5.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-clipping"><i class="fa fa-check"></i><b>4.5.3</b> Spatial clipping</a></li>
-<li class="chapter" data-level="4.5.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#exercises-3"><i class="fa fa-check"></i><b>4.5.4</b> Exercises</a></li>
+<li class="chapter" data-level="4.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-joining"><i class="fa fa-check"></i><b>4.4</b> Spatial joining</a></li>
+<li class="chapter" data-level="4.5" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-creation"><i class="fa fa-check"></i><b>4.5</b> Spatial data creation</a></li>
+<li class="chapter" data-level="4.6" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#topological-relations"><i class="fa fa-check"></i><b>4.6</b> Topological relations</a></li>
+<li class="chapter" data-level="4.7" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#distance-relations"><i class="fa fa-check"></i><b>4.7</b> Distance relations</a></li>
+<li class="chapter" data-level="4.8" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-clipping"><i class="fa fa-check"></i><b>4.8</b> Spatial clipping</a><ul>
+<li class="chapter" data-level="4.8.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#exercises-3"><i class="fa fa-check"></i><b>4.8.1</b> Exercises</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="read-write.html"><a href="read-write.html"><i class="fa fa-check"></i><b>5</b> Geographic data I/O</a><ul>
@@ -360,7 +360,7 @@ world6 =<span class="st"> </span><span class="kw">filter</span>(world, lifeExp &
 <span class="co">#&gt; Simple feature collection with 5 features and 2 fields</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
 <span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513</span>
+<span class="co">#&gt; bbox:           xmin: -73.41544 ymin: -55.25 xmax: 75.15803 ymax: 42.68825</span>
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
 <span class="co">#&gt; # A tibble: 5 x 3</span>
@@ -397,7 +397,7 @@ world_summary
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
 <span class="co">#&gt;        pop country_n                           geom</span>
-<span class="co">#&gt; 1 7.21e+09       177 MULTIPOLYGON(((-159.2081835...</span></code></pre></div>
+<span class="co">#&gt; 1 7.21e+09       177 MULTIPOLYGON (((-159.208183...</span></code></pre></div>
 <p>The new object, <code>world_summary</code>, is an aggregation of all 177 world’s countries. It consists of one row and two columns. The <code>pop =</code> and <code>country_n =</code> created the names of the two columns, while the <code>sum()</code>- and <code>n()</code>-function actually did the aggregation. The first function added up all inhabitants, while the latter simply counted the number of rows.</p>
 <p>You can use a wide range of functions within <code>summarize()</code> for aggregation and summary purposes. Type <code>?summarize</code> for a list with useful functions and more information.</p>
 <p><code>summarize()</code> becomes even more powerful when combined with <code>group_by()</code>, which allows simultaneous aggregate/summary operations <em>per group</em>, analogous to the base R function <code>aggregate()</code>. The following code chunk calculates the total population and number of countries <em>per continent</em> (see Chapter 5 of <a href="http://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarize">R for Data Science</a> for a more detailed overview of <code>summarize()</code>):</p>
@@ -463,9 +463,9 @@ north_america
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
 <span class="co">#&gt;   iso_a2     name_long                           geom</span>
-<span class="co">#&gt; 1     CA        Canada MULTIPOLYGON(((-63.6645 46....</span>
-<span class="co">#&gt; 2     GL     Greenland MULTIPOLYGON(((-46.76379 82...</span>
-<span class="co">#&gt; 3     US United States MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
+<span class="co">#&gt; 1     CA        Canada MULTIPOLYGON (((-63.6645 46...</span>
+<span class="co">#&gt; 2     GL     Greenland MULTIPOLYGON (((-46.76379 8...</span>
+<span class="co">#&gt; 3     US United States MULTIPOLYGON (((-155.54211 ...</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(north_america[<span class="dv">0</span>])</code></pre></div>
 <p><img src="figures/unnamed-chunk-27-1.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wb_north_america =<span class="st"> </span>worldbank_df %&gt;%<span class="st"> </span>
@@ -497,9 +497,9 @@ left_join1
 <span class="co">#&gt; 2     GL     Greenland          &lt;NA&gt;        NA       NA</span>
 <span class="co">#&gt; 3     US United States United States 259740511     6.17</span>
 <span class="co">#&gt;                             geom</span>
-<span class="co">#&gt; 1 MULTIPOLYGON(((-63.6645 46....</span>
-<span class="co">#&gt; 2 MULTIPOLYGON(((-46.76379 82...</span>
-<span class="co">#&gt; 3 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
+<span class="co">#&gt; 1 MULTIPOLYGON (((-63.6645 46...</span>
+<span class="co">#&gt; 2 MULTIPOLYGON (((-46.76379 8...</span>
+<span class="co">#&gt; 3 MULTIPOLYGON (((-155.54211 ...</span></code></pre></div>
 <p>It is also possible to join objects by different variables. Both of the datasets have variables with names of countries, but they are named differently. The <code>north_america</code> has a <code>name_long</code> column and the <code>wb_north_america</code> has a <code>name</code> column. In these cases, we can use a named vector to specify the connection, e.g. <code>c(&quot;name_long&quot; = &quot;name&quot;)</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join2 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
@@ -515,9 +515,9 @@ left_join2
 <span class="co">#&gt; 2       GL     Greenland     &lt;NA&gt;        NA       NA</span>
 <span class="co">#&gt; 3       US United States       US 259740511     6.17</span>
 <span class="co">#&gt;                             geom</span>
-<span class="co">#&gt; 1 MULTIPOLYGON(((-63.6645 46....</span>
-<span class="co">#&gt; 2 MULTIPOLYGON(((-46.76379 82...</span>
-<span class="co">#&gt; 3 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
+<span class="co">#&gt; 1 MULTIPOLYGON (((-63.6645 46...</span>
+<span class="co">#&gt; 2 MULTIPOLYGON (((-46.76379 8...</span>
+<span class="co">#&gt; 3 MULTIPOLYGON (((-155.54211 ...</span></code></pre></div>
 <p>The new object <code>left_join2</code>, however, contains two duplicated variables - <code>iso_a2.x</code> and <code>iso_a2.y</code> because both of the input tables possessed a variable named <code>iso_a2</code>. To solve this problem we should specify all the keys:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join3 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso_a2&quot;</span>, <span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
@@ -529,9 +529,9 @@ left_join3
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
 <span class="co">#&gt;   iso_a2     name_long urban_pop unemploy                           geom</span>
-<span class="co">#&gt; 1     CA        Canada  29022137     6.91 MULTIPOLYGON(((-63.6645 46....</span>
-<span class="co">#&gt; 2     GL     Greenland        NA       NA MULTIPOLYGON(((-46.76379 82...</span>
-<span class="co">#&gt; 3     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
+<span class="co">#&gt; 1     CA        Canada  29022137     6.91 MULTIPOLYGON (((-63.6645 46...</span>
+<span class="co">#&gt; 2     GL     Greenland        NA       NA MULTIPOLYGON (((-46.76379 8...</span>
+<span class="co">#&gt; 3     US United States 259740511     6.17 MULTIPOLYGON (((-155.54211 ...</span></code></pre></div>
 <p>It is also possible to use our objects in the reverse order, where a <code>data.frame</code> object is the first argument and a <code>sf</code> object is the second argument. This would keep the geometry column but drop the <code>sf</code> class, and result in a <code>data.frame</code> object.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># keeps the geom column, but drops the sf class</span>
 left_join4 =<span class="st"> </span>wb_north_america %&gt;%
@@ -542,9 +542,9 @@ left_join4
 <span class="co">#&gt; 2        Mexico     MX  99018446     5.25          &lt;NA&gt;</span>
 <span class="co">#&gt; 3 United States     US 259740511     6.17 United States</span>
 <span class="co">#&gt;                             geom</span>
-<span class="co">#&gt; 1 MULTIPOLYGON(((-63.6645 46....</span>
+<span class="co">#&gt; 1 MULTIPOLYGON (((-63.6645 46...</span>
 <span class="co">#&gt; 2                           NULL</span>
-<span class="co">#&gt; 3 MULTIPOLYGON(((-155.54211 1...</span>
+<span class="co">#&gt; 3 MULTIPOLYGON (((-155.54211 ...</span>
 <span class="kw">class</span>(left_join4)
 <span class="co">#&gt; [1] &quot;data.frame&quot;</span></code></pre></div>
 <p><code>left_join4</code> has only one class - <code>data.frame</code>, however it is possible to add spatial <code>sf</code> class using the <code>st_as_sf()</code> function:</p>
@@ -553,7 +553,7 @@ left_join4_sf
 <span class="co">#&gt; Simple feature collection with 3 features and 5 fields (with 1 geometry empty)</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
 <span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513</span>
+<span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324</span>
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
 <span class="co">#&gt;            name iso_a2 urban_pop unemploy     name_long</span>
@@ -561,9 +561,9 @@ left_join4_sf
 <span class="co">#&gt; 2        Mexico     MX  99018446     5.25          &lt;NA&gt;</span>
 <span class="co">#&gt; 3 United States     US 259740511     6.17 United States</span>
 <span class="co">#&gt;                             geom</span>
-<span class="co">#&gt; 1 MULTIPOLYGON(((-63.6645 46....</span>
-<span class="co">#&gt; 2                 MULTIPOLYGON()</span>
-<span class="co">#&gt; 3 MULTIPOLYGON(((-155.54211 1...</span>
+<span class="co">#&gt; 1 MULTIPOLYGON (((-63.6645 46...</span>
+<span class="co">#&gt; 2             MULTIPOLYGON EMPTY</span>
+<span class="co">#&gt; 3 MULTIPOLYGON (((-155.54211 ...</span>
 <span class="kw">class</span>(left_join4_sf)
 <span class="co">#&gt; [1] &quot;sf&quot;         &quot;data.frame&quot;</span></code></pre></div>
 <p>On the other hand, it is also possible to remove the geometry column of <code>left_join4</code> using base R functions or <code>dplyr</code>. Here, this is this simple because the geometry column is just another <code>data.frame</code> column and no longer the sticky geometry column of an <code>sf</code> object (see also Chapter <a href="spatial-class.html#spatial-class">2</a>):</p>
@@ -592,8 +592,8 @@ inner_join1
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
 <span class="co">#&gt;   iso_a2     name_long urban_pop unemploy                           geom</span>
-<span class="co">#&gt; 1     CA        Canada  29022137     6.91 MULTIPOLYGON(((-63.6645 46....</span>
-<span class="co">#&gt; 2     US United States 259740511     6.17 MULTIPOLYGON(((-155.54211 1...</span></code></pre></div>
+<span class="co">#&gt; 1     CA        Canada  29022137     6.91 MULTIPOLYGON (((-63.6645 46...</span>
+<span class="co">#&gt; 2     US United States 259740511     6.17 MULTIPOLYGON (((-155.54211 ...</span></code></pre></div>
 </div>
 </div>
 <div id="attribute-data-creation" class="section level2">
@@ -610,8 +610,9 @@ world_new$pop_dens =<span class="st"> </span>world_new$pop /<span class="st"> </
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">transmute</span>(<span class="dt">pop_dens =</span> pop /<span class="st"> </span>area_km2)</code></pre></div>
 <p>Existing columns could be also paste together using <code>unite()</code>. For example, we want to stick together <code>continent</code> and <code>region_un</code> columns into a new <code>con_reg</code> column. We could specify a separator to use between values and if input columns should be removed:</p>
+<!-- todo: set eval = TRUE when travis issue resolved -->
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_unite =<span class="st"> </span>world %&gt;%
-<span class="st">  </span><span class="kw">unite</span>(con_reg, continent:region_un, <span class="dt">sep =</span> <span class="st">&quot;:&quot;</span>, <span class="dt">remove =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<span class="st">  </span><span class="kw">unite</span>(<span class="st">&quot;con_reg&quot;</span>, continent:region_un, <span class="dt">sep =</span> <span class="st">&quot;:&quot;</span>, <span class="dt">remove =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p>The <code>separate()</code> function is the complement of the <code>unite()</code> function. Its role is to split one column into multiple columns using either a regular expression or character position.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_separate =<span class="st"> </span>world_unite %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">separate</span>(con_reg, <span class="kw">c</span>(<span class="st">&quot;continent&quot;</span>, <span class="st">&quot;region_un&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;:&quot;</span>)</code></pre></div>

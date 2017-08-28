@@ -176,15 +176,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-subsetting"><i class="fa fa-check"></i><b>4.2</b> Spatial subsetting</a><ul>
 <li class="chapter" data-level="" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#note"><i class="fa fa-check"></i>Note</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-aggregation"><i class="fa fa-check"></i><b>4.3</b> Spatial data aggregation</a><ul>
+<li class="chapter" data-level="4.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-aggregation"><i class="fa fa-check"></i><b>4.3</b> Spatial aggregation</a><ul>
 <li class="chapter" data-level="4.3.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-congruence-and-areal-interpolation"><i class="fa fa-check"></i><b>4.3.1</b> Spatial congruence and areal interpolation</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-joining"><i class="fa fa-check"></i><b>4.4</b> Spatial data joining</a></li>
-<li class="chapter" data-level="4.5" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-creation"><i class="fa fa-check"></i><b>4.5</b> Spatial data creation</a><ul>
-<li class="chapter" data-level="4.5.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#topological-relations"><i class="fa fa-check"></i><b>4.5.1</b> Topological relations</a></li>
-<li class="chapter" data-level="4.5.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#distance-relations"><i class="fa fa-check"></i><b>4.5.2</b> Distance relations</a></li>
-<li class="chapter" data-level="4.5.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-clipping"><i class="fa fa-check"></i><b>4.5.3</b> Spatial clipping</a></li>
-<li class="chapter" data-level="4.5.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#exercises-3"><i class="fa fa-check"></i><b>4.5.4</b> Exercises</a></li>
+<li class="chapter" data-level="4.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-joining"><i class="fa fa-check"></i><b>4.4</b> Spatial joining</a></li>
+<li class="chapter" data-level="4.5" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-data-creation"><i class="fa fa-check"></i><b>4.5</b> Spatial data creation</a></li>
+<li class="chapter" data-level="4.6" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#topological-relations"><i class="fa fa-check"></i><b>4.6</b> Topological relations</a></li>
+<li class="chapter" data-level="4.7" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#distance-relations"><i class="fa fa-check"></i><b>4.7</b> Distance relations</a></li>
+<li class="chapter" data-level="4.8" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-clipping"><i class="fa fa-check"></i><b>4.8</b> Spatial clipping</a><ul>
+<li class="chapter" data-level="4.8.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#exercises-3"><i class="fa fa-check"></i><b>4.8.1</b> Exercises</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="read-write.html"><a href="read-write.html"><i class="fa fa-check"></i><b>5</b> Geographic data I/O</a><ul>
@@ -312,8 +312,8 @@ Figure 2.3: A spatial plot of the world using the sf package, with a facet for e
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
 <span class="co">#&gt;   iso_a2   name_long continent                           geom</span>
-<span class="co">#&gt; 1     AF Afghanistan      Asia MULTIPOLYGON(((61.210817091...</span>
-<span class="co">#&gt; 2     AO      Angola    Africa MULTIPOLYGON(((16.326528354...</span></code></pre></div>
+<span class="co">#&gt; 1     AF Afghanistan      Asia MULTIPOLYGON (((61.21081709...</span>
+<span class="co">#&gt; 2     AO      Angola    Africa MULTIPOLYGON (((16.32652835...</span></code></pre></div>
 <p>All this may seem rather complex, especially for a class system that is supposed to be simple. However, there are good reasons for organizing things this way and using <strong>sf</strong>.</p>
 <!-- It's a `MULTIPOLYGON` with 177 features and a geographical (longitude/latidue) coordinate reference system (CRS) with an EPSG code of `4326`. -->
 </div>
@@ -364,8 +364,9 @@ Sorry for commenting on this again but just to clarify africa[0] selects zero co
 <p><strong>sf</strong> simplifies spatial data objects compared with <strong>sp</strong> and provides a near-direct interface to GDAL and GEOS C++ functions. In theory this should make <strong>sf</strong> faster than <strong>sp</strong>/<strong>rgdal</strong>/<strong>rgeos</strong>, something that is tested in Chapter 5 for data I/O. This section introduces <strong>sf</strong> classes in preparation for subsequent chapters which deal with vector data (in particular Chapter <a href="spatial-data-operations.html#spatial-data-operations">4</a>).</p>
 <p>As a final exercise, we will see one way of how to do a spatial overlay in <strong>sf</strong>. First, we convert the countries of the world into centroids, and then subset those in Asia. Finally, the <code>summary</code>-command tells us how many centroids (countries) are part of Asia (43) and how many are not (134).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_centroids =<span class="st"> </span><span class="kw">st_centroid</span>(world)
-<span class="co">#&gt; Warning in st_centroid.sfc(st_geometry(x)): st_centroid does not give</span>
-<span class="co">#&gt; correct centroids for longitude/latitude data</span>
+<span class="co">#&gt; Warning in st_centroid.sfc(st_geometry(x), of_largest_polygon =</span>
+<span class="co">#&gt; of_largest_polygon): st_centroid does not give correct centroids for</span>
+<span class="co">#&gt; longitude/latitude data</span>
 sel_asia =<span class="st"> </span><span class="kw">st_intersects</span>(world_centroids, asia, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)
 <span class="co">#&gt; although coordinates are longitude/latitude, it is assumed that they are planar</span>
 <span class="kw">summary</span>(sel_asia)
@@ -387,7 +388,7 @@ Figure 2.5: Centroids representing country population, diameter being proportion
 <!-- This shows that there are 43 countries in Asia -->
 <!-- We can check if they are the same countries as follows: -->
 <!-- ```{r} -->
-<!-- africa_centroids2 = world_centroids[sel_africa,] -->
+<!-- africa_centroids2 = world_centroids[sel_africa, ] -->
 <!-- identical(africa_centroids, africa_centroids2) -->
 <!-- ``` -->
 </div>
@@ -455,13 +456,13 @@ Figure 2.5: Centroids representing country population, diameter being proportion
 <p>To create point objects, we use the <code>st_point()</code> function in conjunction with a numeric vector:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># note that we use a numeric vector for points</span>
 <span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>)) <span class="co"># XY point</span>
-<span class="co">#&gt; POINT(5 2)</span>
+<span class="co">#&gt; POINT (5 2)</span>
 <span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">3</span>)) <span class="co"># XYZ point</span>
-<span class="co">#&gt; POINTZ(5 2 3)</span>
+<span class="co">#&gt; POINT Z (5 2 3)</span>
 <span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">1</span>), <span class="dt">dim =</span> <span class="st">&quot;XYM&quot;</span>) <span class="co"># XYM point</span>
-<span class="co">#&gt; POINTM(5 2 1)</span>
+<span class="co">#&gt; POINT M (5 2 1)</span>
 <span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>)) <span class="co"># XYZM point</span>
-<span class="co">#&gt; POINTZM(5 2 3 1)</span></code></pre></div>
+<span class="co">#&gt; POINT ZM (5 2 3 1)</span></code></pre></div>
 <!-- is this really important? -->
 <p>XY, XYZ and XYZM types of points are automatically created based on the length of a numeric vector. Only the XYM type needs to be specified using a <code>dim</code> argument.</p>
 <p>By contrast, use matrices in the case of multipoint (<code>st_multipoint()</code>) and linestring (<code>st_linestring()</code>) objects:</p>
@@ -469,38 +470,38 @@ Figure 2.5: Centroids representing country population, diameter being proportion
 ## MULTIPOINT
 multipoint_matrix =<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>))
 <span class="kw">st_multipoint</span>(multipoint_matrix)
-<span class="co">#&gt; MULTIPOINT(5 2, 1 3, 3 4, 3 2)</span>
+<span class="co">#&gt; MULTIPOINT (5 2, 1 3, 3 4, 3 2)</span>
 
 ## LINESTRING
 linestring_matrix =<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>))
 <span class="kw">st_linestring</span>(linestring_matrix)
-<span class="co">#&gt; LINESTRING(1 5, 4 4, 4 1, 2 2, 3 2)</span></code></pre></div>
+<span class="co">#&gt; LINESTRING (1 5, 4 4, 4 1, 2 2, 3 2)</span></code></pre></div>
 <p>Finally, use lists for the creation of multilinestrings, (multi-)polygons and geometry collections:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## POLYGON
 polygon_list =<span class="st"> </span><span class="kw">list</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)))
 <span class="kw">st_polygon</span>(polygon_list)
-<span class="co">#&gt; POLYGON((1 5, 2 2, 4 1, 4 4, 1 5))</span></code></pre></div>
+<span class="co">#&gt; POLYGON ((1 5, 2 2, 4 1, 4 4, 1 5))</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## POLYGON with a hole
 polygon_border =<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>))
 polygon_hole =<span class="st"> </span><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>))
 polygon_with_hole_list =<span class="st"> </span><span class="kw">list</span>(polygon_border, polygon_hole)
 <span class="kw">st_polygon</span>(polygon_with_hole_list)
-<span class="co">#&gt; POLYGON((1 5, 2 2, 4 1, 4 4, 1 5), (2 4, 3 4, 3 3, 2 3, 2 4))</span></code></pre></div>
+<span class="co">#&gt; POLYGON ((1 5, 2 2, 4 1, 4 4, 1 5), (2 4, 3 4, 3 3, 2 3, 2 4))</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## MULTILINESTRING
 multilinestring_list =<span class="st"> </span><span class="kw">list</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>)), 
                             <span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>)))
 <span class="kw">st_multilinestring</span>((multilinestring_list))
-<span class="co">#&gt; MULTILINESTRING((1 5, 4 4, 4 1, 2 2, 3 2), (1 2, 2 4))</span></code></pre></div>
+<span class="co">#&gt; MULTILINESTRING ((1 5, 4 4, 4 1, 2 2, 3 2), (1 2, 2 4))</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## MULTIPOLYGON
 multipolygon_list =<span class="st"> </span><span class="kw">list</span>(<span class="kw">list</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>))),
                          <span class="kw">list</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">3</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>))))
 <span class="kw">st_multipolygon</span>(multipolygon_list)
-<span class="co">#&gt; MULTIPOLYGON(((1 5, 2 2, 4 1, 4 4, 1 5)), ((0 2, 1 2, 1 3, 0 3, 0 2)))</span></code></pre></div>
+<span class="co">#&gt; MULTIPOLYGON (((1 5, 2 2, 4 1, 4 4, 1 5)), ((0 2, 1 2, 1 3, 0 3, 0 2)))</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## GEMETRYCOLLECTION
 gemetrycollection_list =<span class="st"> </span><span class="kw">list</span>(<span class="kw">st_multipoint</span>(multipoint_matrix),
                               <span class="kw">st_linestring</span>(linestring_matrix))
 <span class="kw">st_geometrycollection</span>(gemetrycollection_list)
-<span class="co">#&gt; GEOMETRYCOLLECTION(MULTIPOINT(5 2, 1 3, 3 4, 3 2), LINESTRING(1 5, 4 4, 4 1, 2 2, 3 2))</span></code></pre></div>
+<span class="co">#&gt; GEOMETRYCOLLECTION (MULTIPOINT (5 2, 1 3, 3 4, 3 2), LINESTRING (1 5, 4 4, 4 1, 2 2, 3 2))</span></code></pre></div>
 <!-- table -->
 <!-- figure - image/fig1.jpg -->
 <!-- they are interconnected - points could create mulitpoints or lines; -->
@@ -520,8 +521,8 @@ point2 =<span class="st"> </span><span class="kw">st_point</span>(<span class="k
 <span class="co">#&gt; bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3</span>
 <span class="co">#&gt; epsg (SRID):    NA</span>
 <span class="co">#&gt; proj4string:    NA</span>
-<span class="co">#&gt; POINT(5 2)</span>
-<span class="co">#&gt; POINT(1 3)</span></code></pre></div>
+<span class="co">#&gt; POINT (5 2)</span>
+<span class="co">#&gt; POINT (1 3)</span></code></pre></div>
 <p>In most cases, an <code>sfc</code> object contains objects of the same geometry type. Therefore, when we convert <code>sfg</code> objects of type polygon into a simple feature collection, we would also end up with an <code>sfc</code> object of type polygon. Equally, a collection of multilinestrings would result in an <code>sfc</code> object of type multilinestring:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sfc POLYGON</span>
 polygon_list1 =<span class="st"> </span><span class="kw">list</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)))
@@ -535,8 +536,8 @@ polygon2 =<span class="st"> </span><span class="kw">st_polygon</span>(polygon_li
 <span class="co">#&gt; bbox:           xmin: 0 ymin: 1 xmax: 4 ymax: 5</span>
 <span class="co">#&gt; epsg (SRID):    NA</span>
 <span class="co">#&gt; proj4string:    NA</span>
-<span class="co">#&gt; POLYGON((1 5, 2 2, 4 1, 4 4, 1 5))</span>
-<span class="co">#&gt; POLYGON((0 2, 1 2, 1 3, 0 3, 0 2))</span></code></pre></div>
+<span class="co">#&gt; POLYGON ((1 5, 2 2, 4 1, 4 4, 1 5))</span>
+<span class="co">#&gt; POLYGON ((0 2, 1 2, 1 3, 0 3, 0 2))</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sfc MULTILINESTRING</span>
 multilinestring_list1 =<span class="st"> </span><span class="kw">list</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>)), 
                             <span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>)))
@@ -551,8 +552,8 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <span class="co">#&gt; bbox:           xmin: 1 ymin: 1 xmax: 7 ymax: 9</span>
 <span class="co">#&gt; epsg (SRID):    NA</span>
 <span class="co">#&gt; proj4string:    NA</span>
-<span class="co">#&gt; MULTILINESTRING((1 5, 4 4, 4 1, 2 2, 3 2), (1 2...</span>
-<span class="co">#&gt; MULTILINESTRING((2 9, 7 9, 5 6, 4 7, 2 7), (1 7...</span></code></pre></div>
+<span class="co">#&gt; MULTILINESTRING ((1 5, 4 4, 4 1, 2 2, 3 2), (1 ...</span>
+<span class="co">#&gt; MULTILINESTRING ((2 9, 7 9, 5 6, 4 7, 2 7), (1 ...</span></code></pre></div>
 <p>It is also possible to create an <code>sfc</code> object from <code>sfg</code> objects with different geometry types:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sfc GEOMETRY</span>
 <span class="kw">st_sfc</span>(point1, multilinestring1)
@@ -562,8 +563,8 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <span class="co">#&gt; bbox:           xmin: 1 ymin: 1 xmax: 5 ymax: 5</span>
 <span class="co">#&gt; epsg (SRID):    NA</span>
 <span class="co">#&gt; proj4string:    NA</span>
-<span class="co">#&gt; POINT(5 2)</span>
-<span class="co">#&gt; MULTILINESTRING((1 5, 4 4, 4 1, 2 2, 3 2), (1 2...</span></code></pre></div>
+<span class="co">#&gt; POINT (5 2)</span>
+<span class="co">#&gt; MULTILINESTRING ((1 5, 4 4, 4 1, 2 2, 3 2), (1 ...</span></code></pre></div>
 <!-- if you want to use it - st_cast() to a proper geometry type -->
 <!-- or st_is to select only one geometry type -->
 <!-- http://r-spatial.org/r/2017/01/12/newssf.html -->
@@ -576,8 +577,8 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <span class="co">#&gt; bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3</span>
 <span class="co">#&gt; epsg (SRID):    NA</span>
 <span class="co">#&gt; proj4string:    NA</span>
-<span class="co">#&gt; POINT(5 2)</span>
-<span class="co">#&gt; POINT(1 3)</span></code></pre></div>
+<span class="co">#&gt; POINT (5 2)</span>
+<span class="co">#&gt; POINT (1 3)</span></code></pre></div>
 <p>Of course, all geometries in an <code>sfc</code> object must have the same CRS.</p>
 <p>We can add coordinate reference system as a <code>crs</code> argument of <code>st_sfc()</code>. This argument accepts either an integer with the <code>epsg</code> code (e.g., <code>4326</code>) or a <code>proj4string</code> character string (e.g., <code>&quot;+proj=longlat +datum=WGS84 +no_defs&quot;</code>):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># EPSG definition</span>
@@ -588,8 +589,8 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <span class="co">#&gt; bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3</span>
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt; POINT(5 2)</span>
-<span class="co">#&gt; POINT(1 3)</span></code></pre></div>
+<span class="co">#&gt; POINT (5 2)</span>
+<span class="co">#&gt; POINT (1 3)</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># PROJ4STRING definition</span>
 <span class="kw">st_sfc</span>(point1, point2, <span class="dt">crs =</span> <span class="st">&quot;+proj=longlat +datum=WGS84 +no_defs&quot;</span>)
 <span class="co">#&gt; Geometry set for 2 features </span>
@@ -598,8 +599,8 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <span class="co">#&gt; bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3</span>
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt; POINT(5 2)</span>
-<span class="co">#&gt; POINT(1 3)</span></code></pre></div>
+<span class="co">#&gt; POINT (5 2)</span>
+<span class="co">#&gt; POINT (1 3)</span></code></pre></div>
 <p>Both of these approaches have advantages and disadvantages. An <code>epsg</code> code is usually shorter, and therefore easier to remember. The code also refers to only one, well-defined coordinate reference system. On the other hand, a <code>proj4string</code> definition allows you more flexibility when it comes to specifying different parameters such as the projection type, the datum and the ellipsoid. This way you can specify many different projections, and modify existing ones. This makes the <code>proj4string</code> approach also more complicated.<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a>.</p>
 <p><code>epsg</code> always points to exactly one particular CRS. Correspondingly, there is also only one possible <code>proj4string</code> for a specific <code>epsg</code>-code. For example, we can set the UTM Zone 11N projection with <code>epsg</code> code <code>2955</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_sfc</span>(point1, point2, <span class="dt">crs =</span> <span class="dv">2955</span>)
@@ -609,8 +610,8 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <span class="co">#&gt; bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3</span>
 <span class="co">#&gt; epsg (SRID):    2955</span>
 <span class="co">#&gt; proj4string:    +proj=utm +zone=11 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs</span>
-<span class="co">#&gt; POINT(5 2)</span>
-<span class="co">#&gt; POINT(1 3)</span></code></pre></div>
+<span class="co">#&gt; POINT (5 2)</span>
+<span class="co">#&gt; POINT (1 3)</span></code></pre></div>
 <p>As you can see above, the <code>proj4string</code> definition was automatically added. Now we can try to set the CRS using <code>proj4string</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_sfc</span>(point1, point2, <span class="dt">crs =</span> <span class="st">&quot;+proj=utm +zone=11 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs&quot;</span>)
 <span class="co">#&gt; Geometry set for 2 features </span>
@@ -619,8 +620,8 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <span class="co">#&gt; bbox:           xmin: 1 ymin: 2 xmax: 5 ymax: 3</span>
 <span class="co">#&gt; epsg (SRID):    NA</span>
 <span class="co">#&gt; proj4string:    +proj=utm +zone=11 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs</span>
-<span class="co">#&gt; POINT(5 2)</span>
-<span class="co">#&gt; POINT(1 3)</span></code></pre></div>
+<span class="co">#&gt; POINT (5 2)</span>
+<span class="co">#&gt; POINT (1 3)</span></code></pre></div>
 <p>However, the <code>epsg</code> string of our result remained empty. This is because there is no general method to convert from <code>proj4string</code> to <code>epsg</code>.</p>
 <!-- precision -->
 <!-- plots can be made -->
@@ -653,9 +654,9 @@ sf_points =<span class="st"> </span><span class="kw">st_sf</span>(our_attributes
 <span class="co">#&gt; bbox:           xmin: -9 ymin: 51.5 xmax: 0.1 ymax: 53</span>
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;     name temperature       date category automatic        geometry</span>
-<span class="co">#&gt; 1 London          25 2017-06-21     city     FALSE POINT(0.1 51.5)</span>
-<span class="co">#&gt; 2   Ruan          13 2017-06-22  village      TRUE    POINT(-9 53)</span></code></pre></div>
+<span class="co">#&gt;     name temperature       date category automatic         geometry</span>
+<span class="co">#&gt; 1 London          25 2017-06-21     city     FALSE POINT (0.1 51.5)</span>
+<span class="co">#&gt; 2   Ruan          13 2017-06-22  village      TRUE    POINT (-9 53)</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(sf_points)
 <span class="co">#&gt; [1] &quot;sf&quot;         &quot;data.frame&quot;</span></code></pre></div>
 <p>The result shows that <code>sf</code> objects actually have two classes, <code>sf</code> and <code>data.frame</code>. Simple features are simply data frames (square tables), but with spatial attributes (usually stored in a special <code>geom</code> list-column in the data frame). This duality is central to the concept of simple features: most of the time a <code>sf</code> can be treated as and behaves like a <code>data.frame</code>. Simple features are, in essence, data frames with a spatial extension.</p>
