@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve9a6ef83d363815cb
+preserve152ce67d83c6e627
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1509,6 +1509,8 @@ Note that operations on `RasterBrick` and `RasterStack` objects will typically r
 Despite the differences between vector and raster spatial data types, they are united by shared concepts intrinsic to spatial data.
 Perhaps the most important of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other body).
 <!-- an intro -->
+<!-- for operation data needs to have the same projection -->
+<!-- (for most of the case is better to reproject vector than raster) -->
 
 In **sf** the CRS of an object can be retrieved and set using `st_crs()` and `st_set_crs()` respectively:
 
@@ -1529,7 +1531,9 @@ new_vector = st_set_crs(new_vector, 4326) # set CRS
 #> for that
 ```
 
-<!-- the difference between `st_set_crs()` and `st_transform()` -->
+<!-- the difference between `st_set_crs()` and `st_transform()` !!! -->
+<!-- vectors: transformation means change of the coordinates of nodes -->
+<!-- change shape (no change in attributes) -->
 
 <div class="figure" style="text-align: center">
 <img src="figures/02_vector_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a vector data type" width="765" />
@@ -1538,7 +1542,7 @@ new_vector = st_set_crs(new_vector, 4326) # set CRS
 
 Note the warning emitted after the CRS for `sf_points` was set to `27700`.
 This is a good thing: we have imposed a spatial reference onto data without knowing what that means.
-To discover what the 'magic number' `27700` means, we can retrieve the CRS again <!--(see Chapter \@ref(coord)--> for more on CRSs):
+To discover what the 'magic number' `27700` means, we can retrieve the CRS again:
 
 
 ```r
@@ -1553,10 +1557,18 @@ st_crs(new_vector)
 #> [1] "crs"
 ```
 
+rasters: transformation means change of the coordinates of (special case of resampling)
+<!-- changes in dimensions, resolution, extent -->
+<!-- change shape and attributes) -->
+<!-- different methods of computing values after transformation, such as ngb or bilinear  -->
+
 <div class="figure" style="text-align: center">
 <img src="figures/02_raster_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a raster data type" width="475" />
 <p class="caption">(\#fig:raster-crs)Examples of projected (left) and geographic (right) coordinate systems for a raster data type</p>
 </div>
+
+<!-- reference to the 6th chapter -->
+<!--(see Chapter \@ref(coord) for more on CRSs)-->
 
 ## Units
 
@@ -3007,7 +3019,7 @@ read_world_gpkg = bench_read(file = f, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.29
+#> [1] 2.3
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries shapefile.
@@ -3023,7 +3035,7 @@ read_lnd_geojson = bench_read(file = f, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.36
+#> [1] 3.32
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3052,13 +3064,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.062
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.008   0.029
+#>   0.020   0.004   0.028
 ```
 
 
