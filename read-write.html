@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-08-28">
+<meta name="date" content="2017-08-29">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -263,12 +263,12 @@ world =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(microbenchmark)
 read_world_gpkg =<span class="st"> </span><span class="kw">bench_read</span>(<span class="dt">file =</span> vector_filepath, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read_world_gpkg
-<span class="co">#&gt; [1] 2.25</span></code></pre></div>
+<span class="co">#&gt; [1] 2.22</span></code></pre></div>
 <p>The results demonstrate that <strong>sf</strong> was around 2 times faster than <strong>rgdal</strong> at reading-in the world countries vector. The relative performance of <code>st_read()</code> compared with other functions will vary depending on file format and the nature of the data. To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vector_filepath_gj =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/cycle_hire_osm.geojson&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
 read_lnd_geojson =<span class="st"> </span><span class="kw">bench_read</span>(<span class="dt">file =</span> vector_filepath_gj, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read_lnd_geojson
-<span class="co">#&gt; [1] 3.58</span></code></pre></div>
+<span class="co">#&gt; [1] 3.57</span></code></pre></div>
 <p>In this case <strong>sf</strong> was around 4 times faster than <strong>rgdal</strong>.</p>
 <p>To find out which data formats <strong>sf</strong> supports, run <code>st_drivers()</code>. Here, we show only the first two drivers:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_drivers =<span class="st"> </span><span class="kw">st_drivers</span>()
@@ -279,11 +279,22 @@ read_lnd_geojson =<span class="st"> </span><span class="kw">bench_read</span>(<s
 </div>
 <div id="raster-data-1" class="section level3">
 <h3><span class="header-section-number">5.1.2</span> Raster data</h3>
-<p>Raster data also could exist in many different file formats. <!-- single and multilayered --><a href="#fn27" class="footnoteRef" id="fnref27"><sup>27</sup></a>.</p>
-<!-- raster -->
+<p>Raster data also could exist in many different file formats, with some of the formats supporting multilayer files.<a href="#fn27" class="footnoteRef" id="fnref27"><sup>27</sup></a></p>
+<p>The <strong>raster</strong> package support reading one layer by <code>raster()</code> and many layers using either <code>brick()</code> or <code>stack()</code>. More information about the raster representation in this package could be find in the section <a href="spatial-class.html#raster-classes">2.2.3</a>.</p>
+<p>The <code>raster()</code> function make it possible to read a simple single layer file (as in the first examples below) or to read just one layer (band) from a multilayer file (the second example):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
+<span class="co">#&gt; Loading required package: sp</span>
+<span class="kw">library</span>(spDataLarge)
+raster_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/srtm.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
+single_layer =<span class="st"> </span><span class="kw">raster</span>(raster_filepath)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">raster_multilayer_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
+single_layer_band3 =<span class="st"> </span><span class="kw">raster</span>(raster_multilayer_filepath, <span class="dt">band =</span> <span class="dv">3</span>)</code></pre></div>
 <!-- brick -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">multilayer_layer_brick =<span class="st"> </span><span class="kw">brick</span>(raster_multilayer_filepath)</code></pre></div>
 <!-- stack -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(raster_multilayer_filepath)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rgdal::<span class="kw">gdalDrivers</span>()</code></pre></div>
+<!-- NetCDF? -->
 <!-- additional save to text subsection? -->
 </div>
 </div>
@@ -295,13 +306,13 @@ read_lnd_geojson =<span class="st"> </span><span class="kw">bench_read</span>(<s
 <p>The counterpart of <code>st_read()</code> is <code>st_write()</code>. It allows to write <strong>sf</strong> objects to a wide range of geographic vector file formats, including the most common ones such as <code>.geojson</code>, <code>.shp</code> and <code>.gpkg</code>. Based on the file name <code>st_write()</code> decides automatically which driver to use. How fast the writing process is depends also on the driver: <!-- Is this comparison here necessary, or shouldn't we instead focus on the automatic driver selection? --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.geojson&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.060   0.004   0.063</span>
+<span class="co">#&gt;   0.060   0.004   0.062</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.shp&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)) 
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;    0.04    0.00    0.04</span>
+<span class="co">#&gt;   0.040   0.008   0.045</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.020   0.008   0.029</span></code></pre></div>
+<span class="co">#&gt;   0.028   0.000   0.028</span></code></pre></div>
 <!-- ```{r} -->
 <!-- st_write(obj = world, dsn = "world.gpkg") -->
 <!-- ``` -->
