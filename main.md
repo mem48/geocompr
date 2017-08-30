@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve62bfc065f4dd1101
+preserve0e821a79e3038fee
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2416,7 +2416,7 @@ There are clear overlaps between spatial and non-spatial operations.
 Common spatial attribute data processing tasks include spatial subsetting (as we will see in section \@ref(spatial-subsetting)) aggregation (\@ref(spatial-aggregation)) and joining (covered in \@ref(spatial-joining)).
 Each of these spatial operations has a non-spatial equivalent, as demonstrated in sections \@ref(attribute-subsetting), \@ref(attribute-data-aggregation) and \@ref(attribute-data-joining) respectively in Chapter \@ref(attr).
 
-In addition to these basic spatial operations, the chapter will briefly demonstrate how new spatial data can be created by modifying existing objects, in section \@ref(modifying-geometry-data), setting the scene for Chapter \@ref(read-write).
+In addition to these basic spatial operations, the chapter will briefly demonstrate how new spatial data can be created by modifying existing objects, in section \@ref(modifying-geometry-data).
 Some topics make spatial data operations more complex than non-spatial operations :
 a variety of *topological relations* can be used for any spatial operation, as we will see in section \@ref(topological-relations);
 and all spatial objects are nearer or further away from each other in space (distance calculations are covered in section \@ref(distance-relations)).
@@ -3026,7 +3026,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.29
+#> [1] 2.16
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3123,13 +3123,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>   0.064   0.000   0.066
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.045
+#>   0.044   0.000   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.004   0.030
+#>   0.016   0.012   0.031
 ```
 
 
