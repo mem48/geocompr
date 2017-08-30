@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve26443a681c7fb162
+preservee62985dc4773a483
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1504,7 +1504,7 @@ r_stack
 Another difference is that the processing time for `RasterBrick` objects should be usually shorter than for `RasterStack` objects.
 Note that operations on `RasterBrick` and `RasterStack` objects will typically return a `RasterBrick`.
 
-## Coordinate Reference Systems
+## Coordinate Reference Systems {#crs-intro}
 
 <!-- This section is work in progress. -->
 Despite the differences between vector and raster spatial data types, they are united by shared concepts intrinsic to spatial data.
@@ -2425,7 +2425,7 @@ This advanced topic is explored in section \@ref(topological-relations).
 
 ### Note {-}
 
-It is important to note that spatial operations that use two spatial objects rely on both objects having the same coordinate reference system, a topic that was introduced in \@ref(coordinate-reference-systems) and which will be covered in more depth in Chapter 6.
+It is important to note that spatial operations that use two spatial objects rely on both objects having the same coordinate reference system, a topic that was introduced in \@ref(crs-intro) and which will be covered in more depth in Chapter 6.
 
 ## Spatial subsetting
 
@@ -3031,7 +3031,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.19
+#> [1] 2.27
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3047,7 +3047,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.63
+#> [1] 3.53
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3128,13 +3128,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.064   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.004   0.040
+#>   0.040   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.028
+#>   0.028   0.000   0.029
 ```
 
 
