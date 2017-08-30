@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee62985dc4773a483
+preservea50fdcbc17c86a15
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1633,7 +1633,7 @@ units::set_units(st_area(nigeria), km^2)
 - How many countries there are?
 - The coordinate reference system (CRS)?
 
-2. Using **sf**'s `plot()` command, create a map of Nigeria in context, building on the code that creates and plots Asia above (see Figure \@ref(fig:nigeria) for an example of what this could look like). 
+2. Using **sf**'s `plot()` command, create a map of Nigeria in context, building on the code that creates and plots Asia above (see Figure \@ref(fig:asia) for an example of what this could look like). 
 
 - Hint: this used the `lwd`, `main` and `col` arguments of `plot()`. 
 - Bonus: make the country boundaries a dotted grey line.
@@ -3047,7 +3047,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.53
+#> [1] 3.62
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3128,13 +3128,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.062
+#>    0.06    0.00    0.06
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.041
+#>   0.032   0.008   0.040
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.000   0.029
+#>   0.024   0.004   0.029
 ```
 
 
