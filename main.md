@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve535fe5c0231775a3
+preserve62bfc065f4dd1101
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2663,64 +2663,121 @@ buff_agg_aw = st_interpolate_aw(x = africa["pop"], to = buff, extensive = TRUE)
 <!-- joining different types (e.g. points + polygons = geometry) -> save as GPKG? -->
 <!-- `merge()`; `st_interpolate_aw()` -->
 
-## Spatial data creation
+
+## Modifying geometry data
+
+Spatial clipping is a form of spatial subsetting that involves changes to the `geometry` columns of at least some of the affected features.
+
+Clipping can only apply to features more complex than points: 
+lines, polygons and their 'multi' equivalents.
+To illustrate the concept we will start with a simple example:
+two overlapping circles with a centrepoint 1 unit away from each other and radius of 1:
+
+
+```r
+b = st_sfc(st_point(c(0, 1)), st_point(c(1, 1))) # create 2 points
+b = st_buffer(b, dist = 1) # convert points to circles
+l = c("x", "y")
+plot(b)
+text(x = c(-0.5, 1.5), y = 1, labels = l) # add text
+```
+
+<div class="figure" style="text-align: center">
+<img src="figures/points-1.png" alt="Overlapping circles." width="576" />
+<p class="caption">(\#fig:points)Overlapping circles.</p>
+</div>
+
+Imagine you want to select not one circle or the other, but the space covered by both `x` *and* `y`.
+This can be done using the function `st_intersection()`, illustrated using objects named `x` and `y` which represent the left and right-hand circles:
+
+
+```r
+x = b[1]
+y = b[2]
+x_and_y = st_intersection(x, y)
+plot(b)
+plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
+```
+
+<img src="figures/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" />
+
+The subsequent code chunk demonstrate how this works for all combinations of the 'venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
+<!-- Todo: reference r4ds -->
+
+<div class="figure" style="text-align: center">
+<img src="figures/venn-clip-1.png" alt="Spatial equivalents of logical operators" width="576" />
+<p class="caption">(\#fig:venn-clip)Spatial equivalents of logical operators</p>
+</div>
+
+To illustrate the relationship between subsetting and clipping spatial data, we will subset points that cover the bounding box of the circles `x` and `y` in Figure \@ref(fig:venn-clip).
+Some points will be inside just one circle, some will be inside both and some will be inside neither.
+To generate the points will use a function not yet covered in this book, `st_sample()`.
+
+There are two different ways to subset points that fit into combinations of the circles: via clipping and logical operators.
+But first we must generate some points.
+We will use the *simple random* sampling strategy to sample from a box representing the extent of `x` and `y`, using the code below to generate the situation plotted in Figure \@ref(fig:venn-subset):
+
+
+```r
+bb = st_bbox(st_union(x, y))
+pmat = matrix(c(bb[c(1, 2, 3, 2, 3, 4, 1, 4, 1, 2)]), ncol = 2, byrow = TRUE)
+box = st_polygon(list(pmat))
+set.seed(2017)
+p = st_sample(x = box, size = 10)
+plot(box)
+plot(x, add = T)
+plot(y, add = T)
+plot(p, add = T)
+text(x = c(-0.5, 1.5), y = 1, labels = l)
+```
+
+<div class="figure" style="text-align: center">
+<img src="figures/venn-subset-1.png" alt="Randomly distributed points within the bounding box enclosing circles x and y." width="576" />
+<p class="caption">(\#fig:venn-subset)Randomly distributed points within the bounding box enclosing circles x and y.</p>
+</div>
+
+
+
+## Distance relations
+
+
+```r
+st_distance(a, b)
+```
+
+<!-- ## Spatial data creation -->
 
 <!-- where should "area" example be? in this or the previous chapter? -->
+<!-- Not here - I think this chapter should focus on geomtry data -->
 <!-- `st_centroid()` -->
 <!-- `st_buffer()` -->
 <!-- http://r-spatial.org//r/2017/06/09/mapedit_0-2-0.html -->
 
+<!-- Commented out - think this would be better in c3 (RL) -->
+<!-- ```{r} -->
+<!-- # add a new column -->
+<!-- africa$area = set_units(st_area(africa), value = km^2) -->
+<!-- africa$pop_density = africa$pop / africa$area -->
 
-```r
-# add a new column
-africa$area = set_units(st_area(africa), value = km^2)
-africa$pop_density = africa$pop / africa$area
+<!-- # OR -->
+<!-- africa = africa %>% -->
+<!--         mutate(area = set_units(st_area(.), value = km^2)) %>% -->
+<!--         mutate(pop_density = pop / area) -->
+<!-- ``` -->
 
-# OR
-africa = africa %>%
-        mutate(area = set_units(st_area(.), value = km^2)) %>%
-        mutate(pop_density = pop / area)
-```
+<!-- Note that this has created a attributes for the area and population density variables: -->
 
-Note that this has created a attributes for the area and population density variables:
+<!-- ```{r} -->
+<!-- attributes(africa$area) -->
+<!-- attributes(africa$pop_density) -->
+<!-- ``` -->
 
+<!-- These can be set to `NULL` as follows: -->
 
-```r
-attributes(africa$area)
-#> $units
-#> $numerator
-#> [1] "km" "km"
-#> 
-#> $denominator
-#> character(0)
-#> 
-#> attr(,"class")
-#> [1] "symbolic_units"
-#> 
-#> $class
-#> [1] "units"
-attributes(africa$pop_density)
-#> $units
-#> $numerator
-#> character(0)
-#> 
-#> $denominator
-#> [1] "km" "km"
-#> 
-#> attr(,"class")
-#> [1] "symbolic_units"
-#> 
-#> $class
-#> [1] "units"
-```
-
-These can be set to `NULL` as follows:
-
-
-```r
-attributes(africa$area) = NULL
-attributes(africa$pop_density) = NULL
-```
+<!-- ```{r} -->
+<!-- attributes(africa$area) = NULL -->
+<!-- attributes(africa$pop_density) = NULL -->
+<!-- ``` -->
 
 <!-- ## Spatial data transformation -->
 <!-- changes classes; polygonize, etc-->
@@ -2849,86 +2906,13 @@ st_relate(a, b, sparse = FALSE)
 <!-- examples (points/lines) -->
 <!-- examples (lines/polygons) -->
 
-## Distance relations
+<!-- TODO? create a series of polygons distributed evenly over the surface of the Earth and clip them. -->
 
-
-```r
-st_distance(a, b)
-```
-
-## Modifying geometry data
-
-Spatial clipping is a form of spatial subsetting that involves changes to the `geometry` columns of at least some of the affected features.
-
-Clipping can only apply to features more complex than points: 
-lines, polygons and their 'multi' equivalents.
-To illustrate the concept we will start with a simple example:
-two overlapping circles with a centrepoint 1 unit away from each other and radius of 1:
-
-
-```r
-b = st_sfc(st_point(c(0, 1)), st_point(c(1, 1))) # create 2 points
-b = st_buffer(b, dist = 1) # convert points to circles
-l = c("x", "y")
-plot(b)
-text(x = c(-0.5, 1.5), y = 1, labels = l) # add text
-```
-
-<div class="figure" style="text-align: center">
-<img src="figures/points-1.png" alt="Overlapping circles." width="576" />
-<p class="caption">(\#fig:points)Overlapping circles.</p>
-</div>
-
-Imagine you want to select not one circle or the other, but the space covered by both `x` *and* `y`.
-This can be done using the function `st_intersection()`, illustrated using objects named `x` and `y` which represent the left and right-hand circles:
-
-
-```r
-x = b[1]
-y = b[2]
-x_and_y = st_intersection(x, y)
-plot(b)
-plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
-```
-
-<img src="figures/unnamed-chunk-31-1.png" width="576" style="display: block; margin: auto;" />
-
-The subsequent code chunk demonstrate how this works for all combinations of the 'venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
-<!-- Todo: reference r4ds -->
-
-<div class="figure" style="text-align: center">
-<img src="figures/venn-clip-1.png" alt="Spatial equivalents of logical operators" width="576" />
-<p class="caption">(\#fig:venn-clip)Spatial equivalents of logical operators</p>
-</div>
-
-To illustrate the relationship between subsetting and clipping spatial data, we will subset points that cover the bounding box of the circles `x` and `y` in Figure \@ref(fig:venn-clip).
-Some points will be inside just one circle, some will be inside both and some will be inside neither.
-To generate the points will use a function not yet covered in this book, `st_sample()`.
-
-There are two different ways to subset points that fit into combinations of the circles: via clipping and logical operators.
-But first we must generate some points.
-We will use the *simple random* sampling strategy to sample from a box representing the extent of `x` and `y`, using the code below to generate the situation plotted in Figure \@ref(fig:venn-subset):
-
-
-```r
-bb = st_bbox(st_union(x, y))
-pmat = matrix(c(bb[c(1, 2, 3, 2, 3, 4, 1, 4, 1, 2)]), ncol = 2, byrow = TRUE)
-box = st_polygon(list(pmat))
-set.seed(2017)
-p = st_sample(x = box, size = 10)
-plot(box)
-plot(x, add = T)
-plot(y, add = T)
-plot(p, add = T)
-text(x = c(-0.5, 1.5), y = 1, labels = l)
-```
-
-<div class="figure" style="text-align: center">
-<img src="figures/venn-subset-1.png" alt="Randomly distributed points within the bounding box enclosing circles x and y." width="576" />
-<p class="caption">(\#fig:venn-subset)Randomly distributed points within the bounding box enclosing circles x and y.</p>
-</div>
-
-
+<!-- ```{r} -->
+<!-- set.seed(2018) -->
+<!-- blob_points = st_sample(x = world, size = 2) -->
+<!-- blobs = st_buffer(x = blob_points, dist = 1) -->
+<!-- plot(blobs) -->
 
 ### Exercises
 
@@ -2958,14 +2942,6 @@ interp9 = st_interpolate_aw(x = world["pop"], to = buff9, extensive = TRUE)
 #> TRUE): st_interpolate_aw assumes attributes are constant over areas of x
 ```
 
-<!-- TODO? create a series of polygons distributed evenly over the surface of the Earth and clip them. -->
-
-<!-- ```{r} -->
-<!-- set.seed(2018) -->
-<!-- blob_points = st_sample(x = world, size = 2) -->
-<!-- blobs = st_buffer(x = blob_points, dist = 1) -->
-<!-- plot(blobs) -->
-<!-- ``` -->
 
 <!--chapter:end:04-spatial-operations.Rmd-->
 
@@ -3050,7 +3026,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.25
+#> [1] 2.29
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3066,7 +3042,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.5
+#> [1] 3.64
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3147,13 +3123,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.008   0.079
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.052   0.000   0.055
+#>   0.044   0.000   0.045
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.029
+#>   0.028   0.004   0.030
 ```
 
 
