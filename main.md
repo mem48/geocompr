@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve1293665b36051ba3
+preserveb52df3bfde7d440e
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3047,7 +3047,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.35
+#> [1] 2.09
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3063,10 +3063,10 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.55
+#> [1] 2.81
 ```
 
-In this case **sf** was around 4 times faster than **rgdal**.
+In this case **sf** was around 3 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -3144,13 +3144,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.068
+#>   0.096   0.000   0.095
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.056   0.004   0.056
+#>   0.080   0.000   0.084
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.034
+#>   0.036   0.008   0.045
 ```
 
 
@@ -3217,10 +3217,18 @@ file.remove("world.gpkg")
 
 ### Raster data
 
-<!-- writeRaster -->
-<!-- + datatypes -->
-<!-- + options (for example geotiff) -->
-<!-- + bylayer -->
+The `writeRaster()` function save `Raster*` objects to files. 
+There are several decision to be made while saving rasters, such as an output data type, file format, and specific GDAL options related to selected file format.
+The complete list of an arguments to this function could be found by typing `?writeRaster()`.
+
+<!-- datatypes -->
+<!-- file formats -->
+<!-- options (geotiff) -->
+
+
+```r
+writeRaster()
+```
 
 
 ```r
