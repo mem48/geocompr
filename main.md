@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve96315e80c4bd1bf4
+preserveeca9ef682a31d4de
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2416,7 +2416,7 @@ There are clear overlaps between spatial and non-spatial operations.
 Common spatial attribute data processing tasks include spatial subsetting (as we will see in section \@ref(spatial-subsetting)) aggregation (\@ref(spatial-aggregation)) and joining (covered in \@ref(spatial-joining)).
 Each of these spatial operations has a non-spatial equivalent, as demonstrated in sections \@ref(attribute-subsetting), \@ref(attribute-data-aggregation) and \@ref(attribute-data-joining) respectively in Chapter \@ref(attr).
 
-In addition to these basic spatial operations, the chapter will briefly demonstrate how new spatial data can be created 'from scratch' in section \@ref(spatial-data-creation), setting the scene for the subsequent chapter (\@ref(read-write)).
+In addition to these basic spatial operations, the chapter will briefly demonstrate how new spatial data can be created 'from scratch' in section \@ref(spatial-data-creation), setting the scene for Chapter \@ref(read-write).
 There are some topics that make spatial data operations more complex:
 a variety of *topological relations* can be used for any spatial operation;
 all spatial objects are nearer or further away from each other in space;
@@ -3052,7 +3052,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.29
+#> [1] 2.24
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3068,7 +3068,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.73
+#> [1] 3.65
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3149,13 +3149,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>    0.06    0.00    0.06
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.043
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.016   0.008   0.027
 ```
 
 
