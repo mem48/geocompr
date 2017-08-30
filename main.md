@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveeca9ef682a31d4de
+preserve535fe5c0231775a3
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2416,12 +2416,10 @@ There are clear overlaps between spatial and non-spatial operations.
 Common spatial attribute data processing tasks include spatial subsetting (as we will see in section \@ref(spatial-subsetting)) aggregation (\@ref(spatial-aggregation)) and joining (covered in \@ref(spatial-joining)).
 Each of these spatial operations has a non-spatial equivalent, as demonstrated in sections \@ref(attribute-subsetting), \@ref(attribute-data-aggregation) and \@ref(attribute-data-joining) respectively in Chapter \@ref(attr).
 
-In addition to these basic spatial operations, the chapter will briefly demonstrate how new spatial data can be created 'from scratch' in section \@ref(spatial-data-creation), setting the scene for Chapter \@ref(read-write).
-There are some topics that make spatial data operations more complex:
-a variety of *topological relations* can be used for any spatial operation;
-all spatial objects are nearer or further away from each other in space;
-and the geometry of spatial objects can be modified, e.g. by clipping.
-These topics are covered in sections \@ref(topological-relations), \@ref(distance-relations) and \@ref(spatial-clipping) respectively.
+In addition to these basic spatial operations, the chapter will briefly demonstrate how new spatial data can be created by modifying existing objects, in section \@ref(modifying-geometry-data), setting the scene for Chapter \@ref(read-write).
+Some topics make spatial data operations more complex than non-spatial operations :
+a variety of *topological relations* can be used for any spatial operation, as we will see in section \@ref(topological-relations);
+and all spatial objects are nearer or further away from each other in space (distance calculations are covered in section \@ref(distance-relations)).
 It is important to note that spatial operations that use two spatial objects rely on both objects having the same coordinate reference system, a topic that was introduced in \@ref(coordinate-reference-systems) and which will be covered in more depth in Chapter 6.
 
 ## Spatial subsetting
@@ -2858,7 +2856,7 @@ st_relate(a, b, sparse = FALSE)
 st_distance(a, b)
 ```
 
-## Spatial clipping
+## Modifying geometry data
 
 Spatial clipping is a form of spatial subsetting that involves changes to the `geometry` columns of at least some of the affected features.
 
@@ -3052,7 +3050,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.24
+#> [1] 2.25
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3068,7 +3066,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.65
+#> [1] 3.5
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3149,13 +3147,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>    0.06    0.00    0.06
+#>   0.072   0.008   0.079
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.052   0.000   0.055
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.008   0.027
+#>   0.024   0.004   0.029
 ```
 
 
