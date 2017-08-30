@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-08-29'
+date: '2017-08-30'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -40,7 +40,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-08-29 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-08-30 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve48e786e4a81b4f1a
+preserve1293665b36051ba3
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3047,7 +3047,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.22
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3063,7 +3063,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.57
+#> [1] 3.55
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3086,7 +3086,7 @@ Raster data also could exist in many different file formats, with some of the fo
 The **raster** package support reading one layer by `raster()` and many layers using either `brick()` or `stack()`. 
 More information about the raster representation in this package could be find in the section \@ref(raster-classes).
 
-The `raster()` function make it possible to read a simple single layer file (as in the first examples below) or to read just one layer (band) from a multilayer file (the second example):
+The `raster()` function makes it possible to read a simple single layer file: 
 
 
 ```r
@@ -3097,33 +3097,35 @@ raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge")
 single_layer = raster(raster_filepath)
 ```
 
+Or to read just one layer (band) from a multilayer file:
+
 
 ```r
 raster_multilayer_filepath = system.file("raster/landsat.tif", package = "spDataLarge")
 single_layer_band3 = raster(raster_multilayer_filepath, band = 3)
 ```
 
-<!-- brick -->
+The whole multilayer raster file is read by `brick()`:
 
 
 ```r
 multilayer_layer_brick = brick(raster_multilayer_filepath)
 ```
 
-<!-- stack -->
-
-```r
-multilayer_layer_stack = stack(raster_multilayer_filepath)
-```
+Finally, many single and multilayer files could be read in the same time with the `stack()` function:
 
 
 ```r
-rgdal::gdalDrivers()
+raster_l1_filepath = system.file("raster/landsat_b2.tif", package = "spDataLarge")
+raster_l2_filepath = system.file("raster/landsat_b3.tif", package = "spDataLarge")
+ 
+multilayer_layer_stack = stack(raster_l1_filepath, raster_l2_filepath)
 ```
+
+The only limitation to `stack()` is that all datasets need to have the same spatial extent and resolution.
 
 <!-- NetCDF? -->
-
-<!-- additional save to text subsection? -->
+<!-- additional read from text subsection? -->
 
 ## Data output (O)
 
@@ -3142,13 +3144,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.004   0.062
+#>   0.068   0.000   0.068
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.008   0.045
+#>   0.056   0.004   0.056
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.000   0.028
+#>   0.020   0.012   0.034
 ```
 
 
