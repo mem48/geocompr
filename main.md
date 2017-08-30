@@ -137,10 +137,7 @@ world^[A good example of this is Alexander von Humboldt's travels to South Ameri
 ]
 and this book aims to contribute to this so-called 'Geographic Tradition' [@livingstone_geographical_1992].
 GIS has become almost synonymous with handling spatial data on a computer, and provides a basis for excellent open source tools which can be accessed from R, as we will see in Chapter 13.
-<!--
-todo - add this reference to end of previous line:
-(\@ref(gis)).
--->
+<!-- todo - add dynamic reference to c13-->
 
 The book's links to older disciplines were reflected in suggested titles for the book: *Geography with R* and *R for GIS*.
 Each has advantages.
@@ -172,10 +169,7 @@ R is a multi-platform, open source language for statistical computing and graphi
 With a wide range of packages R also supports advanced geospatial statistics, modeling and visualization.^[The integrated development environment (IDE) [RStudio](https://www.rstudio.com/) deserves mention here from a user perspective as it has made the interactive use of R more accessible].
 At its core R is an object-oriented, [functional programming language](http://adv-r.had.co.nz/Functional-programming.html) [@wickham_advanced_2014], and was specifically designed as an interactive interface to other software [@chambers_extending_2016]. 
 The latter also includes many 'bridges' to a treasure trove of GIS software, geolibraries and functions.
-<!--
-todo - add this reference to end of previous line:
-(\@ref(gis)).
--->
+<!-- todo - add this reference to ref(gis) -->
 It is thus ideal for quickly creating 'geo-tools', without needing to master lower level languages (compared to R) such as C, FORTRAN and Java (see section \@ref(software-for-geocomputation)). 
 This can feel like breaking free from the metaphorical 'glass ceiling' imposed by GUI-based proprietary geographic information systems (see Table \@ref(tab:gdsl) for a definition of GUI).
 What is more, advanced users might even extend R with the power of other languages (e.g., C++ through **Rcpp** or Python through **reticulate**; see also section \@ref(software-for-geocomputation)).
@@ -197,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea50fdcbc17c86a15
+preserve395501cd0aef5289
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -217,7 +211,7 @@ Usually, people find it harder to learn than Python or R.
 It is also likely that you have to invest a lot of time to code things that are readily available in R.
 Therefore, we would recommend to learn R, and subsequently to learn C++ through **Rcpp** if a need for performance optimization arises.
 Subsequently, you could even implement geoalgorithms you are missing from the most common desktop GIS with the help of **Rcpp**^[Though, in that case we would recommend to contribute the C++ code to one of the open-source GIS packages since this would make the geoalgorithm available to a wider audience.
-In turn, you could access the GIS software via one of the available R-GIS interfaces. <!--(\@ref(gis))]-->].
+In turn, you could access the GIS software via one of the available R-GIS interfaces. <!--(ref(gis))]-->].
 
 Java is another important (and versatile) language used in GIScience.
 For example, the open-source desktop GIS [gvSig](http://www.gvsig.com/en/products/gvsig-desktop), [OpenJump](http://openjump.org/) and [uDig](http://udig.refractions.net/) are written in Java.
@@ -368,8 +362,7 @@ A key feature of **raster** is its ability to work with data sets that are too l
 In parallel with or partly even preceding the development of spatial classes and methods came the support for R as an interface to dedicated GIS software.
 The **GRASS** package [@bivand_using_2000] and follow-on packages **spgrass6** and **rgrass7** (for GRASS GIS 6 and 7, respectively) were prominent examples in this direction [@bivand_spgrass6:_2016;@bivand_rgrass7:_2016].
 Other examples of bridges between R and GIS include **RSAGA** [@R-RSAGA, first published in 2008], **ArcGIS** [@brenning_arcgis_2012, first published in 2008], and **RQGIS** [@R-RQGIS, first published in 2016].
-<!-- ADD THIS LATTER -->
-<!-- More information about interfaces between R and GIS software could be find in \@ref(gis). -->
+<!-- More information about interfaces between R and GIS software could be find in ref(gis). -->
 
 Map making was not a focus of R's early spatial capabilities.
 But soon **sp** provided methods for advanced map making using both the base and lattice plotting system. 
@@ -674,7 +667,10 @@ plot(world["pop"])
 plot(asia, add = TRUE, col = "red")
 ```
 
-<img src="figures/asia-1.png" width="50%" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="figures/asia-1.png" alt="A plot of Asia added as a layer on top of countries worldwide." width="50%" />
+<p class="caption">(\#fig:asia)A plot of Asia added as a layer on top of countries worldwide.</p>
+</div>
 
 This can be very useful for quickly checking the geographic correspondence between two or more layers: 
 the `plot()` function is fast to execute and requires few lines of code, but does not create interactive maps with a wide range of options.
@@ -2520,7 +2516,7 @@ Other spatial subsetting operations such as `st_within()` are more conservative,
 
 Before we progress to explore the differences between different spatial subsetting operations, it is worth seeing alternative ways to acheive the same result,
 to deepen understanding of what is going on 'under the hood' (vital for developing advanced geocomputation applications).
-The second way to reproduce the subsetting operation illustrated in Figure \@ref(fig:buffeq) simply involves expanding the operation over 2 lines:
+The second way to reproduce the subsetting operation illustrated in Figure \@ref(fig:africa-buf) simply involves expanding the operation over 2 lines:
 
 
 ```r
@@ -3031,7 +3027,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.27
+#> [1] 2.15
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3047,7 +3043,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.62
+#> [1] 3.68
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3128,13 +3124,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>    0.06    0.00    0.06
+#>   0.064   0.000   0.060
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.032   0.008   0.040
+#>   0.040   0.004   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.029
+#>   0.028   0.000   0.028
 ```
 
 
