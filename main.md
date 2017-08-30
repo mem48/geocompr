@@ -197,7 +197,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveb52df3bfde7d440e
+preserve96315e80c4bd1bf4
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2458,14 +2458,14 @@ that we can also subset simple features using the `filter()` function, e.g. with
 
 
 ```r
-africa_wgs = world[world$subregion == "Western Africa", ]
+africa_wgs = world[world$continent == "Africa", ]
 ```
 
 To further set-up the input data, we will reproject the data to the coordinate reference system (CRS) 32630 (it's EPSG code, explained in Chapter 6):
 
 
 ```r
-africa = st_transform(africa_wgs, crs = 32630) 
+africa = st_transform(africa_wgs, crs = 32630)
 ```
 
 *Spatial* subsetting in base R use the same method as attribute subsetting, except *another spatial object* is placed inside the square brackets in the place of an `integer` or `logical` vector.
@@ -2498,13 +2498,18 @@ Note that the command emits a message: about assuming `planar coordinates`.
 This is because spatial operations (especially distance and area calculations) cannot be assumed to be accurate in a geographic (longitude/latitude) CRS.
 In this case there is a clear justification: the data is close to the equator where there is least distortion caused by the curvature of the earth, and the example illustrates the method, which would more usually be used on pojected ('planar') data.
 In any case, the spatial subsetting clearly worked.
-As illustrated by Figure \@ref(fig:buffeq), only countries which spatially intersect with the giant circle are returned:
+As illustrated by Figure \@ref(fig:africa-buff), only countries which spatially intersect with the giant circle are returned:
 
 
 ```r
-# plot(africa_buff["pop"])
-# plot(buff, add = TRUE)
+plot(africa_buff["pop"])
+plot(buff, add = TRUE)
 ```
+
+<div class="figure" style="text-align: center">
+<img src="figures/africa-buff-1.png" alt="Subset of the `africa` data selected based on their intersection with a circle 20 degrees in radius with a center point at 0 degrees longitude and 0 degrees latitude." width="576" />
+<p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 20 degrees in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
+</div>
 
 Note that countries that only just touch the giant circle are selected such as the large country at the north of plot (Algeria).
 `st_relates()` includes countries that only touch (but are not within or overlapping with) the selection object.
@@ -2545,7 +2550,7 @@ The reason that the third spatially subset object (`africa_buff3`) is not identi
 
 ```r
 head(row.names(africa_buff))
-#> [1] "14" "15" "32" "60" "61" "62"
+#> [1] "2"  "14" "15" "27" "32" "33"
 head(row.names(africa_buff3))
 #> [1] "1" "2" "3" "4" "5" "6"
 ```
@@ -3047,7 +3052,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.09
+#> [1] 2.29
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3063,10 +3068,10 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 2.81
+#> [1] 3.73
 ```
 
-In this case **sf** was around 3 times faster than **rgdal**.
+In this case **sf** was around 4 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -3144,13 +3149,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.096   0.000   0.095
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.080   0.000   0.084
+#>   0.044   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.036   0.008   0.045
+#>   0.020   0.008   0.029
 ```
 
 
