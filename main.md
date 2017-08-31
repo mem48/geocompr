@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-08-30'
+date: '2017-08-31'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -40,7 +40,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-08-30 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-08-31 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservefe8c64c99b3d5cd2
+preserve2a53685a5a7a1ac6
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3027,7 +3027,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.25
+#> [1] 2.26
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3043,7 +3043,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.59
+#> [1] 3.5
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3124,13 +3124,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.062
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.004   0.042
+#>   0.040   0.000   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.029
+#>   0.028   0.000   0.030
 ```
 
 
@@ -3197,11 +3197,20 @@ file.remove("world.gpkg")
 
 ### Raster data
 
-The `writeRaster()` function save `Raster*` objects to files. 
+The `writeRaster()` function save the `Raster*` objects to files. 
 There are several decision to be made while saving rasters, such as an output data type, file format, and specific GDAL options related to selected file format.
 The complete list of an arguments to this function could be found by typing `?writeRaster()`.
 
 <!-- datatypes -->
+The **raster** package offers nine following datatypes: LOG1S, INT1S, INT1U, INT2S, INT2U, INT4S, INT4U, FLT4S, and FLT8S.
+Datatype determines the type of numbers and the range of the raster values that would be written to disk.
+Decision which datatype should be used depends on the expected range of the values in the output file.
+For example, LOG1S is used for bitmap (binary) images, unsigned integers (INT1U, INT2U, INT4U) are mostly used for categorical data, while floats (FLT4S and FLTS8S) usually represent continuous data.
+The datatype used in `writeRaster()` is FLT4S.
+While it works in most of the cases, the size of the output file would be large.
+Therefore, a rule of thumb is to use the smallest representation that fits all the values (range of values could be checked using the `summary()` function).
+<!-- table? -->
+
 <!-- file formats -->
 <!-- options (geotiff) -->
 
