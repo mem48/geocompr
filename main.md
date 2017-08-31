@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve65a00934d0b3a791
+preservec9affd143d272004
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1201,9 +1201,9 @@ Aside from general raster data manipulation, **raster** provides many low level 
 In this case, **raster** provides the possibility to divide the raster into smaller chunks (rows or blocks), and processes these iteratively instead of loading the whole raster file into RAM (for more information, please refer to `vignette("functions", package = "raster").
 
 For the illustration of the **raster** concepts, we will use datasets from the **spDataLarge** package.
-It consists of a few raster and one vector datasets representing an area of Zion National Park.
+It consists of a few raster and one vector datasets covering an area of the Zion National Park (Utah, USA).
 For example, `srtm.tif` is a digital elevation model of this area (for more details - see its documentation `?srtm`)
-Firstly, we would create a new `RasterLayer` object `new_raster`:
+First of all, we would like to create a `RasterLayer` object named `new_raster`:
 
 
 ```r
@@ -1213,7 +1213,7 @@ raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge")
 new_raster = raster(raster_filepath)
 ```
 
-If you just type the name of the raster in the console, this will print out the raster header (extent, dimensions, resolution, CRS) and some additional information (class, data source name, summary of the raster values): 
+Typing the name of the raster into the console, will print out the raster header (extent, dimensions, resolution, CRS) and some additional information (class, data source name, summary of the raster values): 
 
 
 ```r
@@ -1267,6 +1267,7 @@ crs(new_raster)
 <!--CRSargs(CRS("+init=epsg:4326"))-->
 Note that in contrast to the **sf** package, **raster** only accepts the `proj4string` representation of the coordinate reference system.
 
+<!--
 You can also summarize and plot raster cell values in a non-spatial fashion using base R functions such as `summary()` and `hist()`.
 
 
@@ -1304,6 +1305,7 @@ head(new_raster_values)
 ```
 
 The new vector, `new_raster_values`, can serve as input for subsequent statistical operations.
+-->
 
 Sometimes it is important to know if all values of a raster are currently in memory or on disk.
 Find out with the `inMemory()` function:
@@ -1327,8 +1329,8 @@ plot(new_raster)
 
 <img src="figures/basic-new-raster-plot-1.png" width="576" style="display: block; margin: auto;" />
 
-Moreover, it is possible to plot raster together with vector data.
-For this purpose, we need to read a vector dataset:
+Moreover, it is possible to plot a raster and overlay it with vector data.
+For this purpose, we need to read-in a vector dataset:
 
 
 ```r
@@ -1337,7 +1339,7 @@ new_vector = st_read(vector_filepath)
 ```
 
 Our new object, `new_vector`, is a polygon representing the borders of Zion National Park (`?zion`).
-We could impose these borders on the elevation map again using the `plot()` function, this time with the `add` argument set to `TRUE`:
+We can add the borders to the elevation map using the `add` argument of the `plot()`:
 
 
 ```r
@@ -1347,18 +1349,16 @@ plot(new_vector, add = TRUE)
 
 <img src="figures/basic-new-raster-vector-plot-1.png" width="576" style="display: block; margin: auto;" />
 
-There are several different approaches to plot raster data in R. 
-The **rasterVis** package provides a set of methods for visualizing univariate and multivariate (such as spatiotemporal) rasters.
-Moreover, packages such as **tmap**, **mapview** and **leaflet** facilitate presentation of both, raster and vector, objects. 
+There are several different approaches to plot raster data in R:
+
+- You can use `spplot()` to visualize several (such as spatiotemporal) layers at once. You can also do so  with the **rasterVis** package which provides more advanced methods for plotting raster objects.
+- Packages such as **tmap**, **mapview** and **leaflet** facilitate especially interactive mapping of both raster and vector objects. 
 <!-- TODO: cross reference advanced mapping chapter -->
 
 ### Raster classes
 
 The `RasterLayer` class represents the simplest form of a raster object, and consists of only one layer.
-To create an object of class `RasterLayer`, we can use the `raster()` function.
-This function behavior changes based on a given arguments.
-
-For example, a new `RasterLayer` object could be created from a file, when a path to a raster file is provided:
+The easiest way to create a raster object in R is to read-in a raster file from disk or from a server.
 
 
 ```r
@@ -1366,50 +1366,31 @@ raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge")
 new_raster = raster(raster_filepath)
 ```
 
-Without any arguments, the `raster()` function would create an empty `RasterLayer`:
+The **raster** package support numerous drivers with the help of **rgdal**.
+To find out which drivers are available on your system, run `raster::writeFormats()` and `rgdal::gdalDrivers()`.
 
-
-```r
-new_raster2 = raster()
-new_raster2
-#> class       : RasterLayer 
-#> dimensions  : 180, 360, 64800  (nrow, ncol, ncell)
-#> resolution  : 1, 1  (x, y)
-#> extent      : -180, 180, -90, 90  (xmin, xmax, ymin, ymax)
-#> coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0
-```
-
-An existing raster could be used a as a template for a new object when a main argument `x` is of the `Raster*` class (note that `new_raster3` do not keep the values of `new_raster`):
-
-
-```r
-new_raster3 = raster(new_raster)
-new_raster3
-#> class       : RasterLayer 
-#> dimensions  : 463, 459, 212517  (nrow, ncol, ncell)
-#> resolution  : 73.7, 92.5  (x, y)
-#> extent      : 301929, 335757, 4111262, 4154089  (xmin, xmax, ymin, ymax)
-#> coord. ref. : +proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs
-```
-
-Creation of the `RasterLayer` object is also possible with parameters given by the user.
-In this kind of situations, a number of columns and rows and extent needs to be specified:
+Aside from reading in a raster, you can also create one from scratch.
+Running `raster()` creates an empty `RasterLayer`.
+Here, however, we will create manually a very simple raster.
+This should make it easy to understand how raster and related operations work.
+Our raster should consist of just three rows and columns centered around the null meridian and the equator (see xmn, xmx, ymn and ymx parameters).
+Additionally, we define a resolution of 0.5, which here corresponds to 0.5 degrees since the default proj4string of a raster object is WGS84.
+Finally, we set the values with the vals argument.
+Here, we just number the cells, that means we assign 1 to cell 1, 2 to cell 2, and finally 36 to cell 36.
+We know that there are 36 cells by multiplying six (rows) by six (columns).
+As we have seen above, setting raster values in R corresponds to a rowwise cell filling starting at the upper left corner.
+Consequently, the upper first row contains the values 1 to 6, the second row 7 to 12, and the last row 31 to 36.
 
 
 ```r
 # creation of the RasterLayer object with a given number of columns and rows, and extent
-new_raster4 = raster(ncol = 101, nrow = 77, xmn = 0, xmx = 101, ymn = 0, ymx = 77)
-new_raster4
-#> class       : RasterLayer 
-#> dimensions  : 77, 101, 7777  (nrow, ncol, ncell)
-#> resolution  : 1, 1  (x, y)
-#> extent      : 0, 101, 0, 77  (xmin, xmax, ymin, ymax)
-#> coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0
+new_raster2 = raster(nrow = 6, ncol = 6, res = 0.5, 
+                     xmn = -1.5, xmx = 1.5, ymn = -1.5, ymx = 1.5,
+                     vals = 1:36)
 ```
 
-Finally, this function could create `RasterLayer` based on many types of objects, such as a `matrix`, `Extent` or `Spatial*` (from **sp**) object.
-For more information take a look at the help file - `?raster`.
-
+For still further ways of creating a raster object have a look at the help file - `?raster`.
+<!--
 There are several ways to add new values to the `Raster*` objects.
 Values for the whole object could be add with `setValues()`:
 
@@ -1418,15 +1399,8 @@ Values for the whole object could be add with `setValues()`:
 # adding random values to the raster object
 new_random_values = sample(seq_len(ncell(new_raster4)))
 setValues(new_raster4, new_random_values)
-#> class       : RasterLayer 
-#> dimensions  : 77, 101, 7777  (nrow, ncol, ncell)
-#> resolution  : 1, 1  (x, y)
-#> extent      : 0, 101, 0, 77  (xmin, xmax, ymin, ymax)
-#> coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 
-#> data source : in memory
-#> names       : layer 
-#> values      : 1, 7777  (min, max)
 ```
+
 
 It is also possible to replace cell values by specifying cell numbers, or row and column numbers:
 
@@ -1437,8 +1411,9 @@ new_raster4[15] = 826
 # change the value of the cell in the second row and forth column to 826
 new_raster4[2, 4] = 826 
 ```
+-->
 
-Aside from the `RasterLayer`, there are two additional classes: `RasterBrick` and `RasterStack`.
+Aside from `RasterLayer`, there are two additional classes: `RasterBrick` and `RasterStack`.
 Both can handle multiple layers, but differ regarding the number of supported file formats, type of internal representation and processing speed.
 
 A `RasterBrick` consists of multiple layers, which typically correspond to a multispectral satellite file. 
@@ -1503,8 +1478,8 @@ Note that operations on `RasterBrick` and `RasterStack` objects will typically r
 ## Coordinate Reference Systems {#crs-intro}
 
 <!-- This section is work in progress. -->
-Despite the differences between vector and raster spatial data types, they are united by shared concepts intrinsic to spatial data.
-Perhaps the most important of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other body).
+Despite the differences between vector and raster spatial data types, they share concepts intrinsic to spatial data.
+Perhaps the most important of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other bodies).
 <!-- an intro -->
 <!-- for operation data needs to have the same projection -->
 <!-- (for most of the case is better to reproject vector than raster) -->
@@ -1572,14 +1547,14 @@ st_crs(new_vector)
 
 <!-- https://cran.r-project.org/web/packages/units/vignettes/measurement_units_in_R.html -->
 An important feature of CRSs is that they contain information about spatial units.
-Clearly it's vital to know whether a house's measurements are in feet or meters and the same applies to maps.
+Clearly it is vital to know whether a house's measurements are in feet or meters, and the same applies to maps.
 It is good cartographic practice to add a *scale bar* onto maps to demonstrate the relationship between distances on the page or screen and distances on the ground.
-Likewise, it is important know, and formaly specify the units in which the geometry data or pixels are measured to provide context and ensure that subsequent calculations are done in context.
+Likewise, it is important to formally specify the units in which the geometry data or pixels are measured to provide context, and ensure that subsequent calculations are done in context.
 
 A novel feature of geometry data in `sf` objects is that they have *native support* for units.
 This means that distance, area and other geometric calculations in **sf** return values that come with a `units` attribute, defined by the **units** package [@pebesma_measurement_2016].
 This is advantageous because it prevents confusion caused by the fact that different CRSs use different units (most use meters, some use feet).
-Furthermore, it also provides information on dimensionality, as illustrated by the following calculation which reports to area of Nigeria:
+Furthermore, it also provides information on dimensionality, as illustrated by the following calculation which reports the area of Nigeria:
 
 
 ```r
@@ -1593,10 +1568,9 @@ st_area(nigeria)
 ```
 
 The result is in units of square meters (m^2^), showing a) that the result represents two-dimensional space and b) and that Nigeria is a large country!
-This information, stored as an attribute (which interested readers can discover with `attributes(st_area(nigeria))`) is advantageous for many reasons.
-It could feed-into subsequent calculations such as population density.
-The reporting of units prevents confusion due to mis-understanding units.
-To take the Nigeria example, if the units were not specified, one could incorrectly assume that the units were in km^2^.
+This information, stored as an attribute (which interested readers can discover with `attributes(st_area(nigeria))`) is advantageous for many reasons, for example it could feed into subsequent calculations such as population density.
+Reporting units prevents confusion.
+To take the Nigeria example, if the units remained unspecified, one could incorrectly assume that the units were in km^2^.
 To translate the huge number into a more digestible size, it is tempting to divide the results by a million (the number of square meters in a square kilometer):
 
 
@@ -1613,6 +1587,37 @@ The solution is to set the correct units with the **units** package:
 units::set_units(st_area(nigeria), km^2)
 #> 905072 km^2
 ```
+
+<!-- Is that right? I mean, the units DESCRIPTION says "Support for measurement units in R vectors, matrices and arrays". Since raster datasets are just matrixes, units might be easily used with them?-->
+Units are of equal importance in the case of raster data.
+However, so far **sf** is the only spatial package that supports units, meaning that people working on raster data should approach changes in the units of analysis (e.g., converting pixel widths from imperial to decimal units) with care.
+The `new_raster` object (see above) uses a UTM projection with meters as units.
+Consequently, its resolution is also given in meters but you have to know it, since the `res()` function simply returns a numeric vector.
+
+
+```r
+res(new_raster)
+#> [1] 73.7 92.5
+```
+
+If we used the WGS84 projection, the units would change.
+
+
+```r
+library(rgdal)
+#> rgdal: version: 1.2-8, (SVN revision 663)
+#>  Geospatial Data Abstraction Library extensions to R successfully loaded
+#>  Loaded GDAL runtime: GDAL 2.1.0, released 2016/04/25
+#>  Path to GDAL shared files: /usr/share/gdal/2.1
+#>  Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]
+#>  Path to PROJ.4 shared files: (autodetected)
+#>  Linking to sp version: 1.2-5
+repr = projectRaster(new_raster, crs = "+init=epsg:4326")
+res(repr)
+#> [1] 0.000831 0.000833
+```
+
+Again, the `res()` command gives back a numeric vector without any unit, forcing us to know that the unit of the WGS84 projection is decimal degrees.
 
 <!-- Something about when units are not set: -->
 <!-- ```{r} -->
@@ -3363,10 +3368,10 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.22
+#> [1] 2.59
 ```
 
-The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
+The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries vector.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -3379,10 +3384,10 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.8
+#> [1] 3.35
 ```
 
-In this case **sf** was around 4 times faster than **rgdal**.
+In this case **sf** was around 3 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -3460,13 +3465,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.063
+#>   0.064   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.042
+#>   0.040   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.030
+#>   0.016   0.008   0.027
 ```
 
 

@@ -693,12 +693,12 @@ Figure 2.8: Examples of continuous (left) and categorical (right) raster
 <div id="an-introduction-to-raster" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> An introduction to raster</h3>
 <p>The <strong>raster</strong> package supports raster objects in R. It provides an extensive set of functions to create, read, export, manipulate and process raster datasets. Aside from general raster data manipulation, <strong>raster</strong> provides many low level functions that can form the basis to develop more advanced raster functionality. <strong>raster</strong> also lets you work on large raster datasets that are too large to fit into the main memory . In this case, <strong>raster</strong> provides the possibility to divide the raster into smaller chunks (rows or blocks), and processes these iteratively instead of loading the whole raster file into RAM (for more information, please refer to `vignette(“functions”, package = “raster”).</p>
-<p>For the illustration of the <strong>raster</strong> concepts, we will use datasets from the <strong>spDataLarge</strong> package. It consists of a few raster and one vector datasets representing an area of Zion National Park. For example, <code>srtm.tif</code> is a digital elevation model of this area (for more details - see its documentation <code>?srtm</code>) Firstly, we would create a new <code>RasterLayer</code> object <code>new_raster</code>:</p>
+<p>For the illustration of the <strong>raster</strong> concepts, we will use datasets from the <strong>spDataLarge</strong> package. It consists of a few raster and one vector datasets covering an area of the Zion National Park (Utah, USA). For example, <code>srtm.tif</code> is a digital elevation model of this area (for more details - see its documentation <code>?srtm</code>) First of all, we would like to create a <code>RasterLayer</code> object named <code>new_raster</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spDataLarge)
 <span class="kw">library</span>(raster)
 raster_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/srtm.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
 new_raster =<span class="st"> </span><span class="kw">raster</span>(raster_filepath)</code></pre></div>
-<p>If you just type the name of the raster in the console, this will print out the raster header (extent, dimensions, resolution, CRS) and some additional information (class, data source name, summary of the raster values):</p>
+<p>Typing the name of the raster into the console, will print out the raster header (extent, dimensions, resolution, CRS) and some additional information (class, data source name, summary of the raster values):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_raster
 <span class="co">#&gt; class       : RasterLayer </span>
 <span class="co">#&gt; dimensions  : 463, 459, 212517  (nrow, ncol, ncell)</span>
@@ -729,27 +729,45 @@ new_raster =<span class="st"> </span><span class="kw">raster</span>(raster_filep
 <span class="co">#&gt; +no_defs</span></code></pre></div>
 <!--CRSargs(CRS("+init=epsg:4326"))-->
 <p>Note that in contrast to the <strong>sf</strong> package, <strong>raster</strong> only accepts the <code>proj4string</code> representation of the coordinate reference system.</p>
-<p>You can also summarize and plot raster cell values in a non-spatial fashion using base R functions such as <code>summary()</code> and <code>hist()</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># numerical summary of the data</span>
-<span class="kw">summary</span>(new_raster)
-<span class="co">#&gt; Warning in .local(object, ...): summary is an estimate based on a sample of 1e+05 cells (47.06% of all cells)</span>
-<span class="co">#&gt;         srtm</span>
-<span class="co">#&gt; Min.    1050</span>
-<span class="co">#&gt; 1st Qu. 1544</span>
-<span class="co">#&gt; Median  1840</span>
-<span class="co">#&gt; 3rd Qu. 2121</span>
-<span class="co">#&gt; Max.    2895</span>
-<span class="co">#&gt; NA&#39;s       0</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># histogram of the values</span>
-<span class="kw">hist</span>(new_raster)
-<span class="co">#&gt; Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...):</span>
-<span class="co">#&gt; 47% of the raster cells were used. 100000 values used.</span></code></pre></div>
-<p><img src="figures/new_raster-hist-1.png" width="576" style="display: block; margin: auto;" /></p>
-<p><code>getValues()</code> extracts the values of a raster as a numerical vector. To only select specific rows, use the <code>row</code> parameter.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_raster_values =<span class="st"> </span><span class="kw">getValues</span>(new_raster)
-<span class="kw">head</span>(new_raster_values)
-<span class="co">#&gt; [1] 1743 1739 1730 1721 1715 1709</span></code></pre></div>
-<p>The new vector, <code>new_raster_values</code>, can serve as input for subsequent statistical operations.</p>
+<!--
+You can also summarize and plot raster cell values in a non-spatial fashion using base R functions such as `summary()` and `hist()`.
+
+
+```r
+# numerical summary of the data
+summary(new_raster)
+#> Warning in .local(object, ...): summary is an estimate based on a sample of 1e+05 cells (47.06% of all cells)
+#>         srtm
+#> Min.    1050
+#> 1st Qu. 1544
+#> Median  1840
+#> 3rd Qu. 2121
+#> Max.    2895
+#> NA's       0
+```
+
+
+```r
+# histogram of the values
+hist(new_raster)
+#> Warning in .hist1(x, maxpixels = maxpixels, main = main, plot = plot, ...):
+#> 47% of the raster cells were used. 100000 values used.
+```
+
+<img src="figures/new_raster-hist-1.png" width="576" style="display: block; margin: auto;" />
+
+`getValues()` extracts the values of a raster as a numerical vector.
+To only select specific rows, use the `row` parameter.
+
+
+```r
+new_raster_values = getValues(new_raster)
+head(new_raster_values)
+#> [1] 1743 1739 1730 1721 1715 1709
+```
+
+The new vector, `new_raster_values`, can serve as input for subsequent statistical operations.
+-->
 <p>Sometimes it is important to know if all values of a raster are currently in memory or on disk. Find out with the <code>inMemory()</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">inMemory</span>(new_raster)
 <span class="co">#&gt; [1] FALSE</span></code></pre></div>
@@ -760,65 +778,53 @@ new_raster =<span class="st"> </span><span class="kw">raster</span>(raster_filep
 <p>Similar to the <strong>sf</strong> package, <strong>raster</strong> also provides <code>plot()</code> methods for its own classes.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(new_raster)</code></pre></div>
 <p><img src="figures/basic-new-raster-plot-1.png" width="576" style="display: block; margin: auto;" /></p>
-<p>Moreover, it is possible to plot raster together with vector data. For this purpose, we need to read a vector dataset:</p>
+<p>Moreover, it is possible to plot a raster and overlay it with vector data. For this purpose, we need to read-in a vector dataset:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vector_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;vector/zion.gpkg&quot;</span>, <span class="dt">package=</span><span class="st">&quot;spDataLarge&quot;</span>)
 new_vector =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)</code></pre></div>
-<p>Our new object, <code>new_vector</code>, is a polygon representing the borders of Zion National Park (<code>?zion</code>). We could impose these borders on the elevation map again using the <code>plot()</code> function, this time with the <code>add</code> argument set to <code>TRUE</code>:</p>
+<p>Our new object, <code>new_vector</code>, is a polygon representing the borders of Zion National Park (<code>?zion</code>). We can add the borders to the elevation map using the <code>add</code> argument of the <code>plot()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(new_raster)
 <span class="kw">plot</span>(new_vector, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="figures/basic-new-raster-vector-plot-1.png" width="576" style="display: block; margin: auto;" /></p>
-<p>There are several different approaches to plot raster data in R. The <strong>rasterVis</strong> package provides a set of methods for visualizing univariate and multivariate (such as spatiotemporal) rasters. Moreover, packages such as <strong>tmap</strong>, <strong>mapview</strong> and <strong>leaflet</strong> facilitate presentation of both, raster and vector, objects. <!-- TODO: cross reference advanced mapping chapter --></p>
+<p>There are several different approaches to plot raster data in R:</p>
+<ul>
+<li>You can use <code>spplot()</code> to visualize several (such as spatiotemporal) layers at once. You can also do so with the <strong>rasterVis</strong> package which provides more advanced methods for plotting raster objects.</li>
+<li>Packages such as <strong>tmap</strong>, <strong>mapview</strong> and <strong>leaflet</strong> facilitate especially interactive mapping of both raster and vector objects. <!-- TODO: cross reference advanced mapping chapter --></li>
+</ul>
 </div>
 <div id="raster-classes" class="section level3">
 <h3><span class="header-section-number">2.2.3</span> Raster classes</h3>
-<p>The <code>RasterLayer</code> class represents the simplest form of a raster object, and consists of only one layer. To create an object of class <code>RasterLayer</code>, we can use the <code>raster()</code> function. This function behavior changes based on a given arguments.</p>
-<p>For example, a new <code>RasterLayer</code> object could be created from a file, when a path to a raster file is provided:</p>
+<p>The <code>RasterLayer</code> class represents the simplest form of a raster object, and consists of only one layer. The easiest way to create a raster object in R is to read-in a raster file from disk or from a server.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">raster_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/srtm.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
 new_raster =<span class="st"> </span><span class="kw">raster</span>(raster_filepath)</code></pre></div>
-<p>Without any arguments, the <code>raster()</code> function would create an empty <code>RasterLayer</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_raster2 =<span class="st"> </span><span class="kw">raster</span>()
-new_raster2
-<span class="co">#&gt; class       : RasterLayer </span>
-<span class="co">#&gt; dimensions  : 180, 360, 64800  (nrow, ncol, ncell)</span>
-<span class="co">#&gt; resolution  : 1, 1  (x, y)</span>
-<span class="co">#&gt; extent      : -180, 180, -90, 90  (xmin, xmax, ymin, ymax)</span>
-<span class="co">#&gt; coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0</span></code></pre></div>
-<p>An existing raster could be used a as a template for a new object when a main argument <code>x</code> is of the <code>Raster*</code> class (note that <code>new_raster3</code> do not keep the values of <code>new_raster</code>):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_raster3 =<span class="st"> </span><span class="kw">raster</span>(new_raster)
-new_raster3
-<span class="co">#&gt; class       : RasterLayer </span>
-<span class="co">#&gt; dimensions  : 463, 459, 212517  (nrow, ncol, ncell)</span>
-<span class="co">#&gt; resolution  : 73.7, 92.5  (x, y)</span>
-<span class="co">#&gt; extent      : 301929, 335757, 4111262, 4154089  (xmin, xmax, ymin, ymax)</span>
-<span class="co">#&gt; coord. ref. : +proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs</span></code></pre></div>
-<p>Creation of the <code>RasterLayer</code> object is also possible with parameters given by the user. In this kind of situations, a number of columns and rows and extent needs to be specified:</p>
+<p>The <strong>raster</strong> package support numerous drivers with the help of <strong>rgdal</strong>. To find out which drivers are available on your system, run <code>raster::writeFormats()</code> and <code>rgdal::gdalDrivers()</code>.</p>
+<p>Aside from reading in a raster, you can also create one from scratch. Running <code>raster()</code> creates an empty <code>RasterLayer</code>. Here, however, we will create manually a very simple raster. This should make it easy to understand how raster and related operations work. Our raster should consist of just three rows and columns centered around the null meridian and the equator (see xmn, xmx, ymn and ymx parameters). Additionally, we define a resolution of 0.5, which here corresponds to 0.5 degrees since the default proj4string of a raster object is WGS84. Finally, we set the values with the vals argument. Here, we just number the cells, that means we assign 1 to cell 1, 2 to cell 2, and finally 36 to cell 36. We know that there are 36 cells by multiplying six (rows) by six (columns). As we have seen above, setting raster values in R corresponds to a rowwise cell filling starting at the upper left corner. Consequently, the upper first row contains the values 1 to 6, the second row 7 to 12, and the last row 31 to 36.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># creation of the RasterLayer object with a given number of columns and rows, and extent</span>
-new_raster4 =<span class="st"> </span><span class="kw">raster</span>(<span class="dt">ncol =</span> <span class="dv">101</span>, <span class="dt">nrow =</span> <span class="dv">77</span>, <span class="dt">xmn =</span> <span class="dv">0</span>, <span class="dt">xmx =</span> <span class="dv">101</span>, <span class="dt">ymn =</span> <span class="dv">0</span>, <span class="dt">ymx =</span> <span class="dv">77</span>)
-new_raster4
-<span class="co">#&gt; class       : RasterLayer </span>
-<span class="co">#&gt; dimensions  : 77, 101, 7777  (nrow, ncol, ncell)</span>
-<span class="co">#&gt; resolution  : 1, 1  (x, y)</span>
-<span class="co">#&gt; extent      : 0, 101, 0, 77  (xmin, xmax, ymin, ymax)</span>
-<span class="co">#&gt; coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0</span></code></pre></div>
-<p>Finally, this function could create <code>RasterLayer</code> based on many types of objects, such as a <code>matrix</code>, <code>Extent</code> or <code>Spatial*</code> (from <strong>sp</strong>) object. For more information take a look at the help file - <code>?raster</code>.</p>
-<p>There are several ways to add new values to the <code>Raster*</code> objects. Values for the whole object could be add with <code>setValues()</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># adding random values to the raster object</span>
-new_random_values =<span class="st"> </span><span class="kw">sample</span>(<span class="kw">seq_len</span>(<span class="kw">ncell</span>(new_raster4)))
-<span class="kw">setValues</span>(new_raster4, new_random_values)
-<span class="co">#&gt; class       : RasterLayer </span>
-<span class="co">#&gt; dimensions  : 77, 101, 7777  (nrow, ncol, ncell)</span>
-<span class="co">#&gt; resolution  : 1, 1  (x, y)</span>
-<span class="co">#&gt; extent      : 0, 101, 0, 77  (xmin, xmax, ymin, ymax)</span>
-<span class="co">#&gt; coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 </span>
-<span class="co">#&gt; data source : in memory</span>
-<span class="co">#&gt; names       : layer </span>
-<span class="co">#&gt; values      : 1, 7777  (min, max)</span></code></pre></div>
-<p>It is also possible to replace cell values by specifying cell numbers, or row and column numbers:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># change the value of 15th cell to 826</span>
-new_raster4[<span class="dv">15</span>] =<span class="st"> </span><span class="dv">826</span>
-<span class="co"># change the value of the cell in the second row and forth column to 826</span>
-new_raster4[<span class="dv">2</span>, <span class="dv">4</span>] =<span class="st"> </span><span class="dv">826</span> </code></pre></div>
-<p>Aside from the <code>RasterLayer</code>, there are two additional classes: <code>RasterBrick</code> and <code>RasterStack</code>. Both can handle multiple layers, but differ regarding the number of supported file formats, type of internal representation and processing speed.</p>
+new_raster2 =<span class="st"> </span><span class="kw">raster</span>(<span class="dt">nrow =</span> <span class="dv">6</span>, <span class="dt">ncol =</span> <span class="dv">6</span>, <span class="dt">res =</span> <span class="fl">0.5</span>, 
+                     <span class="dt">xmn =</span> -<span class="fl">1.5</span>, <span class="dt">xmx =</span> <span class="fl">1.5</span>, <span class="dt">ymn =</span> -<span class="fl">1.5</span>, <span class="dt">ymx =</span> <span class="fl">1.5</span>,
+                     <span class="dt">vals =</span> <span class="dv">1</span>:<span class="dv">36</span>)</code></pre></div>
+<p>For still further ways of creating a raster object have a look at the help file - <code>?raster</code>. <!--
+There are several ways to add new values to the `Raster*` objects.
+Values for the whole object could be add with `setValues()`:
+
+
+```r
+# adding random values to the raster object
+new_random_values = sample(seq_len(ncell(new_raster4)))
+setValues(new_raster4, new_random_values)
+```
+
+
+It is also possible to replace cell values by specifying cell numbers, or row and column numbers:
+
+
+```r
+# change the value of 15th cell to 826
+new_raster4[15] = 826
+# change the value of the cell in the second row and forth column to 826
+new_raster4[2, 4] = 826 
+```
+--></p>
+<p>Aside from <code>RasterLayer</code>, there are two additional classes: <code>RasterBrick</code> and <code>RasterStack</code>. Both can handle multiple layers, but differ regarding the number of supported file formats, type of internal representation and processing speed.</p>
 <p>A <code>RasterBrick</code> consists of multiple layers, which typically correspond to a multispectral satellite file. The <code>brick()</code> function creates a <code>RasterBrick</code> object. Usually, you provide it with a filename to a multilayer raster file but might also use another raster object and other spatial objects (see its help page for all supported formats).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">multilayer_raster_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat.tif&quot;</span>, <span class="dt">package=</span><span class="st">&quot;spDataLarge&quot;</span>)
 r_brick =<span class="st"> </span><span class="kw">brick</span>(multilayer_raster_filepath)
@@ -856,7 +862,7 @@ r_stack
 <div id="crs-intro" class="section level2">
 <h2><span class="header-section-number">2.3</span> Coordinate Reference Systems</h2>
 <!-- This section is work in progress. -->
-<p>Despite the differences between vector and raster spatial data types, they are united by shared concepts intrinsic to spatial data. Perhaps the most important of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other body). <!-- an intro --> <!-- for operation data needs to have the same projection --> <!-- (for most of the case is better to reproject vector than raster) --></p>
+<p>Despite the differences between vector and raster spatial data types, they share concepts intrinsic to spatial data. Perhaps the most important of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other bodies). <!-- an intro --> <!-- for operation data needs to have the same projection --> <!-- (for most of the case is better to reproject vector than raster) --></p>
 <p>In <strong>sf</strong> the CRS of an object can be retrieved and set using <code>st_crs()</code> and <code>st_set_crs()</code> respectively:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">old_crs =<span class="st"> </span><span class="kw">st_crs</span>(new_vector) <span class="co"># get CRS</span>
 old_crs <span class="co"># print CRS</span>
@@ -907,17 +913,34 @@ Figure 2.10: Examples of projected (left) and geographic (right) coordinate syst
 <div id="units" class="section level2">
 <h2><span class="header-section-number">2.4</span> Units</h2>
 <!-- https://cran.r-project.org/web/packages/units/vignettes/measurement_units_in_R.html -->
-<p>An important feature of CRSs is that they contain information about spatial units. Clearly it’s vital to know whether a house’s measurements are in feet or meters and the same applies to maps. It is good cartographic practice to add a <em>scale bar</em> onto maps to demonstrate the relationship between distances on the page or screen and distances on the ground. Likewise, it is important know, and formaly specify the units in which the geometry data or pixels are measured to provide context and ensure that subsequent calculations are done in context.</p>
-<p>A novel feature of geometry data in <code>sf</code> objects is that they have <em>native support</em> for units. This means that distance, area and other geometric calculations in <strong>sf</strong> return values that come with a <code>units</code> attribute, defined by the <strong>units</strong> package <span class="citation">(Pebesma, Mailund, and Hiebert <a href="#ref-pebesma_measurement_2016">2016</a>)</span>. This is advantageous because it prevents confusion caused by the fact that different CRSs use different units (most use meters, some use feet). Furthermore, it also provides information on dimensionality, as illustrated by the following calculation which reports to area of Nigeria:</p>
+<p>An important feature of CRSs is that they contain information about spatial units. Clearly it is vital to know whether a house’s measurements are in feet or meters, and the same applies to maps. It is good cartographic practice to add a <em>scale bar</em> onto maps to demonstrate the relationship between distances on the page or screen and distances on the ground. Likewise, it is important to formally specify the units in which the geometry data or pixels are measured to provide context, and ensure that subsequent calculations are done in context.</p>
+<p>A novel feature of geometry data in <code>sf</code> objects is that they have <em>native support</em> for units. This means that distance, area and other geometric calculations in <strong>sf</strong> return values that come with a <code>units</code> attribute, defined by the <strong>units</strong> package <span class="citation">(Pebesma, Mailund, and Hiebert <a href="#ref-pebesma_measurement_2016">2016</a>)</span>. This is advantageous because it prevents confusion caused by the fact that different CRSs use different units (most use meters, some use feet). Furthermore, it also provides information on dimensionality, as illustrated by the following calculation which reports the area of Nigeria:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nigeria =<span class="st"> </span>world[world$name_long ==<span class="st"> &quot;Nigeria&quot;</span>, ]</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_area</span>(nigeria)
 <span class="co">#&gt; 9.05e+11 m^2</span></code></pre></div>
-<p>The result is in units of square meters (m<sup>2</sup>), showing a) that the result represents two-dimensional space and b) and that Nigeria is a large country! This information, stored as an attribute (which interested readers can discover with <code>attributes(st_area(nigeria))</code>) is advantageous for many reasons. It could feed-into subsequent calculations such as population density. The reporting of units prevents confusion due to mis-understanding units. To take the Nigeria example, if the units were not specified, one could incorrectly assume that the units were in km<sup>2</sup>. To translate the huge number into a more digestible size, it is tempting to divide the results by a million (the number of square meters in a square kilometer):</p>
+<p>The result is in units of square meters (m<sup>2</sup>), showing a) that the result represents two-dimensional space and b) and that Nigeria is a large country! This information, stored as an attribute (which interested readers can discover with <code>attributes(st_area(nigeria))</code>) is advantageous for many reasons, for example it could feed into subsequent calculations such as population density. Reporting units prevents confusion. To take the Nigeria example, if the units remained unspecified, one could incorrectly assume that the units were in km<sup>2</sup>. To translate the huge number into a more digestible size, it is tempting to divide the results by a million (the number of square meters in a square kilometer):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_area</span>(nigeria) /<span class="st"> </span><span class="fl">1e6</span>
 <span class="co">#&gt; 905072 m^2</span></code></pre></div>
 <p>However, the result is incorrectly given again as square meters. The solution is to set the correct units with the <strong>units</strong> package:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">units::<span class="kw">set_units</span>(<span class="kw">st_area</span>(nigeria), km^<span class="dv">2</span>)
 <span class="co">#&gt; 905072 km^2</span></code></pre></div>
+<!-- Is that right? I mean, the units DESCRIPTION says "Support for measurement units in R vectors, matrices and arrays". Since raster datasets are just matrixes, units might be easily used with them?-->
+<p>Units are of equal importance in the case of raster data. However, so far <strong>sf</strong> is the only spatial package that supports units, meaning that people working on raster data should approach changes in the units of analysis (e.g., converting pixel widths from imperial to decimal units) with care. The <code>new_raster</code> object (see above) uses a UTM projection with meters as units. Consequently, its resolution is also given in meters but you have to know it, since the <code>res()</code> function simply returns a numeric vector.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">res</span>(new_raster)
+<span class="co">#&gt; [1] 73.7 92.5</span></code></pre></div>
+<p>If we used the WGS84 projection, the units would change.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rgdal)
+<span class="co">#&gt; rgdal: version: 1.2-8, (SVN revision 663)</span>
+<span class="co">#&gt;  Geospatial Data Abstraction Library extensions to R successfully loaded</span>
+<span class="co">#&gt;  Loaded GDAL runtime: GDAL 2.1.0, released 2016/04/25</span>
+<span class="co">#&gt;  Path to GDAL shared files: /usr/share/gdal/2.1</span>
+<span class="co">#&gt;  Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]</span>
+<span class="co">#&gt;  Path to PROJ.4 shared files: (autodetected)</span>
+<span class="co">#&gt;  Linking to sp version: 1.2-5</span>
+repr =<span class="st"> </span><span class="kw">projectRaster</span>(new_raster, <span class="dt">crs =</span> <span class="st">&quot;+init=epsg:4326&quot;</span>)
+<span class="kw">res</span>(repr)
+<span class="co">#&gt; [1] 0.000831 0.000833</span></code></pre></div>
+<p>Again, the <code>res()</code> command gives back a numeric vector without any unit, forcing us to know that the unit of the WGS84 projection is decimal degrees.</p>
 <!-- Something about when units are not set: -->
 <!-- ```{r} -->
 <!-- st_distance(sf_point1, sf_point2) -->
