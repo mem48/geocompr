@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveb67d9fd613105d96
+preserve8ead114531295fa1
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2364,8 +2364,8 @@ However, here we will use both numerical and categorical data as raster values.
 Next we will have a look at subsetting operations. 
 And finally, we classify raster operations into four categories using the map algebra scheme [@tomlin_geographic_1990], and present each of these classes individually by example.
 
-Let us start with manually recreating the raster dataset of Chapter \@ref{raster-data}.
-This should make it easy to understand how **raster** and related operations work (Figure \@ref(fig:cont_cate_rasters)).
+Let us start with manually recreating the raster dataset of Chapter \@ref{raster-classes}.
+This should make it easy to understand how **raster** and related operations work (Figure \@ref(cont-cate-rasters)).
 
 
 ```r
@@ -2421,7 +2421,7 @@ See the help page of the `ratify()` command for more information.
 
 <div class="figure" style="text-align: center">
 <img src="figures/03_cont_categ_rasters.png" alt="Raster with numberic values (left) and a raster with categorical values" width="475" />
-<p class="caption">(\#fig:cont_cate_rasters)Raster with numberic values (left) and a raster with categorical values</p>
+<p class="caption">(\#fig:cont-cate-rasters)Raster with numberic values (left) and a raster with categorical values</p>
 </div>
 
 ### Raster subsetting
@@ -3368,7 +3368,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 1.89
+#> [1] 2.11
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3384,10 +3384,10 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.7
+#> [1] 3.35
 ```
 
-In this case **sf** was around 4 times faster than **rgdal**.
+In this case **sf** was around 3 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -3465,13 +3465,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.062
+#>   0.072   0.000   0.074
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.042
+#>   0.060   0.000   0.058
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.029
+#>   0.020   0.012   0.034
 ```
 
 
