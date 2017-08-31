@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve89f26a4d2a8c701b
+preservedaf259c1f03c85cd
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2364,21 +2364,12 @@ However, here we will use both numerical and categorical data as raster values.
 Next we will have a look at subsetting operations. 
 And finally, we classify raster operations into four categories using the map algebra scheme [@tomlin_geographic_1990], and present each of these classes individually by example.
 
-Let us start with manually recreating the raster dataset of Chapter \@ref{raster-classes}.
+Let us start with manually recreating the raster dataset of Chapter \@ref(raster-classes).
 This should make it easy to understand how **raster** and related operations work (Figure \@ref(fig:cont-cate-rasters)).
 
 
 ```r
 library(raster)
-#> Loading required package: sp
-#> 
-#> Attaching package: 'raster'
-#> The following object is masked from 'package:dplyr':
-#> 
-#>     select
-#> The following object is masked from 'package:tidyr':
-#> 
-#>     extract
 r = raster(nrow = 6, ncol = 6, res = 0.5, 
            xmn = -1.5, xmx = 1.5, ymn = -1.5, ymx = 1.5,
            vals = 1:36)
@@ -2386,7 +2377,7 @@ r = raster(nrow = 6, ncol = 6, res = 0.5,
 
 Note that a raster object can also contain categorical data.
 For this, we can use either boolean or factor variables in R.
-For instance, we can create a raster representing grain sizes (Figure @ref(fig:cont_cate_rasters)):
+For instance, we can create a raster representing grain sizes (Figure \@ref(fig:cont-cate-rasters)):
 
 
 ```r
@@ -2524,12 +2515,12 @@ Predictive mapping is another interesting application of local raster operations
 The response variable correspond to measured or observed points in space, for example, species richness, the presence of landslides, tree disease or crop yield.
 Consequently, we can easily retrieve space- or airborne predictor variables from various rasters (elevation, pH, precipitation, temperature, landcover, soil class, etc.).
 Subsequently, we model our response as a function of our predictors using `lm`, `glm`, `gam` or a machine-learning technique. 
-To make a spatial prediction, all we have to do, is to apply the estimated coefficients to the predictor rasters, and summing up the resulting output rasters (Chapter ??; see also @muenchow_predictive_2013).
+To make a spatial prediction, all we have to do, is to apply the estimated coefficients to the predictor rasters, and summing up the resulting output rasters (<!--Chapter ??; -->see also @muenchow_predictive_2013).
 <!-- add reference to chapter ecological modeling -->
 
 While local functions operate on one cell, though possibly from multiple layers, **focal** operations take into account a central cell and its neigbors.
 The neigborhood (also named kernel, filter or moving window) under consideration is typically of size 3-by-3 cells (that is the central cell and its eight surrounding neighbors) but can take on any other (not necessarily rectangular) shape as defined by the user.
-A focal operation applies an aggregation function to all cells within the specified neighborhood, uses the corresponding output as the new value for the the central cell, and moves on to the next central cell (Figure @ref(fig:focal_example)).
+A focal operation applies an aggregation function to all cells within the specified neighborhood, uses the corresponding output as the new value for the the central cell, and moves on to the next central cell (Figure \@ref(fig:focal-example)).
 Other names for this operation are spatial filtering and convolution [@burrough_principles_2015].
 
 In R, we can use the `focal()` function to perform spatial filtering. 
@@ -2544,7 +2535,7 @@ r_focal = focal(r, w = matrix(1, nrow = 3, ncol = 3), fun = min)
 
 <div class="figure" style="text-align: center">
 <img src="figures/03_focal_example.png" alt="Input raster (left) and resulting output raster (right) due to a focal operation - summing up 3-by-3 windows" width="475" />
-<p class="caption">(\#fig:focal_example)Input raster (left) and resulting output raster (right) due to a focal operation - summing up 3-by-3 windows</p>
+<p class="caption">(\#fig:focal-example)Input raster (left) and resulting output raster (right) due to a focal operation - summing up 3-by-3 windows</p>
 </div>
 
 We can quickly check if the output meets our expectations.
@@ -2572,7 +2563,7 @@ In Chapter 13 we will learn how to access GIS functionality from within R.
 
 *Zonal* operations are similar to focal operations.
 The difference is that zonal filters can take on any shape instead of just a predefined window.
-Our grain size raster is a good example (Figure @ref(fig:cont_cate_rasters)) because the different grain sizes are spread in an irregular fashion throughout the raster.
+Our grain size raster is a good example (Figure \@ref(fig:cont-cate-rasters)) because the different grain sizes are spread in an irregular fashion throughout the raster.
 
 Now suppose, the first raster we created (`r`) represents elevation. 
 To find the mean elevation for each grain size class, we can use the `zonal()` command.
@@ -3368,7 +3359,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.3
+#> [1] 2.32
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3384,10 +3375,10 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.49
+#> [1] 3.58
 ```
 
-In this case **sf** was around 3 times faster than **rgdal**.
+In this case **sf** was around 4 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -3465,13 +3456,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.066
+#>   0.060   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.048   0.000   0.046
+#>   0.040   0.004   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.008   0.034
+#>   0.020   0.008   0.030
 ```
 
 
