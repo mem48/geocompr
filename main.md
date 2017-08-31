@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve8ead114531295fa1
+preserve89f26a4d2a8c701b
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1355,7 +1355,7 @@ There are several different approaches to plot raster data in R:
 - Packages such as **tmap**, **mapview** and **leaflet** facilitate especially interactive mapping of both raster and vector objects. 
 <!-- TODO: cross reference advanced mapping chapter -->
 
-### Raster classes
+### Raster classes {#raster-classes}
 
 The `RasterLayer` class represents the simplest form of a raster object, and consists of only one layer.
 The easiest way to create a raster object in R is to read-in a raster file from disk or from a server.
@@ -2365,7 +2365,7 @@ Next we will have a look at subsetting operations.
 And finally, we classify raster operations into four categories using the map algebra scheme [@tomlin_geographic_1990], and present each of these classes individually by example.
 
 Let us start with manually recreating the raster dataset of Chapter \@ref{raster-classes}.
-This should make it easy to understand how **raster** and related operations work (Figure \@ref(cont-cate-rasters)).
+This should make it easy to understand how **raster** and related operations work (Figure \@ref(fig:cont-cate-rasters)).
 
 
 ```r
@@ -3368,7 +3368,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.11
+#> [1] 2.3
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3384,7 +3384,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.35
+#> [1] 3.49
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3465,13 +3465,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.072   0.000   0.074
+#>   0.064   0.000   0.066
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.060   0.000   0.058
+#>   0.048   0.000   0.046
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.034
+#>   0.028   0.008   0.034
 ```
 
 
