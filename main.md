@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve2126904b0ec59ab7
+preserve10e57170a4780702
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2855,7 +2855,7 @@ sel_buff = st_intersects(x = africa, y = buff, sparse = FALSE)
 africa_buff2 = africa[sel_buff, ]
 ```
 
-The third way is essentially the same as the second, but uses the `filter()` function introduced in section \@ref(attribute-subsetting), forming the foundations of a 'tidy' spatial data analysis workflow.
+The third way is essentially the same as the second, but uses the `filter()` function introduced in section \@ref(vector-attribute-subsetting), forming the foundations of a 'tidy' spatial data analysis workflow.
 If you already use **dplyr** for data manipulation, this way should seem familiar:
 
 
@@ -2911,12 +2911,12 @@ row.names(filter(africa, subregion == "Northern Europe"))
 
 ## Spatial aggregation 
 
-Like attribute data aggregation, covered in section \@ref(attribute-data-aggregation), spatial data aggregation is a way of *condensing* data.
+Like attribute data aggregation, covered in section \@ref(vector-attribute-aggregation), spatial data aggregation is a way of *condensing* data.
 Aggregated data show some statistic about a variable (typically mean average or total) in relation to some kind of *grouping variable*. 
 For attribute data aggregation the grouping variable is another variable, typically one with few unique values relative to the number of rows.
 The `continent` variable in the `world` dataset is a good example:
 there are only 8 unique continents but 177 countries.
-In section \@ref(attribute-data-aggregation) the aggregation process condensed the `world` dataset down into only 8 rows and an aggregated `pop` variable representing the total population per continent (see Figure \@ref(fig:continent-pop)).
+In section \@ref(vector-attribute-aggregation) the aggregation process condensed the `world` dataset down into only 8 rows and an aggregated `pop` variable representing the total population per continent (see Figure \@ref(fig:continent-pop)).
 
 Spatial data aggregation is the same conceptually but uses a *spatial* grouping object:
 the *output* is the same, in terms of number of rows/features and geometry, as the *grouping object*, but with new variables corresponding to the input dataset.
@@ -3378,7 +3378,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.74
+#> [1] 3.69
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3459,13 +3459,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.062
+#>   0.060   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.044   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.030
+#>   0.012   0.016   0.029
 ```
 
 
