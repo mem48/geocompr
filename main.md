@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve15d1e14cc566acdf
+preserve268466ee5a51b614
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2359,10 +2359,9 @@ class(world_data)
 
 ## Manipulating raster objects
 In contrast to simple features (vector data), raster data represents continuous surfaces.
-In the following, we shortly repeat how to create a raster.
-However, here we will use both numerical and categorical data as raster values.
-Next we will have a look at subsetting operations. 
-And finally, we classify raster operations into four categories using the map algebra scheme [@tomlin_geographic_1990], and present each of these classes individually by example.
+In this section we will use a raster object created *from scratch*, building on section \@ref(an-introduction-to-raster).
+Raster data has a fundamentally different structure than vector data, so subsetting and other operations work in a different way, as demonstrated in section \@ref(raster-subsetting).
+Raster operations can be classified into four categories using the map algebra scheme [@tomlin_geographic_1990], as we will see in section \@ref(map-algebra).
 
 Let us start with manually recreating the raster dataset of Chapter \@ref(raster-classes).
 This should make it easy to understand how **raster** and related operations work (Figure \@ref(fig:cont-cate-rasters)).
@@ -3363,7 +3362,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.18
+#> [1] 2.19
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3379,7 +3378,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.61
+#> [1] 3.65
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3460,13 +3459,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.067
+#>   0.060   0.004   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.047
+#>   0.044   0.000   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.032   0.000   0.032
+#>   0.024   0.004   0.029
 ```
 
 
