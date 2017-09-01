@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee5bfa067c1712254
+preserved3c6c0d5b1e29dc5
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2947,12 +2947,13 @@ The results of the spatial aggregation exercise presented in Figure \@ref(fig:bu
 - It is wrong to assume that all the people living in countries that *touch* the buffer reside *within* it (the default spatial operator `st_intersects()` is too 'greedy'). The most extreme example of this is Algeria, the most northerly country selected:
 the spatial aggregation operation assumes that all 39 million Algerian citizens reside in the tiny southerly tip that is within the circular buffer.
 
-A number of methods can be used to overcome these issues, which result in unrealistically high population attributed to the circular buffer illustrated in Figure \@ref(fig:buff-agg).
-The simplest of these is to convert the country polygons into points representing their *geographic centroids* before aggregation.
+A number of methods can be used to overcome these issues, and generate a more realistic population attributed to the circular buffer illustrated in Figure \@ref(fig:buff-agg).
+The simplest of these is to convert the country polygons into points representing their *geographic centroids* before aggregation, covered in section \@ref(modifying-geometry-data).
 <!-- Todo: reference section where we demonstrate geographic centroid generation -->
 This would ensure that any spatially contiguous aggregating object covering the target object (the Earth in this case) would result in the same total: there would be no double counting.
 The estimated total population residing within the study area would be more realistic if geographic centroids were used.
 (The centroid of Algeria, for example, is far outside the aggregating buffer.)
+
 Except in cases where the number of target features per aggregating feature is very large, or where the aggregating object is *spatially congruent* with the target (covered in section \@ref(spatial-congruence-and-areal-interpolation)), using centroids can also lead to errors due to boundary effects:
 imagine a buffer that covers a large area but contains no centroids.
 These issues can be tackled when aggregating areal target data with areal interpolation.
@@ -2961,6 +2962,7 @@ These issues can be tackled when aggregating areal target data with areal interp
 
 Spatial congruence is an important concept related to spatial aggregation.
 An *aggregating object* object (which we will refer to as `y`, representing the buffer object in the previous section) is *congruent* with the target object (`x`, representing the countries in the previous section) if the two objects have shared borders.
+Often this is the case for administrative boundary data, whereby the larger units (e.g. Middle Layer Super Output Areas in the UK) are composed of many smaller units (Output Areas in this case, see [ons.gov.uk](https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography) for further details).
 
 *Incongruent* aggregating objects, by contrast, do not share common borders with the target [@qiu_development_2012].
 This is problematic for spatial aggregation (and other spatial operations) illustrated in Figure \@ref(fig:areal-example).
@@ -3361,7 +3363,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.41
+#> [1] 2.27
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3377,10 +3379,10 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.49
+#> [1] 3.67
 ```
 
-In this case **sf** was around 3 times faster than **rgdal**.
+In this case **sf** was around 4 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -3458,13 +3460,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.056   0.004   0.060
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.042
+#>    0.04    0.00    0.04
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.004   0.030
+#>   0.016   0.012   0.028
 ```
 
 
