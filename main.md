@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve268466ee5a51b614
+preservee9fff88a07d55f22
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2775,7 +2775,7 @@ but also `st_intersects()` is useful as a 'catch all' that identifies all types 
 In general terms, spatial subsetting is simply the spatial equivalent of *attribute subsetting*.
 However, to do spatial subsetting *two spatial objects are needed* the spatial relation between which is to be established.
 As with attribute subsetting, spatial subsetting is a *binary operation*: an object is either selected or not.
-As in section \@ref(attribute-subsetting), we start with base methods before describing how to do it in the **tidyverse**.
+As in section \@ref(vector-attribute-subsetting), we start with base methods before describing how to do it in the **tidyverse**.
 <!-- todo: link to non-binary links, e.g. area-weighted spatial interpolation -->
 
 <!-- ### Spatial subsetting in base R -->
@@ -3362,7 +3362,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.19
+#> [1] 2.21
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3378,7 +3378,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.65
+#> [1] 3.64
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3459,13 +3459,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.004   0.062
+#>   0.064   0.000   0.065
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.044   0.000   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.029
+#>   0.016   0.012   0.029
 ```
 
 
