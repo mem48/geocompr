@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservebd5827e664c07152
+preserve008b2197874d4feb
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2782,7 +2782,7 @@ As in section \@ref(attribute-subsetting), we start with base methods before des
 <!-- ### Spatial subsetting in base R -->
 
 Attribute subsetting in base R is done with the `[` operator and passing into the square brackets a vector of class `integer` (whole numbers) or `logical` (a vector of `TRUE`s and `FALSE`s).
-This means `world[1:6,]` subsets the first 6 countries of the world and that `world[world$area_km2 < 10000,]` returns the subset of countries that have a small surface area.
+This means `world[1:6, ]` subsets the first 6 countries of the world and that `world[world$area_km2 < 10000, ]` returns the subset of countries that have a small surface area.
 For this chapter we will use countries in Africa, which can be generated using this method as
 follows:^[Recall
 that we can also subset simple features using the `filter()` function, e.g. with `filter(world, continent == "Africa")`]
@@ -2904,7 +2904,7 @@ For further discussion of this decision, and some controversy, see the (closed) 
 
 
 ```r
-row.names(africa[africa$subregion == "Northern Europe",])
+row.names(africa[africa$subregion == "Northern Europe", ])
 #> character(0)
 row.names(filter(africa, subregion == "Northern Europe"))
 #> character(0)
@@ -3361,7 +3361,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.26
+#> [1] 2.31
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3377,10 +3377,10 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.57
+#> [1] 3.22
 ```
 
-In this case **sf** was around 4 times faster than **rgdal**.
+In this case **sf** was around 3 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -3458,13 +3458,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.068   0.000   0.068
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.042
+#>   0.048   0.000   0.050
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.020   0.012   0.032
 ```
 
 
