@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserved3c6c0d5b1e29dc5
+preserve15d1e14cc566acdf
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1753,7 +1753,7 @@ The former provides fast and powerful functions for data manipulation (see [Sect
 ]
 This chapter focuses on **dplyr** because of its intuitive function names and ability to perform multiple chained operations using the pipe operator.
 
-### Subsetting
+###  Vector attribute subsetting
 Because simple feature objects are also data frames (run `class(world)`to verify), you can use a wide range of functions (from base R and other packages) for subsetting them.
 Base R subsetting functions include `[`, `subset()` and  `$`.
 **dplyr** subsetting functions include `select()`, `filter()`, and `pull()`.
@@ -1939,7 +1939,7 @@ It allows operations to be written in a clear order, line-by-line and from left 
 Another advantage over the nesting approach is that you can easily comment out certain parts of a pipe.
 **dplyr** works especially well with the pipe operator because its fundamental functions (or 'verbs', like `select()`) expect a data frame object as input and also return one.^[If you want **dplyr** to return a vector, use `pull`.]
 
-### Aggregating
+### Vector attribute aggregation
 
 <!-- https://github.com/ropenscilabs/skimr ?? -->
 
@@ -2042,7 +2042,7 @@ world_continents2 = aggregate(world["pop"], by = ag_var, FUN = sum, na.rm = TRUE
 <!--   arrange(-pop) -->
 <!-- ``` -->
 
-### Joining
+###  Vector attribute joining
 
 <!-- https://github.com/dgrtwo/fuzzyjoin -->
 <!-- http://r4ds.had.co.nz/relational-data.html -->
@@ -2742,7 +2742,7 @@ library(spData)
 Spatial operations are an important component of any geospatial software and vital for many applications involving spatial data.
 There are clear overlaps between spatial and non-spatial operations.
 Common spatial attribute data processing tasks include spatial subsetting (as we will see in section \@ref(spatial-subsetting)) aggregation (\@ref(spatial-aggregation)) and joining (covered in \@ref(spatial-joining)).
-Each of these spatial operations has a non-spatial equivalent, as demonstrated in sections \@ref(attribute-subsetting), \@ref(attribute-data-aggregation) and \@ref(attribute-data-joining) respectively in Chapter \@ref(attr).
+Each of these spatial operations has a non-spatial equivalent, as demonstrated in sections \@ref(vector-attribute-subsetting), \@ref(vector-attribute-aggregation) and \@ref(vector-attribute-joining) respectively in Chapter \@ref(attr).
 
 Some operations covered in this chapter are unique to spatial data.
 New spatial data can be created by modifying existing spatial objects, using operations such as 'buffer' and 'clip', described in section \@ref(modifying-geometry-data).
@@ -3363,7 +3363,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.27
+#> [1] 2.18
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3379,7 +3379,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.67
+#> [1] 3.61
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3460,13 +3460,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.056   0.004   0.060
+#>   0.068   0.000   0.067
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>    0.04    0.00    0.04
+#>   0.044   0.000   0.047
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.028
+#>   0.032   0.000   0.032
 ```
 
 
