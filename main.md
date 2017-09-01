@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve008b2197874d4feb
+preservee5bfa067c1712254
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2769,7 +2769,7 @@ readers can see this default value of `op` set in the first line of the function
 There are 9 well-defined operations that can be used for spatial subsetting, covered in section \@ref(topological-relations).
 This may seem daunting but the good news is that you do not have to learn all of them separately:
 after you understand how to spatially subset objects that *intersect* another (via `st_intersects()`) it is easy to subset based on other types of spatial operation such as `st_touches()`, `st_crosses()` and `st_within()`.
-For this reason now we focus only pn one of the spatial subsetting operations.
+For this reason now we focus only on one of the spatial subsetting operations.
 We use `st_intersects()` instead of any of the others not only because it the default when subsetting with `[`,
 but also `st_intersects()` is useful as a 'catch all' that identifies all types of spatial relations.
 
@@ -2846,7 +2846,7 @@ Note that countries that only just touch the giant circle are selected such as t
 `st_relates()` includes countries that only touch (but are not within or overlapping with) the selection object.
 Other spatial subsetting operations such as `st_within()` are more conservative, as shown in section \@ref(topological-relations).
 
-Before we progress to explore the differences between different spatial subsetting operations, it is worth seeing alternative ways to acheive the same result,
+Before we progress to explore the differences between different spatial subsetting operations, it is worth seeing alternative ways to achieve the same result,
 to deepen understanding of what is going on 'under the hood' (vital for developing advanced geocomputation applications).
 The second way to reproduce the subsetting operation illustrated in Figure \@ref(fig:africa-buff) simply involves expanding the operation over 2 lines:
 
@@ -2936,8 +2936,8 @@ Plotting the result (with `plot(buff_agg)`) shows that the operation does not re
 Figure \@ref(fig:buff-agg) shows a population of over half a billion people mostly located in a giant circle floating off the west coast of Africa!  
 
 <div class="figure" style="text-align: center">
-<img src="figures/buff-agg-1.png" alt="Result of spatial aggregation showing the total population of countries that intersect with a large circle whose center lies at 0 degrees longitude and latituge" width="576" />
-<p class="caption">(\#fig:buff-agg)Result of spatial aggregation showing the total population of countries that intersect with a large circle whose center lies at 0 degrees longitude and latituge</p>
+<img src="figures/buff-agg-1.png" alt="Result of spatial aggregation showing the total population of countries that intersect with a large circle whose center lies at 0 degrees longitude and latitude" width="576" />
+<p class="caption">(\#fig:buff-agg)Result of spatial aggregation showing the total population of countries that intersect with a large circle whose center lies at 0 degrees longitude and latitude</p>
 </div>
 
 The results of the spatial aggregation exercise presented in Figure \@ref(fig:buff-agg) are unrealistic for three reasons:
@@ -3361,7 +3361,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.31
+#> [1] 2.41
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3377,7 +3377,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.22
+#> [1] 3.49
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3458,13 +3458,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.068
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.048   0.000   0.050
+#>   0.040   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.032
+#>   0.028   0.004   0.030
 ```
 
 
