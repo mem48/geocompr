@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-09-01">
+<meta name="date" content="2017-09-02">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -267,13 +267,13 @@ world =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(microbenchmark)
 read_world_gpkg =<span class="st"> </span><span class="kw">bench_read</span>(<span class="dt">file =</span> vector_filepath, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read_world_gpkg
-<span class="co">#&gt; [1] 2.24</span></code></pre></div>
+<span class="co">#&gt; [1] 2.26</span></code></pre></div>
 <p>The results demonstrate that <strong>sf</strong> was around 2 times faster than <strong>rgdal</strong> at reading-in the world countries vector. The relative performance of <code>st_read()</code> compared with other functions will vary depending on file format and the nature of the data. To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vector_filepath_gj =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/cycle_hire_osm.geojson&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
 read_lnd_geojson =<span class="st"> </span><span class="kw">bench_read</span>(<span class="dt">file =</span> vector_filepath_gj, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read_lnd_geojson
-<span class="co">#&gt; [1] 3.69</span></code></pre></div>
-<p>In this case <strong>sf</strong> was around 4 times faster than <strong>rgdal</strong>.</p>
+<span class="co">#&gt; [1] 3.22</span></code></pre></div>
+<p>In this case <strong>sf</strong> was around 3 times faster than <strong>rgdal</strong>.</p>
 <p>To find out which data formats <strong>sf</strong> supports, run <code>st_drivers()</code>. Here, we show only the first two drivers:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_drivers =<span class="st"> </span><span class="kw">st_drivers</span>()
 <span class="kw">head</span>(sf_drivers, <span class="dt">n =</span> <span class="dv">2</span>)
@@ -314,13 +314,13 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <p>The counterpart of <code>st_read()</code> is <code>st_write()</code>. It allows to write <strong>sf</strong> objects to a wide range of geographic vector file formats, including the most common ones such as <code>.geojson</code>, <code>.shp</code> and <code>.gpkg</code>. Based on the file name <code>st_write()</code> decides automatically which driver to use. How fast the writing process is depends also on the driver: <!-- Is this comparison here necessary, or shouldn't we instead focus on the automatic driver selection? --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.geojson&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.060   0.000   0.063</span>
+<span class="co">#&gt;   0.064   0.000   0.062</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.shp&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)) 
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.044   0.000   0.043</span>
+<span class="co">#&gt;   0.040   0.000   0.043</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.012   0.016   0.029</span></code></pre></div>
+<span class="co">#&gt;   0.028   0.000   0.029</span></code></pre></div>
 <!-- ```{r} -->
 <!-- st_write(obj = world, dsn = "world.gpkg") -->
 <!-- ``` -->
@@ -346,7 +346,15 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <p>The <strong>raster</strong> package offers nine following datatypes: LOG1S, INT1S, INT1U, INT2S, INT2U, INT4S, INT4U, FLT4S, and FLT8S. Datatype determines the type of numbers and the range of the raster values that would be written to disk. Decision which datatype should be used depends on the expected range of the values in the output file. For example, LOG1S is used for bitmap (binary) images, unsigned integers (INT1U, INT2U, INT4U) are mostly used for categorical data, while floats (FLT4S and FLTS8S) usually represent continuous data. The datatype used in <code>writeRaster()</code> is FLT4S. While it works in most of the cases, the size of the output file would be large. Therefore, a rule of thumb is to use the smallest representation that fits all the values (range of values could be checked using the <code>summary()</code> function). <!-- table? --></p>
 <!-- file formats -->
 <!-- options (geotiff) -->
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">writeRaster</span>()</code></pre></div>
+<p>GeoTIFF is one of the most popular raster formats. Its structure is similar to the regular <code>.tif</code> format, however GeoTIFF also stores additional spatial metadata, such as coordinate reference system, spatial extent, <code>NoData</code> value, and the data resolution. You need to add the <code>.tif</code> file extention to save the raster object to a GeoTIFF file, for example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">writeRaster</span>(<span class="dt">x =</span> single_layer,
+            <span class="dt">filename =</span> <span class="st">&quot;my_raster.tif&quot;</span>,
+            <span class="dt">datatype =</span> <span class="st">&quot;INT2U&quot;</span>)</code></pre></div>
+<p>Moreover, some raster file formats accept an additional creation options<a href="#fn29" class="footnoteRef" id="fnref29"><sup>29</sup></a>. You could specify a compress method using the <code>COMPRESS</code> option:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">writeRaster</span>(<span class="dt">x =</span> single_layer,
+            <span class="dt">filename =</span> <span class="st">&quot;my_raster.tif&quot;</span>,
+            <span class="dt">datatype =</span> <span class="st">&quot;INT2U&quot;</span>,
+            <span class="dt">options =</span> <span class="kw">c</span>(<span class="st">&quot;COMPRESS=DEFLATE&quot;</span>))</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">raster::<span class="kw">writeFormats</span>()</code></pre></div>
 </div>
 </div>
@@ -391,6 +399,7 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <li id="fn26"><p>Concepts such as computational efficiency, hard disk space and ‘idempotence’ are useful when thinking about reading and writing geographic datasets, which can become large and difficult to handle. Loading/saving data is yet another way of saying the same thing.<a href="read-write.html#fnref26">↩</a></p></li>
 <li id="fn27"><p>A list of supported formats could be found using <code>sf::st_drivers()</code><a href="read-write.html#fnref27">↩</a></p></li>
 <li id="fn28"><p>A list of supported raster formats could be found using <code>rgdal::gdalDrivers()</code><a href="read-write.html#fnref28">↩</a></p></li>
+<li id="fn29"><p>Creation options for the GeoTIFF format are at <a href="http://www.gdal.org/frmt_gtiff.html" class="uri">http://www.gdal.org/frmt_gtiff.html</a>. Full list of formats with theirs creation options could be found at <a href="http://www.gdal.org/formats_list.html" class="uri">http://www.gdal.org/formats_list.html</a><a href="read-write.html#fnref29">↩</a></p></li>
 </ol>
 </div>
             </section>
