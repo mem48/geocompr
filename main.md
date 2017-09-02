@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve124b9849b38560ab
+preserve8ee50888865b1793
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3362,7 +3362,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.26
+#> [1] 2.27
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3378,10 +3378,10 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.22
+#> [1] 3.64
 ```
 
-In this case **sf** was around 3 times faster than **rgdal**.
+In this case **sf** was around 4 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -3459,13 +3459,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.062
+#>   0.064   0.000   0.065
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.043
+#>   0.044   0.004   0.045
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.000   0.029
+#>   0.024   0.008   0.031
 ```
 
 
@@ -3571,10 +3571,8 @@ writeRaster(x = single_layer,
             options = c("COMPRESS=DEFLATE"))
 ```
 
-
-```r
-raster::writeFormats()
-```
+Other raster file formats include `.grd`, `.nc`, `.asc`, and `.img`.
+Full list of the supported file format for writing `Raster*` objects could be found using `writeFormats().`
 
 ## File formats
 
