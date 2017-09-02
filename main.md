@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveb63cc439f9d41a9a
+preserve2a5e66790eaa1af9
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3362,10 +3362,10 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.24
+#> [1] 2.67
 ```
 
-The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
+The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries vector.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -3378,10 +3378,10 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.67
+#> [1] 3.36
 ```
 
-In this case **sf** was around 4 times faster than **rgdal**.
+In this case **sf** was around 3 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -3392,6 +3392,15 @@ head(sf_drivers, n = 2)
 #>          name                  long_name write  copy is_raster is_vector
 #> PCIDSK PCIDSK       PCIDSK Database File  TRUE FALSE      TRUE      TRUE
 #> netCDF netCDF Network Common Data Format  TRUE  TRUE      TRUE      TRUE
+```
+
+<!-- temporal text subsection -->
+<!-- data needs to be added to spData -->
+
+```r
+cycle_hire1 = st_read("cycle_hire_xy.csv", options = c("X_POSSIBLE_NAMES=X",
+                                                       "Y_POSSIBLE_NAMES=Y"))
+cycle_hire2 = st_read("cycle_hire_wkt.csv", options = "GEOM_POSSIBLE_NAMES=WKT")
 ```
 
 ### Raster data
@@ -3440,7 +3449,8 @@ multilayer_layer_stack = stack(raster_l1_filepath, raster_l2_filepath)
 The only limitation to `stack()` is that all datasets need to have the same spatial extent and resolution.
 
 <!-- NetCDF? -->
-<!-- additional read from text subsection? -->
+<!-- temporal text subsection -->
+
 
 ## Data output (O)
 
@@ -3459,13 +3469,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.008   0.068
+#>   0.068   0.000   0.066
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.048   0.000   0.047
+#>   0.044   0.000   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.032
+#>   0.028   0.004   0.030
 ```
 
 
@@ -3530,6 +3540,16 @@ This is not generally recommended, as it will not work for multi-file data sourc
 file.remove("world.gpkg")
 ```
 
+<!-- temporal text subsection -->
+
+<!-- saving sf POINT object as csv -->
+
+```r
+library(spData)
+st_write(cycle_hire, "cycle_hire_xy.csv", layer_options = "GEOMETRY=AS_XY")
+st_write(cycle_hire, "cycle_hire_wkt.csv", layer_options = "GEOMETRY=AS_WKT")
+```
+
 ### Raster data
 
 The `writeRaster()` function save the `Raster*` objects to files. 
@@ -3573,6 +3593,9 @@ writeRaster(x = single_layer,
 
 Other raster file formats include `.grd`, `.nc`, `.asc`, and `.img`.
 Full list of the supported file format for writing `Raster*` objects could be found using `writeFormats().`
+
+<!-- temporal text subsection -->
+<!-- saving raster object as csv ?? - should be include that?-->
 
 ## File formats
 

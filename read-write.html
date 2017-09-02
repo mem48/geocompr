@@ -267,19 +267,24 @@ world =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(microbenchmark)
 read_world_gpkg =<span class="st"> </span><span class="kw">bench_read</span>(<span class="dt">file =</span> vector_filepath, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read_world_gpkg
-<span class="co">#&gt; [1] 2.24</span></code></pre></div>
-<p>The results demonstrate that <strong>sf</strong> was around 2 times faster than <strong>rgdal</strong> at reading-in the world countries vector. The relative performance of <code>st_read()</code> compared with other functions will vary depending on file format and the nature of the data. To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:</p>
+<span class="co">#&gt; [1] 2.67</span></code></pre></div>
+<p>The results demonstrate that <strong>sf</strong> was around 3 times faster than <strong>rgdal</strong> at reading-in the world countries vector. The relative performance of <code>st_read()</code> compared with other functions will vary depending on file format and the nature of the data. To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vector_filepath_gj =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/cycle_hire_osm.geojson&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
 read_lnd_geojson =<span class="st"> </span><span class="kw">bench_read</span>(<span class="dt">file =</span> vector_filepath_gj, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read_lnd_geojson
-<span class="co">#&gt; [1] 3.67</span></code></pre></div>
-<p>In this case <strong>sf</strong> was around 4 times faster than <strong>rgdal</strong>.</p>
+<span class="co">#&gt; [1] 3.36</span></code></pre></div>
+<p>In this case <strong>sf</strong> was around 3 times faster than <strong>rgdal</strong>.</p>
 <p>To find out which data formats <strong>sf</strong> supports, run <code>st_drivers()</code>. Here, we show only the first two drivers:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_drivers =<span class="st"> </span><span class="kw">st_drivers</span>()
 <span class="kw">head</span>(sf_drivers, <span class="dt">n =</span> <span class="dv">2</span>)
 <span class="co">#&gt;          name                  long_name write  copy is_raster is_vector</span>
 <span class="co">#&gt; PCIDSK PCIDSK       PCIDSK Database File  TRUE FALSE      TRUE      TRUE</span>
 <span class="co">#&gt; netCDF netCDF Network Common Data Format  TRUE  TRUE      TRUE      TRUE</span></code></pre></div>
+<!-- temporal text subsection -->
+<!-- data needs to be added to spData -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cycle_hire1 =<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;cycle_hire_xy.csv&quot;</span>, <span class="dt">options =</span> <span class="kw">c</span>(<span class="st">&quot;X_POSSIBLE_NAMES=X&quot;</span>,
+                                                       <span class="st">&quot;Y_POSSIBLE_NAMES=Y&quot;</span>))
+cycle_hire2 =<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;cycle_hire_wkt.csv&quot;</span>, <span class="dt">options =</span> <span class="st">&quot;GEOM_POSSIBLE_NAMES=WKT&quot;</span>)</code></pre></div>
 </div>
 <div id="raster-data-1" class="section level3">
 <h3><span class="header-section-number">5.1.2</span> Raster data</h3>
@@ -303,7 +308,7 @@ raster_l2_filepath =<span class="st"> </span><span class="kw">system.file</span>
 multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(raster_l1_filepath, raster_l2_filepath)</code></pre></div>
 <p>The only limitation to <code>stack()</code> is that all datasets need to have the same spatial extent and resolution.</p>
 <!-- NetCDF? -->
-<!-- additional read from text subsection? -->
+<!-- temporal text subsection -->
 </div>
 </div>
 <div id="data-output-o" class="section level2">
@@ -314,13 +319,13 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <p>The counterpart of <code>st_read()</code> is <code>st_write()</code>. It allows to write <strong>sf</strong> objects to a wide range of geographic vector file formats, including the most common ones such as <code>.geojson</code>, <code>.shp</code> and <code>.gpkg</code>. Based on the file name <code>st_write()</code> decides automatically which driver to use. How fast the writing process is depends also on the driver: <!-- Is this comparison here necessary, or shouldn't we instead focus on the automatic driver selection? --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.geojson&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.060   0.008   0.068</span>
+<span class="co">#&gt;   0.068   0.000   0.066</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.shp&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)) 
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.048   0.000   0.047</span>
+<span class="co">#&gt;   0.044   0.000   0.044</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.024   0.008   0.032</span></code></pre></div>
+<span class="co">#&gt;   0.028   0.004   0.030</span></code></pre></div>
 <!-- ```{r} -->
 <!-- st_write(obj = world, dsn = "world.gpkg") -->
 <!-- ``` -->
@@ -338,6 +343,11 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <!-- Is the file.remove()-part important? -->
 <p>A blunter way to update file-based geographic data sources such as <code>.gpkg</code> files is to simply delete them. This is not generally recommended, as it will not work for multi-file data sources such as <code>.shp</code> files:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">file.remove</span>(<span class="st">&quot;world.gpkg&quot;</span>)</code></pre></div>
+<!-- temporal text subsection -->
+<!-- saving sf POINT object as csv -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spData)
+<span class="kw">st_write</span>(cycle_hire, <span class="st">&quot;cycle_hire_xy.csv&quot;</span>, <span class="dt">layer_options =</span> <span class="st">&quot;GEOMETRY=AS_XY&quot;</span>)
+<span class="kw">st_write</span>(cycle_hire, <span class="st">&quot;cycle_hire_wkt.csv&quot;</span>, <span class="dt">layer_options =</span> <span class="st">&quot;GEOMETRY=AS_WKT&quot;</span>)</code></pre></div>
 </div>
 <div id="raster-data-2" class="section level3">
 <h3><span class="header-section-number">5.2.2</span> Raster data</h3>
@@ -356,6 +366,8 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
             <span class="dt">datatype =</span> <span class="st">&quot;INT2U&quot;</span>,
             <span class="dt">options =</span> <span class="kw">c</span>(<span class="st">&quot;COMPRESS=DEFLATE&quot;</span>))</code></pre></div>
 <p>Other raster file formats include <code>.grd</code>, <code>.nc</code>, <code>.asc</code>, and <code>.img</code>. Full list of the supported file format for writing <code>Raster*</code> objects could be found using <code>writeFormats().</code></p>
+<!-- temporal text subsection -->
+<!-- saving raster object as csv ?? - should be include that?-->
 </div>
 </div>
 <div id="file-formats" class="section level2">
