@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve8ee50888865b1793
+preserve7e06a797ecefdc96
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3362,7 +3362,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.27
+#> [1] 2.22
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3378,7 +3378,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.64
+#> [1] 3.8
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3459,13 +3459,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.065
+#>   0.064   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.004   0.045
+#>   0.040   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.008   0.031
+#>   0.016   0.012   0.029
 ```
 
 
@@ -3560,8 +3560,8 @@ writeRaster(x = single_layer,
             datatype = "INT2U")
 ```
 
-Moreover, some raster file formats accept an additional creation options^[Creation options for the GeoTIFF format are at http://www.gdal.org/frmt_gtiff.html. Full list of formats with theirs creation options could be found at http://www.gdal.org/formats_list.html].
-You could specify a compress method using the `COMPRESS` option:
+Some raster file formats also accept additional creation options^[Creation options for the GeoTIFF format are at http://www.gdal.org/frmt_gtiff.html. Full list of formats with theirs creation options could be found at http://www.gdal.org/formats_list.html].
+For example, you could specify a compress method using the `COMPRESS` option:
 
 
 ```r
