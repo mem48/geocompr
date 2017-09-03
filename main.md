@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve8e99a1af625625a0
+preservebad054969a388bff
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1924,20 +1924,6 @@ For example, let us first take the `world` dataset, then let us select the two c
 world %>%
   dplyr::select(name_long, continent) %>%
   slice(1:5)
-#> Simple feature collection with 5 features and 2 fields
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: -73.41544 ymin: -55.25 xmax: 75.15803 ymax: 42.68825
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#> # A tibble: 5 x 3
-#>              name_long continent              geom
-#>                  <chr>     <chr>  <simple_feature>
-#> 1          Afghanistan      Asia <MULTIPOLYGON...>
-#> 2               Angola    Africa <MULTIPOLYGON...>
-#> 3              Albania    Europe <MULTIPOLYGON...>
-#> 4 United Arab Emirates      Asia <MULTIPOLYGON...>
-#> # ... with 1 more rows
 ```
 
 The pipe operator supports an intuitive data analysis workflow.
@@ -1966,15 +1952,8 @@ The following code, for example, calculates the total population and number of a
 # customized data summary
 world_summary = world %>% 
   summarize(pop = sum(pop, na.rm = TRUE), country_n = n())
-world_summary
-#> Simple feature collection with 1 feature and 2 fields
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>        pop country_n                           geom
-#> 1 7.21e+09       177 MULTIPOLYGON (((-159.208183...
+world_summary$pop # A total population > 7 billion
+#> [1] 7.21e+09
 ```
 
 The new object, `world_summary`, is an aggregation of all 177 world's countries.
@@ -1986,7 +1965,7 @@ You can use a wide range of functions within `summarize()` for aggregation and s
 Type `?summarize` for a list with useful functions and more information.
 
 `summarize()` becomes even more powerful when combined with `group_by()`, which allows simultaneous aggregate/summary operations *per group*, analogous to the base R function `aggregate()`.
-The following code chunk calculates the total population and number of countries *per continent* (see Chapter 5 of [R for Data Science](http://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarize) for a more detailed overview of `summarize()`):
+The following code chunk calculates the total population and number of countries *per continent* (see Chapter 5 of [R for Data Science](http://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarize) for a more detailed overview of `summarize()`), with results for the top 3 most populous continents illustrated in Table \@ref(tab:continents).
 
 
 ```r
@@ -1994,22 +1973,20 @@ The following code chunk calculates the total population and number of countries
 world_continents = world %>% 
   group_by(continent) %>% 
   summarize(pop = sum(pop, na.rm = TRUE), country_n = n())
-world_continents
-#> Simple feature collection with 8 features and 3 fields
-#> geometry type:  GEOMETRY
-#> dimension:      XY
-#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#> # A tibble: 8 x 4
-#>    continent      pop country_n              geom
-#>        <chr>    <dbl>     <int>  <simple_feature>
-#> 1     Africa 1.15e+09        51 <MULTIPOLYGON...>
-#> 2 Antarctica 0.00e+00         1 <MULTIPOLYGON...>
-#> 3       Asia 4.31e+09        47 <MULTIPOLYGON...>
-#> 4     Europe 7.39e+08        39 <MULTIPOLYGON...>
-#> # ... with 4 more rows
 ```
+
+
+continent                       pop   country_n
+------------------------  ---------  ----------
+Africa                     1.15e+09          51
+Antarctica                 0.00e+00           1
+Asia                       4.31e+09          47
+Europe                     7.39e+08          39
+North America              5.65e+08          18
+Oceania                    3.74e+07           7
+Seven seas (open ocean)    0.00e+00           1
+South America              4.14e+08          13
+
 
 `sf` objects are well-integrated with the **tidyverse**, as illustrated by the fact that the aggregated objects preserve the geometry of the original `world` object.
 What is more, under the hood `sf` is already doing a spatial aggregation of polygon data which is known as 'dissolving polygons' in the GIS world - an operation we will explain in more detail in the the next chapter.
@@ -2091,7 +2068,7 @@ north_america
 plot(north_america[0])
 ```
 
-<img src="figures/unnamed-chunk-27-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-28-1.png" width="576" style="display: block; margin: auto;" />
 
 
 ```r
@@ -3401,7 +3378,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.34
+#> [1] 2.09
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3417,7 +3394,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.67
+#> [1] 3.59
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3508,13 +3485,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.064
+#>   0.080   0.004   0.082
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.047
+#>   0.068   0.000   0.067
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.032
+#>   0.032   0.000   0.033
 ```
 
 
