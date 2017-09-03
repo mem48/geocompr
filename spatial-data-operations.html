@@ -189,8 +189,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.6" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#distance-relations"><i class="fa fa-check"></i><b>4.6</b> Distance relations</a></li>
 <li class="chapter" data-level="4.7" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-operations-on-raster-data"><i class="fa fa-check"></i><b>4.7</b> Spatial operations on raster data</a><ul>
 <li class="chapter" data-level="4.7.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#map-algebra-local-focal-zonal-global"><i class="fa fa-check"></i><b>4.7.1</b> Map algebra: local, focal, zonal, global</a></li>
-<li class="chapter" data-level="4.7.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#raster-aggregation-disaggregation-and-resampling"><i class="fa fa-check"></i><b>4.7.2</b> Raster aggregation, disaggregation and resampling</a></li>
-<li class="chapter" data-level="4.7.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#exercises-3"><i class="fa fa-check"></i><b>4.7.3</b> Exercises</a></li>
+<li class="chapter" data-level="4.7.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#mosaics"><i class="fa fa-check"></i><b>4.7.2</b> Mosaics</a></li>
+<li class="chapter" data-level="4.7.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#raster-aggregation-disaggregation-and-resampling"><i class="fa fa-check"></i><b>4.7.3</b> Raster aggregation, disaggregation and resampling</a></li>
+<li class="chapter" data-level="4.7.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#exercises-3"><i class="fa fa-check"></i><b>4.7.4</b> Exercises</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="read-write.html"><a href="read-write.html"><i class="fa fa-check"></i><b>5</b> Geographic data I/O</a><ul>
@@ -530,10 +531,13 @@ z
 <span class="co">#&gt; 3    3 19.8</span></code></pre></div>
 <p>This returns the statistics for each category, here the mean altitude for each grain size class. Of course, we can add this statistic to the attribute table of the ratified raster (remember RAT stands for raster attribute table, see also previous chapter).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(r_2)[[<span class="dv">1</span>]] =<span class="st">  </span><span class="kw">cbind</span>(<span class="kw">levels</span>(r_2)[[<span class="dv">1</span>]], <span class="dt">mean_elev =</span> z$mean)</code></pre></div>
-<p><em>Global</em> operations are a special case of zonal operations with the entire raster dataset representing a single zone. The most common global operations are descriptive statistics for the entire raster dataset such as the minimum or maximum (see previous chapter). Aside from that, global operations are also useful for the computation of distance and weight rasters. In the first case, one can calculate the distance from each cell to a specific target cell. For example, one might want to compute the distance to the nearest coast (see also <code>raster::distance()</code>). We might also want to consider topography, that means, we are not only interested in the pure distance but would like also to avoid the crossing of mountain ranges when going to the coast. To do so, we can weight the distance with elevation so that each additional altitudinal meter ‘prolongs’ the euclidean distance. Visibility and viewshed computations also belong to the family of global operations (in the exercises of Chapter ?? you will compute a viewshed raster). <!-- reference 13-gis chapter--> ### Mosaics</p>
+<p><em>Global</em> operations are a special case of zonal operations with the entire raster dataset representing a single zone. The most common global operations are descriptive statistics for the entire raster dataset such as the minimum or maximum (see previous chapter). Aside from that, global operations are also useful for the computation of distance and weight rasters. In the first case, one can calculate the distance from each cell to a specific target cell. For example, one might want to compute the distance to the nearest coast (see also <code>raster::distance()</code>). We might also want to consider topography, that means, we are not only interested in the pure distance but would like also to avoid the crossing of mountain ranges when going to the coast. To do so, we can weight the distance with elevation so that each additional altitudinal meter ‘prolongs’ the euclidean distance. Visibility and viewshed computations also belong to the family of global operations <!--(in the exercises of Chapter ?? you will compute a viewshed raster)-->. <!-- reference 13-gis chapter--></p>
+</div>
+<div id="mosaics" class="section level3">
+<h3><span class="header-section-number">4.7.2</span> Mosaics</h3>
 </div>
 <div id="raster-aggregation-disaggregation-and-resampling" class="section level3">
-<h3><span class="header-section-number">4.7.2</span> Raster aggregation, disaggregation and resampling</h3>
+<h3><span class="header-section-number">4.7.3</span> Raster aggregation, disaggregation and resampling</h3>
 <!-- ## Spatial data creation -->
 <!-- where should "area" example be? in this or the previous chapter? -->
 <!-- Not here - I think this chapter should focus on geomtry data -->
@@ -564,7 +568,7 @@ z
 <!-- changes classes; polygonize, etc-->
 </div>
 <div id="exercises-3" class="section level3">
-<h3><span class="header-section-number">4.7.3</span> Exercises</h3>
+<h3><span class="header-section-number">4.7.4</span> Exercises</h3>
 <ol style="list-style-type: decimal">
 <li>Write code that subsets points that are contained within <code>x</code> <em>and</em> <code>y</code> (illustrated by the plot in the 2<sup>nd</sup> row and the 1<sup>st</sup> column in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.6</a>).</li>
 </ol>
