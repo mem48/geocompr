@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve08f3759c81013356
+preservea072b26adefbf5e9
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1823,7 +1823,7 @@ For example, you could select only two columns, `name_long` and `pop`, with the 
 
 
 ```r
-world1 = select(world, name_long, pop)
+world1 = dplyr::select(world, name_long, pop)
 names(world1)
 #> [1] "name_long" "pop"       "geom"
 ```
@@ -1833,7 +1833,7 @@ names(world1)
 
 ```r
 # all columns between name_long and pop (inclusive)
-world2 = select(world, name_long:pop)
+world2 = dplyr::select(world, name_long:pop)
 names(world2)
 #> [1] "name_long" "continent" "region_un" "subregion" "type"      "area_km2" 
 #> [7] "pop"       "geom"
@@ -1844,14 +1844,14 @@ Omit specific columns with the `-` operator:
 
 ```r
 # all columns except subregion and area_km2 (inclusive)
-world3 = select(world, -subregion, -area_km2)
+world3 = dplyr::select(world, -subregion, -area_km2)
 ```
 
 Conveniently, `select()` lets you subset and rename columns at the same time, for example:
 
 
 ```r
-world4 = select(world, name_long, population = pop)
+world4 = dplyr::select(world, name_long, population = pop)
 names(world4)
 #> [1] "name_long"  "population" "geom"
 ```
@@ -1910,7 +1910,7 @@ For example, let us first take the `world` dataset, then let us select the two c
 
 ```r
 world %>%
-  select(name_long, continent) %>%
+  dplyr::select(name_long, continent) %>%
   slice(1:5)
 #> Simple feature collection with 5 features and 2 fields
 #> geometry type:  MULTIPOLYGON
@@ -2060,7 +2060,7 @@ It is important to add that the first object contains data about Canada, Greenla
 ```r
 north_america = world %>%
   filter(subregion == "Northern America") %>%
-  select(iso_a2, name_long)
+  dplyr::select(iso_a2, name_long)
 north_america
 #> Simple feature collection with 3 features and 2 fields
 #> geometry type:  MULTIPOLYGON
@@ -2085,7 +2085,7 @@ plot(north_america[0])
 ```r
 wb_north_america = worldbank_df %>% 
   filter(name %in% c("Canada", "Mexico", "United States")) %>%
-  select(name, iso_a2, urban_pop, unemploy = unemployment)
+  dplyr::select(name, iso_a2, urban_pop, unemploy = unemployment)
 
 wb_north_america
 #>            name iso_a2 urban_pop unemploy
@@ -2229,7 +2229,7 @@ Here, this is this simple because the geometry column is just another `data.fram
 # base R
 left_join4_df = subset(left_join4, select = -geom)
 # or dplyr
-left_join4_df = left_join4 %>% select(-geom)
+left_join4_df = left_join4 %>% dplyr::select(-geom)
 left_join4_df
 #>            name iso_a2 urban_pop unemploy     name_long
 #> 1        Canada     CA  29022137     6.91        Canada
@@ -2497,6 +2497,17 @@ Or we can make use of the `boxplot()`, `density()`, `hist()` and `pairs()` metho
 
 Descriptive raster statistics belong to the so-called global raster operations.
 These and other typical raster processing operations are part of the map algebra scheme which we will get to know better in the next chapter.
+
+### Note {-}
+
+Some function names in the **raster** package (e.g. `select`) clash with functions in the **tidyverse**. Therefore it is recommended you unload the package with:
+
+
+```r
+detach("package:raster", unload = TRUE)
+```
+
+
 
 ## Exercises
 
@@ -3378,7 +3389,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.21
+#> [1] 2.22
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3394,10 +3405,10 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.5
+#> [1] 3.71
 ```
 
-In this case **sf** was around 3 times faster than **rgdal**.
+In this case **sf** was around 4 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -3485,13 +3496,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.092   0.000   0.092
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.080   0.004   0.085
+#>   0.044   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.040   0.012   0.055
+#>   0.016   0.012   0.030
 ```
 
 

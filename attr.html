@@ -169,16 +169,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3" data-path="attr.html"><a href="attr.html#manipulating-raster-objects"><i class="fa fa-check"></i><b>3.3</b> Manipulating raster objects</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="attr.html"><a href="attr.html#raster-subsetting"><i class="fa fa-check"></i><b>3.3.1</b> Raster subsetting</a></li>
 <li class="chapter" data-level="3.3.2" data-path="attr.html"><a href="attr.html#summarizing-raster-objects"><i class="fa fa-check"></i><b>3.3.2</b> Summarizing raster objects</a></li>
+<li class="chapter" data-level="" data-path="attr.html"><a href="attr.html#note"><i class="fa fa-check"></i>Note</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="attr.html"><a href="attr.html#exercises-2"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html"><i class="fa fa-check"></i><b>4</b> Spatial data operations</a><ul>
 <li class="chapter" data-level="" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#prerequisites-2"><i class="fa fa-check"></i>Prerequisites</a></li>
 <li class="chapter" data-level="4.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a><ul>
-<li class="chapter" data-level="" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#note"><i class="fa fa-check"></i>Note</a></li>
+<li class="chapter" data-level="" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#note-1"><i class="fa fa-check"></i>Note</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-subsetting"><i class="fa fa-check"></i><b>4.2</b> Spatial subsetting</a><ul>
-<li class="chapter" data-level="" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#note-1"><i class="fa fa-check"></i>Note</a></li>
+<li class="chapter" data-level="" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#note-2"><i class="fa fa-check"></i>Note</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-joining-and-aggregation"><i class="fa fa-check"></i><b>4.3</b> Spatial joining and aggregation</a><ul>
 <li class="chapter" data-level="4.3.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-congruence-and-areal-interpolation"><i class="fa fa-check"></i><b>4.3.1</b> Spatial congruence and areal interpolation</a></li>
@@ -289,20 +290,20 @@ small_countries =<span class="st"> </span>world[sel_area, ]</code></pre></div>
 <!-- , after the package has been loaded: [or - it is a part of tidyverse] -->
 <p>Base R functions are essential, and we recommend that you have a working knowledge of them. However, <strong>dplyr</strong> often makes working with data frames easier. Moreover, <strong>dplyr</strong> is usually much faster than base R since it makes use of C++ in the background. This comes in especially handy when working with large data sets. As a special bonus, <strong>dplyr</strong> is compatible with <code>sf</code> objects. The main <strong>dplyr</strong> subsetting functions are <code>select()</code>, <code>slice()</code>, <code>filter()</code> and <code>pull()</code>.</p>
 <p>The <code>select()</code> function selects columns by name or position. For example, you could select only two columns, <code>name_long</code> and <code>pop</code>, with the following command (note the <code>geom</code> column remains):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world1 =<span class="st"> </span><span class="kw">select</span>(world, name_long, pop)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world1 =<span class="st"> </span>dplyr::<span class="kw">select</span>(world, name_long, pop)
 <span class="kw">names</span>(world1)
 <span class="co">#&gt; [1] &quot;name_long&quot; &quot;pop&quot;       &quot;geom&quot;</span></code></pre></div>
 <p><code>select()</code> also allows subsetting of a range of columns with the help of the <code>:</code> operator:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># all columns between name_long and pop (inclusive)</span>
-world2 =<span class="st"> </span><span class="kw">select</span>(world, name_long:pop)
+world2 =<span class="st"> </span>dplyr::<span class="kw">select</span>(world, name_long:pop)
 <span class="kw">names</span>(world2)
 <span class="co">#&gt; [1] &quot;name_long&quot; &quot;continent&quot; &quot;region_un&quot; &quot;subregion&quot; &quot;type&quot;      &quot;area_km2&quot; </span>
 <span class="co">#&gt; [7] &quot;pop&quot;       &quot;geom&quot;</span></code></pre></div>
 <p>Omit specific columns with the <code>-</code> operator:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># all columns except subregion and area_km2 (inclusive)</span>
-world3 =<span class="st"> </span><span class="kw">select</span>(world, -subregion, -area_km2)</code></pre></div>
+world3 =<span class="st"> </span>dplyr::<span class="kw">select</span>(world, -subregion, -area_km2)</code></pre></div>
 <p>Conveniently, <code>select()</code> lets you subset and rename columns at the same time, for example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world4 =<span class="st"> </span><span class="kw">select</span>(world, name_long, <span class="dt">population =</span> pop)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world4 =<span class="st"> </span>dplyr::<span class="kw">select</span>(world, name_long, <span class="dt">population =</span> pop)
 <span class="kw">names</span>(world4)
 <span class="co">#&gt; [1] &quot;name_long&quot;  &quot;population&quot; &quot;geom&quot;</span></code></pre></div>
 <p>This is more concise than the base R equivalent:</p>
@@ -366,7 +367,7 @@ world6 =<span class="st"> </span><span class="kw">filter</span>(world, lifeExp &
 <!-- add info about combination of &, |, ! -->
 <p>Finally, we would like to introduce the special <em>pipe</em> operator (<code>%&gt;%</code>) of the <strong>magrittr</strong> package. The <em>pipe</em> operator feeds (‘pipes forward’) the output of one function into the first argument of the next function. Combining many functions together with pipes is called <em>chaining</em> or <em>piping</em>. For example, let us first take the <code>world</code> dataset, then let us select the two columns named <code>name_long</code> and <code>continent</code>, and then we just would like to return the first five rows.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world %&gt;%
-<span class="st">  </span><span class="kw">select</span>(name_long, continent) %&gt;%
+<span class="st">  </span>dplyr::<span class="kw">select</span>(name_long, continent) %&gt;%
 <span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span>:<span class="dv">5</span>)
 <span class="co">#&gt; Simple feature collection with 5 features and 2 fields</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
@@ -465,7 +466,7 @@ world_continents2 =<span class="st"> </span><span class="kw">aggregate</span>(wo
 <p>The easiest way to understand the concept of joins is to show how they work with a smaller dataset. We will use an <code>sf</code> object <code>north_america</code> with country codes (<code>iso_a2</code>), names and geometries, as well as a <code>data.frame</code> object <code>wb_north_america</code> containing information about urban population and unemployment for three countries. It is important to add that the first object contains data about Canada, Greenland and the United States and the second one about Canada, Mexico and the United States:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">north_america =<span class="st"> </span>world %&gt;%
 <span class="st">  </span><span class="kw">filter</span>(subregion ==<span class="st"> &quot;Northern America&quot;</span>) %&gt;%
-<span class="st">  </span><span class="kw">select</span>(iso_a2, name_long)
+<span class="st">  </span>dplyr::<span class="kw">select</span>(iso_a2, name_long)
 north_america
 <span class="co">#&gt; Simple feature collection with 3 features and 2 fields</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
@@ -481,7 +482,7 @@ north_america
 <p><img src="figures/unnamed-chunk-27-1.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wb_north_america =<span class="st"> </span>worldbank_df %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(name %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;United States&quot;</span>)) %&gt;%
-<span class="st">  </span><span class="kw">select</span>(name, iso_a2, urban_pop, <span class="dt">unemploy =</span> unemployment)
+<span class="st">  </span>dplyr::<span class="kw">select</span>(name, iso_a2, urban_pop, <span class="dt">unemploy =</span> unemployment)
 
 wb_north_america
 <span class="co">#&gt;            name iso_a2 urban_pop unemploy</span>
@@ -578,7 +579,7 @@ left_join4_sf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># base R</span>
 left_join4_df =<span class="st"> </span><span class="kw">subset</span>(left_join4, <span class="dt">select =</span> -geom)
 <span class="co"># or dplyr</span>
-left_join4_df =<span class="st"> </span>left_join4 %&gt;%<span class="st"> </span><span class="kw">select</span>(-geom)
+left_join4_df =<span class="st"> </span>left_join4 %&gt;%<span class="st"> </span>dplyr::<span class="kw">select</span>(-geom)
 left_join4_df
 <span class="co">#&gt;            name iso_a2 urban_pop unemploy     name_long</span>
 <span class="co">#&gt; 1        Canada     CA  29022137     6.91        Canada</span>
@@ -716,6 +717,11 @@ r[]
 <span class="co">#&gt; [1] 10.6</span></code></pre></div>
 <p>Note: if you provide the <code>summary()</code> and <code>cellStats()</code> functions with a raster stack or brick object, they will summarize each layer separately. Try <code>summary(brick(r, r_2))</code>. Nothing stops us from visualizing descriptive raster statistics. We can manually retrieving raster values with the help of the <code>values()</code> and <code>getValues()</code> function, and putting their output into any <code>plot()</code> function we like. Or we can make use of the <code>boxplot()</code>, <code>density()</code>, <code>hist()</code> and <code>pairs()</code> methods for raster objects.</p>
 <p>Descriptive raster statistics belong to the so-called global raster operations. These and other typical raster processing operations are part of the map algebra scheme which we will get to know better in the next chapter.</p>
+</div>
+<div id="note" class="section level3 unnumbered">
+<h3>Note</h3>
+<p>Some function names in the <strong>raster</strong> package (e.g. <code>select</code>) clash with functions in the <strong>tidyverse</strong>. Therefore it is recommended you unload the package with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(<span class="st">&quot;package:raster&quot;</span>, <span class="dt">unload =</span> <span class="ot">TRUE</span>)</code></pre></div>
 </div>
 </div>
 <div id="exercises-2" class="section level2">
