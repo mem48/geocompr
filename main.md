@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-09-02'
+date: '2017-09-03'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -40,7 +40,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-09-02 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-09-03 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve2a5e66790eaa1af9
+preserve6d258ce4593f5cfd
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2415,13 +2415,14 @@ See the help page of the `ratify()` command for more information.
 </div>
 
 ### Raster subsetting
-There are several ways how to subset raster datasets in R:
+
+Raster datasets can be subset in many ways, including:
 
 - using row-column indexing with the help of `[`
 - by cell ID
 - by coordinates
 
-So if we want to access the value of the upper left corner cell, we can use one of the following commands:
+These subsetting options are demonstrated in the three commands below, all of which return the value of the top left pixel in the raster object `r` (results not shown):
 
 
 ```r
@@ -2429,8 +2430,8 @@ So if we want to access the value of the upper left corner cell, we can use one 
 r[1, 1]
 # cell ID 1
 r[1]
-# xy coordinates x = -1 and y = 1
-r[cellFromXY(r, xy = c(-1, 1))]
+# point within the top left pixel
+r[cellFromXY(r, xy = c(-1.5, 1.5))]
 ```
 
 To extract all values or complete rows, you can use `values()` and `getValues()`
@@ -3362,10 +3363,10 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.67
+#> [1] 2.29
 ```
 
-The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries vector.
+The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -3378,7 +3379,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.36
+#> [1] 3.02
 ```
 
 In this case **sf** was around 3 times faster than **rgdal**.
@@ -3469,13 +3470,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.066
+#>   0.056   0.004   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.044
+#>   0.040   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.004   0.030
+#>   0.024   0.004   0.027
 ```
 
 

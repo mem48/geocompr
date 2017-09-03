@@ -26,7 +26,7 @@
 <meta name="author" content="Jakub Nowosad">
 
 
-<meta name="date" content="2017-09-02">
+<meta name="date" content="2017-09-03">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -669,19 +669,19 @@ Figure 3.2: Raster with numberic values (left) and a raster with categorical val
 </div>
 <div id="raster-subsetting" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Raster subsetting</h3>
-<p>There are several ways how to subset raster datasets in R:</p>
+<p>Raster datasets can be subset in many ways, including:</p>
 <ul>
 <li>using row-column indexing with the help of <code>[</code></li>
 <li>by cell ID</li>
 <li>by coordinates</li>
 </ul>
-<p>So if we want to access the value of the upper left corner cell, we can use one of the following commands:</p>
+<p>These subsetting options are demonstrated in the three commands below, all of which return the value of the top left pixel in the raster object <code>r</code> (results not shown):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># row 1, column 1</span>
 r[<span class="dv">1</span>, <span class="dv">1</span>]
 <span class="co"># cell ID 1</span>
 r[<span class="dv">1</span>]
-<span class="co"># xy coordinates x = -1 and y = 1</span>
-r[<span class="kw">cellFromXY</span>(r, <span class="dt">xy =</span> <span class="kw">c</span>(-<span class="dv">1</span>, <span class="dv">1</span>))]</code></pre></div>
+<span class="co"># point within the top left pixel</span>
+r[<span class="kw">cellFromXY</span>(r, <span class="dt">xy =</span> <span class="kw">c</span>(-<span class="fl">1.5</span>, <span class="fl">1.5</span>))]</code></pre></div>
 <p>To extract all values or complete rows, you can use <code>values()</code> and <code>getValues()</code> In case you apply subsetting to a raster stack or brick, this will return the cell value(s) for each single layer, for example <code>stack(r, r_2)[1]</code> returns a matrix with one row and two columns - one for each layer. On the other hand, the <code>raster::subset()</code> command lets you extract a specific or several layers from a raster stack or brick. For the same operation, you can also use the <code>[[</code> operator. If you only want to extract a single layer, you might also use the <code>$</code> operator.</p>
 <p>To modify a single cell value, we overwrite existing values with the help of subsetting operations (see above). For instance, let us replace the upper left cell of <code>r</code>, which is 1, by 0:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r[<span class="dv">1</span>, <span class="dv">1</span>] =<span class="st"> </span><span class="dv">0</span>
