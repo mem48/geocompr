@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveadd6c6be243b1820
+preserve8e99a1af625625a0
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1655,7 +1655,12 @@ Again, the `res()` command gives back a numeric vector without any unit, forcing
 <!--chapter:end:02-spatial-data.Rmd-->
 
 
-# Attribute data operations {#attr}
+# Spatial data and the tidyverse {#attr}
+
+This is a draft version of Chapter 3 in the forethcoming book, Geocomputations with R, hosted at: https://github.com/Robinlovelace/geocompr
+
+This is work in progress: any feedback on the book welcome, e.g. via the projects' issue tracker at 
+https://github.com/Robinlovelace/geocompr/issues
 
 ## Prerequisites {-}
 
@@ -3396,7 +3401,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.17
+#> [1] 2.34
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3412,7 +3417,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.59
+#> [1] 3.67
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3503,13 +3508,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.068   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.044
+#>   0.044   0.000   0.047
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.004   0.028
+#>   0.020   0.012   0.032
 ```
 
 
