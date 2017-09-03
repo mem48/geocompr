@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservebad054969a388bff
+preserve3ab4d9280e85ce49
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1951,14 +1951,14 @@ The following code, for example, calculates the total population and number of a
 ```r
 # customized data summary
 world_summary = world %>% 
-  summarize(pop = sum(pop, na.rm = TRUE), country_n = n())
+  summarize(pop = sum(pop, na.rm = TRUE), n_countries = n())
 world_summary$pop # A total population > 7 billion
 #> [1] 7.21e+09
 ```
 
 The new object, `world_summary`, is an aggregation of all 177 world's countries.
 It consists of one row and two columns. 
-The `pop =` and `country_n =` created the names of the two columns, while the `sum()`- and `n()`-function actually did the aggregation.
+The `pop =` and `n_countries =` created the names of the two columns, while the `sum()`- and `n()`-function actually did the aggregation.
 The first function added up all inhabitants, while the latter simply counted the number of rows. 
  
 You can use a wide range of functions within `summarize()` for aggregation and summary purposes.
@@ -1972,20 +1972,17 @@ The following code chunk calculates the total population and number of countries
 # data summary by groups
 world_continents = world %>% 
   group_by(continent) %>% 
-  summarize(pop = sum(pop, na.rm = TRUE), country_n = n())
+  summarize(pop = sum(pop, na.rm = TRUE), n_countries = n())
 ```
 
 
-continent                       pop   country_n
-------------------------  ---------  ----------
-Africa                     1.15e+09          51
-Antarctica                 0.00e+00           1
-Asia                       4.31e+09          47
-Europe                     7.39e+08          39
-North America              5.65e+08          18
-Oceania                    3.74e+07           7
-Seven seas (open ocean)    0.00e+00           1
-South America              4.14e+08          13
+Table: (\#tab:continents)The top 3 most populous continents, and the number of countries in each
+
+continent         pop   n_countries
+----------  ---------  ------------
+Asia         4.31e+09            47
+Africa       1.15e+09            51
+Europe       7.39e+08            39
 
 
 `sf` objects are well-integrated with the **tidyverse**, as illustrated by the fact that the aggregated objects preserve the geometry of the original `world` object.
@@ -2068,7 +2065,7 @@ north_america
 plot(north_america[0])
 ```
 
-<img src="figures/unnamed-chunk-28-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-27-1.png" width="576" style="display: block; margin: auto;" />
 
 
 ```r
@@ -3378,7 +3375,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.09
+#> [1] 2.31
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3394,7 +3391,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.59
+#> [1] 4.12
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3485,13 +3482,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.080   0.004   0.082
+#>   0.088   0.000   0.090
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.068   0.000   0.067
+#>   0.076   0.000   0.075
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.032   0.000   0.033
+#>   0.028   0.012   0.042
 ```
 
 

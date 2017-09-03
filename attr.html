@@ -394,64 +394,40 @@ This function is useful when using R interactively, but lacks flexibility and sh
 <p>The <strong>dplyr</strong> equivalent is <code>summarize()</code>, which returns summary statistics of groups and variables defined by the user. The following code, for example, calculates the total population and number of all countries in the world:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># customized data summary</span>
 world_summary =<span class="st"> </span>world %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">pop =</span> <span class="kw">sum</span>(pop, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">country_n =</span> <span class="kw">n</span>())
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">pop =</span> <span class="kw">sum</span>(pop, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">n_countries =</span> <span class="kw">n</span>())
 world_summary$pop <span class="co"># A total population &gt; 7 billion</span>
 <span class="co">#&gt; [1] 7.21e+09</span></code></pre></div>
-<p>The new object, <code>world_summary</code>, is an aggregation of all 177 world’s countries. It consists of one row and two columns. The <code>pop =</code> and <code>country_n =</code> created the names of the two columns, while the <code>sum()</code>- and <code>n()</code>-function actually did the aggregation. The first function added up all inhabitants, while the latter simply counted the number of rows.</p>
+<p>The new object, <code>world_summary</code>, is an aggregation of all 177 world’s countries. It consists of one row and two columns. The <code>pop =</code> and <code>n_countries =</code> created the names of the two columns, while the <code>sum()</code>- and <code>n()</code>-function actually did the aggregation. The first function added up all inhabitants, while the latter simply counted the number of rows.</p>
 <p>You can use a wide range of functions within <code>summarize()</code> for aggregation and summary purposes. Type <code>?summarize</code> for a list with useful functions and more information.</p>
-<p><code>summarize()</code> becomes even more powerful when combined with <code>group_by()</code>, which allows simultaneous aggregate/summary operations <em>per group</em>, analogous to the base R function <code>aggregate()</code>. The following code chunk calculates the total population and number of countries <em>per continent</em> (see Chapter 5 of <a href="http://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarize">R for Data Science</a> for a more detailed overview of <code>summarize()</code>), with results for the top 3 most populous continents illustrated in Table <a href="#tab:continents"><strong>??</strong></a>.</p>
+<p><code>summarize()</code> becomes even more powerful when combined with <code>group_by()</code>, which allows simultaneous aggregate/summary operations <em>per group</em>, analogous to the base R function <code>aggregate()</code>. The following code chunk calculates the total population and number of countries <em>per continent</em> (see Chapter 5 of <a href="http://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarize">R for Data Science</a> for a more detailed overview of <code>summarize()</code>), with results for the top 3 most populous continents illustrated in Table <a href="attr.html#tab:continents">3.1</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># data summary by groups</span>
 world_continents =<span class="st"> </span>world %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">group_by</span>(continent) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">pop =</span> <span class="kw">sum</span>(pop, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">country_n =</span> <span class="kw">n</span>())</code></pre></div>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">pop =</span> <span class="kw">sum</span>(pop, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">n_countries =</span> <span class="kw">n</span>())</code></pre></div>
 <table>
+<caption><span id="tab:continents">Table 3.1: </span>The top 3 most populous continents, and the number of countries in each</caption>
 <thead>
 <tr class="header">
 <th align="left">continent</th>
 <th align="right">pop</th>
-<th align="right">country_n</th>
+<th align="right">n_countries</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Africa</td>
-<td align="right">1.15e+09</td>
-<td align="right">51</td>
-</tr>
-<tr class="even">
-<td align="left">Antarctica</td>
-<td align="right">0.00e+00</td>
-<td align="right">1</td>
-</tr>
 <tr class="odd">
 <td align="left">Asia</td>
 <td align="right">4.31e+09</td>
 <td align="right">47</td>
 </tr>
 <tr class="even">
+<td align="left">Africa</td>
+<td align="right">1.15e+09</td>
+<td align="right">51</td>
+</tr>
+<tr class="odd">
 <td align="left">Europe</td>
 <td align="right">7.39e+08</td>
 <td align="right">39</td>
-</tr>
-<tr class="odd">
-<td align="left">North America</td>
-<td align="right">5.65e+08</td>
-<td align="right">18</td>
-</tr>
-<tr class="even">
-<td align="left">Oceania</td>
-<td align="right">3.74e+07</td>
-<td align="right">7</td>
-</tr>
-<tr class="odd">
-<td align="left">Seven seas (open ocean)</td>
-<td align="right">0.00e+00</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">South America</td>
-<td align="right">4.14e+08</td>
-<td align="right">13</td>
 </tr>
 </tbody>
 </table>
@@ -502,7 +478,7 @@ north_america
 <span class="co">#&gt; 2     GL     Greenland MULTIPOLYGON (((-46.76379 8...</span>
 <span class="co">#&gt; 3     US United States MULTIPOLYGON (((-155.54211 ...</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(north_america[<span class="dv">0</span>])</code></pre></div>
-<p><img src="figures/unnamed-chunk-28-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-27-1.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wb_north_america =<span class="st"> </span>worldbank_df %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(name %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;United States&quot;</span>)) %&gt;%
 <span class="st">  </span>dplyr::<span class="kw">select</span>(name, iso_a2, urban_pop, <span class="dt">unemploy =</span> unemployment)
