@@ -168,6 +168,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="3.3" data-path="attr.html"><a href="attr.html#manipulating-raster-objects"><i class="fa fa-check"></i><b>3.3</b> Manipulating raster objects</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="attr.html"><a href="attr.html#raster-subsetting"><i class="fa fa-check"></i><b>3.3.1</b> Raster subsetting</a></li>
+<li class="chapter" data-level="3.3.2" data-path="attr.html"><a href="attr.html#summarizing-raster-objects"><i class="fa fa-check"></i><b>3.3.2</b> Summarizing raster objects</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="attr.html"><a href="attr.html#exercises-2"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
 </ul></li>
@@ -188,9 +189,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.6" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#distance-relations"><i class="fa fa-check"></i><b>4.6</b> Distance relations</a></li>
 <li class="chapter" data-level="4.7" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-operations-on-raster-data"><i class="fa fa-check"></i><b>4.7</b> Spatial operations on raster data</a><ul>
 <li class="chapter" data-level="4.7.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#map-algebra-local-focal-zonal-global"><i class="fa fa-check"></i><b>4.7.1</b> Map algebra: local, focal, zonal, global</a></li>
-<li class="chapter" data-level="4.7.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#mosaics"><i class="fa fa-check"></i><b>4.7.2</b> Mosaics</a></li>
-<li class="chapter" data-level="4.7.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#raster-aggregation-disaggregation-and-resampling"><i class="fa fa-check"></i><b>4.7.3</b> Raster aggregation, disaggregation and resampling</a></li>
-<li class="chapter" data-level="4.7.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#exercises-3"><i class="fa fa-check"></i><b>4.7.4</b> Exercises</a></li>
+<li class="chapter" data-level="4.7.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#raster-aggregation-disaggregation-and-resampling"><i class="fa fa-check"></i><b>4.7.2</b> Raster aggregation, disaggregation and resampling</a></li>
+<li class="chapter" data-level="4.7.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#exercises-3"><i class="fa fa-check"></i><b>4.7.3</b> Exercises</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="read-write.html"><a href="read-write.html"><i class="fa fa-check"></i><b>5</b> Geographic data I/O</a><ul>
@@ -254,11 +254,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="spatial-subsetting" class="section level2">
 <h2><span class="header-section-number">4.2</span> Spatial subsetting</h2>
-<p>Spatial subsetting is the process of selecting only those features of a spatial object that in some way <em>intersect</em> with another spatial object. Note that ‘intersect’ in this context has a precise meaning: if <code>y</code> is used to subset features in a ‘target’ object of <code>x</code>, any features in <code>x</code> that touch, overlap or are within features in <code>y</code> will be selected. Intersect is the default operation for spatial subsetting but others can be used using the <code>op =</code> argument.<a href="#fn23" class="footnoteRef" id="fnref23"><sup>23</sup></a></p>
+<p>Spatial subsetting is the process of selecting only those features of a spatial object that in some way <em>intersect</em> with another spatial object. Note that ‘intersect’ in this context has a precise meaning: if <code>y</code> is used to subset features in a ‘target’ object of <code>x</code>, any features in <code>x</code> that touch, overlap or are within features in <code>y</code> will be selected. Intersect is the default operation for spatial subsetting but others can be used using the <code>op =</code> argument.<a href="#fn22" class="footnoteRef" id="fnref22"><sup>22</sup></a></p>
 <p>There are 9 well-defined operations that can be used for spatial subsetting, covered in section <a href="spatial-data-operations.html#topological-relations">4.4</a>. This may seem daunting but the good news is that you do not have to learn all of them separately: after you understand how to spatially subset objects that <em>intersect</em> another (via <code>st_intersects()</code>) it is easy to subset based on other types of spatial operation such as <code>st_touches()</code>, <code>st_crosses()</code> and <code>st_within()</code>. For this reason now we focus only on one of the spatial subsetting operations. We use <code>st_intersects()</code> instead of any of the others not only because it the default when subsetting with <code>[</code>, but also <code>st_intersects()</code> is useful as a ‘catch all’ that identifies all types of spatial relations.</p>
 <p>In general terms, spatial subsetting is simply the spatial equivalent of <em>attribute subsetting</em>. However, to do spatial subsetting <em>two spatial objects are needed</em> the spatial relation between which is to be established. As with attribute subsetting, spatial subsetting is a <em>binary operation</em>: an object is either selected or not. As in section <a href="attr.html#vector-attribute-subsetting">3.2.1</a>, we start with base methods before describing how to do it in the <strong>tidyverse</strong>. <!-- todo: link to non-binary links, e.g. area-weighted spatial interpolation --></p>
 <!-- ### Spatial subsetting in base R -->
-<p>Attribute subsetting in base R is done with the <code>[</code> operator and passing into the square brackets a vector of class <code>integer</code> (whole numbers) or <code>logical</code> (a vector of <code>TRUE</code>s and <code>FALSE</code>s). This means <code>world[1:6, ]</code> subsets the first 6 countries of the world and that <code>world[world$area_km2 &lt; 10000, ]</code> returns the subset of countries that have a small surface area. For this chapter we will use countries in Africa, which can be generated using this method as follows:<a href="#fn24" class="footnoteRef" id="fnref24"><sup>24</sup></a></p>
+<p>Attribute subsetting in base R is done with the <code>[</code> operator and passing into the square brackets a vector of class <code>integer</code> (whole numbers) or <code>logical</code> (a vector of <code>TRUE</code>s and <code>FALSE</code>s). This means <code>world[1:6, ]</code> subsets the first 6 countries of the world and that <code>world[world$area_km2 &lt; 10000, ]</code> returns the subset of countries that have a small surface area. For this chapter we will use countries in Africa, which can be generated using this method as follows:<a href="#fn23" class="footnoteRef" id="fnref23"><sup>23</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">africa_wgs =<span class="st"> </span>world[world$continent ==<span class="st"> &quot;Africa&quot;</span>, ]</code></pre></div>
 <p>To further set-up the input data, we will reproject the data to the coordinate reference system (CRS) 32630 (it’s EPSG code, explained in Chapter 6):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">africa =<span class="st"> </span><span class="kw">st_transform</span>(africa_wgs, <span class="dt">crs =</span> <span class="dv">32630</span>)</code></pre></div>
@@ -306,7 +306,7 @@ africa_buff2 =<span class="st"> </span>africa[sel_buff, ]</code></pre></div>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
 <div id="note-1" class="section level3 unnumbered">
 <h3>Note</h3>
-<p>This discarding of row names is not something that is specific to spatial data:<a href="#fn25" class="footnoteRef" id="fnref25"><sup>25</sup></a></p>
+<p>This discarding of row names is not something that is specific to spatial data:<a href="#fn24" class="footnoteRef" id="fnref24"><sup>24</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">row.names</span>(africa[africa$subregion ==<span class="st"> &quot;Northern Europe&quot;</span>, ])
 <span class="co">#&gt; character(0)</span>
 <span class="kw">row.names</span>(<span class="kw">filter</span>(africa, subregion ==<span class="st"> &quot;Northern Europe&quot;</span>))
@@ -428,7 +428,7 @@ p =<span class="st"> </span><span class="kw">st_multipoint</span>(<span class="d
 <div id="modifying-geometry-data" class="section level2">
 <h2><span class="header-section-number">4.5</span> Modifying geometry data</h2>
 <p>Spatial clipping is a form of spatial subsetting that involves changes to the <code>geometry</code> columns of at least some of the affected features.</p>
-<p>Clipping can only apply to features more complex than points: lines, polygons and their ‘multi’ equivalents. To illustrate the concept we will start with a simple example: two overlapping circles with a centrepoint 1 unit away from each other and radius of 1:</p>
+<p>Clipping can only apply to features more complex than points: lines, polygons and their ‘multi’ equivalents. To illustrate the concept we will start with a simple example: two overlapping circles with a centerpoint 1 unit away from each other and radius of 1:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b =<span class="st"> </span><span class="kw">st_sfc</span>(<span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)), <span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))) <span class="co"># create 2 points</span>
 b =<span class="st"> </span><span class="kw">st_buffer</span>(b, <span class="dt">dist =</span> <span class="dv">1</span>) <span class="co"># convert points to circles</span>
 l =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>)
@@ -482,6 +482,7 @@ Figure 4.7: Randomly distributed points within the bounding box enclosing circle
 <p>This section builds on <a href="attr.html#manipulating-raster-objects">3.3</a>, which highlights various basic methods for manipulating raster datasets, to demonstrate more advanced and explicitly spatial raster operations, and uses the same objects <code>r</code> and <code>r_2</code>.</p>
 <div id="map-algebra-local-focal-zonal-global" class="section level3">
 <h3><span class="header-section-number">4.7.1</span> Map algebra: local, focal, zonal, global</h3>
+<p>Raster processing is really fast because it only implicitly stores coordinates, that is we can calculate the coordinate of a raster cell due to its matrix position and the help of the resolution and the origin. For the processing, however, the geographic position of a cell is barely relevant as long as we make sure that the cell position is still the same after the processing (one-to-one locational correspondence). Additionally, if two or more raster datasets share the same extent, projection and the resolution, one could treat them as matrixes for the processing. This is exactly what map algebra is doing. First, it checks the headers of the rasters on which to perform any algebraic operation, and only if they correspondent to each other, the processing goes on. And secondly, map algebra retains the so-called one-to-one locational correspondence. This is where it substantially differs from matrix algebra which changes positions when for example multiplying or dividing matrixes.</p>
 <p>Map algebra (or cartographic modeling) divides raster operations into four subclasses <span class="citation">(Tomlin <a href="#ref-tomlin_geographic_1990">1990</a>)</span>, with each of them either working on one or several grids simultaneously:</p>
 <ol style="list-style-type: decimal">
 <li><em>Local</em> or per-cell operations.</li>
@@ -499,14 +500,14 @@ r^<span class="dv">2</span>
 <span class="kw">log</span>(r)
 r &gt;<span class="st"> </span><span class="dv">5</span></code></pre></div>
 <p>Instead of arithmetic operators, you can also use the <code>calc()</code> and <code>overlay()</code> functions. These functions are more efficient. So you should use them if you have to process large raster datasets. Additionally, they let you directly store an output file.</p>
-<p>The calculation of the normalized difference vegetation index (NDVI) is one of the most famous local, i.e. pixel-by-pixel, raster operations. It ranges between - 1 and 1 with positive values indicating the presence of living plants (mostly &gt; 0.2). To calculate the NDVI, one uses the red and near-infrared bands of remotely sensed imagery (e.g., Landsat or Sentinel imagery) exploiting the fact that vegetation absorpts light heavily in the visible light spectrum, and especially in the red channel, while reflecting it in the near-infrared spectrum.</p>
+<p>The calculation of the normalized difference vegetation index (NDVI) is one of the most famous local, i.e. pixel-by-pixel, raster operations. It ranges between - 1 and 1 with positive values indicating the presence of living plants (mostly &gt; 0.2). To calculate the NDVI, one uses the red and near-infrared bands of remotely sensed imagery (e.g., Landsat or Sentinel imagery) exploiting the fact that vegetation absorbs light heavily in the visible light spectrum, and especially in the red channel, while reflecting it in the near-infrared spectrum.</p>
 <p><span class="math display">\[
 \begin{split}
 NDVI&amp;= \frac{\text{NIR} - \text{Red}}{\text{NIR} + \text{Red}}\\
 \end{split}
 \]</span> where NIR = near infrared channel Red = red channel</p>
 <p>Predictive mapping is another interesting application of local raster operations. The response variable correspond to measured or observed points in space, for example, species richness, the presence of landslides, tree disease or crop yield. Consequently, we can easily retrieve space- or airborne predictor variables from various rasters (elevation, pH, precipitation, temperature, landcover, soil class, etc.). Subsequently, we model our response as a function of our predictors using <code>lm</code>, <code>glm</code>, <code>gam</code> or a machine-learning technique. To make a spatial prediction, all we have to do, is to apply the estimated coefficients to the predictor rasters, and summing up the resulting output rasters (<!--Chapter ??; -->see also <span class="citation">Muenchow et al. (<a href="#ref-muenchow_predictive_2013">2013</a>)</span>). <!-- add reference to chapter ecological modeling --></p>
-<p>While local functions operate on one cell, though possibly from multiple layers, <strong>focal</strong> operations take into account a central cell and its neigbors. The neigborhood (also named kernel, filter or moving window) under consideration is typically of size 3-by-3 cells (that is the central cell and its eight surrounding neighbors) but can take on any other (not necessarily rectangular) shape as defined by the user. A focal operation applies an aggregation function to all cells within the specified neighborhood, uses the corresponding output as the new value for the the central cell, and moves on to the next central cell (Figure <a href="spatial-data-operations.html#fig:focal-example">4.8</a>). Other names for this operation are spatial filtering and convolution <span class="citation">(Burrough, McDonnell, and Lloyd <a href="#ref-burrough_principles_2015">2015</a>)</span>.</p>
+<p>While local functions operate on one cell, though possibly from multiple layers, <strong>focal</strong> operations take into account a central cell and its neighbors. The neighborhood (also named kernel, filter or moving window) under consideration is typically of size 3-by-3 cells (that is the central cell and its eight surrounding neighbors) but can take on any other (not necessarily rectangular) shape as defined by the user. A focal operation applies an aggregation function to all cells within the specified neighborhood, uses the corresponding output as the new value for the the central cell, and moves on to the next central cell (Figure <a href="spatial-data-operations.html#fig:focal-example">4.8</a>). Other names for this operation are spatial filtering and convolution <span class="citation">(Burrough, McDonnell, and Lloyd <a href="#ref-burrough_principles_2015">2015</a>)</span>.</p>
 <p>In R, we can use the <code>focal()</code> function to perform spatial filtering. We define the shape of the moving window with a <code>matrix</code> whose values correspond to weights. Secondly, the the <code>fun</code> argument lets us specify the function we wish to apply to this neighborhood. Here, we choose the minimum, but of course we can use any other function such as the the sum, the mean, the median, the mode, the maximum or the variance.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r_focal =<span class="st"> </span><span class="kw">focal</span>(r, <span class="dt">w =</span> <span class="kw">matrix</span>(<span class="dv">1</span>, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">3</span>), <span class="dt">fun =</span> min)</code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:focal-example"></span>
@@ -527,42 +528,12 @@ z
 <span class="co">#&gt; 1    1 16.8</span>
 <span class="co">#&gt; 2    2 19.4</span>
 <span class="co">#&gt; 3    3 19.8</span></code></pre></div>
-<p>This returns the statistics for each category, here the mean altitude for each grain size class. Of course, we can add this statistic to the attribute table of the ratified raster (remember RAT stands for raster attribute table).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(r_2)[[<span class="dv">1</span>]] =<span class="st">  </span><span class="kw">cbind</span>(<span class="kw">levels</span>(r_2)[[<span class="dv">1</span>]], <span class="dt">mean_elev =</span> z$mean)
-r_2
-<span class="co">#&gt; class       : RasterLayer </span>
-<span class="co">#&gt; dimensions  : 6, 6, 36  (nrow, ncol, ncell)</span>
-<span class="co">#&gt; resolution  : 0.5, 0.5  (x, y)</span>
-<span class="co">#&gt; extent      : -1.5, 1.5, -1.5, 1.5  (xmin, xmax, ymin, ymax)</span>
-<span class="co">#&gt; coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 </span>
-<span class="co">#&gt; data source : in memory</span>
-<span class="co">#&gt; names       : layer </span>
-<span class="co">#&gt; values      : 1, 3  (min, max)</span>
-<span class="co">#&gt; attributes  :</span>
-<span class="co">#&gt;  ID VALUE mean_elev</span>
-<span class="co">#&gt;   1  clay      16.8</span>
-<span class="co">#&gt;   2  silt      19.4</span>
-<span class="co">#&gt;   3  sand      19.8</span></code></pre></div>
-<p>This is really interesting since we have learned that each raster cell can only possess one value. In fact, the raster cells themselves still consist of only one value, namely an integer which represents a unique identifier. This identifier can then be used to look up the attributes in the corresponding attribute table (stored in a slot named <code>attributes</code>). Say, we would like to know the grain size and the mean altitude of rows and columns 1, 3, 5 and 6. First, we have to find out the cell IDs for our indexes. With these, we extract the values from the raster. Finally, the <code>factorValues()</code> command returns the attributes for the raster cell values.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cells =<span class="st"> </span><span class="kw">cellFromRowCol</span>(r_2, <span class="dt">rownr =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="dt">colnr =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>))
-vals =<span class="st"> </span>r_2[cells]
-<span class="kw">factorValues</span>(r_2, vals)
-<span class="co">#&gt;   VALUE mean_elev</span>
-<span class="co">#&gt; 1  clay      16.8</span>
-<span class="co">#&gt; 2  sand      19.8</span>
-<span class="co">#&gt; 3  sand      19.8</span>
-<span class="co">#&gt; 4  clay      16.8</span></code></pre></div>
-<p><em>Global</em> operations are a special case of zonal operations with the entire raster dataset representing a single zone. Descriptive raster statistics are typical global operations. Printing the raster object to the console already returns the minimum and maximum values of a raster. You can also use the <code>summary()</code> function for the most common descriptive statistics (minimum, maximum, interquartile range and number of <code>NA</code>s). If we are interested in further summary operations such as the standard deviation (see below) or if we want to define our own summary functions, we can do so with the <code>cellStats</code> command.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cellStats</span>(r, sd)
-<span class="co">#&gt; [1] 10.5</span></code></pre></div>
-<p>Note: if you provide the <code>summary()</code> and <code>cellStats()</code> functions with a raster stack or brick object, they will summarize each layer separately. Try <code>summary(brick(r, r_2))</code>.</p>
-<p>Global operations are also usefuel for the computation of distance and weight rasters. In the first case, one can calculate the distance from each cell to a specific target cell. For example, one might want to compute the distance to the nearest coast (see also <code>raster::distance()</code>). We might also want to consider topography, that means, we are not only interested in the pure distance but would like also to avoid the crossing of mountain ranges when going to the coast. To do so, we can weight the distance with elevation so that each additional altitudinal meter ‘prolongs’ the euclidean distance. Visibility and viewshed computations also belong to the family of global operations (in the exercices of Chapter ?? you will compute a viewshed raster).</p>
-</div>
-<div id="mosaics" class="section level3">
-<h3><span class="header-section-number">4.7.2</span> Mosaics</h3>
+<p>This returns the statistics for each category, here the mean altitude for each grain size class. Of course, we can add this statistic to the attribute table of the ratified raster (remember RAT stands for raster attribute table, see also previous chapter).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(r_2)[[<span class="dv">1</span>]] =<span class="st">  </span><span class="kw">cbind</span>(<span class="kw">levels</span>(r_2)[[<span class="dv">1</span>]], <span class="dt">mean_elev =</span> z$mean)</code></pre></div>
+<p><em>Global</em> operations are a special case of zonal operations with the entire raster dataset representing a single zone. The most common global operations are descriptive statistics for the entire raster dataset such as the minimum or maximum (see previous chapter). Aside from that, global operations are also useful for the computation of distance and weight rasters. In the first case, one can calculate the distance from each cell to a specific target cell. For example, one might want to compute the distance to the nearest coast (see also <code>raster::distance()</code>). We might also want to consider topography, that means, we are not only interested in the pure distance but would like also to avoid the crossing of mountain ranges when going to the coast. To do so, we can weight the distance with elevation so that each additional altitudinal meter ‘prolongs’ the euclidean distance. Visibility and viewshed computations also belong to the family of global operations (in the exercises of Chapter ?? you will compute a viewshed raster). <!-- reference 13-gis chapter--> ### Mosaics</p>
 </div>
 <div id="raster-aggregation-disaggregation-and-resampling" class="section level3">
-<h3><span class="header-section-number">4.7.3</span> Raster aggregation, disaggregation and resampling</h3>
+<h3><span class="header-section-number">4.7.2</span> Raster aggregation, disaggregation and resampling</h3>
 <!-- ## Spatial data creation -->
 <!-- where should "area" example be? in this or the previous chapter? -->
 <!-- Not here - I think this chapter should focus on geomtry data -->
@@ -593,7 +564,7 @@ vals =<span class="st"> </span>r_2[cells]
 <!-- changes classes; polygonize, etc-->
 </div>
 <div id="exercises-3" class="section level3">
-<h3><span class="header-section-number">4.7.4</span> Exercises</h3>
+<h3><span class="header-section-number">4.7.3</span> Exercises</h3>
 <ol style="list-style-type: decimal">
 <li>Write code that subsets points that are contained within <code>x</code> <em>and</em> <code>y</code> (illustrated by the plot in the 2<sup>nd</sup> row and the 1<sup>st</sup> column in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.6</a>).</li>
 </ol>
@@ -618,6 +589,13 @@ agg9$pop /<span class="st"> </span><span class="kw">sum</span>(world$pop, <span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">interp9 =<span class="st"> </span><span class="kw">st_interpolate_aw</span>(<span class="dt">x =</span> world[<span class="st">&quot;pop&quot;</span>], <span class="dt">to =</span> buff9, <span class="dt">extensive =</span> <span class="ot">TRUE</span>)
 <span class="co">#&gt; Warning in st_interpolate_aw(x = world[&quot;pop&quot;], to = buff9, extensive =</span>
 <span class="co">#&gt; TRUE): st_interpolate_aw assumes attributes are constant over areas of x</span></code></pre></div>
+<!-- Raster exercises-->
+<ol start="4" style="list-style-type: decimal">
+<li>Use <code>data(dem, package = &quot;RQGIS&quot;)</code>, and reclassify the elevation in three classes: low, middle and high. Secondly, compute the NDVI (<code>data(ndvi, package = &quot;RQGIS&quot;)</code>) and the mean elevation for each altitudinal class.</li>
+<li>Apply a line detection filter to <code>data(dem, package = &quot;RQGIS&quot;)</code>.</li>
+<li>Calculate the NDVI of a Landsat image. Use the Landsat image provided by the <strong>spDataLarge</strong> package (<code>system.file(&quot;raster/landsat.tif&quot;, package=&quot;spDataLarge&quot;)</code>).</li>
+<li>This <a href="https://stackoverflow.com/questions/35555709/global-raster-of-geographic-distances">post</a> shows how to use <code>raster::distance()</code>. Extract Spain, calculate a distance raster and weight it with elevation. Finally, compute the difference between the raster using the euclidean distance and the raster weighted by elevation. (Hint: Have a look at <code>getData()</code> to retrieve a digital elevation model for Spain.)</li>
+</ol>
 
 </div>
 </div>
@@ -645,10 +623,10 @@ agg9$pop /<span class="st"> </span><span class="kw">sum</span>(world$pop, <span 
 </div>
 <div class="footnotes">
 <hr />
-<ol start="23">
-<li id="fn23"><p>Interested readers can see this default value of <code>op</code> set in the first line of the function call by entering its long-form name into the console: <code>sf:::`[.sf`</code><a href="spatial-data-operations.html#fnref23">↩</a></p></li>
-<li id="fn24"><p>Recall that we can also subset simple features using the <code>filter()</code> function, e.g. with <code>filter(world, continent == &quot;Africa&quot;)</code><a href="spatial-data-operations.html#fnref24">↩</a></p></li>
-<li id="fn25"><p><strong>dplyr</strong> discards row names by design. For further discussion of this decision, and some controversy, see the (closed) issue <a href="https://github.com/tidyverse/dplyr/issues/366">#366</a> in the package’s issue tracker.<a href="spatial-data-operations.html#fnref25">↩</a></p></li>
+<ol start="22">
+<li id="fn22"><p>Interested readers can see this default value of <code>op</code> set in the first line of the function call by entering its long-form name into the console: <code>sf:::`[.sf`</code><a href="spatial-data-operations.html#fnref22">↩</a></p></li>
+<li id="fn23"><p>Recall that we can also subset simple features using the <code>filter()</code> function, e.g. with <code>filter(world, continent == &quot;Africa&quot;)</code><a href="spatial-data-operations.html#fnref23">↩</a></p></li>
+<li id="fn24"><p><strong>dplyr</strong> discards row names by design. For further discussion of this decision, and some controversy, see the (closed) issue <a href="https://github.com/tidyverse/dplyr/issues/366">#366</a> in the package’s issue tracker.<a href="spatial-data-operations.html#fnref24">↩</a></p></li>
 </ol>
 </div>
             </section>
