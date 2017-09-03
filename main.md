@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve7a785490468bfca0
+preservea828fcd6930de3b1
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2556,15 +2556,15 @@ library(spData)
 
 Spatial operations are an important component of any geospatial software and vital for many applications involving spatial data.
 There are clear overlaps between spatial and non-spatial operations.
-Common spatial attribute data processing tasks include spatial subsetting (as we will see in section \@ref(spatial-subsetting)) aggregation (\@ref(spatial-aggregation)) and joining (covered in \@ref(spatial-joining)).
-Each of these spatial operations has a non-spatial equivalent, as demonstrated in sections \@ref(vector-attribute-subsetting), \@ref(vector-attribute-aggregation) and \@ref(vector-attribute-joining) respectively in Chapter \@ref(attr).
+Common spatial attribute data processing tasks include spatial subsetting (as we will see in section \@ref(spatial-subsetting)), joining and aggregation (\@ref(spatial-joining-and-aggregation)).
+Each of these spatial operations has a non-spatial equivalent, as demonstrated in section \@ref(vector-attribute-manipulation) in the previous chapter.
 
 Some operations covered in this chapter are unique to spatial data.
-New spatial data can be created by modifying existing spatial objects, using operations such as 'buffer' and 'clip', described in section \@ref(modifying-geometry-data).
+A variety of *topological relations* can be used to subset/join vector geometries (by default **sf** uses the catch-all *intersects* but other relations such as *within* can be very useful), a topic that is explored in section \@ref(topological-relations).
+New geometry data can be created by modifying existing spatial objects, using operations such as 'buffer' and 'clip', described in section \@ref(modifying-geometry-data).
 Another unique aspect of spatial objects is distance.
-All features are related to each other in geographic space, as demonstrated in section \@ref(distance-relations), which shows how distance calculations can be used to find which spatial features are nearer or further away from a given point or each other.
-The final topic covered in this chapter is *topological relations*, a variety of which can be used for any spatial operation.
-This advanced topic is explored in section \@ref(topological-relations).
+All features are related to each other in geographic space, and distance calculations can be used to find which spatial features are nearer or further away from a given point or each other, as we'll see in section \@ref(distance-relations).
+The final topic covered in this chapter is spatial raster operations \@ref(spatial-operations-on-raster-data).
 
 ### Note {-}
 
@@ -2725,7 +2725,7 @@ row.names(filter(africa, subregion == "Northern Europe"))
 #> character(0)
 ```
 
-## Spatial aggregation 
+## Spatial joining and aggregation 
 
 Like attribute data aggregation, covered in section \@ref(vector-attribute-aggregation), spatial data aggregation is a way of *condensing* data.
 Aggregated data show some statistic about a variable (typically mean average or total) in relation to some kind of *grouping variable*. 
@@ -2805,13 +2805,145 @@ buff_agg_aw = st_interpolate_aw(x = africa["pop"], to = buff, extensive = TRUE)
 <!-- - ? generalization **rmapsharper** - https://github.com/ateucher/rmapshaper -->
 <!-- `st_union` -->
 
-## Spatial joining 
+### Non-overlapping joins 
 
 <!-- e.g. two point's datasets (non-overlapping) -->
 <!-- e.g. two point's datasets (overlapping) -->
 <!-- ? topological problems of joining lines/polygons? -->
 <!-- joining different types (e.g. points + polygons = geometry) -> save as GPKG? -->
 <!-- `merge()`; `st_interpolate_aw()` -->
+
+## Topological relations
+
+<!-- http://lin-ear-th-inking.blogspot.com/2007/06/subtleties-of-ogc-covers-spatial.html -->
+<!-- https://edzer.github.io/sfr/articles/sf3.html -->
+<!-- https://github.com/edzer/sfr/wiki/migrating#relevant-commands-exported-by-rgeos -->
+<!-- Relations and inverse relations -->
+<!-- http://desktop.arcgis.com/en/arcmap/latest/extensions/data-reviewer/types-of-spatial-relationships-that-can-be-validated.htm -->
+<!-- Topological relations: + difference between datatypes -->
+<!-- ?geos_binary_pred -->
+<!-- Distance relations -->
+<!-- Subset (1) points in polygons <-> (2) -->
+
+
+```r
+a1 = st_polygon(list(rbind(c(-1, -1), c(1, -1), c(1, 1), c(-1, -1))))
+a2 = st_polygon(list(rbind(c(2, 0), c(2, 2), c(3, 2), c(3, 0), c(2, 0))))
+a = st_sfc(a1, a2)
+
+b1 = a1 * 0.5
+b2 = a2 * 0.4 + c(1, 0.5)
+b = st_sfc(b1, b2)
+
+l1 = st_linestring(x = matrix(c(0, 3, -1, 1), , 2))
+l2 = st_linestring(x = matrix(c(-1, -1, -0.5, 1), , 2))
+l = st_sfc(l1, l2)
+
+p = st_multipoint(x = matrix(c(0.5, 1, -1, 0, 1, 0.5), , 2))
+
+plot(a, border = "red", axes = TRUE)
+plot(b, border = "green", add = TRUE)
+plot(l, add = TRUE)
+plot(p, add = TRUE)
+```
+
+<img src="figures/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" />
+
+Equals:
+<!-- https://postgis.net/docs/ST_Equals.html -->
+
+
+```r
+st_equals(a, b, sparse = FALSE)
+```
+
+Contains:
+<!-- https://postgis.net/docs/ST_Contains.html -->
+<!-- https://postgis.net/docs/ST_ContainsProperly.html -->
+
+
+```r
+st_contains(a, b, sparse = FALSE)
+st_contains_properly(a, b, sparse = FALSE)
+```
+
+Covers:
+<!-- https://postgis.net/docs/ST_Covers.html -->
+<!-- https://postgis.net/docs/ST_CoveredBy.html -->
+
+
+```r
+st_covers(a, b, sparse = FALSE)
+st_covered_by(a, b, sparse = FALSE)
+```
+
+Within:
+<!-- https://postgis.net/docs/ST_Within.html -->
+
+
+```r
+st_within(a, b, sparse = FALSE)
+```
+
+Overlaps:
+<!-- https://postgis.net/docs/ST_Overlaps.html -->
+
+
+```r
+st_overlaps(a, b, sparse = FALSE)
+```
+
+Intersects:
+<!-- https://postgis.net/docs/ST_Intersects.html -->
+
+
+```r
+st_intersects(a, b, sparse = FALSE)
+```
+
+Disjoint:
+<!-- https://postgis.net/docs/ST_Disjoint.html -->
+
+
+```r
+st_disjoint(a, b, sparse = FALSE)
+```
+
+Touches:
+<!-- https://postgis.net/docs/ST_Touches.html -->
+
+
+```r
+st_touches(a, b, sparse = FALSE)
+```
+
+Crosses:
+<!-- https://postgis.net/docs/ST_Crosses.html -->
+
+
+```r
+st_crosses(a, b, sparse = FALSE)
+```
+
+DE9-IM - https://en.wikipedia.org/wiki/DE-9IM
+<!-- https://edzer.github.io/sfr/reference/st_relate.html -->
+
+
+```r
+st_relate(a, b, sparse = FALSE)
+```
+
+<!-- examples (points/polygons) -->
+<!-- examples (points/lines) -->
+<!-- examples (lines/polygons) -->
+
+<!-- TODO? create a series of polygons distributed evenly over the surface of the Earth and clip them. -->
+
+<!-- ```{r} -->
+<!-- set.seed(2018) -->
+<!-- blob_points = st_sample(x = world, size = 2) -->
+<!-- blobs = st_buffer(x = blob_points, dist = 1) -->
+<!-- plot(blobs) -->
 
 
 ## Modifying geometry data
@@ -2849,7 +2981,7 @@ plot(b)
 plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
 ```
 
-<img src="figures/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-27-1.png" width="576" style="display: block; margin: auto;" />
 
 The subsequent code chunk demonstrate how this works for all combinations of the 'venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
 <!-- Todo: reference r4ds -->
@@ -3134,138 +3266,6 @@ Visibility and viewshed computations also belong to the family of global operati
 <!-- ## Spatial data transformation -->
 <!-- changes classes; polygonize, etc-->
 
-## Topological relations
-
-<!-- http://lin-ear-th-inking.blogspot.com/2007/06/subtleties-of-ogc-covers-spatial.html -->
-<!-- https://edzer.github.io/sfr/articles/sf3.html -->
-<!-- https://github.com/edzer/sfr/wiki/migrating#relevant-commands-exported-by-rgeos -->
-<!-- Relations and inverse relations -->
-<!-- http://desktop.arcgis.com/en/arcmap/latest/extensions/data-reviewer/types-of-spatial-relationships-that-can-be-validated.htm -->
-<!-- Topological relations: + difference between datatypes -->
-<!-- ?geos_binary_pred -->
-<!-- Distance relations -->
-<!-- Subset (1) points in polygons <-> (2) -->
-
-
-```r
-a1 = st_polygon(list(rbind(c(-1, -1), c(1, -1), c(1, 1), c(-1, -1))))
-a2 = st_polygon(list(rbind(c(2, 0), c(2, 2), c(3, 2), c(3, 0), c(2, 0))))
-a = st_sfc(a1, a2)
-
-b1 = a1 * 0.5
-b2 = a2 * 0.4 + c(1, 0.5)
-b = st_sfc(b1, b2)
-
-l1 = st_linestring(x = matrix(c(0, 3, -1, 1), , 2))
-l2 = st_linestring(x = matrix(c(-1, -1, -0.5, 1), , 2))
-l = st_sfc(l1, l2)
-
-p = st_multipoint(x = matrix(c(0.5, 1, -1, 0, 1, 0.5), , 2))
-
-plot(a, border = "red", axes = TRUE)
-plot(b, border = "green", add = TRUE)
-plot(l, add = TRUE)
-plot(p, add = TRUE)
-```
-
-<img src="figures/unnamed-chunk-27-1.png" width="576" style="display: block; margin: auto;" />
-
-Equals:
-<!-- https://postgis.net/docs/ST_Equals.html -->
-
-
-```r
-st_equals(a, b, sparse = FALSE)
-```
-
-Contains:
-<!-- https://postgis.net/docs/ST_Contains.html -->
-<!-- https://postgis.net/docs/ST_ContainsProperly.html -->
-
-
-```r
-st_contains(a, b, sparse = FALSE)
-st_contains_properly(a, b, sparse = FALSE)
-```
-
-Covers:
-<!-- https://postgis.net/docs/ST_Covers.html -->
-<!-- https://postgis.net/docs/ST_CoveredBy.html -->
-
-
-```r
-st_covers(a, b, sparse = FALSE)
-st_covered_by(a, b, sparse = FALSE)
-```
-
-Within:
-<!-- https://postgis.net/docs/ST_Within.html -->
-
-
-```r
-st_within(a, b, sparse = FALSE)
-```
-
-Overlaps:
-<!-- https://postgis.net/docs/ST_Overlaps.html -->
-
-
-```r
-st_overlaps(a, b, sparse = FALSE)
-```
-
-Intersects:
-<!-- https://postgis.net/docs/ST_Intersects.html -->
-
-
-```r
-st_intersects(a, b, sparse = FALSE)
-```
-
-Disjoint:
-<!-- https://postgis.net/docs/ST_Disjoint.html -->
-
-
-```r
-st_disjoint(a, b, sparse = FALSE)
-```
-
-Touches:
-<!-- https://postgis.net/docs/ST_Touches.html -->
-
-
-```r
-st_touches(a, b, sparse = FALSE)
-```
-
-Crosses:
-<!-- https://postgis.net/docs/ST_Crosses.html -->
-
-
-```r
-st_crosses(a, b, sparse = FALSE)
-```
-
-DE9-IM - https://en.wikipedia.org/wiki/DE-9IM
-<!-- https://edzer.github.io/sfr/reference/st_relate.html -->
-
-
-```r
-st_relate(a, b, sparse = FALSE)
-```
-
-<!-- examples (points/polygons) -->
-<!-- examples (points/lines) -->
-<!-- examples (lines/polygons) -->
-
-<!-- TODO? create a series of polygons distributed evenly over the surface of the Earth and clip them. -->
-
-<!-- ```{r} -->
-<!-- set.seed(2018) -->
-<!-- blob_points = st_sample(x = world, size = 2) -->
-<!-- blobs = st_buffer(x = blob_points, dist = 1) -->
-<!-- plot(blobs) -->
-
 ### Exercises
 
 1. Write code that subsets points that are contained within `x` *and* `y` (illustrated by the plot in the 2^nd^ row and the 1^st^ column in Figure \@ref(fig:venn-clip)).
@@ -3378,7 +3378,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.47
+#> [1] 2.23
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3394,7 +3394,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.65
+#> [1] 3.61
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3485,13 +3485,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.065
+#>   0.060   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.043
+#>   0.044   0.000   0.046
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.004   0.030
+#>   0.012   0.016   0.030
 ```
 
 
