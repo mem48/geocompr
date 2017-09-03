@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea072b26adefbf5e9
+preserveadd6c6be243b1820
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1664,6 +1664,7 @@ Again, the `res()` command gives back a numeric vector without any unit, forcing
 
 ```r
 library(sf)
+library(raster)
 library(tidyverse)
 ```
 
@@ -1817,6 +1818,12 @@ Moreover, **dplyr** is usually much faster than base R since it makes use of C++
 This comes in especially handy when working with large data sets.
 As a special bonus, **dplyr** is compatible with `sf` objects.
 The main **dplyr** subsetting functions are `select()`, `slice()`, `filter()` and `pull()`.
+
+### Note {-}
+
+Both **raster** and **dplyr** packages have a function called `select()`. If both packages are loaded, this can generate error messages containing the text: `unable to find an inherited method for function ‘select’ for signature ‘"sf"’`.
+To avoid this error message, and prevent ambiguity, we use the long-form function name, prefixed by the package name and two colons (usually omited from R scripts for concise code): `dplyr::select()`.
+
 
 The `select()` function selects columns by name or position.
 For example, you could select only two columns, `name_long` and `pop`, with the following command (note the `geom` column remains):
@@ -2500,7 +2507,7 @@ These and other typical raster processing operations are part of the map algebra
 
 ### Note {-}
 
-Some function names in the **raster** package (e.g. `select`) clash with functions in the **tidyverse**. Therefore it is recommended you unload the package with:
+Some function names in the **raster** package (e.g. `select`, as discussed in a previous note) clash with function names in the **tidyverse**. To prevent function names clashes, you can unload the offending package with `detach()`. The following command, for example, unload the **raster** package (this can also be done in the *package* tab in the right-bottom pane in RStudio):
 
 
 ```r
@@ -3389,7 +3396,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.22
+#> [1] 2.17
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3405,7 +3412,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.71
+#> [1] 3.59
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3496,13 +3503,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>   0.060   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.043
+#>   0.044   0.000   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.030
+#>   0.020   0.004   0.028
 ```
 
 
