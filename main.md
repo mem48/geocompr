@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve6d258ce4593f5cfd
+preserve33069bad6703ad7f
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3082,6 +3082,12 @@ st_distance(a, b)
 
 ## Spatial operations on raster data
 
+###  Map algebra: local, focal, zonal, global
+
+### Mosaics
+
+### Raster aggregation, disaggregation and resampling
+
 <!-- ## Spatial data creation -->
 
 <!-- where should "area" example be? in this or the previous chapter? -->
@@ -3379,10 +3385,10 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.02
+#> [1] 3.56
 ```
 
-In this case **sf** was around 3 times faster than **rgdal**.
+In this case **sf** was around 4 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -3470,13 +3476,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.056   0.004   0.062
+#>   0.068   0.000   0.070
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.041
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.027
+#>   0.020   0.008   0.030
 ```
 
 
