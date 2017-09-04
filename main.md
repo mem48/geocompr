@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve5a5ea6485d1cccd0
+preserve16e6f0a6c1220129
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2060,8 +2060,8 @@ wb_north_america = worldbank_df %>%
   dplyr::select(name, iso_a2, urban_pop, unemploy = unemployment)
 ```
 
-We will use a left join, the most commonly used operation for adding attributes to spatial data to join the two datasets.
-Left joins return all observations from the left object (`north_america`) and the matched observations from the right object (`wb_north_america`).
+We will use a left join to combine the two datasets.
+Left joins are the most commonly used operation for adding attributes to spatial data, as they return all observations from the left object (`north_america`) and the matched observations from the right object (`wb_north_america`) in new columns.
 Rows in the left object without matches in the right (`Greenland` in this case) result in `NA` values.
 
 To join two objects we need to specify a key.
@@ -3349,7 +3349,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.25
+#> [1] 2.19
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3365,7 +3365,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.6
+#> [1] 3.95
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3456,13 +3456,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.068   0.000   0.069
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.041
+#>   0.048   0.000   0.049
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.000   0.027
+#>   0.032   0.004   0.038
 ```
 
 
