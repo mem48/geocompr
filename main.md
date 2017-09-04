@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve62a842fdf887f790
+preservebe32888fe5683e38
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2043,17 +2043,6 @@ It is important to add that the first object contains data about Canada, Greenla
 north_america = world %>%
   filter(subregion == "Northern America") %>%
   dplyr::select(iso_a2, name_long)
-north_america
-#> Simple feature collection with 3 features and 2 fields
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>   iso_a2     name_long                           geom
-#> 1     CA        Canada MULTIPOLYGON (((-63.6645 46...
-#> 2     GL     Greenland MULTIPOLYGON (((-46.76379 8...
-#> 3     US United States MULTIPOLYGON (((-155.54211 ...
 ```
 
 
@@ -3371,7 +3360,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.25
+#> [1] 2.14
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3387,7 +3376,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.72
+#> [1] 3.78
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3478,13 +3467,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.066
+#>   0.060   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.048   0.000   0.046
+#>   0.040   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.012   0.016   0.030
+#>   0.020   0.008   0.030
 ```
 
 

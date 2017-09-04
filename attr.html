@@ -450,18 +450,7 @@ world_continents2 =<span class="st"> </span><span class="kw">aggregate</span>(wo
 <p>The easiest way to understand the concept of joins is to show how they work with a smaller dataset. We will use an <code>sf</code> object <code>north_america</code> with country codes (<code>iso_a2</code>), names and geometries, as well as a <code>data.frame</code> object <code>wb_north_america</code> containing information about urban population and unemployment for three countries. It is important to add that the first object contains data about Canada, Greenland and the United States and the second one about Canada, Mexico and the United States:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">north_america =<span class="st"> </span>world %&gt;%
 <span class="st">  </span><span class="kw">filter</span>(subregion ==<span class="st"> &quot;Northern America&quot;</span>) %&gt;%
-<span class="st">  </span>dplyr::<span class="kw">select</span>(iso_a2, name_long)
-north_america
-<span class="co">#&gt; Simple feature collection with 3 features and 2 fields</span>
-<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513</span>
-<span class="co">#&gt; epsg (SRID):    4326</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;   iso_a2     name_long                           geom</span>
-<span class="co">#&gt; 1     CA        Canada MULTIPOLYGON (((-63.6645 46...</span>
-<span class="co">#&gt; 2     GL     Greenland MULTIPOLYGON (((-46.76379 8...</span>
-<span class="co">#&gt; 3     US United States MULTIPOLYGON (((-155.54211 ...</span></code></pre></div>
+<span class="st">  </span>dplyr::<span class="kw">select</span>(iso_a2, name_long)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(north_america[<span class="dv">0</span>])</code></pre></div>
 <p><img src="figures/unnamed-chunk-26-1.png" width="576" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wb_north_america =<span class="st"> </span>worldbank_df %&gt;%<span class="st"> </span>
