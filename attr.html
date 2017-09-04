@@ -461,8 +461,13 @@ north_america$name_long
 <p>To join two objects we need to specify a key. This is a variable (or a set of variables) that uniquely identifies each observation (row). The <code>by</code> argument of <strong>dplyr</strong>’s join functions lets you identify the key variable. In simple cases, a single, unique variable exist in both objects like the <code>iso_a2</code> column in our example (you may need to rename columns with identifying information for this to work):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)</code></pre></div>
-<p>This has created a spatial dataset with the new variables added. The utility of this is shown in Figure <a href="#fig:unemploy"><strong>??</strong></a>, which shows the unemployment rate (a World Bank variable) across the countries of North America.</p>
-<p><img src="figures/unnamed-chunk-28-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>This has created a spatial dataset with the new variables added. The utility of this is shown in Figure <a href="attr.html#fig:unemploy">3.2</a>, which shows the unemployment rate (a World Bank variable) across the countries of North America.</p>
+<div class="figure" style="text-align: center"><span id="fig:unemploy"></span>
+<img src="figures/unemploy-1.png" alt="The unemployment rate (taken from World Bank statistics) in Canada and the United States to illustrate the utility of joining attribute data on to spatial datasets." width="576" />
+<p class="caption">
+Figure 3.2: The unemployment rate (taken from World Bank statistics) in Canada and the United States to illustrate the utility of joining attribute data on to spatial datasets.
+</p>
+</div>
 <p>It is also possible to join objects by different variables. Both of the datasets have variables with names of countries, but they are named differently. The <code>north_america</code> has a <code>name_long</code> column and the <code>wb_north_america</code> has a <code>name</code> column. In these cases, we can use a named vector to specify the connection, e.g. <code>c(&quot;name_long&quot; = &quot;name&quot;)</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join2 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
@@ -593,12 +598,12 @@ world %&gt;%<span class="st"> </span>
 <div id="manipulating-raster-objects" class="section level2">
 <h2><span class="header-section-number">3.3</span> Manipulating raster objects</h2>
 <p>In contrast to simple features (vector data), raster data represents continuous surfaces. In this section we will use a raster object created <em>from scratch</em>, building on section <a href="spatial-class.html#an-introduction-to-raster">2.2.1</a>. Raster data has a fundamentally different structure than vector data, so subsetting and other operations work in a different way, as demonstrated in section <a href="attr.html#raster-subsetting">3.3.1</a>.</p>
-<p>Let us start with manually recreating the raster dataset of Chapter <a href="spatial-class.html#raster-classes">2.2.3</a>. This should make it easy to understand how <strong>raster</strong> and related operations work (Figure <a href="attr.html#fig:cont-cate-rasters">3.2</a>).</p>
+<p>Let us start with manually recreating the raster dataset of Chapter <a href="spatial-class.html#raster-classes">2.2.3</a>. This should make it easy to understand how <strong>raster</strong> and related operations work (Figure <a href="attr.html#fig:cont-cate-rasters">3.3</a>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
 r =<span class="st"> </span><span class="kw">raster</span>(<span class="dt">nrow =</span> <span class="dv">6</span>, <span class="dt">ncol =</span> <span class="dv">6</span>, <span class="dt">res =</span> <span class="fl">0.5</span>, 
            <span class="dt">xmn =</span> -<span class="fl">1.5</span>, <span class="dt">xmx =</span> <span class="fl">1.5</span>, <span class="dt">ymn =</span> -<span class="fl">1.5</span>, <span class="dt">ymx =</span> <span class="fl">1.5</span>,
            <span class="dt">vals =</span> <span class="dv">1</span>:<span class="dv">36</span>)</code></pre></div>
-<p>Note that a raster object can also contain categorical data. For this, we can use either boolean or factor variables in R. For instance, we can create a raster representing grain sizes (Figure <a href="attr.html#fig:cont-cate-rasters">3.2</a>):</p>
+<p>Note that a raster object can also contain categorical data. For this, we can use either boolean or factor variables in R. For instance, we can create a raster representing grain sizes (Figure <a href="attr.html#fig:cont-cate-rasters">3.3</a>):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">grain_size =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;clay&quot;</span>, <span class="st">&quot;silt&quot;</span>, <span class="st">&quot;sand&quot;</span>)
 r_2 =<span class="st"> </span><span class="kw">raster</span>(<span class="dt">nrow =</span> <span class="dv">6</span>, <span class="dt">ncol =</span> <span class="dv">6</span>, <span class="dt">res =</span> <span class="fl">0.5</span>, 
              <span class="dt">xmn =</span> -<span class="fl">1.5</span>, <span class="dt">xmx =</span> <span class="fl">1.5</span>, <span class="dt">ymn =</span> -<span class="fl">1.5</span>, <span class="dt">ymx =</span> <span class="fl">1.5</span>,
@@ -638,7 +643,7 @@ vals =<span class="st"> </span>r_2[cells]
 <div class="figure" style="text-align: center"><span id="fig:cont-cate-rasters"></span>
 <img src="figures/03_cont_categ_rasters.png" alt="Raster with numberic values (left) and a raster with categorical values" width="475" />
 <p class="caption">
-Figure 3.2: Raster with numberic values (left) and a raster with categorical values
+Figure 3.3: Raster with numberic values (left) and a raster with categorical values
 </p>
 </div>
 <div id="raster-subsetting" class="section level3">
