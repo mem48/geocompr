@@ -162,7 +162,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.1" data-path="attr.html"><a href="attr.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
 <li class="chapter" data-level="3.2" data-path="attr.html"><a href="attr.html#vector-attribute-manipulation"><i class="fa fa-check"></i><b>3.2</b> Vector attribute manipulation</a><ul>
 <li class="chapter" data-level="3.2.1" data-path="attr.html"><a href="attr.html#vector-attribute-subsetting"><i class="fa fa-check"></i><b>3.2.1</b> Vector attribute subsetting</a></li>
-<li class="chapter" data-level="" data-path="attr.html"><a href="attr.html#note"><i class="fa fa-check"></i>Note</a></li>
 <li class="chapter" data-level="3.2.2" data-path="attr.html"><a href="attr.html#vector-attribute-aggregation"><i class="fa fa-check"></i><b>3.2.2</b> Vector attribute aggregation</a></li>
 <li class="chapter" data-level="3.2.3" data-path="attr.html"><a href="attr.html#vector-attribute-joining"><i class="fa fa-check"></i><b>3.2.3</b> Vector attribute joining</a></li>
 <li class="chapter" data-level="3.2.4" data-path="attr.html"><a href="attr.html#creating-attributes-and-removing-spatial-information"><i class="fa fa-check"></i><b>3.2.4</b> Creating attributes and removing spatial information</a></li>
@@ -170,17 +169,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3" data-path="attr.html"><a href="attr.html#manipulating-raster-objects"><i class="fa fa-check"></i><b>3.3</b> Manipulating raster objects</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="attr.html"><a href="attr.html#raster-subsetting"><i class="fa fa-check"></i><b>3.3.1</b> Raster subsetting</a></li>
 <li class="chapter" data-level="3.3.2" data-path="attr.html"><a href="attr.html#summarizing-raster-objects"><i class="fa fa-check"></i><b>3.3.2</b> Summarizing raster objects</a></li>
-<li class="chapter" data-level="" data-path="attr.html"><a href="attr.html#note-1"><i class="fa fa-check"></i>Note</a></li>
+<li class="chapter" data-level="" data-path="attr.html"><a href="attr.html#note"><i class="fa fa-check"></i>Note</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="attr.html"><a href="attr.html#exercises-2"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html"><i class="fa fa-check"></i><b>4</b> Spatial data operations</a><ul>
 <li class="chapter" data-level="" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#prerequisites-2"><i class="fa fa-check"></i>Prerequisites</a></li>
 <li class="chapter" data-level="4.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a><ul>
-<li class="chapter" data-level="" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#note-2"><i class="fa fa-check"></i>Note</a></li>
+<li class="chapter" data-level="" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#note-1"><i class="fa fa-check"></i>Note</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-subsetting"><i class="fa fa-check"></i><b>4.2</b> Spatial subsetting</a><ul>
-<li class="chapter" data-level="" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#note-3"><i class="fa fa-check"></i>Note</a></li>
+<li class="chapter" data-level="" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#note-2"><i class="fa fa-check"></i>Note</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-joining-and-aggregation"><i class="fa fa-check"></i><b>4.3</b> Spatial joining and aggregation</a><ul>
 <li class="chapter" data-level="4.3.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-congruence-and-areal-interpolation"><i class="fa fa-check"></i><b>4.3.1</b> Spatial congruence and areal interpolation</a></li>
@@ -293,10 +292,11 @@ small_countries =<span class="st"> </span>world[sel_area, ]</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world$name_long</code></pre></div>
 <!-- , after the package has been loaded: [or - it is a part of tidyverse] -->
 <p>Base R functions are essential, and we recommend that you have a working knowledge of them. However, <strong>dplyr</strong> often makes working with data frames easier. Moreover, <strong>dplyr</strong> is usually much faster than base R since it makes use of C++ in the background. This comes in especially handy when working with large data sets. As a special bonus, <strong>dplyr</strong> is compatible with <code>sf</code> objects. The main <strong>dplyr</strong> subsetting functions are <code>select()</code>, <code>slice()</code>, <code>filter()</code> and <code>pull()</code>.</p>
+
+<div class="rmdnote">
+Both <strong>raster</strong> and <strong>dplyr</strong> packages have a function called <code>select()</code>. If both packages are loaded, this can generate error messages containing the text: <code>unable to find an inherited method for function ‘select’ for signature ‘&quot;sf&quot;’</code>. To avoid this error message, and prevent ambiguity, we use the long-form function name, prefixed by the package name and two colons (usually omited from R scripts for concise code): <code>dplyr::select()</code>.
 </div>
-<div id="note" class="section level3 unnumbered">
-<h3>Note</h3>
-<p>Both <strong>raster</strong> and <strong>dplyr</strong> packages have a function called <code>select()</code>. If both packages are loaded, this can generate error messages containing the text: <code>unable to find an inherited method for function ‘select’ for signature ‘&quot;sf&quot;’</code>. To avoid this error message, and prevent ambiguity, we use the long-form function name, prefixed by the package name and two colons (usually omited from R scripts for concise code): <code>dplyr::select()</code>.</p>
+<p></p>
 <p>The <code>select()</code> function selects columns by name or position. For example, you could select only two columns, <code>name_long</code> and <code>pop</code>, with the following command (note the <code>geom</code> column remains):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world1 =<span class="st"> </span>dplyr::<span class="kw">select</span>(world, name_long, pop)
 <span class="kw">names</span>(world1)
@@ -702,7 +702,7 @@ r[]
 <p>Note: if you provide the <code>summary()</code> and <code>cellStats()</code> functions with a raster stack or brick object, they will summarize each layer separately. Try <code>summary(brick(r, r_2))</code>. Nothing stops us from visualizing descriptive raster statistics. We can manually retrieving raster values with the help of the <code>values()</code> and <code>getValues()</code> function, and putting their output into any <code>plot()</code> function we like. Or we can make use of the <code>boxplot()</code>, <code>density()</code>, <code>hist()</code> and <code>pairs()</code> methods for raster objects.</p>
 <p>Descriptive raster statistics belong to the so-called global raster operations. These and other typical raster processing operations are part of the map algebra scheme which we will get to know better in the next chapter.</p>
 </div>
-<div id="note-1" class="section level3 unnumbered">
+<div id="note" class="section level3 unnumbered">
 <h3>Note</h3>
 <p>Some function names in the <strong>raster</strong> package (e.g. <code>select</code>, as discussed in a previous note) clash with function names in the <strong>tidyverse</strong>. To prevent function names clashes, you can unload the offending package with <code>detach()</code>. The following command, for example, unload the <strong>raster</strong> package (this can also be done in the <em>package</em> tab in the right-bottom pane in RStudio):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(<span class="st">&quot;package:raster&quot;</span>, <span class="dt">unload =</span> <span class="ot">TRUE</span>)</code></pre></div>
