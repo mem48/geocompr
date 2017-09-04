@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-09-03'
+date: '2017-09-04'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -40,7 +40,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-09-03 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-09-04 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve3ab4d9280e85ce49
+preserve333b9f47a9195874
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1895,20 +1895,18 @@ It keeps only rows matching given criteria, e.g., only countries with a very hig
 world6 = filter(world, lifeExp > 82)
 ```
 
-The standard set of comparison operators can be used in the `filter()` function: 
+The standard set of comparison operators can be used in the `filter()` function, as illustrated in Table \@ref(tab:operators): 
 
 
-Symbol   Name                  
--------  ----------------------
-`==`     Equal to              
-`!=`     Not equal to          
-`>`      Greater than          
-`>=`     Greater than or equal 
-`<`      Less than             
-`<=`     Less than or equal    
-`&`      And                   
-|        Or                    
-`!`      Not                   
+Table: (\#tab:operators)Table of comparison operators that result in boolean (TRUE/FALSE) outputs.
+
+Symbol      Name                            
+----------  --------------------------------
+`==`        Equal to                        
+`!=`        Not equal to                    
+`>, <`      Greater/Less than               
+`>=, <=`    Greater/Less than or equal      
+`&, |, !`   Logical operators: And, Or, Not 
 
 <!-- describe these: ==, !=, >, >=, <, <=, &, | -->
 <!-- add warning about = vs == -->
@@ -2065,7 +2063,7 @@ north_america
 plot(north_america[0])
 ```
 
-<img src="figures/unnamed-chunk-27-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-26-1.png" width="576" style="display: block; margin: auto;" />
 
 
 ```r
@@ -3375,7 +3373,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.31
+#> [1] 2.23
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3391,7 +3389,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 4.12
+#> [1] 3.63
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3482,13 +3480,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.088   0.000   0.090
+#>   0.064   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.076   0.000   0.075
+#>   0.044   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.012   0.042
+#>   0.024   0.012   0.034
 ```
 
 
