@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve16e6f0a6c1220129
+preservee2c2cc70ccd70462
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2067,28 +2067,18 @@ Rows in the left object without matches in the right (`Greenland` in this case) 
 To join two objects we need to specify a key.
 This is a variable (or a set of variables) that uniquely identifies each observation (row). 
 The `by` argument of **dplyr**'s join functions lets you identify the key variable. 
-In simple cases, a single, unique variable exist in both objects like the `iso_a2` column in our example:
+In simple cases, a single, unique variable exist in both objects like the `iso_a2` column in our example (you may need to rename columns with identifying information for this to work):
 
 
 ```r
 left_join1 = north_america %>% 
   left_join(wb_north_america, by = "iso_a2")
-left_join1
-#> Simple feature collection with 3 features and 5 fields
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>   iso_a2     name_long          name urban_pop unemploy
-#> 1     CA        Canada        Canada  29022137     6.91
-#> 2     GL     Greenland          <NA>        NA       NA
-#> 3     US United States United States 259740511     6.17
-#>                             geom
-#> 1 MULTIPOLYGON (((-63.6645 46...
-#> 2 MULTIPOLYGON (((-46.76379 8...
-#> 3 MULTIPOLYGON (((-155.54211 ...
 ```
+
+This has created a spatial dataset with the new variables added.
+The utility of this is shown in Figure \@ref(fig:unemploy), which shows the unemployment rate (a World Bank variable) across the countries of North America.
+
+<img src="figures/unnamed-chunk-28-1.png" width="576" style="display: block; margin: auto;" />
 
 It is also possible to join objects by different variables.
 Both of the datasets have variables with names of countries, but they are named differently.
@@ -2465,6 +2455,8 @@ Some function names in the **raster** package (e.g. `select`, as discussed in a 
 
 ```r
 detach("package:raster", unload = TRUE)
+#> Warning: 'raster' namespace cannot be unloaded:
+#>   namespace 'raster' is imported by 'tmap', 'mapview', 'tmaptools', 'satellite', 'gdalUtils' so cannot be unloaded
 ```
 
 
@@ -3349,7 +3341,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.19
+#> [1] 2.35
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3365,10 +3357,10 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.95
+#> [1] 3.32
 ```
 
-In this case **sf** was around 4 times faster than **rgdal**.
+In this case **sf** was around 3 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -3456,13 +3448,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.069
+#>   0.104   0.000   0.106
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.048   0.000   0.049
+#>   0.068   0.000   0.068
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.032   0.004   0.038
+#>   0.040   0.008   0.051
 ```
 
 

@@ -463,24 +463,11 @@ north_america$name_long
 <span class="st">  </span><span class="kw">filter</span>(name %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Canada&quot;</span>, <span class="st">&quot;Mexico&quot;</span>, <span class="st">&quot;United States&quot;</span>)) %&gt;%
 <span class="st">  </span>dplyr::<span class="kw">select</span>(name, iso_a2, urban_pop, <span class="dt">unemploy =</span> unemployment)</code></pre></div>
 <p>We will use a left join to combine the two datasets. Left joins are the most commonly used operation for adding attributes to spatial data, as they return all observations from the left object (<code>north_america</code>) and the matched observations from the right object (<code>wb_north_america</code>) in new columns. Rows in the left object without matches in the right (<code>Greenland</code> in this case) result in <code>NA</code> values.</p>
-<p>To join two objects we need to specify a key. This is a variable (or a set of variables) that uniquely identifies each observation (row). The <code>by</code> argument of <strong>dplyr</strong>’s join functions lets you identify the key variable. In simple cases, a single, unique variable exist in both objects like the <code>iso_a2</code> column in our example:</p>
+<p>To join two objects we need to specify a key. This is a variable (or a set of variables) that uniquely identifies each observation (row). The <code>by</code> argument of <strong>dplyr</strong>’s join functions lets you identify the key variable. In simple cases, a single, unique variable exist in both objects like the <code>iso_a2</code> column in our example (you may need to rename columns with identifying information for this to work):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">left_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)
-left_join1
-<span class="co">#&gt; Simple feature collection with 3 features and 5 fields</span>
-<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513</span>
-<span class="co">#&gt; epsg (SRID):    4326</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;   iso_a2     name_long          name urban_pop unemploy</span>
-<span class="co">#&gt; 1     CA        Canada        Canada  29022137     6.91</span>
-<span class="co">#&gt; 2     GL     Greenland          &lt;NA&gt;        NA       NA</span>
-<span class="co">#&gt; 3     US United States United States 259740511     6.17</span>
-<span class="co">#&gt;                             geom</span>
-<span class="co">#&gt; 1 MULTIPOLYGON (((-63.6645 46...</span>
-<span class="co">#&gt; 2 MULTIPOLYGON (((-46.76379 8...</span>
-<span class="co">#&gt; 3 MULTIPOLYGON (((-155.54211 ...</span></code></pre></div>
+<span class="st">  </span><span class="kw">left_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)</code></pre></div>
+<p>This has created a spatial dataset with the new variables added. The utility of this is shown in Figure <a href="#fig:unemploy"><strong>??</strong></a>, which shows the unemployment rate (a World Bank variable) across the countries of North America.</p>
+<p><img src="figures/unnamed-chunk-28-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>It is also possible to join objects by different variables. Both of the datasets have variables with names of countries, but they are named differently. The <code>north_america</code> has a <code>name_long</code> column and the <code>wb_north_america</code> has a <code>name</code> column. In these cases, we can use a named vector to specify the connection, e.g. <code>c(&quot;name_long&quot; = &quot;name&quot;)</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join2 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
@@ -693,7 +680,9 @@ r[]
 <div id="note" class="section level3 unnumbered">
 <h3>Note</h3>
 <p>Some function names in the <strong>raster</strong> package (e.g. <code>select</code>, as discussed in a previous note) clash with function names in the <strong>tidyverse</strong>. To prevent function names clashes, you can unload the offending package with <code>detach()</code>. The following command, for example, unload the <strong>raster</strong> package (this can also be done in the <em>package</em> tab in the right-bottom pane in RStudio):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(<span class="st">&quot;package:raster&quot;</span>, <span class="dt">unload =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(<span class="st">&quot;package:raster&quot;</span>, <span class="dt">unload =</span> <span class="ot">TRUE</span>)
+<span class="co">#&gt; Warning: &#39;raster&#39; namespace cannot be unloaded:</span>
+<span class="co">#&gt;   namespace &#39;raster&#39; is imported by &#39;tmap&#39;, &#39;mapview&#39;, &#39;tmaptools&#39;, &#39;satellite&#39;, &#39;gdalUtils&#39; so cannot be unloaded</span></code></pre></div>
 </div>
 </div>
 <div id="exercises-2" class="section level2">
