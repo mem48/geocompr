@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservebe32888fe5683e38
+preserve5084b5bcbc3d4443
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1824,9 +1824,8 @@ This comes in especially handy when working with large data sets.
 As a special bonus, **dplyr** is compatible with `sf` objects.
 The main **dplyr** subsetting functions are `select()`, `slice()`, `filter()` and `pull()`.
 
-<div class="rmdnote">
-<p>Both <strong>raster</strong> and <strong>dplyr</strong> packages have a function called <code>select()</code>. If both packages are loaded, this can generate error messages containing the text: <code>unable to find an inherited method for function ‘select’ for signature ‘&quot;sf&quot;’</code>. To avoid this error message, and prevent ambiguity, we use the long-form function name, prefixed by the package name and two colons (usually omited from R scripts for concise code): <code>dplyr::select()</code>.</p>
-</div>
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">Both **raster** and **dplyr** packages have a function called `select()`. If both packages are loaded, this can generate error messages containing the text: `unable to find an inherited method for function ‘select’ for signature ‘"sf"’`.
+To avoid this error message, and prevent ambiguity, we use the long-form function name, prefixed by the package name and two colons (usually omited from R scripts for concise code): `dplyr::select()`.</div>\EndKnitrBlock{rmdnote}
 
 The `select()` function selects columns by name or position.
 For example, you could select only two columns, `name_long` and `pop`, with the following command (note the `geom` column remains):
@@ -3360,7 +3359,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.14
+#> [1] 2.24
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3376,7 +3375,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.78
+#> [1] 3.59
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3467,13 +3466,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.062
+#>   0.064   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.042
+#>   0.044   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.030
+#>   0.028   0.004   0.030
 ```
 
 
