@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve5084b5bcbc3d4443
+preserve4944dbba7ea12037
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2033,46 +2033,33 @@ Fortunately, the **sf** package has all of the **dplyr** join functions adapted 
 The only important difference between combining two `data.frames` and combining `sf` and `data.frame` objects is the special `sf` column storing the geometry information.
 Therefore, the result of data joins can be either an `sf` or `data.frame` object.
 
+Most joins involving spatial data will have an `sf` object as the first argument and a `data.frame` object as the second argument, resulting in a new `sf` object (the reverse order is also possible and will return a `data.frame`).
+We will focus on the commonly used left and inner joins, which use the same syntax as the other join types [see @grolemund_r_2016 for more join types].
+
 The easiest way to understand the concept of joins is to show how they work with a smaller dataset. 
 We will use an `sf` object `north_america` with country codes (`iso_a2`), names and geometries, as well as a `data.frame` object `wb_north_america` containing information about urban population and unemployment for three countries.
-It is important to add that the first object contains data about Canada, Greenland and the United States and the second one about Canada, Mexico and the United States:
+Note that `north_america` contains data about Canada, Greenland and the United States but the World Bank dataset (`wb_north_america`) contains information about Canada, Mexico and the United States:
 
 
 ```r
 north_america = world %>%
   filter(subregion == "Northern America") %>%
   dplyr::select(iso_a2, name_long)
+north_america$name_long
+#> [1] "Canada"        "Greenland"     "United States"
 ```
 
-
-```r
-plot(north_america[0])
-```
-
-<img src="figures/unnamed-chunk-26-1.png" width="576" style="display: block; margin: auto;" />
 
 
 ```r
 wb_north_america = worldbank_df %>% 
   filter(name %in% c("Canada", "Mexico", "United States")) %>%
   dplyr::select(name, iso_a2, urban_pop, unemploy = unemployment)
-
-wb_north_america
-#>            name iso_a2 urban_pop unemploy
-#> 1        Canada     CA  29022137     6.91
-#> 2        Mexico     MX  99018446     5.25
-#> 3 United States     US 259740511     6.17
 ```
 
-In this book, we focus on spatial data. 
-Most of the following join examples will have a `sf` object as the first argument and a `data.frame` object as the second argument which results in a new `sf` object.
-However, the reverse order is also possible and will give you back a `data.frame` object.
-This is mostly beyond the scope of this book, but we encourage you to try it.
-We will focus on the commonly used left and inner joins, which use the same syntax as the other join types [@grolemund_r_2016].
-
-Left joins are the most commonly used operation for adding attributes to spatial data. 
-The `left_join()` returns all observations from the left object (`north_america`) and the matched observations from the right object (`wb_north_america`). 
-In cases, like `Greenland`, absent in the right object, `NA` values will show up.
+We will use a left join, the most commonly used operation for adding attributes to spatial data to join the two datasets.
+Left joins return all observations from the left object (`north_america`) and the matched observations from the right object (`wb_north_america`).
+Rows in the left object without matches in the right (`Greenland` in this case) result in `NA` values.
 
 To join two objects we need to specify a key.
 This is a variable (or a set of variables) that uniquely identifies each observation (row). 
@@ -3375,7 +3362,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.59
+#> [1] 3.82
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3466,13 +3453,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.062
+#>   0.060   0.004   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.043
+#>   0.040   0.000   0.042
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.004   0.030
+#>   0.028   0.000   0.028
 ```
 
 
