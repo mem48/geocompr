@@ -297,6 +297,11 @@ small_countries =<span class="st"> </span>world[sel_area, ]</code></pre></div>
 Both <strong>raster</strong> and <strong>dplyr</strong> packages have a function called <code>select()</code>. If both packages are loaded, this can generate error messages containing the text: <code>unable to find an inherited method for function ‘select’ for signature ‘&quot;sf&quot;’</code>. To avoid this error message, and prevent ambiguity, we use the long-form function name, prefixed by the package name and two colons (usually omited from R scripts for concise code): <code>dplyr::select()</code>.
 </div>
 <p></p>
+
+<div class="rmdnote">
+SIMPLE TEXT
+</div>
+<p></p>
 <p>The <code>select()</code> function selects columns by name or position. For example, you could select only two columns, <code>name_long</code> and <code>pop</code>, with the following command (note the <code>geom</code> column remains):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world1 =<span class="st"> </span>dplyr::<span class="kw">select</span>(world, name_long, pop)
 <span class="kw">names</span>(world1)
