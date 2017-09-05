@@ -4,7 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
-date: '2017-09-04'
+date: '2017-09-05'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -40,7 +40,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-09-04 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-09-05 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve060b553e6d40cc45
+preserveb8f253f0deb0d0c1
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3341,7 +3341,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.26
+#> [1] 2.25
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3357,7 +3357,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.56
+#> [1] 3.68
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3448,13 +3448,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.062
+#>   0.068   0.000   0.069
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
 #>   0.044   0.000   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.000   0.027
+#>   0.024   0.008   0.032
 ```
 
 
@@ -3585,6 +3585,27 @@ Full list of the supported file format for writing `Raster*` objects could be fo
 <!-- Raster formats -->
 <!-- geotiff + its metadata -->
 <!-- ncdf mention -->
+
+<!-- vector formats: -->
+
+<!-- - shapefile (short history, was more or less an accident, a long-living makeshift arrangement) -->
+<!-- - maybe just mention here, gpkg since it is an SQLite 3 extension supporting both vector and raster formats -->
+<!-- - of course, WKT and WKB -->
+<!-- - web formats with a focus on geojson and here we can also mention kml, gml -->
+<!-- - (maybe mention GPS formats such as GPX) -->
+
+<!-- raster formats: -->
+
+<!-- - popular formats: asc (-> exported from ESRI), geotiff, JPEG (possibly mention SAGA's sdat, Erdas Imagine) -->
+<!-- - raster's rasterfile (vignette("rasterfile")) -->
+<!-- - maybe just mention here, gpkg since it is an SQLite 3 extension supporting both vector and raster formats -->
+
+<!-- geodatabases (can store vector and raster data): -->
+
+<!-- - SQLite/SpatialLite, gpkg (uses SQLite), GRASS (uses SQLite) -->
+<!-- - WKT/WKB for transfering and storing geometry data on databases. PostGIS (has even its own raster WKT (https://trac.osgeo.org/postgis/wiki/WKTRasterTutorial01); WKT also supported by Spatiallite, Oracle, MySQL, etc. (https://en.wikipedia.org/wiki/Well-known_text#RDBMS_Engines_that_provide_support) -->
+<!-- - mention ESRI geodatabase, Oracle spatial database -->
+
 
 ## Visual outputs
 
