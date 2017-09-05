@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve7191e078ec75929b
+preserve58f0a3f607b0fbf2
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3341,7 +3341,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.29
+#> [1] 2.21
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3357,7 +3357,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.64
+#> [1] 3.71
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3448,13 +3448,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.060   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.040   0.000   0.042
+#>   0.040   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.012   0.016   0.028
+#>   0.020   0.008   0.029
 ```
 
 
@@ -3578,7 +3578,7 @@ Full list of the supported file format for writing `Raster*` objects could be fo
 
 ## File formats
 
-<!-- ### Vector formats -->
+### Vector formats
 
 <!-- 1. shp - (short history, was more or less an accident, a long-living makeshift arrangement) - don't use shp! -->
 <!-- 2. gpkg - (maybe just mention here, gpkg since it is an SQLite 3 extension supporting both vector and raster formats) - reference to the "geodatabases" section -->
@@ -3586,33 +3586,22 @@ Full list of the supported file format for writing `Raster*` objects could be fo
 <!-- 4. geojson - (web formats with a focus on geojson and here we can also mention kml, gml) -->
 <!-- 5. maybe gpx - (maybe mention GPS formats such as GPX) -->
 
-<!-- ### Raster formats -->
+### Raster formats
 
 <!-- 1. geotiff -->
 <!-- 2. asc - (popular formats: asc (-> exported from ESRI)) -->
 <!-- 3. JPEG - (possibly mention SAGA's sdat, Erdas Imagine) -->
 <!-- 4. rasterfile - (raster's rasterfile (vignette("rasterfile"))) -->
 <!-- 5. gpkg - (maybe just mention here, gpkg since it is an SQLite 3 extension supporting both vector and raster formats) - reference to the "geodatabases" section -->
-<!-- 6.  -->
+<!-- 6. ncdf ? -->
 
-<!-- ### Geodatabases -->
+### Geodatabases 
+<!--(can store vector and raster data)-->
 
-<!-- Raster formats -->
-<!-- geotiff + its metadata -->
-<!-- ncdf mention -->
-
-<!-- raster formats: -->
-
-<!-- -  -->
-<!-- -  -->
-<!-- - maybe just mention here, gpkg since it is an SQLite 3 extension supporting both vector and raster formats -->
-
-<!-- geodatabases (can store vector and raster data): -->
-
-<!-- - SQLite/SpatialLite, gpkg (uses SQLite), GRASS (uses SQLite) -->
-<!-- - WKT/WKB for transfering and storing geometry data on databases. PostGIS (has even its own raster WKT (https://trac.osgeo.org/postgis/wiki/WKTRasterTutorial01); WKT also supported by Spatiallite, Oracle, MySQL, etc. (https://en.wikipedia.org/wiki/Well-known_text#RDBMS_Engines_that_provide_support) -->
-<!-- - mention ESRI geodatabase, Oracle spatial database -->
-
+<!-- 1. SQLite/SpatialLite + mention GRASS (uses SQLite) -->
+<!-- 2. gpkg - explanation connected to the previous sections and to SQLite -->
+<!-- 3. WKT/WKB for transfering and storing geometry data on databases. PostGIS (has even its own raster WKT (https://trac.osgeo.org/postgis/wiki/WKTRasterTutorial01); WKT also supported by Spatiallite, Oracle, MySQL, etc. (https://en.wikipedia.org/wiki/Well-known_text#RDBMS_Engines_that_provide_support) -->
+<!-- 4. ESRI geodatabase, Oracle spatial database (mention + gdal support?) -->
 
 ## Visual outputs
 
