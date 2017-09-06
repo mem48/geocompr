@@ -393,50 +393,38 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 </div>
 </div>
-<div class="footnotes">
-<hr />
-<ol>
-<li id="fn1"><p>The conference took place at the University of Leeds, where one of the authors (Robin) is currently based and where the 21<sup>st</sup> GeoComputation was hosted in 2017 (see <a href="http://www.geocomputation.org/">geocomputation.org</a>).<a href="intro.html#fnref1">↩</a></p></li>
-<li id="fn2"><p>A good example of this is Alexander von Humboldt’s travels to South America, which laid the foundations for physical and plant geography <span class="citation">(Wulf <a href="#ref-wulf_invention_2015">2015</a>)</span>.<a href="intro.html#fnref2">↩</a></p></li>
-<li id="fn3"><p>The integrated development environment (IDE) <a href="https://www.rstudio.com/">RStudio</a> deserves mention here from a user perspective as it has made the interactive use of R more accessible<a href="intro.html#fnref3">↩</a></p></li>
-<li id="fn4"><p>Though, in that case we would recommend to contribute the C++ code to one of the open-source GIS packages since this would make the geoalgorithm available to a wider audience. In turn, you could access the GIS software via one of the available R-GIS interfaces. &lt;!–(ref(gis))<a href="intro.html#fnref4">↩</a></p></li>
-<li id="fn5"><p>Please note, that GEOS is a C++ port of the Java Topology Suite.<a href="intro.html#fnref5">↩</a></p></li>
-<li id="fn6"><p><code>grass.script</code> for GRASS (<a href="https://grasswiki.osgeo.org/wiki/GRASS_and_Python" class="uri">https://grasswiki.osgeo.org/wiki/GRASS_and_Python</a>), <code>saga-python</code> for SAGA-GIS (<a href="http://saga-python.readthedocs.io/en/latest/" class="uri">http://saga-python.readthedocs.io/en/latest/</a>), <code>processing</code> for QGIS and <code>arcpy</code> for ArcGIS.<a href="intro.html#fnref6">↩</a></p></li>
-<li id="fn7"><p>An overview of R’s spatial ecosystem can be found in the CRAN Task View on the Analysis of Spatial Data (see <a href="https://cran.r-project.org/web/views/Spatial.html">cran.r-project.org/web/views/Spatial.html</a>).<a href="intro.html#fnref7">↩</a></p></li>
-<li id="fn8"><p>We refrain from labeling it the <strong>geoverse</strong> with any seriousness awaiting a better name!<a href="intro.html#fnref8">↩</a></p></li>
-<li id="fn9"><p>See the <a href="https://github.com/r-spatial/">r-spatial</a> organisation and conversations in the <a href="https://github.com/r-spatial/discuss/issues/11">discussion</a> repo for more on this.<a href="intro.html#fnref9">↩</a></p></li>
-<li id="fn10"><p>A presentation at the 2003 DSC conference in Vienna gives the background as he saw it then <span class="citation">(Rowlingson et al. <a href="#ref-rowlingson_rasp:_2003">2003</a>)</span>; see also his announcement of the <strong>Rmap</strong> package on <a href="https://stat.ethz.ch/pipermail/r-help/2003-January/028413.html">R-help</a> in early 2003.<a href="intro.html#fnref10">↩</a></p></li>
-<li id="fn11"><p>The <strong>raster</strong> package also provided tools for raster algebra, general raster functions and the development of more additional raster functions.<a href="intro.html#fnref11">↩</a></p></li>
-<li id="fn12"><p>Please do not confuse the geographic data vector model with R’s <code>vector</code> class. The latter is a data format in R such as <code>data.frame</code> and <code>matrix</code>. However, we can represent spatial coordinates, which are part of the geographic vector data model, using R’s <code>vector</code> class.<a href="spatial-class.html#fnref12">↩</a></p></li>
-<li id="fn13"><p>In 3 dimensional coordinate systems three numbers are needed for each of the three axes, <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span> and <span class="math inline">\(z\)</span>.<a href="spatial-class.html#fnref13">↩</a></p></li>
-<li id="fn14"><p>Other methods for generating numbers include with the <code>seq()</code> function (short for ‘sequence’) for generating regular sequences or <code>runif()</code>, <code>rnorm()</code> and other functions generating random numbers following some kind of probability distribution. The <strong>mapedit</strong> package can be used to create spatial data manually on an interactive map.<a href="spatial-class.html#fnref14">↩</a></p></li>
-<li id="fn15"><p>The full OGC standard includes rather exotic geometry types including ‘surface’ and ‘curve’ geometry types, which currently have limited application in real world applications. All 68 types can be represented in R, although (at the time of writing) all methods, such as plotting, are only supported for the 7 types that are used.<a href="spatial-class.html#fnref15">↩</a></p></li>
-<li id="fn16"><p>The development version, which may contain new features, can be installed with <code>devtools::install_github(&quot;r-spatial/sf&quot;).</code><a href="spatial-class.html#fnref16">↩</a></p></li>
-<li id="fn17"><p>In fact, when you <code>plot()</code> an <strong>sf</strong> object, R is calling <code>sf:::plot.sf()</code> behind the scenes. <code>plot()</code> is a generic method that behaves differently depending on the class of object being plotted.<a href="spatial-class.html#fnref17">↩</a></p></li>
-<li id="fn18"><p>In the background, <code>sf</code> uses the <a href="http://proj4.org/">PROJ.4</a> software, which enables transformations between different projections<a href="spatial-class.html#fnref18">↩</a></p></li>
-<li id="fn19"><p>Unlike objects of class <code>Spatial</code> of the <strong>sp</strong> package, <code>sf</code> objects are also compatible with the <strong>tidyverse</strong> packages <strong>dplyr</strong> and <strong>ggplot2</strong>. The former provides fast and powerful functions for data manipulation (see <a href="https://csgillespie.github.io/efficientR/data-carpentry.html#data-processing-with-data.table">Section 6.7</a> of <span class="citation">Gillespie and Lovelace (<a href="#ref-gillespie_efficient_2016">2016</a>)</span>), and the latter provides powerful plotting capabilities.<a href="attr.html#fnref19">↩</a></p></li>
-<li id="fn20"><p>If you want <strong>dplyr</strong> to return a vector, use <code>pull</code>.<a href="attr.html#fnref20">↩</a></p></li>
-<li id="fn21"><p>Note that <code>st_geometry(world_st) = NULL</code> also works to remove the geometry from <code>world</code> but overwrites the original object.<a href="attr.html#fnref21">↩</a></p></li>
-<li id="fn22"><p>Interested readers can see this default value of <code>op</code> set in the first line of the function call by entering its long-form name into the console: <code>sf:::`[.sf`</code><a href="spatial-data-operations.html#fnref22">↩</a></p></li>
-<li id="fn23"><p>Recall that we can also subset simple features using the <code>filter()</code> function, e.g. with <code>filter(world, continent == &quot;Africa&quot;)</code><a href="spatial-data-operations.html#fnref23">↩</a></p></li>
-<li id="fn24"><p>Concepts such as computational efficiency, hard disk space and ‘idempotence’ are useful when thinking about reading and writing geographic datasets, which can become large and difficult to handle. Loading/saving data is yet another way of saying the same thing.<a href="read-write.html#fnref24">↩</a></p></li>
-<li id="fn25"><p>A list of supported formats could be found using <code>sf::st_drivers()</code><a href="read-write.html#fnref25">↩</a></p></li>
-<li id="fn26"><p>A list of supported raster formats could be found using <code>rgdal::gdalDrivers()</code><a href="read-write.html#fnref26">↩</a></p></li>
-<li id="fn27"><p>Creation options for the GeoTIFF format are at <a href="http://www.gdal.org/frmt_gtiff.html" class="uri">http://www.gdal.org/frmt_gtiff.html</a>. Full list of formats with theirs creation options could be found at <a href="http://www.gdal.org/formats_list.html" class="uri">http://www.gdal.org/formats_list.html</a><a href="read-write.html#fnref27">↩</a></p></li>
-</ol>
-</div>
-<h3> References</h3>
-<div id="refs" class="references">
-<div id="ref-wulf_invention_2015">
-<p>Wulf, Andrea. 2015. <em>The Invention of Nature: Alexander von Humboldt’s New World</em>. First American Edition. New York: Alfred A. Knopf.</p>
-</div>
-<div id="ref-rowlingson_rasp:_2003">
-<p>Rowlingson, Barry, Adrian Baddeley, Rolf Turner, and Peter Diggle. 2003. “Rasp: A Package for Spatial Statistics.” In <em>Proceedings of the 3rd International Workshop on Distributed Statistical Computing</em>, edited by Kurt Hornik. <a href="https://www.r-project.org/conferences/DSC-2003/Proceedings/RowlingsonEtAl.pdf" class="uri">https://www.r-project.org/conferences/DSC-2003/Proceedings/RowlingsonEtAl.pdf</a>.</p>
-</div>
-<div id="ref-gillespie_efficient_2016">
-<p>Gillespie, Colin, and Robin Lovelace. 2016. <em>Efficient R Programming: A Practical Guide to Smarter Programming</em>. O’Reilly Media. <a href="https://csgillespie.github.io/efficientR/" class="uri">https://csgillespie.github.io/efficientR/</a>.</p>
-</div>
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </section>
 
           </div>

@@ -188,7 +188,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve65e6d4de04628ebe
+preserve0c49a8a137d9c43e
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2683,13 +2683,7 @@ identical(africa_buff, africa_buff3)
 ```
 
 <div class="rmdnote">
-<p>This discarding of row names is not something that is specific to spatial data, as illustrated in the code chunk below:<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
-<div class="footnotes">
-<hr />
-<ol>
-<li id="fn1"><p><strong>dplyr</strong> discards row names by design. For further discussion of this decision, and some controversy, see the (closed) issue <a href="https://github.com/tidyverse/dplyr/issues/366">#366</a> in the package's issue tracker.<a href="#fnref1">↩</a></p></li>
-</ol>
-</div>
+<p>This discarding of row names is not something that is specific to spatial data, as illustrated in the code chunk below. <strong>dplyr</strong> discards row names by design. For further discussion of this decision, and some controversy, see the (closed) issue <a href="https://github.com/tidyverse/dplyr/issues/366">#366</a> in the package's issue tracker.</p>
 </div>
 
 
@@ -3323,10 +3317,10 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.26
+#> [1] 2.58
 ```
 
-The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
+The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries vector.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -3339,10 +3333,10 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.69
+#> [1] 3.22
 ```
 
-In this case **sf** was around 4 times faster than **rgdal**.
+In this case **sf** was around 3 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -3430,13 +3424,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>   0.076   0.000   0.077
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.046
+#>   0.056   0.000   0.055
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.029
+#>   0.020   0.012   0.034
 ```
 
 
