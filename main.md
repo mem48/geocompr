@@ -1,7 +1,7 @@
 
 --- 
 title: 'Geocomputation with R'
-author: 'Robin Lovelace, Jakub Nowosad, Jannes Münchow'
+author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
 date: '2017-09-06'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve67b71d28c4640356
+preserve96106cb188f23f8e
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3324,7 +3324,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.24
+#> [1] 2.28
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3340,7 +3340,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.73
+#> [1] 3.66
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3431,13 +3431,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.068   0.000   0.068
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.052   0.000   0.051
+#>   0.040   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.032   0.000   0.034
+#>   0.020   0.012   0.030
 ```
 
 
