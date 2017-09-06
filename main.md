@@ -188,7 +188,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee5a268c453bc9690
+preservea061993a54578d74
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2781,6 +2781,7 @@ buff_agg_aw = st_interpolate_aw(x = africa["pop"], to = buff, extensive = TRUE)
 
 ### Non-overlapping joins 
 
+<!-- Nearest neighbour analysis -->
 <!-- e.g. two point's datasets (non-overlapping) -->
 <!-- e.g. two point's datasets (overlapping) -->
 <!-- ? topological problems of joining lines/polygons? -->
@@ -3383,13 +3384,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.084   0.000   0.083
+#>   0.060   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.060   0.000   0.058
+#>   0.044   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.016   0.041
+#>   0.024   0.004   0.029
 ```
 
 
