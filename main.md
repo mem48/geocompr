@@ -188,7 +188,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve0c49a8a137d9c43e
+preservedd25c40670dc579b
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3317,10 +3317,10 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.58
+#> [1] 2.21
 ```
 
-The results demonstrate that **sf** was around 3 times faster than **rgdal** at reading-in the world countries vector.
+The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
 The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
 To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
 
@@ -3333,10 +3333,10 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.22
+#> [1] 3.66
 ```
 
-In this case **sf** was around 3 times faster than **rgdal**.
+In this case **sf** was around 4 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -3424,13 +3424,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.076   0.000   0.077
+#>   0.064   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.056   0.000   0.055
+#>   0.036   0.008   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.012   0.034
+#>   0.016   0.012   0.030
 ```
 
 
@@ -3550,7 +3550,7 @@ Other raster file formats include `.grd`, `.nc`, `.asc`, and `.img`.
 Full list of the supported file format for writing `Raster*` objects could be found using `writeFormats().`
 
 <!-- temporal text subsection -->
-<!-- saving raster object as csv ?? - should be include that?-->
+<!-- saving raster object as csv ?? - should we include that?-->
 
 ## File formats
 
@@ -3581,29 +3581,13 @@ Full list of the supported file format for writing `Raster*` objects could be fo
 
 ## Visual outputs
 
+<!-- aka how to save a map to a file -->
+
 ## Exercises
 
 1. Name three differences between `write_sf()` and the more well-known function `st_write()`.
 
 1. What are the default arguments of `read_sf()` and `write_sf()` that enable two of these differences?
-
-<!-- ## Vector -->
-
-<!-- 
-- sf package 
-- st_drivers
-- st_read, read_sf
-- st_write, write_sf
-- text files 
-- WKT, WKB, sp (st_as_sf)
--->
-
-<!-- ## Raster -->
-
-<!-- 
-- raster package 
-- raster
--->
 
 <!--chapter:end:05-read-write-plot.Rmd-->
 
