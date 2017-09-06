@@ -98,8 +98,7 @@ Before going into the details of the software, however, it is worth taking a ste
 ## What is geocomputation?
 
 Geocomputation is a relatively young field with a ~30 year history, dating back to the first conference on the subject in 1996.^[The conference took place at the University of Leeds, where one of the authors (Robin) is currently based and where the 21^st^ GeoComputation was hosted in 2017 (see
-[geocomputation.org](http://www.geocomputation.org/)).
-]
+[geocomputation.org](http://www.geocomputation.org/)).]
 <!-- todo: which chapters? -->
 What distinguishes geocomputation from the older quantitative geography, is its emphasis on "creative and experimental" GIS applications [@longley_geocomputation:_1998].
 Additionally, it is also about developing new, research-driven methods [@openshaw_geocomputation_2000]:
@@ -189,7 +188,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservecdd02ce185db422b
+preserve65e6d4de04628ebe
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3340,7 +3339,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.64
+#> [1] 3.69
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3434,10 +3433,10 @@ system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.004   0.047
+#>   0.044   0.000   0.046
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.030
+#>   0.016   0.012   0.029
 ```
 
 
