@@ -245,7 +245,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3><span class="header-section-number">5.1.1</span> Vector data</h3>
 <p>Spatial vector data comes in a wide variety of file formats, and <strong>sf</strong> is able to handle most of them <!-- is that right? --> via its <code>st_read()</code> command. Behind the scenes it uses GDAL, which supports the import of a very wide range of vector data formats<a href="#fn25" class="footnoteRef" id="fnref25"><sup>25</sup></a>. The first argument of <code>st_read()</code> is <code>file</code>, which should be a text string or an object containing a single text string:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
-<span class="co">#&gt; Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0</span>
 vector_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
 world =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)
 <span class="co">#&gt; Reading layer `wrld.gpkg&#39; from data source `/home/travis/R/Library/spData/shapes/world.gpkg&#39; using driver `GPKG&#39;</span>
@@ -257,25 +256,7 @@ world =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span></code></pre></div>
 <!-- isn't that confusing? -->
 <p><strong>Tip</strong>: <code>read_sf()</code> and <code>write_sf()</code> can be used as easy-to-remember alternatives to <code>st_read()</code> and <code>st_write()</code>. Remember they hide information about the data source and overwrite existing data, though.</p>
-<p>A major advantage of <strong>sf</strong> is that it is fast. To demonstrate this, we will use a function to compare <code>st_read()</code> with its <strong>sp</strong> equivalent, <code>rgdal::readOGR()</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bench_read =<span class="st"> </span>function(file, n) {
-  m =<span class="st"> </span><span class="kw">microbenchmark</span>(<span class="dt">times =</span> n,
-                     rgdal::<span class="kw">readOGR</span>(vector_filepath),
-                     <span class="kw">st_read</span>(vector_filepath)
-  )
-  <span class="kw">mean</span>(m$time[<span class="dv">1</span>:n]) /<span class="st"> </span><span class="kw">mean</span>(m$time[(n +<span class="st"> </span><span class="dv">1</span>):(n *<span class="st"> </span><span class="dv">2</span>)])
-}</code></pre></div>
-<p>This function takes as arguments an input file (<code>file</code>) and a number of times to run each command (<code>n</code>) and returns how many times faster <code>st_read()</code> is than <code>readOGR()</code>. Let’s run the benchmark for the <code>world.gpkg</code> file represented by the object <code>vector_filepath</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(microbenchmark)
-read_world_gpkg =<span class="st"> </span><span class="kw">bench_read</span>(<span class="dt">file =</span> vector_filepath, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read_world_gpkg
-<span class="co">#&gt; [1] 2.25</span></code></pre></div>
-<p>The results demonstrate that <strong>sf</strong> was around 2 times faster than <strong>rgdal</strong> at reading-in the world countries vector. The relative performance of <code>st_read()</code> compared with other functions will vary depending on file format and the nature of the data. To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vector_filepath_gj =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/cycle_hire_osm.geojson&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
-read_lnd_geojson =<span class="st"> </span><span class="kw">bench_read</span>(<span class="dt">file =</span> vector_filepath_gj, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">read_lnd_geojson
-<span class="co">#&gt; [1] 3.58</span></code></pre></div>
-<p>In this case <strong>sf</strong> was around 4 times faster than <strong>rgdal</strong>.</p>
+<p>A major advantage of <strong>sf</strong> is that it is fast. <!-- reference to the vignette --></p>
 <p>To find out which data formats <strong>sf</strong> supports, run <code>st_drivers()</code>. Here, we show only the first two drivers:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_drivers =<span class="st"> </span><span class="kw">st_drivers</span>()
 <span class="kw">head</span>(sf_drivers, <span class="dt">n =</span> <span class="dv">2</span>)
@@ -294,7 +275,6 @@ cycle_hire2 =<span class="st"> </span><span class="kw">st_read</span>(<span clas
 <p>The <strong>raster</strong> package support reading one layer by <code>raster()</code> and many layers using either <code>brick()</code> or <code>stack()</code>. More information about the raster representation in this package could be find in the section <a href="spatial-class.html#raster-classes">2.2.3</a>.</p>
 <p>The <code>raster()</code> function makes it possible to read a simple single layer file:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
-<span class="co">#&gt; Loading required package: sp</span>
 <span class="kw">library</span>(spDataLarge)
 raster_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/srtm.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
 single_layer =<span class="st"> </span><span class="kw">raster</span>(raster_filepath)</code></pre></div>
@@ -321,13 +301,13 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <p>The counterpart of <code>st_read()</code> is <code>st_write()</code>. It allows to write <strong>sf</strong> objects to a wide range of geographic vector file formats, including the most common ones such as <code>.geojson</code>, <code>.shp</code> and <code>.gpkg</code>. Based on the file name <code>st_write()</code> decides automatically which driver to use. How fast the writing process is depends also on the driver: <!-- Is this comparison here necessary, or shouldn't we instead focus on the automatic driver selection? --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.geojson&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.064   0.000   0.062</span>
+<span class="co">#&gt;   0.064   0.004   0.068</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.shp&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)) 
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.044   0.000   0.043</span>
+<span class="co">#&gt;   0.048   0.004   0.053</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.028   0.004   0.030</span></code></pre></div>
+<span class="co">#&gt;   0.040   0.000   0.038</span></code></pre></div>
 <!-- ```{r} -->
 <!-- st_write(obj = world, dsn = "world.gpkg") -->
 <!-- ``` -->

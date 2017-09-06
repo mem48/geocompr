@@ -188,7 +188,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve5d6531fac21a9292
+preserve4cca1c6b8ecfb93d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3280,7 +3280,6 @@ The first argument of `st_read()` is `file`, which should be a text string or an
 
 ```r
 library(sf)
-#> Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0
 vector_filepath = system.file("shapes/world.gpkg", package = "spData")
 world = st_read(vector_filepath)
 #> Reading layer `wrld.gpkg' from data source `/home/travis/R/Library/spData/shapes/world.gpkg' using driver `GPKG'
@@ -3297,51 +3296,7 @@ world = st_read(vector_filepath)
 Remember they hide information about the data source and overwrite existing data, though.
 
 A major advantage of **sf** is that it is fast.
-To demonstrate this, we will use a function to compare `st_read()` with its **sp** equivalent, `rgdal::readOGR()`:
-
-
-```r
-bench_read = function(file, n) {
-  m = microbenchmark(times = n,
-                     rgdal::readOGR(vector_filepath),
-                     st_read(vector_filepath)
-  )
-  mean(m$time[1:n]) / mean(m$time[(n + 1):(n * 2)])
-}
-```
-
-This function takes as arguments an input file (`file`) and a number of times to run each command (`n`) and returns how many times faster `st_read()` is than `readOGR()`.
-Let's run the benchmark for the `world.gpkg` file represented by the object `vector_filepath`:
-
-
-```r
-library(microbenchmark)
-read_world_gpkg = bench_read(file = vector_filepath, n = 5)
-```
-
-
-```r
-read_world_gpkg
-#> [1] 2.25
-```
-
-The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
-The relative performance of `st_read()` compared with other functions will vary depending on file format and the nature of the data.
-To illustrate this point, we performed the same operation on a geojson file and found a greater speed saving:
-
-
-```r
-vector_filepath_gj = system.file("shapes/cycle_hire_osm.geojson", package = "spData")
-read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
-```
-
-
-```r
-read_lnd_geojson
-#> [1] 3.58
-```
-
-In this case **sf** was around 4 times faster than **rgdal**.
+<!-- reference to the vignette -->
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -3375,7 +3330,6 @@ The `raster()` function makes it possible to read a simple single layer file:
 
 ```r
 library(raster)
-#> Loading required package: sp
 library(spDataLarge)
 raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge")
 single_layer = raster(raster_filepath)
@@ -3429,13 +3383,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.062
+#>   0.064   0.004   0.068
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.043
+#>   0.048   0.004   0.053
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.028   0.004   0.030
+#>   0.040   0.000   0.038
 ```
 
 
