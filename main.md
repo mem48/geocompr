@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve26a3a7468c311f75
+preservecdd02ce185db422b
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2372,7 +2372,7 @@ factorValues(r_2, vals)
 
 
 <div class="figure" style="text-align: center">
-<img src="figures/03_cont_categ_rasters.png" alt="Raster with numberic values (left) and a raster with categorical values" width="475" />
+<img src="figures/03_cont_categ_rasters.png" alt="Raster with numberic values (left) and a raster with categorical values" width="765" />
 <p class="caption">(\#fig:cont-cate-rasters)Raster with numberic values (left) and a raster with categorical values</p>
 </div>
 
@@ -3324,7 +3324,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.4
+#> [1] 2.26
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3340,10 +3340,10 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.41
+#> [1] 3.64
 ```
 
-In this case **sf** was around 3 times faster than **rgdal**.
+In this case **sf** was around 4 times faster than **rgdal**.
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
@@ -3431,13 +3431,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.076   0.000   0.074
+#>   0.064   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.048   0.000   0.048
+#>   0.044   0.004   0.047
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.031
+#>   0.016   0.012   0.030
 ```
 
 
