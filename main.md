@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve1f47f044f5e54a6d
+preserve1038d0d6e951c1ad
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1605,13 +1605,6 @@ If we used the WGS84 projection, the units would change.
 
 ```r
 library(rgdal)
-#> rgdal: version: 1.2-8, (SVN revision 663)
-#>  Geospatial Data Abstraction Library extensions to R successfully loaded
-#>  Loaded GDAL runtime: GDAL 2.1.0, released 2016/04/25
-#>  Path to GDAL shared files: /usr/share/gdal/2.1
-#>  Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]
-#>  Path to PROJ.4 shared files: (autodetected)
-#>  Linking to sp version: 1.2-5
 repr = projectRaster(new_raster, crs = "+init=epsg:4326")
 res(repr)
 #> [1] 0.000831 0.000833
@@ -3341,7 +3334,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.3
+#> [1] 2.21
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3357,7 +3350,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.62
+#> [1] 3.63
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3448,13 +3441,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.064   0.000   0.061
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.042
+#>   0.044   0.000   0.041
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.028
+#>   0.020   0.008   0.029
 ```
 
 

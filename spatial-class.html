@@ -939,13 +939,6 @@ Figure 2.10: Examples of projected (left) and geographic (right) coordinate syst
 <span class="co">#&gt; [1] 73.7 92.5</span></code></pre></div>
 <p>If we used the WGS84 projection, the units would change.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rgdal)
-<span class="co">#&gt; rgdal: version: 1.2-8, (SVN revision 663)</span>
-<span class="co">#&gt;  Geospatial Data Abstraction Library extensions to R successfully loaded</span>
-<span class="co">#&gt;  Loaded GDAL runtime: GDAL 2.1.0, released 2016/04/25</span>
-<span class="co">#&gt;  Path to GDAL shared files: /usr/share/gdal/2.1</span>
-<span class="co">#&gt;  Loaded PROJ.4 runtime: Rel. 4.8.0, 6 March 2012, [PJ_VERSION: 480]</span>
-<span class="co">#&gt;  Path to PROJ.4 shared files: (autodetected)</span>
-<span class="co">#&gt;  Linking to sp version: 1.2-5</span>
 repr =<span class="st"> </span><span class="kw">projectRaster</span>(new_raster, <span class="dt">crs =</span> <span class="st">&quot;+init=epsg:4326&quot;</span>)
 <span class="kw">res</span>(repr)
 <span class="co">#&gt; [1] 0.000831 0.000833</span></code></pre></div>
