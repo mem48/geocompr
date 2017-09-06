@@ -4,6 +4,7 @@ title: 'Geocomputation with R'
 author:
 - Robin Lovelace
 - Jakub Nowosad
+- Jannes Münchow
 date: '2017-09-06'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
@@ -191,7 +192,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve1038d0d6e951c1ad
+preserve664019228469574e
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3350,7 +3351,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.63
+#> [1] 3.76
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3441,13 +3442,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.061
+#>   0.064   0.004   0.068
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.041
+#>   0.048   0.000   0.047
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.020   0.008   0.029
+#>   0.020   0.012   0.033
 ```
 
 
