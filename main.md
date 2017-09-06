@@ -188,7 +188,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve4cca1c6b8ecfb93d
+preservefc3035d7c242c470
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3383,13 +3383,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.004   0.068
+#>   0.064   0.000   0.064
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.048   0.004   0.053
+#>   0.044   0.000   0.044
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.040   0.000   0.038
+#>   0.020   0.008   0.029
 ```
 
 
