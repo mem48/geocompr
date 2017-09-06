@@ -192,7 +192,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve4e9eff98dcc593a6
+preserve9724a2f161ed7696
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -357,7 +357,7 @@ Therefore, Colin Rundel started to develop a package that interfaces GEOS, an op
 The resulting **rgeos** package [first released in 2010; @R-rgeos] brought geometry calculations to R by allowing functions and operators from the GEOS library to manipulate **sp** objects.
 Another limitation of **sp** was its limited support of raster data.
 The **raster**-package [first released in 2010; @R-raster] overcame this by providing a `raster` class and functions for creating, reading and writing raster data.
-A key feature of **raster** is its ability to work with data sets that are too large to fit into the main memory (RAM), thereby overcoming one of R's major limitations when working on raster data.^[The
+A key feature of **raster** is its ability to work with datasets that are too large to fit into the main memory (RAM), thereby overcoming one of R's major limitations when working on raster data.^[The
 **raster** package also provided tools for raster algebra, general raster functions and the development of more additional raster functions.]
 
 In parallel with or partly even preceding the development of spatial classes and methods came the support for R as an interface to dedicated GIS software.
@@ -1662,7 +1662,7 @@ library(raster)
 library(tidyverse)
 ```
 
-- We will also make use of the `world` and `worldbank_df` data sets. Note that loading the **spData** package automatically attaches these data sets to your global environment:
+- We will also make use of the `world` and `worldbank_df` datasets. Note that loading the **spData** package automatically attaches these datasets to your global environment:
 
 
 ```r
@@ -1809,7 +1809,7 @@ world$name_long
 Base R functions are essential, and we recommend that you have a working knowledge of them.
 However, **dplyr** often makes working with data frames easier.
 Moreover, **dplyr** is usually much faster than base R since it makes use of C++ in the background. 
-This comes in especially handy when working with large data sets.
+This comes in especially handy when working with large datasets.
 As a special bonus, **dplyr** is compatible with `sf` objects.
 The main **dplyr** subsetting functions are `select()`, `slice()`, `filter()` and `pull()`.
 
@@ -3331,7 +3331,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.19
+#> [1] 2.28
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3347,7 +3347,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.63
+#> [1] 3.7
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3438,13 +3438,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.060   0.000   0.061
+#>   0.060   0.000   0.063
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.036   0.004   0.041
+#>   0.040   0.004   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.024   0.004   0.028
+#>   0.020   0.008   0.029
 ```
 
 
