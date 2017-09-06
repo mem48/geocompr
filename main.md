@@ -188,7 +188,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservedd25c40670dc579b
+preserve5d6531fac21a9292
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2696,7 +2696,12 @@ row.names(filter(africa, subregion == "Northern Europe"))
 
 ## Spatial joining and aggregation 
 
-Like attribute data aggregation, covered in section \@ref(vector-attribute-aggregation), spatial data aggregation is a way of *condensing* data.
+Methods for combining two datasets based on attribute data were explored in \@ref(vector-attribute-joining), based on a shared key variable.
+Spatial data joining applies the same concept, but joins datasets based on features' shared presence (some degree of overlap) in geographic space.
+
+<!-- Idea: use random points over Earth's surface to allocate data to world countries. -->
+
+Like attribute data aggregation, covered in section \@ref(vector-attribute-aggregation), spatial data aggregation can be a way of *condensing* data.
 Aggregated data show some statistic about a variable (typically mean average or total) in relation to some kind of *grouping variable*. 
 For attribute data aggregation the grouping variable is another variable, typically one with few unique values relative to the number of rows.
 The `continent` variable in the `world` dataset is a good example:
@@ -3317,7 +3322,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.21
+#> [1] 2.25
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3333,7 +3338,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.66
+#> [1] 3.58
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3424,13 +3429,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.061
+#>   0.064   0.000   0.062
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.036   0.008   0.044
+#>   0.044   0.000   0.043
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.030
+#>   0.028   0.004   0.030
 ```
 
 
