@@ -167,18 +167,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.3" data-path="attr.html"><a href="attr.html#manipulating-raster-objects"><i class="fa fa-check"></i><b>3.3</b> Manipulating raster objects</a><ul>
 <li class="chapter" data-level="3.3.1" data-path="attr.html"><a href="attr.html#raster-subsetting"><i class="fa fa-check"></i><b>3.3.1</b> Raster subsetting</a></li>
 <li class="chapter" data-level="3.3.2" data-path="attr.html"><a href="attr.html#summarizing-raster-objects"><i class="fa fa-check"></i><b>3.3.2</b> Summarizing raster objects</a></li>
-<li class="chapter" data-level="" data-path="attr.html"><a href="attr.html#note"><i class="fa fa-check"></i>Note</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="attr.html"><a href="attr.html#exercises-2"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html"><i class="fa fa-check"></i><b>4</b> Spatial data operations</a><ul>
 <li class="chapter" data-level="" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#prerequisites-2"><i class="fa fa-check"></i>Prerequisites</a></li>
-<li class="chapter" data-level="4.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a><ul>
-<li class="chapter" data-level="" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#note-1"><i class="fa fa-check"></i>Note</a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-subsetting"><i class="fa fa-check"></i><b>4.2</b> Spatial subsetting</a><ul>
-<li class="chapter" data-level="" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#note-2"><i class="fa fa-check"></i>Note</a></li>
-</ul></li>
+<li class="chapter" data-level="4.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-subsetting"><i class="fa fa-check"></i><b>4.2</b> Spatial subsetting</a></li>
 <li class="chapter" data-level="4.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-joining-and-aggregation"><i class="fa fa-check"></i><b>4.3</b> Spatial joining and aggregation</a><ul>
 <li class="chapter" data-level="4.3.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-congruence-and-areal-interpolation"><i class="fa fa-check"></i><b>4.3.1</b> Spatial congruence and areal interpolation</a></li>
 <li class="chapter" data-level="4.3.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#non-overlapping-joins"><i class="fa fa-check"></i><b>4.3.2</b> Non-overlapping joins</a></li>
@@ -271,7 +266,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_df =<span class="st"> </span><span class="kw">st_set_geometry</span>(world, <span class="ot">NULL</span>)
 <span class="kw">class</span>(world_df)
 <span class="co">#&gt; [1] &quot;data.frame&quot;</span></code></pre></div>
-<p>This can be useful if the geometry column causes problems, e.g., by occupying large amounts of RAM, or to focus the attention on the attribute data. For most cases, however, there is no harm in keeping the geometry column because non-spatial data operations on <code>sf</code> objects act only on the attribute data. For this reason, being good at working with attribute data of spatial objects is the same as being proficient at handling data frames in R. For many applications, <strong>dplyr</strong> offers the most effective and most intuitive approach of working with data frames, as we will see in the next section.<a href="#fn19" class="footnoteRef" id="fnref19"><sup>19</sup></a> This chapter focuses on <strong>dplyr</strong> because of its intuitive function names and ability to perform multiple chained operations using the pipe operator.</p>
+<p>This can be useful if the geometry column causes problems, e.g., by occupying large amounts of RAM, or to focus the attention on the attribute data. For most cases, however, there is no harm in keeping the geometry column because non-spatial data operations on <code>sf</code> objects act only on the attribute data. For this reason, being good at working with attribute data of spatial objects is the same as being proficient at handling data frames in R. For many applications, <strong>dplyr</strong> offers the most effective and most intuitive approach of working with data frames, as we will see in the next section.<a href="references.html#fn19" class="footnoteRef" id="fnref19"><sup>19</sup></a> This chapter focuses on <strong>dplyr</strong> because of its intuitive function names and ability to perform multiple chained operations using the pipe operator.</p>
 <div id="vector-attribute-subsetting" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Vector attribute subsetting</h3>
 <p>Because simple feature objects are also data frames (run <code>class(world)</code>to verify), you can use a wide range of functions (from base R and other packages) for subsetting them. Base R subsetting functions include <code>[</code>, <code>subset()</code> and <code>$</code>. <strong>dplyr</strong> subsetting functions include <code>select()</code>, <code>filter()</code>, and <code>pull()</code>. Both sets of functions preserve the spatial components of the data.</p>
@@ -363,7 +358,7 @@ world6 =<span class="st"> </span><span class="kw">filter</span>(world, lifeExp &
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world %&gt;%
 <span class="st">  </span>dplyr::<span class="kw">select</span>(name_long, continent) %&gt;%
 <span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span>:<span class="dv">5</span>)</code></pre></div>
-<p>The pipe operator supports an intuitive data analysis workflow. It allows operations to be written in a clear order, line-by-line and from left to right (as with most languages), avoiding ‘nesting’, whereby one function is buried inside another (without pipes the code in the previous chunk would be written as <code>slice(select(world, name_long, continent), 1:5)</code> which is harder for most people to read, write and understand). Another advantage over the nesting approach is that you can easily comment out certain parts of a pipe. <strong>dplyr</strong> works especially well with the pipe operator because its fundamental functions (or ‘verbs’, like <code>select()</code>) expect a data frame object as input and also return one.<a href="#fn20" class="footnoteRef" id="fnref20"><sup>20</sup></a></p>
+<p>The pipe operator supports an intuitive data analysis workflow. It allows operations to be written in a clear order, line-by-line and from left to right (as with most languages), avoiding ‘nesting’, whereby one function is buried inside another (without pipes the code in the previous chunk would be written as <code>slice(select(world, name_long, continent), 1:5)</code> which is harder for most people to read, write and understand). Another advantage over the nesting approach is that you can easily comment out certain parts of a pipe. <strong>dplyr</strong> works especially well with the pipe operator because its fundamental functions (or ‘verbs’, like <code>select()</code>) expect a data frame object as input and also return one.<a href="references.html#fn20" class="footnoteRef" id="fnref20"><sup>20</sup></a></p>
 </div>
 <div id="vector-attribute-aggregation" class="section level3">
 <h3><span class="header-section-number">3.2.2</span> Vector attribute aggregation</h3>
@@ -590,7 +585,7 @@ world_new$pop_dens =<span class="st"> </span>world_new$pop /<span class="st"> </
               <span class="st">&quot;GDP_per_capita&quot;</span>, <span class="st">&quot;geom&quot;</span>)
 world %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">set_names</span>(new_names)</code></pre></div>
-<p>It is important to note that the attribute data operations preserve the geometry of the simple features. As mentioned at the outset of the chapter, however, it can be useful to remove the geometry. Do do this, you have to explicitly remove it because <code>sf</code> explicitly makes the geometry column sticky. This behavior ensures that data frame operations do not accidentally remove the geometry column. Hence, an approach such as <code>select(world, -geom)</code> will be unsuccessful instead use <code>st_set_geometry()</code><a href="#fn21" class="footnoteRef" id="fnref21"><sup>21</sup></a>.</p>
+<p>It is important to note that the attribute data operations preserve the geometry of the simple features. As mentioned at the outset of the chapter, however, it can be useful to remove the geometry. Do do this, you have to explicitly remove it because <code>sf</code> explicitly makes the geometry column sticky. This behavior ensures that data frame operations do not accidentally remove the geometry column. Hence, an approach such as <code>select(world, -geom)</code> will be unsuccessful instead use <code>st_set_geometry()</code><a href="references.html#fn21" class="footnoteRef" id="fnref21"><sup>21</sup></a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_data =<span class="st"> </span>world %&gt;%<span class="st"> </span><span class="kw">st_set_geometry</span>(<span class="ot">NULL</span>)
 <span class="kw">class</span>(world_data)
 <span class="co">#&gt; [1] &quot;data.frame&quot;</span></code></pre></div>
@@ -677,13 +672,11 @@ r[]
 <span class="co">#&gt; [1] 10.6</span></code></pre></div>
 <p>Note: if you provide the <code>summary()</code> and <code>cellStats()</code> functions with a raster stack or brick object, they will summarize each layer separately. Try <code>summary(brick(r, r_2))</code>. Nothing stops us from visualizing descriptive raster statistics. We can manually retrieving raster values with the help of the <code>values()</code> and <code>getValues()</code> function, and putting their output into any <code>plot()</code> function we like. Or we can make use of the <code>boxplot()</code>, <code>density()</code>, <code>hist()</code> and <code>pairs()</code> methods for raster objects.</p>
 <p>Descriptive raster statistics belong to the so-called global raster operations. These and other typical raster processing operations are part of the map algebra scheme which we will get to know better in the next chapter.</p>
+<div class="rmdnote">
+<p>
+Some function names clash between packages (e.g. <code>select</code>, as discussed in a previous note). In addition to not loading packages by referring to functions verbosely (e.g <code>dplyr::select()</code>) another way to prevent function names clashes is by unloading the offending package with <code>detach()</code>. The following command, for example, unloads the <strong>raster</strong> package (this can also be done in the <em>package</em> tab in the right-bottom pane in RStudio): <code>detach(“package:raster”, unload = TRUE)</code>.
+</p>
 </div>
-<div id="note" class="section level3 unnumbered">
-<h3>Note</h3>
-<p>Some function names in the <strong>raster</strong> package (e.g. <code>select</code>, as discussed in a previous note) clash with function names in the <strong>tidyverse</strong>. To prevent function names clashes, you can unload the offending package with <code>detach()</code>. The following command, for example, unload the <strong>raster</strong> package (this can also be done in the <em>package</em> tab in the right-bottom pane in RStudio):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">detach</span>(<span class="st">&quot;package:raster&quot;</span>, <span class="dt">unload =</span> <span class="ot">TRUE</span>)
-<span class="co">#&gt; Warning: &#39;raster&#39; namespace cannot be unloaded:</span>
-<span class="co">#&gt;   namespace &#39;raster&#39; is imported by &#39;tmap&#39;, &#39;mapview&#39;, &#39;tmaptools&#39;, &#39;satellite&#39;, &#39;gdalUtils&#39; so cannot be unloaded</span></code></pre></div>
 </div>
 </div>
 <div id="exercises-2" class="section level2">

@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve2acac35afb8c4f51
+preserve67b71d28c4640356
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2435,16 +2435,9 @@ Or we can make use of the `boxplot()`, `density()`, `hist()` and `pairs()` metho
 Descriptive raster statistics belong to the so-called global raster operations.
 These and other typical raster processing operations are part of the map algebra scheme which we will get to know better in the next chapter.
 
-### Note {-}
-
-Some function names in the **raster** package (e.g. `select`, as discussed in a previous note) clash with function names in the **tidyverse**. To prevent function names clashes, you can unload the offending package with `detach()`. The following command, for example, unload the **raster** package (this can also be done in the *package* tab in the right-bottom pane in RStudio):
-
-
-```r
-detach("package:raster", unload = TRUE)
-#> Warning: 'raster' namespace cannot be unloaded:
-#>   namespace 'raster' is imported by 'tmap', 'mapview', 'tmaptools', 'satellite', 'gdalUtils' so cannot be unloaded
-```
+<div class="rmdnote">
+<p>Some function names clash between packages (e.g. <code>select</code>, as discussed in a previous note). In addition to not loading packages by referring to functions verbosely (e.g <code>dplyr::select()</code>) another way to prevent function names clashes is by unloading the offending package with <code>detach()</code>. The following command, for example, unloads the <strong>raster</strong> package (this can also be done in the <em>package</em> tab in the right-bottom pane in RStudio): <code>detach(&quot;package:raster&quot;, unload = TRUE)</code>.</p>
+</div>
 
 
 
@@ -2546,9 +2539,9 @@ Another unique aspect of spatial objects is distance.
 All features are related to each other in geographic space, and distance calculations can be used to find which spatial features are nearer or further away from a given point or each other, as we'll see in section \@ref(distance-relations).
 The final topic covered in this chapter is spatial raster operations \@ref(spatial-operations-on-raster-data).
 
-### Note {-}
-
-It is important to note that spatial operations that use two spatial objects rely on both objects having the same coordinate reference system, a topic that was introduced in \@ref(crs-intro) and which will be covered in more depth in Chapter 6.
+<div class="rmdnote">
+<p>It is important to note that spatial operations that use two spatial objects rely on both objects having the same coordinate reference system, a topic that was introduced in @ref(crs-intro) and which will be covered in more depth in Chapter 6.</p>
+</div>
 
 ## Spatial subsetting
 
@@ -2690,12 +2683,15 @@ identical(africa_buff, africa_buff3)
 #> [1] TRUE
 ```
 
-
-### Note {-}
-
-This discarding of row names is not something that is specific to spatial
-data:^[**dplyr** discards row names by design.
-For further discussion of this decision, and some controversy, see the (closed) issue [#366](https://github.com/tidyverse/dplyr/issues/366) in the package's issue tracker.]
+<div class="rmdnote">
+<p>This discarding of row names is not something that is specific to spatial data, as illustrated in the code chunk below:<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><strong>dplyr</strong> discards row names by design. For further discussion of this decision, and some controversy, see the (closed) issue <a href="https://github.com/tidyverse/dplyr/issues/366">#366</a> in the package's issue tracker.<a href="#fnref1">↩</a></p></li>
+</ol>
+</div>
+</div>
 
 
 ```r
@@ -2827,7 +2823,7 @@ plot(l, add = TRUE)
 plot(p, add = TRUE)
 ```
 
-<img src="figures/unnamed-chunk-16-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-18-1.png" width="576" style="display: block; margin: auto;" />
 
 Equals:
 <!-- https://postgis.net/docs/ST_Equals.html -->
@@ -2961,7 +2957,7 @@ plot(b)
 plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
 ```
 
-<img src="figures/unnamed-chunk-27-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-29-1.png" width="576" style="display: block; margin: auto;" />
 
 The subsequent code chunk demonstrate how this works for all combinations of the 'venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
 <!-- Todo: reference r4ds -->
@@ -3328,7 +3324,7 @@ read_world_gpkg = bench_read(file = vector_filepath, n = 5)
 
 ```r
 read_world_gpkg
-#> [1] 2.28
+#> [1] 2.24
 ```
 
 The results demonstrate that **sf** was around 2 times faster than **rgdal** at reading-in the world countries vector.
@@ -3344,7 +3340,7 @@ read_lnd_geojson = bench_read(file = vector_filepath_gj, n = 5)
 
 ```r
 read_lnd_geojson
-#> [1] 3.66
+#> [1] 3.73
 ```
 
 In this case **sf** was around 4 times faster than **rgdal**.
@@ -3435,13 +3431,13 @@ Based on the file name `st_write()` decides automatically which driver to use. H
 ```r
 system.time(st_write(world, "world.geojson", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.064   0.000   0.063
+#>   0.068   0.000   0.068
 system.time(st_write(world, "world.shp", quiet = TRUE)) 
 #>    user  system elapsed 
-#>   0.044   0.000   0.043
+#>   0.052   0.000   0.051
 system.time(st_write(world, "world.gpkg", quiet = TRUE))
 #>    user  system elapsed 
-#>   0.016   0.012   0.030
+#>   0.032   0.000   0.034
 ```
 
 
