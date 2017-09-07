@@ -181,14 +181,16 @@ The code below illustrates this by generating Figure \@ref(fig:interactive).
 
 ```r
 library(leaflet)
-popup = c("Robin", "Jakub")
+popup = c("Robin", "Jakub", "Jannes")
 leaflet() %>%
   addProviderTiles("NASAGIBS.ViirsEarthAtNight2012") %>% 
-  addAwesomeMarkers(lng = c(-3, 23), lat = c(52, 53), popup = popup)
+  addAwesomeMarkers(lng = c(-3, 23, 11),
+                    lat = c(52, 53, 49), 
+                    popup = popup)
 ```
 
 <div class="figure" style="text-align: center">
-preserve59d689d0b23aea44
+preserve577dcec56b47e1ec
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
