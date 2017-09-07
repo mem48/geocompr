@@ -188,7 +188,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve76d7eb33bf1484f6
+preserve42a5ef0fcfce5742
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -208,7 +208,7 @@ Usually, people find it harder to learn than Python or R.
 It is also likely that you have to invest a lot of time to code things that are readily available in R.
 Therefore, we would recommend to learn R, and subsequently to learn C++ through **Rcpp** if a need for performance optimization arises.
 Subsequently, you could even implement geoalgorithms you are missing from the most common desktop GIS with the help of **Rcpp**^[Though, in that case we would recommend to contribute the C++ code to one of the open-source GIS packages since this would make the geoalgorithm available to a wider audience.
-In turn, you could access the GIS software via one of the available R-GIS interfaces. <!--(ref(gis))]-->].
+In turn, you could access the GIS software via one of the available R-GIS interfaces. <!--(ref(gis))-->].
 
 Java is another important (and versatile) language used in GIScience.
 For example, the open-source desktop GIS [gvSig](http://www.gvsig.com/en/products/gvsig-desktop), [OpenJump](http://openjump.org/) and [uDig](http://udig.refractions.net/) are written in Java.
