@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservedd3cd44ecb4e3859
+preserveb9e19be852439072
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3679,6 +3679,8 @@ Full list of the supported file format for writing `Raster*` objects could be fo
 
 ### Vector formats
 
+
+
 <!-- 1. shp - (short history, was more or less an accident, a long-living makeshift arrangement) - don't use shp! -->
 <!-- 2. gpkg - (maybe just mention here, gpkg since it is an SQLite 3 extension supporting both vector and raster formats) - reference to the "geodatabases" section -->
 <!-- 3. wkt and wkb -->
@@ -3686,6 +3688,9 @@ Full list of the supported file format for writing `Raster*` objects could be fo
 <!-- 5. maybe gpx - (maybe mention GPS formats such as GPX) -->
 
 ### Raster formats
+
+
+
 
 <!-- 1. geotiff -->
 <!-- 2. asc - (popular formats: asc (-> exported from ESRI)) -->
@@ -3696,6 +3701,9 @@ Full list of the supported file format for writing `Raster*` objects could be fo
 
 ### Geodatabases 
 <!--(can store vector and raster data)-->
+
+
+
 
 <!-- 1. SQLite/SpatialLite + mention GRASS (uses SQLite) -->
 <!-- 2. gpkg - explanation connected to the previous sections and to SQLite -->
