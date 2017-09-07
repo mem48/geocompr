@@ -188,7 +188,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve9bbdbdc60ee1bb98
+preserve76d7eb33bf1484f6
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3544,27 +3544,18 @@ The only limitation to `stack()` is that all datasets need to have the same spat
 
 The counterpart of `st_read()` is `st_write()`.
 It allows to write **sf** objects to a wide range of geographic vector file formats, including the most common ones such as `.geojson`, `.shp` and `.gpkg`.
-Based on the file name `st_write()` decides automatically which driver to use. How fast the writing process is depends also on the driver:
-<!-- Is this comparison here necessary, or shouldn't we instead focus on the automatic driver selection? -->
+Based on the file name `st_write()` decides automatically which driver to use. 
+How fast the writing process is depends also on the driver.
+<!-- ref to the vignette -->
 
 
 ```r
-system.time(st_write(world, "world.geojson", quiet = TRUE))
-#>    user  system elapsed 
-#>   0.072   0.000   0.070
-system.time(st_write(world, "world.shp", quiet = TRUE)) 
-#>    user  system elapsed 
-#>   0.044   0.000   0.044
-system.time(st_write(world, "world.gpkg", quiet = TRUE))
-#>    user  system elapsed 
-#>   0.024   0.008   0.033
+st_write(obj = world, dsn = "world.gpkg")
+#> Writing layer `world' to data source `world.gpkg' using driver `GPKG'
+#> features:       177
+#> fields:         10
+#> geometry type:  Multi Polygon
 ```
-
-
-
-<!-- ```{r} -->
-<!-- st_write(obj = world, dsn = "world.gpkg") -->
-<!-- ``` -->
 
 **Note**: if you try to write to the same data source again, the function will fail.
 <!-- Why are you creating a modified version? Could you not use the same object again to demonstrate that overwriting will fail? -->
@@ -3576,6 +3567,9 @@ world_mod = dplyr::mutate(world, pop = pop * 2)
 ```
 
 
+```
+#> [1] TRUE
+```
 
 
 ```r
