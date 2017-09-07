@@ -230,7 +230,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="read-write" class="section level1">
 <h1><span class="header-section-number">5</span> Geographic data I/O</h1>
-<p>The previous chapters provided an overview of spatial data classes in R, with a focus on simple features and raster. This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world. <!-- Not sure if this is the place for the following two sentences... Or if so, some kind of link is missing.--> We include a section (<a href="read-write.html#visual-outputs">5.4</a>) on visualization because outputting data in a human (not just computer) readable format enables non-programmers to benefit from your work. If your aim is to use geocomputation to improve the world, e.g. by encouraging evidence-based policies, this final stage is vital.</p>
+<p>The previous chapters provided an overview of spatial data classes in R, with a focus on simple features and rasters. This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world. <!-- Not sure if this is the place for the following two sentences... Or if so, some kind of link is missing.--> We include a section (<a href="read-write.html#visual-outputs">5.4</a>) on visualization because outputting data in a human (not just computer) readable format enables non-programmers to benefit from your work. If your aim is to use geocomputation to improve the world, e.g. by encouraging evidence-based policies, this final stage is vital.</p>
 <p>I/O is short for “input/output” which means, in plain English, “reading and writing data”. We use the acronym instead of plain English not to confuse you or to make chapter names short, but because that’s the term used in computer science and it is useful to think of data import and export from a computing perspective.<a href="#fn24" class="footnoteRef" id="fnref24"><sup>24</sup></a></p>
 <!-- Old intro to this chapter - can we salvage anything from this? -->
 <!-- Reading, writing and plotting are 3 of the most important initial stages in geocomputation. -->
@@ -240,7 +240,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <!-- For this reason this introductory chapter also has a section on basic map making. -->
 <div id="data-input-i" class="section level2">
 <h2><span class="header-section-number">5.1</span> Data Input (I)</h2>
-<p>To efficiently read data into R, it helps to have an understanding of what happens ‘under the hood’. Executing commands such as <code>sf::st_read()</code> (the main function we use for loading vector data, from the <strong>sf</strong> package), <code>raster::raster()</code> (the main function used for loading raster data, from the <strong>raster</strong> package), or <code>readr::read_csv()</code> (which can we used to read spatial data from text files) silently sets off a chain of events that loads objects. “Loading” in this context means loading the data into R or, more precisely, assigning objects to your workspace, stored in RAM accessible from the <code>.GlobalEnv</code> of your current R session. <!-- What is your understanding of workspace? Or what is the difference between workspace and the global environment here?--> <!-- coud add a footnote here mentioning `.GlobalEnv` --></p>
+<p>To efficiently read data into R, it helps to have an understanding of what happens ‘under the hood’. Executing commands such as <code>sf::st_read()</code> (the main function we use for loading vector data), <code>raster::raster()</code> (the main function used for loading raster data), or <code>readr::read_csv()</code> (which can we used to read spatial data from text files) silently sets off a chain of events that loads objects. “Loading” in this context means loading the data into R or, more precisely, assigning objects to your workspace, stored in RAM accessible from the <code>.GlobalEnv</code> of your current R session. <!-- What is your understanding of workspace? Or what is the difference between workspace and the global environment here?--> <!-- coud add a footnote here mentioning `.GlobalEnv` --></p>
 <div id="vector-data-1" class="section level3">
 <h3><span class="header-section-number">5.1.1</span> Vector data</h3>
 <p>Spatial vector data comes in a wide variety of file formats, and <strong>sf</strong> is able to handle most of them <!-- is that right? --> via its <code>st_read()</code> command. Behind the scenes it uses GDAL, which supports the import of a very wide range of vector data formats<a href="#fn25" class="footnoteRef" id="fnref25"><sup>25</sup></a>. The first argument of <code>st_read()</code> is <code>file</code>, which should be a text string or an object containing a single text string:</p>
@@ -254,6 +254,11 @@ world =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)
 <span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513</span>
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span></code></pre></div>
+<!-- temporal text subsection -->
+<!-- data needs to be added to spData -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cycle_hire1 =<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;cycle_hire_xy.csv&quot;</span>, <span class="dt">options =</span> <span class="kw">c</span>(<span class="st">&quot;X_POSSIBLE_NAMES=X&quot;</span>,
+                                                       <span class="st">&quot;Y_POSSIBLE_NAMES=Y&quot;</span>))
+cycle_hire2 =<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;cycle_hire_wkt.csv&quot;</span>, <span class="dt">options =</span> <span class="st">&quot;GEOM_POSSIBLE_NAMES=WKT&quot;</span>)</code></pre></div>
 <!-- isn't that confusing? -->
 <p><strong>Tip</strong>: <code>read_sf()</code> and <code>write_sf()</code> can be used as easy-to-remember alternatives to <code>st_read()</code> and <code>st_write()</code>. Remember they hide information about the data source and overwrite existing data, though.</p>
 <p>A major advantage of <strong>sf</strong> is that it is fast. <!-- reference to the vignette --></p>
@@ -263,16 +268,11 @@ world =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)
 <span class="co">#&gt;          name                  long_name write  copy is_raster is_vector</span>
 <span class="co">#&gt; PCIDSK PCIDSK       PCIDSK Database File  TRUE FALSE      TRUE      TRUE</span>
 <span class="co">#&gt; netCDF netCDF Network Common Data Format  TRUE  TRUE      TRUE      TRUE</span></code></pre></div>
-<!-- temporal text subsection -->
-<!-- data needs to be added to spData -->
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cycle_hire1 =<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;cycle_hire_xy.csv&quot;</span>, <span class="dt">options =</span> <span class="kw">c</span>(<span class="st">&quot;X_POSSIBLE_NAMES=X&quot;</span>,
-                                                       <span class="st">&quot;Y_POSSIBLE_NAMES=Y&quot;</span>))
-cycle_hire2 =<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;cycle_hire_wkt.csv&quot;</span>, <span class="dt">options =</span> <span class="st">&quot;GEOM_POSSIBLE_NAMES=WKT&quot;</span>)</code></pre></div>
 </div>
 <div id="raster-data-1" class="section level3">
 <h3><span class="header-section-number">5.1.2</span> Raster data</h3>
 <p>Raster data also could exist in many different file formats, with some of the formats supporting multilayer files.<a href="#fn26" class="footnoteRef" id="fnref26"><sup>26</sup></a></p>
-<p>The <strong>raster</strong> package support reading one layer by <code>raster()</code> and many layers using either <code>brick()</code> or <code>stack()</code>. More information about the raster representation in this package could be find in the section <a href="spatial-class.html#raster-classes">2.2.3</a>.</p>
+<p>The <strong>raster</strong> package support reading a single layer by <code>raster()</code> and many layers using either <code>brick()</code> or <code>stack()</code>. More information about the raster representation could be find in the section <a href="spatial-class.html#raster-classes">2.2.3</a>.</p>
 <p>The <code>raster()</code> function makes it possible to read a simple single layer file:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
 <span class="kw">library</span>(spDataLarge)
@@ -283,14 +283,12 @@ single_layer =<span class="st"> </span><span class="kw">raster</span>(raster_fil
 single_layer_band3 =<span class="st"> </span><span class="kw">raster</span>(raster_multilayer_filepath, <span class="dt">band =</span> <span class="dv">3</span>)</code></pre></div>
 <p>The whole multilayer raster file is read by <code>brick()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">multilayer_layer_brick =<span class="st"> </span><span class="kw">brick</span>(raster_multilayer_filepath)</code></pre></div>
-<p>Finally, many single and multilayer files could be read in the same time with the <code>stack()</code> function:</p>
+<p>Finally, many single and multilayer rasters could be read together with the <code>stack()</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">raster_l1_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat_b2.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
 raster_l2_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat_b3.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
  
 multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(raster_l1_filepath, raster_l2_filepath)</code></pre></div>
 <p>The only limitation to <code>stack()</code> is that all datasets need to have the same spatial extent and resolution.</p>
-<!-- NetCDF? -->
-<!-- temporal text subsection -->
 </div>
 </div>
 <div id="data-output-o" class="section level2">
@@ -301,13 +299,13 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <p>The counterpart of <code>st_read()</code> is <code>st_write()</code>. It allows to write <strong>sf</strong> objects to a wide range of geographic vector file formats, including the most common ones such as <code>.geojson</code>, <code>.shp</code> and <code>.gpkg</code>. Based on the file name <code>st_write()</code> decides automatically which driver to use. How fast the writing process is depends also on the driver: <!-- Is this comparison here necessary, or shouldn't we instead focus on the automatic driver selection? --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.geojson&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.064   0.000   0.067</span>
+<span class="co">#&gt;   0.064   0.000   0.062</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.shp&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)) 
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.044   0.004   0.046</span>
+<span class="co">#&gt;   0.044   0.000   0.040</span>
 <span class="kw">system.time</span>(<span class="kw">st_write</span>(world, <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>))
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.020   0.016   0.036</span></code></pre></div>
+<span class="co">#&gt;   0.020   0.008   0.028</span></code></pre></div>
 <!-- ```{r} -->
 <!-- st_write(obj = world, dsn = "world.gpkg") -->
 <!-- ``` -->
@@ -397,8 +395,8 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <hr />
 <ol start="24">
 <li id="fn24"><p>Concepts such as computational efficiency, hard disk space and ‘idempotence’ are useful when thinking about reading and writing geographic datasets, which can become large and difficult to handle. Loading/saving data is yet another way of saying the same thing.<a href="read-write.html#fnref24">↩</a></p></li>
-<li id="fn25"><p>A list of supported formats could be found using <code>sf::st_drivers()</code><a href="read-write.html#fnref25">↩</a></p></li>
-<li id="fn26"><p>A list of supported raster formats could be found using <code>rgdal::gdalDrivers()</code><a href="read-write.html#fnref26">↩</a></p></li>
+<li id="fn25"><p>A list of supported formats could be found at <a href="http://www.gdal.org/ogr_formats.html" class="uri">http://www.gdal.org/ogr_formats.html</a><a href="read-write.html#fnref25">↩</a></p></li>
+<li id="fn26"><p>A list of supported raster formats could be found at <a href="http://www.gdal.org/formats_list.html" class="uri">http://www.gdal.org/formats_list.html</a><a href="read-write.html#fnref26">↩</a></p></li>
 <li id="fn27"><p>Creation options for the GeoTIFF format are at <a href="http://www.gdal.org/frmt_gtiff.html" class="uri">http://www.gdal.org/frmt_gtiff.html</a>. Full list of formats with theirs creation options could be found at <a href="http://www.gdal.org/formats_list.html" class="uri">http://www.gdal.org/formats_list.html</a><a href="read-write.html#fnref27">↩</a></p></li>
 </ol>
 </div>
