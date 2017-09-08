@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveb1d98db824ddf059
+preserveda581e8852bd14dc
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3716,9 +3716,9 @@ Table: (\#tab:unnamed-chunk-21)Selected spatial file formats
 Name             Extension              Info                                                                                                                                                                                                                                                                                     Type                Model         
 ---------------  ---------------------  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  ------------------  --------------
 ESRI Shapefile   .shp (the main file)   One of the most popular vector file format. Consists of at least three files. The main files size cannot exceed 2 GB. It lacks support for mixed type. Columns names are limited to 10 characters, and number of columns are limited at 255. It has poor support for Unicode standard.   Vector              Partialy open 
-GeoJSON          .geojson                                                                                                                                                                                                                                                                                                        Vector                            
-GPX              .gpx                                                                                                                                                                                                                                                                                                            Vector                            
-KML              .kml                                                                                                                                                                                                                                                                                                            Vector                            
+GeoJSON          .geojson               Format designed for representation of simple features. It is the most offen used for a web applications.                                                                                                                                                                                 Vector              Open          
+GPX              .gpx                   XML schema created for exchange of GPS data.                                                                                                                                                                                                                                             Vector              Open          
+GML              .gml                                                                                                                                                                                                                                                                                                            Vector                            
 GeoTIFF          .tiff                                                                                                                                                                                                                                                                                                           Raster                            
 Arc ASCII        .asc                                                                                                                                                                                                                                                                                                            Raster                            
 R-raster         .gri, .grd                                                                                                                                                                                                                                                                                                      Raster                            
@@ -3791,7 +3791,7 @@ Its structure is similar to the regular `.tif` format, however GeoTIFF also stor
 
 ## Facetted maps
 
-Facetted maps are a common and potentially effect way of highlighting spatial relationships that are more complex that a single relationship.
+Facetted maps are a common and potentially effective way of visualizing spatial relationships that are more complex that a single relationship.
 The population of cities at one moment in time can be represented easily on a single map, for example by making the size of symbols variable for each city depending on population.
 However, to represent the populations of cities at multiple moments in time requires an *extra dimension*.
 This could be added by an additional *aesthetic* such as colour but this risks cluttering the map because it will involve multiple overlapping points (cities do not tend to move over time!).
