@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveb2a09e3617e8898a
+preservea629a683d507ded0
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3660,7 +3660,6 @@ For example, LOG1S is used for bitmap (binary) images, unsigned integers (INT1U,
 The default datatype used in `writeRaster()` is FLT4S.
 While it works in most of the cases, the size of the output file would be large.
 Therefore, a rule of thumb is to use the smallest representation that fits all the values (range of values could be checked using the `summary()` function).
-<!-- table? -->
 
 
 Table: (\#tab:datatypes)Datatypes supported by the raster package
@@ -3677,14 +3676,7 @@ INT4U      0                4,294,967,296
 FLT4S      -3.4e+38         3.4e+38       
 FLT8S      -1.7e+308        1.7e+308      
 
-
-
-<!-- file formats -->
-
-<!-- options (geotiff) -->
-GeoTIFF is one of the most popular raster formats. 
-Its structure is similar to the regular `.tif` format, however GeoTIFF also stores additional spatial metadata, such as coordinate reference system, spatial extent, `NoData` value, and the data resolution.
-You need to add the `.tif` file extention to save the raster object to a GeoTIFF file, for example:
+To save the `Raster*` object to a file, you need to specify the file extension, for example you need to add the `.tif` extension to create a GeoTIFF file:
 
 
 ```r
@@ -3693,8 +3685,10 @@ writeRaster(x = single_layer,
             datatype = "INT2U")
 ```
 
-Some raster file formats also accept additional creation options^[Creation options for the GeoTIFF format are at http://www.gdal.org/frmt_gtiff.html].
-For example, you could specify a compress method using the `COMPRESS` option:
+The `raster` file format (native to the `raster` package) is used when a file extension is missing or is invalid. 
+
+Some raster file formats also accept additional creation options[^2].
+For example, in GeoTIFF you could specify a compress method using the `COMPRESS` option^[Creation options for the GeoTIFF format are at http://www.gdal.org/frmt_gtiff.html]:
 
 
 ```r
@@ -3704,11 +3698,7 @@ writeRaster(x = single_layer,
             options = c("COMPRESS=DEFLATE"))
 ```
 
-Other raster file formats include `.grd`, `.nc`, `.asc`, and `.img`.
 Full list of the supported file format for writing `Raster*` objects could be found using `writeFormats().`
-
-<!-- temporal text subsection -->
-<!-- saving raster object as csv ?? - should we include that?-->
 
 ## File formats
 
@@ -3727,12 +3717,14 @@ Full list of the supported file format for writing `Raster*` objects could be fo
 
 
 
-<!-- 1. geotiff -->
+<!-- 1. geotiff  GeoTIFF is one of the most popular raster formats. 
+Its structure is similar to the regular `.tif` format, however GeoTIFF also stores additional spatial metadata, such as coordinate reference system, spatial extent, `NoData` value, and the data resolution.-->
 <!-- 2. asc - (popular formats: asc (-> exported from ESRI)) -->
 <!-- 3. JPEG - (possibly mention SAGA's sdat, Erdas Imagine) -->
 <!-- 4. rasterfile - (raster's rasterfile (vignette("rasterfile"))) -->
 <!-- 5. gpkg - (maybe just mention here, gpkg since it is an SQLite 3 extension supporting both vector and raster formats) - reference to the "geodatabases" section -->
 <!-- 6. ncdf ? -->
+<!-- Other raster file formats include `.grd`, `.nc`, `.asc`, and `.img`. -->
 
 ### Geodatabases 
 <!--(can store vector and raster data)-->
