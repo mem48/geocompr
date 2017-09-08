@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve5fd2f2b04ab8e92e
+preservec87d83830dc1e2ae
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3713,18 +3713,18 @@ Full list of the supported file format for writing `Raster*` objects could be fo
 
 Table: (\#tab:unnamed-chunk-21)Selected spatial file formats
 
-Name             Extension              Info   Type                Model         
----------------  ---------------------  -----  ------------------  --------------
-ESRI Shapefile   .shp (the main file)          Vector              Partialy open 
-GeoJSON          .geojson                      Vector                            
-GPX              .gpx                          Vector                            
-KML              .kml                          Vector                            
-GeoTIFF          .tiff                         Raster                            
-Arc ASCII        .asc                          Raster                            
-R-raster         .gri, .grd                    Raster                            
-SQLite           .sqlite                       Vector and raster                 
-ESRI FileGDB     .gdb                          Vector and raster                 
-GeoPackage       .gpkg                         Vector and raster                 
+Name             Extension              Info                                                                                                                                                                                                                                                                                     Type                Model         
+---------------  ---------------------  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  ------------------  --------------
+ESRI Shapefile   .shp (the main file)   One of the most popular vector file format. Consists of at least three files. The main files size cannot exceed 2 GB. It lacks support for mixed type. Columns names are limited to 10 characters, and number of columns are limited at 255. It has poor support for Unicode standard.   Vector              Partialy open 
+GeoJSON          .geojson               Format designed for representation of simple features. It is the most offen used for a web applications.                                                                                                                                                                                 Vector              Open          
+GPX              .gpx                   XML schema created for exchange of GPS data.                                                                                                                                                                                                                                             Vector              Open          
+GML              .gml                                                                                                                                                                                                                                                                                                            Vector                            
+GeoTIFF          .tiff                                                                                                                                                                                                                                                                                                           Raster                            
+Arc ASCII        .asc                                                                                                                                                                                                                                                                                                            Raster                            
+R-raster         .gri, .grd                                                                                                                                                                                                                                                                                                      Raster                            
+SQLite           .sqlite                                                                                                                                                                                                                                                                                                         Vector and raster                 
+ESRI FileGDB     .gdb                                                                                                                                                                                                                                                                                                            Vector and raster                 
+GeoPackage       .gpkg                                                                                                                                                                                                                                                                                                           Vector and raster                 
 
 <!-- ### Vector formats -->
 
