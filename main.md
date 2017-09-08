@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservef94c797947e48849
+preserve77d70033f2334592
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3440,7 +3440,6 @@ Executing commands such as `sf::st_read()` (the main function we use for loading
 
 Spatial vector data comes in a wide variety of file formats, and **sf** is able to handle most of them via its `st_read()` command.
 Behind the scenes it uses GDAL, which supports the import of a very wide range of vector data formats[^1].
-[^1]: A list of supported vector formats and theirs options could be found at http://www.gdal.org/ogr_formats.html.
 The first argument of `st_read()` is `dsn`, which should be a text string or an object containing a single text string.
 The content of a text string could vary between different drivers.
 In the most of cases, e.g. `ESRI Shapefile` or `GeoPackage`, it would be a file name.
@@ -3515,6 +3514,8 @@ head(sf_drivers, n = 2)
 #> PCIDSK PCIDSK       PCIDSK Database File  TRUE FALSE      TRUE      TRUE
 #> netCDF netCDF Network Common Data Format  TRUE  TRUE      TRUE      TRUE
 ```
+
+[^1]: A list of supported vector formats and theirs options could be found at http://www.gdal.org/ogr_formats.html.
 
 ### Raster data
 
