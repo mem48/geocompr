@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea629a683d507ded0
+preserved1594efa5b232207
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3701,6 +3701,15 @@ writeRaster(x = single_layer,
 Full list of the supported file format for writing `Raster*` objects could be found using `writeFormats().`
 
 ## File formats
+
+<!-- an intro -->
+<!-- many different formats -->
+<!-- main three groups (vector, raster, geodatabase) -->
+<!-- format model (open/propertary) (importance of interoperabillity) -->
+<!-- way of storage (single file, multiple files, folders) -->
+<!-- GDAL (it's great - you can read, convert, and very often (though not always) write) -->
+<!-- GDAL info "it is possible to have smaller number of supported formats than there are on the GDAL webpage; you may need to recompile..." -->
+
 
 ### Vector formats
 
