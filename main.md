@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve394000fee30ccd6d
+preservee36ccf8b36cfc154
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3450,8 +3450,16 @@ The `st_read` function, based on the file extension, knows how to read a file:
 
 ```r
 library(sf)
+#> Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0
 vector_filepath = system.file("shapes/world.gpkg", package = "spData")
 world = st_read(vector_filepath)
+#> Reading layer `wrld.gpkg' from data source `/home/travis/R/Library/spData/shapes/world.gpkg' using driver `GPKG'
+#> Simple feature collection with 177 features and 10 fields
+#> geometry type:  MULTIPOLYGON
+#> dimension:      XY
+#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 ```
 
 For some drivers, `dsn` could be provided as a folder name, access credentials for a database, or a GeoJSON string representation.
@@ -3478,14 +3486,6 @@ More complex geometries cannot be described using only two numbers, however they
 ```r
 world_txt = system.file("misc/world_wkt.csv", package = "spData")
 world_wkt = st_read(world_txt, options = "GEOM_POSSIBLE_NAMES=WKT")
-#> options:        GEOM_POSSIBLE_NAMES=WKT 
-#> Reading layer `world_wkt' from data source `/home/travis/R/Library/spData/misc/world_wkt.csv' using driver `CSV'
-#> Simple feature collection with 177 features and 11 fields
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
-#> epsg (SRID):    NA
-#> proj4string:    NA
 ```
 
 \BeginKnitrBlock{rmdnote}<div class="rmdnote">Not all of the supported vector file formats store information about theirs coordinate reference system.
@@ -3497,7 +3497,7 @@ More on that in the section \@ref(crs-intro).</div>\EndKnitrBlock{rmdnote}
 Remember they hide information about the data source and overwrite existing data, though.
 
 To find out which data formats **sf** supports, run `st_drivers()`. 
-Here, we show only the first two drivers:
+Here, we show only the first two drivers (see \@ref(tab:drivers)):
 
 
 ```r
@@ -3506,10 +3506,14 @@ head(sf_drivers, n = 2)
 ```
 
 
+Table: (\#tab:drivers)Sample of available drivers for reading/writing vector data (variable depending on operating system).
+
          name     long_name                    write   copy    is_raster   is_vector 
 -------  -------  ---------------------------  ------  ------  ----------  ----------
 PCIDSK   PCIDSK   PCIDSK Database File         TRUE    FALSE   TRUE        TRUE      
 netCDF   netCDF   Network Common Data Format   TRUE    TRUE    TRUE        TRUE      
+
+<!-- Idea (RL): filter to show maybe top 5 most useful -->
 
 ### Raster data
 
@@ -3696,7 +3700,7 @@ Full list of the supported file format for writing `Raster*` objects could be fo
 <!-- GDAL info "it is possible to have smaller number of supported formats than there are on the GDAL webpage; you may need to recompile..." -->
 
 
-Table: (\#tab:unnamed-chunk-21)Selected spatial file formats
+Table: (\#tab:unnamed-chunk-20)Selected spatial file formats
 
 Name                Extension              Info                                                                                                                                                                                                                                                                                     Type                Model          
 ------------------  ---------------------  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  ------------------  ---------------

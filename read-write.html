@@ -236,8 +236,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h3><span class="header-section-number">5.1.1</span> Vector data</h3>
 <p>Spatial vector data comes in a wide variety of file formats, and <strong>sf</strong> is able to handle most of them via its <code>st_read()</code> command. Behind the scenes it uses GDAL, which supports the import of a very wide range of vector data formats<a href="#fn26" class="footnoteRef" id="fnref26"><sup>26</sup></a>. One of the major advantages of <strong>sf</strong> is that it is fast. <!-- reference to the vignette --> The first argument of <code>st_read()</code> is <code>dsn</code>, which should be a text string or an object containing a single text string. The content of a text string could vary between different drivers. In the most of cases, e.g. <code>ESRI Shapefile</code> or <code>GeoPackage</code>, it would be a file name. The <code>st_read</code> function, based on the file extension, knows how to read a file:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
+<span class="co">#&gt; Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0</span>
 vector_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
-world =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)</code></pre></div>
+world =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)
+<span class="co">#&gt; Reading layer `wrld.gpkg&#39; from data source `/home/travis/R/Library/spData/shapes/world.gpkg&#39; using driver `GPKG&#39;</span>
+<span class="co">#&gt; Simple feature collection with 177 features and 10 fields</span>
+<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513</span>
+<span class="co">#&gt; epsg (SRID):    4326</span>
+<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span></code></pre></div>
 <p>For some drivers, <code>dsn</code> could be provided as a folder name, access credentials for a database, or a GeoJSON string representation. <!-- Do we have a place for the examples? --></p>
 <p>Some of vector driver formats could store many layers of data. <code>st_read</code> automatically read the first layer of the file specified in <code>dsn</code>, however it is also possible to select a different layer by its name using the <code>layer</code> argument.</p>
 <p>Many GDAL drivers have different open options<a href="#fn27" class="footnoteRef" id="fnref27"><sup>27</sup></a>. For example, spatial data in text files could be stored in several ways. Simple point dataset could just have two columns describing their x and y coordinates. To read these files, you need to specify names of those columns using the <code>options</code> argument:</p>
@@ -246,15 +254,7 @@ cycle_hire_xy =<span class="st"> </span><span class="kw">st_read</span>(cycle_hi
                                                  <span class="st">&quot;Y_POSSIBLE_NAMES=Y&quot;</span>))</code></pre></div>
 <p>More complex geometries cannot be described using only two numbers, however they could be represented by the well-known text (WKT), well-known binary (WKB), and in the GeoJSON form, for example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_txt =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;misc/world_wkt.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
-world_wkt =<span class="st"> </span><span class="kw">st_read</span>(world_txt, <span class="dt">options =</span> <span class="st">&quot;GEOM_POSSIBLE_NAMES=WKT&quot;</span>)
-<span class="co">#&gt; options:        GEOM_POSSIBLE_NAMES=WKT </span>
-<span class="co">#&gt; Reading layer `world_wkt&#39; from data source `/home/travis/R/Library/spData/misc/world_wkt.csv&#39; using driver `CSV&#39;</span>
-<span class="co">#&gt; Simple feature collection with 177 features and 11 fields</span>
-<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513</span>
-<span class="co">#&gt; epsg (SRID):    NA</span>
-<span class="co">#&gt; proj4string:    NA</span></code></pre></div>
+world_wkt =<span class="st"> </span><span class="kw">st_read</span>(world_txt, <span class="dt">options =</span> <span class="st">&quot;GEOM_POSSIBLE_NAMES=WKT&quot;</span>)</code></pre></div>
 
 <div class="rmdnote">
 Not all of the supported vector file formats store information about theirs coordinate reference system. In these situations, it is possible to add the missing information using the <code>st_set_crs()</code> function. More on that in the section <a href="spatial-class.html#crs-intro">2.3</a>.
@@ -262,10 +262,11 @@ Not all of the supported vector file formats store information about theirs coor
 <p></p>
 <!-- isn't that confusing for users? -->
 <p><strong>Tip</strong>: <code>read_sf()</code> and <code>write_sf()</code> can be used as easy-to-remember alternatives to <code>st_read()</code> and <code>st_write()</code>. Remember they hide information about the data source and overwrite existing data, though.</p>
-<p>To find out which data formats <strong>sf</strong> supports, run <code>st_drivers()</code>. Here, we show only the first two drivers:</p>
+<p>To find out which data formats <strong>sf</strong> supports, run <code>st_drivers()</code>. Here, we show only the first two drivers (see <a href="read-write.html#tab:drivers">5.1</a>):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_drivers =<span class="st"> </span><span class="kw">st_drivers</span>()
 <span class="kw">head</span>(sf_drivers, <span class="dt">n =</span> <span class="dv">2</span>)</code></pre></div>
 <table>
+<caption><span id="tab:drivers">Table 5.1: </span>Sample of available drivers for reading/writing vector data (variable depending on operating system).</caption>
 <thead>
 <tr class="header">
 <th align="left"></th>
@@ -298,6 +299,7 @@ Not all of the supported vector file formats store information about theirs coor
 </tr>
 </tbody>
 </table>
+<!-- Idea (RL): filter to show maybe top 5 most useful -->
 </div>
 <div id="raster-data-1" class="section level3">
 <h3><span class="header-section-number">5.1.2</span> Raster data</h3>
@@ -355,9 +357,9 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <h3><span class="header-section-number">5.2.2</span> Raster data</h3>
 <p>The <code>writeRaster()</code> function save the <code>Raster*</code> objects to files. There are several decision to be made while saving rasters, such as an output data type, file format, and specific GDAL options related to selected file format. The complete list of an arguments to this function could be found by typing <code>?writeRaster()</code>.</p>
 <!-- datatypes -->
-<p>The <strong>raster</strong> package offers nine following datatypes: LOG1S, INT1S, INT1U, INT2S, INT2U, INT4S, INT4U, FLT4S, and FLT8S. Datatype determines the type of numbers and the range of the raster values that would be written to disk (<a href="read-write.html#tab:datatypes">5.1</a>). Decision which datatype should be used depends on the expected range of the values in the output file. For example, LOG1S is used for bitmap (binary) images, unsigned integers (INT1U, INT2U, INT4U) are mostly used for categorical data, while floats (FLT4S and FLTS8S) usually represent continuous data. The default datatype used in <code>writeRaster()</code> is FLT4S. While it works in most of the cases, the size of the output file would be large. Therefore, a rule of thumb is to use the smallest representation that fits all the values (range of values could be checked using the <code>summary()</code> function).</p>
+<p>The <strong>raster</strong> package offers nine following datatypes: LOG1S, INT1S, INT1U, INT2S, INT2U, INT4S, INT4U, FLT4S, and FLT8S. Datatype determines the type of numbers and the range of the raster values that would be written to disk (<a href="read-write.html#tab:datatypes">5.2</a>). Decision which datatype should be used depends on the expected range of the values in the output file. For example, LOG1S is used for bitmap (binary) images, unsigned integers (INT1U, INT2U, INT4U) are mostly used for categorical data, while floats (FLT4S and FLTS8S) usually represent continuous data. The default datatype used in <code>writeRaster()</code> is FLT4S. While it works in most of the cases, the size of the output file would be large. Therefore, a rule of thumb is to use the smallest representation that fits all the values (range of values could be checked using the <code>summary()</code> function).</p>
 <table>
-<caption><span id="tab:datatypes">Table 5.1: </span>Datatypes supported by the raster package</caption>
+<caption><span id="tab:datatypes">Table 5.2: </span>Datatypes supported by the raster package</caption>
 <thead>
 <tr class="header">
 <th align="left">Datatype</th>
@@ -436,7 +438,7 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <!-- GDAL (it's great - you can read, convert, and very often (though not always) write) -->
 <!-- GDAL info "it is possible to have smaller number of supported formats than there are on the GDAL webpage; you may need to recompile..." -->
 <table>
-<caption><span id="tab:unnamed-chunk-21">Table 5.2: </span>Selected spatial file formats</caption>
+<caption><span id="tab:unnamed-chunk-20">Table 5.3: </span>Selected spatial file formats</caption>
 <thead>
 <tr class="header">
 <th align="left">Name</th>
