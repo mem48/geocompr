@@ -274,11 +274,11 @@ world_wkt =<span class="st"> </span><span class="kw">st_read</span>(world_txt, <
 <span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513</span>
 <span class="co">#&gt; epsg (SRID):    NA</span>
 <span class="co">#&gt; proj4string:    NA</span></code></pre></div>
+
 <div class="rmdnote">
-<p>
-Not all of the supported vector file formats store information about theirs coordinate reference system. In these situations, it is possible to add the missing information using the <code>st_set_crs()</code> function. More on that in the section <span class="citation">(<span class="citeproc-not-found" data-reference-id="ref"><strong>???</strong></span>)</span>(crs-intro).
-</p>
+Not all of the supported vector file formats store information about theirs coordinate reference system. In these situations, it is possible to add the missing information using the <code>st_set_crs()</code> function. More on that in the section <a href="spatial-class.html#crs-intro">2.3</a>.
 </div>
+<p></p>
 <!-- isn't that confusing for users? -->
 <p><strong>Tip</strong>: <code>read_sf()</code> and <code>write_sf()</code> can be used as easy-to-remember alternatives to <code>st_read()</code> and <code>st_write()</code>. Remember they hide information about the data source and overwrite existing data, though.</p>
 <p>To find out which data formats <strong>sf</strong> supports, run <code>st_drivers()</code>. Here, we show only the first two drivers:</p>
@@ -344,24 +344,27 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <!-- raster + vector + text intro -->
 <div id="vector-data-2" class="section level3">
 <h3><span class="header-section-number">5.2.1</span> Vector data</h3>
-<p>The counterpart of <code>st_read()</code> is <code>st_write()</code>. It allows to write <strong>sf</strong> objects to a wide range of geographic vector file formats, including the most common ones such as <code>.geojson</code>, <code>.shp</code> and <code>.gpkg</code>. Based on the file name <code>st_write()</code> decides automatically which driver to use. How fast the writing process is depends also on the driver. <!-- ref to the vignette --></p>
+<p>The counterpart of <code>st_read()</code> is <code>st_write()</code>. It allows to write <strong>sf</strong> objects to a wide range of geographic vector file formats, including the most common ones such as <code>.geojson</code>, <code>.shp</code> and <code>.gpkg</code>. Based on the file name, <code>st_write()</code> decides automatically which driver to use. How fast the writing process is depends also on the driver. <!-- ref to the vignette --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(<span class="dt">obj =</span> world, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>)
 <span class="co">#&gt; Writing layer `world&#39; to data source `world.gpkg&#39; using driver `GPKG&#39;</span>
 <span class="co">#&gt; features:       177</span>
 <span class="co">#&gt; fields:         10</span>
 <span class="co">#&gt; geometry type:  Multi Polygon</span></code></pre></div>
-<p><strong>Note</strong>: if you try to write to the same data source again, the function will fail. <!-- Why are you creating a modified version? Could you not use the same object again to demonstrate that overwriting will fail? --> This is demonstrated in the code below for a modified version of the world in which the population doubles in all countries (don’t worry about the <strong>dplyr</strong> code for now, this is covered in Chapter <a href="attr.html#attr">3</a>):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_mod =<span class="st"> </span>dplyr::<span class="kw">mutate</span>(world, <span class="dt">pop =</span> pop *<span class="st"> </span><span class="dv">2</span>)</code></pre></div>
-<pre><code>#&gt; [1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(<span class="dt">obj =</span> world_mod, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>)
-##   GDAL Error 1: Layer world.gpkg already exists, CreateLayer failed.
-## Use the layer creation option OVERWRITE=YES to replace it.</code></pre></div>
-<p>The error message (only partly reproduced above) provides some information as to why the function failed. The <code>GDAL Error 1</code> statement makes clear that the failure occurred at the GDAL level. Additionally, the suggestion to use <code>OVERWRITE=YES</code> provides a clue how to fix the problem. However, this is a GDAL option, and not a <code>st_write()</code> argument. Luckily, <code>st_write</code> provides a <code>layer_options</code> argument through which we can pass driver-dependent options:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(<span class="dt">obj =</span> world_mod, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">layer_options =</span> <span class="st">&quot;OVERWRITE=YES&quot;</span>)</code></pre></div>
+<p><strong>Note</strong>: if you try to write to the same data source again, the function will fail:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(<span class="dt">obj =</span> world, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>)
+<span class="co">#&gt; Updating layer `world&#39; to data source `/home/travis/build/Robinlovelace/geocompr/world.gpkg&#39; using driver `GPKG&#39;</span>
+<span class="co">#&gt; Warning in CPL_write_ogr(obj, dsn, layer, driver, as.character(dataset_options), : GDAL Error 1: Layer world already exists, CreateLayer failed.</span>
+<span class="co">#&gt; Use the layer creation option OVERWRITE=YES to replace it.</span>
+<span class="co">#&gt; Creating layer world failed.</span>
+<span class="co">#&gt; Error in CPL_write_ogr(obj, dsn, layer, driver, as.character(dataset_options), : Layer creation failed.</span></code></pre></div>
+<!-- ##   GDAL Error 1: Layer world.gpkg already exists, CreateLayer failed. -->
+<!-- ## Use the layer creation option OVERWRITE=YES to replace it. -->
+<p>The error message provides some information as to why the function failed. The <code>GDAL Error 1</code> statement makes clear that the failure occurred at the GDAL level. Additionally, the suggestion to use <code>OVERWRITE=YES</code> provides a clue how to fix the problem. However, this is not a <code>st_write()</code> argument, it is a GDAL option. Luckily, <code>st_write</code> provides a <code>layer_options</code> argument through which we can pass driver-dependent options:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(<span class="dt">obj =</span> world, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">layer_options =</span> <span class="st">&quot;OVERWRITE=YES&quot;</span>)</code></pre></div>
 <p>Another solution is to use the <code>st_write()</code> argument <code>delete_layer</code>. Setting it to <code>TRUE</code> deletes already existing layers in the data source before the function attempts to write (note there is also a <code>delete_dsn</code> argument):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(<span class="dt">obj =</span> world_mod, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">delete_layer =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p>You can achieve the same with <code>write_sf()</code> since it is equivalent to (technically an <em>alias</em> for) <code>st_write()</code>, except that its defaults for <code>delete_layer</code> and <code>quiet</code> is <code>TRUE</code>. This enables spatial data to be overwritten more concisely, and with less output going to screen: <!-- What does this mean: overwritten more concisely? --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write_sf</span>(<span class="dt">obj =</span> world_mod, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(<span class="dt">obj =</span> world, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">delete_layer =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>You can achieve the same with <code>write_sf()</code> since it is equivalent to (technically an <em>alias</em> for) <code>st_write()</code>, except that its defaults for <code>delete_layer</code> and <code>quiet</code> is <code>TRUE</code>. <!-- This enables spatial data to be overwritten more concisely, and with less output going to screen: --> <!-- What does this mean: overwritten more concisely? --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write_sf</span>(<span class="dt">obj =</span> world, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>)</code></pre></div>
 <!-- Is the file.remove()-part important? -->
 <p>A blunter way to update file-based geographic data sources such as <code>.gpkg</code> files is to simply delete them. This is not generally recommended, as it will not work for multi-file data sources such as <code>.shp</code> files:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">file.remove</span>(<span class="st">&quot;world.gpkg&quot;</span>)</code></pre></div>

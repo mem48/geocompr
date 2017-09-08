@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve2d02f5c8aac62fed
+preservee1e78885296e015d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3503,9 +3503,9 @@ world_wkt = st_read(world_txt, options = "GEOM_POSSIBLE_NAMES=WKT")
 #> proj4string:    NA
 ```
 
-<div class="rmdnote">
-<p>Not all of the supported vector file formats store information about theirs coordinate reference system. In these situations, it is possible to add the missing information using the <code>st_set_crs()</code> function. More on that in the section @ref(crs-intro).</p>
-</div>
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">Not all of the supported vector file formats store information about theirs coordinate reference system.
+In these situations, it is possible to add the missing information using the `st_set_crs()` function.
+More on that in the section \@ref(crs-intro).</div>\EndKnitrBlock{rmdnote}
 
 <!-- isn't that confusing for users? -->
 **Tip**: `read_sf()` and `write_sf()` can be used as easy-to-remember alternatives to `st_read()` and `st_write()`.
@@ -3579,7 +3579,7 @@ The `stack()` class is limited to datasets that have the same spatial extent and
 
 The counterpart of `st_read()` is `st_write()`.
 It allows to write **sf** objects to a wide range of geographic vector file formats, including the most common ones such as `.geojson`, `.shp` and `.gpkg`.
-Based on the file name `st_write()` decides automatically which driver to use. 
+Based on the file name, `st_write()` decides automatically which driver to use. 
 How fast the writing process is depends also on the driver.
 <!-- ref to the vignette -->
 
@@ -3592,54 +3592,46 @@ st_write(obj = world, dsn = "world.gpkg")
 #> geometry type:  Multi Polygon
 ```
 
-**Note**: if you try to write to the same data source again, the function will fail.
-<!-- Why are you creating a modified version? Could you not use the same object again to demonstrate that overwriting will fail? -->
-This is demonstrated in the code below for a modified version of the world in which the population doubles in all countries (don't worry about the **dplyr** code for now, this is covered in Chapter \@ref(attr)):
+**Note**: if you try to write to the same data source again, the function will fail:
 
 
 ```r
-world_mod = dplyr::mutate(world, pop = pop * 2)
+st_write(obj = world, dsn = "world.gpkg")
+#> Updating layer `world' to data source `/home/travis/build/Robinlovelace/geocompr/world.gpkg' using driver `GPKG'
+#> Warning in CPL_write_ogr(obj, dsn, layer, driver, as.character(dataset_options), : GDAL Error 1: Layer world already exists, CreateLayer failed.
+#> Use the layer creation option OVERWRITE=YES to replace it.
+#> Creating layer world failed.
+#> Error in CPL_write_ogr(obj, dsn, layer, driver, as.character(dataset_options), : Layer creation failed.
 ```
 
+<!-- ##   GDAL Error 1: Layer world.gpkg already exists, CreateLayer failed. -->
+<!-- ## Use the layer creation option OVERWRITE=YES to replace it. -->
 
-```
-#> [1] TRUE
-```
-
-
-```r
-st_write(obj = world_mod, dsn = "world.gpkg")
-##   GDAL Error 1: Layer world.gpkg already exists, CreateLayer failed.
-## Use the layer creation option OVERWRITE=YES to replace it.
-```
-
-The error message (only partly reproduced above) provides some information as to why the function failed.
+The error message provides some information as to why the function failed.
 The `GDAL Error 1` statement makes clear that the failure occurred at the GDAL level.
 Additionally, the suggestion to use `OVERWRITE=YES` provides a clue how to fix the problem.
-However, this is a GDAL option, and not a `st_write()` argument.
+However, this is not a `st_write()` argument, it is a GDAL option.
 Luckily, `st_write` provides a `layer_options` argument through which we can pass driver-dependent options:
 
 
 ```r
-st_write(obj = world_mod, dsn = "world.gpkg", layer_options = "OVERWRITE=YES")
+st_write(obj = world, dsn = "world.gpkg", layer_options = "OVERWRITE=YES")
 ```
 
 Another solution is to use the `st_write()` argument `delete_layer`. Setting it to `TRUE` deletes already existing layers in the data source before the function attempts to write (note there is also a `delete_dsn` argument):
 
 
 ```r
-st_write(obj = world_mod, dsn = "world.gpkg", delete_layer = TRUE)
+st_write(obj = world, dsn = "world.gpkg", delete_layer = TRUE)
 ```
 
 You can achieve the same with `write_sf()` since it is equivalent to (technically an *alias* for) `st_write()`, except that its defaults for `delete_layer` and `quiet` is `TRUE`.
-This enables spatial data to be overwritten more concisely, and with less output going to screen:
+<!-- This enables spatial data to be overwritten more concisely, and with less output going to screen: -->
 <!-- What does this mean: overwritten more concisely? -->
 
 
-
-
 ```r
-write_sf(obj = world_mod, dsn = "world.gpkg")
+write_sf(obj = world, dsn = "world.gpkg")
 ```
 
 <!-- Is the file.remove()-part important? -->
