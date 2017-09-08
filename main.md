@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve77d70033f2334592
+preservea392d5e4c95fdbba
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3515,11 +3515,9 @@ head(sf_drivers, n = 2)
 #> netCDF netCDF Network Common Data Format  TRUE  TRUE      TRUE      TRUE
 ```
 
-[^1]: A list of supported vector formats and theirs options could be found at http://www.gdal.org/ogr_formats.html.
-
 ### Raster data
 
-Raster data also could exist in many different file formats, with some of the formats supporting multilayer files ^[A list of supported raster formats could be found at http://www.gdal.org/formats_list.html].
+Raster data also could exist in many different file formats, with some of the formats supporting multilayer files[^2].
 
 The **raster** package support reading a single layer by `raster()` and many layers using either `brick()` or `stack()`. 
 More information about the raster representation could be find in the section \@ref(raster-classes).
@@ -3683,7 +3681,7 @@ writeRaster(x = single_layer,
             datatype = "INT2U")
 ```
 
-Some raster file formats also accept additional creation options^[Creation options for the GeoTIFF format are at http://www.gdal.org/frmt_gtiff.html. Full list of formats with theirs creation options could be found at http://www.gdal.org/formats_list.html].
+Some raster file formats also accept additional creation options^[Creation options for the GeoTIFF format are at http://www.gdal.org/frmt_gtiff.html].
 For example, you could specify a compress method using the `COMPRESS` option:
 
 
@@ -3744,6 +3742,11 @@ Full list of the supported file format for writing `Raster*` objects could be fo
 1. Name three differences between `write_sf()` and the more well-known function `st_write()`.
 
 1. What are the default arguments of `read_sf()` and `write_sf()` that enable two of these differences?
+
+
+[^1]: A list of supported vector formats and theirs options could be found at http://www.gdal.org/ogr_formats.html.
+
+[^2]: Full list of supported raster formats with theirs creation options could be found at http://www.gdal.org/formats_list.html
 
 <!--chapter:end:05-read-write-plot.Rmd-->
 
