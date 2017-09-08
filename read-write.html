@@ -256,9 +256,24 @@ world =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cycle_hire_txt =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;misc/cycle_hire_xy.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
 cycle_hire =<span class="st"> </span><span class="kw">st_read</span>(cycle_hire_txt, <span class="dt">options =</span> <span class="kw">c</span>(<span class="st">&quot;X_POSSIBLE_NAMES=X&quot;</span>,
                                                  <span class="st">&quot;Y_POSSIBLE_NAMES=Y&quot;</span>))
-
-world_txt =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;misc/world_wkt.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
-world_wkt =<span class="st"> </span><span class="kw">st_read</span>(world_txt, <span class="dt">options =</span> <span class="st">&quot;GEOM_POSSIBLE_NAMES=WKT&quot;</span>)</code></pre></div>
+<span class="co">#&gt; options:        X_POSSIBLE_NAMES=X Y_POSSIBLE_NAMES=Y </span>
+<span class="co">#&gt; Reading layer `cycle_hire_xy&#39; from data source `/home/travis/R/Library/spData/misc/cycle_hire_xy.csv&#39; using driver `CSV&#39;</span>
+<span class="co">#&gt; Simple feature collection with 742 features and 7 fields</span>
+<span class="co">#&gt; geometry type:  POINT</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: -0.2367699 ymin: 51.45475 xmax: -0.002275 ymax: 51.54214</span>
+<span class="co">#&gt; epsg (SRID):    NA</span>
+<span class="co">#&gt; proj4string:    NA</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_txt =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;misc/world_wkt.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
+world_wkt =<span class="st"> </span><span class="kw">st_read</span>(world_txt, <span class="dt">options =</span> <span class="st">&quot;GEOM_POSSIBLE_NAMES=WKT&quot;</span>)
+<span class="co">#&gt; options:        GEOM_POSSIBLE_NAMES=WKT </span>
+<span class="co">#&gt; Reading layer `world_wkt&#39; from data source `/home/travis/R/Library/spData/misc/world_wkt.csv&#39; using driver `CSV&#39;</span>
+<span class="co">#&gt; Simple feature collection with 177 features and 11 fields</span>
+<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513</span>
+<span class="co">#&gt; epsg (SRID):    NA</span>
+<span class="co">#&gt; proj4string:    NA</span></code></pre></div>
 <!-- isn't that confusing? -->
 <p><strong>Tip</strong>: <code>read_sf()</code> and <code>write_sf()</code> can be used as easy-to-remember alternatives to <code>st_read()</code> and <code>st_write()</code>. Remember they hide information about the data source and overwrite existing data, though.</p>
 <p>A major advantage of <strong>sf</strong> is that it is fast. <!-- reference to the vignette --></p>

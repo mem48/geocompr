@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve90c61b6942819eb2
+preserve669fb19d574ab06a
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3473,9 +3473,28 @@ For some drivers, `dsn` could be provided as a folder name, access credentials f
 cycle_hire_txt = system.file("misc/cycle_hire_xy.csv", package = "spData")
 cycle_hire = st_read(cycle_hire_txt, options = c("X_POSSIBLE_NAMES=X",
                                                  "Y_POSSIBLE_NAMES=Y"))
+#> options:        X_POSSIBLE_NAMES=X Y_POSSIBLE_NAMES=Y 
+#> Reading layer `cycle_hire_xy' from data source `/home/travis/R/Library/spData/misc/cycle_hire_xy.csv' using driver `CSV'
+#> Simple feature collection with 742 features and 7 fields
+#> geometry type:  POINT
+#> dimension:      XY
+#> bbox:           xmin: -0.2367699 ymin: 51.45475 xmax: -0.002275 ymax: 51.54214
+#> epsg (SRID):    NA
+#> proj4string:    NA
+```
 
+
+```r
 world_txt = system.file("misc/world_wkt.csv", package = "spData")
 world_wkt = st_read(world_txt, options = "GEOM_POSSIBLE_NAMES=WKT")
+#> options:        GEOM_POSSIBLE_NAMES=WKT 
+#> Reading layer `world_wkt' from data source `/home/travis/R/Library/spData/misc/world_wkt.csv' using driver `CSV'
+#> Simple feature collection with 177 features and 11 fields
+#> geometry type:  MULTIPOLYGON
+#> dimension:      XY
+#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+#> epsg (SRID):    NA
+#> proj4string:    NA
 ```
 
 <!-- isn't that confusing? -->
