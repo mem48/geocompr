@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve14778da581e2c798
+preserve0cd8203530c3a960
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2706,8 +2706,8 @@ The process is illustrated in Figure \@ref(fig:spatial-join), which shows a targ
 
 ```r
 urb = urban_agglomerations %>% 
-  filter(Year == 2020) %>% 
-  top_n(n = 3, wt = `Population (millions)`)
+  filter(year == 2020) %>% 
+  top_n(n = 3, wt = population_millions)
 asia = world %>% 
   filter(continent == "Asia")
 ```
@@ -3442,8 +3442,8 @@ Spatial vector data comes in a wide variety of file formats, and **sf** is able 
 Behind the scenes it uses GDAL, which supports the import of a very wide range of vector data formats^[A list of supported formats could be found at http://www.gdal.org/ogr_formats.html].
 The first argument of `st_read()` is `dsn`, which should be a text string or an object containing a single text string.
 The content of a text string could vary between different drivers.
-In the most of cases, for example `ESRI Shapefile` or `GeoPackage`, it would be a file name.
-The `st_read` function, based on the file extension, knows how to read a file.
+In the most of cases, e.g. `ESRI Shapefile` or `GeoPackage`, it would be a file name.
+The `st_read` function, based on the file extension, knows how to read a file:
 
 
 ```r
@@ -3459,7 +3459,10 @@ world = st_read(vector_filepath)
 #> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 ```
 
+For some drivers, `dsn` could be provided as a folder name, access credentials for a database, or a GeoJSON string representation.
+<!-- Do we have a place for the examples? -->
 
+<!-- layer argument -->
 
 
 
@@ -3467,9 +3470,12 @@ world = st_read(vector_filepath)
 <!-- data needs to be added to spData -->
 
 ```r
-cycle_hire1 = st_read("cycle_hire_xy.csv", options = c("X_POSSIBLE_NAMES=X",
-                                                       "Y_POSSIBLE_NAMES=Y"))
-cycle_hire2 = st_read("cycle_hire_wkt.csv", options = "GEOM_POSSIBLE_NAMES=WKT")
+cycle_hire_txt = system.file("misc/cycle_hire_xy.csv", package = "spData")
+cycle_hire = st_read(cycle_hire_txt, options = c("X_POSSIBLE_NAMES=X",
+                                                 "Y_POSSIBLE_NAMES=Y"))
+
+world_txt = system.file("misc/world_wkt.csv", package = "spData")
+world_wkt = st_read(world_txt, options = "GEOM_POSSIBLE_NAMES=WKT")
 ```
 
 <!-- isn't that confusing? -->
@@ -3623,7 +3629,7 @@ file.remove("world.gpkg")
 ```r
 library(spData)
 st_write(cycle_hire, "cycle_hire_xy.csv", layer_options = "GEOMETRY=AS_XY")
-st_write(cycle_hire, "cycle_hire_wkt.csv", layer_options = "GEOMETRY=AS_WKT")
+st_write(world, "world_wkt.csv", layer_options = "GEOMETRY=AS_WKT")
 ```
 
 ### Raster data
