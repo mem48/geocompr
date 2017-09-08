@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve669fb19d574ab06a
+preserve64f42003dddb6722
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3462,9 +3462,8 @@ world = st_read(vector_filepath)
 For some drivers, `dsn` could be provided as a folder name, access credentials for a database, or a GeoJSON string representation.
 <!-- Do we have a place for the examples? -->
 
-<!-- layer argument -->
-
-
+Some of vector driver formats could store many layers of data. 
+`st_read` automatically read the first layer of the file specified in `dsn`, however it is also possible to select a different layer by its name using the `layer` argument.
 
 <!-- temporal text subsection -->
 <!-- data needs to be added to spData -->

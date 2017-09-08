@@ -250,7 +250,7 @@ world =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span></code></pre></div>
 <p>For some drivers, <code>dsn</code> could be provided as a folder name, access credentials for a database, or a GeoJSON string representation. <!-- Do we have a place for the examples? --></p>
-<!-- layer argument -->
+<p>Some of vector driver formats could store many layers of data. <code>st_read</code> automatically read the first layer of the file specified in <code>dsn</code>, however it is also possible to select a different layer by its name using the <code>layer</code> argument.</p>
 <!-- temporal text subsection -->
 <!-- data needs to be added to spData -->
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cycle_hire_txt =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;misc/cycle_hire_xy.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
