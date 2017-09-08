@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea392d5e4c95fdbba
+preserve0b849ffedf6f056d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3465,9 +3465,11 @@ For some drivers, `dsn` could be provided as a folder name, access credentials f
 Some of vector driver formats could store many layers of data. 
 `st_read` automatically read the first layer of the file specified in `dsn`, however it is also possible to select a different layer by its name using the `layer` argument.
 
+Many GDAL drivers have different open options[^1]. 
+For example, spatial data in text files could be stored in several ways.
+Simple point dataset could just have two columns describing their x and y coordinates. 
+To read these files, you need to specify names of those columns using the `options` argument:
 
-<!-- temporal text subsection -->
-<!-- data needs to be added to spData -->
 
 ```r
 cycle_hire_txt = system.file("misc/cycle_hire_xy.csv", package = "spData")
@@ -3482,6 +3484,8 @@ cycle_hire_xy = st_read(cycle_hire_txt, options = c("X_POSSIBLE_NAMES=X",
 #> epsg (SRID):    NA
 #> proj4string:    NA
 ```
+
+More complex geometries cannot be described using only two numbers, however they could be represented by the well-known text (WKT), well-known binary (WKB), and in GeoJSON form, for example:
 
 
 ```r
