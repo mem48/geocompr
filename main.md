@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve0b849ffedf6f056d
+preservee3553527336185c5
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3440,6 +3440,8 @@ Executing commands such as `sf::st_read()` (the main function we use for loading
 
 Spatial vector data comes in a wide variety of file formats, and **sf** is able to handle most of them via its `st_read()` command.
 Behind the scenes it uses GDAL, which supports the import of a very wide range of vector data formats[^1].
+One of the major advantages of **sf** is that it is fast.
+<!-- reference to the vignette -->
 The first argument of `st_read()` is `dsn`, which should be a text string or an object containing a single text string.
 The content of a text string could vary between different drivers.
 In the most of cases, e.g. `ESRI Shapefile` or `GeoPackage`, it would be a file name.
@@ -3485,7 +3487,7 @@ cycle_hire_xy = st_read(cycle_hire_txt, options = c("X_POSSIBLE_NAMES=X",
 #> proj4string:    NA
 ```
 
-More complex geometries cannot be described using only two numbers, however they could be represented by the well-known text (WKT), well-known binary (WKB), and in GeoJSON form, for example:
+More complex geometries cannot be described using only two numbers, however they could be represented by the well-known text (WKT), well-known binary (WKB), and in the GeoJSON form, for example:
 
 
 ```r
@@ -3501,12 +3503,9 @@ world_wkt = st_read(world_txt, options = "GEOM_POSSIBLE_NAMES=WKT")
 #> proj4string:    NA
 ```
 
-<!-- isn't that confusing? -->
+<!-- isn't that confusing for users? -->
 **Tip**: `read_sf()` and `write_sf()` can be used as easy-to-remember alternatives to `st_read()` and `st_write()`.
 Remember they hide information about the data source and overwrite existing data, though.
-
-A major advantage of **sf** is that it is fast.
-<!-- reference to the vignette -->
 
 To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
 
