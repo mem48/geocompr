@@ -365,14 +365,10 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(<span class="dt">obj =</span> world, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">delete_layer =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p>You can achieve the same with <code>write_sf()</code> since it is equivalent to (technically an <em>alias</em> for) <code>st_write()</code>, except that its defaults for <code>delete_layer</code> and <code>quiet</code> is <code>TRUE</code>. <!-- This enables spatial data to be overwritten more concisely, and with less output going to screen: --> <!-- What does this mean: overwritten more concisely? --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write_sf</span>(<span class="dt">obj =</span> world, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>)</code></pre></div>
-<!-- Is the file.remove()-part important? -->
-<p>A blunter way to update file-based geographic data sources such as <code>.gpkg</code> files is to simply delete them. This is not generally recommended, as it will not work for multi-file data sources such as <code>.shp</code> files:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">file.remove</span>(<span class="st">&quot;world.gpkg&quot;</span>)</code></pre></div>
-<!-- temporal text subsection -->
-<!-- saving sf POINT object as csv -->
+<p>The <code>layer_options</code> argument could be also used for many different purposes. One of them is to write spatial data to a text file. This can be done by specifing <code>GEOMETRY</code> inside of <code>layer_options</code>. It could be either <code>AS_XY</code> for simple point datasets or <code>AS_WKT</code> for more complex spatial data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spData)
-<span class="kw">st_write</span>(cycle_hire, <span class="st">&quot;cycle_hire_xy.csv&quot;</span>, <span class="dt">layer_options =</span> <span class="st">&quot;GEOMETRY=AS_XY&quot;</span>)
-<span class="kw">st_write</span>(world, <span class="st">&quot;world_wkt.csv&quot;</span>, <span class="dt">layer_options =</span> <span class="st">&quot;GEOMETRY=AS_WKT&quot;</span>)</code></pre></div>
+<span class="kw">st_write</span>(cycle_hire_xy, <span class="st">&quot;cycle_hire_xy.csv&quot;</span>, <span class="dt">layer_options =</span> <span class="st">&quot;GEOMETRY=AS_XY&quot;</span>)
+<span class="kw">st_write</span>(world_wkt, <span class="st">&quot;world_wkt.csv&quot;</span>, <span class="dt">layer_options =</span> <span class="st">&quot;GEOMETRY=AS_WKT&quot;</span>)</code></pre></div>
 </div>
 <div id="raster-data-2" class="section level3">
 <h3><span class="header-section-number">5.2.2</span> Raster data</h3>
@@ -443,7 +439,7 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <li id="fn25"><p>See <a href="http://adv-r.had.co.nz/Environments.html" class="uri">http://adv-r.had.co.nz/Environments.html</a> for more information on the environment<a href="read-write.html#fnref25">↩</a></p></li>
 <li id="fn26"><p>A list of supported vector formats and theirs options could be found at <a href="http://www.gdal.org/ogr_formats.html" class="uri">http://www.gdal.org/ogr_formats.html</a>.<a href="read-write.html#fnref26">↩</a></p></li>
 <li id="fn27"><p>A list of supported vector formats and theirs options could be found at <a href="http://www.gdal.org/ogr_formats.html" class="uri">http://www.gdal.org/ogr_formats.html</a>.<a href="read-write.html#fnref27">↩</a></p></li>
-<li id="fn28"><p>Full list of supported raster formats with theirs creation options could be found at <a href="http://www.gdal.org/formats_list.html" class="uri">http://www.gdal.org/formats_list.html</a><a href="read-write.html#fnref28">↩</a></p></li>
+<li id="fn28"><p>Full list of supported raster formats with theirs options could be found at <a href="http://www.gdal.org/formats_list.html" class="uri">http://www.gdal.org/formats_list.html</a><a href="read-write.html#fnref28">↩</a></p></li>
 <li id="fn29"><p>Creation options for the GeoTIFF format are at <a href="http://www.gdal.org/frmt_gtiff.html" class="uri">http://www.gdal.org/frmt_gtiff.html</a><a href="read-write.html#fnref29">↩</a></p></li>
 </ol>
 </div>

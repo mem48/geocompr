@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee1e78885296e015d
+preserve7b9aea1f7c66f9be
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3634,23 +3634,16 @@ You can achieve the same with `write_sf()` since it is equivalent to (technicall
 write_sf(obj = world, dsn = "world.gpkg")
 ```
 
-<!-- Is the file.remove()-part important? -->
-A blunter way to update file-based geographic data sources such as `.gpkg` files is to simply delete them.
-This is not generally recommended, as it will not work for multi-file data sources such as `.shp` files:
+The `layer_options` argument could be also used for many different purposes.
+One of them is to write spatial data to a text file.
+This can be done by specifing `GEOMETRY` inside of `layer_options`. 
+It could be either `AS_XY` for simple point datasets or `AS_WKT` for more complex spatial data:
 
-
-```r
-file.remove("world.gpkg")
-```
-
-<!-- temporal text subsection -->
-
-<!-- saving sf POINT object as csv -->
 
 ```r
 library(spData)
-st_write(cycle_hire, "cycle_hire_xy.csv", layer_options = "GEOMETRY=AS_XY")
-st_write(world, "world_wkt.csv", layer_options = "GEOMETRY=AS_WKT")
+st_write(cycle_hire_xy, "cycle_hire_xy.csv", layer_options = "GEOMETRY=AS_XY")
+st_write(world_wkt, "world_wkt.csv", layer_options = "GEOMETRY=AS_WKT")
 ```
 
 ### Raster data
@@ -3748,7 +3741,7 @@ Full list of the supported file format for writing `Raster*` objects could be fo
 
 [^1]: A list of supported vector formats and theirs options could be found at http://www.gdal.org/ogr_formats.html.
 
-[^2]: Full list of supported raster formats with theirs creation options could be found at http://www.gdal.org/formats_list.html
+[^2]: Full list of supported raster formats with theirs options could be found at http://www.gdal.org/formats_list.html
 
 <!--chapter:end:05-read-write-plot.Rmd-->
 
