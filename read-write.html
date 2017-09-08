@@ -472,60 +472,67 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <tr class="even">
 <td align="left">GeoJSON</td>
 <td align="left">.geojson</td>
-<td align="left">Format designed for representation of simple features. It is the most offen used for a web applications.</td>
+<td align="left">Format designed for representation of simple features. It is often used for a web applications.</td>
 <td align="left">Vector</td>
 <td align="left">Open</td>
 </tr>
 <tr class="odd">
+<td align="left">KML</td>
+<td align="left">.kml</td>
+<td align="left">XML-based format for spatial visualization, developed for use with Google Earth. Zipped KML file from the KMZ format.</td>
+<td align="left">Vector</td>
+<td align="left">Open</td>
+</tr>
+<tr class="even">
 <td align="left">GPX</td>
 <td align="left">.gpx</td>
 <td align="left">XML schema created for exchange of GPS data.</td>
 <td align="left">Vector</td>
 <td align="left">Open</td>
 </tr>
-<tr class="even">
-<td align="left">GML</td>
-<td align="left">.gml</td>
-<td align="left"></td>
-<td align="left">Vector</td>
-<td align="left"></td>
-</tr>
 <tr class="odd">
 <td align="left">GeoTIFF</td>
 <td align="left">.tiff</td>
+<td align="left">GeoTIFF is one of the most popular raster formats.</td>
 <td align="left"></td>
-<td align="left">Raster</td>
 <td align="left"></td>
 </tr>
 <tr class="even">
-<td align="left">Arc ASCII</td>
-<td align="left">.asc</td>
+<td align="left">Its structure is</td>
+<td align="left">similar to the regular</td>
+<td align="left"><code>.tif</code> format, however GeoTIFF also stores additional spatial metadata, such as coordinate reference system, spatial extent, <code>NoData</code> value, and the data resolution. Raster Open</td>
 <td align="left"></td>
-<td align="left">Raster</td>
 <td align="left"></td>
 </tr>
 <tr class="odd">
-<td align="left">R-raster</td>
-<td align="left">.gri, .grd</td>
-<td align="left"></td>
+<td align="left">Arc ASCII</td>
+<td align="left">.asc</td>
+<td align="left">Text format where the first six lines represent grid information and nodata value, followed by the values arranged in rows and columns.</td>
 <td align="left">Raster</td>
-<td align="left"></td>
+<td align="left">?</td>
 </tr>
 <tr class="even">
+<td align="left">R-raster</td>
+<td align="left">.gri, .grd</td>
+<td align="left">Native format of the raster package.</td>
+<td align="left">Raster</td>
+<td align="left">Open</td>
+</tr>
+<tr class="odd">
 <td align="left">SQLite</td>
 <td align="left">.sqlite</td>
 <td align="left"></td>
 <td align="left">Vector and raster</td>
 <td align="left"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">ESRI FileGDB</td>
 <td align="left">.gdb</td>
 <td align="left"></td>
 <td align="left">Vector and raster</td>
 <td align="left"></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">GeoPackage</td>
 <td align="left">.gpkg</td>
 <td align="left"></td>
