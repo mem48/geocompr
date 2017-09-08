@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve1eec73d0d105820b
+preserve2d02f5c8aac62fed
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3526,7 +3526,6 @@ head(sf_drivers, n = 2)
 PCIDSK   PCIDSK   PCIDSK Database File         TRUE    FALSE   TRUE        TRUE      
 netCDF   netCDF   Network Common Data Format   TRUE    TRUE    TRUE        TRUE      
 
-
 ### Raster data
 
 Raster data also could exist in many different file formats, with some of the formats supporting multilayer files[^2].
@@ -3568,7 +3567,7 @@ raster_l2_filepath = system.file("raster/landsat_b3.tif", package = "spDataLarge
 multilayer_layer_stack = stack(raster_l1_filepath, raster_l2_filepath)
 ```
 
-The only limitation to `stack()` is that all datasets need to have the same spatial extent and resolution.
+The `stack()` class is limited to datasets that have the same spatial extent and resolution.
 
 ## Data output (O)
 

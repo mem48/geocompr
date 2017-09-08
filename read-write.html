@@ -336,7 +336,7 @@ single_layer_band3 =<span class="st"> </span><span class="kw">raster</span>(rast
 raster_l2_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat_b3.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
  
 multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(raster_l1_filepath, raster_l2_filepath)</code></pre></div>
-<p>The only limitation to <code>stack()</code> is that all datasets need to have the same spatial extent and resolution.</p>
+<p>The <code>stack()</code> class is limited to datasets that have the same spatial extent and resolution.</p>
 </div>
 </div>
 <div id="data-output-o" class="section level2">
