@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservedde00c1ec7b9a1ef
+preserve4ac835c9ab509273
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3723,7 +3723,7 @@ GeoTIFF             .tiff                  GeoTIFF is one of the most popular ra
 Its structure is similar to the regular `.tif` format, however GeoTIFF also stores additional spatial metadata, such as coordinate reference system, spatial extent, `NoData` value, and the data resolution.                        Raster              Open           
 Arc ASCII           .asc                   Text format where the first six lines represent grid information and nodata value, followed by the values arranged in rows and columns.                                                                                                                                                  Raster              ?              
 R-raster            .gri, .grd             Native format of the raster package.                                                                                                                                                                                                                                                     Raster              Open           
-SQLite/SpatiaLite   .sqlite                SQLite is a standalone, relational database management system. SpatiaLite is an extension to SQLite providing a support for Simple Features.                                                                                                                                             Vector and raster   Open           
+SQLite/SpatiaLite   .sqlite                SQLite is a standalone, relational database management system. It is used as a default database driver in GRASS GIS 7. SpatiaLite is an extension to SQLite providing a support for Simple Features.                                                                                     Vector and raster   Open           
 ESRI FileGDB        .gdb                   Collection of spatial and nonspatial objects created in the ArcGIS software.                                                                                                                                                                                                             Vector and raster                  
 GeoPackage          .gpkg                  An extended SQLite database file designed to be lightweight.                                                                                                                                                                                                                             Vector and raster   Open           
 
