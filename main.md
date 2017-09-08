@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee3553527336185c5
+preserve1eec73d0d105820b
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3503,27 +3503,35 @@ world_wkt = st_read(world_txt, options = "GEOM_POSSIBLE_NAMES=WKT")
 #> proj4string:    NA
 ```
 
+<div class="rmdnote">
+<p>Not all of the supported vector file formats store information about theirs coordinate reference system. In these situations, it is possible to add the missing information using the <code>st_set_crs()</code> function. More on that in the section @ref(crs-intro).</p>
+</div>
+
 <!-- isn't that confusing for users? -->
 **Tip**: `read_sf()` and `write_sf()` can be used as easy-to-remember alternatives to `st_read()` and `st_write()`.
 Remember they hide information about the data source and overwrite existing data, though.
 
-To find out which data formats **sf** supports, run `st_drivers()`. Here, we show only the first two drivers:
+To find out which data formats **sf** supports, run `st_drivers()`. 
+Here, we show only the first two drivers:
 
 
 ```r
 sf_drivers = st_drivers()
 head(sf_drivers, n = 2)
-#>          name                  long_name write  copy is_raster is_vector
-#> PCIDSK PCIDSK       PCIDSK Database File  TRUE FALSE      TRUE      TRUE
-#> netCDF netCDF Network Common Data Format  TRUE  TRUE      TRUE      TRUE
 ```
+
+
+         name     long_name                    write   copy    is_raster   is_vector 
+-------  -------  ---------------------------  ------  ------  ----------  ----------
+PCIDSK   PCIDSK   PCIDSK Database File         TRUE    FALSE   TRUE        TRUE      
+netCDF   netCDF   Network Common Data Format   TRUE    TRUE    TRUE        TRUE      
+
 
 ### Raster data
 
 Raster data also could exist in many different file formats, with some of the formats supporting multilayer files[^2].
-
 The **raster** package support reading a single layer by `raster()` and many layers using either `brick()` or `stack()`. 
-More information about the raster representation could be find in the section \@ref(raster-classes).
+More information about the raster representation in this package could be find in the section \@ref(raster-classes).
 
 The `raster()` function makes it possible to read a simple single layer file: 
 
@@ -3535,7 +3543,7 @@ raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge")
 single_layer = raster(raster_filepath)
 ```
 
-Or to read just one layer (band) from a multilayer file:
+You can also read just one layer (band) from a multilayer file:
 
 
 ```r
@@ -3550,7 +3558,7 @@ The whole multilayer raster file is read by `brick()`:
 multilayer_layer_brick = brick(raster_multilayer_filepath)
 ```
 
-Finally, many single and multilayer rasters could be read together with the `stack()` function:
+Finally, many single and multilayer rasters could be read together using the `stack()` function:
 
 
 ```r

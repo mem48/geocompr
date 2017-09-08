@@ -274,30 +274,64 @@ world_wkt =<span class="st"> </span><span class="kw">st_read</span>(world_txt, <
 <span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513</span>
 <span class="co">#&gt; epsg (SRID):    NA</span>
 <span class="co">#&gt; proj4string:    NA</span></code></pre></div>
+<div class="rmdnote">
+<p>
+Not all of the supported vector file formats store information about theirs coordinate reference system. In these situations, it is possible to add the missing information using the <code>st_set_crs()</code> function. More on that in the section <span class="citation">(<span class="citeproc-not-found" data-reference-id="ref"><strong>???</strong></span>)</span>(crs-intro).
+</p>
+</div>
 <!-- isn't that confusing for users? -->
 <p><strong>Tip</strong>: <code>read_sf()</code> and <code>write_sf()</code> can be used as easy-to-remember alternatives to <code>st_read()</code> and <code>st_write()</code>. Remember they hide information about the data source and overwrite existing data, though.</p>
 <p>To find out which data formats <strong>sf</strong> supports, run <code>st_drivers()</code>. Here, we show only the first two drivers:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_drivers =<span class="st"> </span><span class="kw">st_drivers</span>()
-<span class="kw">head</span>(sf_drivers, <span class="dt">n =</span> <span class="dv">2</span>)
-<span class="co">#&gt;          name                  long_name write  copy is_raster is_vector</span>
-<span class="co">#&gt; PCIDSK PCIDSK       PCIDSK Database File  TRUE FALSE      TRUE      TRUE</span>
-<span class="co">#&gt; netCDF netCDF Network Common Data Format  TRUE  TRUE      TRUE      TRUE</span></code></pre></div>
+<span class="kw">head</span>(sf_drivers, <span class="dt">n =</span> <span class="dv">2</span>)</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">name</th>
+<th align="left">long_name</th>
+<th align="left">write</th>
+<th align="left">copy</th>
+<th align="left">is_raster</th>
+<th align="left">is_vector</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">PCIDSK</td>
+<td align="left">PCIDSK</td>
+<td align="left">PCIDSK Database File</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">netCDF</td>
+<td align="left">netCDF</td>
+<td align="left">Network Common Data Format</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="raster-data-1" class="section level3">
 <h3><span class="header-section-number">5.1.2</span> Raster data</h3>
-<p>Raster data also could exist in many different file formats, with some of the formats supporting multilayer files<a href="#fn28" class="footnoteRef" id="fnref28"><sup>28</sup></a>.</p>
-<p>The <strong>raster</strong> package support reading a single layer by <code>raster()</code> and many layers using either <code>brick()</code> or <code>stack()</code>. More information about the raster representation could be find in the section <a href="spatial-class.html#raster-classes">2.2.3</a>.</p>
+<p>Raster data also could exist in many different file formats, with some of the formats supporting multilayer files<a href="#fn28" class="footnoteRef" id="fnref28"><sup>28</sup></a>. The <strong>raster</strong> package support reading a single layer by <code>raster()</code> and many layers using either <code>brick()</code> or <code>stack()</code>. More information about the raster representation in this package could be find in the section <a href="spatial-class.html#raster-classes">2.2.3</a>.</p>
 <p>The <code>raster()</code> function makes it possible to read a simple single layer file:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
 <span class="kw">library</span>(spDataLarge)
 raster_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/srtm.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
 single_layer =<span class="st"> </span><span class="kw">raster</span>(raster_filepath)</code></pre></div>
-<p>Or to read just one layer (band) from a multilayer file:</p>
+<p>You can also read just one layer (band) from a multilayer file:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">raster_multilayer_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
 single_layer_band3 =<span class="st"> </span><span class="kw">raster</span>(raster_multilayer_filepath, <span class="dt">band =</span> <span class="dv">3</span>)</code></pre></div>
 <p>The whole multilayer raster file is read by <code>brick()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">multilayer_layer_brick =<span class="st"> </span><span class="kw">brick</span>(raster_multilayer_filepath)</code></pre></div>
-<p>Finally, many single and multilayer rasters could be read together with the <code>stack()</code> function:</p>
+<p>Finally, many single and multilayer rasters could be read together using the <code>stack()</code> function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">raster_l1_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat_b2.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
 raster_l2_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat_b3.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
  
