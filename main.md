@@ -2,7 +2,7 @@
 --- 
 title: 'Geocomputation with R'
 author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
-date: '2017-09-07'
+date: '2017-09-08'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -38,7 +38,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-09-07 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-09-08 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveb9e19be852439072
+preserve638e9e4dac4a9c59
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3430,20 +3430,11 @@ Concepts such as computational efficiency, hard disk space and 'idempotence' are
 Loading/saving data is yet another way of saying the same thing.
 ]
 
-<!-- Old intro to this chapter - can we salvage anything from this? -->
-<!-- Reading, writing and plotting are 3 of the most important initial stages in geocomputation. -->
-<!-- If you cannot load your data, it's not even worth starting. -->
-<!-- If you cannot write your processed data, it will make it hard to collaborate with others. -->
-<!-- Furthermore, an often-overlooked issue is that if you cannot create visuals of your spatial data, it will be hard to understand. -->
-<!-- For this reason this introductory chapter also has a section on basic map making. -->
-
 ## Data Input (I)
 
 To efficiently read data into R, it helps to have an understanding of what happens 'under the hood'.
 Executing commands such as `sf::st_read()` (the main function we use for loading vector data), `raster::raster()` (the main function used for loading raster data),  or `readr::read_csv()` (which can we used to read spatial data from text files) silently sets off a chain of events that loads objects.
-"Loading" in this context means loading the data into R or, more precisely, assigning objects to your workspace, stored in RAM accessible from the `.GlobalEnv` of your current R session.
-<!-- What is your understanding of workspace? Or what is the difference between workspace and the global environment here?-->
-<!-- coud add a footnote here mentioning `.GlobalEnv` -->
+"Loading" in this context means loading the data into R or, more precisely, assigning objects to your workspace, stored in RAM accessible from the `.GlobalEnv`^[See http://adv-r.had.co.nz/Environments.html for more information on the environment] of your current R session.
 
 ### Vector data
 
