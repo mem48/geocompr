@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve0d5c1f06628ea744
+preservec0fb944c36b7eb6b
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3452,13 +3452,6 @@ The `st_read` function, based on the file extension, knows how to read a file:
 library(sf)
 vector_filepath = system.file("shapes/world.gpkg", package = "spData")
 world = st_read(vector_filepath)
-#> Reading layer `wrld.gpkg' from data source `/home/travis/R/Library/spData/shapes/world.gpkg' using driver `GPKG'
-#> Simple feature collection with 177 features and 10 fields
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
 ```
 
 For some drivers, `dsn` could be provided as a folder name, access credentials for a database, or a GeoJSON string representation.
@@ -3477,14 +3470,6 @@ To read these files, you need to specify names of those columns using the `optio
 cycle_hire_txt = system.file("misc/cycle_hire_xy.csv", package = "spData")
 cycle_hire_xy = st_read(cycle_hire_txt, options = c("X_POSSIBLE_NAMES=X",
                                                  "Y_POSSIBLE_NAMES=Y"))
-#> options:        X_POSSIBLE_NAMES=X Y_POSSIBLE_NAMES=Y 
-#> Reading layer `cycle_hire_xy' from data source `/home/travis/R/Library/spData/misc/cycle_hire_xy.csv' using driver `CSV'
-#> Simple feature collection with 742 features and 7 fields
-#> geometry type:  POINT
-#> dimension:      XY
-#> bbox:           xmin: -0.2367699 ymin: 51.45475 xmax: -0.002275 ymax: 51.54214
-#> epsg (SRID):    NA
-#> proj4string:    NA
 ```
 
 More complex geometries cannot be described using only two numbers, however they could be represented by the well-known text (WKT), well-known binary (WKB), and in the GeoJSON form, for example:
