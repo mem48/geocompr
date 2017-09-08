@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="spatial-data-operations.html">
-<link rel="next" href="references.html">
+<link rel="next" href="adv-map.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -198,15 +198,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.2.1" data-path="read-write.html"><a href="read-write.html#vector-data-2"><i class="fa fa-check"></i><b>5.2.1</b> Vector data</a></li>
 <li class="chapter" data-level="5.2.2" data-path="read-write.html"><a href="read-write.html#raster-data-2"><i class="fa fa-check"></i><b>5.2.2</b> Raster data</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="read-write.html"><a href="read-write.html#file-formats"><i class="fa fa-check"></i><b>5.3</b> File formats</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="read-write.html"><a href="read-write.html#vector-formats"><i class="fa fa-check"></i><b>5.3.1</b> Vector formats</a></li>
-<li class="chapter" data-level="5.3.2" data-path="read-write.html"><a href="read-write.html#raster-formats"><i class="fa fa-check"></i><b>5.3.2</b> Raster formats</a></li>
-<li class="chapter" data-level="5.3.3" data-path="read-write.html"><a href="read-write.html#geodatabases"><i class="fa fa-check"></i><b>5.3.3</b> Geodatabases</a></li>
-</ul></li>
+<li class="chapter" data-level="5.3" data-path="read-write.html"><a href="read-write.html#file-formats"><i class="fa fa-check"></i><b>5.3</b> File formats</a></li>
 <li class="chapter" data-level="5.4" data-path="read-write.html"><a href="read-write.html#visual-outputs"><i class="fa fa-check"></i><b>5.4</b> Visual outputs</a></li>
 <li class="chapter" data-level="5.5" data-path="read-write.html"><a href="read-write.html#exercises-4"><i class="fa fa-check"></i><b>5.5</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>6</b> References</a></li>
+<li class="chapter" data-level="6" data-path="adv-map.html"><a href="adv-map.html"><i class="fa fa-check"></i><b>6</b> Advanced map making</a><ul>
+<li class="chapter" data-level="" data-path="adv-map.html"><a href="adv-map.html#prerequisites-3"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="6.1" data-path="adv-map.html"><a href="adv-map.html#facetted-maps"><i class="fa fa-check"></i><b>6.1</b> Facetted maps</a></li>
+<li class="chapter" data-level="6.2" data-path="adv-map.html"><a href="adv-map.html#animations"><i class="fa fa-check"></i><b>6.2</b> Animations</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>7</b> References</a></li>
 <li class="divider"></li>
 <li><a href="http://robinlovelace.net/">Robin Lovelace</a></li>
 <li><a href="https://nowosad.github.io/">Jakub Nowosad</a></li>
@@ -450,20 +451,101 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <!-- an intro -->
 <!-- many different formats -->
 <!-- main three groups (vector, raster, geodatabase) -->
-<!-- format model (open/propertary) (importance of interoperabillity) -->
+<!-- format model (open/proprietary) (importance of interoperabillity) -->
 <!-- way of storage (single file, multiple files, folders) -->
 <!-- GDAL (it's great - you can read, convert, and very often (though not always) write) -->
 <!-- GDAL info "it is possible to have smaller number of supported formats than there are on the GDAL webpage; you may need to recompile..." -->
-<div id="vector-formats" class="section level3">
-<h3><span class="header-section-number">5.3.1</span> Vector formats</h3>
+<table>
+<caption><span id="tab:unnamed-chunk-21">Table 5.2: </span>Selected spatial file formats</caption>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Extension</th>
+<th align="left">Info</th>
+<th align="left">Type</th>
+<th align="left">Model</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ESRI Shapefile</td>
+<td align="left">.shp (the main file)</td>
+<td align="left"></td>
+<td align="left">Vector</td>
+<td align="left">Partialy open</td>
+</tr>
+<tr class="even">
+<td align="left">GeoJSON</td>
+<td align="left">.geojson</td>
+<td align="left"></td>
+<td align="left">Vector</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">GPX</td>
+<td align="left">.gpx</td>
+<td align="left"></td>
+<td align="left">Vector</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">KML</td>
+<td align="left">.kml</td>
+<td align="left"></td>
+<td align="left">Vector</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">GeoTIFF</td>
+<td align="left">.tiff</td>
+<td align="left"></td>
+<td align="left">Raster</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">Arc ASCII</td>
+<td align="left">.asc</td>
+<td align="left"></td>
+<td align="left">Raster</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">R-raster</td>
+<td align="left">.gri, .grd</td>
+<td align="left"></td>
+<td align="left">Raster</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">SQLite</td>
+<td align="left">.sqlite</td>
+<td align="left"></td>
+<td align="left">Vector and raster</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">ESRI FileGDB</td>
+<td align="left">.gdb</td>
+<td align="left"></td>
+<td align="left">Vector and raster</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">GeoPackage</td>
+<td align="left">.gpkg</td>
+<td align="left"></td>
+<td align="left">Vector and raster</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<!-- ### Vector formats -->
 <!-- 1. shp - (short history, was more or less an accident, a long-living makeshift arrangement) - don't use shp! -->
 <!-- 2. gpkg - (maybe just mention here, gpkg since it is an SQLite 3 extension supporting both vector and raster formats) - reference to the "geodatabases" section -->
 <!-- 3. wkt and wkb -->
 <!-- 4. geojson - (web formats with a focus on geojson and here we can also mention kml, gml) -->
 <!-- 5. maybe gpx - (maybe mention GPS formats such as GPX) -->
-</div>
-<div id="raster-formats" class="section level3">
-<h3><span class="header-section-number">5.3.2</span> Raster formats</h3>
+<!-- ### Raster formats -->
 <!-- 1. geotiff  GeoTIFF is one of the most popular raster formats. 
 Its structure is similar to the regular `.tif` format, however GeoTIFF also stores additional spatial metadata, such as coordinate reference system, spatial extent, `NoData` value, and the data resolution.-->
 <!-- 2. asc - (popular formats: asc (-> exported from ESRI)) -->
@@ -472,15 +554,12 @@ Its structure is similar to the regular `.tif` format, however GeoTIFF also stor
 <!-- 5. gpkg - (maybe just mention here, gpkg since it is an SQLite 3 extension supporting both vector and raster formats) - reference to the "geodatabases" section -->
 <!-- 6. ncdf ? -->
 <!-- Other raster file formats include `.grd`, `.nc`, `.asc`, and `.img`. -->
-</div>
-<div id="geodatabases" class="section level3">
-<h3><span class="header-section-number">5.3.3</span> Geodatabases</h3>
+<!-- ### Geodatabases  -->
 <!--(can store vector and raster data)-->
 <!-- 1. SQLite/SpatialLite + mention GRASS (uses SQLite) -->
 <!-- 2. gpkg - explanation connected to the previous sections and to SQLite -->
 <!-- 3. WKT/WKB for transfering and storing geometry data on databases. PostGIS (has even its own raster WKT (https://trac.osgeo.org/postgis/wiki/WKTRasterTutorial01); WKT also supported by Spatiallite, Oracle, MySQL, etc. (https://en.wikipedia.org/wiki/Well-known_text#RDBMS_Engines_that_provide_support) -->
 <!-- 4. ESRI geodatabase, Oracle spatial database (mention + gdal support?) -->
-</div>
 </div>
 <div id="visual-outputs" class="section level2">
 <h2><span class="header-section-number">5.4</span> Visual outputs</h2>
@@ -513,7 +592,7 @@ Its structure is similar to the regular `.tif` format, however GeoTIFF also stor
         </div>
       </div>
 <a href="spatial-data-operations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="adv-map.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

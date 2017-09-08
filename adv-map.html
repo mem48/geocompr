@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="adv-map.html">
-
+<link rel="prev" href="read-write.html">
+<link rel="next" href="references.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -230,216 +230,91 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1">
-<h1><span class="header-section-number">7</span> References</h1>
+<div id="adv-map" class="section level1">
+<h1><span class="header-section-number">6</span> Advanced map making</h1>
+<div id="prerequisites-3" class="section level2 unnumbered">
+<h2>Prerequisites</h2>
+<!-- 
+- tmap
+- ggplot2/ggmap (geom_sf, coord_sf)
+- leaflet/mapview
+- rasterVis ?
+- shiny ?
+- animations
+- inset maps
+- color palettes (viridis, etc.)
+-->
+</div>
+<div id="facetted-maps" class="section level2">
+<h2><span class="header-section-number">6.1</span> Facetted maps</h2>
+<p>Facetted maps are a common and potentially effect way of highlighting spatial relationships that are more complex that a single relationship. The population of cities at one moment in time can be represented easily on a single map, for example by making the size of symbols variable for each city depending on population. However, to represent the populations of cities at multiple moments in time requires an <em>extra dimension</em>. This could be added by an additional <em>aesthetic</em> such as colour but this risks cluttering the map because it will involve multiple overlapping points (cities do not tend to move over time!).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tmap)
+<span class="kw">qtm</span>(world) +
+<span class="st">  </span><span class="kw">tm_shape</span>(urban_agglomerations) +
+<span class="st">  </span><span class="kw">tm_dots</span>(<span class="dt">size =</span> <span class="st">&quot;population_millions&quot;</span>) +
+<span class="st">  </span><span class="kw">tm_facets</span>(<span class="dt">by =</span> <span class="st">&quot;year&quot;</span>)</code></pre></div>
+<p><img src="figures/unnamed-chunk-3-1.png" width="576" style="display: block; margin: auto;" /></p>
+</div>
+<div id="animations" class="section level2">
+<h2><span class="header-section-number">6.2</span> Animations</h2>
+<p>Animated maps can be useful for communicating how spatial phenomena shift over time. An advantage of facetted plots are that they can be printed, but the approach has disadvantages: faceted maps can become very small with more than ~9 maps in one figure, and it can be hard to see the spatial relationships between each facet when each map is on a different part of the page! Furthermore, with the increasing proportion of communication that happens via digital screens, the disadvantage that animations cannot be printed is diminished. You can always link readers to a web-page containing an animated (or interactive) version of a printed map to help make it come alive.</p>
+<p>Figure <a href="adv-map.html#fig:urban-animated">6.1</a> is a simple example of the benefits of an animated map. Unlike the facetted plot presented in the previous section, it does not squeeze all 17 for them all to be displayed simultaneously.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr::<span class="kw">include_graphics</span>(<span class="st">&quot;figures/urban-animated.gif&quot;</span>)</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:urban-animated"></span>
+<img src="figures/urban-animated.gif" alt="Animated map showing the top 30 largest 'urban agglomerations' from 1950 to 2030 based on population projects by the United Nations"  />
+<p class="caption">
+Figure 6.1: Animated map showing the top 30 largest ‘urban agglomerations’ from 1950 to 2030 based on population projects by the United Nations
+</p>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m =<span class="st"> </span><span class="kw">tm_shape</span>(world) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_polygons</span>() +
+<span class="st">  </span><span class="kw">tm_shape</span>(urban_agglomerations) +
+<span class="st">  </span><span class="kw">tm_dots</span>(<span class="dt">size =</span> <span class="st">&quot;population_millions&quot;</span>) +
+<span class="st">  </span><span class="kw">tm_facets</span>(<span class="dt">by =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">nrow =</span> <span class="dv">1</span>, <span class="dt">ncol =</span> <span class="dv">1</span>) </code></pre></div>
+<!-- Robin, check the differences between by="year" and along="year" -->
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">scipen =</span> <span class="dv">999</span>)
 
-<div id="refs" class="references">
-<div>
-<p>Akima, Hiroshi, and Albrecht Gebhardt. 2016. <em>Akima: Interpolation of Irregularly and Regularly Spaced Data</em>. <a href="https://CRAN.R-project.org/package=akima" class="uri">https://CRAN.R-project.org/package=akima</a>.</p>
-</div>
-<div>
-<p>Appelhans, Tim, Florian Detsch, Christoph Reudenbach, and Stefan Woellauer. 2017. <em>Mapview: Interactive Viewing of Spatial Objects in R</em>. <a href="https://CRAN.R-project.org/package=mapview" class="uri">https://CRAN.R-project.org/package=mapview</a>.</p>
-</div>
-<div>
-<p>Baddeley, Adrian, Ege Rubak, and Rolf Turner. 2015. <em>Spatial Point Patterns: Methodology and Applications with R</em>. London: Chapman; Hall/CRC Press. <a href="http://www.crcpress.com/Spatial-Point-Patterns-Methodology-and-Applications-with-R/Baddeley-Rubak-Turner/9781482210200/" class="uri">http://www.crcpress.com/Spatial-Point-Patterns-Methodology-and-Applications-with-R/Baddeley-Rubak-Turner/9781482210200/</a>.</p>
-</div>
-<div>
-<p>Bivand, Roger. 2001. “More on Spatial Data Analysis.” <em>R News</em> 1 (3): 13–17.</p>
-</div>
-<div>
-<p>———. 2003. “Approaches to Classes for Spatial Data in R.” In <em>Proceedings of DSC</em>, edited by Kurt Hornik, Friedrich Leisch, and Achim Zeileis. <a href="https://www.r-project.org/nosvn/conferences/DSC-2003/Proceedings/Bivand.pdf" class="uri">https://www.r-project.org/nosvn/conferences/DSC-2003/Proceedings/Bivand.pdf</a>.</p>
-</div>
-<div>
-<p>———. 2016a. <em>Rgrass7: Interface Between GRASS 7 Geographical Information System and R</em>. <a href="https://CRAN.R-project.org/package=rgrass7" class="uri">https://CRAN.R-project.org/package=rgrass7</a>.</p>
-</div>
-<div>
-<p>———. 2016b. <em>Spgrass6: Interface Between GRASS 6 and R</em>. <a href="http://CRAN.R-project.org/package=spgrass6" class="uri">http://CRAN.R-project.org/package=spgrass6</a>.</p>
-</div>
-<div>
-<p>———. 2017. <em>Spdep: Spatial Dependence: Weighting Schemes, Statistics and Models</em>. <a href="https://CRAN.R-project.org/package=spdep" class="uri">https://CRAN.R-project.org/package=spdep</a>.</p>
-</div>
-<div>
-<p>Bivand, Roger S. 2000. “Using the R Statistical Data Analysis Language on GRASS 5.0 GIS Database Files.” <em>Computers &amp; Geosciences</em> 26 (9): 1043–52. <a href="http://www.sciencedirect.com/science/article/pii/S0098300400000571" class="uri">http://www.sciencedirect.com/science/article/pii/S0098300400000571</a>.</p>
-</div>
-<div>
-<p>Bivand, Roger, and Albrecht Gebhardt. 2000. “Implementing Functions for Spatial Statistical Analysis Using the Language.” <em>Journal of Geographical Systems</em> 2 (3): 307–17. <a href="http://www.springerlink.com/index/CJRPUMB78JUYH54W.pdf" class="uri">http://www.springerlink.com/index/CJRPUMB78JUYH54W.pdf</a>.</p>
-</div>
-<div>
-<p>Bivand, Roger, and Nicholas Lewin-Koh. 2017. <em>Maptools: Tools for Reading and Handling Spatial Objects</em>. <a href="https://CRAN.R-project.org/package=maptools" class="uri">https://CRAN.R-project.org/package=maptools</a>.</p>
-</div>
-<div>
-<p>Bivand, Roger, and Colin Rundel. 2017. <em>Rgeos: Interface to Geometry Engine - Open Source (GEOS)</em>. <a href="https://CRAN.R-project.org/package=rgeos" class="uri">https://CRAN.R-project.org/package=rgeos</a>.</p>
-</div>
-<div>
-<p>Bivand, Roger, Tim Keitt, and Barry Rowlingson. 2017. <em>Rgdal: Bindings for the Geospatial Data Abstraction Library</em>. <a href="https://CRAN.R-project.org/package=rgdal" class="uri">https://CRAN.R-project.org/package=rgdal</a>.</p>
-</div>
-<div>
-<p>Bivand, Roger, Edzer J Pebesma, and Virgilio Gómez-Rubio. 2013. <em>Applied Spatial Data Analysis with R</em>. Vol. 747248717. Springer.</p>
-</div>
-<div>
-<p>Brenning, Alexander. 2012. <em>ArcGIS Geoprocessing in R via Python</em>. <a href="https://CRAN.R-project.org/package=RPyGeo" class="uri">https://CRAN.R-project.org/package=RPyGeo</a>.</p>
-</div>
-<div>
-<p>Brenning, Alexander, and Donovan Bangs. 2016. <em>RSAGA: SAGA Geoprocessing and Terrain Analysis in R</em>. <a href="https://CRAN.R-project.org/package=RSAGA" class="uri">https://CRAN.R-project.org/package=RSAGA</a>.</p>
-</div>
-<div>
-<p>Brzustowicz, Michael R. 2017. <em>Data Science with Java: [Practical Methods for Scientists and Engineers]</em>. First edition. Beijing Boston Farnham: O´Reilly.</p>
-</div>
-<div>
-<p>Burrough, P. A., Rachael McDonnell, and Christopher D. Lloyd. 2015. <em>Principles of Geographical Information Systems</em>. Third edition. Oxford ; New York: Oxford University Press.</p>
-</div>
-<div>
-<p>Calenge, C. 2006. “The Package Adehabitat for the R Software: Tool for the Analysis of Space and Habitat Use by Animals.” <em>Ecological Modelling</em> 197: 1035.</p>
-</div>
-<div>
-<p>Chambers, John M. 2016. <em>Extending R</em>. CRC Press.</p>
-</div>
-<div>
-<p>Cheng, Joe, Bhaskar Karambelkar, and Yihui Xie. 2017. <em>Leaflet: Create Interactive Web Maps with the JavaScript ’Leaflet’ Library</em>. <a href="https://CRAN.R-project.org/package=leaflet" class="uri">https://CRAN.R-project.org/package=leaflet</a>.</p>
-</div>
-<div>
-<p>Garrard, Chris. 2016. <em>Geoprocessing With Python</em>. Shelter Island, NY: Manning Publications.</p>
-</div>
-<div>
-<p>Gillespie, Colin, and Robin Lovelace. 2016. <em>Efficient R Programming: A Practical Guide to Smarter Programming</em>. O’Reilly Media. <a href="https://csgillespie.github.io/efficientR/" class="uri">https://csgillespie.github.io/efficientR/</a>.</p>
-</div>
-<div>
-<p>Grolemund, Garrett, and Hadley Wickham. 2016. <em>R for Data Science</em>. 1 edition. O’Reilly Media.</p>
-</div>
-<div>
-<p>Hijmans, Robert J. 2016a. <em>Geosphere: Spherical Trigonometry</em>. <a href="https://CRAN.R-project.org/package=geosphere" class="uri">https://CRAN.R-project.org/package=geosphere</a>.</p>
-</div>
-<div>
-<p>———. 2016b. <em>Raster: Geographic Data Analysis and Modeling</em>. <a href="https://CRAN.R-project.org/package=raster" class="uri">https://CRAN.R-project.org/package=raster</a>.</p>
-</div>
-<div>
-<p>Jr, Paulo J. Ribeiro, and Peter J. Diggle. 2016. <em>geoR: Analysis of Geostatistical Data</em>. <a href="https://CRAN.R-project.org/package=geoR" class="uri">https://CRAN.R-project.org/package=geoR</a>.</p>
-</div>
-<div>
-<p>Kahle, David, and Hadley Wickham. 2013. “Ggmap: Spatial Visualization with Ggplot2.” <em>The R Journal</em> 5 (1): 144–61. <a href="http://journal.r-project.org/archive/2013-1/kahle-wickham.pdf" class="uri">http://journal.r-project.org/archive/2013-1/kahle-wickham.pdf</a>.</p>
-</div>
-<div>
-<p>Lamigueiro, Óscar Perpiñán. 2014. <em>Displaying Time Series, Spatial, and Space-Time Data with R</em>. CRC Press.</p>
-</div>
-<div>
-<p>Liu, Jian-Guo, and Philippa J. Mason. 2009. <em>Essential Image Processing and GIS for Remote Sensing</em>. Chichester, West Sussex, UK ; Hoboken, NJ: Wiley-Blackwell.</p>
-</div>
-<div>
-<p>Livingstone, David N. 1992. <em>The Geographical Tradition: Episodes in the History of a Contested Enterprise</em>. Oxford, UK ; Cambridge, USA: John Wiley &amp; Sons Ltd.</p>
-</div>
-<div>
-<p>Longley, Paul. 2015. <em>Geographic Information Science &amp; Systems</em>. Fourth edition. Hoboken, NJ: Wiley.</p>
-</div>
-<div>
-<p>Longley, Paul A., Sue M. Brooks, Rachael McDonnell, and Bill MacMillan, eds. 1998. <em>Geocomputation: A Primer</em>. 1 edition. Chichester, Eng. ; New York: Wiley.</p>
-</div>
-<div>
-<p>Muenchow, Jannes, and Patrick Schratz. 2017. <em>RQGIS: Integrating R with QGIS</em>. <a href="https://CRAN.R-project.org/package=RQGIS" class="uri">https://CRAN.R-project.org/package=RQGIS</a>.</p>
-</div>
-<div>
-<p>Muenchow, Jannes, Achim Bräuning, Eric Frank Rodríguez, and Henrik von Wehrden. 2013. “Predictive Mapping of Species Richness and Plant Species’ Distributions of a Peruvian Fog Oasis Along an Altitudinal Gradient.” <em>Biotropica</em> 45 (5): 557–66. doi:<a href="https://doi.org/10.1111/btp.12049">10.1111/btp.12049</a>.</p>
-</div>
-<div>
-<p>Neteler, Markus, and Helena Mitasova. 2008. <em>Open Source GIS: A GRASS GIS Approach</em>. 3. ed. New York, NY: Springer.</p>
-</div>
-<div>
-<p>Openshaw, Stan, and Robert J. Abrahart, eds. 2000. <em>Geocomputation</em>. 1 edition. London ; New York: CRC Press.</p>
-</div>
-<div>
-<p>Pebesma, Edzer. 2017. <em>Sf: Simple Features for R</em>. <a href="https://CRAN.R-project.org/package=sf" class="uri">https://CRAN.R-project.org/package=sf</a>.</p>
-</div>
-<div>
-<p>Pebesma, Edzer, and Roger Bivand. 2017. <em>Sp: Classes and Methods for Spatial Data</em>. <a href="https://CRAN.R-project.org/package=sp" class="uri">https://CRAN.R-project.org/package=sp</a>.</p>
-</div>
-<div>
-<p>Pebesma, Edzer, and Benedikt Graeler. 2017. <em>Gstat: Spatial and Spatio-Temporal Geostatistical Modelling, Prediction and Simulation</em>. <a href="https://CRAN.R-project.org/package=gstat" class="uri">https://CRAN.R-project.org/package=gstat</a>.</p>
-</div>
-<div>
-<p>Pebesma, Edzer, Thomas Mailund, and James Hiebert. 2016. “Measurement Units in R.” <em>The R Journal</em> 8 (2): 486–94. <a href="https://journal.r-project.org/archive/2016-2/pebesma-mailund-hiebert.pdf" class="uri">https://journal.r-project.org/archive/2016-2/pebesma-mailund-hiebert.pdf</a>.</p>
-</div>
-<div>
-<p>Qiu, Fang, Caiyun Zhang, and Yuhong Zhou. 2012. “The Development of an Areal Interpolation ArcGIS Extension and a Comparative Study.” <em>GIScience &amp; Remote Sensing</em> 49 (5): 644–63. doi:<a href="https://doi.org/10.2747/1548-1603.49.5.644">10.2747/1548-1603.49.5.644</a>.</p>
-</div>
-<div>
-<p>Ripley, Brian D. 2001. “Spatial Statistics in R.” <em>R News</em> 1 (2): 14–15.</p>
-</div>
-<div>
-<p>Roller, D. 2010. <em>Eratosthenes’ “Geography”</em>. Princeton University Press. <a href="http://books.google.co.uk/books?id=8peKyWK_SWsC" class="uri">http://books.google.co.uk/books?id=8peKyWK_SWsC</a>.</p>
-</div>
-<div>
-<p>Rowlingson, B. S, and P. J Diggle. 1993. “Splancs: Spatial Point Pattern Analysis Code in S-Plus.” <em>Computers &amp; Geosciences</em> 19 (5): 627–55. doi:<a href="https://doi.org/10.1016/0098-3004(93)90099-Q">10.1016/0098-3004(93)90099-Q</a>.</p>
-</div>
-<div>
-<p>Rowlingson, Barry, and Peter Diggle. 2017. <em>Splancs: Spatial and Space-Time Point Pattern Analysis</em>. <a href="https://CRAN.R-project.org/package=splancs" class="uri">https://CRAN.R-project.org/package=splancs</a>.</p>
-</div>
-<div>
-<p>Rowlingson, Barry, Adrian Baddeley, Rolf Turner, and Peter Diggle. 2003. “Rasp: A Package for Spatial Statistics.” In <em>Proceedings of the 3rd International Workshop on Distributed Statistical Computing</em>, edited by Kurt Hornik. <a href="https://www.r-project.org/conferences/DSC-2003/Proceedings/RowlingsonEtAl.pdf" class="uri">https://www.r-project.org/conferences/DSC-2003/Proceedings/RowlingsonEtAl.pdf</a>.</p>
-</div>
-<div>
-<p>Tennekes, Martijn. 2017. <em>Tmap: Thematic Maps</em>. <a href="https://CRAN.R-project.org/package=tmap" class="uri">https://CRAN.R-project.org/package=tmap</a>.</p>
-</div>
-<div>
-<p>Tobler, Waldo R. 1979. “Smooth Pycnophylactic Interpolation for Geographical Regions.” <em>Journal of the American Statistical Association</em> 74 (367): 519–30. doi:<a href="https://doi.org/10.1080/01621459.1979.10481647">10.1080/01621459.1979.10481647</a>.</p>
-</div>
-<div>
-<p>Tomlin, C. Dana. 1990. <em>Geographic Information Systems and Cartographic Modeling</em>. Englewood Cliffs, N.J: Prentice Hall.</p>
-</div>
-<div>
-<p>University, S. original by James J. Majure Iowa State, and R. port + extensions by Albrecht Gebhardt. 2016. <em>Sgeostat: An Object-Oriented Framework for Geostatistical Modeling in S+</em>. <a href="https://CRAN.R-project.org/package=sgeostat" class="uri">https://CRAN.R-project.org/package=sgeostat</a>.</p>
-</div>
-<div>
-<p>Venables, W. N., and B. D. Ripley. 2002. <em>Modern Applied Statistics with S</em>. Fourth. New York: Springer. <a href="http://www.stats.ox.ac.uk/pub/MASS4" class="uri">http://www.stats.ox.ac.uk/pub/MASS4</a>.</p>
-</div>
-<div>
-<p>Wickham, Hadley. 2014. <em>Advanced R</em>. CRC Press. <a href="http://www.crcpress.com/product/isbn/9781466586963 http://adv-r.had.co.nz http://www.crcpress.com/product/isbn/9781466586963 http://adv-r.had.co.nz" class="uri">http://www.crcpress.com/product/isbn/9781466586963 http://adv-r.had.co.nz http://www.crcpress.com/product/isbn/9781466586963 http://adv-r.had.co.nz</a>.</p>
-</div>
-<div>
-<p>Wulf, Andrea. 2015. <em>The Invention of Nature: Alexander von Humboldt’s New World</em>. First American Edition. New York: Alfred A. Knopf.</p>
-</div>
-</div>
-</div>
+wb_data_create =<span class="st"> </span>function(indicator, our_name, year, ...){
+  df =<span class="st"> </span><span class="kw">wb</span>(<span class="dt">indicator =</span> indicator, <span class="dt">startdate =</span> year, <span class="dt">enddate =</span> year, ...) %&gt;%
+<span class="st">    </span><span class="kw">as_data_frame</span>() %&gt;%
+<span class="st">    </span><span class="kw">select</span>(<span class="dt">iso_a2=</span>iso2c, value) %&gt;%
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">indicator =</span> our_name) %&gt;%
+<span class="st">    </span><span class="kw">spread</span>(indicator, value)
+  <span class="kw">return</span>(df)
+}
 
+data_lifeExp =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1963</span>, <span class="dv">2013</span>, <span class="dt">by=</span><span class="dv">5</span>) %&gt;%
+<span class="st">  </span><span class="kw">set_names</span>(.) %&gt;%
+<span class="st">  </span><span class="kw">map_df</span>(~<span class="kw">wb_data_create</span>(.x, <span class="dt">indicator =</span> <span class="st">&quot;SP.DYN.LE00.IN&quot;</span>,
+                   <span class="dt">our_name =</span> <span class="st">&quot;lifeExp&quot;</span>,
+                   <span class="dt">country =</span> <span class="st">&quot;countries_only&quot;</span>), <span class="dt">.id=</span><span class="st">&#39;year&#39;</span>) %&gt;%
+<span class="st">  </span><span class="kw">spread</span>(year, lifeExp)
 
+world_sf_temporal =<span class="st"> </span><span class="kw">ne_countries</span>(<span class="dt">returnclass =</span> <span class="st">&#39;sf&#39;</span>) %&gt;%
+<span class="st">  </span><span class="kw">left_join</span>(., data_lifeExp, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&#39;iso_a2&#39;</span>)) %&gt;%
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">area_km2 =</span> <span class="kw">set_units</span>(<span class="kw">st_area</span>(.), km^<span class="dv">2</span>)) %&gt;%
+<span class="st">  </span><span class="kw">select</span>(iso_a2, name_long, continent, region_un, subregion, type, area_km2, <span class="st">`</span><span class="dt">1963</span><span class="st">`</span>:<span class="st">`</span><span class="dt">2013</span><span class="st">`</span>) %&gt;%
+<span class="st">  </span><span class="kw">gather</span>(year, lifeExp, <span class="st">`</span><span class="dt">1963</span><span class="st">`</span>:<span class="st">`</span><span class="dt">2013</span><span class="st">`</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m1 =<span class="st"> </span><span class="kw">tm_shape</span>(world_sf_temporal) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>) +
+<span class="st">  </span><span class="kw">tm_facets</span>(<span class="dt">by =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">nrow =</span> <span class="dv">1</span>, <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">drop.units =</span> <span class="ot">TRUE</span>)
 
+<span class="kw">animation_tmap</span>(m1, <span class="dt">filename =</span> <span class="st">&quot;figures/11-lifeExp_animation.gif&quot;</span>, <span class="dt">width =</span> <span class="dv">2000</span>, <span class="dt">height =</span> <span class="dv">600</span>, <span class="dt">delay =</span> <span class="dv">40</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_sf_temporal2 =<span class="st"> </span><span class="kw">filter</span>(world_sf_temporal, continent ==<span class="st"> &quot;South America&quot;</span>)
+m2 =<span class="st"> </span><span class="kw">tm_shape</span>(world_sf_temporal2) +
+<span class="st">  </span><span class="kw">tm_polygons</span>(<span class="st">&quot;lifeExp&quot;</span>, <span class="dt">n =</span> <span class="dv">12</span>) +
+<span class="st">  </span><span class="kw">tm_facets</span>(<span class="dt">by =</span> <span class="st">&quot;name_long&quot;</span>, <span class="dt">along =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">drop.units =</span> <span class="ot">TRUE</span>, <span class="dt">free.coords =</span> <span class="ot">TRUE</span>)
+<span class="kw">animation_tmap</span>(m2, <span class="dt">filename =</span> <span class="st">&quot;figures/11-lifeExp_sa_animation.gif&quot;</span>, <span class="dt">width =</span> <span class="dv">1600</span>, <span class="dt">height =</span> <span class="dv">1000</span>, <span class="dt">delay =</span> <span class="dv">40</span>)</code></pre></div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="adv-map.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="read-write.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -468,7 +343,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/Robinlovelace/geocompr/edit/master/references.Rmd",
+"link": "https://github.com/Robinlovelace/geocompr/edit/master/11-advanced-mapping.Rmd",
 "text": "Edit"
 },
 "download": null,
