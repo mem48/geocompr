@@ -190,7 +190,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve64f42003dddb6722
+preserve1956831773845b02
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3465,12 +3465,13 @@ For some drivers, `dsn` could be provided as a folder name, access credentials f
 Some of vector driver formats could store many layers of data. 
 `st_read` automatically read the first layer of the file specified in `dsn`, however it is also possible to select a different layer by its name using the `layer` argument.
 
+
 <!-- temporal text subsection -->
 <!-- data needs to be added to spData -->
 
 ```r
 cycle_hire_txt = system.file("misc/cycle_hire_xy.csv", package = "spData")
-cycle_hire = st_read(cycle_hire_txt, options = c("X_POSSIBLE_NAMES=X",
+cycle_hire_xy = st_read(cycle_hire_txt, options = c("X_POSSIBLE_NAMES=X",
                                                  "Y_POSSIBLE_NAMES=Y"))
 #> options:        X_POSSIBLE_NAMES=X Y_POSSIBLE_NAMES=Y 
 #> Reading layer `cycle_hire_xy' from data source `/home/travis/R/Library/spData/misc/cycle_hire_xy.csv' using driver `CSV'

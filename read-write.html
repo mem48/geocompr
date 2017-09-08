@@ -254,7 +254,7 @@ world =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)
 <!-- temporal text subsection -->
 <!-- data needs to be added to spData -->
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cycle_hire_txt =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;misc/cycle_hire_xy.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
-cycle_hire =<span class="st"> </span><span class="kw">st_read</span>(cycle_hire_txt, <span class="dt">options =</span> <span class="kw">c</span>(<span class="st">&quot;X_POSSIBLE_NAMES=X&quot;</span>,
+cycle_hire_xy =<span class="st"> </span><span class="kw">st_read</span>(cycle_hire_txt, <span class="dt">options =</span> <span class="kw">c</span>(<span class="st">&quot;X_POSSIBLE_NAMES=X&quot;</span>,
                                                  <span class="st">&quot;Y_POSSIBLE_NAMES=Y&quot;</span>))
 <span class="co">#&gt; options:        X_POSSIBLE_NAMES=X Y_POSSIBLE_NAMES=Y </span>
 <span class="co">#&gt; Reading layer `cycle_hire_xy&#39; from data source `/home/travis/R/Library/spData/misc/cycle_hire_xy.csv&#39; using driver `CSV&#39;</span>
