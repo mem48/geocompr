@@ -25,7 +25,7 @@
 <meta name="author" content="Robin Lovelace, Jakub Nowosad, Jannes Muenchow">
 
 
-<meta name="date" content="2017-09-08">
+<meta name="date" content="2017-09-10">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -190,11 +190,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="read-write.html"><a href="read-write.html"><i class="fa fa-check"></i><b>5</b> Geographic data I/O</a><ul>
-<li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#data-input-i"><i class="fa fa-check"></i><b>5.1</b> Data Input (I)</a><ul>
+<li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#data-input"><i class="fa fa-check"></i><b>5.1</b> Data Input (I)</a><ul>
 <li class="chapter" data-level="5.1.1" data-path="read-write.html"><a href="read-write.html#vector-data-1"><i class="fa fa-check"></i><b>5.1.1</b> Vector data</a></li>
 <li class="chapter" data-level="5.1.2" data-path="read-write.html"><a href="read-write.html#raster-data-1"><i class="fa fa-check"></i><b>5.1.2</b> Raster data</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#data-output-o"><i class="fa fa-check"></i><b>5.2</b> Data output (O)</a><ul>
+<li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#data-output"><i class="fa fa-check"></i><b>5.2</b> Data output (O)</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="read-write.html"><a href="read-write.html#vector-data-2"><i class="fa fa-check"></i><b>5.2.1</b> Vector data</a></li>
 <li class="chapter" data-level="5.2.2" data-path="read-write.html"><a href="read-write.html#raster-data-2"><i class="fa fa-check"></i><b>5.2.2</b> Raster data</a></li>
 </ul></li>
@@ -678,16 +678,16 @@ sf_points =<span class="st"> </span><span class="kw">st_sf</span>(our_attributes
 <div id="raster-data" class="section level2">
 <h2><span class="header-section-number">2.2</span> Raster data</h2>
 <div class="figure" style="text-align: center"><span id="fig:raster-intro-plot"></span>
-<img src="figures/02_raster_intro_plot.png" alt="Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map" width="750" />
+<img src="figures/02_raster_intro_plot.png" alt="Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map." width="750" />
 <p class="caption">
-Figure 2.7: Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map
+Figure 2.7: Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map.
 </p>
 </div>
 <p>The geographic raster data model consists of a raster header and a matrix (with rows and columns) representing equally spaced cells (often also called pixels; Figure <a href="spatial-class.html#fig:raster-intro-plot">2.7</a>:A). The raster header defines the coordinate reference system, the extent and the origin. The origin (or starting point) is frequently the coordinate of the lower-left corner of the matrix (the <strong>raster</strong> package, however, uses the upper left corner, by default (Figure <a href="spatial-class.html#fig:raster-intro-plot">2.7</a>:B)). The header defines the extent via the number of columns, the number of rows and the cell size resolution. Hence, starting from the origin, we can easily access and modify each single cell by either using the ID of a cell (Figure <a href="spatial-class.html#fig:raster-intro-plot">2.7</a>:B) or by explicitly specifying the rows and columns. This matrix representation avoids storing explicitly the coordinates for the four corner points (in fact it only stores one coordinate, namely the origin) of each cell corner as would be the case for rectangular vector polygons. This and matrix algebra makes raster processing much more efficient and faster than vector data processing. However, in contrast to vector data, a raster cell can only hold a single value. The value might be numeric or categorical (Figure <a href="spatial-class.html#fig:raster-intro-plot">2.7</a>:C). You can also specify a no-data value in the header of a raster, frequently -9999 (in R we often use <code>NA</code>). Raster maps usually represent continuous phenomena such as elevation, temperature, population density or spectral data (Figure <a href="spatial-class.html#fig:raster-intro-plot2">2.8</a>). Of course, we can represent discrete features such as soil or landcover classes also with the help of a raster data model (Figure <a href="spatial-class.html#fig:raster-intro-plot2">2.8</a>). Consequently, the discrete borders of these features become blurred, and depending on the spatial task a vector representation might be more suitable.</p>
 <div class="figure" style="text-align: center"><span id="fig:raster-intro-plot2"></span>
-<img src="figures/02_raster_intro_plot2.png" alt="Examples of continuous (left) and categorical (right) raster" width="475" />
+<img src="figures/02_raster_intro_plot2.png" alt="Examples of continuous (left) and categorical (right) raster." width="475" />
 <p class="caption">
-Figure 2.8: Examples of continuous (left) and categorical (right) raster
+Figure 2.8: Examples of continuous (left) and categorical (right) raster.
 </p>
 </div>
 <div id="an-introduction-to-raster" class="section level3">
@@ -882,9 +882,9 @@ new_vector =<span class="st"> </span><span class="kw">st_set_crs</span>(new_vect
 <!-- vectors: transformation means change of the coordinates of nodes -->
 <!-- change shape (no change in attributes) -->
 <div class="figure" style="text-align: center"><span id="fig:vector-crs"></span>
-<img src="figures/02_vector_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a vector data type" width="765" />
+<img src="figures/02_vector_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a vector data type." width="765" />
 <p class="caption">
-Figure 2.9: Examples of projected (left) and geographic (right) coordinate systems for a vector data type
+Figure 2.9: Examples of projected (left) and geographic (right) coordinate systems for a vector data type.
 </p>
 </div>
 <p>Note the warning emitted after the CRS for <code>sf_points</code> was set to <code>27700</code>. This is a good thing: we have imposed a spatial reference onto data without knowing what that means. To discover what the ‘magic number’ <code>27700</code> means, we can retrieve the CRS again:</p>

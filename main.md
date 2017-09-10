@@ -2,7 +2,7 @@
 --- 
 title: 'Geocomputation with R'
 author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
-date: '2017-09-08'
+date: '2017-09-10'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -38,7 +38,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-09-08 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-09-10 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -107,8 +107,7 @@ Additionally, it is also about developing new, research-driven methods [@opensha
 developing relevant geo-tools within the overall context of a 'scientific'
 approach.
 
-But geocomputation and this book teach more than just methods and code: they are about *doing*
-"practical work that is beneficial or useful" [@openshaw_geocomputation_2000].
+But geocomputation and this book teach more than just methods and code: they are about *doing* "practical work that is beneficial or useful" [@openshaw_geocomputation_2000].
 Of course, reading this book will give you a solid *knowledge* of geocomputational methods, and how to use them via the reproducible examples implemented in the code chunks in each chapter.
 But there is much more.
 This book aims to teach how to do geocomputation rather than just to think about it.
@@ -190,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee36ccf8b36cfc154
+preserve7cb4cba115e7dc81
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1168,8 +1167,8 @@ Simple features are, in essence, data frames with a spatial extension.
 ## Raster data
 
 <div class="figure" style="text-align: center">
-<img src="figures/02_raster_intro_plot.png" alt="Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map" width="750" />
-<p class="caption">(\#fig:raster-intro-plot)Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map</p>
+<img src="figures/02_raster_intro_plot.png" alt="Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map." width="750" />
+<p class="caption">(\#fig:raster-intro-plot)Raster data: A - a grid representation; B - numbers of the cells; C - values of the cells; D - a final raster map.</p>
 </div>
 
 The geographic raster data model consists of a raster header and a matrix (with rows and columns) representing equally spaced cells (often also called pixels; Figure \@ref(fig:raster-intro-plot):A).
@@ -1187,8 +1186,8 @@ Of course, we can represent discrete features such as soil or landcover classes 
 Consequently, the discrete borders of these features become blurred, and depending on the spatial task a vector representation might be more suitable.
 
 <div class="figure" style="text-align: center">
-<img src="figures/02_raster_intro_plot2.png" alt="Examples of continuous (left) and categorical (right) raster" width="475" />
-<p class="caption">(\#fig:raster-intro-plot2)Examples of continuous (left) and categorical (right) raster</p>
+<img src="figures/02_raster_intro_plot2.png" alt="Examples of continuous (left) and categorical (right) raster." width="475" />
+<p class="caption">(\#fig:raster-intro-plot2)Examples of continuous (left) and categorical (right) raster.</p>
 </div>
 
 ### An introduction to raster
@@ -1508,8 +1507,8 @@ new_vector = st_set_crs(new_vector, 4326) # set CRS
 <!-- change shape (no change in attributes) -->
 
 <div class="figure" style="text-align: center">
-<img src="figures/02_vector_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a vector data type" width="765" />
-<p class="caption">(\#fig:vector-crs)Examples of projected (left) and geographic (right) coordinate systems for a vector data type</p>
+<img src="figures/02_vector_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a vector data type." width="765" />
+<p class="caption">(\#fig:vector-crs)Examples of projected (left) and geographic (right) coordinate systems for a vector data type.</p>
 </div>
 
 Note the warning emitted after the CRS for `sf_points` was set to `27700`.
@@ -1958,7 +1957,7 @@ world_continents = world %>%
 ```
 
 
-Table: (\#tab:continents)The top 3 most populous continents, and the number of countries in each
+Table: (\#tab:continents)The top 3 most populous continents, and the number of countries in each.
 
 continent         pop   n_countries
 ----------  ---------  ------------
@@ -2367,8 +2366,8 @@ factorValues(grain, grain[c(1, 12, 36)])
 
 
 <div class="figure" style="text-align: center">
-<img src="figures/03_cont_categ_rasters.png" alt="Raster with numberic values (left) and a raster with categorical values (right)" width="765" />
-<p class="caption">(\#fig:cont-cate-rasters)Raster with numberic values (left) and a raster with categorical values (right)</p>
+<img src="figures/03_cont_categ_rasters.png" alt="Raster with numberic values (left) and a raster with categorical values (right)." width="765" />
+<p class="caption">(\#fig:cont-cate-rasters)Raster with numberic values (left) and a raster with categorical values (right).</p>
 </div>
 
 ### Raster subsetting
@@ -2747,8 +2746,8 @@ Plotting the result (with `plot(buff_agg)`) shows that the operation does not re
 Figure \@ref(fig:buff-agg) shows a population of over half a billion people mostly located in a giant circle floating off the west coast of Africa!  
 
 <div class="figure" style="text-align: center">
-<img src="figures/buff-agg-1.png" alt="Result of spatial aggregation showing the total population of countries that intersect with a large circle whose center lies at 0 degrees longitude and latitude" width="576" />
-<p class="caption">(\#fig:buff-agg)Result of spatial aggregation showing the total population of countries that intersect with a large circle whose center lies at 0 degrees longitude and latitude</p>
+<img src="figures/buff-agg-1.png" alt="Result of spatial aggregation showing the total population of countries that intersect with a large circle whose center lies at 0 degrees longitude and latitude." width="576" />
+<p class="caption">(\#fig:buff-agg)Result of spatial aggregation showing the total population of countries that intersect with a large circle whose center lies at 0 degrees longitude and latitude.</p>
 </div>
 
 The results of the spatial aggregation exercise presented in Figure \@ref(fig:buff-agg) are unrealistic for three reasons:
@@ -2984,8 +2983,8 @@ The subsequent code chunk demonstrate how this works for all combinations of the
 <!-- Todo: reference r4ds -->
 
 <div class="figure" style="text-align: center">
-<img src="figures/venn-clip-1.png" alt="Spatial equivalents of logical operators" width="576" />
-<p class="caption">(\#fig:venn-clip)Spatial equivalents of logical operators</p>
+<img src="figures/venn-clip-1.png" alt="Spatial equivalents of logical operators." width="576" />
+<p class="caption">(\#fig:venn-clip)Spatial equivalents of logical operators.</p>
 </div>
 
 To illustrate the relationship between subsetting and clipping spatial data, we will subset points that cover the bounding box of the circles `x` and `y` in Figure \@ref(fig:venn-clip).
@@ -3195,8 +3194,8 @@ r_focal = focal(elev, w = matrix(1, nrow = 3, ncol = 3), fun = min)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="figures/04_focal_example.png" alt="Input raster (left) and resulting output raster (right) due to a focal operation - summing up 3-by-3 windows" width="475" />
-<p class="caption">(\#fig:focal-example)Input raster (left) and resulting output raster (right) due to a focal operation - summing up 3-by-3 windows</p>
+<img src="figures/04_focal_example.png" alt="Input raster (left) and resulting output raster (right) due to a focal operation - summing up 3-by-3 windows." width="475" />
+<p class="caption">(\#fig:focal-example)Input raster (left) and resulting output raster (right) due to a focal operation - summing up 3-by-3 windows.</p>
 </div>
 
 We can quickly check if the output meets our expectations.
@@ -3420,8 +3419,10 @@ Finally, compute the difference between the raster using the euclidean distance 
 
 The previous chapters provided an overview of spatial data classes in R, with a focus on simple features and rasters.
 This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world.
-<!-- Not sure if this is the place for the following two sentences... Or if so, some kind of link is missing.-->
-We include a section (\@ref(visual-outputs)) on visualization because outputting data in a human (not just computer) readable format enables non-programmers to benefit from your work.
+Geocomputation usually involves reading existing data, and saving it after processing sections.
+Therefore, knowing how to efficiently read and write spatial data is crucial (see sections \@ref(data-input) and \@ref(data-output)).
+For the same purposes, it is important be aware of the most often used spatial file format and their strong and weak sides (see section \@ref(file-formats)).
+We also include a section (\@ref(visual-outputs)) on visualization because outputting data in a human (not just computer) readable format enables non-programmers to benefit from your work.
 If your aim is to use geocomputation to improve the world, e.g. by encouraging evidence-based policies, this final stage is vital.
 
 I/O is short for "input/output" which means, in plain English, "reading and writing data".
@@ -3430,10 +3431,10 @@ Concepts such as computational efficiency, hard disk space and 'idempotence' are
 Loading/saving data is yet another way of saying the same thing.
 ]
 
-## Data Input (I)
+## Data Input (I) {#data-input}
 
 To efficiently read data into R, it helps to have an understanding of what happens 'under the hood'.
-Executing commands such as `sf::st_read()` (the main function we use for loading vector data), `raster::raster()` (the main function used for loading raster data),  or `readr::read_csv()` (which can we used to read spatial data from text files) silently sets off a chain of events that loads objects.
+Executing commands such as `sf::st_read()` (the main function we use for loading vector data) or `raster::raster()` (the main function used for loading raster data) silently sets off a chain of events that loads objects.
 "Loading" in this context means loading the data into R or, more precisely, assigning objects to your workspace, stored in RAM accessible from the `.GlobalEnv`^[See http://adv-r.had.co.nz/Environments.html for more information on the environment] of your current R session.
 
 ### Vector data
@@ -3477,7 +3478,7 @@ To read these files, you need to specify names of those columns using the `optio
 ```r
 cycle_hire_txt = system.file("misc/cycle_hire_xy.csv", package = "spData")
 cycle_hire_xy = st_read(cycle_hire_txt, options = c("X_POSSIBLE_NAMES=X",
-                                                 "Y_POSSIBLE_NAMES=Y"))
+                                                    "Y_POSSIBLE_NAMES=Y"))
 ```
 
 More complex geometries cannot be described using only two numbers, however they could be represented by the well-known text (WKT), well-known binary (WKB), and in the GeoJSON form, for example:
@@ -3502,26 +3503,27 @@ Here, we show only the first two drivers (see \@ref(tab:drivers)):
 
 ```r
 sf_drivers = st_drivers()
-head(sf_drivers, n = 2)
+head(sf_drivers, n = 5)
 ```
 
 
-Table: (\#tab:drivers)Sample of available drivers for reading/writing vector data (variable depending on operating system).
+Table: (\#tab:drivers)Sample of available drivers for reading/writing vector data (it could vary between different GDAL versions).
 
-         name     long_name                    write   copy    is_raster   is_vector 
--------  -------  ---------------------------  ------  ------  ----------  ----------
-PCIDSK   PCIDSK   PCIDSK Database File         TRUE    FALSE   TRUE        TRUE      
-netCDF   netCDF   Network Common Data Format   TRUE    TRUE    TRUE        TRUE      
-
-<!-- Idea (RL): filter to show maybe top 5 most useful -->
+name             long_name                       write   copy    is_raster   is_vector 
+---------------  ------------------------------  ------  ------  ----------  ----------
+ESRI Shapefile   ESRI Shapefile                  TRUE    FALSE   FALSE       TRUE      
+GPX              GPX                             TRUE    FALSE   FALSE       TRUE      
+KML              Keyhole Markup Language (KML)   TRUE    FALSE   FALSE       TRUE      
+GeoJSON          GeoJSON                         TRUE    FALSE   FALSE       TRUE      
+GPKG             GeoPackage                      TRUE    TRUE    TRUE        TRUE      
 
 ### Raster data
 
 Raster data also could exist in many different file formats, with some of the formats supporting multilayer files[^2].
-The **raster** package support reading a single layer by `raster()` and many layers using either `brick()` or `stack()`. 
+The **raster** package allow reading a single layer by `raster()` and many layers using either `brick()` or `stack()`. 
 More information about the raster representation in this package could be find in the section \@ref(raster-classes).
 
-The `raster()` function makes it possible to read a simple single layer file: 
+The `raster()` function makes it possible to read a simple single layer file.
 
 
 ```r
@@ -3531,7 +3533,7 @@ raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge")
 single_layer = raster(raster_filepath)
 ```
 
-You can also read just one layer (band) from a multilayer file:
+You can also read just one layer (band) from a multilayer file by specifying the `band` argument.
 
 
 ```r
@@ -3539,7 +3541,7 @@ raster_multilayer_filepath = system.file("raster/landsat.tif", package = "spData
 single_layer_band3 = raster(raster_multilayer_filepath, band = 3)
 ```
 
-The whole multilayer raster file is read by `brick()`:
+The whole multilayer raster file is read by `brick()`.
 
 
 ```r
@@ -3558,9 +3560,13 @@ multilayer_layer_stack = stack(raster_l1_filepath, raster_l2_filepath)
 
 The `stack()` class is limited to datasets that have the same spatial extent and resolution.
 
-## Data output (O)
+## Data output (O) {#data-output}
 
-<!-- raster + vector + text intro -->
+The ability of writing spatial data could be used for conversion between different formats and for saving newly created objects.
+Depending on the data type (vector or raster), object class (e.g `multipoint` or `RasterLayer`), and type and amount of stored information (e.g. object size, range of values) - it is important to know how to store spatial files in the most efficient way.
+The next two section will show how to do that.
+
+<!-- should we add a note about recommended way to decide on a file name, for example "don't use spaces in the name", "create descriptive names" -->
 
 ### Vector data
 
@@ -3623,10 +3629,12 @@ You can achieve the same with `write_sf()` since it is equivalent to (technicall
 write_sf(obj = world, dsn = "world.gpkg")
 ```
 
+<!-- how about saving multilayer gpkg? -->
+
 The `layer_options` argument could be also used for many different purposes.
 One of them is to write spatial data to a text file.
 This can be done by specifing `GEOMETRY` inside of `layer_options`. 
-It could be either `AS_XY` for simple point datasets or `AS_WKT` for more complex spatial data:
+It could be either `AS_XY` for simple point datasets (it creates two new columns for coordinates) or `AS_WKT` for more complex spatial data (one new column is created which contains the well-known-text representation of spatial objects).
 
 
 ```r
@@ -3642,7 +3650,7 @@ There are several decision to be made while saving rasters, such as an output da
 The complete list of an arguments to this function could be found by typing `?writeRaster()`.
 
 <!-- datatypes -->
-The **raster** package offers nine following datatypes: LOG1S, INT1S, INT1U, INT2S, INT2U, INT4S, INT4U, FLT4S, and FLT8S.
+The **raster** package offers nine following datatypes: LOG1S, INT1S, INT1U, INT2S, INT2U, INT4S, INT4U, FLT4S, and FLT8S^[Using INT4U is not recommended as R does not support 32-bit unsigned integers.<!--recheck this info-->].
 Datatype determines the type of numbers and the range of the raster values that would be written to disk (\@ref(tab:datatypes)).
 Decision which datatype should be used depends on the expected range of the values in the output file.
 For example, LOG1S is used for bitmap (binary) images, unsigned integers (INT1U, INT2U, INT4U) are mostly used for categorical data, while floats (FLT4S and FLTS8S) usually represent continuous data.
@@ -3665,7 +3673,8 @@ INT4U      0                4,294,967,296
 FLT4S      -3.4e+38         3.4e+38       
 FLT8S      -1.7e+308        1.7e+308      
 
-To save the `Raster*` object to a file, you need to specify the file extension, for example you need to add the `.tif` extension to create a GeoTIFF file:
+To save the `Raster*` object to a file, the file extension needs to be specified. 
+For example you need to add the `.tif` extension to create a GeoTIFF file:
 
 
 ```r
@@ -3676,7 +3685,7 @@ writeRaster(x = single_layer,
 
 The `raster` file format (native to the `raster` package) is used when a file extension is missing or is invalid. 
 
-Some raster file formats also accept additional creation options[^2].
+Some raster file formats also accept additional creation options with the `options` argument[^2].
 For example, in GeoTIFF you could specify a compress method using the `COMPRESS` option^[Creation options for the GeoTIFF format are at http://www.gdal.org/frmt_gtiff.html]:
 
 
@@ -3723,7 +3732,37 @@ GeoPackage          .gpkg                  An extended SQLite database file desi
 
 ## Visual outputs
 
-<!-- aka how to save a map to a file -->
+<!-- pdf, bmp, jpeg, png, and tiff graphic devices -->
+
+
+```r
+png(filename = "lifeExp.png", width = 500, height = 350)
+plot(world["lifeExp"])
+dev.off()
+```
+
+<!-- Note about that the `plot` function do not create an object -->
+<!-- ```{r} -->
+<!-- a = plot(world["lifeExp"]) -->
+<!-- ``` -->
+
+
+```r
+library(tmap)
+tmap_obj = tm_shape(world) +
+  tm_polygons(col = "lifeExp")
+save_tmap(tm  = tmap_obj, filename = "lifeExp_tmap.png")
+```
+
+<!-- Check what's wrong with mapview zcol -->
+<!-- info that PhantomJS could be needed... when creating a png file -->
+
+```r
+library(mapview)
+mapview_obj = mapview(world, zcol = "lifeExp", legend = TRUE) 
+mapshot(mapview_obj, url = "lifeExp_mapview.html")
+mapshot(mapview_obj, file = "lifeExp_mapview.png")
+```
 
 ## Exercises
 

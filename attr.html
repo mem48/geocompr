@@ -25,7 +25,7 @@
 <meta name="author" content="Robin Lovelace, Jakub Nowosad, Jannes Muenchow">
 
 
-<meta name="date" content="2017-09-08">
+<meta name="date" content="2017-09-10">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -190,11 +190,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="read-write.html"><a href="read-write.html"><i class="fa fa-check"></i><b>5</b> Geographic data I/O</a><ul>
-<li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#data-input-i"><i class="fa fa-check"></i><b>5.1</b> Data Input (I)</a><ul>
+<li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#data-input"><i class="fa fa-check"></i><b>5.1</b> Data Input (I)</a><ul>
 <li class="chapter" data-level="5.1.1" data-path="read-write.html"><a href="read-write.html#vector-data-1"><i class="fa fa-check"></i><b>5.1.1</b> Vector data</a></li>
 <li class="chapter" data-level="5.1.2" data-path="read-write.html"><a href="read-write.html#raster-data-1"><i class="fa fa-check"></i><b>5.1.2</b> Raster data</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#data-output-o"><i class="fa fa-check"></i><b>5.2</b> Data output (O)</a><ul>
+<li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#data-output"><i class="fa fa-check"></i><b>5.2</b> Data output (O)</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="read-write.html"><a href="read-write.html#vector-data-2"><i class="fa fa-check"></i><b>5.2.1</b> Vector data</a></li>
 <li class="chapter" data-level="5.2.2" data-path="read-write.html"><a href="read-write.html#raster-data-2"><i class="fa fa-check"></i><b>5.2.2</b> Raster data</a></li>
 </ul></li>
@@ -383,7 +383,7 @@ world_continents =<span class="st"> </span>world %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">group_by</span>(continent) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">pop =</span> <span class="kw">sum</span>(pop, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">n_countries =</span> <span class="kw">n</span>())</code></pre></div>
 <table>
-<caption><span id="tab:continents">Table 3.2: </span>The top 3 most populous continents, and the number of countries in each</caption>
+<caption><span id="tab:continents">Table 3.2: </span>The top 3 most populous continents, and the number of countries in each.</caption>
 <thead>
 <tr class="header">
 <th align="left">continent</th>
@@ -631,9 +631,9 @@ grain
 <span class="co">#&gt; 2  clay     wet</span>
 <span class="co">#&gt; 3  silt   moist</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:cont-cate-rasters"></span>
-<img src="figures/03_cont_categ_rasters.png" alt="Raster with numberic values (left) and a raster with categorical values (right)" width="765" />
+<img src="figures/03_cont_categ_rasters.png" alt="Raster with numberic values (left) and a raster with categorical values (right)." width="765" />
 <p class="caption">
-Figure 3.3: Raster with numberic values (left) and a raster with categorical values (right)
+Figure 3.3: Raster with numberic values (left) and a raster with categorical values (right).
 </p>
 </div>
 <div id="raster-subsetting" class="section level3">

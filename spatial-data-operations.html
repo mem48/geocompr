@@ -25,7 +25,7 @@
 <meta name="author" content="Robin Lovelace, Jakub Nowosad, Jannes Muenchow">
 
 
-<meta name="date" content="2017-09-08">
+<meta name="date" content="2017-09-10">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -190,11 +190,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="read-write.html"><a href="read-write.html"><i class="fa fa-check"></i><b>5</b> Geographic data I/O</a><ul>
-<li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#data-input-i"><i class="fa fa-check"></i><b>5.1</b> Data Input (I)</a><ul>
+<li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#data-input"><i class="fa fa-check"></i><b>5.1</b> Data Input (I)</a><ul>
 <li class="chapter" data-level="5.1.1" data-path="read-write.html"><a href="read-write.html#vector-data-1"><i class="fa fa-check"></i><b>5.1.1</b> Vector data</a></li>
 <li class="chapter" data-level="5.1.2" data-path="read-write.html"><a href="read-write.html#raster-data-1"><i class="fa fa-check"></i><b>5.1.2</b> Raster data</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#data-output-o"><i class="fa fa-check"></i><b>5.2</b> Data output (O)</a><ul>
+<li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#data-output"><i class="fa fa-check"></i><b>5.2</b> Data output (O)</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="read-write.html"><a href="read-write.html#vector-data-2"><i class="fa fa-check"></i><b>5.2.1</b> Vector data</a></li>
 <li class="chapter" data-level="5.2.2" data-path="read-write.html"><a href="read-write.html#raster-data-2"><i class="fa fa-check"></i><b>5.2.2</b> Raster data</a></li>
 </ul></li>
@@ -334,9 +334,9 @@ Figure 4.3: Illustration of a spatial join: the populations of the world’s 3 l
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">buff_agg =<span class="st"> </span><span class="kw">aggregate</span>(<span class="dt">x =</span> africa[<span class="st">&quot;pop&quot;</span>], <span class="dt">by =</span> buff, <span class="dt">FUN =</span> sum)</code></pre></div>
 <p>The result, <code>buff_agg</code>, is a spatial object with the same geometry as <code>by</code> (the circular buffer in this case) but with an additional variable, <code>pop</code> reporting summary statistics for all features in <code>x</code> that intersect with <code>by</code> (the total population of the countries that touch the buffer in this case). Plotting the result (with <code>plot(buff_agg)</code>) shows that the operation does not really make sense: Figure <a href="spatial-data-operations.html#fig:buff-agg">4.4</a> shows a population of over half a billion people mostly located in a giant circle floating off the west coast of Africa!</p>
 <div class="figure" style="text-align: center"><span id="fig:buff-agg"></span>
-<img src="figures/buff-agg-1.png" alt="Result of spatial aggregation showing the total population of countries that intersect with a large circle whose center lies at 0 degrees longitude and latitude" width="576" />
+<img src="figures/buff-agg-1.png" alt="Result of spatial aggregation showing the total population of countries that intersect with a large circle whose center lies at 0 degrees longitude and latitude." width="576" />
 <p class="caption">
-Figure 4.4: Result of spatial aggregation showing the total population of countries that intersect with a large circle whose center lies at 0 degrees longitude and latitude
+Figure 4.4: Result of spatial aggregation showing the total population of countries that intersect with a large circle whose center lies at 0 degrees longitude and latitude.
 </p>
 </div>
 <p>The results of the spatial aggregation exercise presented in Figure <a href="spatial-data-operations.html#fig:buff-agg">4.4</a> are unrealistic for three reasons:</p>
@@ -463,9 +463,9 @@ x_and_y =<span class="st"> </span><span class="kw">st_intersection</span>(x, y)
 <p><img src="figures/unnamed-chunk-31-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>The subsequent code chunk demonstrate how this works for all combinations of the ‘Venn’ diagram representing <code>x</code> and <code>y</code>, inspired by <a href="http://r4ds.had.co.nz/transform.html#logical-operators">Figure 5.1</a> of the book R for Data Science <span class="citation">(Grolemund and Wickham <a href="#ref-grolemund_r_2016">2016</a>)</span>. <!-- Todo: reference r4ds --></p>
 <div class="figure" style="text-align: center"><span id="fig:venn-clip"></span>
-<img src="figures/venn-clip-1.png" alt="Spatial equivalents of logical operators" width="576" />
+<img src="figures/venn-clip-1.png" alt="Spatial equivalents of logical operators." width="576" />
 <p class="caption">
-Figure 4.7: Spatial equivalents of logical operators
+Figure 4.7: Spatial equivalents of logical operators.
 </p>
 </div>
 <p>To illustrate the relationship between subsetting and clipping spatial data, we will subset points that cover the bounding box of the circles <code>x</code> and <code>y</code> in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.7</a>. Some points will be inside just one circle, some will be inside both and some will be inside neither. To generate the points will use a function not yet covered in this book, <code>st_sample()</code>.</p>
@@ -570,9 +570,9 @@ NDVI&amp;= \frac{\text{NIR} - \text{Red}}{\text{NIR} + \text{Red}}\\
 <p>In R, we can use the <code>focal()</code> function to perform spatial filtering. We define the shape of the moving window with a <code>matrix</code> whose values correspond to weights. Secondly, the the <code>fun</code> argument lets us specify the function we wish to apply to this neighborhood. Here, we choose the minimum, but of course we can use any other function such as the the sum, the mean, the median, the mode, the maximum or the variance.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">r_focal =<span class="st"> </span><span class="kw">focal</span>(elev, <span class="dt">w =</span> <span class="kw">matrix</span>(<span class="dv">1</span>, <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">3</span>), <span class="dt">fun =</span> min)</code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:focal-example"></span>
-<img src="figures/04_focal_example.png" alt="Input raster (left) and resulting output raster (right) due to a focal operation - summing up 3-by-3 windows" width="475" />
+<img src="figures/04_focal_example.png" alt="Input raster (left) and resulting output raster (right) due to a focal operation - summing up 3-by-3 windows." width="475" />
 <p class="caption">
-Figure 4.10: Input raster (left) and resulting output raster (right) due to a focal operation - summing up 3-by-3 windows
+Figure 4.10: Input raster (left) and resulting output raster (right) due to a focal operation - summing up 3-by-3 windows.
 </p>
 </div>
 <p>We can quickly check if the output meets our expectations. In our example, the minimum value has to be always the upper left corner of the moving window (remember we have created the input raster by rowwise incrementing the cell values by one starting at the upper left corner). Of course, the <code>focal()</code>-function has computed the correct result. In this example, our weighting matrix consists only of 1s. This means each cell has the same weight on the output. If appropriate, you can change this by specifying different weights.</p>
