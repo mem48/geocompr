@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservec9d6dba54bd96173
+preserve8790730646ec5fc5
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3439,8 +3439,8 @@ Executing commands such as `sf::st_read()` (the main function we use for loading
 
 ### Vector data
 
-Spatial vector data comes in a wide variety of file formats, and **sf** is able to handle most of them via its `st_read()` command.
-Behind the scenes it uses GDAL, which supports the import of a very wide range of vector data formats[^1].
+Spatial vector data comes in a wide variety of file formats, most of which can be read-in via the **sf** function `st_read()`.
+Behind the scenes this calls GDAL.[^1]
 One of the major advantages of **sf** is that it is fast.
 <!-- reference to the vignette -->
 The first argument of `st_read()` is `dsn`, which should be a text string or an object containing a single text string.
