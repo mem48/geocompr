@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve760b34022fab73d6
+preserve9c6ebda4d53e0b1a
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3767,9 +3767,18 @@ mapshot(mapview_obj, file = "lifeExp_mapview.png")
 
 ## Exercises
 
+<!-- file formats questions x2 -->
+
 1. Name three differences between `write_sf()` and the more well-known function `st_write()`.
 
 1. What are the default arguments of `read_sf()` and `write_sf()` that enable two of these differences?
+
+<!-- input x2 -->
+
+<!-- output x2 -->
+
+<!-- maps x2 -->
+
 
 
 [^1]: A list of supported vector formats and theirs options could be found at http://www.gdal.org/ogr_formats.html.
