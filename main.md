@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve9c6ebda4d53e0b1a
+preserve73a4a6ea6d67ee1d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3433,9 +3433,11 @@ Loading/saving data is yet another way of saying the same thing.
 
 ## File formats
 
-<!-- an intro -->
-<!-- many different formats -->
-<!-- main three groups (vector, raster, geodatabase) -->
+Spatial data is usually stored as files or geodatabases. 
+File-based data formats could keep either vector or raster data, while geodatabases could store both of these data types.
+Historically, GIS file formats were developed by mapping agencies and software companies.<!--add examples-->
+
+<!-- moved to open standards and GDAL -->
 <!-- format model (open/proprietary) (importance of interoperabillity) -->
 <!-- way of storage (single file, multiple files, folders) -->
 <!-- GDAL (it's great - you can read, convert, and very often (though not always) write) -->
@@ -3778,8 +3780,6 @@ mapshot(mapview_obj, file = "lifeExp_mapview.png")
 <!-- output x2 -->
 
 <!-- maps x2 -->
-
-
 
 [^1]: A list of supported vector formats and theirs options could be found at http://www.gdal.org/ogr_formats.html.
 
