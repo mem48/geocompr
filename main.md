@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve8790730646ec5fc5
+preserveae973df27b8b6743
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3445,8 +3445,8 @@ One of the major advantages of **sf** is that it is fast.
 <!-- reference to the vignette -->
 The first argument of `st_read()` is `dsn`, which should be a text string or an object containing a single text string.
 The content of a text string could vary between different drivers.
-In the most of cases, e.g. `ESRI Shapefile` or `GeoPackage`, it would be a file name.
-The `st_read` function, based on the file extension, knows how to read a file:
+In most cases, as with `.shp` file of `ESRI Shapefile` or `.gpkg` files of `GeoPackage` formats, the `dsn` would be a file name.
+`st_read()` guesses the driver based on the file extension, as illustrated for a `.gpkg` file below:
 
 
 ```r
