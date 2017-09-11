@@ -190,15 +190,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="read-write.html"><a href="read-write.html"><i class="fa fa-check"></i><b>5</b> Geographic data I/O</a><ul>
-<li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#data-input"><i class="fa fa-check"></i><b>5.1</b> Data Input (I)</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="read-write.html"><a href="read-write.html#vector-data-1"><i class="fa fa-check"></i><b>5.1.1</b> Vector data</a></li>
-<li class="chapter" data-level="5.1.2" data-path="read-write.html"><a href="read-write.html#raster-data-1"><i class="fa fa-check"></i><b>5.1.2</b> Raster data</a></li>
+<li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#file-formats"><i class="fa fa-check"></i><b>5.1</b> File formats</a></li>
+<li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#data-input"><i class="fa fa-check"></i><b>5.2</b> Data Input (I)</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="read-write.html"><a href="read-write.html#vector-data-1"><i class="fa fa-check"></i><b>5.2.1</b> Vector data</a></li>
+<li class="chapter" data-level="5.2.2" data-path="read-write.html"><a href="read-write.html#raster-data-1"><i class="fa fa-check"></i><b>5.2.2</b> Raster data</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#data-output"><i class="fa fa-check"></i><b>5.2</b> Data output (O)</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="read-write.html"><a href="read-write.html#vector-data-2"><i class="fa fa-check"></i><b>5.2.1</b> Vector data</a></li>
-<li class="chapter" data-level="5.2.2" data-path="read-write.html"><a href="read-write.html#raster-data-2"><i class="fa fa-check"></i><b>5.2.2</b> Raster data</a></li>
+<li class="chapter" data-level="5.3" data-path="read-write.html"><a href="read-write.html#data-output"><i class="fa fa-check"></i><b>5.3</b> Data output (O)</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="read-write.html"><a href="read-write.html#vector-data-2"><i class="fa fa-check"></i><b>5.3.1</b> Vector data</a></li>
+<li class="chapter" data-level="5.3.2" data-path="read-write.html"><a href="read-write.html#raster-data-2"><i class="fa fa-check"></i><b>5.3.2</b> Raster data</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="read-write.html"><a href="read-write.html#file-formats"><i class="fa fa-check"></i><b>5.3</b> File formats</a></li>
 <li class="chapter" data-level="5.4" data-path="read-write.html"><a href="read-write.html#visual-outputs"><i class="fa fa-check"></i><b>5.4</b> Visual outputs</a></li>
 <li class="chapter" data-level="5.5" data-path="read-write.html"><a href="read-write.html#exercises-4"><i class="fa fa-check"></i><b>5.5</b> Exercises</a></li>
 </ul></li>
@@ -227,231 +227,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="read-write" class="section level1">
 <h1><span class="header-section-number">5</span> Geographic data I/O</h1>
-<p>The previous chapters provided an overview of spatial data classes in R, with a focus on simple features and rasters. This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world. Geocomputation usually involves reading existing data, and saving it after processing sections. Therefore, knowing how to efficiently read and write spatial data is crucial (see sections <a href="read-write.html#data-input">5.1</a> and <a href="read-write.html#data-output">5.2</a>). For the same purposes, it is important be aware of the most often used spatial file format and their strong and weak sides (see section <a href="read-write.html#file-formats">5.3</a>). We also include a section (<a href="read-write.html#visual-outputs">5.4</a>) on visualization because outputting data in a human (not just computer) readable format enables non-programmers to benefit from your work. If your aim is to use geocomputation to improve the world, e.g. by encouraging evidence-based policies, this final stage is vital.</p>
+<p>The previous chapters provided an overview of spatial data classes in R, with a focus on simple features and rasters. This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world. Geocomputation usually involves reading existing data, and saving it after processing sections. Therefore, it is important be aware of the most often used spatial file format and their strong and weak sides (see section <a href="read-write.html#file-formats">5.1</a>). For the same purposes knowing how to efficiently read and write spatial data is crucial (see sections <a href="read-write.html#data-input">5.2</a> and <a href="read-write.html#data-output">5.3</a>). We also include a section (<a href="read-write.html#visual-outputs">5.4</a>) on visualization because outputting data in a human (not just computer) readable format enables non-programmers to benefit from your work. If your aim is to use geocomputation to improve the world, e.g. by encouraging evidence-based policies, this final stage is vital.</p>
 <p>I/O is short for “input/output” which means, in plain English, “reading and writing data”. We use the acronym instead of plain English not to confuse you or to make chapter names short, but because that’s the term used in computer science and it is useful to think of data import and export from a computing perspective.<a href="#fn24" class="footnoteRef" id="fnref24"><sup>24</sup></a></p>
-<div id="data-input" class="section level2">
-<h2><span class="header-section-number">5.1</span> Data Input (I)</h2>
-<p>To efficiently read data into R, it helps to have an understanding of what happens ‘under the hood’. Executing commands such as <code>sf::st_read()</code> (the main function we use for loading vector data) or <code>raster::raster()</code> (the main function used for loading raster data) silently sets off a chain of events that loads objects. “Loading” in this context means loading the data into R or, more precisely, assigning objects to your workspace, stored in RAM accessible from the <code>.GlobalEnv</code><a href="#fn25" class="footnoteRef" id="fnref25"><sup>25</sup></a> of your current R session.</p>
-<div id="vector-data-1" class="section level3">
-<h3><span class="header-section-number">5.1.1</span> Vector data</h3>
-<p>Spatial vector data comes in a wide variety of file formats, most of which can be read-in via the <strong>sf</strong> function <code>st_read()</code>. Behind the scenes this calls GDAL.<a href="#fn26" class="footnoteRef" id="fnref26"><sup>26</sup></a> One of the major advantages of <strong>sf</strong> is that it is fast. <!-- reference to the vignette --> The first argument of <code>st_read()</code> is <code>dsn</code>, which should be a text string or an object containing a single text string. The content of a text string could vary between different drivers. In most cases, as with <code>.shp</code> file of <code>ESRI Shapefile</code> or <code>.gpkg</code> files of <code>GeoPackage</code> formats, the <code>dsn</code> would be a file name. <code>st_read()</code> guesses the driver based on the file extension, as illustrated for a <code>.gpkg</code> file below:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
-<span class="co">#&gt; Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0</span>
-vector_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
-world =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)
-<span class="co">#&gt; Reading layer `wrld.gpkg&#39; from data source `/home/travis/R/Library/spData/shapes/world.gpkg&#39; using driver `GPKG&#39;</span>
-<span class="co">#&gt; Simple feature collection with 177 features and 10 fields</span>
-<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513</span>
-<span class="co">#&gt; epsg (SRID):    4326</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span></code></pre></div>
-<p>For some drivers, <code>dsn</code> could be provided as a folder name, access credentials for a database, or a GeoJSON string representation. <!-- Do we have a place for the examples? --></p>
-<p>Some of vector driver formats could store many layers of data. <code>st_read</code> automatically read the first layer of the file specified in <code>dsn</code>, however it is also possible to select a different layer by its name using the <code>layer</code> argument.</p>
-<p>Many GDAL drivers have different open options<a href="#fn27" class="footnoteRef" id="fnref27"><sup>27</sup></a>. For example, spatial data in text files could be stored in several ways. Simple point dataset could just have two columns describing their x and y coordinates. To read these files, you need to specify names of those columns using the <code>options</code> argument:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cycle_hire_txt =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;misc/cycle_hire_xy.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
-cycle_hire_xy =<span class="st"> </span><span class="kw">st_read</span>(cycle_hire_txt, <span class="dt">options =</span> <span class="kw">c</span>(<span class="st">&quot;X_POSSIBLE_NAMES=X&quot;</span>,
-                                                    <span class="st">&quot;Y_POSSIBLE_NAMES=Y&quot;</span>))</code></pre></div>
-<p>More complex geometries cannot be described using only two numbers, however they could be represented by the well-known text (WKT), well-known binary (WKB), and in the GeoJSON form, for example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_txt =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;misc/world_wkt.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
-world_wkt =<span class="st"> </span><span class="kw">st_read</span>(world_txt, <span class="dt">options =</span> <span class="st">&quot;GEOM_POSSIBLE_NAMES=WKT&quot;</span>)</code></pre></div>
-
-<div class="rmdnote">
-Not all of the supported vector file formats store information about theirs coordinate reference system. In these situations, it is possible to add the missing information using the <code>st_set_crs()</code> function. More on that in the section <a href="spatial-class.html#crs-intro">2.3</a>.
-</div>
-<p></p>
-<!-- isn't that confusing for users? -->
-<p><strong>Tip</strong>: <code>read_sf()</code> and <code>write_sf()</code> can be used as easy-to-remember alternatives to <code>st_read()</code> and <code>st_write()</code>. Remember they hide information about the data source and overwrite existing data, though.</p>
-<p>To find out which data formats <strong>sf</strong> supports, run <code>st_drivers()</code>. Here, we show only the first two drivers (see <a href="read-write.html#tab:drivers">5.1</a>):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_drivers =<span class="st"> </span><span class="kw">st_drivers</span>()
-<span class="kw">head</span>(sf_drivers, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
-<table>
-<caption><span id="tab:drivers">Table 5.1: </span>Sample of available drivers for reading/writing vector data (it could vary between different GDAL versions).</caption>
-<thead>
-<tr class="header">
-<th align="left">name</th>
-<th align="left">long_name</th>
-<th align="left">write</th>
-<th align="left">copy</th>
-<th align="left">is_raster</th>
-<th align="left">is_vector</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">ESRI Shapefile</td>
-<td align="left">ESRI Shapefile</td>
-<td align="left">TRUE</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="even">
-<td align="left">GPX</td>
-<td align="left">GPX</td>
-<td align="left">TRUE</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="odd">
-<td align="left">KML</td>
-<td align="left">Keyhole Markup Language (KML)</td>
-<td align="left">TRUE</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="even">
-<td align="left">GeoJSON</td>
-<td align="left">GeoJSON</td>
-<td align="left">TRUE</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="odd">
-<td align="left">GPKG</td>
-<td align="left">GeoPackage</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="raster-data-1" class="section level3">
-<h3><span class="header-section-number">5.1.2</span> Raster data</h3>
-<p>Raster data also could exist in many different file formats, with some of the formats supporting multilayer files<a href="#fn28" class="footnoteRef" id="fnref28"><sup>28</sup></a>. The <strong>raster</strong> package allow reading a single layer by <code>raster()</code> and many layers using either <code>brick()</code> or <code>stack()</code>. More information about the raster representation in this package could be find in the section <a href="spatial-class.html#raster-classes">2.2.3</a>.</p>
-<p>The <code>raster()</code> function makes it possible to read a simple single layer file.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
-<span class="kw">library</span>(spDataLarge)
-raster_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/srtm.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
-single_layer =<span class="st"> </span><span class="kw">raster</span>(raster_filepath)</code></pre></div>
-<p>You can also read just one layer (band) from a multilayer file by specifying the <code>band</code> argument.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">raster_multilayer_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
-single_layer_band3 =<span class="st"> </span><span class="kw">raster</span>(raster_multilayer_filepath, <span class="dt">band =</span> <span class="dv">3</span>)</code></pre></div>
-<p>The whole multilayer raster file is read by <code>brick()</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">multilayer_layer_brick =<span class="st"> </span><span class="kw">brick</span>(raster_multilayer_filepath)</code></pre></div>
-<p>Finally, many single and multilayer rasters could be read together using the <code>stack()</code> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">raster_l1_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat_b2.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
-raster_l2_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat_b3.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
- 
-multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(raster_l1_filepath, raster_l2_filepath)</code></pre></div>
-<p>The <code>stack()</code> class is limited to datasets that have the same spatial extent and resolution.</p>
-</div>
-</div>
-<div id="data-output" class="section level2">
-<h2><span class="header-section-number">5.2</span> Data output (O)</h2>
-<p>The ability of writing spatial data could be used for conversion between different formats and for saving newly created objects. Depending on the data type (vector or raster), object class (e.g <code>multipoint</code> or <code>RasterLayer</code>), and type and amount of stored information (e.g. object size, range of values) - it is important to know how to store spatial files in the most efficient way. The next two section will show how to do that.</p>
-<!-- should we add a note about recommended way to decide on a file name, for example "don't use spaces in the name", "create descriptive names" -->
-<div id="vector-data-2" class="section level3">
-<h3><span class="header-section-number">5.2.1</span> Vector data</h3>
-<p>The counterpart of <code>st_read()</code> is <code>st_write()</code>. It allows to write <strong>sf</strong> objects to a wide range of geographic vector file formats, including the most common ones such as <code>.geojson</code>, <code>.shp</code> and <code>.gpkg</code>. Based on the file name, <code>st_write()</code> decides automatically which driver to use. How fast the writing process is depends also on the driver. <!-- ref to the vignette --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(<span class="dt">obj =</span> world, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>)
-<span class="co">#&gt; Writing layer `world&#39; to data source `world.gpkg&#39; using driver `GPKG&#39;</span>
-<span class="co">#&gt; features:       177</span>
-<span class="co">#&gt; fields:         10</span>
-<span class="co">#&gt; geometry type:  Multi Polygon</span></code></pre></div>
-<p><strong>Note</strong>: if you try to write to the same data source again, the function will fail:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(<span class="dt">obj =</span> world, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>)
-<span class="co">#&gt; Updating layer `world&#39; to data source `/home/travis/build/Robinlovelace/geocompr/world.gpkg&#39; using driver `GPKG&#39;</span>
-<span class="co">#&gt; Warning in CPL_write_ogr(obj, dsn, layer, driver, as.character(dataset_options), : GDAL Error 1: Layer world already exists, CreateLayer failed.</span>
-<span class="co">#&gt; Use the layer creation option OVERWRITE=YES to replace it.</span>
-<span class="co">#&gt; Creating layer world failed.</span>
-<span class="co">#&gt; Error in CPL_write_ogr(obj, dsn, layer, driver, as.character(dataset_options), : Layer creation failed.</span></code></pre></div>
-<!-- ##   GDAL Error 1: Layer world.gpkg already exists, CreateLayer failed. -->
-<!-- ## Use the layer creation option OVERWRITE=YES to replace it. -->
-<p>The error message provides some information as to why the function failed. The <code>GDAL Error 1</code> statement makes clear that the failure occurred at the GDAL level. Additionally, the suggestion to use <code>OVERWRITE=YES</code> provides a clue how to fix the problem. However, this is not a <code>st_write()</code> argument, it is a GDAL option. Luckily, <code>st_write</code> provides a <code>layer_options</code> argument through which we can pass driver-dependent options:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(<span class="dt">obj =</span> world, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">layer_options =</span> <span class="st">&quot;OVERWRITE=YES&quot;</span>)</code></pre></div>
-<p>Another solution is to use the <code>st_write()</code> argument <code>delete_layer</code>. Setting it to <code>TRUE</code> deletes already existing layers in the data source before the function attempts to write (note there is also a <code>delete_dsn</code> argument):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(<span class="dt">obj =</span> world, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">delete_layer =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p>You can achieve the same with <code>write_sf()</code> since it is equivalent to (technically an <em>alias</em> for) <code>st_write()</code>, except that its defaults for <code>delete_layer</code> and <code>quiet</code> is <code>TRUE</code>. <!-- This enables spatial data to be overwritten more concisely, and with less output going to screen: --> <!-- What does this mean: overwritten more concisely? --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write_sf</span>(<span class="dt">obj =</span> world, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>)</code></pre></div>
-<!-- how about saving multilayer gpkg? -->
-<p>The <code>layer_options</code> argument could be also used for many different purposes. One of them is to write spatial data to a text file. This can be done by specifing <code>GEOMETRY</code> inside of <code>layer_options</code>. It could be either <code>AS_XY</code> for simple point datasets (it creates two new columns for coordinates) or <code>AS_WKT</code> for more complex spatial data (one new column is created which contains the well-known-text representation of spatial objects).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spData)
-<span class="kw">st_write</span>(cycle_hire_xy, <span class="st">&quot;cycle_hire_xy.csv&quot;</span>, <span class="dt">layer_options =</span> <span class="st">&quot;GEOMETRY=AS_XY&quot;</span>)
-<span class="kw">st_write</span>(world_wkt, <span class="st">&quot;world_wkt.csv&quot;</span>, <span class="dt">layer_options =</span> <span class="st">&quot;GEOMETRY=AS_WKT&quot;</span>)</code></pre></div>
-</div>
-<div id="raster-data-2" class="section level3">
-<h3><span class="header-section-number">5.2.2</span> Raster data</h3>
-<p>The <code>writeRaster()</code> function save the <code>Raster*</code> objects to files. There are several decision to be made while saving rasters, such as an output data type, file format, and specific GDAL options related to selected file format. The complete list of an arguments to this function could be found by typing <code>?writeRaster()</code>.</p>
-<!-- datatypes -->
-<p>The <strong>raster</strong> package offers nine following datatypes: LOG1S, INT1S, INT1U, INT2S, INT2U, INT4S, INT4U, FLT4S, and FLT8S<a href="#fn29" class="footnoteRef" id="fnref29"><sup>29</sup></a>. Datatype determines the type of numbers and the range of the raster values that would be written to disk (<a href="read-write.html#tab:datatypes">5.2</a>). Decision which datatype should be used depends on the expected range of the values in the output file. For example, LOG1S is used for bitmap (binary) images, unsigned integers (INT1U, INT2U, INT4U) are mostly used for categorical data, while floats (FLT4S and FLTS8S) usually represent continuous data. The default datatype used in <code>writeRaster()</code> is FLT4S. While it works in most of the cases, the size of the output file would be large. Therefore, a rule of thumb is to use the smallest representation that fits all the values (range of values could be checked using the <code>summary()</code> function).</p>
-<table>
-<caption><span id="tab:datatypes">Table 5.2: </span>Datatypes supported by the raster package</caption>
-<thead>
-<tr class="header">
-<th align="left">Datatype</th>
-<th align="left">Minimum value</th>
-<th align="left">Maximum value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">LOG1S</td>
-<td align="left">FALSE (0)</td>
-<td align="left">TRUE (1)</td>
-</tr>
-<tr class="even">
-<td align="left">INT1S</td>
-<td align="left">-127</td>
-<td align="left">127</td>
-</tr>
-<tr class="odd">
-<td align="left">INT1U</td>
-<td align="left">0</td>
-<td align="left">255</td>
-</tr>
-<tr class="even">
-<td align="left">INT2S</td>
-<td align="left">-32,767</td>
-<td align="left">32,767</td>
-</tr>
-<tr class="odd">
-<td align="left">INT2U</td>
-<td align="left">0</td>
-<td align="left">65,534</td>
-</tr>
-<tr class="even">
-<td align="left">INT4S</td>
-<td align="left">-2,147,483,647</td>
-<td align="left">2,147,483,647</td>
-</tr>
-<tr class="odd">
-<td align="left">INT4U</td>
-<td align="left">0</td>
-<td align="left">4,294,967,296</td>
-</tr>
-<tr class="even">
-<td align="left">FLT4S</td>
-<td align="left">-3.4e+38</td>
-<td align="left">3.4e+38</td>
-</tr>
-<tr class="odd">
-<td align="left">FLT8S</td>
-<td align="left">-1.7e+308</td>
-<td align="left">1.7e+308</td>
-</tr>
-</tbody>
-</table>
-<p>To save the <code>Raster*</code> object to a file, the file extension needs to be specified. For example you need to add the <code>.tif</code> extension to create a GeoTIFF file:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">writeRaster</span>(<span class="dt">x =</span> single_layer,
-            <span class="dt">filename =</span> <span class="st">&quot;my_raster.tif&quot;</span>,
-            <span class="dt">datatype =</span> <span class="st">&quot;INT2U&quot;</span>)</code></pre></div>
-<p>The <code>raster</code> file format (native to the <code>raster</code> package) is used when a file extension is missing or is invalid.</p>
-<p>Some raster file formats also accept additional creation options with the <code>options</code> argument<a href="#fn30" class="footnoteRef" id="fnref30"><sup>30</sup></a>. For example, in GeoTIFF you could specify a compress method using the <code>COMPRESS</code> option<a href="#fn31" class="footnoteRef" id="fnref31"><sup>31</sup></a>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">writeRaster</span>(<span class="dt">x =</span> single_layer,
-            <span class="dt">filename =</span> <span class="st">&quot;my_raster.tif&quot;</span>,
-            <span class="dt">datatype =</span> <span class="st">&quot;INT2U&quot;</span>,
-            <span class="dt">options =</span> <span class="kw">c</span>(<span class="st">&quot;COMPRESS=DEFLATE&quot;</span>))</code></pre></div>
-<p>Full list of the supported file format for writing <code>Raster*</code> objects could be found using <code>writeFormats().</code></p>
-</div>
-</div>
 <div id="file-formats" class="section level2">
-<h2><span class="header-section-number">5.3</span> File formats</h2>
+<h2><span class="header-section-number">5.1</span> File formats</h2>
 <!-- an intro -->
 <!-- many different formats -->
 <!-- main three groups (vector, raster, geodatabase) -->
@@ -460,7 +239,7 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <!-- GDAL (it's great - you can read, convert, and very often (though not always) write) -->
 <!-- GDAL info "it is possible to have smaller number of supported formats than there are on the GDAL webpage; you may need to recompile..." -->
 <table>
-<caption><span id="tab:unnamed-chunk-20">Table 5.3: </span>Selected spatial file formats</caption>
+<caption><span id="tab:unnamed-chunk-2">Table 5.1: </span>Selected spatial file formats</caption>
 <thead>
 <tr class="header">
 <th align="left">Name</th>
@@ -547,6 +326,227 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <!-- 1. SQLite/SpatialLite + mention GRASS (uses SQLite) -->
 <!-- 3. WKT/WKB for transfering and storing geometry data on databases. PostGIS (has even its own raster WKT (https://trac.osgeo.org/postgis/wiki/WKTRasterTutorial01); WKT also supported by Spatiallite, Oracle, MySQL, etc. (https://en.wikipedia.org/wiki/Well-known_text#RDBMS_Engines_that_provide_support) -->
 <!-- 4. ESRI geodatabase, Oracle spatial database (mention + gdal support?) -->
+</div>
+<div id="data-input" class="section level2">
+<h2><span class="header-section-number">5.2</span> Data Input (I)</h2>
+<p>To efficiently read data into R, it helps to have an understanding of what happens ‘under the hood’. Executing commands such as <code>sf::st_read()</code> (the main function we use for loading vector data) or <code>raster::raster()</code> (the main function used for loading raster data) silently sets off a chain of events that loads objects. “Loading” in this context means loading the data into R or, more precisely, assigning objects to your workspace, stored in RAM accessible from the <code>.GlobalEnv</code><a href="#fn25" class="footnoteRef" id="fnref25"><sup>25</sup></a> of your current R session.</p>
+<div id="vector-data-1" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Vector data</h3>
+<p>Spatial vector data comes in a wide variety of file formats, most of which can be read-in via the <strong>sf</strong> function <code>st_read()</code>. Behind the scenes this calls GDAL.<a href="#fn26" class="footnoteRef" id="fnref26"><sup>26</sup></a> One of the major advantages of <strong>sf</strong> is that it is fast. <!-- reference to the vignette --> The first argument of <code>st_read()</code> is <code>dsn</code>, which should be a text string or an object containing a single text string. The content of a text string could vary between different drivers. In most cases, as with <code>.shp</code> file of <code>ESRI Shapefile</code> or <code>.gpkg</code> files of <code>GeoPackage</code> formats, the <code>dsn</code> would be a file name. <code>st_read()</code> guesses the driver based on the file extension, as illustrated for a <code>.gpkg</code> file below:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
+<span class="co">#&gt; Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0</span>
+vector_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
+world =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)
+<span class="co">#&gt; Reading layer `wrld.gpkg&#39; from data source `/home/travis/R/Library/spData/shapes/world.gpkg&#39; using driver `GPKG&#39;</span>
+<span class="co">#&gt; Simple feature collection with 177 features and 10 fields</span>
+<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513</span>
+<span class="co">#&gt; epsg (SRID):    4326</span>
+<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span></code></pre></div>
+<p>For some drivers, <code>dsn</code> could be provided as a folder name, access credentials for a database, or a GeoJSON string representation. <!-- Do we have a place for the examples? --></p>
+<p>Some of vector driver formats could store many layers of data. <code>st_read</code> automatically read the first layer of the file specified in <code>dsn</code>, however it is also possible to select a different layer by its name using the <code>layer</code> argument.</p>
+<p>Many GDAL drivers have different open options<a href="#fn27" class="footnoteRef" id="fnref27"><sup>27</sup></a>. For example, spatial data in text files could be stored in several ways. Simple point dataset could just have two columns describing their x and y coordinates. To read these files, you need to specify names of those columns using the <code>options</code> argument:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cycle_hire_txt =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;misc/cycle_hire_xy.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
+cycle_hire_xy =<span class="st"> </span><span class="kw">st_read</span>(cycle_hire_txt, <span class="dt">options =</span> <span class="kw">c</span>(<span class="st">&quot;X_POSSIBLE_NAMES=X&quot;</span>,
+                                                    <span class="st">&quot;Y_POSSIBLE_NAMES=Y&quot;</span>))</code></pre></div>
+<p>More complex geometries cannot be described using only two numbers, however they could be represented by the well-known text (WKT), well-known binary (WKB), and in the GeoJSON form, for example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_txt =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;misc/world_wkt.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
+world_wkt =<span class="st"> </span><span class="kw">st_read</span>(world_txt, <span class="dt">options =</span> <span class="st">&quot;GEOM_POSSIBLE_NAMES=WKT&quot;</span>)</code></pre></div>
+
+<div class="rmdnote">
+Not all of the supported vector file formats store information about theirs coordinate reference system. In these situations, it is possible to add the missing information using the <code>st_set_crs()</code> function. More on that in the section <a href="spatial-class.html#crs-intro">2.3</a>.
+</div>
+<p></p>
+<!-- isn't that confusing for users? -->
+<p><strong>Tip</strong>: <code>read_sf()</code> and <code>write_sf()</code> can be used as easy-to-remember alternatives to <code>st_read()</code> and <code>st_write()</code>. Remember they hide information about the data source and overwrite existing data, though.</p>
+<p>To find out which data formats <strong>sf</strong> supports, run <code>st_drivers()</code>. Here, we show only the first two drivers (see <a href="read-write.html#tab:drivers">5.2</a>):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_drivers =<span class="st"> </span><span class="kw">st_drivers</span>()
+<span class="kw">head</span>(sf_drivers, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
+<table>
+<caption><span id="tab:drivers">Table 5.2: </span>Sample of available drivers for reading/writing vector data (it could vary between different GDAL versions).</caption>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">long_name</th>
+<th align="left">write</th>
+<th align="left">copy</th>
+<th align="left">is_raster</th>
+<th align="left">is_vector</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ESRI Shapefile</td>
+<td align="left">ESRI Shapefile</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">GPX</td>
+<td align="left">GPX</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">KML</td>
+<td align="left">Keyhole Markup Language (KML)</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">GeoJSON</td>
+<td align="left">GeoJSON</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">GPKG</td>
+<td align="left">GeoPackage</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="raster-data-1" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> Raster data</h3>
+<p>Raster data also could exist in many different file formats, with some of the formats supporting multilayer files<a href="#fn28" class="footnoteRef" id="fnref28"><sup>28</sup></a>. The <strong>raster</strong> package allow reading a single layer by <code>raster()</code> and many layers using either <code>brick()</code> or <code>stack()</code>. More information about the raster representation in this package could be find in the section <a href="spatial-class.html#raster-classes">2.2.3</a>.</p>
+<p>The <code>raster()</code> function makes it possible to read a simple single layer file.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
+<span class="kw">library</span>(spDataLarge)
+raster_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/srtm.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
+single_layer =<span class="st"> </span><span class="kw">raster</span>(raster_filepath)</code></pre></div>
+<p>You can also read just one layer (band) from a multilayer file by specifying the <code>band</code> argument.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">raster_multilayer_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
+single_layer_band3 =<span class="st"> </span><span class="kw">raster</span>(raster_multilayer_filepath, <span class="dt">band =</span> <span class="dv">3</span>)</code></pre></div>
+<p>The whole multilayer raster file is read by <code>brick()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">multilayer_layer_brick =<span class="st"> </span><span class="kw">brick</span>(raster_multilayer_filepath)</code></pre></div>
+<p>Finally, many single and multilayer rasters could be read together using the <code>stack()</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">raster_l1_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat_b2.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
+raster_l2_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat_b3.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
+ 
+multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(raster_l1_filepath, raster_l2_filepath)</code></pre></div>
+<p>The <code>stack()</code> class is limited to datasets that have the same spatial extent and resolution.</p>
+</div>
+</div>
+<div id="data-output" class="section level2">
+<h2><span class="header-section-number">5.3</span> Data output (O)</h2>
+<p>The ability of writing spatial data could be used for conversion between different formats and for saving newly created objects. Depending on the data type (vector or raster), object class (e.g <code>multipoint</code> or <code>RasterLayer</code>), and type and amount of stored information (e.g. object size, range of values) - it is important to know how to store spatial files in the most efficient way. The next two section will show how to do that.</p>
+<!-- should we add a note about recommended way to decide on a file name, for example "don't use spaces in the name", "create descriptive names" -->
+<div id="vector-data-2" class="section level3">
+<h3><span class="header-section-number">5.3.1</span> Vector data</h3>
+<p>The counterpart of <code>st_read()</code> is <code>st_write()</code>. It allows to write <strong>sf</strong> objects to a wide range of geographic vector file formats, including the most common ones such as <code>.geojson</code>, <code>.shp</code> and <code>.gpkg</code>. Based on the file name, <code>st_write()</code> decides automatically which driver to use. How fast the writing process is depends also on the driver. <!-- ref to the vignette --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(<span class="dt">obj =</span> world, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>)
+<span class="co">#&gt; Writing layer `world&#39; to data source `world.gpkg&#39; using driver `GPKG&#39;</span>
+<span class="co">#&gt; features:       177</span>
+<span class="co">#&gt; fields:         10</span>
+<span class="co">#&gt; geometry type:  Multi Polygon</span></code></pre></div>
+<p><strong>Note</strong>: if you try to write to the same data source again, the function will fail:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(<span class="dt">obj =</span> world, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>)
+<span class="co">#&gt; Updating layer `world&#39; to data source `/home/travis/build/Robinlovelace/geocompr/world.gpkg&#39; using driver `GPKG&#39;</span>
+<span class="co">#&gt; Warning in CPL_write_ogr(obj, dsn, layer, driver, as.character(dataset_options), : GDAL Error 1: Layer world already exists, CreateLayer failed.</span>
+<span class="co">#&gt; Use the layer creation option OVERWRITE=YES to replace it.</span>
+<span class="co">#&gt; Creating layer world failed.</span>
+<span class="co">#&gt; Error in CPL_write_ogr(obj, dsn, layer, driver, as.character(dataset_options), : Layer creation failed.</span></code></pre></div>
+<!-- ##   GDAL Error 1: Layer world.gpkg already exists, CreateLayer failed. -->
+<!-- ## Use the layer creation option OVERWRITE=YES to replace it. -->
+<p>The error message provides some information as to why the function failed. The <code>GDAL Error 1</code> statement makes clear that the failure occurred at the GDAL level. Additionally, the suggestion to use <code>OVERWRITE=YES</code> provides a clue how to fix the problem. However, this is not a <code>st_write()</code> argument, it is a GDAL option. Luckily, <code>st_write</code> provides a <code>layer_options</code> argument through which we can pass driver-dependent options:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(<span class="dt">obj =</span> world, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">layer_options =</span> <span class="st">&quot;OVERWRITE=YES&quot;</span>)</code></pre></div>
+<p>Another solution is to use the <code>st_write()</code> argument <code>delete_layer</code>. Setting it to <code>TRUE</code> deletes already existing layers in the data source before the function attempts to write (note there is also a <code>delete_dsn</code> argument):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(<span class="dt">obj =</span> world, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">delete_layer =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>You can achieve the same with <code>write_sf()</code> since it is equivalent to (technically an <em>alias</em> for) <code>st_write()</code>, except that its defaults for <code>delete_layer</code> and <code>quiet</code> is <code>TRUE</code>. <!-- This enables spatial data to be overwritten more concisely, and with less output going to screen: --> <!-- What does this mean: overwritten more concisely? --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write_sf</span>(<span class="dt">obj =</span> world, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>)</code></pre></div>
+<!-- how about saving multilayer gpkg? -->
+<p>The <code>layer_options</code> argument could be also used for many different purposes. One of them is to write spatial data to a text file. This can be done by specifing <code>GEOMETRY</code> inside of <code>layer_options</code>. It could be either <code>AS_XY</code> for simple point datasets (it creates two new columns for coordinates) or <code>AS_WKT</code> for more complex spatial data (one new column is created which contains the well-known-text representation of spatial objects).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spData)
+<span class="kw">st_write</span>(cycle_hire_xy, <span class="st">&quot;cycle_hire_xy.csv&quot;</span>, <span class="dt">layer_options =</span> <span class="st">&quot;GEOMETRY=AS_XY&quot;</span>)
+<span class="kw">st_write</span>(world_wkt, <span class="st">&quot;world_wkt.csv&quot;</span>, <span class="dt">layer_options =</span> <span class="st">&quot;GEOMETRY=AS_WKT&quot;</span>)</code></pre></div>
+</div>
+<div id="raster-data-2" class="section level3">
+<h3><span class="header-section-number">5.3.2</span> Raster data</h3>
+<p>The <code>writeRaster()</code> function save the <code>Raster*</code> objects to files. There are several decision to be made while saving rasters, such as an output data type, file format, and specific GDAL options related to selected file format. The complete list of an arguments to this function could be found by typing <code>?writeRaster()</code>.</p>
+<!-- datatypes -->
+<p>The <strong>raster</strong> package offers nine following datatypes: LOG1S, INT1S, INT1U, INT2S, INT2U, INT4S, INT4U, FLT4S, and FLT8S<a href="#fn29" class="footnoteRef" id="fnref29"><sup>29</sup></a>. Datatype determines the type of numbers and the range of the raster values that would be written to disk (<a href="read-write.html#tab:datatypes">5.3</a>). Decision which datatype should be used depends on the expected range of the values in the output file. For example, LOG1S is used for bitmap (binary) images, unsigned integers (INT1U, INT2U, INT4U) are mostly used for categorical data, while floats (FLT4S and FLTS8S) usually represent continuous data. The default datatype used in <code>writeRaster()</code> is FLT4S. While it works in most of the cases, the size of the output file would be large. Therefore, a rule of thumb is to use the smallest representation that fits all the values (range of values could be checked using the <code>summary()</code> function).</p>
+<table>
+<caption><span id="tab:datatypes">Table 5.3: </span>Datatypes supported by the raster package</caption>
+<thead>
+<tr class="header">
+<th align="left">Datatype</th>
+<th align="left">Minimum value</th>
+<th align="left">Maximum value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">LOG1S</td>
+<td align="left">FALSE (0)</td>
+<td align="left">TRUE (1)</td>
+</tr>
+<tr class="even">
+<td align="left">INT1S</td>
+<td align="left">-127</td>
+<td align="left">127</td>
+</tr>
+<tr class="odd">
+<td align="left">INT1U</td>
+<td align="left">0</td>
+<td align="left">255</td>
+</tr>
+<tr class="even">
+<td align="left">INT2S</td>
+<td align="left">-32,767</td>
+<td align="left">32,767</td>
+</tr>
+<tr class="odd">
+<td align="left">INT2U</td>
+<td align="left">0</td>
+<td align="left">65,534</td>
+</tr>
+<tr class="even">
+<td align="left">INT4S</td>
+<td align="left">-2,147,483,647</td>
+<td align="left">2,147,483,647</td>
+</tr>
+<tr class="odd">
+<td align="left">INT4U</td>
+<td align="left">0</td>
+<td align="left">4,294,967,296</td>
+</tr>
+<tr class="even">
+<td align="left">FLT4S</td>
+<td align="left">-3.4e+38</td>
+<td align="left">3.4e+38</td>
+</tr>
+<tr class="odd">
+<td align="left">FLT8S</td>
+<td align="left">-1.7e+308</td>
+<td align="left">1.7e+308</td>
+</tr>
+</tbody>
+</table>
+<p>To save the <code>Raster*</code> object to a file, the file extension needs to be specified. For example you need to add the <code>.tif</code> extension to create a GeoTIFF file:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">writeRaster</span>(<span class="dt">x =</span> single_layer,
+            <span class="dt">filename =</span> <span class="st">&quot;my_raster.tif&quot;</span>,
+            <span class="dt">datatype =</span> <span class="st">&quot;INT2U&quot;</span>)</code></pre></div>
+<p>The <code>raster</code> file format (native to the <code>raster</code> package) is used when a file extension is missing or is invalid.</p>
+<p>Some raster file formats also accept additional creation options with the <code>options</code> argument<a href="#fn30" class="footnoteRef" id="fnref30"><sup>30</sup></a>. For example, in GeoTIFF you could specify a compress method using the <code>COMPRESS</code> option<a href="#fn31" class="footnoteRef" id="fnref31"><sup>31</sup></a>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">writeRaster</span>(<span class="dt">x =</span> single_layer,
+            <span class="dt">filename =</span> <span class="st">&quot;my_raster.tif&quot;</span>,
+            <span class="dt">datatype =</span> <span class="st">&quot;INT2U&quot;</span>,
+            <span class="dt">options =</span> <span class="kw">c</span>(<span class="st">&quot;COMPRESS=DEFLATE&quot;</span>))</code></pre></div>
+<p>Full list of the supported file format for writing <code>Raster*</code> objects could be found using <code>writeFormats().</code></p>
+</div>
 </div>
 <div id="visual-outputs" class="section level2">
 <h2><span class="header-section-number">5.4</span> Visual outputs</h2>

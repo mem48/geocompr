@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveae973df27b8b6743
+preserve46324e56890881a1
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3420,8 +3420,8 @@ Finally, compute the difference between the raster using the euclidean distance 
 The previous chapters provided an overview of spatial data classes in R, with a focus on simple features and rasters.
 This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world.
 Geocomputation usually involves reading existing data, and saving it after processing sections.
-Therefore, knowing how to efficiently read and write spatial data is crucial (see sections \@ref(data-input) and \@ref(data-output)).
-For the same purposes, it is important be aware of the most often used spatial file format and their strong and weak sides (see section \@ref(file-formats)).
+Therefore, it is important be aware of the most often used spatial file format and their strong and weak sides (see section \@ref(file-formats)).
+For the same purposes knowing how to efficiently read and write spatial data is crucial (see sections \@ref(data-input) and \@ref(data-output)).
 We also include a section (\@ref(visual-outputs)) on visualization because outputting data in a human (not just computer) readable format enables non-programmers to benefit from your work.
 If your aim is to use geocomputation to improve the world, e.g. by encouraging evidence-based policies, this final stage is vital.
 
@@ -3430,6 +3430,39 @@ We use the acronym instead of plain English not to confuse you or to make chapte
 Concepts such as computational efficiency, hard disk space and 'idempotence' are useful when thinking about reading and writing geographic datasets, which can become large and difficult to handle.
 Loading/saving data is yet another way of saying the same thing.
 ]
+
+## File formats
+
+<!-- an intro -->
+<!-- many different formats -->
+<!-- main three groups (vector, raster, geodatabase) -->
+<!-- format model (open/proprietary) (importance of interoperabillity) -->
+<!-- way of storage (single file, multiple files, folders) -->
+<!-- GDAL (it's great - you can read, convert, and very often (though not always) write) -->
+<!-- GDAL info "it is possible to have smaller number of supported formats than there are on the GDAL webpage; you may need to recompile..." -->
+
+
+Table: (\#tab:unnamed-chunk-2)Selected spatial file formats
+
+Name                Extension              Info                                                                                                                                                                                                                                                                                     Type                Model          
+------------------  ---------------------  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  ------------------  ---------------
+ESRI Shapefile      .shp (the main file)   One of the most popular vector file format. Consists of at least three files. The main files size cannot exceed 2 GB. It lacks support for mixed type. Columns names are limited to 10 characters, and number of columns are limited at 255. It has poor support for Unicode standard.   Vector              Partially open 
+GeoJSON             .geojson               Format designed for representation of simple features. It is often used for a web applications.                                                                                                                                                                                          Vector              Open           
+KML                 .kml                   XML-based format for spatial visualization, developed for use with Google Earth. Zipped KML file from the KMZ format.                                                                                                                                                                    Vector              Open           
+GPX                 .gpx                   XML schema created for exchange of GPS data.                                                                                                                                                                                                                                             Vector              Open           
+GeoTIFF             .tiff                  GeoTIFF is one of the most popular raster formats. Its structure is similar to the regular `.tif` format, however GeoTIFF also stores additional spatial metadata, such as coordinate reference system, spatial extent, `NoData` value, and the data resolution.                         Raster              Open           
+Arc ASCII           .asc                   Text format where the first six lines represent grid information and nodata value, followed by the values arranged in rows and columns.                                                                                                                                                  Raster              ?              
+R-raster            .gri, .grd             Native format of the raster package.                                                                                                                                                                                                                                                     Raster              Open           
+SQLite/SpatiaLite   .sqlite                SQLite is a standalone, relational database management system. It is used as a default database driver in GRASS GIS 7. SpatiaLite is an extension to SQLite providing a support for Simple Features.                                                                                     Vector and raster   Open           
+ESRI FileGDB        .gdb                   Collection of spatial and nonspatial objects created in the ArcGIS software.                                                                                                                                                                                                             Vector and raster                  
+GeoPackage          .gpkg                  An extended SQLite database file designed to be lightweight.                                                                                                                                                                                                                             Vector and raster   Open           
+
+
+<!-- 3. JPEG - (possibly mention SAGA's sdat, Erdas Imagine) -->
+<!-- 1. SQLite/SpatialLite + mention GRASS (uses SQLite) -->
+<!-- 3. WKT/WKB for transfering and storing geometry data on databases. PostGIS (has even its own raster WKT (https://trac.osgeo.org/postgis/wiki/WKTRasterTutorial01); WKT also supported by Spatiallite, Oracle, MySQL, etc. (https://en.wikipedia.org/wiki/Well-known_text#RDBMS_Engines_that_provide_support) -->
+<!-- 4. ESRI geodatabase, Oracle spatial database (mention + gdal support?) -->
+
 
 ## Data Input (I) {#data-input}
 
@@ -3697,38 +3730,6 @@ writeRaster(x = single_layer,
 ```
 
 Full list of the supported file format for writing `Raster*` objects could be found using `writeFormats().`
-
-## File formats
-
-<!-- an intro -->
-<!-- many different formats -->
-<!-- main three groups (vector, raster, geodatabase) -->
-<!-- format model (open/proprietary) (importance of interoperabillity) -->
-<!-- way of storage (single file, multiple files, folders) -->
-<!-- GDAL (it's great - you can read, convert, and very often (though not always) write) -->
-<!-- GDAL info "it is possible to have smaller number of supported formats than there are on the GDAL webpage; you may need to recompile..." -->
-
-
-Table: (\#tab:unnamed-chunk-20)Selected spatial file formats
-
-Name                Extension              Info                                                                                                                                                                                                                                                                                     Type                Model          
-------------------  ---------------------  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  ------------------  ---------------
-ESRI Shapefile      .shp (the main file)   One of the most popular vector file format. Consists of at least three files. The main files size cannot exceed 2 GB. It lacks support for mixed type. Columns names are limited to 10 characters, and number of columns are limited at 255. It has poor support for Unicode standard.   Vector              Partially open 
-GeoJSON             .geojson               Format designed for representation of simple features. It is often used for a web applications.                                                                                                                                                                                          Vector              Open           
-KML                 .kml                   XML-based format for spatial visualization, developed for use with Google Earth. Zipped KML file from the KMZ format.                                                                                                                                                                    Vector              Open           
-GPX                 .gpx                   XML schema created for exchange of GPS data.                                                                                                                                                                                                                                             Vector              Open           
-GeoTIFF             .tiff                  GeoTIFF is one of the most popular raster formats. Its structure is similar to the regular `.tif` format, however GeoTIFF also stores additional spatial metadata, such as coordinate reference system, spatial extent, `NoData` value, and the data resolution.                         Raster              Open           
-Arc ASCII           .asc                   Text format where the first six lines represent grid information and nodata value, followed by the values arranged in rows and columns.                                                                                                                                                  Raster              ?              
-R-raster            .gri, .grd             Native format of the raster package.                                                                                                                                                                                                                                                     Raster              Open           
-SQLite/SpatiaLite   .sqlite                SQLite is a standalone, relational database management system. It is used as a default database driver in GRASS GIS 7. SpatiaLite is an extension to SQLite providing a support for Simple Features.                                                                                     Vector and raster   Open           
-ESRI FileGDB        .gdb                   Collection of spatial and nonspatial objects created in the ArcGIS software.                                                                                                                                                                                                             Vector and raster                  
-GeoPackage          .gpkg                  An extended SQLite database file designed to be lightweight.                                                                                                                                                                                                                             Vector and raster   Open           
-
-
-<!-- 3. JPEG - (possibly mention SAGA's sdat, Erdas Imagine) -->
-<!-- 1. SQLite/SpatialLite + mention GRASS (uses SQLite) -->
-<!-- 3. WKT/WKB for transfering and storing geometry data on databases. PostGIS (has even its own raster WKT (https://trac.osgeo.org/postgis/wiki/WKTRasterTutorial01); WKT also supported by Spatiallite, Oracle, MySQL, etc. (https://en.wikipedia.org/wiki/Well-known_text#RDBMS_Engines_that_provide_support) -->
-<!-- 4. ESRI geodatabase, Oracle spatial database (mention + gdal support?) -->
 
 ## Visual outputs
 
