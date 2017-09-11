@@ -360,7 +360,7 @@ Not all of the supported vector file formats store information about theirs coor
 <p></p>
 <!-- isn't that confusing for users? -->
 <p><strong>Tip</strong>: <code>read_sf()</code> and <code>write_sf()</code> can be used as easy-to-remember alternatives to <code>st_read()</code> and <code>st_write()</code>. Remember they hide information about the data source and overwrite existing data, though.</p>
-<p>To find out which data formats <strong>sf</strong> supports, run <code>st_drivers()</code>. Here, we show only the first two drivers (see <a href="read-write.html#tab:drivers">5.2</a>):</p>
+<p>To find out which data formats <strong>sf</strong> supports, run <code>st_drivers()</code>. Here, we show only the first two drivers (see Table <a href="read-write.html#tab:drivers">5.2</a>):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_drivers =<span class="st"> </span><span class="kw">st_drivers</span>()
 <span class="kw">head</span>(sf_drivers, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
 <table>

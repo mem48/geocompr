@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve46324e56890881a1
+preserve760b34022fab73d6
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3531,7 +3531,7 @@ More on that in the section \@ref(crs-intro).</div>\EndKnitrBlock{rmdnote}
 Remember they hide information about the data source and overwrite existing data, though.
 
 To find out which data formats **sf** supports, run `st_drivers()`. 
-Here, we show only the first two drivers (see \@ref(tab:drivers)):
+Here, we show only the first two drivers (see Table \@ref(tab:drivers)):
 
 
 ```r
