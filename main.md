@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve0bff3bde427d12f4
+preserve2ba5ba1f225e7dde
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3434,17 +3434,29 @@ Loading/saving data is yet another way of saying the same thing.
 ## File formats
 
 Spatial data is usually stored as files or geodatabases. 
-File-based data formats could keep either vector or raster data, while geodatabases could store both of these data types.
-Historically, GIS file formats were developed by mapping agencies and software companies.<!--add examples-->
+File-based data formats could keep either vector or raster data, while geodatabases could store both.
+Historically, GIS file formats were developed by mapping agencies and software companies. <!--examples-->
+It caused many issues with exachange of data between different sources.
 
-<!-- moved to open standards and GDAL -->
-<!-- format model (open/proprietary) (importance of interoperabillity) -->
-<!-- way of storage (single file, multiple files, folders) -->
+The big improvement came with the release of GDAL. <!--name and pronunciation-->
+It has enabled for reading and writing many raster and vector data formats and in the next few years was incorporated into many open and proprietary GIS software, such as GRASS GIS, QGIS, ArcGIS, and ENVI.
 <!-- GDAL (it's great - you can read, convert, and very often (though not always) write) -->
 <!-- GDAL info "it is possible to have smaller number of supported formats than there are on the GDAL webpage; you may need to recompile..." -->
 
+Antoher change for spatial data formats came with the foundation of Open Geospatial Consortium (OGC)^[http://www.opengeospatial.org].
+This organization collaborate on a developmet and implementation of open standards for geospatial content including file formats.
+Some of theirs products are the KML and GeoPackage formats, as well as the Simple Feature standard. 
+Development and mantaining of spatial file formats in an open model provides several benefits over the proprietary formats and eases interoperability.
 
-Table: (\#tab:unnamed-chunk-2)Selected spatial file formats
+Nowadays, more than a hundred of spatial data formats exist, many of which could be used for the same purposes. 
+<!-- In the same time, they could differ in many ways. -->
+<!-- Spatial data could be stored as a single file (e.g. GeoPackage), multiple files (e.g. ESRI Shapefile), or folders (ESRI ArcInfo Coverages). -->
+<!-- way of storage (single file, multiple files, folders) -->
+Table \@ref(tab:formats) presents some basic information about selected, often used spatial file formats.
+
+
+
+Table: (\#tab:formats)Selected spatial file formats
 
 Name                Extension              Info                                                                                                                                                                                                                                                                                     Type                Model          
 ------------------  ---------------------  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  ------------------  ---------------
@@ -3456,15 +3468,13 @@ GeoTIFF             .tiff                  GeoTIFF is one of the most popular ra
 Arc ASCII           .asc                   Text format where the first six lines represent grid information and nodata value, followed by the values arranged in rows and columns.                                                                                                                                                  Raster              ?              
 R-raster            .gri, .grd             Native format of the raster package.                                                                                                                                                                                                                                                     Raster              Open           
 SQLite/SpatiaLite   .sqlite                SQLite is a standalone, relational database management system. It is used as a default database driver in GRASS GIS 7. SpatiaLite is an extension to SQLite providing a support for Simple Features.                                                                                     Vector and raster   Open           
-ESRI FileGDB        .gdb                   Collection of spatial and nonspatial objects created in the ArcGIS software.                                                                                                                                                                                                             Vector and raster                  
+ESRI FileGDB        .gdb                   Collection of spatial and nonspatial objects created in the ArcGIS software.                                                                                                                                                                                                             Vector and raster   ?              
 GeoPackage          .gpkg                  An extended SQLite database file designed to be lightweight.                                                                                                                                                                                                                             Vector and raster   Open           
-
 
 <!-- 3. JPEG - (possibly mention SAGA's sdat, Erdas Imagine) -->
 <!-- 1. SQLite/SpatialLite + mention GRASS (uses SQLite) -->
 <!-- 3. WKT/WKB for transfering and storing geometry data on databases. PostGIS (has even its own raster WKT (https://trac.osgeo.org/postgis/wiki/WKTRasterTutorial01); WKT also supported by Spatiallite, Oracle, MySQL, etc. (https://en.wikipedia.org/wiki/Well-known_text#RDBMS_Engines_that_provide_support) -->
 <!-- 4. ESRI geodatabase, Oracle spatial database (mention + gdal support?) -->
-
 
 ## Data Input (I) {#data-input}
 
@@ -3780,6 +3790,11 @@ mapshot(mapview_obj, file = "lifeExp_mapview.png")
 <!-- output x2 -->
 
 <!-- maps x2 -->
+
+<!-- List and describe three types of vector format. -->
+<!-- List and describe three types of raster format. -->
+<!-- Why do we have so many types of data formats, and why are they so difficult to use together? -->
+
 
 [^1]: A list of supported vector formats and theirs options could be found at http://www.gdal.org/ogr_formats.html.
 

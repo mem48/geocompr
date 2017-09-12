@@ -231,14 +231,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>I/O is short for “input/output” which means, in plain English, “reading and writing data”. We use the acronym instead of plain English not to confuse you or to make chapter names short, but because that’s the term used in computer science and it is useful to think of data import and export from a computing perspective.<a href="#fn24" class="footnoteRef" id="fnref24"><sup>24</sup></a></p>
 <div id="file-formats" class="section level2">
 <h2><span class="header-section-number">5.1</span> File formats</h2>
-<p>Spatial data is usually stored as files or geodatabases. File-based data formats could keep either vector or raster data, while geodatabases could store both of these data types. Historically, GIS file formats were developed by mapping agencies and software companies.<!--add examples--></p>
-<!-- moved to open standards and GDAL -->
-<!-- format model (open/proprietary) (importance of interoperabillity) -->
-<!-- way of storage (single file, multiple files, folders) -->
-<!-- GDAL (it's great - you can read, convert, and very often (though not always) write) -->
-<!-- GDAL info "it is possible to have smaller number of supported formats than there are on the GDAL webpage; you may need to recompile..." -->
+<p>Spatial data is usually stored as files or geodatabases. File-based data formats could keep either vector or raster data, while geodatabases could store both. Historically, GIS file formats were developed by mapping agencies and software companies. <!--examples--> It caused many issues with exachange of data between different sources.</p>
+<p>The big improvement came with the release of GDAL. <!--name and pronunciation--> It has enabled for reading and writing many raster and vector data formats and in the next few years was incorporated into many open and proprietary GIS software, such as GRASS GIS, QGIS, ArcGIS, and ENVI. <!-- GDAL (it's great - you can read, convert, and very often (though not always) write) --> <!-- GDAL info "it is possible to have smaller number of supported formats than there are on the GDAL webpage; you may need to recompile..." --></p>
+<p>Antoher change for spatial data formats came with the foundation of Open Geospatial Consortium (OGC)<a href="#fn25" class="footnoteRef" id="fnref25"><sup>25</sup></a>. This organization collaborate on a developmet and implementation of open standards for geospatial content including file formats. Some of theirs products are the KML and GeoPackage formats, as well as the Simple Feature standard. Development and mantaining of spatial file formats in an open model provides several benefits over the proprietary formats and eases interoperability.</p>
+<p>Nowadays, more than a hundred of spatial data formats exist, many of which could be used for the same purposes. <!-- In the same time, they could differ in many ways. --> <!-- Spatial data could be stored as a single file (e.g. GeoPackage), multiple files (e.g. ESRI Shapefile), or folders (ESRI ArcInfo Coverages). --> <!-- way of storage (single file, multiple files, folders) --> Table <a href="read-write.html#tab:formats">5.1</a> presents some basic information about selected, often used spatial file formats.</p>
 <table>
-<caption><span id="tab:unnamed-chunk-2">Table 5.1: </span>Selected spatial file formats</caption>
+<caption><span id="tab:formats">Table 5.1: </span>Selected spatial file formats</caption>
 <thead>
 <tr class="header">
 <th align="left">Name</th>
@@ -310,7 +308,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <td align="left">.gdb</td>
 <td align="left">Collection of spatial and nonspatial objects created in the ArcGIS software.</td>
 <td align="left">Vector and raster</td>
-<td align="left"></td>
+<td align="left">?</td>
 </tr>
 <tr class="even">
 <td align="left">GeoPackage</td>
@@ -328,10 +326,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="data-input" class="section level2">
 <h2><span class="header-section-number">5.2</span> Data Input (I)</h2>
-<p>To efficiently read data into R, it helps to have an understanding of what happens ‘under the hood’. Executing commands such as <code>sf::st_read()</code> (the main function we use for loading vector data) or <code>raster::raster()</code> (the main function used for loading raster data) silently sets off a chain of events that loads objects. “Loading” in this context means loading the data into R or, more precisely, assigning objects to your workspace, stored in RAM accessible from the <code>.GlobalEnv</code><a href="#fn25" class="footnoteRef" id="fnref25"><sup>25</sup></a> of your current R session.</p>
+<p>To efficiently read data into R, it helps to have an understanding of what happens ‘under the hood’. Executing commands such as <code>sf::st_read()</code> (the main function we use for loading vector data) or <code>raster::raster()</code> (the main function used for loading raster data) silently sets off a chain of events that loads objects. “Loading” in this context means loading the data into R or, more precisely, assigning objects to your workspace, stored in RAM accessible from the <code>.GlobalEnv</code><a href="#fn26" class="footnoteRef" id="fnref26"><sup>26</sup></a> of your current R session.</p>
 <div id="vector-data-1" class="section level3">
 <h3><span class="header-section-number">5.2.1</span> Vector data</h3>
-<p>Spatial vector data comes in a wide variety of file formats, most of which can be read-in via the <strong>sf</strong> function <code>st_read()</code>. Behind the scenes this calls GDAL.<a href="#fn26" class="footnoteRef" id="fnref26"><sup>26</sup></a> One of the major advantages of <strong>sf</strong> is that it is fast. <!-- reference to the vignette --> The first argument of <code>st_read()</code> is <code>dsn</code>, which should be a text string or an object containing a single text string. The content of a text string could vary between different drivers. In most cases, as with <code>.shp</code> file of <code>ESRI Shapefile</code> or <code>.gpkg</code> files of <code>GeoPackage</code> formats, the <code>dsn</code> would be a file name. <code>st_read()</code> guesses the driver based on the file extension, as illustrated for a <code>.gpkg</code> file below:</p>
+<p>Spatial vector data comes in a wide variety of file formats, most of which can be read-in via the <strong>sf</strong> function <code>st_read()</code>. Behind the scenes this calls GDAL.<a href="#fn27" class="footnoteRef" id="fnref27"><sup>27</sup></a> One of the major advantages of <strong>sf</strong> is that it is fast. <!-- reference to the vignette --> The first argument of <code>st_read()</code> is <code>dsn</code>, which should be a text string or an object containing a single text string. The content of a text string could vary between different drivers. In most cases, as with <code>.shp</code> file of <code>ESRI Shapefile</code> or <code>.gpkg</code> files of <code>GeoPackage</code> formats, the <code>dsn</code> would be a file name. <code>st_read()</code> guesses the driver based on the file extension, as illustrated for a <code>.gpkg</code> file below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
 <span class="co">#&gt; Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0</span>
 vector_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
@@ -345,7 +343,7 @@ world =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span></code></pre></div>
 <p>For some drivers, <code>dsn</code> could be provided as a folder name, access credentials for a database, or a GeoJSON string representation. <!-- Do we have a place for the examples? --></p>
 <p>Some of vector driver formats could store many layers of data. <code>st_read</code> automatically read the first layer of the file specified in <code>dsn</code>, however it is also possible to select a different layer by its name using the <code>layer</code> argument.</p>
-<p>Many GDAL drivers have different open options<a href="#fn27" class="footnoteRef" id="fnref27"><sup>27</sup></a>. For example, spatial data in text files could be stored in several ways. Simple point dataset could just have two columns describing their x and y coordinates. To read these files, you need to specify names of those columns using the <code>options</code> argument:</p>
+<p>Many GDAL drivers have different open options<a href="#fn28" class="footnoteRef" id="fnref28"><sup>28</sup></a>. For example, spatial data in text files could be stored in several ways. Simple point dataset could just have two columns describing their x and y coordinates. To read these files, you need to specify names of those columns using the <code>options</code> argument:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cycle_hire_txt =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;misc/cycle_hire_xy.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
 cycle_hire_xy =<span class="st"> </span><span class="kw">st_read</span>(cycle_hire_txt, <span class="dt">options =</span> <span class="kw">c</span>(<span class="st">&quot;X_POSSIBLE_NAMES=X&quot;</span>,
                                                     <span class="st">&quot;Y_POSSIBLE_NAMES=Y&quot;</span>))</code></pre></div>
@@ -420,7 +418,7 @@ Not all of the supported vector file formats store information about theirs coor
 </div>
 <div id="raster-data-1" class="section level3">
 <h3><span class="header-section-number">5.2.2</span> Raster data</h3>
-<p>Raster data also could exist in many different file formats, with some of the formats supporting multilayer files<a href="#fn28" class="footnoteRef" id="fnref28"><sup>28</sup></a>. The <strong>raster</strong> package allow reading a single layer by <code>raster()</code> and many layers using either <code>brick()</code> or <code>stack()</code>. More information about the raster representation in this package could be find in the section <a href="spatial-class.html#raster-classes">2.2.3</a>.</p>
+<p>Raster data also could exist in many different file formats, with some of the formats supporting multilayer files<a href="#fn29" class="footnoteRef" id="fnref29"><sup>29</sup></a>. The <strong>raster</strong> package allow reading a single layer by <code>raster()</code> and many layers using either <code>brick()</code> or <code>stack()</code>. More information about the raster representation in this package could be find in the section <a href="spatial-class.html#raster-classes">2.2.3</a>.</p>
 <p>The <code>raster()</code> function makes it possible to read a simple single layer file.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
 <span class="kw">library</span>(spDataLarge)
@@ -476,7 +474,7 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <h3><span class="header-section-number">5.3.2</span> Raster data</h3>
 <p>The <code>writeRaster()</code> function save the <code>Raster*</code> objects to files. There are several decision to be made while saving rasters, such as an output data type, file format, and specific GDAL options related to selected file format. The complete list of an arguments to this function could be found by typing <code>?writeRaster()</code>.</p>
 <!-- datatypes -->
-<p>The <strong>raster</strong> package offers nine following datatypes: LOG1S, INT1S, INT1U, INT2S, INT2U, INT4S, INT4U, FLT4S, and FLT8S<a href="#fn29" class="footnoteRef" id="fnref29"><sup>29</sup></a>. Datatype determines the type of numbers and the range of the raster values that would be written to disk (<a href="read-write.html#tab:datatypes">5.3</a>). Decision which datatype should be used depends on the expected range of the values in the output file. For example, LOG1S is used for bitmap (binary) images, unsigned integers (INT1U, INT2U, INT4U) are mostly used for categorical data, while floats (FLT4S and FLTS8S) usually represent continuous data. The default datatype used in <code>writeRaster()</code> is FLT4S. While it works in most of the cases, the size of the output file would be large. Therefore, a rule of thumb is to use the smallest representation that fits all the values (range of values could be checked using the <code>summary()</code> function).</p>
+<p>The <strong>raster</strong> package offers nine following datatypes: LOG1S, INT1S, INT1U, INT2S, INT2U, INT4S, INT4U, FLT4S, and FLT8S<a href="#fn30" class="footnoteRef" id="fnref30"><sup>30</sup></a>. Datatype determines the type of numbers and the range of the raster values that would be written to disk (<a href="read-write.html#tab:datatypes">5.3</a>). Decision which datatype should be used depends on the expected range of the values in the output file. For example, LOG1S is used for bitmap (binary) images, unsigned integers (INT1U, INT2U, INT4U) are mostly used for categorical data, while floats (FLT4S and FLTS8S) usually represent continuous data. The default datatype used in <code>writeRaster()</code> is FLT4S. While it works in most of the cases, the size of the output file would be large. Therefore, a rule of thumb is to use the smallest representation that fits all the values (range of values could be checked using the <code>summary()</code> function).</p>
 <table>
 <caption><span id="tab:datatypes">Table 5.3: </span>Datatypes supported by the raster package</caption>
 <thead>
@@ -539,7 +537,7 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
             <span class="dt">filename =</span> <span class="st">&quot;my_raster.tif&quot;</span>,
             <span class="dt">datatype =</span> <span class="st">&quot;INT2U&quot;</span>)</code></pre></div>
 <p>The <code>raster</code> file format (native to the <code>raster</code> package) is used when a file extension is missing or is invalid.</p>
-<p>Some raster file formats also accept additional creation options with the <code>options</code> argument<a href="#fn30" class="footnoteRef" id="fnref30"><sup>30</sup></a>. For example, in GeoTIFF you could specify a compress method using the <code>COMPRESS</code> option<a href="#fn31" class="footnoteRef" id="fnref31"><sup>31</sup></a>:</p>
+<p>Some raster file formats also accept additional creation options with the <code>options</code> argument<a href="#fn31" class="footnoteRef" id="fnref31"><sup>31</sup></a>. For example, in GeoTIFF you could specify a compress method using the <code>COMPRESS</code> option<a href="#fn32" class="footnoteRef" id="fnref32"><sup>32</sup></a>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">writeRaster</span>(<span class="dt">x =</span> single_layer,
             <span class="dt">filename =</span> <span class="st">&quot;my_raster.tif&quot;</span>,
             <span class="dt">datatype =</span> <span class="st">&quot;INT2U&quot;</span>,
@@ -578,6 +576,9 @@ mapview_obj =<span class="st"> </span><span class="kw">mapview</span>(world, <sp
 <!-- input x2 -->
 <!-- output x2 -->
 <!-- maps x2 -->
+<!-- List and describe three types of vector format. -->
+<!-- List and describe three types of raster format. -->
+<!-- Why do we have so many types of data formats, and why are they so difficult to use together? -->
 
 </div>
 </div>
@@ -585,13 +586,14 @@ mapview_obj =<span class="st"> </span><span class="kw">mapview</span>(world, <sp
 <hr />
 <ol start="24">
 <li id="fn24"><p>Concepts such as computational efficiency, hard disk space and ‘idempotence’ are useful when thinking about reading and writing geographic datasets, which can become large and difficult to handle. Loading/saving data is yet another way of saying the same thing.<a href="read-write.html#fnref24">↩</a></p></li>
-<li id="fn25"><p>See <a href="http://adv-r.had.co.nz/Environments.html" class="uri">http://adv-r.had.co.nz/Environments.html</a> for more information on the environment<a href="read-write.html#fnref25">↩</a></p></li>
-<li id="fn26"><p>A list of supported vector formats and theirs options could be found at <a href="http://www.gdal.org/ogr_formats.html" class="uri">http://www.gdal.org/ogr_formats.html</a>.<a href="read-write.html#fnref26">↩</a></p></li>
+<li id="fn25"><p><a href="http://www.opengeospatial.org" class="uri">http://www.opengeospatial.org</a><a href="read-write.html#fnref25">↩</a></p></li>
+<li id="fn26"><p>See <a href="http://adv-r.had.co.nz/Environments.html" class="uri">http://adv-r.had.co.nz/Environments.html</a> for more information on the environment<a href="read-write.html#fnref26">↩</a></p></li>
 <li id="fn27"><p>A list of supported vector formats and theirs options could be found at <a href="http://www.gdal.org/ogr_formats.html" class="uri">http://www.gdal.org/ogr_formats.html</a>.<a href="read-write.html#fnref27">↩</a></p></li>
-<li id="fn28"><p>Full list of supported raster formats with theirs options could be found at <a href="http://www.gdal.org/formats_list.html" class="uri">http://www.gdal.org/formats_list.html</a><a href="read-write.html#fnref28">↩</a></p></li>
-<li id="fn29"><p>Using INT4U is not recommended as R does not support 32-bit unsigned integers.<!--recheck this info--><a href="read-write.html#fnref29">↩</a></p></li>
-<li id="fn30"><p>Full list of supported raster formats with theirs options could be found at <a href="http://www.gdal.org/formats_list.html" class="uri">http://www.gdal.org/formats_list.html</a><a href="read-write.html#fnref30">↩</a></p></li>
-<li id="fn31"><p>Creation options for the GeoTIFF format are at <a href="http://www.gdal.org/frmt_gtiff.html" class="uri">http://www.gdal.org/frmt_gtiff.html</a><a href="read-write.html#fnref31">↩</a></p></li>
+<li id="fn28"><p>A list of supported vector formats and theirs options could be found at <a href="http://www.gdal.org/ogr_formats.html" class="uri">http://www.gdal.org/ogr_formats.html</a>.<a href="read-write.html#fnref28">↩</a></p></li>
+<li id="fn29"><p>Full list of supported raster formats with theirs options could be found at <a href="http://www.gdal.org/formats_list.html" class="uri">http://www.gdal.org/formats_list.html</a><a href="read-write.html#fnref29">↩</a></p></li>
+<li id="fn30"><p>Using INT4U is not recommended as R does not support 32-bit unsigned integers.<!--recheck this info--><a href="read-write.html#fnref30">↩</a></p></li>
+<li id="fn31"><p>Full list of supported raster formats with theirs options could be found at <a href="http://www.gdal.org/formats_list.html" class="uri">http://www.gdal.org/formats_list.html</a><a href="read-write.html#fnref31">↩</a></p></li>
+<li id="fn32"><p>Creation options for the GeoTIFF format are at <a href="http://www.gdal.org/frmt_gtiff.html" class="uri">http://www.gdal.org/frmt_gtiff.html</a><a href="read-write.html#fnref32">↩</a></p></li>
 </ol>
 </div>
             </section>
