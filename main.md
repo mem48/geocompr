@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveb1b647cd5489615a
+preservef00d7be91af05bf5
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2560,8 +2560,7 @@ There are nine well-defined operations that can be used for spatial subsetting, 
 This may seem daunting but the good news is that you do not have to learn all of them separately:
 after you understand how to spatially subset objects that *intersect* another (via `st_intersects()`) it is easy to subset based on other types of spatial operation such as `st_touches()`, `st_crosses()` and `st_within()`.
 For this reason now we focus only on one of the spatial subsetting operations.
-We use `st_intersects()` instead of any of the others not only because it the default when subsetting with `[`,
-but also `st_intersects()` is useful as a 'catch all' that identifies all types of spatial relations.
+We use `st_intersects()` because it the default when subsetting with `[`, and is a useful as a 'catch all' that identifies all types of spatial relations.
 
 In general terms, spatial subsetting is simply the spatial equivalent of *attribute subsetting*.
 As with attribute subsetting, spatial subsetting is a *binary operation*: an object is either selected or not.
