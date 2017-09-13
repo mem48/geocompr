@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve286b024a3704caa1
+preserve282817c25b6435f2
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3495,10 +3495,10 @@ Name                Extension              Info                                 
 ------------------  ---------------------  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  ------------------  ---------------
 ESRI Shapefile      .shp (the main file)   One of the most popular vector file format. Consists of at least three files. The main files size cannot exceed 2 GB. It lacks support for mixed type. Columns names are limited to 10 characters, and number of columns are limited at 255. It has poor support for Unicode standard.   Vector              Partially open 
 GeoJSON             .geojson               Format designed for representation of simple features. It is often used for a web applications.                                                                                                                                                                                          Vector              Open           
-KML                 .kml                   XML-based format for spatial visualization, developed for use with Google Earth. Zipped KML file from the KMZ format.                                                                                                                                                                    Vector              Open           
+KML                 .kml                   XML-based format for spatial visualization, developed for use with Google Earth. Zipped KML file forms the KMZ format.                                                                                                                                                                   Vector              Open           
 GPX                 .gpx                   XML schema created for exchange of GPS data.                                                                                                                                                                                                                                             Vector              Open           
 GeoTIFF             .tiff                  GeoTIFF is one of the most popular raster formats. Its structure is similar to the regular `.tif` format, however GeoTIFF also stores additional spatial metadata, such as coordinate reference system, spatial extent, `NoData` value, and the data resolution.                         Raster              Open           
-Arc ASCII           .asc                   Text format where the first six lines represent grid information and nodata value, followed by the values arranged in rows and columns.                                                                                                                                                  Raster              ?              
+Arc ASCII           .asc                   Text format where the first six lines represent grid information and nodata value, followed by the values arranged in rows and columns.                                                                                                                                                  Raster              Open           
 R-raster            .gri, .grd             Native format of the raster package.                                                                                                                                                                                                                                                     Raster              Open           
 SQLite/SpatiaLite   .sqlite                SQLite is a standalone, relational database management system. It is used as a default database driver in GRASS GIS 7. SpatiaLite is an extension to SQLite providing a support for Simple Features.                                                                                     Vector and raster   Open           
 ESRI FileGDB        .gdb                   Collection of spatial and nonspatial objects created in the ArcGIS software. It allows to store multiple feature classes and enables use of topological definitions. Limited access to this format is provided by GDAL with the use of the OpenFileGDB and FileGDB drivers.              Vector and raster   Proprietary    
@@ -3512,8 +3512,9 @@ GeoPackage          .gpkg                  An extended SQLite database file desi
 ## Data Input (I) {#data-input}
 
 To efficiently read data into R, it helps to have an understanding of what happens 'under the hood'.
-Executing commands such as `sf::st_read()` (the main function we use for loading vector data) or `raster::raster()` (the main function used for loading raster data) silently sets off a chain of events that loads objects.
-"Loading" in this context means loading the data into R or, more precisely, assigning objects to your workspace, stored in RAM accessible from the `.GlobalEnv`^[See http://adv-r.had.co.nz/Environments.html for more information on the environment] of your current R session.
+Executing commands such as `sf::st_read()` (the main function we use for loading vector data) or `raster::raster()` (the main function used for loading raster data) silently sets off a chain of events that reads data from files.
+Moreover, there are many R packages containing wide range of spatial data or providing simple access to different data sources.
+All of them load the data into R or, more precisely, assign objects to your workspace, stored in RAM accessible from the `.GlobalEnv`^[See http://adv-r.had.co.nz/Environments.html for more information on the environment] of your current R session.
 
 ### Vector data
 
@@ -3637,6 +3638,10 @@ multilayer_layer_stack = stack(raster_l1_filepath, raster_l2_filepath)
 ```
 
 The `stack()` class is limited to datasets that have the same spatial extent and resolution.
+
+### Data packages
+
+<!-- Maybe add a section to Data I/O on where and how to retrieve data (with a focus on free data): osmdata (OpenStreetMap; maybe mention TomTom, HERE), rnoaa, raster (worldclim, MODIS, SRTM, ASTER), Landsat (wrspathrow), Sentinel (mention Python API), AVHRR, RapidEye rgbif, letsR, rWBclimate (world bank), etc. Of course, point to Transforming science through open data project (https://www.ropensci.org) -->
 
 ## Data output (O) {#data-output}
 
