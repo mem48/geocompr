@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservef00d7be91af05bf5
+preserve482eb03d23badacc
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2605,17 +2605,19 @@ buff = st_transform(buff, 32630)
 </div>
 
 The data to be subset, or 'target layer', is the `africa` object created above, which has a projected CRS (`32630`).
-Subsequently,the spatial subsetting operation is a single, concise command:
+Subsequently, spatial subsetting can be done with a single, concise command:
 
 
 ```r
 africa_buff = africa[buff, ]
 ```
 
-Note that the command emits a message: about assuming `planar coordinates`.
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">If we were using geographic ('lon/lat') data the previous command would have emitted a message warning about assuming `planar coordinates`.
 This is because spatial operations (especially distance and area calculations) cannot be assumed to be accurate in a geographic (longitude/latitude) CRS.
-In this case there is a clear justification: the data is close to the equator where there is least distortion caused by the curvature of the earth, and the example illustrates the method, which would more usually be used on projected ('planar') data.
-In any case, the spatial subsetting clearly worked since only countries which spatially intersect with the giant circle are returned (Figure \@ref(fig:africa-buff)):
+In this case one could justify the use of a lon/lat CRS: the data is close to the equator where there is least distortion caused by the curvature of the earth.
+It is good practice to reproject spatial datasets before performing spatial operations on them.</div>\EndKnitrBlock{rmdnote}
+
+The spatial subsetting clearly worked: only countries which intersecting with the giant circle are returned (Figure \@ref(fig:africa-buff)):
 
 
 ```r
@@ -2863,7 +2865,7 @@ plot(l, add = TRUE)
 plot(p, add = TRUE)
 ```
 
-<img src="figures/unnamed-chunk-21-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-22-1.png" width="576" style="display: block; margin: auto;" />
 
 Equals:
 <!-- https://postgis.net/docs/ST_Equals.html -->
@@ -2997,7 +2999,7 @@ plot(b)
 plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
 ```
 
-<img src="figures/unnamed-chunk-32-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-33-1.png" width="576" style="display: block; margin: auto;" />
 
 The subsequent code chunk demonstrate how this works for all combinations of the 'Venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
 <!-- Todo: reference r4ds -->
@@ -3336,7 +3338,7 @@ plot(elev)
 plot(elev_agg)
 ```
 
-<img src="figures/unnamed-chunk-45-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-46-1.png" width="576" style="display: block; margin: auto;" />
 
 Note that the origin of `elev_agg` has changed, too.
 The `resample()` command lets you align several raster properties in one go, namely origin, extent and resolution.

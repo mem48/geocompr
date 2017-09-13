@@ -269,9 +269,14 @@ buff =<span class="st"> </span><span class="kw">st_transform</span>(buff, <span 
 Figure 4.1: Hypothetical subsetting scenario: select all countries which intersect with a circle of 20 degrees in radius around planet Earth. Figure created with the <strong><a href="https://cran.r-project.org/package=globe">globe</a></strong> package.
 </p>
 </div>
-<p>The data to be subset, or ‘target layer’, is the <code>africa</code> object created above, which has a projected CRS (<code>32630</code>). Subsequently,the spatial subsetting operation is a single, concise command:</p>
+<p>The data to be subset, or ‘target layer’, is the <code>africa</code> object created above, which has a projected CRS (<code>32630</code>). Subsequently, spatial subsetting can be done with a single, concise command:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">africa_buff =<span class="st"> </span>africa[buff, ]</code></pre></div>
-<p>Note that the command emits a message: about assuming <code>planar coordinates</code>. This is because spatial operations (especially distance and area calculations) cannot be assumed to be accurate in a geographic (longitude/latitude) CRS. In this case there is a clear justification: the data is close to the equator where there is least distortion caused by the curvature of the earth, and the example illustrates the method, which would more usually be used on projected (‘planar’) data. In any case, the spatial subsetting clearly worked since only countries which spatially intersect with the giant circle are returned (Figure <a href="spatial-data-operations.html#fig:africa-buff">4.2</a>):</p>
+
+<div class="rmdnote">
+If we were using geographic (‘lon/lat’) data the previous command would have emitted a message warning about assuming <code>planar coordinates</code>. This is because spatial operations (especially distance and area calculations) cannot be assumed to be accurate in a geographic (longitude/latitude) CRS. In this case one could justify the use of a lon/lat CRS: the data is close to the equator where there is least distortion caused by the curvature of the earth. It is good practice to reproject spatial datasets before performing spatial operations on them.
+</div>
+<p></p>
+<p>The spatial subsetting clearly worked: only countries which intersecting with the giant circle are returned (Figure <a href="spatial-data-operations.html#fig:africa-buff">4.2</a>):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(africa_buff[<span class="st">&quot;pop&quot;</span>])
 <span class="kw">plot</span>(buff, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:africa-buff"></span>
@@ -421,7 +426,7 @@ p =<span class="st"> </span><span class="kw">st_multipoint</span>(<span class="d
 <span class="kw">plot</span>(b, <span class="dt">border =</span> <span class="st">&quot;green&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(l, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(p, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="figures/unnamed-chunk-21-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-22-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Equals: <!-- https://postgis.net/docs/ST_Equals.html --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_equals</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p>Contains: <!-- https://postgis.net/docs/ST_Contains.html --> <!-- https://postgis.net/docs/ST_ContainsProperly.html --></p>
@@ -475,7 +480,7 @@ y =<span class="st"> </span>b[<span class="dv">2</span>]
 x_and_y =<span class="st"> </span><span class="kw">st_intersection</span>(x, y)
 <span class="kw">plot</span>(b)
 <span class="kw">plot</span>(x_and_y, <span class="dt">col =</span> <span class="st">&quot;lightgrey&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>) <span class="co"># color intersecting area</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-32-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-33-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>The subsequent code chunk demonstrate how this works for all combinations of the ‘Venn’ diagram representing <code>x</code> and <code>y</code>, inspired by <a href="http://r4ds.had.co.nz/transform.html#logical-operators">Figure 5.1</a> of the book R for Data Science <span class="citation">(Grolemund and Wickham <a href="#ref-grolemund_r_2016">2016</a>)</span>. <!-- Todo: reference r4ds --></p>
 <div class="figure" style="text-align: center"><span id="fig:venn-clip"></span>
 <img src="figures/venn-clip-1.png" alt="Spatial equivalents of logical operators." width="576" />
@@ -624,7 +629,7 @@ aut_ch =<span class="st"> </span><span class="kw">merge</span>(aut, ch)</code></
 <span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))
 <span class="kw">plot</span>(elev)
 <span class="kw">plot</span>(elev_agg)</code></pre></div>
-<p><img src="figures/unnamed-chunk-45-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-46-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Note that the origin of <code>elev_agg</code> has changed, too. The <code>resample()</code> command lets you align several raster properties in one go, namely origin, extent and resolution. Let us resample an extended <code>elev_agg</code> to the properties of <code>elev</code> again.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add 2 rows and columns, i.e. change the extent</span>
 elev_agg =<span class="st"> </span><span class="kw">extend</span>(elev_agg, <span class="dv">2</span>)
