@@ -2,7 +2,7 @@
 --- 
 title: 'Geocomputation with R'
 author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
-date: '2017-09-12'
+date: '2017-09-13'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -38,7 +38,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-09-12 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-09-13 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee98b0ead92fc9e73
+preserveb48e05764642293d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2503,16 +2503,19 @@ Create a raster stack using `dem` and `ndvi`, and make a `pairs()` plot
 
 ## Prerequisites {-}
 
-- This chapter requires the packages **tidyverse**, **sf** **raster**, and **spData**:
+
+
+- This chapter requires the packages **tidyverse**, **sf** and **raster**. 
+To avoid confusing function names (e.g., `dplyr::select` and `raster::select`) we will wait until section \@ref{spatial-operations-on-raster-data) with loading **raster**:
 
 
 ```r
 library(sf)
-library(raster)
 library(tidyverse)
+# library(raster)
 ```
 
-- Please attach also the **spData** package which automatically attaches the `world` dataset:
+- Attach also the **spData** package which in turn automatically attaches the `world` dataset:
 
 
 ```r
@@ -2525,17 +2528,22 @@ Spatial operations are an important component of any geospatial software and vit
 There are clear overlaps between spatial and non-spatial operations.
 Common spatial attribute data processing tasks include spatial subsetting (as we will see in section \@ref(spatial-subsetting) and section \@ref(raster-subsetting)), joining and aggregation (sections \@ref(spatial-joining-and-aggregation), \@ref(map-algebra) & \ref(merging-rasters)).
 In the case of vector data, each of these spatial operations has a non-spatial equivalent, as demonstrated in section \@ref(vector-attribute-manipulation) in the previous chapter.
-Of course, spatial raster and vector operations share many similarities, at least in terms of functionality.
-The internal processing is completely different. 
-In contrast to vector operations, subsetting is the only spatial raster operation we present in this chapter (section \@ref(spatial-operations-on-raster-data)) which also has a non-spatial counterpart.
+By contrast, subsetting is the only spatial raster operation we present in this chapter (section \@ref(spatial-operations-on-raster-data)) which also has a non-spatial counterpart.
+Nevertheless, spatial raster and vector operations share many similarities, at least in terms of functionality though the internal processing is completely different.
+Be careful with the wording.
+Sometimes the same words have slightly different meanings for both data models.
+Aggregating in the case of vector data refers to dissolving polygons while it means increasing the resolution in the case of raster data.
+If we think of vector-raster equivalents, dissolving or aggregating polygons also makes for a "coarser" resolution. 
+However, zonal operations would be more suitable as a raster equivalent compared to changing the cell resolution. 
+Zonal operations can dissolve the cells of one raster in accordance with the zones (categories) of another raster using an aggregation function (see section \@ref(spatial-operations-on-raster-data)).
 
 Some operations covered in this chapter are unique to spatial data.
 A variety of *topological relations* can be used to subset/join vector geometries (by default **sf** uses the catch-all *intersects* but other relations such as *within* can be very useful), a topic that is explored in section \@ref(topological-relations).
-New geometry data can be created by modifying existing spatial objects, using operations such as 'buffer' and 'clip', described in section \@ref(modifying-geometry-data) and \@ref(map-algebra).
+New geometry data can be created by modifying existing spatial objects, using operations such as 'buffer' and 'clip', described in sections \@ref(modifying-geometry-data) and \@ref(map-algebra).
 Another unique aspect of spatial objects is distance.
-All features are related to each other in geographic space, and distance calculations can be used to find which spatial features are nearer or further away from a given point or each other, as we will see in sections \@ref(distance-relations) and \@ref(map-algebra).
+All features are related to each other in geographic space, and distance calculations resolve which spatial features are nearer or further away from a given point or each other (see sections \@ref(distance-relations) and \@ref(map-algebra)).
 The final section in this chapter additionally explores how to align two raster objects in case their headers mismatch (section \@ref(aligning-rasters)).
-This is especially important if we want to merge several rasters into one bigger raster or if we want to use several raster layers for algebraic operations.
+This is especially important if we want to merge several rasters into one bigger raster or if we want to use several mismatching raster layers for algebraic operations.
 
 <div class="rmdnote">
 <p>It is important to note that spatial operations that use two spatial objects rely on both objects having the same coordinate reference system, a topic that was introduced in @ref(crs-intro) and which will be covered in more depth in Chapter 6.</p>
@@ -2544,15 +2552,15 @@ This is especially important if we want to merge several rasters into one bigger
 ## Spatial subsetting
 
 Spatial subsetting is the process of selecting only those features of a spatial object that in some way *intersect* with another spatial object.
+<!-- can we already reference the intersection figure here? Generally asking, why can't we present the other topological operations here? Would fit nicely in this section... -->
 Note that 'intersect' in this context has a precise meaning:
 if `y` is used to subset features in a 'target' object of `x`, any features in `x` that touch, overlap or are within features in `y` will be selected.
 Intersect is the default operation for spatial subsetting but others can be used using the `op =`
 argument.^[Interested
-readers can see this default value of `op` set in the first line of the function call by entering its long-form name into the console: 
-`` sf:::`[.sf` ``
+readers can see this default value of `op` set in the first line of the function call by entering its long-form name into the console `` sf:::`[.sf` ``.
+The `?sf` help page documents this also.
 ]
-
-There are 9 well-defined operations that can be used for spatial subsetting, covered in section \@ref(topological-relations).
+There are nine well-defined operations that can be used for spatial subsetting, covered in section \@ref(topological-relations).
 This may seem daunting but the good news is that you do not have to learn all of them separately:
 after you understand how to spatially subset objects that *intersect* another (via `st_intersects()`) it is easy to subset based on other types of spatial operation such as `st_touches()`, `st_crosses()` and `st_within()`.
 For this reason now we focus only on one of the spatial subsetting operations.
@@ -2560,17 +2568,14 @@ We use `st_intersects()` instead of any of the others not only because it the de
 but also `st_intersects()` is useful as a 'catch all' that identifies all types of spatial relations.
 
 In general terms, spatial subsetting is simply the spatial equivalent of *attribute subsetting*.
-However, to do spatial subsetting *two spatial objects are needed* the spatial relation between which is to be established.
 As with attribute subsetting, spatial subsetting is a *binary operation*: an object is either selected or not.
-As in section \@ref(vector-attribute-subsetting), we start with base methods before describing how to do it in the **tidyverse**.
+Following the structure of section \@ref(vector-attribute-subsetting), we start with base methods before describing how to do it in the **tidyverse**.
 <!-- todo: link to non-binary links, e.g. area-weighted spatial interpolation -->
 
 <!-- ### Spatial subsetting in base R -->
 
-Attribute subsetting in base R is done with the `[` operator and passing into the square brackets a vector of class `integer` (whole numbers) or `logical` (a vector of `TRUE`s and `FALSE`s).
-This means `world[1:6, ]` subsets the first 6 countries of the world and that `world[world$area_km2 < 10000, ]` returns the subset of countries that have a small surface area.
-For this chapter we will use countries in Africa, which can be generated using this method as
-follows:^[Recall
+To introduce spatial vector subsetting operations we will use countries in Africa.
+We will apply attribute subsetting to the `world` dataset (see previous chapter):^[Recall
 that we can also subset simple features using the `filter()` function, e.g. with `filter(world, continent == "Africa")`]
 
 
@@ -2578,14 +2583,15 @@ that we can also subset simple features using the `filter()` function, e.g. with
 africa_wgs = world[world$continent == "Africa", ]
 ```
 
-To further set-up the input data, we will reproject the data to the coordinate reference system (CRS) 32630 (it's EPSG code, explained in Chapter 6):
+To further prepare the input data, we will reproject the data to the coordinate reference system (CRS) 32630, its EPSG code (explained in Chapter 6):
 
 
 ```r
 africa = st_transform(africa_wgs, crs = 32630)
 ```
 
-*Spatial* subsetting in base R use the same method as attribute subsetting, except *another spatial object* is placed inside the square brackets in the place of an `integer` or `logical` vector.
+We can also use the `[` operator for *Spatial* subsetting.
+The difference is that we use *another spatial object* inside the square brackets instead of an `integer` or `logical` vector.
 This is a concise and consistent syntax, as shown in the next code chunk.
 Let's test it with a hypothetical scenario: we want to subset all countries within 20 degrees of the point where the equator (where latitude = 0 degrees) intersects the prime meridian (longitude = 0 degrees), as illustrated in Figure \@ref(fig:globe).
 The subsetting object is created below.
@@ -2593,7 +2599,7 @@ Note that this must have the same CRS as the target object (set with the `crs` a
 
 
 ```r
-center = st_sf(st_sfc(st_point(c(0, 0)), crs = 4326))
+center = st_sf(geometry = st_sfc(st_point(c(0, 0)), crs = 4326))
 buff = st_buffer(x = center, dist = 20)
 buff = st_transform(buff, 32630)
 ```
@@ -2603,8 +2609,8 @@ buff = st_transform(buff, 32630)
 <p class="caption">(\#fig:globe)Hypothetical subsetting scenario: select all countries which intersect with a circle of 20 degrees in radius around planet Earth. Figure created with the **[globe](https://cran.r-project.org/package=globe)** package.</p>
 </div>
 
-The data to be subset, or 'target layer', is the `africa` created above, which has a projected CRS (`32630`).
-Now that the input data is set-up, the spatial subsetting operation is a single, concise command:
+The data to be subset, or 'target layer', is the `africa` object created above, which has a projected CRS (`32630`).
+Subsequently,the spatial subsetting operation is a single, concise command:
 
 
 ```r
@@ -2614,8 +2620,7 @@ africa_buff = africa[buff, ]
 Note that the command emits a message: about assuming `planar coordinates`.
 This is because spatial operations (especially distance and area calculations) cannot be assumed to be accurate in a geographic (longitude/latitude) CRS.
 In this case there is a clear justification: the data is close to the equator where there is least distortion caused by the curvature of the earth, and the example illustrates the method, which would more usually be used on projected ('planar') data.
-In any case, the spatial subsetting clearly worked.
-As illustrated by Figure \@ref(fig:africa-buff), only countries which spatially intersect with the giant circle are returned:
+In any case, the spatial subsetting clearly worked since only countries which spatially intersect with the giant circle are returned (Figure \@ref(fig:africa-buff)):
 
 
 ```r
@@ -2628,12 +2633,12 @@ plot(buff, add = TRUE)
 <p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 20 degrees in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 
-Note that countries that only just touch the giant circle are selected such as the large country at the north of plot (Algeria).
+Note that countries that just touch the giant circle are selected such as Algeria (the large country at the north of plot).
 `st_relates()` includes countries that only touch (but are not within or overlapping with) the selection object.
 Other spatial subsetting operations such as `st_within()` are more conservative, as shown in section \@ref(topological-relations).
 
 Before we progress to explore the differences between different spatial subsetting operations, it is worth seeing alternative ways to achieve the same result,
-to deepen understanding of what is going on 'under the hood' (vital for developing advanced geocomputation applications).
+to deepen understanding of what is going on 'under the hood' (which in turn is vital for developing advanced geocomputation applications).
 The second way to reproduce the subsetting operation illustrated in Figure \@ref(fig:africa-buff) simply involves expanding the operation over 2 lines:
 
 
@@ -2647,11 +2652,10 @@ If you already use **dplyr** for data manipulation, this way should seem familia
 
 
 ```r
-africa_buff3 = africa %>%
-  filter(st_intersects(x = ., y = buff, sparse = FALSE))
+africa_buff3 = filter(africa, sel_buff)
 ```
 
-How can we be sure that the results obtained through the 4 subsetting operations demonstrated above?
+How can we be sure that the results are the same for the three subsetting operations?
 We can test them as follows:
 
 
@@ -2687,17 +2691,17 @@ identical(africa_buff, africa_buff3)
 
 
 ```r
-row.names(africa[africa$subregion == "Northern Europe", ])
-#> character(0)
-row.names(filter(africa, subregion == "Northern Europe"))
-#> character(0)
+row.names(africa[africa$subregion == "Northern Africa", ])
+#> [1] "46"  "48"  "94"  "100" "138" "140" "162"
+row.names(filter(africa, subregion == "Northern Africa"))
+#> [1] "1" "2" "3" "4" "5" "6" "7"
 ```
 
 ## Spatial joining and aggregation 
 
 Joining two non-spatial datasets relies on a shared 'key' variable, as described in section \@ref(vector-attribute-joining).
 Spatial data joining applies the same concept, but instead relies on shared areas of geographic space.
-As with attribute data joining, the result is that a new column is added to the target object (the argument `x` in joining functions) from a source object (`y`).
+As with attribute data joining adds a new column to the target object (the argument `x` in joining functions) from a source object (`y`).
 
 The process is illustrated in Figure \@ref(fig:spatial-join), which shows a target object (the `world` dataset, left) being joined to a source dataset (the top 10 largest cities of the world), resulting in a new attribute being added to the `world` dataset (right).
 <!-- Idea: use random points over Earth's surface to allocate data to world countries. -->
@@ -2722,13 +2726,15 @@ joined = st_join(x = asia, y = urb)
 <p class="caption">(\#fig:spatial-join)Illustration of a spatial join: the populations of the world's 3 largest agglomerations joined onto their respective countries.</p>
 </div>
 
-Like attribute data aggregation, covered in section \@ref(vector-attribute-aggregation), spatial data aggregation can be a way of *condensing* data.
+<!-- I would expand it a little bit on spatial joins. Typically, this operation is also known as spatial overlay. Of course, you can also use other geometries (lines), and especially you can not only use st_intersects (another reason why the topological stuff should have been already covered before). Also interesting would be to show what happens if there are multiple matches, e.g., multiple points per polygon. In sp, this was solved using a list containing the IDs of the matched objects while not returning the corresponding attribute table. Overall, a comparison with sp::over would be also interesting -->
+
+Like attribute data aggregation, covered in section \@ref(vector-attribute-aggregation), spatial data aggregation (also known as dissolving polygons) can be a way of *condensing* data.
 Aggregated data show some statistic about a variable (typically mean average or total) in relation to some kind of *grouping variable*. 
 For attribute data aggregation the grouping variable is another variable, typically one with few unique values relative to the number of rows.
 The `continent` variable in the `world` dataset is a good example:
-there are only 8 unique continents but 177 countries.
-In section \@ref(vector-attribute-aggregation) the aggregation process condensed the `world` dataset down into only 8 rows and an aggregated `pop` variable representing the total population per continent (see Figure \@ref(fig:continent-pop)).
-
+there are only eight unique continents but 177 countries.
+In section \@ref(vector-attribute-aggregation) the aggregation process condensed the `world` dataset down into only eight rows and an aggregated `pop` variable representing the total population per continent (see Figure \@ref(fig:continent-pop)).
+<!-- CAREFUL, in fact, fig:continent-pop has already been a spatial operation (dissolving polygons). You should have shown the table only in the previous section --> 
 Spatial data aggregation is the same conceptually but uses a *spatial* grouping object:
 the *output* is the same, in terms of number of rows/features and geometry, as the *grouping object*, but with new variables corresponding to the input dataset.
 As with spatial subsetting, spatial aggregation operations work by extending existing functions.
@@ -2738,8 +2744,25 @@ Building on the example presented the previous section (\@ref(spatial-subsetting
 
 
 ```r
-buff_agg = aggregate(x = africa["pop"], by = buff, FUN = sum)
+buff_agg = aggregate(x = africa[, "pop"], by = buff, FUN = sum)
 ```
+<!--
+show also tidyverse way, so what you are doing is basically a spatial join and a subsequent aggregation without a grouping variable. Didactically, it might be better to present a grouping variable.
+
+```r
+st_join(buff, africa[, "pop"]) %>%
+  summarize(pop = sum(pop, na.rm = TRUE))
+#> Simple feature collection with 1 feature and 1 field
+#> geometry type:  POLYGON
+#> dimension:      XY
+#> bbox:           xmin: -1420255 ymin: -2214294 xmax: 3131474 ymax: 2214294
+#> epsg (SRID):    32630
+#> proj4string:    +proj=utm +zone=30 +datum=WGS84 +units=m +no_defs
+#>        pop                       geometry
+#> 1 5.29e+08 POLYGON ((3131474.37142526 ...
+# summarize(africa[buff, "pop"], pop = sum(pop, na.rm = TRUE))
+```
+-->
 
 The result, `buff_agg`, is a spatial object with the same geometry as `by` (the circular buffer in this case) but with an additional variable, `pop` reporting summary statistics for all features in `x` that intersect with `by` (the total population of the countries that touch the buffer in this case).
 Plotting the result (with `plot(buff_agg)`) shows that the operation does not really make sense:
@@ -2772,11 +2795,13 @@ These issues can be tackled when aggregating areal target data with areal interp
 
 Spatial congruence is an important concept related to spatial aggregation.
 An *aggregating object* object (which we will refer to as `y`, representing the buffer object in the previous section) is *congruent* with the target object (`x`, representing the countries in the previous section) if the two objects have shared borders.
-Often this is the case for administrative boundary data, whereby the larger units (e.g. Middle Layer Super Output Areas in the UK) are composed of many smaller units (Output Areas in this case, see [ons.gov.uk](https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography) for further details).
+<!-- this really is very special in the UK, most other European countries have districts and municipalities but there is also the official NUTS classification for EU member states -:); maybe this is a more general classification scheme, see http://ec.europa.eu/eurostat/web/nuts/overview. I learned that when I was at geomarketing.-->
+Often this is the case for administrative boundary data, whereby the larger units (e.g., Middle Layer Super Output Areas in the UK) are composed of many smaller units (Output Areas in this case, see [ons.gov.uk](https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography) for further details).
 
 *Incongruent* aggregating objects, by contrast, do not share common borders with the target [@qiu_development_2012].
 This is problematic for spatial aggregation (and other spatial operations) illustrated in Figure \@ref(fig:areal-example).
 Areal interpolation resolves this issue.
+<!-- well, pycnophylactic interpolation has been developed for spatial downscaling, e.g., predicting/interpoling the number of inhabitants at a finer spatial level (municipality) on the basis of inhabitants of a coarser spatial level (districts).-->
 A number of algorithms have been developed for areal interpolation, including area weighted and pycnophylactic interpolation methods task [@tobler_smooth_1979].
 
 <div class="figure" style="text-align: center">
@@ -2786,7 +2811,7 @@ A number of algorithms have been developed for areal interpolation, including ar
 
 The simplest useful method for spatial interpolation is *area weighted* spatial interpolation.
 This is implemented in `st_interpolate_aw()`, as demonstrated below:
-
+<!-- well, what you are doing here is weighting the inhabitants presumably on the basis of the area. The link between your congruent and incongruent example is somehow missing. One gets the impression, that the spatial interpolation takes care of incongruencies which is not the case. So I would suggest to clarify the weighting procedure.-->
 
 ```r
 buff_agg_aw = st_interpolate_aw(x = africa["pop"], to = buff, extensive = TRUE)
@@ -2843,7 +2868,7 @@ plot(l, add = TRUE)
 plot(p, add = TRUE)
 ```
 
-<img src="figures/unnamed-chunk-20-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-21-1.png" width="576" style="display: block; margin: auto;" />
 
 Equals:
 <!-- https://postgis.net/docs/ST_Equals.html -->
@@ -2977,7 +3002,7 @@ plot(b)
 plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
 ```
 
-<img src="figures/unnamed-chunk-31-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-32-1.png" width="576" style="display: block; margin: auto;" />
 
 The subsequent code chunk demonstrate how this works for all combinations of the 'Venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
 <!-- Todo: reference r4ds -->
@@ -3028,6 +3053,17 @@ This section builds on \@ref(manipulating-raster-objects), which highlights vari
 and uses the same object `elev` and `grain`.
 
 
+```
+#> Loading required package: sp
+#> 
+#> Attaching package: 'raster'
+#> The following object is masked from 'package:dplyr':
+#> 
+#>     select
+#> The following object is masked from 'package:tidyr':
+#> 
+#>     extract
+```
 
 ### Spatial subsetting {#raster-subsetting}
 In the previous chapter (section \@ref(manipulating-raster-objects)) we have already learned how to subset raster datasets using cell IDs and matrix indexing.
@@ -3288,7 +3324,7 @@ For instance, we could compute the mean value.
 This might smooth the clear border in the merged result but it will most likely not make it disappear.
 To do so, we need a more advanced approach. 
 Remote scientist frequently apply histogram matching or use regression techniques to align the values of the first image with those of the second image.
-The packages **landsat**, **satellite** and **RStoolbox** provide the corresponding functions.
+The packages **landsat** (`histmatch()`, `relnorm()`, `PIF()`), **satellite** (`calcHistMatch()`) and **RStoolbox** (`histMatch()`, `pifMatch()`) provide the corresponding functions.
 
 ### Aligning rasters
 When merging or performing map algebra on rasters, their resolution, projection, origin and/or extent has to match.
@@ -3299,7 +3335,7 @@ We can deal with such mismatches by aligning the rasters.
 The `projectRaster()` function reprojects one raster to a desired projection, say from UTM to WGS84.
 The origin is the point closest to (0, 0) if you moved towards it in steps of x and y resolution.
 If two rasters have different origins, their cells do not overlap completely which would make map algebra impossible.
-To change the origin , use `origin()`.
+To change the origin , use `origin()`.^[If the origins of two raster datasets are just marginally apart, it sometimes is sufficient to simply increase the `tolerance` argument  of `raster::rasterOptions()`.]
 Equally, map algebra operations require the same extent.
 To align the extent of one object with that of another, use the `extend()` command.
 If you perform an algebraic operation on two objects with differing extents in R, the **raster** package returns the intersection, and says so in a warning (try: `elev + extend(elev, 2)`).
@@ -3316,7 +3352,7 @@ plot(elev)
 plot(elev_agg)
 ```
 
-<img src="figures/unnamed-chunk-44-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-45-1.png" width="576" style="display: block; margin: auto;" />
 
 Note that the origin of `elev_agg` has changed, too.
 The `resample()` command lets you align several raster properties in one go, namely origin, extent and resolution.
@@ -3334,6 +3370,13 @@ However, this is to be expected, disaggregating **cannot** predict values at a f
 It is important to keep in mind that disaggregating results in a finer resolution, the corresponding values, however, are only as accurate as their lower resolution source.
 
 Finally, if you want to align many (possibly hundreds or thousands of) images stored on disk, you might want to checkout the `gdalUtils::align_rasters()` function.
+Nevertheless, you may also use **raster** with very large datasets. 
+This is because **raster**:
+
+1. lets you work with raster datasets that are too large to fit into the main memory (RAM) by only processing chunks of it.
+2. tries to fascilitate parallel processing.
+For more information have a look at the help pages of `beginCluster()` and `clusteR()`.
+Additionally, check out the *Multi-core functions* section in `vignette("functions", package = "raster")`.
 
 
 <!-- ## Spatial data creation -->
