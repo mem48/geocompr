@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveb48e05764642293d
+preservea67d25c3460f21ae
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2503,16 +2503,14 @@ Create a raster stack using `dem` and `ndvi`, and make a `pairs()` plot
 
 ## Prerequisites {-}
 
-
-
 - This chapter requires the packages **tidyverse**, **sf** and **raster**. 
-To avoid confusing function names (e.g., `dplyr::select` and `raster::select`) we will wait until section \@ref{spatial-operations-on-raster-data) with loading **raster**:
+To avoid confusing function names (e.g., `dplyr::select` and `raster::select`) we will wait until section \@ref(spatial-operations-on-raster-data) with loading **raster**:
 
 
 ```r
 library(sf)
 library(tidyverse)
-# library(raster)
+library(raster)
 ```
 
 - Attach also the **spData** package which in turn automatically attaches the `world` dataset:
@@ -3053,17 +3051,6 @@ This section builds on \@ref(manipulating-raster-objects), which highlights vari
 and uses the same object `elev` and `grain`.
 
 
-```
-#> Loading required package: sp
-#> 
-#> Attaching package: 'raster'
-#> The following object is masked from 'package:dplyr':
-#> 
-#>     select
-#> The following object is masked from 'package:tidyr':
-#> 
-#>     extract
-```
 
 ### Spatial subsetting {#raster-subsetting}
 In the previous chapter (section \@ref(manipulating-raster-objects)) we have already learned how to subset raster datasets using cell IDs and matrix indexing.

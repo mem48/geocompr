@@ -230,11 +230,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="prerequisites-2" class="section level2 unnumbered">
 <h2>Prerequisites</h2>
 <ul>
-<li>This chapter requires the packages <strong>tidyverse</strong>, <strong>sf</strong> and <strong>raster</strong>. To avoid confusing function names (e.g., <code>dplyr::select</code> and <code>raster::select</code>) we will wait until section @ref{spatial-operations-on-raster-data) with loading <strong>raster</strong>:</li>
+<li>This chapter requires the packages <strong>tidyverse</strong>, <strong>sf</strong> and <strong>raster</strong>. To avoid confusing function names (e.g., <code>dplyr::select</code> and <code>raster::select</code>) we will wait until section <a href="spatial-data-operations.html#spatial-operations-on-raster-data">4.7</a> with loading <strong>raster</strong>:</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
 <span class="kw">library</span>(tidyverse)
-<span class="co"># library(raster)</span></code></pre></div>
+<span class="kw">library</span>(raster)</code></pre></div>
 <ul>
 <li>Attach also the <strong>spData</strong> package which in turn automatically attaches the <code>world</code> dataset:</li>
 </ul>
@@ -509,15 +509,6 @@ Figure 4.8: Randomly distributed points within the bounding box enclosing circle
 <div id="spatial-operations-on-raster-data" class="section level2">
 <h2><span class="header-section-number">4.7</span> Spatial operations on raster data</h2>
 <p>This section builds on <a href="attr.html#manipulating-raster-objects">3.3</a>, which highlights various basic methods for manipulating raster datasets, to demonstrate more advanced and explicitly spatial raster operations, and uses the same object <code>elev</code> and <code>grain</code>.</p>
-<pre><code>#&gt; Loading required package: sp
-#&gt; 
-#&gt; Attaching package: &#39;raster&#39;
-#&gt; The following object is masked from &#39;package:dplyr&#39;:
-#&gt; 
-#&gt;     select
-#&gt; The following object is masked from &#39;package:tidyr&#39;:
-#&gt; 
-#&gt;     extract</code></pre>
 <div id="raster-subsetting" class="section level3">
 <h3><span class="header-section-number">4.7.1</span> Spatial subsetting</h3>
 <p>In the previous chapter (section <a href="attr.html#manipulating-raster-objects">3.3</a>) we have already learned how to subset raster datasets using cell IDs and matrix indexing. Naturally, we can subset rasters also with the help of coordinates and spatial objects. To use coordinates for subsetting, we have to ‘translate’ them into the corresponding cell ID(s) or by using the <code>extract()</code> command. This operation is also known as extracting values/attributes to points.</p>
