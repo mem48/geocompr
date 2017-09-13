@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea67d25c3460f21ae
+preserve65e4e10232f474b4
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2543,9 +2543,7 @@ All features are related to each other in geographic space, and distance calcula
 The final section in this chapter additionally explores how to align two raster objects in case their headers mismatch (section \@ref(aligning-rasters)).
 This is especially important if we want to merge several rasters into one bigger raster or if we want to use several mismatching raster layers for algebraic operations.
 
-<div class="rmdnote">
-<p>It is important to note that spatial operations that use two spatial objects rely on both objects having the same coordinate reference system, a topic that was introduced in @ref(crs-intro) and which will be covered in more depth in Chapter 6.</p>
-</div>
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">It is important to note that spatial operations that use two spatial objects rely on both objects having the same coordinate reference system, a topic that was introduced in \@ref(crs-intro) and which will be covered in more depth in Chapter 6.</div>\EndKnitrBlock{rmdnote}
 
 ## Spatial subsetting
 
