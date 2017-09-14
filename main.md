@@ -2,7 +2,7 @@
 --- 
 title: 'Geocomputation with R'
 author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
-date: '2017-09-13'
+date: '2017-09-14'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -38,7 +38,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-09-13 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-09-14 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve282817c25b6435f2
+preservec92d97e40980ed31
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3639,9 +3639,13 @@ multilayer_layer_stack = stack(raster_l1_filepath, raster_l2_filepath)
 
 The `stack()` class is limited to datasets that have the same spatial extent and resolution.
 
-### Data packages
+<!-- ### Data packages -->
 
 <!-- Maybe add a section to Data I/O on where and how to retrieve data (with a focus on free data): osmdata (OpenStreetMap; maybe mention TomTom, HERE), rnoaa, raster (worldclim, MODIS, SRTM, ASTER), Landsat (wrspathrow), Sentinel (mention Python API), AVHRR, RapidEye rgbif, letsR, rWBclimate (world bank), etc. Of course, point to Transforming science through open data project (https://www.ropensci.org) -->
+
+<!-- https://bookdown.org/csgillespie/efficientR/input-output.html#download -->
+
+<!-- https://bookdown.org/csgillespie/efficientR/input-output.html#accessing-data-stored-in-packages -->
 
 ## Data output (O) {#data-output}
 
@@ -3783,7 +3787,9 @@ Full list of the supported file format for writing `Raster*` objects could be fo
 
 ## Visual outputs
 
-<!-- pdf, bmp, jpeg, png, and tiff graphic devices -->
+R support many different static and interactive graphics formats.
+
+The most general method to save a static plot is to open a graphic device, create a plot, and close a graphic device, for example:
 
 
 ```r
@@ -3792,10 +3798,12 @@ plot(world["lifeExp"])
 dev.off()
 ```
 
-<!-- Note about that the `plot` function do not create an object -->
-<!-- ```{r} -->
-<!-- a = plot(world["lifeExp"]) -->
-<!-- ``` -->
+Each of the available formats, `pdf()`, `bmp()`, `jpeg()`, `png()`, and `tiff()`, has its own function. 
+You can specify several properties of the output plot, including width and height.
+
+Additionally, several graphic packages provide its own function to save a graphical output.
+For example, the **tmap** package has the `save_tmap()` function.
+You can save a `tmap` object to different graphic formats by specifying the object name and a file path to a new graphic file.
 
 
 ```r
@@ -3805,14 +3813,20 @@ tmap_obj = tm_shape(world) +
 save_tmap(tm  = tmap_obj, filename = "lifeExp_tmap.png")
 ```
 
-<!-- Check what's wrong with mapview zcol -->
-<!-- info that PhantomJS could be needed... when creating a png file -->
+<!-- Note about that the `plot` function do not create an object -->
+<!-- ```{r} -->
+<!-- a = plot(world["lifeExp"]) -->
+<!-- ``` -->
+
+On the other hand, an interactive map could be usually saved as an HTML file. 
+This can be done with the `saveWidget()` function from the `htmlwidget` package:
+
 
 ```r
 library(mapview)
-mapview_obj = mapview(world, zcol = "lifeExp", legend = TRUE) 
-mapshot(mapview_obj, url = "lifeExp_mapview.html")
-mapshot(mapview_obj, file = "lifeExp_mapview.png")
+library(htmlwidgets)
+mapview_obj = mapview(world, zcol = "lifeExp", legend = TRUE)
+saveWidget(mapview_obj, file="my_interactive_map.html")
 ```
 
 ## Exercises

@@ -25,7 +25,7 @@
 <meta name="author" content="Robin Lovelace, Jakub Nowosad, Jannes Muenchow">
 
 
-<meta name="date" content="2017-09-13">
+<meta name="date" content="2017-09-14">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -193,7 +193,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#data-input"><i class="fa fa-check"></i><b>5.2</b> Data Input (I)</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="read-write.html"><a href="read-write.html#vector-data-1"><i class="fa fa-check"></i><b>5.2.1</b> Vector data</a></li>
 <li class="chapter" data-level="5.2.2" data-path="read-write.html"><a href="read-write.html#raster-data-1"><i class="fa fa-check"></i><b>5.2.2</b> Raster data</a></li>
-<li class="chapter" data-level="5.2.3" data-path="read-write.html"><a href="read-write.html#data-packages"><i class="fa fa-check"></i><b>5.2.3</b> Data packages</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="read-write.html"><a href="read-write.html#data-output"><i class="fa fa-check"></i><b>5.3</b> Data output (O)</a><ul>
 <li class="chapter" data-level="5.3.1" data-path="read-write.html"><a href="read-write.html#vector-data-2"><i class="fa fa-check"></i><b>5.3.1</b> Vector data</a></li>
@@ -435,10 +434,10 @@ raster_l2_filepath =<span class="st"> </span><span class="kw">system.file</span>
  
 multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(raster_l1_filepath, raster_l2_filepath)</code></pre></div>
 <p>The <code>stack()</code> class is limited to datasets that have the same spatial extent and resolution.</p>
-</div>
-<div id="data-packages" class="section level3">
-<h3><span class="header-section-number">5.2.3</span> Data packages</h3>
+<!-- ### Data packages -->
 <!-- Maybe add a section to Data I/O on where and how to retrieve data (with a focus on free data): osmdata (OpenStreetMap; maybe mention TomTom, HERE), rnoaa, raster (worldclim, MODIS, SRTM, ASTER), Landsat (wrspathrow), Sentinel (mention Python API), AVHRR, RapidEye rgbif, letsR, rWBclimate (world bank), etc. Of course, point to Transforming science through open data project (https://www.ropensci.org) -->
+<!-- https://bookdown.org/csgillespie/efficientR/input-output.html#download -->
+<!-- https://bookdown.org/csgillespie/efficientR/input-output.html#accessing-data-stored-in-packages -->
 </div>
 </div>
 <div id="data-output" class="section level2">
@@ -551,24 +550,26 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 </div>
 <div id="visual-outputs" class="section level2">
 <h2><span class="header-section-number">5.4</span> Visual outputs</h2>
-<!-- pdf, bmp, jpeg, png, and tiff graphic devices -->
+<p>R support many different static and interactive graphics formats.</p>
+<p>The most general method to save a static plot is to open a graphic device, create a plot, and close a graphic device, for example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">png</span>(<span class="dt">filename =</span> <span class="st">&quot;lifeExp.png&quot;</span>, <span class="dt">width =</span> <span class="dv">500</span>, <span class="dt">height =</span> <span class="dv">350</span>)
 <span class="kw">plot</span>(world[<span class="st">&quot;lifeExp&quot;</span>])
 <span class="kw">dev.off</span>()</code></pre></div>
-<!-- Note about that the `plot` function do not create an object -->
-<!-- ```{r} -->
-<!-- a = plot(world["lifeExp"]) -->
-<!-- ``` -->
+<p>Each of the available formats, <code>pdf()</code>, <code>bmp()</code>, <code>jpeg()</code>, <code>png()</code>, and <code>tiff()</code>, has its own function. You can specify several properties of the output plot, including width and height.</p>
+<p>Additionally, several graphic packages provide its own function to save a graphical output. For example, the <strong>tmap</strong> package has the <code>save_tmap()</code> function. You can save a <code>tmap</code> object to different graphic formats by specifying the object name and a file path to a new graphic file.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tmap)
 tmap_obj =<span class="st"> </span><span class="kw">tm_shape</span>(world) +
 <span class="st">  </span><span class="kw">tm_polygons</span>(<span class="dt">col =</span> <span class="st">&quot;lifeExp&quot;</span>)
 <span class="kw">save_tmap</span>(<span class="dt">tm  =</span> tmap_obj, <span class="dt">filename =</span> <span class="st">&quot;lifeExp_tmap.png&quot;</span>)</code></pre></div>
-<!-- Check what's wrong with mapview zcol -->
-<!-- info that PhantomJS could be needed... when creating a png file -->
+<!-- Note about that the `plot` function do not create an object -->
+<!-- ```{r} -->
+<!-- a = plot(world["lifeExp"]) -->
+<!-- ``` -->
+<p>On the other hand, an interactive map could be usually saved as an HTML file. This can be done with the <code>saveWidget()</code> function from the <code>htmlwidget</code> package:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mapview)
-mapview_obj =<span class="st"> </span><span class="kw">mapview</span>(world, <span class="dt">zcol =</span> <span class="st">&quot;lifeExp&quot;</span>, <span class="dt">legend =</span> <span class="ot">TRUE</span>) 
-<span class="kw">mapshot</span>(mapview_obj, <span class="dt">url =</span> <span class="st">&quot;lifeExp_mapview.html&quot;</span>)
-<span class="kw">mapshot</span>(mapview_obj, <span class="dt">file =</span> <span class="st">&quot;lifeExp_mapview.png&quot;</span>)</code></pre></div>
+<span class="kw">library</span>(htmlwidgets)
+mapview_obj =<span class="st"> </span><span class="kw">mapview</span>(world, <span class="dt">zcol =</span> <span class="st">&quot;lifeExp&quot;</span>, <span class="dt">legend =</span> <span class="ot">TRUE</span>)
+<span class="kw">saveWidget</span>(mapview_obj, <span class="dt">file=</span><span class="st">&quot;my_interactive_map.html&quot;</span>)</code></pre></div>
 </div>
 <div id="exercises-4" class="section level2">
 <h2><span class="header-section-number">5.5</span> Exercises</h2>
