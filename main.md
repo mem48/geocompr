@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservec92d97e40980ed31
+preserve14c7826fa319b188
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3639,12 +3639,34 @@ multilayer_layer_stack = stack(raster_l1_filepath, raster_l2_filepath)
 
 The `stack()` class is limited to datasets that have the same spatial extent and resolution.
 
-<!-- ### Data packages -->
+### Data packages
+
+<!-- Vast amount of spatial data are available on the internet. -->
+<!-- You can access data files using a web browser, however in this book we encourage you to create reproducible workflows. -->
+
+<!-- Some data are shared as files.  -->
+<!-- You can easily access them from R by `download.file()`: -->
+
+<!-- an example -->
+
+Many open spatial datasets can be retrieved using R packages (Table \@ref(tab:datapackages)).
+
+
+Table: (\#tab:datapackages)Selected R packages for spatial data retrieval
+
+Package name   Function   Description 
+-------------  ---------  ------------
+osmdata                               
+rnoaa                                 
+raster                                
+rWBclimate                            
 
 <!-- Maybe add a section to Data I/O on where and how to retrieve data (with a focus on free data): osmdata (OpenStreetMap; maybe mention TomTom, HERE), rnoaa, raster (worldclim, MODIS, SRTM, ASTER), Landsat (wrspathrow), Sentinel (mention Python API), AVHRR, RapidEye rgbif, letsR, rWBclimate (world bank), etc. Of course, point to Transforming science through open data project (https://www.ropensci.org) -->
 
-<!-- https://bookdown.org/csgillespie/efficientR/input-output.html#download -->
+<!-- two examples of data packages - how to download spatial data, check its class, and convert?? -->
 
+<!-- Finally, some R packages contains data objects. -->
+<!-- an example -->
 <!-- https://bookdown.org/csgillespie/efficientR/input-output.html#accessing-data-stored-in-packages -->
 
 ## Data output (O) {#data-output}
