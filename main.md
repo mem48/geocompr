@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserved2c4d9231b566faa
+preservec31e58f1bffeeebd
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3753,6 +3753,1809 @@ class(worldclim_prec)
 #> [1] "RasterStack"
 #> attr(,"package")
 #> [1] "raster"
+worldclim_prec[, 1]
+#>        prec1 prec2 prec3 prec4 prec5 prec6 prec7 prec8 prec9 prec10 prec11
+#>   [1,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>   [2,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>   [3,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>   [4,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>   [5,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>   [6,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>   [7,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>   [8,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>   [9,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [10,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [11,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [12,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [13,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [14,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [15,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [16,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [17,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [18,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [19,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [20,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [21,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [22,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [23,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [24,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [25,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [26,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [27,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [28,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [29,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [30,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [31,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [32,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [33,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [34,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [35,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [36,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [37,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [38,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [39,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [40,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [41,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [42,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [43,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [44,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [45,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [46,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [47,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [48,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [49,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [50,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [51,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [52,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [53,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [54,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [55,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [56,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [57,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [58,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [59,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [60,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [61,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [62,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [63,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [64,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [65,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [66,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [67,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [68,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [69,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [70,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [71,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [72,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [73,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [74,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [75,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [76,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [77,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [78,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [79,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [80,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [81,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [82,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [83,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [84,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [85,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [86,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [87,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [88,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [89,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [90,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [91,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [92,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [93,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [94,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [95,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [96,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [97,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [98,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>  [99,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [100,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [101,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [102,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [103,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [104,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [105,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [106,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [107,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [108,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [109,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [110,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [111,]     9     7     5     5     6    12    20    26    18     12     12
+#> [112,]    10     7     6     5     6    12    21    26    19     12     12
+#> [113,]    10     8     6     6     7    13    22    28    20     13     13
+#> [114,]    11     9     7     7     8    14    24    30    21     14     15
+#> [115,]    11     8     6     6     7    13    23    29    21     14     15
+#> [116,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [117,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [118,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [119,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [120,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [121,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [122,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [123,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [124,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [125,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [126,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [127,]    18    12     8    10    10    16    34    41    34     25     29
+#> [128,]    21    14    10    11    12    19    38    44    36     26     30
+#> [129,]    22    15    11    12    12    20    40    45    37     27     31
+#> [130,]    25    18    13    14    14    23    45    49    38     27     32
+#> [131,]    27    19    15    15    14    24    47    51    39     27     33
+#> [132,]    28    20    15    15    14    24    48    51    39     27     33
+#> [133,]    28    19    14    14    13    24    46    49    39     27     32
+#> [134,]    30    21    15    15    14    25    48    51    39     27     32
+#> [135,]    30    21    14    15    13    25    48    50    39     27     32
+#> [136,]    31    22    15    16    14    26    51    52    40     27     32
+#> [137,]    33    24    16    17    15    29    55    55    41     27     32
+#> [138,]    32    23    15    16    14    27    53    54    40     26     31
+#> [139,]    31    22    13    15    13    27    53    53    39     26     29
+#> [140,]    32    24    14    16    14    29    57    56    41     26     30
+#> [141,]    32    25    15    17    15    31    60    59    42     26     30
+#> [142,]    33    25    15    17    15    32    62    61    42     26     30
+#> [143,]    33    25    15    17    16    32    63    61    43     27     30
+#> [144,]    31    24    13    16    15    31    61    60    42     26     29
+#> [145,]    31    24    13    15    15    31    60    60    42     27     29
+#> [146,]    32    25    13    16    15    31    60    60    42     27     29
+#> [147,]    32    25    14    16    15    30    60    60    42     28     30
+#> [148,]    33    26    14    16    15    30    60    60    42     28     30
+#> [149,]    34    26    15    17    16    30    59    60    42     29     31
+#> [150,]    35    27    16    17    16    31    60    61    43     29     32
+#> [151,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [152,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [153,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [154,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [155,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [156,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [157,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [158,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [159,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [160,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [161,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [162,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [163,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [164,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [165,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [166,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [167,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [168,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [169,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [170,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [171,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [172,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [173,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [174,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [175,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [176,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [177,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [178,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [179,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [180,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [181,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [182,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [183,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [184,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [185,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [186,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [187,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [188,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [189,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [190,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [191,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [192,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [193,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [194,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [195,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [196,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [197,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [198,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [199,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [200,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [201,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [202,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [203,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [204,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [205,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [206,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [207,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [208,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [209,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [210,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [211,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [212,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [213,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [214,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [215,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [216,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [217,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [218,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [219,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [220,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [221,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [222,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [223,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [224,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [225,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [226,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [227,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [228,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [229,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [230,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [231,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [232,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [233,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [234,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [235,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [236,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [237,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [238,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [239,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [240,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [241,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [242,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [243,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [244,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [245,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [246,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [247,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [248,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [249,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [250,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [251,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [252,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [253,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [254,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [255,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [256,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [257,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [258,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [259,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [260,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [261,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [262,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [263,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [264,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [265,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [266,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [267,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [268,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [269,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [270,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [271,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [272,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [273,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [274,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [275,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [276,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [277,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [278,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [279,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [280,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [281,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [282,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [283,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [284,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [285,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [286,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [287,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [288,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [289,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [290,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [291,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [292,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [293,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [294,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [295,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [296,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [297,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [298,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [299,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [300,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [301,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [302,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [303,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [304,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [305,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [306,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [307,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [308,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [309,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [310,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [311,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [312,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [313,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [314,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [315,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [316,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [317,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [318,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [319,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [320,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [321,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [322,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [323,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [324,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [325,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [326,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [327,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [328,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [329,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [330,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [331,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [332,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [333,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [334,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [335,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [336,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [337,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [338,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [339,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [340,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [341,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [342,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [343,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [344,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [345,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [346,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [347,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [348,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [349,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [350,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [351,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [352,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [353,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [354,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [355,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [356,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [357,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [358,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [359,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [360,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [361,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [362,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [363,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [364,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [365,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [366,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [367,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [368,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [369,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [370,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [371,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [372,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [373,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [374,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [375,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [376,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [377,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [378,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [379,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [380,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [381,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [382,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [383,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [384,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [385,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [386,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [387,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [388,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [389,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [390,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [391,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [392,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [393,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [394,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [395,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [396,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [397,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [398,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [399,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [400,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [401,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [402,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [403,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [404,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [405,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [406,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [407,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [408,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [409,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [410,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [411,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [412,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [413,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [414,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [415,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [416,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [417,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [418,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [419,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [420,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [421,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [422,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [423,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [424,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [425,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [426,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [427,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [428,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [429,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [430,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [431,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [432,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [433,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [434,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [435,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [436,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [437,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [438,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [439,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [440,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [441,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [442,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [443,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [444,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [445,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [446,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [447,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [448,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [449,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [450,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [451,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [452,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [453,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [454,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [455,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [456,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [457,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [458,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [459,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [460,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [461,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [462,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [463,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [464,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [465,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [466,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [467,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [468,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [469,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [470,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [471,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [472,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [473,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [474,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [475,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [476,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [477,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [478,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [479,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [480,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [481,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [482,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [483,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [484,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [485,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [486,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [487,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [488,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [489,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [490,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [491,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [492,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [493,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [494,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [495,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [496,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [497,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [498,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [499,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [500,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [501,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [502,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [503,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [504,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [505,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [506,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [507,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [508,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [509,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [510,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [511,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [512,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [513,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [514,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [515,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [516,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [517,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [518,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [519,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [520,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [521,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [522,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [523,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [524,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [525,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [526,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [527,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [528,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [529,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [530,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [531,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [532,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [533,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [534,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [535,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [536,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [537,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [538,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [539,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [540,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [541,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [542,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [543,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [544,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [545,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [546,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [547,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [548,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [549,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [550,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [551,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [552,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [553,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [554,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [555,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [556,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [557,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [558,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [559,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [560,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [561,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [562,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [563,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [564,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [565,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [566,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [567,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [568,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [569,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [570,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [571,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [572,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [573,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [574,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [575,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [576,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [577,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [578,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [579,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [580,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [581,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [582,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [583,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [584,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [585,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [586,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [587,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [588,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [589,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [590,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [591,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [592,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [593,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [594,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [595,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [596,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [597,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [598,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [599,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [600,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [601,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [602,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [603,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [604,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [605,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [606,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [607,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [608,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [609,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [610,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [611,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [612,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [613,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [614,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [615,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [616,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [617,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [618,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [619,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [620,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [621,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [622,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [623,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [624,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [625,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [626,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [627,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [628,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [629,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [630,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [631,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [632,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [633,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [634,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [635,]   335   326   322   250   159   149    87    89   124    162    251
+#> [636,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [637,]   332   321   319   242   146   133    77    78   116    146    237
+#> [638,]   330   318   318   240   144   132    76    77   114    145    235
+#> [639,]   332   315   328   250   150   135    81    83   119    150    232
+#> [640,]   332   314   330   252   151   136    82    84   120    151    231
+#> [641,]   344   320   350   274   167   147    97    98   135    166    239
+#> [642,]   354   328   364   290   180   156   108   108   145    177    248
+#> [643,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [644,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [645,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [646,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [647,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [648,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [649,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [650,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [651,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [652,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [653,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [654,]   237   198   272   212   130   104    91    89   106    128    127
+#> [655,]   234   194   268   209   128   102    90    88   104    126    124
+#> [656,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [657,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [658,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [659,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [660,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [661,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [662,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [663,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [664,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [665,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [666,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [667,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [668,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [669,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [670,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [671,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [672,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [673,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [674,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [675,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [676,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [677,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [678,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [679,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [680,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [681,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [682,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [683,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [684,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [685,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [686,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [687,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [688,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [689,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [690,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [691,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [692,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [693,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [694,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [695,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [696,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [697,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [698,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [699,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [700,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [701,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [702,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [703,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [704,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [705,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [706,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [707,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [708,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [709,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [710,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [711,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [712,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [713,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [714,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [715,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [716,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [717,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [718,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [719,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [720,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [721,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [722,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [723,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [724,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [725,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [726,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [727,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [728,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [729,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [730,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [731,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [732,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [733,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [734,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [735,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [736,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [737,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [738,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [739,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [740,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [741,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [742,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [743,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [744,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [745,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [746,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [747,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [748,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [749,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [750,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [751,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [752,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [753,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [754,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [755,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [756,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [757,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [758,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [759,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [760,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [761,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [762,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [763,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [764,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [765,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [766,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [767,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [768,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [769,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [770,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [771,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [772,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [773,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [774,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [775,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [776,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [777,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [778,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [779,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [780,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [781,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [782,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [783,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [784,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [785,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [786,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [787,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [788,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [789,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [790,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [791,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [792,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [793,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [794,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [795,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [796,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [797,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [798,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [799,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [800,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [801,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [802,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [803,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [804,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [805,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [806,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [807,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [808,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [809,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [810,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [811,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [812,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [813,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [814,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [815,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [816,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [817,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [818,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [819,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [820,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [821,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [822,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [823,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [824,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [825,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [826,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [827,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [828,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [829,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [830,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [831,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [832,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [833,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [834,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [835,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [836,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [837,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [838,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [839,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [840,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [841,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [842,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [843,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [844,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [845,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [846,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [847,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [848,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [849,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [850,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [851,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [852,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [853,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [854,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [855,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [856,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [857,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [858,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [859,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [860,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [861,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [862,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [863,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [864,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [865,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [866,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [867,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [868,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [869,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [870,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [871,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [872,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [873,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [874,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [875,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [876,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [877,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [878,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [879,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [880,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [881,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [882,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [883,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [884,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [885,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [886,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [887,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [888,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [889,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [890,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [891,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [892,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [893,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [894,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [895,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [896,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [897,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [898,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [899,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#> [900,]    NA    NA    NA    NA    NA    NA    NA    NA    NA     NA     NA
+#>        prec12
+#>   [1,]     NA
+#>   [2,]     NA
+#>   [3,]     NA
+#>   [4,]     NA
+#>   [5,]     NA
+#>   [6,]     NA
+#>   [7,]     NA
+#>   [8,]     NA
+#>   [9,]     NA
+#>  [10,]     NA
+#>  [11,]     NA
+#>  [12,]     NA
+#>  [13,]     NA
+#>  [14,]     NA
+#>  [15,]     NA
+#>  [16,]     NA
+#>  [17,]     NA
+#>  [18,]     NA
+#>  [19,]     NA
+#>  [20,]     NA
+#>  [21,]     NA
+#>  [22,]     NA
+#>  [23,]     NA
+#>  [24,]     NA
+#>  [25,]     NA
+#>  [26,]     NA
+#>  [27,]     NA
+#>  [28,]     NA
+#>  [29,]     NA
+#>  [30,]     NA
+#>  [31,]     NA
+#>  [32,]     NA
+#>  [33,]     NA
+#>  [34,]     NA
+#>  [35,]     NA
+#>  [36,]     NA
+#>  [37,]     NA
+#>  [38,]     NA
+#>  [39,]     NA
+#>  [40,]     NA
+#>  [41,]     NA
+#>  [42,]     NA
+#>  [43,]     NA
+#>  [44,]     NA
+#>  [45,]     NA
+#>  [46,]     NA
+#>  [47,]     NA
+#>  [48,]     NA
+#>  [49,]     NA
+#>  [50,]     NA
+#>  [51,]     NA
+#>  [52,]     NA
+#>  [53,]     NA
+#>  [54,]     NA
+#>  [55,]     NA
+#>  [56,]     NA
+#>  [57,]     NA
+#>  [58,]     NA
+#>  [59,]     NA
+#>  [60,]     NA
+#>  [61,]     NA
+#>  [62,]     NA
+#>  [63,]     NA
+#>  [64,]     NA
+#>  [65,]     NA
+#>  [66,]     NA
+#>  [67,]     NA
+#>  [68,]     NA
+#>  [69,]     NA
+#>  [70,]     NA
+#>  [71,]     NA
+#>  [72,]     NA
+#>  [73,]     NA
+#>  [74,]     NA
+#>  [75,]     NA
+#>  [76,]     NA
+#>  [77,]     NA
+#>  [78,]     NA
+#>  [79,]     NA
+#>  [80,]     NA
+#>  [81,]     NA
+#>  [82,]     NA
+#>  [83,]     NA
+#>  [84,]     NA
+#>  [85,]     NA
+#>  [86,]     NA
+#>  [87,]     NA
+#>  [88,]     NA
+#>  [89,]     NA
+#>  [90,]     NA
+#>  [91,]     NA
+#>  [92,]     NA
+#>  [93,]     NA
+#>  [94,]     NA
+#>  [95,]     NA
+#>  [96,]     NA
+#>  [97,]     NA
+#>  [98,]     NA
+#>  [99,]     NA
+#> [100,]     NA
+#> [101,]     NA
+#> [102,]     NA
+#> [103,]     NA
+#> [104,]     NA
+#> [105,]     NA
+#> [106,]     NA
+#> [107,]     NA
+#> [108,]     NA
+#> [109,]     NA
+#> [110,]     NA
+#> [111,]      6
+#> [112,]      7
+#> [113,]      7
+#> [114,]      8
+#> [115,]      8
+#> [116,]     NA
+#> [117,]     NA
+#> [118,]     NA
+#> [119,]     NA
+#> [120,]     NA
+#> [121,]     NA
+#> [122,]     NA
+#> [123,]     NA
+#> [124,]     NA
+#> [125,]     NA
+#> [126,]     NA
+#> [127,]     14
+#> [128,]     16
+#> [129,]     17
+#> [130,]     20
+#> [131,]     22
+#> [132,]     22
+#> [133,]     22
+#> [134,]     23
+#> [135,]     23
+#> [136,]     24
+#> [137,]     26
+#> [138,]     24
+#> [139,]     23
+#> [140,]     23
+#> [141,]     23
+#> [142,]     23
+#> [143,]     23
+#> [144,]     21
+#> [145,]     21
+#> [146,]     21
+#> [147,]     22
+#> [148,]     23
+#> [149,]     24
+#> [150,]     25
+#> [151,]     NA
+#> [152,]     NA
+#> [153,]     NA
+#> [154,]     NA
+#> [155,]     NA
+#> [156,]     NA
+#> [157,]     NA
+#> [158,]     NA
+#> [159,]     NA
+#> [160,]     NA
+#> [161,]     NA
+#> [162,]     NA
+#> [163,]     NA
+#> [164,]     NA
+#> [165,]     NA
+#> [166,]     NA
+#> [167,]     NA
+#> [168,]     NA
+#> [169,]     NA
+#> [170,]     NA
+#> [171,]     NA
+#> [172,]     NA
+#> [173,]     NA
+#> [174,]     NA
+#> [175,]     NA
+#> [176,]     NA
+#> [177,]     NA
+#> [178,]     NA
+#> [179,]     NA
+#> [180,]     NA
+#> [181,]     NA
+#> [182,]     NA
+#> [183,]     NA
+#> [184,]     NA
+#> [185,]     NA
+#> [186,]     NA
+#> [187,]     NA
+#> [188,]     NA
+#> [189,]     NA
+#> [190,]     NA
+#> [191,]     NA
+#> [192,]     NA
+#> [193,]     NA
+#> [194,]     NA
+#> [195,]     NA
+#> [196,]     NA
+#> [197,]     NA
+#> [198,]     NA
+#> [199,]     NA
+#> [200,]     NA
+#> [201,]     NA
+#> [202,]     NA
+#> [203,]     NA
+#> [204,]     NA
+#> [205,]     NA
+#> [206,]     NA
+#> [207,]     NA
+#> [208,]     NA
+#> [209,]     NA
+#> [210,]     NA
+#> [211,]     NA
+#> [212,]     NA
+#> [213,]     NA
+#> [214,]     NA
+#> [215,]     NA
+#> [216,]     NA
+#> [217,]     NA
+#> [218,]     NA
+#> [219,]     NA
+#> [220,]     NA
+#> [221,]     NA
+#> [222,]     NA
+#> [223,]     NA
+#> [224,]     NA
+#> [225,]     NA
+#> [226,]     NA
+#> [227,]     NA
+#> [228,]     NA
+#> [229,]     NA
+#> [230,]     NA
+#> [231,]     NA
+#> [232,]     NA
+#> [233,]     NA
+#> [234,]     NA
+#> [235,]     NA
+#> [236,]     NA
+#> [237,]     NA
+#> [238,]     NA
+#> [239,]     NA
+#> [240,]     NA
+#> [241,]     NA
+#> [242,]     NA
+#> [243,]     NA
+#> [244,]     NA
+#> [245,]     NA
+#> [246,]     NA
+#> [247,]     NA
+#> [248,]     NA
+#> [249,]     NA
+#> [250,]     NA
+#> [251,]     NA
+#> [252,]     NA
+#> [253,]     NA
+#> [254,]     NA
+#> [255,]     NA
+#> [256,]     NA
+#> [257,]     NA
+#> [258,]     NA
+#> [259,]     NA
+#> [260,]     NA
+#> [261,]     NA
+#> [262,]     NA
+#> [263,]     NA
+#> [264,]     NA
+#> [265,]     NA
+#> [266,]     NA
+#> [267,]     NA
+#> [268,]     NA
+#> [269,]     NA
+#> [270,]     NA
+#> [271,]     NA
+#> [272,]     NA
+#> [273,]     NA
+#> [274,]     NA
+#> [275,]     NA
+#> [276,]     NA
+#> [277,]     NA
+#> [278,]     NA
+#> [279,]     NA
+#> [280,]     NA
+#> [281,]     NA
+#> [282,]     NA
+#> [283,]     NA
+#> [284,]     NA
+#> [285,]     NA
+#> [286,]     NA
+#> [287,]     NA
+#> [288,]     NA
+#> [289,]     NA
+#> [290,]     NA
+#> [291,]     NA
+#> [292,]     NA
+#> [293,]     NA
+#> [294,]     NA
+#> [295,]     NA
+#> [296,]     NA
+#> [297,]     NA
+#> [298,]     NA
+#> [299,]     NA
+#> [300,]     NA
+#> [301,]     NA
+#> [302,]     NA
+#> [303,]     NA
+#> [304,]     NA
+#> [305,]     NA
+#> [306,]     NA
+#> [307,]     NA
+#> [308,]     NA
+#> [309,]     NA
+#> [310,]     NA
+#> [311,]     NA
+#> [312,]     NA
+#> [313,]     NA
+#> [314,]     NA
+#> [315,]     NA
+#> [316,]     NA
+#> [317,]     NA
+#> [318,]     NA
+#> [319,]     NA
+#> [320,]     NA
+#> [321,]     NA
+#> [322,]     NA
+#> [323,]     NA
+#> [324,]     NA
+#> [325,]     NA
+#> [326,]     NA
+#> [327,]     NA
+#> [328,]     NA
+#> [329,]     NA
+#> [330,]     NA
+#> [331,]     NA
+#> [332,]     NA
+#> [333,]     NA
+#> [334,]     NA
+#> [335,]     NA
+#> [336,]     NA
+#> [337,]     NA
+#> [338,]     NA
+#> [339,]     NA
+#> [340,]     NA
+#> [341,]     NA
+#> [342,]     NA
+#> [343,]     NA
+#> [344,]     NA
+#> [345,]     NA
+#> [346,]     NA
+#> [347,]     NA
+#> [348,]     NA
+#> [349,]     NA
+#> [350,]     NA
+#> [351,]     NA
+#> [352,]     NA
+#> [353,]     NA
+#> [354,]     NA
+#> [355,]     NA
+#> [356,]     NA
+#> [357,]     NA
+#> [358,]     NA
+#> [359,]     NA
+#> [360,]     NA
+#> [361,]     NA
+#> [362,]     NA
+#> [363,]     NA
+#> [364,]     NA
+#> [365,]     NA
+#> [366,]     NA
+#> [367,]     NA
+#> [368,]     NA
+#> [369,]     NA
+#> [370,]     NA
+#> [371,]     NA
+#> [372,]     NA
+#> [373,]     NA
+#> [374,]     NA
+#> [375,]     NA
+#> [376,]     NA
+#> [377,]     NA
+#> [378,]     NA
+#> [379,]     NA
+#> [380,]     NA
+#> [381,]     NA
+#> [382,]     NA
+#> [383,]     NA
+#> [384,]     NA
+#> [385,]     NA
+#> [386,]     NA
+#> [387,]     NA
+#> [388,]     NA
+#> [389,]     NA
+#> [390,]     NA
+#> [391,]     NA
+#> [392,]     NA
+#> [393,]     NA
+#> [394,]     NA
+#> [395,]     NA
+#> [396,]     NA
+#> [397,]     NA
+#> [398,]     NA
+#> [399,]     NA
+#> [400,]     NA
+#> [401,]     NA
+#> [402,]     NA
+#> [403,]     NA
+#> [404,]     NA
+#> [405,]     NA
+#> [406,]     NA
+#> [407,]     NA
+#> [408,]     NA
+#> [409,]     NA
+#> [410,]     NA
+#> [411,]     NA
+#> [412,]     NA
+#> [413,]     NA
+#> [414,]     NA
+#> [415,]     NA
+#> [416,]     NA
+#> [417,]     NA
+#> [418,]     NA
+#> [419,]     NA
+#> [420,]     NA
+#> [421,]     NA
+#> [422,]     NA
+#> [423,]     NA
+#> [424,]     NA
+#> [425,]     NA
+#> [426,]     NA
+#> [427,]     NA
+#> [428,]     NA
+#> [429,]     NA
+#> [430,]     NA
+#> [431,]     NA
+#> [432,]     NA
+#> [433,]     NA
+#> [434,]     NA
+#> [435,]     NA
+#> [436,]     NA
+#> [437,]     NA
+#> [438,]     NA
+#> [439,]     NA
+#> [440,]     NA
+#> [441,]     NA
+#> [442,]     NA
+#> [443,]     NA
+#> [444,]     NA
+#> [445,]     NA
+#> [446,]     NA
+#> [447,]     NA
+#> [448,]     NA
+#> [449,]     NA
+#> [450,]     NA
+#> [451,]     NA
+#> [452,]     NA
+#> [453,]     NA
+#> [454,]     NA
+#> [455,]     NA
+#> [456,]     NA
+#> [457,]     NA
+#> [458,]     NA
+#> [459,]     NA
+#> [460,]     NA
+#> [461,]     NA
+#> [462,]     NA
+#> [463,]     NA
+#> [464,]     NA
+#> [465,]     NA
+#> [466,]     NA
+#> [467,]     NA
+#> [468,]     NA
+#> [469,]     NA
+#> [470,]     NA
+#> [471,]     NA
+#> [472,]     NA
+#> [473,]     NA
+#> [474,]     NA
+#> [475,]     NA
+#> [476,]     NA
+#> [477,]     NA
+#> [478,]     NA
+#> [479,]     NA
+#> [480,]     NA
+#> [481,]     NA
+#> [482,]     NA
+#> [483,]     NA
+#> [484,]     NA
+#> [485,]     NA
+#> [486,]     NA
+#> [487,]     NA
+#> [488,]     NA
+#> [489,]     NA
+#> [490,]     NA
+#> [491,]     NA
+#> [492,]     NA
+#> [493,]     NA
+#> [494,]     NA
+#> [495,]     NA
+#> [496,]     NA
+#> [497,]     NA
+#> [498,]     NA
+#> [499,]     NA
+#> [500,]     NA
+#> [501,]     NA
+#> [502,]     NA
+#> [503,]     NA
+#> [504,]     NA
+#> [505,]     NA
+#> [506,]     NA
+#> [507,]     NA
+#> [508,]     NA
+#> [509,]     NA
+#> [510,]     NA
+#> [511,]     NA
+#> [512,]     NA
+#> [513,]     NA
+#> [514,]     NA
+#> [515,]     NA
+#> [516,]     NA
+#> [517,]     NA
+#> [518,]     NA
+#> [519,]     NA
+#> [520,]     NA
+#> [521,]     NA
+#> [522,]     NA
+#> [523,]     NA
+#> [524,]     NA
+#> [525,]     NA
+#> [526,]     NA
+#> [527,]     NA
+#> [528,]     NA
+#> [529,]     NA
+#> [530,]     NA
+#> [531,]     NA
+#> [532,]     NA
+#> [533,]     NA
+#> [534,]     NA
+#> [535,]     NA
+#> [536,]     NA
+#> [537,]     NA
+#> [538,]     NA
+#> [539,]     NA
+#> [540,]     NA
+#> [541,]     NA
+#> [542,]     NA
+#> [543,]     NA
+#> [544,]     NA
+#> [545,]     NA
+#> [546,]     NA
+#> [547,]     NA
+#> [548,]     NA
+#> [549,]     NA
+#> [550,]     NA
+#> [551,]     NA
+#> [552,]     NA
+#> [553,]     NA
+#> [554,]     NA
+#> [555,]     NA
+#> [556,]     NA
+#> [557,]     NA
+#> [558,]     NA
+#> [559,]     NA
+#> [560,]     NA
+#> [561,]     NA
+#> [562,]     NA
+#> [563,]     NA
+#> [564,]     NA
+#> [565,]     NA
+#> [566,]     NA
+#> [567,]     NA
+#> [568,]     NA
+#> [569,]     NA
+#> [570,]     NA
+#> [571,]     NA
+#> [572,]     NA
+#> [573,]     NA
+#> [574,]     NA
+#> [575,]     NA
+#> [576,]     NA
+#> [577,]     NA
+#> [578,]     NA
+#> [579,]     NA
+#> [580,]     NA
+#> [581,]     NA
+#> [582,]     NA
+#> [583,]     NA
+#> [584,]     NA
+#> [585,]     NA
+#> [586,]     NA
+#> [587,]     NA
+#> [588,]     NA
+#> [589,]     NA
+#> [590,]     NA
+#> [591,]     NA
+#> [592,]     NA
+#> [593,]     NA
+#> [594,]     NA
+#> [595,]     NA
+#> [596,]     NA
+#> [597,]     NA
+#> [598,]     NA
+#> [599,]     NA
+#> [600,]     NA
+#> [601,]     NA
+#> [602,]     NA
+#> [603,]     NA
+#> [604,]     NA
+#> [605,]     NA
+#> [606,]     NA
+#> [607,]     NA
+#> [608,]     NA
+#> [609,]     NA
+#> [610,]     NA
+#> [611,]     NA
+#> [612,]     NA
+#> [613,]     NA
+#> [614,]     NA
+#> [615,]     NA
+#> [616,]     NA
+#> [617,]     NA
+#> [618,]     NA
+#> [619,]     NA
+#> [620,]     NA
+#> [621,]     NA
+#> [622,]     NA
+#> [623,]     NA
+#> [624,]     NA
+#> [625,]     NA
+#> [626,]     NA
+#> [627,]     NA
+#> [628,]     NA
+#> [629,]     NA
+#> [630,]     NA
+#> [631,]     NA
+#> [632,]     NA
+#> [633,]     NA
+#> [634,]     NA
+#> [635,]    248
+#> [636,]     NA
+#> [637,]    243
+#> [638,]    240
+#> [639,]    242
+#> [640,]    243
+#> [641,]    254
+#> [642,]    264
+#> [643,]     NA
+#> [644,]     NA
+#> [645,]     NA
+#> [646,]     NA
+#> [647,]     NA
+#> [648,]     NA
+#> [649,]     NA
+#> [650,]     NA
+#> [651,]     NA
+#> [652,]     NA
+#> [653,]     NA
+#> [654,]    162
+#> [655,]    159
+#> [656,]     NA
+#> [657,]     NA
+#> [658,]     NA
+#> [659,]     NA
+#> [660,]     NA
+#> [661,]     NA
+#> [662,]     NA
+#> [663,]     NA
+#> [664,]     NA
+#> [665,]     NA
+#> [666,]     NA
+#> [667,]     NA
+#> [668,]     NA
+#> [669,]     NA
+#> [670,]     NA
+#> [671,]     NA
+#> [672,]     NA
+#> [673,]     NA
+#> [674,]     NA
+#> [675,]     NA
+#> [676,]     NA
+#> [677,]     NA
+#> [678,]     NA
+#> [679,]     NA
+#> [680,]     NA
+#> [681,]     NA
+#> [682,]     NA
+#> [683,]     NA
+#> [684,]     NA
+#> [685,]     NA
+#> [686,]     NA
+#> [687,]     NA
+#> [688,]     NA
+#> [689,]     NA
+#> [690,]     NA
+#> [691,]     NA
+#> [692,]     NA
+#> [693,]     NA
+#> [694,]     NA
+#> [695,]     NA
+#> [696,]     NA
+#> [697,]     NA
+#> [698,]     NA
+#> [699,]     NA
+#> [700,]     NA
+#> [701,]     NA
+#> [702,]     NA
+#> [703,]     NA
+#> [704,]     NA
+#> [705,]     NA
+#> [706,]     NA
+#> [707,]     NA
+#> [708,]     NA
+#> [709,]     NA
+#> [710,]     NA
+#> [711,]     NA
+#> [712,]     NA
+#> [713,]     NA
+#> [714,]     NA
+#> [715,]     NA
+#> [716,]     NA
+#> [717,]     NA
+#> [718,]     NA
+#> [719,]     NA
+#> [720,]     NA
+#> [721,]     NA
+#> [722,]     NA
+#> [723,]     NA
+#> [724,]     NA
+#> [725,]     NA
+#> [726,]     NA
+#> [727,]     NA
+#> [728,]     NA
+#> [729,]     NA
+#> [730,]     NA
+#> [731,]     NA
+#> [732,]     NA
+#> [733,]     NA
+#> [734,]     NA
+#> [735,]     NA
+#> [736,]     NA
+#> [737,]     NA
+#> [738,]     NA
+#> [739,]     NA
+#> [740,]     NA
+#> [741,]     NA
+#> [742,]     NA
+#> [743,]     NA
+#> [744,]     NA
+#> [745,]     NA
+#> [746,]     NA
+#> [747,]     NA
+#> [748,]     NA
+#> [749,]     NA
+#> [750,]     NA
+#> [751,]     NA
+#> [752,]     NA
+#> [753,]     NA
+#> [754,]     NA
+#> [755,]     NA
+#> [756,]     NA
+#> [757,]     NA
+#> [758,]     NA
+#> [759,]     NA
+#> [760,]     NA
+#> [761,]     NA
+#> [762,]     NA
+#> [763,]     NA
+#> [764,]     NA
+#> [765,]     NA
+#> [766,]     NA
+#> [767,]     NA
+#> [768,]     NA
+#> [769,]     NA
+#> [770,]     NA
+#> [771,]     NA
+#> [772,]     NA
+#> [773,]     NA
+#> [774,]     NA
+#> [775,]     NA
+#> [776,]     NA
+#> [777,]     NA
+#> [778,]     NA
+#> [779,]     NA
+#> [780,]     NA
+#> [781,]     NA
+#> [782,]     NA
+#> [783,]     NA
+#> [784,]     NA
+#> [785,]     NA
+#> [786,]     NA
+#> [787,]     NA
+#> [788,]     NA
+#> [789,]     NA
+#> [790,]     NA
+#> [791,]     NA
+#> [792,]     NA
+#> [793,]     NA
+#> [794,]     NA
+#> [795,]     NA
+#> [796,]     NA
+#> [797,]     NA
+#> [798,]     NA
+#> [799,]     NA
+#> [800,]     NA
+#> [801,]     NA
+#> [802,]     NA
+#> [803,]     NA
+#> [804,]     NA
+#> [805,]     NA
+#> [806,]     NA
+#> [807,]     NA
+#> [808,]     NA
+#> [809,]     NA
+#> [810,]     NA
+#> [811,]     NA
+#> [812,]     NA
+#> [813,]     NA
+#> [814,]     NA
+#> [815,]     NA
+#> [816,]     NA
+#> [817,]     NA
+#> [818,]     NA
+#> [819,]     NA
+#> [820,]     NA
+#> [821,]     NA
+#> [822,]     NA
+#> [823,]     NA
+#> [824,]     NA
+#> [825,]     NA
+#> [826,]     NA
+#> [827,]     NA
+#> [828,]     NA
+#> [829,]     NA
+#> [830,]     NA
+#> [831,]     NA
+#> [832,]     NA
+#> [833,]     NA
+#> [834,]     NA
+#> [835,]     NA
+#> [836,]     NA
+#> [837,]     NA
+#> [838,]     NA
+#> [839,]     NA
+#> [840,]     NA
+#> [841,]     NA
+#> [842,]     NA
+#> [843,]     NA
+#> [844,]     NA
+#> [845,]     NA
+#> [846,]     NA
+#> [847,]     NA
+#> [848,]     NA
+#> [849,]     NA
+#> [850,]     NA
+#> [851,]     NA
+#> [852,]     NA
+#> [853,]     NA
+#> [854,]     NA
+#> [855,]     NA
+#> [856,]     NA
+#> [857,]     NA
+#> [858,]     NA
+#> [859,]     NA
+#> [860,]     NA
+#> [861,]     NA
+#> [862,]     NA
+#> [863,]     NA
+#> [864,]     NA
+#> [865,]     NA
+#> [866,]     NA
+#> [867,]     NA
+#> [868,]     NA
+#> [869,]     NA
+#> [870,]     NA
+#> [871,]     NA
+#> [872,]     NA
+#> [873,]     NA
+#> [874,]     NA
+#> [875,]     NA
+#> [876,]     NA
+#> [877,]     NA
+#> [878,]     NA
+#> [879,]     NA
+#> [880,]     NA
+#> [881,]     NA
+#> [882,]     NA
+#> [883,]     NA
+#> [884,]     NA
+#> [885,]     NA
+#> [886,]     NA
+#> [887,]     NA
+#> [888,]     NA
+#> [889,]     NA
+#> [890,]     NA
+#> [891,]     NA
+#> [892,]     NA
+#> [893,]     NA
+#> [894,]     NA
+#> [895,]     NA
+#> [896,]     NA
+#> [897,]     NA
+#> [898,]     NA
+#> [899,]     NA
+#> [900,]     NA
 ```
 
 Finally, many R packages contain example data as R objects or in a raw form.
@@ -3968,13 +5771,14 @@ What is a geometry type of a new object?
 
 1. Download Germany borders data using **rnaturalearth** and create a new object called `germany_borders`.
 Write this new object to a file of the GeoPackage format.
-<!-- input x2 -->
 
-<!-- output x2 -->
+1. Download raster data of global monthly minimum temperature with five minutes resolution using the **raster** package.
+Extract only values for June and save them to the `tmin_june.tif` file (hint: use `raster::subset()`).
 
-<!-- maps x2 -->
+1. Create a static map of Germany borders and save it to a PNG file.
 
-
+1. Create an interactive map using data from the `cycle_hire_xy.csv` file. 
+Export this map to the HTML file called `cycle_hire.html`.
 
 [^1]: A list of supported vector formats and theirs options could be found at http://www.gdal.org/ogr_formats.html.
 
