@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve645c51126a0ab2e4
+preserve38a1f35fd637e6af
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3689,7 +3689,17 @@ Data download in many cases could be automated, which not only save a time, but 
 
 Data could be stored online in many ways. 
 Traditionally, is has been distributed on servers as files.
-You can easily access data files from R by `download.file()`<!--, for example ... :-->
+<!-- that's probably not the best example - replace it with something better -->
+<!-- btw naturalearth website has some problems today - the link will probably change in the future -->
+You can easily access data files from R by `download.file()`, for example National Park Service units in the United States:
+
+
+```r
+download.file(url = "http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_parks_and_protected_lands.zip",
+              destfile = "USA_parks.zip")
+unzip(zipfile = "USA_parks.zip")
+usa_parks = st_read("ne_10m_parks_and_protected_lands_area.shp")
+```
 
 Many open spatial datasets can be retrieved using R packages (Table \@ref(tab:datapackages)).
 These packages either store small datasets or provide an access to dataset available on webservers.
@@ -3704,6 +3714,7 @@ rnaturalearth   Functions to download Natural Earth vector and raster data, incl
 rnoaa           An R interface to many National Oceanic and Atmospheric Administration (NOAA) data sources, such as climate data, sea ice data, and storm data. 
 raster          The `get_data()` function provides for example elevation data from SRTM and interpolated climate data from WorldClim.                           
 rWBclimate      An access to the World Bank climate data used in the World Bank climate knowledge portal.                                                       
+
 <!-- https://cdn.rawgit.com/Nowosad/Intro_to_spatial_analysis/05676e29/Intro_to_spatial_analysis.html#39 -->
 <!-- Maybe add a section to Data I/O on where and how to retrieve data (with a focus on free data): osmdata (OpenStreetMap; maybe mention TomTom, HERE), Landsat (wrspathrow), Sentinel (mention Python API), AVHRR, RapidEye rgbif, letsR, etc. Of course, point to Transforming science through open data project (https://www.ropensci.org) -->
 <!-- https://github.com/ropensci/GSODR -->
@@ -3733,7 +3744,7 @@ usa_sf = st_as_sf(usa)
 It is also possible to get a raster data, for example using `getData()`.
 The code below download a series of rasters that contain global monthly precipitation sums in a ten minutes spatial resolution.
 As a result, the new object is a multilayer object of the `RasterStack` class.
-<!-- raster example -->
+
 
 ```r
 library(raster)
