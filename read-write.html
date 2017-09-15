@@ -483,7 +483,7 @@ usa_parks =<span class="st"> </span><span class="kw">st_read</span>(<span class=
 <!-- https://github.com/lbusett/MODIStsp -->
 <!-- https://github.com/walkerke/tigris -->
 <!-- https://github.com/ropensci/hddtools/ -->
-<p>For example, you can get borders of any country with the <code>ne_countries()</code> function from the <code>rnaturalearth</code> package:</p>
+<p>For example, you can get borders of any country with the <code>ne_countries()</code> function from the <strong>rnaturalearth</strong> package:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rnaturalearth)
 usa =<span class="st"> </span><span class="kw">ne_countries</span>(<span class="dt">country =</span> <span class="st">&quot;United States of America&quot;</span>) <span class="co"># United States borders</span>
 <span class="kw">class</span>(usa)
@@ -645,17 +645,14 @@ mapview_obj =<span class="st"> </span><span class="kw">mapview</span>(world, <sp
 </div>
 <div id="exercises-4" class="section level2">
 <h2><span class="header-section-number">5.5</span> Exercises</h2>
-<!-- file formats questions x2 -->
 <ol style="list-style-type: decimal">
-<li><p>Name three differences between <code>write_sf()</code> and the more well-known function <code>st_write()</code>.</p></li>
-<li><p>What are the default arguments of <code>read_sf()</code> and <code>write_sf()</code> that enable two of these differences?</p></li>
+<li><p>List and describe three types of vector, raster, and geodatabase formats.</p></li>
+<li><p>Name at least differences between <code>read_sf()</code> and the more well-known function <code>st_read()</code>.</p></li>
+<li><p>Read the <code>cycle_hire_xy.csv</code> file from the <strong>spData</strong> package (hint: it is in the <code>misc\</code> folder). What is a geometry type of a new object?</p></li>
+<li><p>Download Germany borders data using <strong>rnaturalearth</strong> and create a new object called <code>germany_borders</code>. Write this new object to a file of the GeoPackage format. <!-- input x2 --></p></li>
 </ol>
-<!-- input x2 -->
 <!-- output x2 -->
 <!-- maps x2 -->
-<!-- List and describe three types of vector format. -->
-<!-- List and describe three types of raster format. -->
-<!-- Why do we have so many types of data formats, and why are they so difficult to use together? -->
 
 </div>
 </div>
