@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve1810ef04375aca8d
+preserve78b563a95dfc5f60
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1187,7 +1187,7 @@ The **raster** package supports raster objects in R.
 It provides an extensive set of functions to create, read, export, manipulate and process raster datasets.
 Aside from general raster data manipulation, **raster** provides many low level functions that can form the basis to develop more advanced raster functionality.
 **raster** also lets you work on large raster datasets that are too large to fit into the main memory . 
-In this case, **raster** provides the possibility to divide the raster into smaller chunks (rows or blocks), and processes these iteratively instead of loading the whole raster file into RAM (for more information, please refer to `vignette("functions", package = "raster").
+In this case, **raster** provides the possibility to divide the raster into smaller chunks (rows or blocks), and processes these iteratively instead of loading the whole raster file into RAM (for more information, please refer to `vignette("functions", package = "raster")`.
 
 For the illustration of the **raster** concepts, we will use datasets from the **spDataLarge** package.
 It consists of a few raster and one vector datasets covering an area of the Zion National Park (Utah, USA).
