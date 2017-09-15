@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservefbb6b48984a5e161
+preserve814d1756fafd451b
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1468,7 +1468,7 @@ Note that operations on `RasterBrick` and `RasterStack` objects will typically r
 
 Vector and raster spatial data types share concepts intrinsic to spatial data.
 Perhaps the most important of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other bodies).
-Coordinate system could be either projected or geographic (Figures \@ref(vector-crs) and \@ref(raster-crs)).
+Coordinate system could be either projected or geographic (Figures \@ref(fig:vector-crs) and \@ref(fig:raster-crs)).
 
 Geographic coordinate systems identify any location on the Earth's surface using two values - longitude and latitude. 
 The first one is an angle from the prime meridian plan and the second one is an angle from the equatorial plane to this location.
