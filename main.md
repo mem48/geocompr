@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve98d44f493754f5ca
+preserve3956835199e6a7be
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2485,7 +2485,6 @@ Create a raster stack using `dem` and `ndvi`, and make a `pairs()` plot
 ## Prerequisites {-}
 
 - This chapter requires the packages **tidyverse**, **sf** and **raster**. 
-To avoid confusing function names (e.g., `dplyr::select` and `raster::select`) we will wait until section \@ref(spatial-operations-on-raster-data) with loading **raster**:
 
 
 ```r
@@ -2494,7 +2493,7 @@ library(tidyverse)
 library(raster)
 ```
 
-- Attach also the **spData** package which in turn automatically attaches the `world` dataset:
+- It also relies on **spData**, which loads the `world` dataset used in examples in the chapter:
 
 
 ```r
