@@ -589,7 +589,7 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <span class="co">#&gt; POINT (5 2)</span>
 <span class="co">#&gt; POINT (1 3)</span></code></pre></div>
 <p>Of course, all geometries in an <code>sfc</code> object must have the same CRS.</p>
-<p>We can add coordinate reference system as a <code>crs</code> argument of <code>st_sfc()</code>. This argument accepts either an integer with the <code>epsg</code> code (e.g., <code>4326</code>) or a <code>proj4string</code> character string (e.g., <code>&quot;+proj=longlat +datum=WGS84 +no_defs&quot;</code>):</p>
+<p>We can add coordinate reference system as a <code>crs</code> argument of <code>st_sfc()</code>. This argument accepts either an integer with the <code>epsg</code> code (e.g., <code>4326</code>) or a <code>proj4string</code> character string (e.g., <code>&quot;+proj=longlat +datum=WGS84 +no_defs&quot;</code>) (see section <a href="spatial-class.html#crs-intro">2.3</a>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># EPSG definition</span>
 <span class="kw">st_sfc</span>(point1, point2, <span class="dt">crs =</span> <span class="dv">4326</span>)
 <span class="co">#&gt; Geometry set for 2 features </span>
@@ -610,8 +610,7 @@ multilinestring2 =<span class="st"> </span><span class="kw">st_multilinestring</
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
 <span class="co">#&gt; POINT (5 2)</span>
 <span class="co">#&gt; POINT (1 3)</span></code></pre></div>
-<p>Both of these approaches have advantages and disadvantages. An <code>epsg</code> code is usually shorter, and therefore easier to remember. The code also refers to only one, well-defined coordinate reference system. On the other hand, a <code>proj4string</code> definition allows you more flexibility when it comes to specifying different parameters such as the projection type, the datum and the ellipsoid. This way you can specify many different projections, and modify existing ones. This makes the <code>proj4string</code> approach also more complicated.<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a>.</p>
-<p><code>epsg</code> always points to exactly one particular CRS. Correspondingly, there is also only one possible <code>proj4string</code> for a specific <code>epsg</code>-code. For example, we can set the UTM Zone 11N projection with <code>epsg</code> code <code>2955</code>:</p>
+<p>For example, we can set the UTM Zone 11N projection with <code>epsg</code> code <code>2955</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_sfc</span>(point1, point2, <span class="dt">crs =</span> <span class="dv">2955</span>)
 <span class="co">#&gt; Geometry set for 2 features </span>
 <span class="co">#&gt; geometry type:  POINT</span>
@@ -868,6 +867,7 @@ r_stack
 <p>Projected coordinate systems are based on Cartesian coordinates and represent any area on a flat surface. Projected coordinate system needs to have an origin, x and y axes, and a linear unit of measure.</p>
 <!-- projection types, e.g. cylindrical -->
 <!-- spatial distortion: area, direction, distance, shape -->
+<p>Two main ways to describe CRS in R is an <code>epsg</code> code or a <code>proj4string</code> definition. Both of these approaches have advantages and disadvantages. An <code>epsg</code> code is usually shorter, and therefore easier to remember. The code also refers to only one, well-defined coordinate reference system. On the other hand, a <code>proj4string</code> definition allows you more flexibility when it comes to specifying different parameters such as the projection type, the datum and the ellipsoid. This way you can specify many different projections, and modify existing ones. This makes the <code>proj4string</code> approach also more complicated.<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a>. <code>epsg</code> always points to exactly one particular CRS. Correspondingly, there is also only one possible <code>proj4string</code> for a specific <code>epsg</code>-code.</p>
 <p>In <strong>sf</strong> the CRS of an object can be retrieved using `st_crs():</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">old_crs =<span class="st"> </span><span class="kw">st_crs</span>(new_vector) <span class="co"># get CRS</span>
 old_crs <span class="co"># print CRS</span>
@@ -1003,7 +1003,7 @@ repr =<span class="st"> </span><span class="kw">projectRaster</span>(new_raster,
 <li id="fn15"><p>The full OGC standard includes rather exotic geometry types including ‘surface’ and ‘curve’ geometry types, which currently have limited application in real world applications. All 68 types can be represented in R, although (at the time of writing) all methods, such as plotting, are only supported for the 7 types that are used.<a href="spatial-class.html#fnref15">↩</a></p></li>
 <li id="fn16"><p>The development version, which may contain new features, can be installed with <code>devtools::install_github(&quot;r-spatial/sf&quot;).</code><a href="spatial-class.html#fnref16">↩</a></p></li>
 <li id="fn17"><p>In fact, when you <code>plot()</code> an <strong>sf</strong> object, R is calling <code>sf:::plot.sf()</code> behind the scenes. <code>plot()</code> is a generic method that behaves differently depending on the class of object being plotted.<a href="spatial-class.html#fnref17">↩</a></p></li>
-<li id="fn18"><p>In the background, <code>sf</code> uses the <a href="http://proj4.org/">PROJ.4</a> software, which enables transformations between different projections<a href="spatial-class.html#fnref18">↩</a></p></li>
+<li id="fn18"><p>In the background, <code>sf</code> and <code>raster</code> use the <a href="http://proj4.org/">PROJ.4</a> software, which enables transformations between different projections<a href="spatial-class.html#fnref18">↩</a></p></li>
 </ol>
 </div>
             </section>
