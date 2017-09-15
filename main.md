@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveb2b1c018d77487ab
+preservee2feb88fa3986f78
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1669,9 +1669,13 @@ library(spData)
 ## Introduction
 
 Attribute data is non-spatial information associated with geographic (geometry) data.
-A bus station, for example, could be represented by an attribute field containing its name, associated with its latitude and longitude position (geometry data).
-A raster example might be the elevation value (attribute) for a specific grid cell.
-Interestingly, the raster data model stores the coordinate of the grid cell only indirectly.
+A bus stop provides a simple example.
+In a spatial vector object its position would be represented by latitude and longitude coordinates (geometry data), in addition to its name.
+The name is an *attribute* of the feature (to use Simple Features terminology) that bears no relation to its geometry.
+
+Another example is the elevation value (attribute) for a specific grid cell in raster data.
+Unlike vector data, the raster data model stores the coordinate of the grid cell only indirectly:
+There is a less clear distinction between attribute and spatial information in raster data.
 Say, we are in the 3^rd^ row and the 4^th^ column of a raster matrix.
 To derive the corresponding coordinate, we have to move from the origin three cells in x-direction and four cells in y-direction with the cell resolution defining the distance for each x- and y-step.
 The raster header gives the matrix a spatial dimension which we need when plotting the raster or when we want to combine two rasters, think, for instance, of adding the values of one raster to another (see also next Chapter).
