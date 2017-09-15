@@ -862,9 +862,8 @@ r_stack
 </div>
 <div id="crs-intro" class="section level2">
 <h2><span class="header-section-number">2.3</span> Coordinate Reference Systems</h2>
-<!-- This section is work in progress. -->
-<p>Despite the differences between vector and raster spatial data types, they share concepts intrinsic to spatial data. Perhaps the most important of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other bodies). <!-- an intro --> <!-- for operation data needs to have the same projection --> <!-- (for most of the case is better to reproject vector than raster) --></p>
-<p>In <strong>sf</strong> the CRS of an object can be retrieved and set using <code>st_crs()</code> and <code>st_set_crs()</code> respectively:</p>
+<p>Vector and raster spatial data types share concepts intrinsic to spatial data. Perhaps the most important of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other bodies).</p>
+<p>In <strong>sf</strong> the CRS of an object can be retrieved using `st_crs():</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">old_crs =<span class="st"> </span><span class="kw">st_crs</span>(new_vector) <span class="co"># get CRS</span>
 old_crs <span class="co"># print CRS</span>
 <span class="co">#&gt; $epsg</span>
@@ -874,34 +873,22 @@ old_crs <span class="co"># print CRS</span>
 <span class="co">#&gt; [1] &quot;+proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs&quot;</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; attr(,&quot;class&quot;)</span>
-<span class="co">#&gt; [1] &quot;crs&quot;</span>
-new_vector =<span class="st"> </span><span class="kw">st_set_crs</span>(new_vector, <span class="dv">4326</span>) <span class="co"># set CRS</span>
+<span class="co">#&gt; [1] &quot;crs&quot;</span></code></pre></div>
+<p>In cases when a coordinate reference system (CRS) is missing or the wrong CRS is set, the <code>st_set_crs()</code> function can be used:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_vector =<span class="st"> </span><span class="kw">st_set_crs</span>(new_vector, <span class="dv">4326</span>) <span class="co"># set CRS</span>
 <span class="co">#&gt; Warning: st_crs&lt;- : replacing crs does not reproject data; use st_transform</span>
 <span class="co">#&gt; for that</span></code></pre></div>
-<!-- the difference between `st_set_crs()` and `st_transform()` !!! -->
-<!-- `st_set_crs()` doesn't change coordinates -->
-<!-- vectors: transformation means change of the coordinates of nodes -->
-<!-- change shape (no change in attributes) -->
+
+<div class="rmdnote">
+The <code>st_set_crs()</code> function do not transform data from one CRS to another. It can be done using <code>st_transform()</code>. More on that in chapter <a href="#coord"><strong>??</strong></a>.
+</div>
+<p></p>
 <div class="figure" style="text-align: center"><span id="fig:vector-crs"></span>
 <img src="figures/02_vector_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a vector data type." width="765" />
 <p class="caption">
 Figure 2.9: Examples of projected (left) and geographic (right) coordinate systems for a vector data type.
 </p>
 </div>
-<p>Note the warning emitted after the CRS for <code>sf_points</code> was set to <code>27700</code>. This is a good thing: we have imposed a spatial reference onto data without knowing what that means. To discover what the ‘magic number’ <code>27700</code> means, we can retrieve the CRS again:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crs</span>(new_vector)
-<span class="co">#&gt; $epsg</span>
-<span class="co">#&gt; [1] 4326</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $proj4string</span>
-<span class="co">#&gt; [1] &quot;+proj=longlat +datum=WGS84 +no_defs&quot;</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; attr(,&quot;class&quot;)</span>
-<span class="co">#&gt; [1] &quot;crs&quot;</span></code></pre></div>
-<!-- rasters: transformation means change of the coordinates of (special case of resampling) -->
-<!-- changes in dimensions, resolution, extent -->
-<!-- change shape and attributes) -->
-<!-- different methods of computing values after transformation, such as ngb or bilinear  -->
 <div class="figure" style="text-align: center"><span id="fig:raster-crs"></span>
 <img src="figures/02_raster_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a raster data type" width="475" />
 <p class="caption">

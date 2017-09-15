@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve868280fad51d2b69
+preserve5f10202e2b19b001
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1475,14 +1475,10 @@ Note that operations on `RasterBrick` and `RasterStack` objects will typically r
 
 ## Coordinate Reference Systems {#crs-intro}
 
-<!-- This section is work in progress. -->
-Despite the differences between vector and raster spatial data types, they share concepts intrinsic to spatial data.
+Vector and raster spatial data types share concepts intrinsic to spatial data.
 Perhaps the most important of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other bodies).
-<!-- an intro -->
-<!-- for operation data needs to have the same projection -->
-<!-- (for most of the case is better to reproject vector than raster) -->
 
-In **sf** the CRS of an object can be retrieved and set using `st_crs()` and `st_set_crs()` respectively:
+In **sf** the CRS of an object can be retrieved using `st_crs():
 
 
 ```r
@@ -1496,42 +1492,25 @@ old_crs # print CRS
 #> 
 #> attr(,"class")
 #> [1] "crs"
+```
+
+In cases when a coordinate reference system (CRS) is missing or the wrong CRS is set, the `st_set_crs()` function can be used:
+
+
+```r
 new_vector = st_set_crs(new_vector, 4326) # set CRS
 #> Warning: st_crs<- : replacing crs does not reproject data; use st_transform
 #> for that
 ```
 
-<!-- the difference between `st_set_crs()` and `st_transform()` !!! -->
-<!-- `st_set_crs()` doesn't change coordinates -->
-<!-- vectors: transformation means change of the coordinates of nodes -->
-<!-- change shape (no change in attributes) -->
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">The `st_set_crs()` function do not transform data from one CRS to another.
+It can be done using `st_transform()`.
+More on that in chapter \@ref(coord).</div>\EndKnitrBlock{rmdnote}
 
 <div class="figure" style="text-align: center">
 <img src="figures/02_vector_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a vector data type." width="765" />
 <p class="caption">(\#fig:vector-crs)Examples of projected (left) and geographic (right) coordinate systems for a vector data type.</p>
 </div>
-
-Note the warning emitted after the CRS for `sf_points` was set to `27700`.
-This is a good thing: we have imposed a spatial reference onto data without knowing what that means.
-To discover what the 'magic number' `27700` means, we can retrieve the CRS again:
-
-
-```r
-st_crs(new_vector)
-#> $epsg
-#> [1] 4326
-#> 
-#> $proj4string
-#> [1] "+proj=longlat +datum=WGS84 +no_defs"
-#> 
-#> attr(,"class")
-#> [1] "crs"
-```
-
-<!-- rasters: transformation means change of the coordinates of (special case of resampling) -->
-<!-- changes in dimensions, resolution, extent -->
-<!-- change shape and attributes) -->
-<!-- different methods of computing values after transformation, such as ngb or bilinear  -->
 
 <div class="figure" style="text-align: center">
 <img src="figures/02_raster_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a raster data type" width="475" />
