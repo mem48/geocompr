@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve814d1756fafd451b
+preserve1810ef04375aca8d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1493,7 +1493,7 @@ This makes the `proj4string` approach also more complicated.^[In the background,
 `epsg` always points to exactly one particular CRS.
 Correspondingly, there is also only one possible `proj4string` for a specific `epsg`-code.
 
-In **sf** the CRS of an object can be retrieved using `st_crs():
+In **sf** the CRS of an object can be retrieved using `st_crs()`:
 
 
 ```r

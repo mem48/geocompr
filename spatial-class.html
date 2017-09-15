@@ -868,7 +868,7 @@ r_stack
 <!-- projection types, e.g. cylindrical -->
 <!-- spatial distortion: area, direction, distance, shape -->
 <p>Two main ways to describe CRS in R is an <code>epsg</code> code or a <code>proj4string</code> definition. Both of these approaches have advantages and disadvantages. An <code>epsg</code> code is usually shorter, and therefore easier to remember. The code also refers to only one, well-defined coordinate reference system. On the other hand, a <code>proj4string</code> definition allows you more flexibility when it comes to specifying different parameters such as the projection type, the datum and the ellipsoid. This way you can specify many different projections, and modify existing ones. This makes the <code>proj4string</code> approach also more complicated.<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a>. <code>epsg</code> always points to exactly one particular CRS. Correspondingly, there is also only one possible <code>proj4string</code> for a specific <code>epsg</code>-code.</p>
-<p>In <strong>sf</strong> the CRS of an object can be retrieved using `st_crs():</p>
+<p>In <strong>sf</strong> the CRS of an object can be retrieved using <code>st_crs()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">old_crs =<span class="st"> </span><span class="kw">st_crs</span>(new_vector) <span class="co"># get CRS</span>
 old_crs <span class="co"># print CRS</span>
 <span class="co">#&gt; $epsg</span>
