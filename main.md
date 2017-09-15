@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve3956835199e6a7be
+preserve85bda9a5bcaf379a
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1659,7 +1659,7 @@ library(raster)
 library(tidyverse)
 ```
 
-- We will also make use of the `world` and `worldbank_df` datasets. Note that loading the **spData** package automatically attaches these datasets to your global environment:
+- - It also relies on **spData**, which loads `world`, `worldbank_df` and `us_states` datasets which are used in the worked examples:
 
 
 ```r
