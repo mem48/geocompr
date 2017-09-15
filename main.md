@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee2feb88fa3986f78
+preservea2b2e64c5c16bde7
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3687,12 +3687,12 @@ This data could be accessed using a graphical user interface (GUI) via web brows
 However, in this book we encourage you to create reproducible workflows.
 Data download in many cases could be automated, which not only save a time, but also allow to repeat and update this process in the future. 
 
-<!-- Some data are shared as files.  -->
-<!-- You can easily access them from R by `download.file()`: -->
-
-<!-- an example -->
+Data could be stored online in many ways. 
+Traditionally, is has been distributed on servers as files.
+You can easily access data files from R by `download.file()`<!--, for example ... :-->
 
 Many open spatial datasets can be retrieved using R packages (Table \@ref(tab:datapackages)).
+These packages either store small datasets or provide an access to dataset available on webservers.
 
 
 Table: (\#tab:datapackages)Selected R packages for spatial data retrieval
@@ -3704,7 +3704,6 @@ rnaturalearth   Functions to download Natural Earth vector and raster data, incl
 rnoaa           An R interface to many National Oceanic and Atmospheric Administration (NOAA) data sources, such as climate data, sea ice data, and storm data. 
 raster          The `get_data()` function provides for example elevation data from SRTM and interpolated climate data from WorldClim.                           
 rWBclimate      An access to the World Bank climate data used in the World Bank climate knowledge portal.                                                       
-
 <!-- https://cdn.rawgit.com/Nowosad/Intro_to_spatial_analysis/05676e29/Intro_to_spatial_analysis.html#39 -->
 <!-- Maybe add a section to Data I/O on where and how to retrieve data (with a focus on free data): osmdata (OpenStreetMap; maybe mention TomTom, HERE), Landsat (wrspathrow), Sentinel (mention Python API), AVHRR, RapidEye rgbif, letsR, etc. Of course, point to Transforming science through open data project (https://www.ropensci.org) -->
 <!-- https://github.com/ropensci/GSODR -->
@@ -3712,11 +3711,58 @@ rWBclimate      An access to the World Bank climate data used in the World Bank 
 <!-- https://github.com/walkerke/tigris -->
 <!-- https://github.com/ropensci/hddtools/ -->
 
-<!-- two examples of data packages - how to download spatial data, check its class, and convert?? -->
+For example, you can get borders of any country with the `ne_countries()` function from the `rnaturalearth` package:
 
-<!-- Finally, some R packages contains data objects. -->
-<!-- an example -->
-<!-- https://bookdown.org/csgillespie/efficientR/input-output.html#accessing-data-stored-in-packages -->
+```r
+library(rnaturalearth)
+usa = ne_countries(country = "United States of America") # United States borders
+class(usa)
+#> [1] "SpatialPolygonsDataFrame"
+#> attr(,"package")
+#> [1] "sp"
+```
+
+As a default, this and many other packages output data in the `Spatial*` class. 
+You can easily convert it to the `sf` class with `st_as_sf()`:
+
+
+```r
+usa_sf = st_as_sf(usa)
+```
+
+It is also possible to get a raster data, for example using `getData()`.
+The code below download a series of rasters that contain global monthly precipitation sums in a ten minutes spatial resolution.
+As a result, the new object is a multilayer object of the `RasterStack` class.
+<!-- raster example -->
+
+```r
+library(raster)
+worldclim_prec = getData(name = "worldclim", var = "prec", res = 10)
+class(worldclim_prec)
+#> [1] "RasterStack"
+#> attr(,"package")
+#> [1] "raster"
+```
+
+Finally, many R packages contain example data as R objects or in a raw form.
+Data in native R format could be accessed with the `data()` function.
+For example, you can get a list of dataset in a package, `data(package = "spData")`, or load a dataset by specifying the name of a dataset, `data("cycle_hire", package = "spData")`.
+To access a single raw file from the package, you need to specify the package name and the relative path to the dataset, for example:
+
+
+```r
+world_raw_filepath = system.file("shapes/world.gpkg", package = "spData")
+world_raw = st_read(world_raw_filepath)
+#> Reading layer `wrld.gpkg' from data source `/home/travis/R/Library/spData/shapes/world.gpkg' using driver `GPKG'
+#> Simple feature collection with 177 features and 10 fields
+#> geometry type:  MULTIPOLYGON
+#> dimension:      XY
+#> bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+#> epsg (SRID):    4326
+#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
+```
+
+More information on getting data using R packages could be found in [section 5.5](https://csgillespie.github.io/efficientR/input-output.html#download) and [section 5.6](https://csgillespie.github.io/efficientR/input-output.html#accessing-data-stored-in-packages) of @gillespie_efficient_2016.
 
 ## Data output (O) {#data-output}
 

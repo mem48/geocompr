@@ -440,10 +440,8 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <div id="data-packages" class="section level3">
 <h3><span class="header-section-number">5.2.3</span> Data packages</h3>
 <p>Nowadays, a vast amount of spatial data is available on the internet. This data could be accessed using a graphical user interface (GUI) via web browser. However, in this book we encourage you to create reproducible workflows. Data download in many cases could be automated, which not only save a time, but also allow to repeat and update this process in the future.</p>
-<!-- Some data are shared as files.  -->
-<!-- You can easily access them from R by `download.file()`: -->
-<!-- an example -->
-<p>Many open spatial datasets can be retrieved using R packages (Table <a href="read-write.html#tab:datapackages">5.3</a>).</p>
+<p>Data could be stored online in many ways. Traditionally, is has been distributed on servers as files. You can easily access data files from R by <code>download.file()</code><!--, for example ... :--></p>
+<p>Many open spatial datasets can be retrieved using R packages (Table <a href="read-write.html#tab:datapackages">5.3</a>). These packages either store small datasets or provide an access to dataset available on webservers.</p>
 <table>
 <caption><span id="tab:datapackages">Table 5.3: </span>Selected R packages for spatial data retrieval</caption>
 <thead>
@@ -473,18 +471,59 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <td align="left">rWBclimate</td>
 <td align="left">An access to the World Bank climate data used in the World Bank climate knowledge portal.</td>
 </tr>
+<tr class="even">
+<td align="left">&lt;!– <a href="https://cdn" class="uri">https://cdn</a></td>
+<td align="left">.rawgit.com/Nowosad/Intro_to_spatial_analysis/05676e29/Intro_to_spatial_analysis.html#39 –&gt;</td>
+</tr>
+<tr class="odd">
+<td align="left">&lt;!– Maybe add a</td>
+<td align="left">section to Data I/O on where and how to retrieve data (with a focus on free data): osmdata (OpenStreetMap; maybe mention TomTom, HERE), Landsat (wrspathrow), Sentinel (mention Python API), AVHRR, RapidEye rgbif, letsR, etc. Of course, point to Transforming science through open data project (<a href="https://www.ropensci.org" class="uri">https://www.ropensci.org</a>) –&gt;</td>
+</tr>
+<tr class="even">
+<td align="left">&lt;!– <a href="https://git" class="uri">https://git</a></td>
+<td align="left">hub.com/ropensci/GSODR –&gt;</td>
+</tr>
+<tr class="odd">
+<td align="left">&lt;!– <a href="https://git" class="uri">https://git</a></td>
+<td align="left">hub.com/lbusett/MODIStsp –&gt;</td>
+</tr>
+<tr class="even">
+<td align="left">&lt;!– <a href="https://git" class="uri">https://git</a></td>
+<td align="left">hub.com/walkerke/tigris –&gt;</td>
+</tr>
+<tr class="odd">
+<td align="left">&lt;!– <a href="https://git" class="uri">https://git</a></td>
+<td align="left">hub.com/ropensci/hddtools/ –&gt;</td>
+</tr>
 </tbody>
 </table>
-<!-- https://cdn.rawgit.com/Nowosad/Intro_to_spatial_analysis/05676e29/Intro_to_spatial_analysis.html#39 -->
-<!-- Maybe add a section to Data I/O on where and how to retrieve data (with a focus on free data): osmdata (OpenStreetMap; maybe mention TomTom, HERE), Landsat (wrspathrow), Sentinel (mention Python API), AVHRR, RapidEye rgbif, letsR, etc. Of course, point to Transforming science through open data project (https://www.ropensci.org) -->
-<!-- https://github.com/ropensci/GSODR -->
-<!-- https://github.com/lbusett/MODIStsp -->
-<!-- https://github.com/walkerke/tigris -->
-<!-- https://github.com/ropensci/hddtools/ -->
-<!-- two examples of data packages - how to download spatial data, check its class, and convert?? -->
-<!-- Finally, some R packages contains data objects. -->
-<!-- an example -->
-<!-- https://bookdown.org/csgillespie/efficientR/input-output.html#accessing-data-stored-in-packages -->
+<p>For example, you can get borders of any country with the <code>ne_countries()</code> function from the <code>rnaturalearth</code> package:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rnaturalearth)
+usa =<span class="st"> </span><span class="kw">ne_countries</span>(<span class="dt">country =</span> <span class="st">&quot;United States of America&quot;</span>) <span class="co"># United States borders</span>
+<span class="kw">class</span>(usa)
+<span class="co">#&gt; [1] &quot;SpatialPolygonsDataFrame&quot;</span>
+<span class="co">#&gt; attr(,&quot;package&quot;)</span>
+<span class="co">#&gt; [1] &quot;sp&quot;</span></code></pre></div>
+<p>As a default, this and many other packages output data in the <code>Spatial*</code> class. You can easily convert it to the <code>sf</code> class with <code>st_as_sf()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">usa_sf =<span class="st"> </span><span class="kw">st_as_sf</span>(usa)</code></pre></div>
+<p>It is also possible to get a raster data, for example using <code>getData()</code>. The code below download a series of rasters that contain global monthly precipitation sums in a ten minutes spatial resolution. As a result, the new object is a multilayer object of the <code>RasterStack</code> class. <!-- raster example --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
+worldclim_prec =<span class="st"> </span><span class="kw">getData</span>(<span class="dt">name =</span> <span class="st">&quot;worldclim&quot;</span>, <span class="dt">var =</span> <span class="st">&quot;prec&quot;</span>, <span class="dt">res =</span> <span class="dv">10</span>)
+<span class="kw">class</span>(worldclim_prec)
+<span class="co">#&gt; [1] &quot;RasterStack&quot;</span>
+<span class="co">#&gt; attr(,&quot;package&quot;)</span>
+<span class="co">#&gt; [1] &quot;raster&quot;</span></code></pre></div>
+<p>Finally, many R packages contain example data as R objects or in a raw form. Data in native R format could be accessed with the <code>data()</code> function. For example, you can get a list of dataset in a package, <code>data(package = &quot;spData&quot;)</code>, or load a dataset by specifying the name of a dataset, <code>data(&quot;cycle_hire&quot;, package = &quot;spData&quot;)</code>. To access a single raw file from the package, you need to specify the package name and the relative path to the dataset, for example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_raw_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
+world_raw =<span class="st"> </span><span class="kw">st_read</span>(world_raw_filepath)
+<span class="co">#&gt; Reading layer `wrld.gpkg&#39; from data source `/home/travis/R/Library/spData/shapes/world.gpkg&#39; using driver `GPKG&#39;</span>
+<span class="co">#&gt; Simple feature collection with 177 features and 10 fields</span>
+<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513</span>
+<span class="co">#&gt; epsg (SRID):    4326</span>
+<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span></code></pre></div>
+<p>More information on getting data using R packages could be found in <a href="https://csgillespie.github.io/efficientR/input-output.html#download">section 5.5</a> and <a href="https://csgillespie.github.io/efficientR/input-output.html#accessing-data-stored-in-packages">section 5.6</a> of <span class="citation">Gillespie and Lovelace (<a href="#ref-gillespie_efficient_2016">2016</a>)</span>.</p>
 </div>
 </div>
 <div id="data-output" class="section level2">
@@ -632,6 +671,12 @@ mapview_obj =<span class="st"> </span><span class="kw">mapview</span>(world, <sp
 <!-- List and describe three types of raster format. -->
 <!-- Why do we have so many types of data formats, and why are they so difficult to use together? -->
 
+</div>
+</div>
+<h3> References</h3>
+<div id="refs" class="references">
+<div id="ref-gillespie_efficient_2016">
+<p>Gillespie, Colin, and Robin Lovelace. 2016. <em>Efficient R Programming: A Practical Guide to Smarter Programming</em>. O’Reilly Media. <a href="https://csgillespie.github.io/efficientR/" class="uri">https://csgillespie.github.io/efficientR/</a>.</p>
 </div>
 </div>
 <div class="footnotes">
