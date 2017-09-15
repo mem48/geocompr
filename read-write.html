@@ -330,7 +330,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>To efficiently read data into R, it helps to have an understanding of what happens ‘under the hood’. Executing commands such as <code>sf::st_read()</code> (the main function we use for loading vector data) or <code>raster::raster()</code> (the main function used for loading raster data) silently sets off a chain of events that reads data from files. Moreover, there are many R packages containing wide range of spatial data or providing simple access to different data sources. All of them load the data into R or, more precisely, assign objects to your workspace, stored in RAM accessible from the <code>.GlobalEnv</code><a href="#fn27" class="footnoteRef" id="fnref27"><sup>27</sup></a> of your current R session.</p>
 <div id="vector-data-1" class="section level3">
 <h3><span class="header-section-number">5.2.1</span> Vector data</h3>
-<p>Spatial vector data comes in a wide variety of file formats, most of which can be read-in via the <strong>sf</strong> function <code>st_read()</code>. Behind the scenes this calls GDAL.<a href="#fn28" class="footnoteRef" id="fnref28"><sup>28</sup></a> One of the major advantages of <strong>sf</strong> is that it is fast. <!-- reference to the vignette --> The first argument of <code>st_read()</code> is <code>dsn</code>, which should be a text string or an object containing a single text string. The content of a text string could vary between different drivers. In most cases, as with <code>.shp</code> file of <code>ESRI Shapefile</code> or <code>.gpkg</code> files of <code>GeoPackage</code> formats, the <code>dsn</code> would be a file name. <code>st_read()</code> guesses the driver based on the file extension, as illustrated for a <code>.gpkg</code> file below:</p>
+<p>Spatial vector data comes in a wide variety of file formats, most of which can be read-in via the <strong>sf</strong> function <code>st_read()</code>. Behind the scenes this calls GDAL.<a href="#fn28" class="footnoteRef" id="fnref28"><sup>28</sup></a> <!-- One of the major advantages of **sf** is that it is fast. --> <!-- reference to the vignette --> The first argument of <code>st_read()</code> is <code>dsn</code>, which should be a text string or an object containing a single text string. The content of a text string could vary between different drivers. In most cases, as with <code>.shp</code> file of <code>ESRI Shapefile</code> or <code>.gpkg</code> files of <code>GeoPackage</code> formats, the <code>dsn</code> would be a file name. <code>st_read()</code> guesses the driver based on the file extension, as illustrated for a <code>.gpkg</code> file below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
 <span class="co">#&gt; Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0</span>
 vector_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
@@ -344,7 +344,7 @@ world =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span></code></pre></div>
 <p>For some drivers, <code>dsn</code> could be provided as a folder name, access credentials for a database, or a GeoJSON string representation. <!-- Do we have a place for the examples? --></p>
 <p>Some of vector driver formats could store many layers of data. <code>st_read</code> automatically read the first layer of the file specified in <code>dsn</code>, however it is also possible to select a different layer by its name using the <code>layer</code> argument.</p>
-<p>Many GDAL drivers have different open options<a href="#fn29" class="footnoteRef" id="fnref29"><sup>29</sup></a>. For example, spatial data in text files could be stored in several ways. Simple point dataset could just have two columns describing their x and y coordinates. To read these files, you need to specify names of those columns using the <code>options</code> argument:</p>
+<p>Many GDAL drivers have unique open options<a href="#fn29" class="footnoteRef" id="fnref29"><sup>29</sup></a>. For example, spatial data in text files could be stored in several ways. Simple point dataset could just have two columns describing their x and y coordinates. To read these files, you need to specify names of those columns using the <code>options</code> argument:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cycle_hire_txt =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;misc/cycle_hire_xy.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
 cycle_hire_xy =<span class="st"> </span><span class="kw">st_read</span>(cycle_hire_txt, <span class="dt">options =</span> <span class="kw">c</span>(<span class="st">&quot;X_POSSIBLE_NAMES=X&quot;</span>,
                                                     <span class="st">&quot;Y_POSSIBLE_NAMES=Y&quot;</span>))</code></pre></div>
@@ -353,7 +353,7 @@ cycle_hire_xy =<span class="st"> </span><span class="kw">st_read</span>(cycle_hi
 world_wkt =<span class="st"> </span><span class="kw">st_read</span>(world_txt, <span class="dt">options =</span> <span class="st">&quot;GEOM_POSSIBLE_NAMES=WKT&quot;</span>)</code></pre></div>
 
 <div class="rmdnote">
-Not all of the supported vector file formats store information about theirs coordinate reference system. In these situations, it is possible to add the missing information using the <code>st_set_crs()</code> function. More on that in the section <a href="spatial-class.html#crs-intro">2.3</a>.
+Not all of the supported vector file formats store information about theirs coordinate reference system. In these situations, it is possible to add the missing information using the <code>st_set_crs()</code> function. More on that in section <a href="spatial-class.html#crs-intro">2.3</a>.
 </div>
 <p></p>
 <!-- isn't that confusing for users? -->
@@ -420,7 +420,7 @@ Not all of the supported vector file formats store information about theirs coor
 <div id="raster-data-1" class="section level3">
 <h3><span class="header-section-number">5.2.2</span> Raster data</h3>
 <p>Raster data also could exist in many different file formats, with some of the formats supporting multilayer files<a href="#fn30" class="footnoteRef" id="fnref30"><sup>30</sup></a>. The <strong>raster</strong> package allow reading a single layer by <code>raster()</code> and many layers using either <code>brick()</code> or <code>stack()</code>. More information about the raster representation in this package could be find in the section <a href="spatial-class.html#raster-classes">2.2.3</a>.</p>
-<p>The <code>raster()</code> function makes it possible to read a simple single layer file.</p>
+<p>The <code>raster()</code> function makes it possible to read a single layer file.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
 <span class="kw">library</span>(spDataLarge)
 raster_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/srtm.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
@@ -450,35 +450,38 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <thead>
 <tr class="header">
 <th align="left">Package name</th>
-<th align="left">Function</th>
 <th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">osmdata</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">An access to the OpenStreetMap data.</td>
 </tr>
 <tr class="even">
-<td align="left">rnoaa</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">rnaturalearth</td>
+<td align="left">Functions to download Natural Earth vector and raster data, including world country borders.</td>
 </tr>
 <tr class="odd">
-<td align="left">raster</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">rnoaa</td>
+<td align="left">An R interface to many National Oceanic and Atmospheric Administration (NOAA) data sources, such as climate data, sea ice data, and storm data.</td>
 </tr>
 <tr class="even">
+<td align="left">raster</td>
+<td align="left">The <code>get_data()</code> function provides for example elevation data from SRTM and interpolated climate data from WorldClim.</td>
+</tr>
+<tr class="odd">
 <td align="left">rWBclimate</td>
-<td align="left"></td>
-<td align="left"></td>
+<td align="left">An access to the World Bank climate data used in the World Bank climate knowledge portal.</td>
 </tr>
 </tbody>
 </table>
 <!-- https://cdn.rawgit.com/Nowosad/Intro_to_spatial_analysis/05676e29/Intro_to_spatial_analysis.html#39 -->
-<!-- Maybe add a section to Data I/O on where and how to retrieve data (with a focus on free data): osmdata (OpenStreetMap; maybe mention TomTom, HERE), rnoaa, raster (worldclim, MODIS, SRTM, ASTER), Landsat (wrspathrow), Sentinel (mention Python API), AVHRR, RapidEye rgbif, letsR, rWBclimate (world bank), etc. Of course, point to Transforming science through open data project (https://www.ropensci.org) -->
+<!-- Maybe add a section to Data I/O on where and how to retrieve data (with a focus on free data): osmdata (OpenStreetMap; maybe mention TomTom, HERE), Landsat (wrspathrow), Sentinel (mention Python API), AVHRR, RapidEye rgbif, letsR, etc. Of course, point to Transforming science through open data project (https://www.ropensci.org) -->
+<!-- https://github.com/ropensci/GSODR -->
+<!-- https://github.com/lbusett/MODIStsp -->
+<!-- https://github.com/walkerke/tigris -->
+<!-- https://github.com/ropensci/hddtools/ -->
 <!-- two examples of data packages - how to download spatial data, check its class, and convert?? -->
 <!-- Finally, some R packages contains data objects. -->
 <!-- an example -->

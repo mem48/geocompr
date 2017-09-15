@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve85bda9a5bcaf379a
+preservee8a796b1b27747a0
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3557,7 +3557,7 @@ All of them load the data into R or, more precisely, assign objects to your work
 
 Spatial vector data comes in a wide variety of file formats, most of which can be read-in via the **sf** function `st_read()`.
 Behind the scenes this calls GDAL.[^1]
-One of the major advantages of **sf** is that it is fast.
+<!-- One of the major advantages of **sf** is that it is fast. -->
 <!-- reference to the vignette -->
 The first argument of `st_read()` is `dsn`, which should be a text string or an object containing a single text string.
 The content of a text string could vary between different drivers.
@@ -3585,7 +3585,7 @@ For some drivers, `dsn` could be provided as a folder name, access credentials f
 Some of vector driver formats could store many layers of data. 
 `st_read` automatically read the first layer of the file specified in `dsn`, however it is also possible to select a different layer by its name using the `layer` argument.
 
-Many GDAL drivers have different open options[^1]. 
+Many GDAL drivers have unique open options[^1]. 
 For example, spatial data in text files could be stored in several ways.
 Simple point dataset could just have two columns describing their x and y coordinates. 
 To read these files, you need to specify names of those columns using the `options` argument:
@@ -3607,7 +3607,7 @@ world_wkt = st_read(world_txt, options = "GEOM_POSSIBLE_NAMES=WKT")
 
 \BeginKnitrBlock{rmdnote}<div class="rmdnote">Not all of the supported vector file formats store information about theirs coordinate reference system.
 In these situations, it is possible to add the missing information using the `st_set_crs()` function.
-More on that in the section \@ref(crs-intro).</div>\EndKnitrBlock{rmdnote}
+More on that in section \@ref(crs-intro).</div>\EndKnitrBlock{rmdnote}
 
 <!-- isn't that confusing for users? -->
 **Tip**: `read_sf()` and `write_sf()` can be used as easy-to-remember alternatives to `st_read()` and `st_write()`.
@@ -3639,7 +3639,7 @@ Raster data also could exist in many different file formats, with some of the fo
 The **raster** package allow reading a single layer by `raster()` and many layers using either `brick()` or `stack()`. 
 More information about the raster representation in this package could be find in the section \@ref(raster-classes).
 
-The `raster()` function makes it possible to read a simple single layer file.
+The `raster()` function makes it possible to read a single layer file.
 
 
 ```r
@@ -3678,6 +3678,8 @@ The `stack()` class is limited to datasets that have the same spatial extent and
 
 ### Data packages
 
+
+
 <!-- Vast amount of spatial data are available on the internet. -->
 <!-- You can access data files using a web browser, however in this book we encourage you to create reproducible workflows. -->
 
@@ -3691,15 +3693,20 @@ Many open spatial datasets can be retrieved using R packages (Table \@ref(tab:da
 
 Table: (\#tab:datapackages)Selected R packages for spatial data retrieval
 
-Package name   Function   Description 
--------------  ---------  ------------
-osmdata                               
-rnoaa                                 
-raster                                
-rWBclimate                            
+Package name    Description                                                                                                                                     
+--------------  ------------------------------------------------------------------------------------------------------------------------------------------------
+osmdata         An access to the OpenStreetMap data.                                                                                                            
+rnaturalearth   Functions to download Natural Earth vector and raster data, including world country borders.                                                    
+rnoaa           An R interface to many National Oceanic and Atmospheric Administration (NOAA) data sources, such as climate data, sea ice data, and storm data. 
+raster          The `get_data()` function provides for example elevation data from SRTM and interpolated climate data from WorldClim.                           
+rWBclimate      An access to the World Bank climate data used in the World Bank climate knowledge portal.                                                       
 
 <!-- https://cdn.rawgit.com/Nowosad/Intro_to_spatial_analysis/05676e29/Intro_to_spatial_analysis.html#39 -->
-<!-- Maybe add a section to Data I/O on where and how to retrieve data (with a focus on free data): osmdata (OpenStreetMap; maybe mention TomTom, HERE), rnoaa, raster (worldclim, MODIS, SRTM, ASTER), Landsat (wrspathrow), Sentinel (mention Python API), AVHRR, RapidEye rgbif, letsR, rWBclimate (world bank), etc. Of course, point to Transforming science through open data project (https://www.ropensci.org) -->
+<!-- Maybe add a section to Data I/O on where and how to retrieve data (with a focus on free data): osmdata (OpenStreetMap; maybe mention TomTom, HERE), Landsat (wrspathrow), Sentinel (mention Python API), AVHRR, RapidEye rgbif, letsR, etc. Of course, point to Transforming science through open data project (https://www.ropensci.org) -->
+<!-- https://github.com/ropensci/GSODR -->
+<!-- https://github.com/lbusett/MODIStsp -->
+<!-- https://github.com/walkerke/tigris -->
+<!-- https://github.com/ropensci/hddtools/ -->
 
 <!-- two examples of data packages - how to download spatial data, check its class, and convert?? -->
 
