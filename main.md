@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve38a1f35fd637e6af
+preserve62d2e479bc2d4c6e
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3690,7 +3690,6 @@ Data download in many cases could be automated, which not only save a time, but 
 Data could be stored online in many ways. 
 Traditionally, is has been distributed on servers as files.
 <!-- that's probably not the best example - replace it with something better -->
-<!-- btw naturalearth website has some problems today - the link will probably change in the future -->
 You can easily access data files from R by `download.file()`, for example National Park Service units in the United States:
 
 
@@ -3744,7 +3743,7 @@ usa_sf = st_as_sf(usa)
 It is also possible to get a raster data, for example using `getData()`.
 The code below download a series of rasters that contain global monthly precipitation sums in a ten minutes spatial resolution.
 As a result, the new object is a multilayer object of the `RasterStack` class.
-
+<!-- raster example -->
 
 ```r
 library(raster)

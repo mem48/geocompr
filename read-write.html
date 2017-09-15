@@ -440,7 +440,7 @@ multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(r
 <div id="data-packages" class="section level3">
 <h3><span class="header-section-number">5.2.3</span> Data packages</h3>
 <p>Nowadays, a vast amount of spatial data is available on the internet. This data could be accessed using a graphical user interface (GUI) via web browser. However, in this book we encourage you to create reproducible workflows. Data download in many cases could be automated, which not only save a time, but also allow to repeat and update this process in the future.</p>
-<p>Data could be stored online in many ways. Traditionally, is has been distributed on servers as files. <!-- that's probably not the best example - replace it with something better --> <!-- btw naturalearth website has some problems today - the link will probably change in the future --> You can easily access data files from R by <code>download.file()</code>, for example National Park Service units in the United States:</p>
+<p>Data could be stored online in many ways. Traditionally, is has been distributed on servers as files. <!-- that's probably not the best example - replace it with something better --> You can easily access data files from R by <code>download.file()</code>, for example National Park Service units in the United States:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">download.file</span>(<span class="dt">url =</span> <span class="st">&quot;http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_parks_and_protected_lands.zip&quot;</span>,
               <span class="dt">destfile =</span> <span class="st">&quot;USA_parks.zip&quot;</span>)
 <span class="kw">unzip</span>(<span class="dt">zipfile =</span> <span class="st">&quot;USA_parks.zip&quot;</span>)
@@ -492,7 +492,7 @@ usa =<span class="st"> </span><span class="kw">ne_countries</span>(<span class="
 <span class="co">#&gt; [1] &quot;sp&quot;</span></code></pre></div>
 <p>As a default, this and many other packages output data in the <code>Spatial*</code> class. You can easily convert it to the <code>sf</code> class with <code>st_as_sf()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">usa_sf =<span class="st"> </span><span class="kw">st_as_sf</span>(usa)</code></pre></div>
-<p>It is also possible to get a raster data, for example using <code>getData()</code>. The code below download a series of rasters that contain global monthly precipitation sums in a ten minutes spatial resolution. As a result, the new object is a multilayer object of the <code>RasterStack</code> class.</p>
+<p>It is also possible to get a raster data, for example using <code>getData()</code>. The code below download a series of rasters that contain global monthly precipitation sums in a ten minutes spatial resolution. As a result, the new object is a multilayer object of the <code>RasterStack</code> class. <!-- raster example --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
 worldclim_prec =<span class="st"> </span><span class="kw">getData</span>(<span class="dt">name =</span> <span class="st">&quot;worldclim&quot;</span>, <span class="dt">var =</span> <span class="st">&quot;prec&quot;</span>, <span class="dt">res =</span> <span class="dv">10</span>)
 <span class="kw">class</span>(worldclim_prec)
