@@ -25,7 +25,7 @@
 <meta name="author" content="Robin Lovelace, Jakub Nowosad, Jannes Muenchow">
 
 
-<meta name="date" content="2017-09-14">
+<meta name="date" content="2017-09-15">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -175,10 +175,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
 <li class="chapter" data-level="4.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-operations-on-vector-data"><i class="fa fa-check"></i><b>4.2</b> Spatial operations on vector data</a><ul>
 <li class="chapter" data-level="4.2.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-subsetting"><i class="fa fa-check"></i><b>4.2.1</b> Spatial subsetting</a></li>
-<li class="chapter" data-level="4.2.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-joining-and-aggregation"><i class="fa fa-check"></i><b>4.2.2</b> Spatial joining and aggregation</a></li>
-<li class="chapter" data-level="4.2.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#topological-relations"><i class="fa fa-check"></i><b>4.2.3</b> Topological relations</a></li>
-<li class="chapter" data-level="4.2.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#modifying-geometry-data"><i class="fa fa-check"></i><b>4.2.4</b> Modifying geometry data</a></li>
-<li class="chapter" data-level="4.2.5" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#distance-relations"><i class="fa fa-check"></i><b>4.2.5</b> Distance relations</a></li>
+<li class="chapter" data-level="4.2.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#topological-relations"><i class="fa fa-check"></i><b>4.2.2</b> Topological relations</a></li>
+<li class="chapter" data-level="4.2.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-joining-and-aggregation"><i class="fa fa-check"></i><b>4.2.3</b> Spatial joining and aggregation</a></li>
+<li class="chapter" data-level="4.2.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#aggregating-or-dissolving"><i class="fa fa-check"></i><b>4.2.4</b> Aggregating or dissolving</a></li>
+<li class="chapter" data-level="4.2.5" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#clipping"><i class="fa fa-check"></i><b>4.2.5</b> Clipping</a></li>
+<li class="chapter" data-level="4.2.6" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#distance-relations"><i class="fa fa-check"></i><b>4.2.6</b> Distance relations</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-operations-on-raster-data"><i class="fa fa-check"></i><b>4.3</b> Spatial operations on raster data</a><ul>
 <li class="chapter" data-level="4.3.1" data-path="attr.html"><a href="attr.html#raster-subsetting"><i class="fa fa-check"></i><b>4.3.1</b> Spatial subsetting</a></li>
@@ -359,67 +360,75 @@ world6 =<span class="st"> </span><span class="kw">filter</span>(world, lifeExp &
 </div>
 <div id="vector-attribute-aggregation" class="section level3">
 <h3><span class="header-section-number">3.2.2</span> Vector attribute aggregation</h3>
-<!-- https://github.com/ropenscilabs/skimr ?? -->
-<!-- As demonstrated in chapter \@ref(spatial-class), `summary()` provides a quick summary of the spatial and non-spatial components of spatial objects.
-Enter the following command for an overview of the `world` object and all its variables (result not shown):
-
-
-```r
-summary(world)
-```
-
-This function is useful when using R interactively, but lacks flexibility and should not be used to create new objects.-->
-<p>The <strong>dplyr</strong> equivalent is <code>summarize()</code>, which returns summary statistics of groups and variables defined by the user. The following code, for example, calculates the total population and number of all countries in the world:</p>
+<p>Aggregation operations summarize datasets in accordance with a grouping variable. Lets illustrate this with an example. We would like to calculate the number of people per continent. Fortunately, our <code>world</code> dataset has one column representing the inhabitants per country and one column representing the corresponding continent. Hence, we can take the sum of the populations per country using the continent column as a grouping variable. In base R the <code>aggregate()</code> function lets you do that. Note that you have to indicate the grouping variable as a <code>list</code>-object:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ag_var =<span class="st"> </span><span class="kw">list</span>(world$continent)
+<span class="kw">aggregate</span>(world$pop, <span class="dt">by =</span> ag_var, <span class="dt">FUN =</span> sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>This leaves us with a table with eight rows representing the number of inhabitants for each of the continents (see Table <a href="attr.html#tab:continents">3.2</a> with results for the top 3 most populous continents). <code>summarize()</code> is the <strong>dplyr</strong> equivalent of <code>aggregate()</code>. To specify groups, you will need also the <code>group_by()</code> command. So obtaining the exact same result as above, you need to type <code>group_by(world, continent) %&gt;% summarize(pop = sum(pop, na.rm = TRUE))</code>. If we leave the grouping variable unspecified, we simply retrieve the total, in our case the number of people living on Earth:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># customized data summary</span>
-world_summary =<span class="st"> </span>world %&gt;%<span class="st"> </span>
+world %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">st_set_geometry</span>(<span class="ot">NULL</span>) %&gt;%
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">pop =</span> <span class="kw">sum</span>(pop, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">n_countries =</span> <span class="kw">n</span>())
-world_summary$pop <span class="co"># A total population &gt; 7 billion</span>
-<span class="co">#&gt; [1] 7.21e+09</span></code></pre></div>
+<span class="co">#&gt;        pop n_countries</span>
+<span class="co">#&gt; 1 7.21e+09         177</span>
+<span class="co"># A total population &gt; 7 billion</span></code></pre></div>
 <p>The new object, <code>world_summary</code>, is an aggregation of all 177 world’s countries. It consists of one row and two columns. The <code>pop =</code> and <code>n_countries =</code> created the names of the two columns, while the <code>sum()</code>- and <code>n()</code>-function actually did the aggregation. The first function added up all inhabitants, while the latter simply counted the number of rows.</p>
-<p>You can use a wide range of functions within <code>summarize()</code> for aggregation and summary purposes. Type <code>?summarize</code> for a list with useful functions and more information.</p>
-<p><code>summarize()</code> becomes even more powerful when combined with <code>group_by()</code>, which allows simultaneous aggregate/summary operations <em>per group</em>, analogous to the base R function <code>aggregate()</code>. The following code chunk calculates the total population and number of countries <em>per continent</em> (see Chapter 5 of <a href="http://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarize">R for Data Science</a> for a more detailed overview of <code>summarize()</code>), with results for the top 3 most populous continents illustrated in Table <a href="attr.html#tab:continents">3.2</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># data summary by groups</span>
-world_continents =<span class="st"> </span>world %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">group_by</span>(continent) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">pop =</span> <span class="kw">sum</span>(pop, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">n_countries =</span> <span class="kw">n</span>())</code></pre></div>
+<p>You can use a wide range of functions within <code>summarize()</code> for aggregation and summary purposes. Type <code>?summarize</code> for a list with useful functions and more information (see Chapter 5 of <a href="http://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarize">R for Data Science</a> for a more detailed overview of <code>summarize()</code>),</p>
 <table>
 <caption><span id="tab:continents">Table 3.2: </span>The top 3 most populous continents, and the number of countries in each.</caption>
 <thead>
 <tr class="header">
+<th align="left">iso_a2</th>
+<th align="left">name_long</th>
 <th align="left">continent</th>
+<th align="left">region_un</th>
+<th align="left">subregion</th>
+<th align="left">type</th>
+<th align="right">area_km2</th>
 <th align="right">pop</th>
-<th align="right">n_countries</th>
+<th align="right">lifeExp</th>
+<th align="right">gdpPercap</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
+<td align="left">CN</td>
+<td align="left">China</td>
 <td align="left">Asia</td>
-<td align="right">4.31e+09</td>
-<td align="right">47</td>
+<td align="left">Asia</td>
+<td align="left">Eastern Asia</td>
+<td align="left">Country</td>
+<td align="right">9409832</td>
+<td align="right">1.36e+09</td>
+<td align="right">75.8</td>
+<td align="right">12759</td>
 </tr>
 <tr class="even">
-<td align="left">Africa</td>
-<td align="right">1.15e+09</td>
-<td align="right">51</td>
+<td align="left">IN</td>
+<td align="left">India</td>
+<td align="left">Asia</td>
+<td align="left">Asia</td>
+<td align="left">Southern Asia</td>
+<td align="left">Sovereign country</td>
+<td align="right">3142892</td>
+<td align="right">1.30e+09</td>
+<td align="right">68.0</td>
+<td align="right">5392</td>
 </tr>
 <tr class="odd">
-<td align="left">Europe</td>
-<td align="right">7.39e+08</td>
-<td align="right">39</td>
+<td align="left">US</td>
+<td align="left">United States</td>
+<td align="left">North America</td>
+<td align="left">Americas</td>
+<td align="left">Northern America</td>
+<td align="left">Country</td>
+<td align="right">9510744</td>
+<td align="right">3.19e+08</td>
+<td align="right">78.9</td>
+<td align="right">51775</td>
 </tr>
 </tbody>
 </table>
-<p><code>sf</code> objects are well-integrated with the <strong>tidyverse</strong>, as illustrated by the fact that the aggregated objects preserve the geometry of the original <code>world</code> object. What is more, under the hood <code>sf</code> is already doing a spatial aggregation of polygon data which is known as ‘dissolving polygons’ in the GIS world - an operation we will explain in more detail in the the next chapter. This means that summaries of the world’s continents can be plotted spatially, as illustrated below, which generates a plot of population by continent (note that borders between countries have largely been removed):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(world_continents[<span class="st">&quot;pop&quot;</span>])</code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:continent-pop"></span>
-<img src="figures/continent-pop-1.png" alt="Geographic representation of attribute aggregation by continent: total population by continent generated by `summarize()`." width="576" />
-<p class="caption">
-Figure 3.1: Geographic representation of attribute aggregation by continent: total population by continent generated by <code>summarize()</code>.
-</p>
-</div>
-<p>Using the base R function <code>aggregate()</code> you can obtain the same result with a slightly different syntax: you have to indicate the grouping variable as a <code>list</code>-object:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ag_var =<span class="st"> </span><span class="kw">list</span>(world$continent)
-world_continents2 =<span class="st"> </span><span class="kw">aggregate</span>(world[<span class="st">&quot;pop&quot;</span>], <span class="dt">by =</span> ag_var, <span class="dt">FUN =</span> sum, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p><code>sf</code> objects are well-integrated with the <strong>tidyverse</strong>, as illustrated by the fact that the aggregated objects preserve the geometry of the original <code>world</code> object. Here, we even had to make some efforts to prevent a spatial operation. When <code>aggregate()</code>ing the population we have just used the population vector. Had we used the spatial object (world[, “population”]), <code>aggregate()</code> would have done a spatial aggregation of the polygon data. The same would have happened, had we not dismissed the geometry prior to using the <code>summarize()</code> function. We will explain this so-called ‘dissolving polygons’ in more detail in the the next chapter.</p>
 <!-- Todo (optional): add exercise exploring similarities/differences with `world_continents`? -->
 <!-- should it stay or should it go (?) aka should we present the arrange function?: -->
 <!-- Jannes: I would suggest to leave the arrange function as an exercise to the reader. -->
@@ -454,11 +463,11 @@ north_america$name_long
 <p>To join two objects we need to specify a key. This is a variable (or a set of variables) that uniquely identifies each observation (row). The <code>by</code> argument of <strong>dplyr</strong>’s join functions lets you identify the key variable. In simple cases, a single, unique variable exist in both objects like the <code>iso_a2</code> column in our example (you may need to rename columns with identifying information for this to work):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(wb_north_america, <span class="dt">by =</span> <span class="st">&quot;iso_a2&quot;</span>)</code></pre></div>
-<p>This has created a spatial dataset with the new variables added. The utility of this is shown in Figure <a href="attr.html#fig:unemploy">3.2</a>, which shows the unemployment rate (a World Bank variable) across the countries of North America.</p>
+<p>This has created a spatial dataset with the new variables added. The utility of this is shown in Figure <a href="attr.html#fig:unemploy">3.1</a>, which shows the unemployment rate (a World Bank variable) across the countries of North America.</p>
 <div class="figure" style="text-align: center"><span id="fig:unemploy"></span>
 <img src="figures/unemploy-1.png" alt="The unemployment rate (taken from World Bank statistics) in Canada and the United States to illustrate the utility of joining attribute data on to spatial datasets." width="576" />
 <p class="caption">
-Figure 3.2: The unemployment rate (taken from World Bank statistics) in Canada and the United States to illustrate the utility of joining attribute data on to spatial datasets.
+Figure 3.1: The unemployment rate (taken from World Bank statistics) in Canada and the United States to illustrate the utility of joining attribute data on to spatial datasets.
 </p>
 </div>
 <p>It is also possible to join objects by different variables. Both of the datasets have variables with names of countries, but they are named differently. The <code>north_america</code> has a <code>name_long</code> column and the <code>wb_north_america</code> has a <code>name</code> column. In these cases, we can use a named vector to specify the connection, e.g. <code>c(&quot;name_long&quot; = &quot;name&quot;)</code>:</p>
@@ -591,12 +600,12 @@ world %&gt;%<span class="st"> </span>
 <div id="manipulating-raster-objects" class="section level2">
 <h2><span class="header-section-number">3.3</span> Manipulating raster objects</h2>
 <p>In contrast to simple features (vector data), raster data represents continuous surfaces. In this section we will use a raster object created <em>from scratch</em>, building on section <a href="spatial-class.html#an-introduction-to-raster">2.2.1</a>. Raster data has a fundamentally different structure than vector data, so subsetting and other operations work in a different way, as demonstrated in section <a href="attr.html#raster-subsetting">3.3.1</a>.</p>
-<p>Let us start with manually recreating the raster dataset of Chapter <a href="spatial-class.html#raster-classes">2.2.3</a>. This should make it easy to understand how <strong>raster</strong> and related operations work (Figure <a href="attr.html#fig:cont-cate-rasters">3.3</a>). Here, we create a raster which should represent elevations, therefore, we name it accordingly <code>elev</code>.</p>
+<p>Let us start with manually recreating the raster dataset of Chapter <a href="spatial-class.html#raster-classes">2.2.3</a>. This should make it easy to understand how <strong>raster</strong> and related operations work (Figure <a href="attr.html#fig:cont-cate-rasters">3.2</a>). Here, we create a raster which should represent elevations, therefore, we name it accordingly <code>elev</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
 elev =<span class="st"> </span><span class="kw">raster</span>(<span class="dt">nrow =</span> <span class="dv">6</span>, <span class="dt">ncol =</span> <span class="dv">6</span>, <span class="dt">res =</span> <span class="fl">0.5</span>, 
               <span class="dt">xmn =</span> -<span class="fl">1.5</span>, <span class="dt">xmx =</span> <span class="fl">1.5</span>, <span class="dt">ymn =</span> -<span class="fl">1.5</span>, <span class="dt">ymx =</span> <span class="fl">1.5</span>,
               <span class="dt">vals =</span> <span class="dv">1</span>:<span class="dv">36</span>)</code></pre></div>
-<p>Note that a raster object can also contain categorical data. For this, we can use either Boolean or factor variables in R. For instance, we can create a raster representing grain sizes (Figure <a href="attr.html#fig:cont-cate-rasters">3.3</a>):</p>
+<p>Note that a raster object can also contain categorical data. For this, we can use either Boolean or factor variables in R. For instance, we can create a raster representing grain sizes (Figure <a href="attr.html#fig:cont-cate-rasters">3.2</a>):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">grain_size =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;clay&quot;</span>, <span class="st">&quot;silt&quot;</span>, <span class="st">&quot;sand&quot;</span>)
 grain =<span class="st"> </span><span class="kw">raster</span>(<span class="dt">nrow =</span> <span class="dv">6</span>, <span class="dt">ncol =</span> <span class="dv">6</span>, <span class="dt">res =</span> <span class="fl">0.5</span>, 
                <span class="dt">xmn =</span> -<span class="fl">1.5</span>, <span class="dt">xmx =</span> <span class="fl">1.5</span>, <span class="dt">ymn =</span> -<span class="fl">1.5</span>, <span class="dt">ymx =</span> <span class="fl">1.5</span>,
@@ -633,7 +642,7 @@ grain
 <div class="figure" style="text-align: center"><span id="fig:cont-cate-rasters"></span>
 <img src="figures/03_cont_categ_rasters.png" alt="Raster with numberic values (left) and a raster with categorical values (right)." width="765" />
 <p class="caption">
-Figure 3.3: Raster with numberic values (left) and a raster with categorical values (right).
+Figure 3.2: Raster with numberic values (left) and a raster with categorical values (right).
 </p>
 </div>
 <div id="raster-subsetting" class="section level3">
