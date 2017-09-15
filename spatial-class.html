@@ -862,7 +862,12 @@ r_stack
 </div>
 <div id="crs-intro" class="section level2">
 <h2><span class="header-section-number">2.3</span> Coordinate Reference Systems</h2>
-<p>Vector and raster spatial data types share concepts intrinsic to spatial data. Perhaps the most important of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other bodies).</p>
+<p>Vector and raster spatial data types share concepts intrinsic to spatial data. Perhaps the most important of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other bodies). Coordinate system could be either projected or geographic (Figures <a href="#vector-crs"><strong>??</strong></a> and <a href="#raster-crs"><strong>??</strong></a>).</p>
+<p>Geographic coordinate systems identify any location on the Earth’s surface using two values - longitude and latitude. The first one is an angle from the prime meridian plan and the second one is an angle from the equatorial plane to this location. Therefore, units of geographic coordinate systems are degrees.</p>
+<!-- ellipsoid, geoid, datum -->
+<p>Projected coordinate systems are based on Cartesian coordinates and represent any area on a flat surface. Projected coordinate system needs to have an origin, x and y axes, and a linear unit of measure.</p>
+<!-- projection types, e.g. cylindrical -->
+<!-- spatial distortion: area, direction, distance, shape -->
 <p>In <strong>sf</strong> the CRS of an object can be retrieved using `st_crs():</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">old_crs =<span class="st"> </span><span class="kw">st_crs</span>(new_vector) <span class="co"># get CRS</span>
 old_crs <span class="co"># print CRS</span>
@@ -878,17 +883,16 @@ old_crs <span class="co"># print CRS</span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_vector =<span class="st"> </span><span class="kw">st_set_crs</span>(new_vector, <span class="dv">4326</span>) <span class="co"># set CRS</span>
 <span class="co">#&gt; Warning: st_crs&lt;- : replacing crs does not reproject data; use st_transform</span>
 <span class="co">#&gt; for that</span></code></pre></div>
-
-<div class="rmdnote">
-The <code>st_set_crs()</code> function do not transform data from one CRS to another. It can be done using <code>st_transform()</code>. More on that in chapter <a href="#coord"><strong>??</strong></a>.
-</div>
-<p></p>
+<p>The warning message informs us that the <code>st_set_crs()</code> function do not transform data from one CRS to another. However, it can be done using <code>st_transform()</code>. More on that in chapter <a href="#coord"><strong>??</strong></a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:vector-crs"></span>
 <img src="figures/02_vector_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a vector data type." width="765" />
 <p class="caption">
 Figure 2.9: Examples of projected (left) and geographic (right) coordinate systems for a vector data type.
 </p>
 </div>
+<p>The <code>projection()</code> function can be use to access a CRS information from the <code>Raster*</code> object:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">projection</span>(new_raster)
+<span class="co">#&gt; [1] &quot;+proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs&quot;</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:raster-crs"></span>
 <img src="figures/02_raster_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a raster data type" width="475" />
 <p class="caption">
@@ -912,7 +916,7 @@ Figure 2.10: Examples of projected (left) and geographic (right) coordinate syst
 <p>However, the result is incorrectly given again as square meters. The solution is to set the correct units with the <strong>units</strong> package:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">units::<span class="kw">set_units</span>(<span class="kw">st_area</span>(nigeria), km^<span class="dv">2</span>)
 <span class="co">#&gt; 905072 km^2</span></code></pre></div>
-<!-- Is that right? I mean, the units DESCRIPTION says "Support for measurement units in R vectors, matrices and arrays". Since raster datasets are just matrixes, units might be easily used with them?-->
+<!-- Is that right? I mean, the units DESCRIPTION says "Support for measurement units in R vectors, matrices and arrays". Since raster datasets are just matrices, units might be easily used with them?-->
 <p>Units are of equal importance in the case of raster data. However, so far <strong>sf</strong> is the only spatial package that supports units, meaning that people working on raster data should approach changes in the units of analysis (e.g., converting pixel widths from imperial to decimal units) with care. The <code>new_raster</code> object (see above) uses a UTM projection with meters as units. Consequently, its resolution is also given in meters but you have to know it, since the <code>res()</code> function simply returns a numeric vector.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">res</span>(new_raster)
 <span class="co">#&gt; [1] 73.7 92.5</span></code></pre></div>

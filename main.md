@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve5f10202e2b19b001
+preserve939e1bf7b13f3216
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1477,6 +1477,20 @@ Note that operations on `RasterBrick` and `RasterStack` objects will typically r
 
 Vector and raster spatial data types share concepts intrinsic to spatial data.
 Perhaps the most important of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other bodies).
+Coordinate system could be either projected or geographic (Figures \@ref(vector-crs) and \@ref(raster-crs)).
+
+Geographic coordinate systems identify any location on the Earth's surface using two values - longitude and latitude. 
+The first one is an angle from the prime meridian plan and the second one is an angle from the equatorial plane to this location.
+Therefore, units of geographic coordinate systems are degrees.
+
+<!-- ellipsoid, geoid, datum -->
+
+Projected coordinate systems are based on Cartesian coordinates and represent any area on a flat surface. 
+Projected coordinate system needs to have an origin, x and y axes, and a linear unit of measure.
+
+<!-- projection types, e.g. cylindrical -->
+
+<!-- spatial distortion: area, direction, distance, shape -->
 
 In **sf** the CRS of an object can be retrieved using `st_crs():
 
@@ -1503,14 +1517,22 @@ new_vector = st_set_crs(new_vector, 4326) # set CRS
 #> for that
 ```
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">The `st_set_crs()` function do not transform data from one CRS to another.
-It can be done using `st_transform()`.
-More on that in chapter \@ref(coord).</div>\EndKnitrBlock{rmdnote}
+The warning message informs us that the `st_set_crs()` function do not transform data from one CRS to another.
+However, it can be done using `st_transform()`.
+More on that in chapter \@ref(coord).
 
 <div class="figure" style="text-align: center">
 <img src="figures/02_vector_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a vector data type." width="765" />
 <p class="caption">(\#fig:vector-crs)Examples of projected (left) and geographic (right) coordinate systems for a vector data type.</p>
 </div>
+
+The `projection()` function can be use to access a CRS information from the `Raster*` object: 
+
+
+```r
+projection(new_raster)
+#> [1] "+proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
+```
 
 <div class="figure" style="text-align: center">
 <img src="figures/02_raster_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a raster data type" width="475" />
@@ -1565,7 +1587,7 @@ units::set_units(st_area(nigeria), km^2)
 #> 905072 km^2
 ```
 
-<!-- Is that right? I mean, the units DESCRIPTION says "Support for measurement units in R vectors, matrices and arrays". Since raster datasets are just matrixes, units might be easily used with them?-->
+<!-- Is that right? I mean, the units DESCRIPTION says "Support for measurement units in R vectors, matrices and arrays". Since raster datasets are just matrices, units might be easily used with them?-->
 Units are of equal importance in the case of raster data.
 However, so far **sf** is the only spatial package that supports units, meaning that people working on raster data should approach changes in the units of analysis (e.g., converting pixel widths from imperial to decimal units) with care.
 The `new_raster` object (see above) uses a UTM projection with meters as units.
