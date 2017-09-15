@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee8a796b1b27747a0
+preservef80a6b53551ea9f4
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3678,10 +3678,10 @@ The `stack()` class is limited to datasets that have the same spatial extent and
 
 ### Data packages
 
-
-
-<!-- Vast amount of spatial data are available on the internet. -->
-<!-- You can access data files using a web browser, however in this book we encourage you to create reproducible workflows. -->
+Nowadays, a vast amount of spatial data is available on the internet.
+This data could be accessed using a graphical user interface (GUI) via web browser.
+However, in this book we encourage you to create reproducible workflows.
+Data download in many cases could be automated, which not only save a time, but also allow to repeat and update this process in the future. 
 
 <!-- Some data are shared as files.  -->
 <!-- You can easily access them from R by `download.file()`: -->
