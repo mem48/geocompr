@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve34361361ae873f46
+preserveab6dd4bd68fd49f0
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1730,9 +1730,8 @@ methods(class = "sf") # methods for sf objects, first 12 shown
 Many of these functions, including `rbind()` (for binding rows of data together) and `$<-` (for creating new columns) were developed for data frames.
 A key feature of `sf` objects is that they store spatial and non-spatial data in the same way, as columns in a `data.frame` (the geometry column is typically called `geometry`).
 `sf` objects also support `tibble` and `tbl` classes used in the tidyverse, allowing 'tidy' data analysis workflows to apply for spatial data.
-Thus **sf** enables the full power of R's data analysis capabilities to be applied seemlessly to geographic data.
-
-Before proceeding to perform various attribute operations on a vector data object it's worth exploring structure.
+Thus **sf** enables the full power of R's data analysis capabilities to be unleashed on geographic data.
+Before using these capabilities it's worth re-capping how to discover the basic properties of vector data objects.
 Let's start by using base R functions for to get a measure of the `world` dataset:
 
 
