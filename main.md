@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveab6dd4bd68fd49f0
+preserve59a5cd1da0353748
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1756,16 +1756,14 @@ class(world_df)
 ```
 
 This can be useful if the geometry column causes problems, e.g., by occupying large amounts of RAM, or to focus the attention on the attribute data.
-For most cases, however, there is no harm in keeping the geometry column because non-spatial data operations on `sf` objects act only on the attribute data.
-For this reason, being good at working with attribute data of spatial objects is the same as being proficient at handling data frames in R.
-For many applications, **dplyr** offers the most effective and most intuitive approach of working with data frames, as we will see in the next
-section.^[
+For most cases, however, there is no harm in keeping the geometry column because non-spatial data operations on `sf` objects only change an object's geometry when appropriate (e.g. by disolving borders between adjacent polygons following aggregation). This means that proficiency with attribute data in `sf` objects equates to proficiency with data frames in R.
+For many applications, the tidyverse package **dplyr** offers the most effective and intuitive approach of working with data frames, hence the focus on this approach in this section.^[
 Unlike objects of class `Spatial` of the **sp** package, `sf` objects are also compatible with the **tidyverse** packages **dplyr** and **ggplot2**.
 The former provides fast and powerful functions for data manipulation (see [Section 6.7](https://csgillespie.github.io/efficientR/data-carpentry.html#data-processing-with-data.table) of @gillespie_efficient_2016), and the latter provides powerful plotting capabilities.
 ]
-This chapter focuses on **dplyr** because of its intuitive function names and ability to perform multiple chained operations using the pipe operator.
 
 ###  Vector attribute subsetting
+
 Because simple feature objects are also data frames (run `class(world)`to verify), you can use a wide range of functions (from base R and other packages) for subsetting them.
 Base R subsetting functions include `[`, `subset()` and  `$`.
 **dplyr** subsetting functions include `select()`, `filter()`, and `pull()`.
