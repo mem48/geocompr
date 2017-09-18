@@ -2,7 +2,7 @@
 --- 
 title: 'Geocomputation with R'
 author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
-date: '2017-09-17'
+date: '2017-09-18'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -38,7 +38,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-09-17 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-09-18 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservef02319eed8fc6717
+preserve3928172de36e0643
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1672,8 +1672,10 @@ library(spData)
 
 Attribute data is non-spatial information associated with geographic (geometry) data.
 A bus stop provides a simple example.
-In a spatial vector object its position would be represented by latitude and longitude coordinates (geometry data), in addition to its name.
+In a spatial vector object its position would typically be represented by latitude and longitude coordinates (geometry data), in addition to its name.
 The name is an *attribute* of the feature (to use Simple Features terminology) that bears no relation to its geometry.
+<!-- idea: add an example of a bus stop (or modify a previous example so it represents a bus stop) in the previous chapter  -->
+
 
 Another example is the elevation value (attribute) for a specific grid cell in raster data.
 Unlike vector data, the raster data model stores the coordinate of the grid cell only indirectly:
@@ -1705,14 +1707,33 @@ Section \@ref(summarizing-raster-objects) provides an overview of 'global' raste
 
 ## Vector attribute manipulation
 
-As outlined in Chapter \@ref(spatial-class), **sf** provided support for simple features in R and made them work with generic R functions such as `plot()` and `summary()` (as can be seen by executing `methods("summary")` and/or `methods("plot")`).
+**sf** provides support for attribute data associated with vector geometries.
+Chapter \@ref(spatial-class) demonstrated how `sf` versions of *generic methods* such as `plot()` and `summary()` could be used to explore the basics of vector datasets, of class `sf`.
+**sf** also provides methods that allow `sf` objects to behave like regular data frames:
 
-The reliable `data.frame` (and modifications to it such as the `tibble` class used in the tidyverse) is the basis for data analysis in R.
-Extending this system to work with spatial data has many advantages. 
-The most important one is that the accumulated know-how in the R community for handling data frames can be transferred to geographic attribute data.
 
-Before proceeding to perform various attribute operations on a dataset, let's explore its structure.
-To find out more about the structure of our use case dataset `world`, we use base R functions for working with tabular data such as `nrow()` and `ncol()`:
+```r
+methods(class = "sf") # methods for sf objects, first 12 shown
+```
+
+
+```r
+#>  [1] aggregate             cbind                 coerce               
+#>  [4] initialize            merge                 plot                 
+#>  [7] print                 rbind                 [                    
+#> [10] [[<-                  $<-                   show                 
+```
+
+
+
+
+Many of these functions, including `rbind()` (for binding rows of data together) and `$<-` (for creating new columns) were developed for data frames.
+A key feature of `sf` objects is that they store spatial and non-spatial data in the same way, as columns in a `data.frame` (the geometry column is typically called `geometry`).
+`sf` objects also support `tibble` and `tbl` classes used in the tidyverse, allowing 'tidy' data analysis workflows to apply for spatial data.
+Thus **sf** enables the full power of R's data analysis capabilities to be applied seemlessly to geographic data.
+
+Before proceeding to perform various attribute operations on a vector data object it's worth exploring structure.
+Let's start by using base R functions for to get a measure of the `world` dataset:
 
 
 ```r
