@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve9129984c63781274
+preserve69bc977d6262122f
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1766,7 +1766,7 @@ The former provides fast and powerful functions for data manipulation (see [Sect
 
 Base R subsetting functions include `[`, `subset()` and  `$`.
 **dplyr** subsetting functions include `select()`, `filter()`, and `pull()`.
-Both sets of functions preserve the spatial components of the data.
+Both sets of functions preserve the spatial components of attribute data in `sf` objects.
 
 The `[` operator can subset both rows and columns. 
 You use indices to specify the elements you wish to extract from an object, e.g., `object[i, j]` with `i` and `j` representing rows and columns.
