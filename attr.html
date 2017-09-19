@@ -354,7 +354,7 @@ world6 =<span class="st"> </span><span class="kw">filter</span>(world, lifeExp &
 <!-- describe these: ==, !=, >, >=, <, <=, &, | -->
 <!-- add warning about = vs == -->
 <!-- add info about combination of &, |, ! -->
-<p>A benefit of <strong>dplyr</strong> is its ease of use, which is enhanced by its compatibility with the <em>pipe</em> operator <code>%&gt;%</code> (from <strong>magrittr</strong>, which takes its name from the Unix pipe <code>|</code>). Despite its strange form (it points ‘forward’), its behaviour is simple, ‘piping’ the output of a previous command into the first argument of the next function. Many functions can be combined in this way in a process called <em>chaining</em>, illustrated below. This code chunk takes the <code>world</code> dataset, selects the columns <code>name_long</code> and <code>continent</code>, and returns the first five rows (result not shown).</p>
+<p>A benefit of <strong>dplyr</strong> is its ease of use, which is enhanced by its compatibility with the <em>pipe</em> operator <code>%&gt;%</code> (from <strong>magrittr</strong>, which takes its name from the Unix pipe <code>|</code>). Despite its strange form (it points ‘forward’), its behaviour is simple, ‘piping’ the output of a previous command into the first argument of the next function. Many functions can be combined in this way in a process called <em>chaining</em> because the fundamental functions (or ‘verbs’, like <code>select()</code>) of <strong>dplyr</strong> take a <code>data.frame</code> their first argument and also return one.<a href="#fn20" class="footnoteRef" id="fnref20"><sup>20</sup></a> This is illustrate below, in which the <code>world</code> dataset is subset by columns (<code>name_long</code> and <code>continent</code>) and the first five rows (result not shown).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world7 =<span class="st"> </span>world %&gt;%
 <span class="st">  </span>dplyr::<span class="kw">select</span>(name_long, continent) %&gt;%
 <span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span>:<span class="dv">5</span>)</code></pre></div>
@@ -368,7 +368,7 @@ world6 =<span class="st"> </span><span class="kw">filter</span>(world, lifeExp &
 The ‘right arrow’ <code>-&gt;</code> operator can be used to make the result be assigned at the end of a chaining process.
 </div>
 <p></p>
-<p>There are additional advantages of pipes from a communication perspective: they encourage adding comments to self-contained functions and allow single lines <em>commented-out</em> without breaking the code. <strong>dplyr</strong> works especially well with the pipe operator because its fundamental functions (or ‘verbs’, like <code>select()</code>) expect a data frame object as input and also return one.<a href="#fn20" class="footnoteRef" id="fnref20"><sup>20</sup></a></p>
+<p>There are additional advantages of pipes from a communication perspective: they encourage adding comments to self-contained functions and allow single lines <em>commented-out</em> without breaking the code.</p>
 </div>
 <div id="vector-attribute-aggregation" class="section level3">
 <h3><span class="header-section-number">3.2.2</span> Vector attribute aggregation</h3>

@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve5cace20f79386add
+preservee160426264f6c943
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1914,8 +1914,8 @@ Symbol      Name
 
 A benefit of **dplyr** is its ease of use, which is enhanced by its compatibility with the *pipe* operator ` %>% ` (from **magrittr**, which takes its name from the Unix pipe `|`).
 Despite its strange form (it points 'forward'), its behaviour is simple, 'piping' the output of a previous command into the first argument of the next function.
-Many functions can be combined in this way in a process called *chaining*, illustrated below.
-This code chunk takes the `world` dataset, selects the columns `name_long` and `continent`, and returns the first five rows (result not shown).
+Many functions can be combined in this way in a process called *chaining* because the fundamental functions (or 'verbs', like `select()`) of **dplyr** take a `data.frame` their first argument and also return one.^[If you want **dplyr** to return a vector, use `pull`.]
+This is illustrate below, in which the `world` dataset is subset by columns (`name_long` and `continent`) and the first five rows (result not shown).
 
 
 ```r
@@ -1937,11 +1937,9 @@ world8 = dplyr::select(
 
 This generates the same result --- verify this with `identical(world7, world8)` --- in the same number of lines of code, but in a much more confusing way, starting with the function that is called last!
 
-
 \BeginKnitrBlock{rmdnote}<div class="rmdnote">The 'right arrow' `->` operator can be used to make the result be assigned at the end of a chaining process.</div>\EndKnitrBlock{rmdnote}
 
 There are additional advantages of pipes from a communication perspective: they encourage adding comments to self-contained functions and allow single lines *commented-out* without breaking the code.
-**dplyr** works especially well with the pipe operator because its fundamental functions (or 'verbs', like `select()`) expect a data frame object as input and also return one.^[If you want **dplyr** to return a vector, use `pull`.]
 
 ### Vector attribute aggregation
 
