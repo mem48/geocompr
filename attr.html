@@ -317,7 +317,7 @@ world3 =<span class="st"> </span>dplyr::<span class="kw">select</span>(world, -s
 <p><code>slice()</code> is the row-equivalent of <code>select()</code>. The following code chunk, for example, selects the 3<sup>rd</sup> to 5<sup>th</sup> rows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">slice</span>(world, <span class="dv">3</span>:<span class="dv">5</span>)</code></pre></div>
 <p><code>filter()</code> is <strong>dplyr</strong>’s equivalent of base R’s <code>subset()</code> function. It keeps only rows matching given criteria, e.g., only countries with a very high average of life expectancy:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># only countries with a life expectation larger than 82 years</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Countries with a life expectancy more than 82 years</span>
 world6 =<span class="st"> </span><span class="kw">filter</span>(world, lifeExp &gt;<span class="st"> </span><span class="dv">82</span>)</code></pre></div>
 <p>The standard set of comparison operators can be used in the <code>filter()</code> function, as illustrated in Table <a href="attr.html#tab:operators">3.1</a>:</p>
 <table>
@@ -354,11 +354,21 @@ world6 =<span class="st"> </span><span class="kw">filter</span>(world, lifeExp &
 <!-- describe these: ==, !=, >, >=, <, <=, &, | -->
 <!-- add warning about = vs == -->
 <!-- add info about combination of &, |, ! -->
-<p>Another benefit of <strong>dplyr</strong> is its ease of use. This is greatly enhanced by its compatibility with the <em>pipe</em> operator <code>%&gt;%</code> (from <strong>magrittr</strong>), which takes its name from the Unix pipe <code>|</code>. Despite its strange form (it points ‘forward’), its behaviour is simple, ‘piping’ the output of a previous command into the first argument of the next function. Many functions can be combined in this way in a process called <em>chaining</em>, illustrated below. This code chunk takes the <code>world</code> dataset, selects the columns <code>name_long</code> and <code>continent</code>, and returns the first five rows (result not shown).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world %&gt;%
+<p>A benefit of <strong>dplyr</strong> is its ease of use, which is enhanced by its compatibility with the <em>pipe</em> operator <code>%&gt;%</code> (from <strong>magrittr</strong>, which takes its name from the Unix pipe <code>|</code>). Despite its strange form (it points ‘forward’), its behaviour is simple, ‘piping’ the output of a previous command into the first argument of the next function. Many functions can be combined in this way in a process called <em>chaining</em>, illustrated below. This code chunk takes the <code>world</code> dataset, selects the columns <code>name_long</code> and <code>continent</code>, and returns the first five rows (result not shown).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world7 =<span class="st"> </span>world %&gt;%
 <span class="st">  </span>dplyr::<span class="kw">select</span>(name_long, continent) %&gt;%
 <span class="st">  </span><span class="kw">slice</span>(<span class="dv">1</span>:<span class="dv">5</span>)</code></pre></div>
-<p>The pipe operator supports an intuitive data analysis workflow. It allows operations to be written in a clear order, line-by-line and from left to right (as with most languages), avoiding ‘nesting’, whereby one function is buried inside another (without pipes the code in the previous chunk would be written as <code>slice(select(world, name_long, continent), 1:5)</code> which is harder for most people to read, write and understand). Another advantage over the nesting approach is that you can easily comment out certain parts of a pipe. <strong>dplyr</strong> works especially well with the pipe operator because its fundamental functions (or ‘verbs’, like <code>select()</code>) expect a data frame object as input and also return one.<a href="#fn20" class="footnoteRef" id="fnref20"><sup>20</sup></a></p>
+<p>The above chunk shows how the pipe operator allows commands to be written in a clear order: the above run from top to bottom (line-by-line) and left to right. Without <code>%&gt;%</code> one would be forced to create intermediary objects or use nested function calls, e.g.:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world8 =<span class="st"> </span>dplyr::<span class="kw">select</span>(
+  <span class="kw">slice</span>(world, <span class="dv">1</span>:<span class="dv">5</span>),
+  name_long, continent)</code></pre></div>
+<p>This generates the same result — verify this with <code>identical(world7, world8)</code> — in the same number of lines of code, but in a much more confusing way, starting with the function that is called last!</p>
+
+<div class="rmdnote">
+The ‘right arrow’ <code>-&gt;</code> operator can be used to make the result be assigned at the end of a chaining process.
+</div>
+<p></p>
+<p>There are additional advantages of pipes from a communication perspective: they encourage adding comments to self-contained functions and allow single lines <em>commented-out</em> without breaking the code. <strong>dplyr</strong> works especially well with the pipe operator because its fundamental functions (or ‘verbs’, like <code>select()</code>) expect a data frame object as input and also return one.<a href="#fn20" class="footnoteRef" id="fnref20"><sup>20</sup></a></p>
 </div>
 <div id="vector-attribute-aggregation" class="section level3">
 <h3><span class="header-section-number">3.2.2</span> Vector attribute aggregation</h3>

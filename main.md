@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve933c067edd7e7769
+preserve17a715839c5aef37
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1676,7 +1676,6 @@ In a spatial vector object its position would typically be represented by latitu
 The name is an *attribute* of the feature (to use Simple Features terminology) that bears no relation to its geometry.
 <!-- idea: add an example of a bus stop (or modify a previous example so it represents a bus stop) in the previous chapter  -->
 
-
 Another example is the elevation value (attribute) for a specific grid cell in raster data.
 Unlike vector data, the raster data model stores the coordinate of the grid cell only indirectly:
 There is a less clear distinction between attribute and spatial information in raster data.
@@ -1891,7 +1890,7 @@ It keeps only rows matching given criteria, e.g., only countries with a very hig
 
 
 ```r
-# only countries with a life expectation larger than 82 years
+# Countries with a life expectancy more than 82 years
 world6 = filter(world, lifeExp > 82)
 ```
 
@@ -1912,23 +1911,35 @@ Symbol      Name
 <!-- add warning about = vs == -->
 <!-- add info about combination of &, |, ! -->
 
-Another benefit of **dplyr** is its ease of use.
-This is greatly enhanced by its compatibility with the *pipe* operator ` %>% ` (from **magrittr**),
-which takes its name from the Unix pipe `|`.
+A benefit of **dplyr** is its ease of use, which is enhanced by its compatibility with the *pipe* operator ` %>% ` (from **magrittr**, which takes its name from the Unix pipe `|`).
 Despite its strange form (it points 'forward'), its behaviour is simple, 'piping' the output of a previous command into the first argument of the next function.
 Many functions can be combined in this way in a process called *chaining*, illustrated below.
 This code chunk takes the `world` dataset, selects the columns `name_long` and `continent`, and returns the first five rows (result not shown).
 
 
 ```r
-world %>%
+world7 = world %>%
   dplyr::select(name_long, continent) %>%
   slice(1:5)
 ```
 
-The pipe operator supports an intuitive data analysis workflow.
-It allows operations to be written in a clear order, line-by-line and from left to right (as with most languages), avoiding 'nesting', whereby one function is buried inside another (without pipes the code in the previous chunk would be written as `slice(select(world, name_long, continent), 1:5)` which is harder for most people to read, write and understand).
-Another advantage over the nesting approach is that you can easily comment out certain parts of a pipe.
+The above chunk shows how the pipe operator allows commands to be written in a clear order:
+the above run from top to bottom (line-by-line) and left to right.
+Without `%>%` one would be forced to create intermediary objects or use nested function calls, e.g.:
+
+
+```r
+world8 = dplyr::select(
+  slice(world, 1:5),
+  name_long, continent)
+```
+
+This generates the same result --- verify this with `identical(world7, world8)` --- in the same number of lines of code, but in a much more confusing way, starting with the function that is called last!
+
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">The 'right arrow' `->` operator can be used to make the result be assigned at the end of a chaining process.</div>\EndKnitrBlock{rmdnote}
+
+There are additional advantages of pipes from a communication perspective: they encourage adding comments to self-contained functions and allow single lines *commented-out* without breaking the code.
 **dplyr** works especially well with the pipe operator because its fundamental functions (or 'verbs', like `select()`) expect a data frame object as input and also return one.^[If you want **dplyr** to return a vector, use `pull`.]
 
 ### Vector attribute aggregation
