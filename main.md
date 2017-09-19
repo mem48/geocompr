@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve525fafd681dced29
+preserve933c067edd7e7769
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1933,13 +1933,11 @@ Another advantage over the nesting approach is that you can easily comment out c
 
 ### Vector attribute aggregation
 
-Aggregation operations summarize datasets by a grouping variable.
-Lets illustrate this with an example.
-We would like to calculate the number of people per continent. 
-Fortunately, our `world` dataset has one column representing the inhabitants per country and one column representing the corresponding continent. 
-Hence, we can take the sum of the populations per country using the continent column as a grouping variable. 
-In base R the `aggregate()` function lets you do that.
-Note that you have to indicate the grouping variable as a `list`-object:
+Aggregation operations summarize datasets by a grouping variable, which can be either another attribute column or a spatial object (see Chapter \@ref(spatial-attribute-operations)).
+Imagine we would like to calculate the number of people per continent. 
+Fortunately, our `world` dataset has the necessary ingredients, with the `pop` column containing the population per country and `continent` the continent. 
+This allows us to aggregate populations per country using the continent column as a grouping variable. 
+In base R this is done with `aggregate()`, which requires the grouping variable to be a `list` object:
 
 
 ```r
