@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve3026634c577fe65e
+preserve525fafd681dced29
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1769,11 +1769,11 @@ Base R subsetting functions include `[`, `subset()` and  `$`.
 Both sets of functions preserve the spatial components of attribute data in `sf` objects.
 
 The `[` operator can subset both rows and columns. 
-You use indices to specify the elements you wish to extract from an object, e.g., `object[i, j]`, with `i` and `j` typically being numbers representing rows and columns (they can also be character strings, indicating row or column names).
+You use indices to specify the elements you wish to extract from an object, e.g., `object[i, j]`, with `i` and `j` typically being numbers or logical vectors --- `TRUE`s and `FALSE`s --- representing rows and columns (they can also be character strings, indicating row or column names).
 <!-- you can also use `[`(world, 1:6, 1) -->
 Leaving `i` or `j` empty returns all rows or columns, so `world[1:5, ]` returns the first five rows and all columns.
 The examples below demonstrate subsetting with base R.
-The results are not shown --- check the results on your own computer:
+The results are not shown; check the results on your own computer:
 
 
 ```r
@@ -1790,19 +1790,19 @@ world[, 1:3] # subset columns by position
 world[, c("name_long", "lifeExp")] # subset columns by name
 ```
 
-The `[` subsetting operator also accepts `logical` vectors consisting of `TRUE` and `FALSE` elements.
-The following code chunk, for example, creates a new object, `small_countries`, which only contains nations whose surface area is smaller than 100,000 km^2^:
+A demonstration of the utility of using `logical` vectors for subsetting is shown in the code chunk below.
+This creates a new object, `small_countries`, containing nations whose surface area is smaller than 100,000 km^2^:
 
 
 ```r
 sel_area = world$area_km2 < 10000
-summary(sel_area)
+summary(sel_area) # a logical vector
 #>    Mode   FALSE    TRUE 
 #> logical     170       7
 small_countries = world[sel_area, ]
 ```
 
-Note that we created the intermediary `sel_object`, a logical vector, for illustration purposes, and to show that only seven countries match our query.
+The intermediary `sel_object` is a logical vector that shows that only seven countries match the query.
 A more concise command, that omits the intermediary object, generates the same result:
 
 
@@ -1826,17 +1826,14 @@ world$name_long
 
 <!-- , after the package has been loaded: [or - it is a part of tidyverse] -->
 Base R functions are essential, and we recommend that you have a working knowledge of them.
-However, **dplyr** often makes working with data frames easier.
-Moreover, **dplyr** is usually much faster than base R since it makes use of C++ in the background. 
-This comes in especially handy when working with large datasets.
-As a special bonus, **dplyr** is compatible with `sf` objects.
+However, **dplyr** can make working with data frames more intuitive, and can lead to faster code due to its C++ backend and ability to interface with data bases (important when working with big data).
 The main **dplyr** subsetting functions are `select()`, `slice()`, `filter()` and `pull()`.
 
 <div class="rmdnote">
 <p>Both <strong>raster</strong> and <strong>dplyr</strong> packages have a function called <code>select()</code>. If both packages are loaded, this can generate error messages containing the text: <code>unable to find an inherited method for function ‘select’ for signature ‘&quot;sf&quot;’</code>. To avoid this error message, and prevent ambiguity, we use the long-form function name, prefixed by the package name and two colons (usually omitted from R scripts for concise code): <code>dplyr::select()</code>.</p>
 </div>
 
-The `select()` function selects columns by name or position.
+`select()` selects columns by name or position.
 For example, you could select only two columns, `name_long` and `pop`, with the following command (note the `geom` column remains):
 
 
@@ -1852,9 +1849,6 @@ names(world1)
 ```r
 # all columns between name_long and pop (inclusive)
 world2 = dplyr::select(world, name_long:pop)
-names(world2)
-#> [1] "name_long" "continent" "region_un" "subregion" "type"      "area_km2" 
-#> [7] "pop"       "geom"
 ```
 
 Omit specific columns with the `-` operator:
@@ -1918,10 +1912,12 @@ Symbol      Name
 <!-- add warning about = vs == -->
 <!-- add info about combination of &, |, ! -->
 
-Finally, we would like to introduce the special *pipe* operator (` %>% `) of the **magrittr** package.
-The *pipe* operator feeds ('pipes forward') the output of one function into the first argument of the next function.
-Combining many functions together with pipes is called *chaining* or *piping*.
-For example, let us first take the `world` dataset, then let us select the two columns named `name_long` and `continent`, and then we just would like to return the first five rows.
+Another benefit of **dplyr** is its ease of use.
+This is greatly enhanced by its compatibility with the *pipe* operator ` %>% ` (from **magrittr**),
+which takes its name from the Unix pipe `|`.
+Despite its strange form (it points 'forward'), its behaviour is simple, 'piping' the output of a previous command into the first argument of the next function.
+Many functions can be combined in this way in a process called *chaining*, illustrated below.
+This code chunk takes the `world` dataset, selects the columns `name_long` and `continent`, and returns the first five rows (result not shown).
 
 
 ```r
@@ -1936,7 +1932,8 @@ Another advantage over the nesting approach is that you can easily comment out c
 **dplyr** works especially well with the pipe operator because its fundamental functions (or 'verbs', like `select()`) expect a data frame object as input and also return one.^[If you want **dplyr** to return a vector, use `pull`.]
 
 ### Vector attribute aggregation
-Aggregation operations summarize datasets in accordance with a grouping variable.
+
+Aggregation operations summarize datasets by a grouping variable.
 Lets illustrate this with an example.
 We would like to calculate the number of people per continent. 
 Fortunately, our `world` dataset has one column representing the inhabitants per country and one column representing the corresponding continent. 
@@ -1974,7 +1971,6 @@ The first function added up all inhabitants, while the latter simply counted the
  
 You can use a wide range of functions within `summarize()` for aggregation and summary purposes.
 Type `?summarize` for a list with useful functions and more information (see Chapter 5 of [R for Data Science](http://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarize) for a more detailed overview of `summarize()`), 
-
 
 
 Table: (\#tab:continents)The top 3 most populous continents, and the number of countries in each.
@@ -2304,7 +2300,7 @@ Here, we create a raster which should represent elevations, therefore, we name i
 
 ```r
 library(raster)
-elev = raster(nrow = 6, ncol = 6, res = 0.5, 
+elev = raster(nrow = 6, ncol = 6, res = 0.5,
               xmn = -1.5, xmx = 1.5, ymn = -1.5, ymx = 1.5,
               vals = 1:36)
 ```
