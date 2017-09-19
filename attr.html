@@ -25,7 +25,7 @@
 <meta name="author" content="Robin Lovelace, Jakub Nowosad, Jannes Muenchow">
 
 
-<meta name="date" content="2017-09-18">
+<meta name="date" content="2017-09-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -273,7 +273,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="vector-attribute-subsetting" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Vector attribute subsetting</h3>
 <p>Base R subsetting functions include <code>[</code>, <code>subset()</code> and <code>$</code>. <strong>dplyr</strong> subsetting functions include <code>select()</code>, <code>filter()</code>, and <code>pull()</code>. Both sets of functions preserve the spatial components of attribute data in <code>sf</code> objects.</p>
-<p>The <code>[</code> operator can subset both rows and columns. You use indices to specify the elements you wish to extract from an object, e.g., <code>object[i, j]</code> with <code>i</code> and <code>j</code> representing rows and columns. <!-- you can also use `[`(world, 1:6, 1) --> The indices can be either numeric, indicating position, or character strings, indicating row or column names. Leaving <code>i</code> or <code>j</code> empty, simply returns all rows or columns. For instance, <code>object[1:5, ]</code> returns the first five rows and all columns. Below, we demonstrate how to use base R subsetting (results not shown - try running this on your own computer to check the output is as expected):</p>
+<p>The <code>[</code> operator can subset both rows and columns. You use indices to specify the elements you wish to extract from an object, e.g., <code>object[i, j]</code> with <code>i</code> and <code>j</code> being numbers representing rows and columns. <!-- you can also use `[`(world, 1:6, 1) --> The indices can be either numeric, indicating position, or character strings, indicating row or column names. Leaving <code>i</code> or <code>j</code> empty, simply returns all rows or columns. For instance, <code>object[1:5, ]</code> returns the first five rows and all columns. Below, we demonstrate how to use base R subsetting (results not shown - try running this on your own computer to check the output is as expected):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[<span class="dv">1</span>:<span class="dv">6</span>, ] <span class="co"># subset rows by position</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[, <span class="dv">1</span>:<span class="dv">3</span>] <span class="co"># subset columns by position</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[, <span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span>, <span class="st">&quot;lifeExp&quot;</span>)] <span class="co"># subset columns by name</span></code></pre></div>
