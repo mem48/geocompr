@@ -378,14 +378,13 @@ The ‘right arrow’ <code>-&gt;</code> operator can be used to make the result
 <p><code>summarize()</code> is the <strong>dplyr</strong> equivalent of <code>aggregate()</code>, which uses the function <code>group_by()</code> to create the grouping variable. The tidy equivalent of the <code>aggregate()</code> method is as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">group_by</span>(world, continent) %&gt;%
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">pop =</span> <span class="kw">sum</span>(pop, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
-<p>The result is a spatial data frame of class <code>sf</code>: the aggregation procedure dissolved boundaries within continental land masses. This approach is flexible, allowing the resulting columns to be named. Further, omitting the grouping variable puts everything on in one group, meaning the following command calculates Earth’s total population (~7 billion) and number of countries:</p>
+<p>This approach is flexible, allowing the resulting columns to be named. Further, omitting the grouping variable puts everything on in one group. This means <code>summarize()</code> can be used to calculate Earth’s total population (~7 billion) and number of countries:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">st_set_geometry</span>(<span class="ot">NULL</span>) %&gt;%
-<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">pop =</span> <span class="kw">sum</span>(pop, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">n_countries =</span> <span class="kw">n</span>())
-<span class="co">#&gt;        pop n_countries</span>
-<span class="co">#&gt; 1 7.21e+09         177</span></code></pre></div>
-<p>The new object, <code>world_summary</code>, is an aggregation of all 177 world’s countries. It consists of one row and two columns. The <code>pop =</code> and <code>n_countries =</code> created the names of the two columns, while the <code>sum()</code>- and <code>n()</code>-function actually did the aggregation. The first function added up all inhabitants, while the latter simply counted the number of rows.</p>
-<p>You can use a wide range of functions within <code>summarize()</code> for aggregation and summary purposes. Type <code>?summarize</code> for a list with useful functions and more information (see Chapter 5 of <a href="http://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarize">R for Data Science</a> for a more detailed overview of <code>summarize()</code>),</p>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">pop =</span> <span class="kw">sum</span>(pop, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">n_countries =</span> <span class="kw">n</span>())</code></pre></div>
+<pre><code>#&gt;        pop n_countries
+#&gt; 1 7.21e+09         177</code></pre>
+<p>The result is a spatial data frame of class <code>sf</code> (only the non-spatial results are shown): the aggregation procedure dissolves boundaries within continental land masses.</p>
+<p>Aggregating with <strong>dplyr</strong> functions requires understanding of the syntax. The above code chunk the <code>pop =</code> and <code>n_countries =</code> arguments names the columns in the resulting data frame. <code>sum()</code> and <code>n()</code> were the the aggregating functions. More details are provided in the help pages (which can be accessed via <code>?summarize</code> and <code>vignette(package = &quot;dplr&quot;)</code> and Chapter 5 of <a href="http://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarize">R for Data Science</a>.</p>
 <table>
 <caption><span id="tab:continents">Table 3.2: </span>The top 3 most populous continents, and the number of countries in each.</caption>
 <thead>
