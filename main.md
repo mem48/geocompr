@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservedc7242da03c64b49
+preserve211d739a394699c2
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1621,6 +1621,7 @@ Again, the `res()` command gives back a numeric vector without any unit, forcing
 
 ## Exercises
 
+<!-- vector exercises -->
 1. What does the summary of the `geometry` column tell us about the `world` dataset, in terms of:
 
 - The geometry type?
@@ -1633,10 +1634,8 @@ Again, the `res()` command gives back a numeric vector without any unit, forcing
 - Bonus: make the country boundaries a dotted grey line.
 - Hint: `border` is an additional argument of `plot()` for **sf** objects.
 
-3. Exercise 3 <!--missing title-->
+3. What does the `lwd` argument do in the `plot()` code that generates Figure \@ref(fig:africa). Perform the same operations and map making for another continent of your choice.
 
-- What does the `lwd` argument do in the `plot()` code that generates Figure \@ref(fig:africa). 
-- Perform the same operations and map making for another continent of your choice.
 - Bonus: Download some global geographic data and add attribute variables assigning them to the continents of the world.
 
 <!-- raster exercises -->
