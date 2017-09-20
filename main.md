@@ -2,7 +2,7 @@
 --- 
 title: 'Geocomputation with R'
 author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
-date: '2017-09-19'
+date: '2017-09-20'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -38,7 +38,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-09-19 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-09-20 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee160426264f6c943
+preservec89f8628e29e096d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1945,31 +1945,36 @@ There are additional advantages of pipes from a communication perspective: they 
 
 Aggregation operations summarize datasets by a grouping variable, which can be either another attribute column or a spatial object (see Chapter \@ref(spatial-attribute-operations)).
 Imagine we would like to calculate the number of people per continent. 
-Fortunately, our `world` dataset has the necessary ingredients, with the `pop` column containing the population per country and `continent` the continent. 
-This allows us to aggregate populations per country using the continent column as a grouping variable. 
-In base R this is done with `aggregate()`, which requires the grouping variable to be a `list` object:
+Fortunately, our `world` dataset has the necessary ingredients, with the `pop` column containing the population per country and the grouping variable `continent`.
+In base R this can be done with `aggregate()` as follows:
 
 
 ```r
-ag_var = list(world$continent)
-aggregate(world$pop, by = ag_var, FUN = sum, na.rm = TRUE)
+aggregate(pop ~ continent, FUN = sum, data = world, na.rm = TRUE)
 ```
 
-This leaves us with a table with eight rows representing the number of inhabitants for each of the continents (see Table \@ref(tab:continents) with results for the top 3 most populous continents).
-`summarize()` is the **dplyr** equivalent of `aggregate()`.
-To specify groups, you will need also the `group_by()` command. 
-So obtaining the exact same result as above, you need to type `group_by(world, continent) %>% summarize(pop = sum(pop, na.rm = TRUE))`.
-If we leave the grouping variable unspecified, we simply retrieve the total, in our case the number of people living on Earth:
+The result is a non-spatial data frame with eight rows, one per continent, and two columns (see Table \@ref(tab:continents) with results for the top 3 most populous continents).
+
+`summarize()` is the **dplyr** equivalent of `aggregate()`, which uses the function `group_by()` to create the grouping variable.
+The tidy equivalent of the `aggregate()` method is as follows:
 
 
 ```r
-# customized data summary
+group_by(world, continent) %>%
+  summarize(pop = sum(pop, na.rm = TRUE))
+```
+
+The result is a spatial data frame of class `sf`: the aggregation procedure dissolved boundaries within continental land masses.
+This approach is flexible, allowing the resulting columns to be named.
+Further, omitting the grouping variable puts everything on in one group, meaning the following command calculates Earth's total population (~7 billion) and number of countries:
+
+
+```r
 world %>% 
   st_set_geometry(NULL) %>%
   summarize(pop = sum(pop, na.rm = TRUE), n_countries = n())
 #>        pop n_countries
 #> 1 7.21e+09         177
-# A total population > 7 billion
 ```
 
 The new object, `world_summary`, is an aggregation of all 177 world's countries.
