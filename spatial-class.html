@@ -867,7 +867,7 @@ r_stack
 <p>Projected coordinate systems are based on Cartesian coordinates and represent any area on a flat surface. Projected coordinate system needs to have an origin, x and y axes, and a linear unit of measure.</p>
 <!-- projection types, e.g. cylindrical -->
 <!-- spatial distortion: area, direction, distance, shape -->
-<p>Two main ways to describe CRS in R is an <code>epsg</code> code or a <code>proj4string</code> definition. Both of these approaches have advantages and disadvantages. An <code>epsg</code> code is usually shorter, and therefore easier to remember. The code also refers to only one, well-defined coordinate reference system. On the other hand, a <code>proj4string</code> definition allows you more flexibility when it comes to specifying different parameters such as the projection type, the datum and the ellipsoid. This way you can specify many different projections, and modify existing ones. This makes the <code>proj4string</code> approach also more complicated.<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a>. <code>epsg</code> always points to exactly one particular CRS. Correspondingly, there is also only one possible <code>proj4string</code> for a specific <code>epsg</code>-code.</p>
+<p>Two main ways to describe CRS in R is an <code>epsg</code> code or a <code>proj4string</code> definition. Both of these approaches have advantages and disadvantages. An <code>epsg</code> code is usually shorter, and therefore easier to remember. The code also refers to only one, well-defined coordinate reference system. On the other hand, a <code>proj4string</code> definition allows you more flexibility when it comes to specifying different parameters such as the projection type, the datum and the ellipsoid. This way you can specify many different projections, and modify existing ones. This makes the <code>proj4string</code> approach also more complicated<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a>. <code>epsg</code> always points to exactly one particular CRS. Correspondingly, there is also only one possible <code>proj4string</code> for a specific <code>epsg</code>-code.</p>
 <p>In <strong>sf</strong> the CRS of an object can be retrieved using <code>st_crs()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">old_crs =<span class="st"> </span><span class="kw">st_crs</span>(new_vector) <span class="co"># get CRS</span>
 old_crs <span class="co"># print CRS</span>
@@ -958,8 +958,14 @@ repr =<span class="st"> </span><span class="kw">projectRaster</span>(new_raster,
 <li>Bonus: Download some global geographic data and add attribute variables assigning them to the continents of the world.</li>
 </ul>
 <!-- raster exercises -->
+<!-- 1. raster properties (crs, ncols, nrow, ncells, bbox, navalues) -->
+<!-- 1. raster plot -->
+<!-- 1. read raster stack/brick -->
 <!-- crs exercises -->
+<!-- 1. pros and cons of the projection types -->
+<!-- 1. what's the difference between vector and raster transformation -->
 <!-- units exercises -->
+<!-- 1. ?? -->
 
 </div>
 </div>
