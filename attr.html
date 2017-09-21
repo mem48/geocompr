@@ -703,14 +703,12 @@ Some function names clash between packages (e.g., <code>select</code>, as discus
 <ol style="list-style-type: decimal">
 <li>Create a new object called <code>us_states_name</code> that contains only the <code>NAME</code> column from the <code>us_states</code> object. What is the class of the new object? <!--why there is a "sf" part? --></li>
 <li>Select columns from the <code>us_states</code> object which contain population data. Obtain the same result using a different command (bonus: try to find three ways of obtaining the same result). Hint: try to use helper functions, such as <code>contains</code> or <code>starts_with</code> from <strong>dplyr</strong> (see <code>?contains</code>).</li>
-<li>Find all states with the following characteristics (bonus find <em>and</em> plot them):</li>
-</ol>
+<li>Find all states with the following characteristics (bonus find <em>and</em> plot them):
 <ul>
 <li>belong to the Midwest region.</li>
 <li>belong to the West region, have an area below 250,000 km<sup>2</sup> <em>and</em> in 2015 a population greater than 5,000,000 residents (hint: you may need to use the function <code>units::set_units()</code> or <code>as.numeric()</code>).</li>
 <li>belong to the South region, had an area larger than 150,000 km<sup>2</sup> or a total population in 2015 larger than 7,000,000 residents. <!-- Attribute aggregation --></li>
-</ul>
-<ol start="4" style="list-style-type: decimal">
+</ul></li>
 <li>What was the total population in 2015 in the <code>us_states</code> dataset? What was the minimum and maximum total population in 2015?</li>
 <li>How many states are there in each region?</li>
 <li>What was the minimum and maximum total population in 2015 in each region? What was the total population in 2015 in each region? <!-- Attribute joining --></li>

@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve116536a50a58ac36
+preserve343a236a16260116
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2476,9 +2476,9 @@ What is the class of the new object? <!--why there is a "sf" part? -->
 Obtain the same result using a different command (bonus: try to find three ways of obtaining the same result).
 Hint: try to use helper functions, such as `contains` or `starts_with` from **dplyr** (see `?contains`).
 3. Find all states with the following characteristics (bonus find *and* plot them):
-- belong to the Midwest region.
-- belong to the West region, have an area below 250,000 km^2^ *and* in 2015 a population greater than 5,000,000 residents (hint: you may need to use the function `units::set_units()` or `as.numeric()`).
-- belong to the South region, had an area larger than 150,000 km^2^ or a total population in 2015 larger than 7,000,000 residents.
+    - belong to the Midwest region.
+    - belong to the West region, have an area below 250,000 km^2^ *and* in 2015 a population greater than 5,000,000 residents (hint: you may need to use the function `units::set_units()` or `as.numeric()`).
+    - belong to the South region, had an area larger than 150,000 km^2^ or a total population in 2015 larger than 7,000,000 residents.
 <!-- Attribute aggregation -->
 4. What was the total population in 2015 in the `us_states` dataset?
 What was the minimum and maximum total population in 2015?
