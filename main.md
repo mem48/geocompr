@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve22f4a61d8403b348
+preservef686b5f3b00540f9
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -455,11 +455,17 @@ This book uses **sf** and **raster** packages to work with vector data and raste
 
 ## Vector data
 
-The geographic vector model is based on points that are located on a Cartesian (or geographic) coordinate system.^[Please do not confuse the geographic data vector model with R's `vector` class.
+The geographic vector model is based on points located within a coordinate reference system (CRS).
+Points can represent self-standing features (e.g. the location of a bus stop) or they can be linked together to form more complex geometry types, lines and polygons.
+Most points in geographical work contain only two dimensions, represented by 'Northing and Easting' (for projected or *Cartesian* CRSs) or Longitude and Latitude (for geographic CRSs) pairs.
+These numbers represent point's distance from an $origin$ along the $x$ (horizontal) and $y$ (vertical) axis.
+In 3 dimensional CRSs three numbers are needed: $x$, $y$ and $z$.
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">The geographic vector model with R's `vector` class.
 The latter is a data format in R such as `data.frame` and `matrix`. 
-However, we can represent spatial coordinates, which are part of the geographic vector data model, using R's `vector` class.]
-Typically, a point consists of an x and a y value. 
-These two numbers simply represent the distance from the $origin$ along the $x$ (horizontal) and $y$ (vertical) axis in Euclidean space.^[In 3 dimensional coordinate systems three numbers are needed for each of the three axes, $x$, $y$ and $z$.]
+However, we can represent spatial coordinates, which are part of the geographic vector data model, using R's `vector` class.</div>\EndKnitrBlock{rmdnote}
+
+
 In mathematical notation these points are typically represented as numbers separated by commas and enclosed by a pair of brackets: 
 $(1, 3)$ for example, represents a point located one unit to the right and three units above the origin.
 Instead of creating these points manually, one would commonly read-in data with functions such as `read_csv()` from the **tidyverse** or `read_sf()` from the **sf** package (see chapter \@ref(read-write)).
