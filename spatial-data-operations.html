@@ -25,7 +25,7 @@
 <meta name="author" content="Robin Lovelace, Jakub Nowosad, Jannes Muenchow">
 
 
-<meta name="date" content="2017-09-20">
+<meta name="date" content="2017-09-21">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -186,8 +186,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.3.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#map-algebra"><i class="fa fa-check"></i><b>4.3.2</b> Map algebra</a></li>
 <li class="chapter" data-level="4.3.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#merging-rasters"><i class="fa fa-check"></i><b>4.3.3</b> Merging rasters</a></li>
 <li class="chapter" data-level="4.3.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#aligning-rasters"><i class="fa fa-check"></i><b>4.3.4</b> Aligning rasters</a></li>
-<li class="chapter" data-level="4.3.5" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#exercises-3"><i class="fa fa-check"></i><b>4.3.5</b> Exercises</a></li>
 </ul></li>
+<li class="chapter" data-level="4.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#exercises-3"><i class="fa fa-check"></i><b>4.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="read-write.html"><a href="read-write.html"><i class="fa fa-check"></i><b>5</b> Geographic data I/O</a><ul>
 <li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#file-formats"><i class="fa fa-check"></i><b>5.1</b> File formats</a></li>
@@ -706,8 +706,9 @@ elev_disagg =<span class="st"> </span><span class="kw">resample</span>(elev_agg,
 <!-- ## Spatial data transformation -->
 <!-- changes classes; polygonize, etc-->
 </div>
-<div id="exercises-3" class="section level3">
-<h3><span class="header-section-number">4.3.5</span> Exercises</h3>
+</div>
+<div id="exercises-3" class="section level2">
+<h2><span class="header-section-number">4.4</span> Exercises</h2>
 <ol style="list-style-type: decimal">
 <li>Write code that subsets points that are contained within <code>x</code> <em>and</em> <code>y</code> (illustrated by the plot in the 2<sup>nd</sup> row and the 1<sup>st</sup> column in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.7</a>).</li>
 </ol>
@@ -740,7 +741,6 @@ agg9$pop /<span class="st"> </span><span class="kw">sum</span>(world$pop, <span 
 <li>This <a href="https://stackoverflow.com/questions/35555709/global-raster-of-geographic-distances">post</a> shows how to use <code>raster::distance()</code>. Extract Spain, calculate a distance raster and weight it with elevation. Finally, compute the difference between the raster using the euclidean distance and the raster weighted by elevation. (Hint: Have a look at <code>getData()</code> to retrieve a digital elevation model for Spain.)</li>
 </ol>
 
-</div>
 </div>
 </div>
 <h3> References</h3>
