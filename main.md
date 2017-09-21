@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservebe8700a07e8d284b
+preserve747340610f5033d1
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3169,7 +3169,7 @@ elev[clip, drop = FALSE]
 For the same operation we can also use the `intersect()` and `crop()` command.
 
 <div class="figure" style="text-align: center">
-<img src="figures/04_raster_subset2.png" alt="Subsetting raster values with the help of another raster (left). Raster mask (middle). Output of masking a raster."  />
+<img src="figures/04_raster_subset.png" alt="Subsetting raster values with the help of another raster (left). Raster mask (middle). Output of masking a raster." width="1125" />
 <p class="caption">(\#fig:raster-subset)Subsetting raster values with the help of another raster (left). Raster mask (middle). Output of masking a raster.</p>
 </div>
 
