@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservec71dfcf4480175b4
+preservebe8700a07e8d284b
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3508,10 +3508,15 @@ Secondly, compute the NDVI (`data(ndvi, package = "RQGIS")`) and the mean elevat
 5. Apply a line detection filter to `data(dem, package = "RQGIS")`.
 6. Calculate the NDVI of a Landsat image. 
 Use the Landsat image provided by the **spDataLarge** package (`system.file("raster/landsat.tif", package="spDataLarge")`).
-7. This [post](https://stackoverflow.com/questions/35555709/global-raster-of-geographic-distances) shows how to use `raster::distance()`.
-Extract Spain, calculate a distance raster and weight it with elevation.
+7. This [post](https://stackoverflow.com/questions/35555709/global-raster-of-geographic-distances) shows how to compute distances to the nearest coastline using `raster::distance()`.
+Retrieve a digital elevation model of Spain, and compute a raster which represents the distance to the coast.
+(Hint: Have a look at `getData()` to retrieve a digital elevation model and administrative boundaries for Spain.)
+Before, computing the distance raster, you might want to increase the resolution of the input dem raster, otherwise computing time might become too long. 
+Secondly, weight the distance raster with elevation.
+Every 100 altitudinal meters should increase the distance to the coast by 10 km.
 Finally, compute the difference between the raster using the euclidean distance and the raster weighted by elevation.
-(Hint: Have a look at `getData()` to retrieve a digital elevation model for Spain.)
+(Note that this is a very simple weighting approach.
+A more advanced approach might instead weight by flow direction, i.e. favor the steepest drop or the slightest increase in elevation.)
 
 <!--chapter:end:04-spatial-operations.Rmd-->
 
