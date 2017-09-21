@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve343a236a16260116
+preserve1026a98e3fb8e406
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3484,27 +3484,22 @@ Additionally, check out the *Multi-core functions* section in `vignette("functio
 ## Exercises
 
 1. Write code that subsets points that are contained within `x` *and* `y` (illustrated by the plot in the 2^nd^ row and the 1^st^ column in Figure \@ref(fig:venn-clip)).
-- Create a randomly located point with the command `st_point()` (refer back to section \@ref(sfg) to see how to create spatial data 'from scratch').
+    - Create a randomly located point with the command `st_point()` (refer back to section \@ref(sfg) to see how to create spatial data 'from scratch').
 2. Write code that uses functions `aggregate()` and `st_buffer()` to answers the following question: What proportion of the world's population lives in countries that intersect a circle with a 10 degree radius of the intersection between the equator and the [9^th^ meridian](https://en.wikipedia.org/wiki/9th_meridian_east)? (Advanced challenge: find the point with the highest number of people within a 10 degree radius.)
 
 
-```r
-center9 = st_sf(st_sfc(st_point(c(-9, 0)), crs = 4326))
-buff9 = st_buffer(center9, dist = 10)
+```
 #> Warning in st_buffer.sfc(st_geometry(x), dist, nQuadSegs): st_buffer does
 #> not correctly buffer longitude/latitude data, dist needs to be in decimal
 #> degrees.
-agg9 = aggregate(world["pop"], buff9, FUN = sum)
 #> although coordinates are longitude/latitude, it is assumed that they are planar
-agg9$pop / sum(world$pop, na.rm = TRUE)
 #> [1] 0.00998
 ```
 
 3. Assuming that people are evenly distributed across countries, estimate the population living *within* the circle created to answer the previous question.
 
 
-```r
-interp9 = st_interpolate_aw(x = world["pop"], to = buff9, extensive = TRUE)
+```
 #> Warning in st_interpolate_aw(x = world["pop"], to = buff9, extensive =
 #> TRUE): st_interpolate_aw assumes attributes are constant over areas of x
 ```

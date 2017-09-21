@@ -710,29 +710,22 @@ elev_disagg =<span class="st"> </span><span class="kw">resample</span>(elev_agg,
 <div id="exercises-3" class="section level2">
 <h2><span class="header-section-number">4.4</span> Exercises</h2>
 <ol style="list-style-type: decimal">
-<li>Write code that subsets points that are contained within <code>x</code> <em>and</em> <code>y</code> (illustrated by the plot in the 2<sup>nd</sup> row and the 1<sup>st</sup> column in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.7</a>).</li>
-</ol>
+<li>Write code that subsets points that are contained within <code>x</code> <em>and</em> <code>y</code> (illustrated by the plot in the 2<sup>nd</sup> row and the 1<sup>st</sup> column in Figure <a href="spatial-data-operations.html#fig:venn-clip">4.7</a>).
 <ul>
 <li>Create a randomly located point with the command <code>st_point()</code> (refer back to section <a href="spatial-class.html#sfg">2.1.4.2</a> to see how to create spatial data ‘from scratch’).</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
+</ul></li>
 <li>Write code that uses functions <code>aggregate()</code> and <code>st_buffer()</code> to answers the following question: What proportion of the world’s population lives in countries that intersect a circle with a 10 degree radius of the intersection between the equator and the <a href="https://en.wikipedia.org/wiki/9th_meridian_east">9<sup>th</sup> meridian</a>? (Advanced challenge: find the point with the highest number of people within a 10 degree radius.)</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">center9 =<span class="st"> </span><span class="kw">st_sf</span>(<span class="kw">st_sfc</span>(<span class="kw">st_point</span>(<span class="kw">c</span>(-<span class="dv">9</span>, <span class="dv">0</span>)), <span class="dt">crs =</span> <span class="dv">4326</span>))
-buff9 =<span class="st"> </span><span class="kw">st_buffer</span>(center9, <span class="dt">dist =</span> <span class="dv">10</span>)
-<span class="co">#&gt; Warning in st_buffer.sfc(st_geometry(x), dist, nQuadSegs): st_buffer does</span>
-<span class="co">#&gt; not correctly buffer longitude/latitude data, dist needs to be in decimal</span>
-<span class="co">#&gt; degrees.</span>
-agg9 =<span class="st"> </span><span class="kw">aggregate</span>(world[<span class="st">&quot;pop&quot;</span>], buff9, <span class="dt">FUN =</span> sum)
-<span class="co">#&gt; although coordinates are longitude/latitude, it is assumed that they are planar</span>
-agg9$pop /<span class="st"> </span><span class="kw">sum</span>(world$pop, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
-<span class="co">#&gt; [1] 0.00998</span></code></pre></div>
+<pre><code>#&gt; Warning in st_buffer.sfc(st_geometry(x), dist, nQuadSegs): st_buffer does
+#&gt; not correctly buffer longitude/latitude data, dist needs to be in decimal
+#&gt; degrees.
+#&gt; although coordinates are longitude/latitude, it is assumed that they are planar
+#&gt; [1] 0.00998</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Assuming that people are evenly distributed across countries, estimate the population living <em>within</em> the circle created to answer the previous question.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">interp9 =<span class="st"> </span><span class="kw">st_interpolate_aw</span>(<span class="dt">x =</span> world[<span class="st">&quot;pop&quot;</span>], <span class="dt">to =</span> buff9, <span class="dt">extensive =</span> <span class="ot">TRUE</span>)
-<span class="co">#&gt; Warning in st_interpolate_aw(x = world[&quot;pop&quot;], to = buff9, extensive =</span>
-<span class="co">#&gt; TRUE): st_interpolate_aw assumes attributes are constant over areas of x</span></code></pre></div>
+<pre><code>#&gt; Warning in st_interpolate_aw(x = world[&quot;pop&quot;], to = buff9, extensive =
+#&gt; TRUE): st_interpolate_aw assumes attributes are constant over areas of x</code></pre>
 <!-- Raster exercises-->
 <ol start="4" style="list-style-type: decimal">
 <li>Use <code>data(dem, package = &quot;RQGIS&quot;)</code>, and reclassify the elevation in three classes: low, middle and high. Secondly, compute the NDVI (<code>data(ndvi, package = &quot;RQGIS&quot;)</code>) and the mean elevation for each altitudinal class.</li>
