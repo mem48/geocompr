@@ -692,7 +692,7 @@ Figure 2.8: Examples of continuous (left) and categorical (right) raster.
 </div>
 <div id="an-introduction-to-raster" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> An introduction to raster</h3>
-<p>The <strong>raster</strong> package supports raster objects in R. It provides an extensive set of functions to create, read, export, manipulate and process raster datasets. Aside from general raster data manipulation, <strong>raster</strong> provides many low level functions that can form the basis to develop more advanced raster functionality. <strong>raster</strong> also lets you work on large raster datasets that are too large to fit into the main memory . In this case, <strong>raster</strong> provides the possibility to divide the raster into smaller chunks (rows or blocks), and processes these iteratively instead of loading the whole raster file into RAM (for more information, please refer to <code>vignette(&quot;functions&quot;, package = &quot;raster&quot;)</code>.</p>
+<p>The <strong>raster</strong> package supports raster objects in R. It provides an extensive set of functions to create, read, export, manipulate and process raster datasets. Aside from general raster data manipulation, <strong>raster</strong> provides many low level functions that can form the basis to develop more advanced raster functionality. <strong>raster</strong> also lets you work on large raster datasets that are too large to fit into the main memory. In this case, <strong>raster</strong> provides the possibility to divide the raster into smaller chunks (rows or blocks), and processes these iteratively instead of loading the whole raster file into RAM (for more information, please refer to <code>vignette(&quot;functions&quot;, package = &quot;raster&quot;)</code>.</p>
 <p>For the illustration of the <strong>raster</strong> concepts, we will use datasets from the <strong>spDataLarge</strong> package. It consists of a few raster and one vector datasets covering an area of the Zion National Park (Utah, USA). For example, <code>srtm.tif</code> is a digital elevation model of this area (for more details - see its documentation <code>?srtm</code>) First of all, we would like to create a <code>RasterLayer</code> object named <code>new_raster</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spDataLarge)
 <span class="kw">library</span>(raster)
@@ -936,36 +936,28 @@ repr =<span class="st"> </span><span class="kw">projectRaster</span>(new_raster,
 <h2><span class="header-section-number">2.5</span> Exercises</h2>
 <!-- vector exercises -->
 <ol style="list-style-type: decimal">
-<li>What does the summary of the <code>geometry</code> column tell us about the <code>world</code> dataset, in terms of:</li>
-</ol>
+<li>What does the summary of the <code>geometry</code> column tell us about the <code>world</code> dataset, in terms of:
 <ul>
 <li>The geometry type?</li>
 <li>How many countries there are?</li>
 <li>The coordinate reference system (CRS)?</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li>Using <strong>sf</strong>’s <code>plot()</code> command, create a map of Nigeria in context, building on the code that creates and plots Asia above (see Figure <a href="spatial-class.html#fig:asia">2.5</a> for an example of what this could look like).</li>
-</ol>
+</ul></li>
+<li>Using <strong>sf</strong>’s <code>plot()</code> command, create a map of Nigeria in context, building on the code that creates and plots Asia above (see Figure <a href="spatial-class.html#fig:asia">2.5</a> for an example of what this could look like).
 <ul>
 <li>Hint: this used the <code>lwd</code>, <code>main</code> and <code>col</code> arguments of <code>plot()</code>.</li>
 <li>Bonus: make the country boundaries a dotted grey line.</li>
 <li>Hint: <code>border</code> is an additional argument of <code>plot()</code> for <strong>sf</strong> objects.</li>
-</ul>
-<ol start="3" style="list-style-type: decimal">
-<li>What does the <code>lwd</code> argument do in the <code>plot()</code> code that generates Figure <a href="spatial-class.html#fig:africa">2.6</a>. Perform the same operations and map making for another continent of your choice.</li>
-</ol>
+</ul></li>
+<li>What does the <code>lwd</code> argument do in the <code>plot()</code> code that generates Figure <a href="spatial-class.html#fig:africa">2.6</a>. Perform the same operations and map making for another continent of your choice.
 <ul>
 <li>Bonus: Download some global geographic data and add attribute variables assigning them to the continents of the world.</li>
-</ul>
+</ul></li>
+</ol>
 <!-- raster exercises -->
-<!-- 1. raster properties (crs, ncols, nrow, ncells, bbox, navalues) -->
-<!-- 1. raster plot -->
-<!-- 1. read raster stack/brick -->
-<!-- crs exercises -->
-<!-- 1. pros and cons of the projection types -->
-<!-- 1. what's the difference between vector and raster transformation -->
-<!-- units exercises -->
-<!-- 1. ?? -->
+<ol start="4" style="list-style-type: decimal">
+<li>Read the <code>raster/nlcd2011.tif</code> file from the <strong>spDataLarge</strong> package. What kind of information can you get about the properties of this file? <!-- (crs, ncols, nrow, ncells, bbox, navalues) --></li>
+<li>Create an empty <code>RasterLayer</code> object called <code>my_raster</code> with 10 columns and 10 rows, and resolution of 10 units. Assign random values between 0 and 10 to the new raster and plot it. <!-- crs exercises --> <!-- 1. pros and cons of the projection types --> <!-- 1. what's the difference between vector and raster transformation --> <!-- units exercises --> <!-- 1. ?? --></li>
+</ol>
 
 </div>
 </div>
