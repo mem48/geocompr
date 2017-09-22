@@ -25,7 +25,7 @@
 <meta name="author" content="Robin Lovelace, Jakub Nowosad, Jannes Muenchow">
 
 
-<meta name="date" content="2017-09-21">
+<meta name="date" content="2017-09-22">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -190,18 +190,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#exercises-3"><i class="fa fa-check"></i><b>4.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="read-write.html"><a href="read-write.html"><i class="fa fa-check"></i><b>5</b> Geographic data I/O</a><ul>
-<li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#file-formats"><i class="fa fa-check"></i><b>5.1</b> File formats</a></li>
-<li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#data-input"><i class="fa fa-check"></i><b>5.2</b> Data Input (I)</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="read-write.html"><a href="read-write.html#vector-data-1"><i class="fa fa-check"></i><b>5.2.1</b> Vector data</a></li>
-<li class="chapter" data-level="5.2.2" data-path="read-write.html"><a href="read-write.html#raster-data-1"><i class="fa fa-check"></i><b>5.2.2</b> Raster data</a></li>
-<li class="chapter" data-level="5.2.3" data-path="read-write.html"><a href="read-write.html#data-packages"><i class="fa fa-check"></i><b>5.2.3</b> Data packages</a></li>
+<li class="chapter" data-level="" data-path="read-write.html"><a href="read-write.html#prerequisites-3"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#introduction-2"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#retrieving-data"><i class="fa fa-check"></i><b>5.2</b> Retrieving open data</a></li>
+<li class="chapter" data-level="5.3" data-path="read-write.html"><a href="read-write.html#file-formats"><i class="fa fa-check"></i><b>5.3</b> File formats</a></li>
+<li class="chapter" data-level="5.4" data-path="read-write.html"><a href="read-write.html#data-input"><i class="fa fa-check"></i><b>5.4</b> Data Input (I)</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="read-write.html"><a href="read-write.html#vector-data-1"><i class="fa fa-check"></i><b>5.4.1</b> Vector data</a></li>
+<li class="chapter" data-level="5.4.2" data-path="read-write.html"><a href="read-write.html#raster-data-1"><i class="fa fa-check"></i><b>5.4.2</b> Raster data</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="read-write.html"><a href="read-write.html#data-output"><i class="fa fa-check"></i><b>5.3</b> Data output (O)</a><ul>
-<li class="chapter" data-level="5.3.1" data-path="read-write.html"><a href="read-write.html#vector-data-2"><i class="fa fa-check"></i><b>5.3.1</b> Vector data</a></li>
-<li class="chapter" data-level="5.3.2" data-path="read-write.html"><a href="read-write.html#raster-data-2"><i class="fa fa-check"></i><b>5.3.2</b> Raster data</a></li>
+<li class="chapter" data-level="5.5" data-path="read-write.html"><a href="read-write.html#data-output"><i class="fa fa-check"></i><b>5.5</b> Data output (O)</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="read-write.html"><a href="read-write.html#vector-data-2"><i class="fa fa-check"></i><b>5.5.1</b> Vector data</a></li>
+<li class="chapter" data-level="5.5.2" data-path="read-write.html"><a href="read-write.html#raster-data-2"><i class="fa fa-check"></i><b>5.5.2</b> Raster data</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="read-write.html"><a href="read-write.html#visual-outputs"><i class="fa fa-check"></i><b>5.4</b> Visual outputs</a></li>
-<li class="chapter" data-level="5.5" data-path="read-write.html"><a href="read-write.html#exercises-4"><i class="fa fa-check"></i><b>5.5</b> Exercises</a></li>
+<li class="chapter" data-level="5.6" data-path="read-write.html"><a href="read-write.html#visual-outputs"><i class="fa fa-check"></i><b>5.6</b> Visual outputs</a></li>
+<li class="chapter" data-level="5.7" data-path="read-write.html"><a href="read-write.html#exercises-4"><i class="fa fa-check"></i><b>5.7</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>6</b> References</a></li>
 <li class="divider"></li>
@@ -228,16 +230,110 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="read-write" class="section level1">
 <h1><span class="header-section-number">5</span> Geographic data I/O</h1>
-<p>The previous chapters provided an overview of spatial data classes in R, with a focus on simple features and rasters. This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world. Geocomputation usually involves reading existing data, and saving it after processing sections. Therefore, it is important be aware of the most often used spatial file format and their strong and weak sides (see section <a href="read-write.html#file-formats">5.1</a>). For the same purposes knowing how to efficiently read and write spatial data is crucial (see sections <a href="read-write.html#data-input">5.2</a> and <a href="read-write.html#data-output">5.3</a>). We also include a section (<a href="read-write.html#visual-outputs">5.4</a>) on visualization because outputting data in a human (not just computer) readable format enables non-programmers to benefit from your work. If your aim is to use geocomputation to improve the world, e.g. by encouraging evidence-based policies, this final stage is vital.</p>
-<p>I/O is short for “input/output” which means, in plain English, “reading and writing data”. We use the acronym instead of plain English not to confuse you or to make chapter names short, but because that’s the term used in computer science and it is useful to think of data import and export from a computing perspective.<a href="#fn23" class="footnoteRef" id="fnref23"><sup>23</sup></a></p>
-<div id="file-formats" class="section level2">
-<h2><span class="header-section-number">5.1</span> File formats</h2>
-<p>Spatial data is usually stored as files or geodatabases. File-based data formats could keep either vector or raster data, while geodatabases could store both. Historically, GIS file formats were developed by mapping agencies and software companies. <!--examples--> It caused many issues with exchange of data between different sources.</p>
-<p>The big improvement came with the release of GDAL. <!--name and pronunciation--> It has enabled for reading and writing many raster and vector data formats and in the next few years was incorporated into many open and proprietary GIS software, such as GRASS GIS, QGIS, ArcGIS, and ENVI. <!-- GDAL (it's great - you can read, convert, and very often (though not always) write) --> <!-- GDAL info "it is possible to have smaller number of supported formats than there are on the GDAL webpage; you may need to recompile..." --></p>
-<p>Another change for spatial data formats came with the foundation of Open Geospatial Consortium (OGC)<a href="#fn24" class="footnoteRef" id="fnref24"><sup>24</sup></a>. This organization collaborate on a development and implementation of open standards for geospatial content including file formats. Some of theirs products are the KML and GeoPackage formats, as well as the Simple Feature standard. Development and maintaining of spatial file formats in an open model provides several benefits over the proprietary formats and eases interoperability.</p>
-<p>Nowadays, more than a hundred of spatial data formats exist, many of which could be used for the same purposes. <!-- In the same time, they could differ in many ways. --> <!-- Spatial data could be stored as a single file (e.g. GeoPackage), multiple files (e.g. ESRI Shapefile), or folders (ESRI ArcInfo Coverages). --> <!-- way of storage (single file, multiple files, folders) --> Table <a href="read-write.html#tab:formats">5.1</a> presents some basic information about selected, often used spatial file formats.</p>
+<div id="prerequisites-3" class="section level2 unnumbered">
+<h2>Prerequisites</h2>
+<ul>
+<li>This chapter requires the packages <strong>tidyverse</strong>, <strong>sf</strong>, <strong>spData</strong> and <strong>raster</strong>.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(sf)
+<span class="kw">library</span>(spData)
+<span class="kw">library</span>(raster)</code></pre></div>
+</div>
+<div id="introduction-2" class="section level2">
+<h2><span class="header-section-number">5.1</span> Introduction</h2>
+<p>The previous chapters provided an overview of spatial data classes in R, with a focus on simple features and rasters. This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world. Before we can even think about processing data, we need to retrieve it, i.e. we need to know which sources are at our disposal (section @{#retrieving-data}). Having data, we need to know how we can import them in our software. <!-- so far, I haven't seen a discussion on the pros and cons --> Therefore, it is important to be aware of the most often used spatial file formats and their pros and cons (see section <a href="read-write.html#file-formats">5.3</a>). For the same purposes knowing how to efficiently read and write spatial data is crucial (see sections <a href="read-write.html#data-input">5.4</a> and <a href="read-write.html#data-output">5.5</a>). We also include a section (<a href="read-write.html#visual-outputs">5.6</a>) on visualization because outputting data in a human (not just computer) readable format enables non-programmers to benefit from your work.</p>
+<p>I/O is short for “input/output” which means, in plain English, “reading and writing data”. We use the acronym instead of plain English not to confuse you or to make chapter names short, but because that is the term used in computer science, and it is useful to think of data import and export from a computing perspective.<a href="#fn23" class="footnoteRef" id="fnref23"><sup>23</sup></a></p>
+</div>
+<div id="retrieving-data" class="section level2">
+<h2><span class="header-section-number">5.2</span> Retrieving open data</h2>
+<p>Nowadays, a vast amount of spatial data is available on the internet. Best of all, much of it is freely available. You just have to know where to look. While we cannot provide a comprehensive guide to all available geodata, we point to a few of the most important sources. Overall, geolibraries and geoportals facilitate the search and download of geodata. Geolibraries are a very useful data source but often only contain data for a specific locations. Then the might struggle to find the exact geolibrary matching his or her demands. Here, geolibraries come to the rescue bundling the information of a collection of geolibraries. If you are looking for data from all over the world, the <a href="http://www.geoportal.org/">GEOSS portal</a> might be a good starting point. We also would like you to point to the <a href="https://earthexplorer.usgs.gov/">EarthExplorer</a> and the <a href="https://scihub.copernicus.eu/">Copernicus Open Access Hub</a> for a wide variety of global datasets including multispectral and radar images. European data is available from the Initiative for spatial information in the European Comunity ([INSPIRE][<a href="http://inspire-geoportal.ec.europa.eu/" class="uri">http://inspire-geoportal.ec.europa.eu/</a>)). This <a href="https://en.wikipedia.org/wiki/Geoportal">Wikipedia article</a> lists a few more interesting geoportals.</p>
+<p>Typically, geoportals provide an interface that lets you query interactively the existing data (spatial and temporal extent, and product). However, in this book we encourage you to create reproducible workflows. Automated data downloads are often possible through simple download calls or specific APIs (e.g., have a look at the Sentinel API), which saves human working time, and allows to easily repeat and update this process in the future.</p>
+<p>Traditionally, files have been stored on servers. <!-- that's probably not the best example - replace it with something better --> <!-- btw naturalearth website has some problems today - the link will probably change in the future --> You can easily download such files with the <code>download.file()</code> command. For example, to download National Park Service units in the United States, run:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">url =<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;http://www.naturalearthdata.com/http//www.naturalearthdata.com&quot;</span>,
+                <span class="st">&quot;download/10m/cultural/ne_10m_parks_and_protected_lands.zip&quot;</span>)
+<span class="kw">download.file</span>(<span class="dt">url =</span> url,
+              <span class="dt">destfile =</span> <span class="st">&quot;USA_parks.zip&quot;</span>)
+<span class="kw">unzip</span>(<span class="dt">zipfile =</span> <span class="st">&quot;USA_parks.zip&quot;</span>)
+usa_parks =<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;ne_10m_parks_and_protected_lands_area.shp&quot;</span>)</code></pre></div>
+<p>Specific R packages providing an interface to geolibraries or geoportals are even more user-friendly (Table <a href="read-write.html#tab:datapackages">5.1</a>).</p>
+<!-- add sentinel2 package as soon as it is published on CRAN https://github.com/IVFL-BOKU/sentinel2-->
 <table>
-<caption><span id="tab:formats">Table 5.1: </span>Selected spatial file formats</caption>
+<caption><span id="tab:datapackages">Table 5.1: </span>Selected R packages for spatial data retrieval</caption>
+<thead>
+<tr class="header">
+<th align="left">Package name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">osmdata</td>
+<td align="left">Download and import of OpenStreetMap data.</td>
+</tr>
+<tr class="even">
+<td align="left">raster</td>
+<td align="left">The <code>getData()</code> function downloads and imports administrative country, SRTM/ASTER elevation, WorldClim data.</td>
+</tr>
+<tr class="odd">
+<td align="left">rnaturalearth</td>
+<td align="left">Functions to download Natural Earth vector and raster data, including world country borders.</td>
+</tr>
+<tr class="even">
+<td align="left">rnoaa</td>
+<td align="left">An R interface to National Oceanic and Atmospheric Administration (NOAA) climate data.</td>
+</tr>
+<tr class="odd">
+<td align="left">rWBclimate</td>
+<td align="left">An access to the World Bank climate data.</td>
+</tr>
+</tbody>
+</table>
+<!-- https://cdn.rawgit.com/Nowosad/Intro_to_spatial_analysis/05676e29/Intro_to_spatial_analysis.html#39 -->
+<!-- Maybe add a section to Data I/O on where and how to retrieve data (with a focus on free data): osmdata (OpenStreetMap; maybe mention TomTom, HERE), Landsat (wrspathrow), Sentinel (mention Python API), AVHRR, RapidEye rgbif, letsR, etc. Of course, point to Transforming science through open data project (https://www.ropensci.org) -->
+<!-- https://github.com/ropensci/GSODR -->
+<!-- https://github.com/lbusett/MODIStsp -->
+<!-- https://github.com/walkerke/tigris -->
+<!-- https://github.com/ropensci/hddtools/ -->
+<p>For example, you can get the borders of any country with the <code>ne_countries()</code> function from the <strong>rnaturalearth</strong> package:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rnaturalearth)
+usa =<span class="st"> </span><span class="kw">ne_countries</span>(<span class="dt">country =</span> <span class="st">&quot;United States of America&quot;</span>) <span class="co"># United States borders</span>
+<span class="kw">class</span>(usa)
+<span class="co">#&gt; [1] &quot;SpatialPolygonsDataFrame&quot;</span>
+<span class="co">#&gt; attr(,&quot;package&quot;)</span>
+<span class="co">#&gt; [1] &quot;sp&quot;</span>
+<span class="co"># you can do the same with raster::getData()</span>
+<span class="co"># getData(&quot;GADM&quot;, country = &quot;USA&quot;, level = 0)</span></code></pre></div>
+<p>As a default, <strong>rnaturalearth</strong> returns the output as a <code>Spatial*</code> class. You can easily convert it to the <code>sf</code> class with <code>st_as_sf()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">usa_sf =<span class="st"> </span><span class="kw">st_as_sf</span>(usa)</code></pre></div>
+<p>As a second example, we will download a raster dataset. The code below downloads a series of rasters that contains global monthly precipitation sums. The spatial resoultion is ten minutes. The result is a multilayer object of class <code>RasterStack</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
+worldclim_prec =<span class="st"> </span><span class="kw">getData</span>(<span class="dt">name =</span> <span class="st">&quot;worldclim&quot;</span>, <span class="dt">var =</span> <span class="st">&quot;prec&quot;</span>, <span class="dt">res =</span> <span class="dv">10</span>)
+<span class="kw">class</span>(worldclim_prec)
+<span class="co">#&gt; [1] &quot;RasterStack&quot;</span>
+<span class="co">#&gt; attr(,&quot;package&quot;)</span>
+<span class="co">#&gt; [1] &quot;raster&quot;</span></code></pre></div>
+<p>Finally, R packages might contain or just consist of spatial data (e.g., package <strong>spData</strong>). You can access such data with the <code>data()</code> function. For example, you can get a list of dataset in a package, <code>data(package = &quot;spData&quot;)</code>. To attach the dataset to the global environment specify the name of a dataset (<code>data(&quot;cycle_hire&quot;, package = &quot;spData&quot;)</code>). Sometimes, packages come also with the original files.<a href="#fn24" class="footnoteRef" id="fnref24"><sup>24</sup></a>. To load such a file from the package, you need to specify the package name and the relative path to the dataset, for example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_raw_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
+world_raw =<span class="st"> </span><span class="kw">st_read</span>(world_raw_filepath)
+<span class="co">#&gt; Reading layer `wrld.gpkg&#39; from data source `/home/travis/R/Library/spData/shapes/world.gpkg&#39; using driver `GPKG&#39;</span>
+<span class="co">#&gt; Simple feature collection with 177 features and 10 fields</span>
+<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
+<span class="co">#&gt; dimension:      XY</span>
+<span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513</span>
+<span class="co">#&gt; epsg (SRID):    4326</span>
+<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span></code></pre></div>
+<p>Find more information on getting data using R packages in <a href="https://csgillespie.github.io/efficientR/input-output.html#download">section 5.5</a> and <a href="https://csgillespie.github.io/efficientR/input-output.html#accessing-data-stored-in-packages">section 5.6</a> of <span class="citation">Gillespie and Lovelace (<a href="#ref-gillespie_efficient_2016">2016</a>)</span>.</p>
+</div>
+<div id="file-formats" class="section level2">
+<h2><span class="header-section-number">5.3</span> File formats</h2>
+<p>Spatial data is usually stored as files or in geodatabases. File-based data formats can contain either vector or raster data, while geodatabases could store both. Historically, GIS file formats were developed by mapping agencies and software companies. <!--examples--> Exchanging spatial data between different software packages each coming with its own format was troublesome in the beginning.</p>
+<p>GDAL<a href="#fn25" class="footnoteRef" id="fnref25"><sup>25</sup></a>put an end to these troubles by enabling <!--name and pronounciation--> reading and writing many raster and vector data formats. Subsequently, many open and proprietary GIS software (e.g., GRASS, QGIS, ArcGIS, ENVI) were quick to incorporate it. <!-- GDAL (it's great - you can read, convert, and very often (though not always) write) --> <!-- GDAL info "it is possible to have smaller number of supported formats than there are on the GDAL webpage; you may need to recompile..." --></p>
+<p>Another change for spatial data formats came with the foundation of the Open Geospatial Consortium (OGC)<a href="#fn26" class="footnoteRef" id="fnref26"><sup>26</sup></a>. This organization collaborates on the development and implementation of open standards for geospatial content including file formats such as the KML and GeoPackage formats as well as the simple feature standard. Developing and maintaining spatial file formats in an open model provides several benefits over the proprietary formats <!-- such as??-->, and eases interoperability.</p>
+<p>Nowadays, more than a hundred spatial data formats exist. <!-- In the same time, they could differ in many ways. --> <!-- Spatial data could be stored as a single file (e.g. GeoPackage), multiple files (e.g. ESRI Shapefile), or folders (ESRI ArcInfo Coverages). --> <!-- way of storage (single file, multiple files, folders) --> Table <a href="read-write.html#tab:formats">5.2</a> presents some basic information about selected, often used spatial file formats.</p>
+<!-- simple features are missing from this table-->
+<table>
+<caption><span id="tab:formats">Table 5.2: </span>Selected spatial file formats.</caption>
 <thead>
 <tr class="header">
 <th align="left">Name</th>
@@ -258,7 +354,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <tr class="even">
 <td align="left">GeoJSON</td>
 <td align="left">.geojson</td>
-<td align="left">Format designed for representation of simple features. It is often used for a web applications.</td>
+<td align="left">Extends the JSON exchange format by including a subset of the simple feature representation.</td>
 <td align="left">Vector</td>
 <td align="left">Open</td>
 </tr>
@@ -279,28 +375,28 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <tr class="odd">
 <td align="left">GeoTIFF</td>
 <td align="left">.tiff</td>
-<td align="left">GeoTIFF is one of the most popular raster formats. Its structure is similar to the regular <code>.tif</code> format, however GeoTIFF also stores additional spatial metadata, such as coordinate reference system, spatial extent, <code>NoData</code> value, and the data resolution.</td>
+<td align="left">GeoTIFF is one of the most popular raster formats. Its structure is similar to the regular <code>.tif</code> format, however, additionally stores the raster header.</td>
 <td align="left">Raster</td>
 <td align="left">Open</td>
 </tr>
 <tr class="even">
 <td align="left">Arc ASCII</td>
 <td align="left">.asc</td>
-<td align="left">Text format where the first six lines represent grid information and nodata value, followed by the values arranged in rows and columns.</td>
+<td align="left">Text format where the first six lines represent the raster header, followed by the raster cell values arranged in rows and columns.</td>
 <td align="left">Raster</td>
 <td align="left">Open</td>
 </tr>
 <tr class="odd">
 <td align="left">R-raster</td>
 <td align="left">.gri, .grd</td>
-<td align="left">Native format of the raster package.</td>
+<td align="left">Native raster format of the R-package raster.</td>
 <td align="left">Raster</td>
 <td align="left">Open</td>
 </tr>
 <tr class="even">
 <td align="left">SQLite/SpatiaLite</td>
 <td align="left">.sqlite</td>
-<td align="left">SQLite is a standalone, relational database management system. It is used as a default database driver in GRASS GIS 7. SpatiaLite is an extension to SQLite providing a support for Simple Features.</td>
+<td align="left">SQLite is a standalone, relational database management system. It is used as a default database driver in GRASS GIS 7. SpatiaLite is the spatial extension of SQLite providing support for simple features.</td>
 <td align="left">Vector and raster</td>
 <td align="left">Open</td>
 </tr>
@@ -314,7 +410,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <tr class="even">
 <td align="left">GeoPackage</td>
 <td align="left">.gpkg</td>
-<td align="left">An extended SQLite database file designed to be lightweight. All elements, such as spatial data, metadata, attribute tables, coordinate reference system, are stored in a single file.</td>
+<td align="left">Lightweight database container based on SQLite allowing an easy and platform-independent exchange of geodata</td>
 <td align="left">Vector and raster</td>
 <td align="left">Open</td>
 </tr>
@@ -326,43 +422,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <!-- 4. ESRI geodatabase, Oracle spatial database (mention + gdal support?) -->
 </div>
 <div id="data-input" class="section level2">
-<h2><span class="header-section-number">5.2</span> Data Input (I)</h2>
-<p>To efficiently read data into R, it helps to have an understanding of what happens ‘under the hood’. Executing commands such as <code>sf::st_read()</code> (the main function we use for loading vector data) or <code>raster::raster()</code> (the main function used for loading raster data) silently sets off a chain of events that reads data from files. Moreover, there are many R packages containing wide range of spatial data or providing simple access to different data sources. All of them load the data into R or, more precisely, assign objects to your workspace, stored in RAM accessible from the <code>.GlobalEnv</code><a href="#fn25" class="footnoteRef" id="fnref25"><sup>25</sup></a> of your current R session.</p>
+<h2><span class="header-section-number">5.4</span> Data Input (I)</h2>
+<p>Executing commands such as <code>sf::st_read()</code> (the main function we use for loading vector data) or <code>raster::raster()</code> (the main function used for loading raster data) silently sets off a chain of events that reads data from files. <!-- transition is unclear, not sure what you would like to say --> Moreover, there are many R packages containing a wide range of spatial data or providing simple access to different data sources. All of them load the data into R or, more precisely, assign objects to your workspace, stored in RAM accessible from the <code>.GlobalEnv</code><a href="#fn27" class="footnoteRef" id="fnref27"><sup>27</sup></a> of your current R session.</p>
 <div id="vector-data-1" class="section level3">
-<h3><span class="header-section-number">5.2.1</span> Vector data</h3>
-<p>Spatial vector data comes in a wide variety of file formats, most of which can be read-in via the <strong>sf</strong> function <code>st_read()</code>. Behind the scenes this calls GDAL. <!-- One of the major advantages of **sf** is that it is fast. --> <!-- reference to the vignette --> The first argument of <code>st_read()</code> is <code>dsn</code>, which should be a text string or an object containing a single text string. The content of a text string could vary between different drivers. In most cases, as with <code>.shp</code> file of <code>ESRI Shapefile</code> or <code>.gpkg</code> files of <code>GeoPackage</code> formats, the <code>dsn</code> would be a file name. <code>st_read()</code> guesses the driver based on the file extension, as illustrated for a <code>.gpkg</code> file below:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
-<span class="co">#&gt; Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0</span>
-vector_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
-world =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)
-<span class="co">#&gt; Reading layer `wrld.gpkg&#39; from data source `/home/travis/R/Library/spData/shapes/world.gpkg&#39; using driver `GPKG&#39;</span>
-<span class="co">#&gt; Simple feature collection with 177 features and 10 fields</span>
-<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513</span>
-<span class="co">#&gt; epsg (SRID):    4326</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span></code></pre></div>
-<p>For some drivers, <code>dsn</code> could be provided as a folder name, access credentials for a database, or a GeoJSON string representation. <!-- Do we have a place for the examples? --></p>
-<p>Some of vector driver formats could store many layers of data. <code>st_read</code> automatically read the first layer of the file specified in <code>dsn</code>, however it is also possible to select a different layer by its name using the <code>layer</code> argument.</p>
-<p>Many GDAL drivers have unique open options<a href="#fn26" class="footnoteRef" id="fnref26"><sup>26</sup></a>. For example, spatial data in text files could be stored in several ways. Simple point dataset could just have two columns describing their x and y coordinates. To read these files, you need to specify names of those columns using the <code>options</code> argument:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cycle_hire_txt =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;misc/cycle_hire_xy.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
-cycle_hire_xy =<span class="st"> </span><span class="kw">st_read</span>(cycle_hire_txt, <span class="dt">options =</span> <span class="kw">c</span>(<span class="st">&quot;X_POSSIBLE_NAMES=X&quot;</span>,
-                                                    <span class="st">&quot;Y_POSSIBLE_NAMES=Y&quot;</span>))</code></pre></div>
-<p>More complex geometries cannot be described using only two numbers, however they could be represented by the well-known text (WKT), well-known binary (WKB), and in the GeoJSON form, for example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_txt =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;misc/world_wkt.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
-world_wkt =<span class="st"> </span><span class="kw">st_read</span>(world_txt, <span class="dt">options =</span> <span class="st">&quot;GEOM_POSSIBLE_NAMES=WKT&quot;</span>)</code></pre></div>
-
-<div class="rmdnote">
-Not all of the supported vector file formats store information about theirs coordinate reference system. In these situations, it is possible to add the missing information using the <code>st_set_crs()</code> function. More on that in section <a href="spatial-class.html#crs-intro">2.3</a>.
-</div>
-<p></p>
-<!-- isn't that confusing for users? -->
-<p><strong>Tip</strong>: <code>read_sf()</code> and <code>write_sf()</code> can be used as easy-to-remember alternatives to <code>st_read()</code> and <code>st_write()</code>. Remember they hide information about the data source and overwrite existing data, though.</p>
-<p>To find out which data formats <strong>sf</strong> supports, run <code>st_drivers()</code>. Here, we show only the first two drivers (see Table <a href="read-write.html#tab:drivers">5.2</a>):</p>
+<h3><span class="header-section-number">5.4.1</span> Vector data</h3>
+<p>Spatial vector data comes in a wide variety of file formats, most of which can be read-in via the <strong>sf</strong> function <code>st_read()</code>. Behind the scenes this calls GDAL. To find out which data formats <strong>sf</strong> supports, run <code>st_drivers()</code>. Here, we show only the first two drivers (see Table <a href="read-write.html#tab:drivers">5.3</a>):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_drivers =<span class="st"> </span><span class="kw">st_drivers</span>()
-<span class="kw">head</span>(sf_drivers, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
+<span class="kw">head</span>(sf_drivers, <span class="dt">n =</span> <span class="dv">2</span>)</code></pre></div>
 <table>
-<caption><span id="tab:drivers">Table 5.2: </span>Sample of available drivers for reading/writing vector data (it could vary between different GDAL versions).</caption>
+<caption><span id="tab:drivers">Table 5.3: </span>Sample of available drivers for reading/writing vector data (it could vary between different GDAL versions).</caption>
 <thead>
 <tr class="header">
 <th align="left">name</th>
@@ -416,92 +484,12 @@ Not all of the supported vector file formats store information about theirs coor
 </tr>
 </tbody>
 </table>
-</div>
-<div id="raster-data-1" class="section level3">
-<h3><span class="header-section-number">5.2.2</span> Raster data</h3>
-<p>Raster data also could exist in many different file formats, with some of the formats supporting multilayer files. The <strong>raster</strong> package allow reading a single layer by <code>raster()</code> and many layers using either <code>brick()</code> or <code>stack()</code>. More information about the raster representation in this package could be find in the section <a href="spatial-class.html#raster-classes">2.2.3</a>.</p>
-<p>The <code>raster()</code> function makes it possible to read a single layer file.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
-<span class="kw">library</span>(spDataLarge)
-raster_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/srtm.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
-single_layer =<span class="st"> </span><span class="kw">raster</span>(raster_filepath)</code></pre></div>
-<p>You can also read just one layer (band) from a multilayer file by specifying the <code>band</code> argument.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">raster_multilayer_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
-single_layer_band3 =<span class="st"> </span><span class="kw">raster</span>(raster_multilayer_filepath, <span class="dt">band =</span> <span class="dv">3</span>)</code></pre></div>
-<p>The whole multilayer raster file is read by <code>brick()</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">multilayer_layer_brick =<span class="st"> </span><span class="kw">brick</span>(raster_multilayer_filepath)</code></pre></div>
-<p>Finally, many single and multilayer rasters could be read together using the <code>stack()</code> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">raster_l1_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat_b2.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
-raster_l2_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat_b3.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
- 
-multilayer_layer_stack =<span class="st"> </span><span class="kw">stack</span>(raster_l1_filepath, raster_l2_filepath)</code></pre></div>
-<p>The <code>stack()</code> class is limited to datasets that have the same spatial extent and resolution.</p>
-</div>
-<div id="data-packages" class="section level3">
-<h3><span class="header-section-number">5.2.3</span> Data packages</h3>
-<p>Nowadays, a vast amount of spatial data is available on the internet. This data could be accessed using a graphical user interface (GUI) via web browser. However, in this book we encourage you to create reproducible workflows. Data download in many cases could be automated, which not only save a time, but also allow to repeat and update this process in the future.</p>
-<p>Data could be stored online in many ways. Traditionally, is has been distributed on servers as files. <!-- that's probably not the best example - replace it with something better --> <!-- btw naturalearth website has some problems today - the link will probably change in the future --> You can easily access data files from R by <code>download.file()</code>, for example National Park Service units in the United States:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">download.file</span>(<span class="dt">url =</span> <span class="st">&quot;http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_parks_and_protected_lands.zip&quot;</span>,
-              <span class="dt">destfile =</span> <span class="st">&quot;USA_parks.zip&quot;</span>)
-<span class="kw">unzip</span>(<span class="dt">zipfile =</span> <span class="st">&quot;USA_parks.zip&quot;</span>)
-usa_parks =<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;ne_10m_parks_and_protected_lands_area.shp&quot;</span>)</code></pre></div>
-<p>Many open spatial datasets can be retrieved using R packages (Table <a href="read-write.html#tab:datapackages">5.3</a>). These packages either store small datasets or provide an access to dataset available on webservers.</p>
-<table>
-<caption><span id="tab:datapackages">Table 5.3: </span>Selected R packages for spatial data retrieval</caption>
-<thead>
-<tr class="header">
-<th align="left">Package name</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">osmdata</td>
-<td align="left">An access to the OpenStreetMap data.</td>
-</tr>
-<tr class="even">
-<td align="left">rnaturalearth</td>
-<td align="left">Functions to download Natural Earth vector and raster data, including world country borders.</td>
-</tr>
-<tr class="odd">
-<td align="left">rnoaa</td>
-<td align="left">An R interface to many National Oceanic and Atmospheric Administration (NOAA) data sources, such as climate data, sea ice data, and storm data.</td>
-</tr>
-<tr class="even">
-<td align="left">raster</td>
-<td align="left">The <code>get_data()</code> function provides for example elevation data from SRTM and interpolated climate data from WorldClim.</td>
-</tr>
-<tr class="odd">
-<td align="left">rWBclimate</td>
-<td align="left">An access to the World Bank climate data used in the World Bank climate knowledge portal.</td>
-</tr>
-</tbody>
-</table>
-<!-- https://cdn.rawgit.com/Nowosad/Intro_to_spatial_analysis/05676e29/Intro_to_spatial_analysis.html#39 -->
-<!-- Maybe add a section to Data I/O on where and how to retrieve data (with a focus on free data): osmdata (OpenStreetMap; maybe mention TomTom, HERE), Landsat (wrspathrow), Sentinel (mention Python API), AVHRR, RapidEye rgbif, letsR, etc. Of course, point to Transforming science through open data project (https://www.ropensci.org) -->
-<!-- https://github.com/ropensci/GSODR -->
-<!-- https://github.com/lbusett/MODIStsp -->
-<!-- https://github.com/walkerke/tigris -->
-<!-- https://github.com/ropensci/hddtools/ -->
-<p>For example, you can get borders of any country with the <code>ne_countries()</code> function from the <strong>rnaturalearth</strong> package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rnaturalearth)
-usa =<span class="st"> </span><span class="kw">ne_countries</span>(<span class="dt">country =</span> <span class="st">&quot;United States of America&quot;</span>) <span class="co"># United States borders</span>
-<span class="kw">class</span>(usa)
-<span class="co">#&gt; [1] &quot;SpatialPolygonsDataFrame&quot;</span>
-<span class="co">#&gt; attr(,&quot;package&quot;)</span>
-<span class="co">#&gt; [1] &quot;sp&quot;</span></code></pre></div>
-<p>As a default, this and many other packages output data in the <code>Spatial*</code> class. You can easily convert it to the <code>sf</code> class with <code>st_as_sf()</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">usa_sf =<span class="st"> </span><span class="kw">st_as_sf</span>(usa)</code></pre></div>
-<p>It is also possible to get a raster data, for example using <code>getData()</code>. The code below download a series of rasters that contain global monthly precipitation sums in a ten minutes spatial resolution. As a result, the new object is a multilayer object of the <code>RasterStack</code> class.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
-worldclim_prec =<span class="st"> </span><span class="kw">getData</span>(<span class="dt">name =</span> <span class="st">&quot;worldclim&quot;</span>, <span class="dt">var =</span> <span class="st">&quot;prec&quot;</span>, <span class="dt">res =</span> <span class="dv">10</span>)
-<span class="kw">class</span>(worldclim_prec)
-<span class="co">#&gt; [1] &quot;RasterStack&quot;</span>
-<span class="co">#&gt; attr(,&quot;package&quot;)</span>
-<span class="co">#&gt; [1] &quot;raster&quot;</span></code></pre></div>
-<p>Finally, many R packages contain example data as R objects or in a raw form. Data in native R format could be accessed with the <code>data()</code> function. For example, you can get a list of dataset in a package, <code>data(package = &quot;spData&quot;)</code>, or load a dataset by specifying the name of a dataset, <code>data(&quot;cycle_hire&quot;, package = &quot;spData&quot;)</code>. To access a single raw file from the package, you need to specify the package name and the relative path to the dataset, for example:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_raw_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
-world_raw =<span class="st"> </span><span class="kw">st_read</span>(world_raw_filepath)
+<!-- One of the major advantages of **sf** is that it is fast. -->
+<!-- reference to the vignette -->
+<p>The first argument of <code>st_read()</code> is <code>dsn</code>, which should be a text string or an object containing a single text string. The content of a text string could vary between different drivers. In most cases, as with the ESRI Shapefile (<code>.shp</code>) or the <code>GeoPackage</code> format (<code>.gpkg</code>), the <code>dsn</code> would be a file name. <code>st_read()</code> guesses the driver based on the file extension, as illustrated for a <code>.gpkg</code> file below:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
+vector_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
+world =<span class="st"> </span><span class="kw">st_read</span>(vector_filepath)
 <span class="co">#&gt; Reading layer `wrld.gpkg&#39; from data source `/home/travis/R/Library/spData/shapes/world.gpkg&#39; using driver `GPKG&#39;</span>
 <span class="co">#&gt; Simple feature collection with 177 features and 10 fields</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
@@ -509,15 +497,48 @@ world_raw =<span class="st"> </span><span class="kw">st_read</span>(world_raw_fi
 <span class="co">#&gt; bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513</span>
 <span class="co">#&gt; epsg (SRID):    4326</span>
 <span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span></code></pre></div>
-<p>More information on getting data using R packages could be found in <a href="https://csgillespie.github.io/efficientR/input-output.html#download">section 5.5</a> and <a href="https://csgillespie.github.io/efficientR/input-output.html#accessing-data-stored-in-packages">section 5.6</a> of <span class="citation">Gillespie and Lovelace (<a href="#ref-gillespie_efficient_2016">2016</a>)</span>.</p>
+<p>For some drivers, <code>dsn</code> could be provided as a folder name, access credentials for a database, or a GeoJSON string representation (see the examples of the <code>st_read()</code> help page for more details).</p>
+<p>Some vector driver formats can store multiple data layers. By default, <code>st_read</code> automatically reads the first layer of the file specified in <code>dsn</code>, however, using the <code>layer</code> argument you can specify any other layer.</p>
+<p>Naturally, some options are specific to certain drivers<a href="#fn28" class="footnoteRef" id="fnref28"><sup>28</sup></a>. For example, think of coordinates stored in a spreadsheet format (<code>.csv</code>). To read in such files as spatial objects, we naturally have to specify the names of the columns (<code>X</code> and <code>Y</code> in our example below) representing the coordinates. We can do this with the help of the <code>options</code> parameter. To find out about possible options, please refer to the ‘Open Options’ section of the corresponding GDAL driver description. For the comma-separated value (csv) format, visit <a href="http://www.gdal.org/drv_csv.html" class="uri">http://www.gdal.org/drv_csv.html</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cycle_hire_txt =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;misc/cycle_hire_xy.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
+cycle_hire_xy =<span class="st"> </span><span class="kw">st_read</span>(cycle_hire_txt, <span class="dt">options =</span> <span class="kw">c</span>(<span class="st">&quot;X_POSSIBLE_NAMES=X&quot;</span>,
+                                                    <span class="st">&quot;Y_POSSIBLE_NAMES=Y&quot;</span>))</code></pre></div>
+<p>Instead of columns describing xy-coordinates, a single column can also contain the geometry information. Well-known text (WKT), well-known binary (WKB), and the GeoJSON formats are examples for this. For instance, the <code>world_wkt.csv</code> file has a column named <code>WKT</code> representing polygons of the world’s countries. We will again use the <code>options</code> parameter to indicate this. Here, we will use <code>read_sf()</code> which does exactly the same as <code>st_read()</code> except it does not print the driver name to the console and stores strings as characters instead of factors.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_txt =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;misc/world_wkt.csv&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
+world_wkt =<span class="st"> </span><span class="kw">read_sf</span>(world_txt, <span class="dt">options =</span> <span class="st">&quot;GEOM_POSSIBLE_NAMES=WKT&quot;</span>)
+<span class="co"># the same as</span>
+world_wkt =<span class="st"> </span><span class="kw">st_read</span>(world_txt, <span class="dt">options =</span> <span class="st">&quot;GEOM_POSSIBLE_NAMES=WKT&quot;</span>, 
+                    <span class="dt">quiet =</span> <span class="ot">TRUE</span>, <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</code></pre></div>
+
+<div class="rmdnote">
+Not all of the supported vector file formats store information about their coordinate reference system. In these situations, it is possible to add the missing information using the <code>st_set_crs()</code> function. Please refer also to section <a href="spatial-class.html#crs-intro">2.3</a> for more information.
+</div>
+<p></p>
+</div>
+<div id="raster-data-1" class="section level3">
+<h3><span class="header-section-number">5.4.2</span> Raster data</h3>
+<p>Similar to vector data, raster data comes in many file formats with some of them supporting even multilayer files. <strong>raster</strong>’s <code>raster()</code> command reads in a single layer.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(raster)
+<span class="kw">library</span>(spDataLarge)
+raster_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/srtm.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
+single_layer =<span class="st"> </span><span class="kw">raster</span>(raster_filepath)</code></pre></div>
+<p>In case you want to read in a single band from a multilayer file use the <code>band</code> parameter to indicate a specific layer.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">multilayer_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;raster/landsat.tif&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spDataLarge&quot;</span>)
+band3 =<span class="st"> </span><span class="kw">raster</span>(multilayer_filepath, <span class="dt">band =</span> <span class="dv">3</span>)</code></pre></div>
+<p>If you want to read in all bands, use <code>brick()</code> or <code>stack()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+multilayer_brick =<span class="st"> </span><span class="kw">brick</span>(multilayer_filepath)
+multilayer_stack =<span class="st"> </span><span class="kw">stack</span>(multilayer_filepath)</code></pre></div>
+<p>Please refer to section <a href="spatial-class.html#raster-classes">2.2.3</a> for information on the difference between raster stacks and bricks.</p>
 </div>
 </div>
 <div id="data-output" class="section level2">
-<h2><span class="header-section-number">5.3</span> Data output (O)</h2>
+<h2><span class="header-section-number">5.5</span> Data output (O)</h2>
+<!--maybe we can come up withan intro which is a bit more compelling-->
 <p>The ability of writing spatial data could be used for conversion between different formats and for saving newly created objects. Depending on the data type (vector or raster), object class (e.g <code>multipoint</code> or <code>RasterLayer</code>), and type and amount of stored information (e.g. object size, range of values) - it is important to know how to store spatial files in the most efficient way. The next two section will show how to do that.</p>
 <!-- should we add a note about recommended way to decide on a file name, for example "don't use spaces in the name", "create descriptive names" -->
 <div id="vector-data-2" class="section level3">
-<h3><span class="header-section-number">5.3.1</span> Vector data</h3>
+<h3><span class="header-section-number">5.5.1</span> Vector data</h3>
 <p>The counterpart of <code>st_read()</code> is <code>st_write()</code>. It allows to write <strong>sf</strong> objects to a wide range of geographic vector file formats, including the most common ones such as <code>.geojson</code>, <code>.shp</code> and <code>.gpkg</code>. Based on the file name, <code>st_write()</code> decides automatically which driver to use. How fast the writing process is depends also on the driver. <!-- ref to the vignette --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(<span class="dt">obj =</span> world, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>)
 <span class="co">#&gt; Writing layer `world&#39; to data source `world.gpkg&#39; using driver `GPKG&#39;</span>
@@ -537,7 +558,7 @@ world_raw =<span class="st"> </span><span class="kw">st_read</span>(world_raw_fi
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(<span class="dt">obj =</span> world, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">layer_options =</span> <span class="st">&quot;OVERWRITE=YES&quot;</span>)</code></pre></div>
 <p>Another solution is to use the <code>st_write()</code> argument <code>delete_layer</code>. Setting it to <code>TRUE</code> deletes already existing layers in the data source before the function attempts to write (note there is also a <code>delete_dsn</code> argument):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_write</span>(<span class="dt">obj =</span> world, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>, <span class="dt">delete_layer =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p>You can achieve the same with <code>write_sf()</code> since it is equivalent to (technically an <em>alias</em> for) <code>st_write()</code>, except that its defaults for <code>delete_layer</code> and <code>quiet</code> is <code>TRUE</code>. <!-- This enables spatial data to be overwritten more concisely, and with less output going to screen: --> <!-- What does this mean: overwritten more concisely? --></p>
+<p>You can achieve the same with <code>write_sf()</code> since it is equivalent to (technically an <em>alias</em> for) <code>st_write()</code>, except that its defaults for <code>delete_layer</code> and <code>quiet</code> is <code>TRUE</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write_sf</span>(<span class="dt">obj =</span> world, <span class="dt">dsn =</span> <span class="st">&quot;world.gpkg&quot;</span>)</code></pre></div>
 <!-- how about saving multilayer gpkg? -->
 <p>The <code>layer_options</code> argument could be also used for many different purposes. One of them is to write spatial data to a text file. This can be done by specifing <code>GEOMETRY</code> inside of <code>layer_options</code>. It could be either <code>AS_XY</code> for simple point datasets (it creates two new columns for coordinates) or <code>AS_WKT</code> for more complex spatial data (one new column is created which contains the well-known-text representation of spatial objects).</p>
@@ -546,10 +567,10 @@ world_raw =<span class="st"> </span><span class="kw">st_read</span>(world_raw_fi
 <span class="kw">st_write</span>(world_wkt, <span class="st">&quot;world_wkt.csv&quot;</span>, <span class="dt">layer_options =</span> <span class="st">&quot;GEOMETRY=AS_WKT&quot;</span>)</code></pre></div>
 </div>
 <div id="raster-data-2" class="section level3">
-<h3><span class="header-section-number">5.3.2</span> Raster data</h3>
-<p>The <code>writeRaster()</code> function save the <code>Raster*</code> objects to files. There are several decision to be made while saving rasters, such as an output data type, file format, and specific GDAL options related to selected file format. The complete list of an arguments to this function could be found by typing <code>?writeRaster()</code>.</p>
+<h3><span class="header-section-number">5.5.2</span> Raster data</h3>
+<p>The <code>writeRaster()</code> function saves <code>Raster*</code> objects to files on disk. The function expects input regarding output datatype, file format, but also accepts GDAL options specific to a selected file format (see <code>?writeRaster</code> for more details).</p>
 <!-- datatypes -->
-<p>The <strong>raster</strong> package offers nine following datatypes: LOG1S, INT1S, INT1U, INT2S, INT2U, INT4S, INT4U, FLT4S, and FLT8S<a href="#fn27" class="footnoteRef" id="fnref27"><sup>27</sup></a>. Datatype determines the type of numbers and the range of the raster values that would be written to disk (<a href="read-write.html#tab:datatypes">5.4</a>). Decision which datatype should be used depends on the expected range of the values in the output file. For example, LOG1S is used for bitmap (binary) images, unsigned integers (INT1U, INT2U, INT4U) are mostly used for categorical data, while floats (FLT4S and FLTS8S) usually represent continuous data. The default datatype used in <code>writeRaster()</code> is FLT4S. While it works in most of the cases, the size of the output file would be large. Therefore, a rule of thumb is to use the smallest representation that fits all the values (range of values could be checked using the <code>summary()</code> function).</p>
+<p>The <strong>raster</strong> package offers nine datatypes when saving a raster: LOG1S, INT1S, INT1U, INT2S, INT2U, INT4S, INT4U, FLT4S, and FLT8S<a href="#fn29" class="footnoteRef" id="fnref29"><sup>29</sup></a>. The datatype determines the bit representation of the raster object written to disk (<a href="read-write.html#tab:datatypes">5.4</a>). Which datatype to use depends on the range of the values of your raster object. The more values a datatype can represent, the larger the file will get on disk. Commonly, one would use LOG1S for bitmap (binary) rasters. Unsigned integers (INT1U, INT2U, INT4U) are suitable for categorical data, while float numbers (FLT4S and FLTS8S) usually represent continuous data. <code>writeRaster()</code> uses FLT4S as the default. While this works in most cases, the size of the output file will be unnecessarly large if you save binary or categorical data. Therefore, we would recommend to use the datatyp that needs the least storing space but is still able to represent all values (check the range of values with the <code>summary()</code> function).</p>
 <table>
 <caption><span id="tab:datatypes">Table 5.4: </span>Datatypes supported by the raster package</caption>
 <thead>
@@ -607,27 +628,26 @@ world_raw =<span class="st"> </span><span class="kw">st_read</span>(world_raw_fi
 </tr>
 </tbody>
 </table>
-<p>To save the <code>Raster*</code> object to a file, the file extension needs to be specified. For example you need to add the <code>.tif</code> extension to create a GeoTIFF file:</p>
+<p>The file extension determines the output file when saving a <code>Raster*</code> object to disk. For example, the <code>.tif</code> extension will create a GeoTIFF file:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">writeRaster</span>(<span class="dt">x =</span> single_layer,
             <span class="dt">filename =</span> <span class="st">&quot;my_raster.tif&quot;</span>,
             <span class="dt">datatype =</span> <span class="st">&quot;INT2U&quot;</span>)</code></pre></div>
-<p>The <code>raster</code> file format (native to the <code>raster</code> package) is used when a file extension is missing or is invalid.</p>
-<p>Some raster file formats also accept additional creation options with the <code>options</code> argument<a href="#fn28" class="footnoteRef" id="fnref28"><sup>28</sup></a>. For example, in GeoTIFF you could specify a compress method using the <code>COMPRESS</code> option<a href="#fn29" class="footnoteRef" id="fnref29"><sup>29</sup></a>:</p>
+<p>The <code>raster</code> file format (native to the <code>raster</code> package) is used when a file extension is invalid or missing. Some raster file formats come with additional options. You can use them with the <code>options</code> parameter<a href="#fn30" class="footnoteRef" id="fnref30"><sup>30</sup></a>. For example, GeoTIFF allows to compress the output raster with the <code>COMPRESS</code> option<a href="#fn31" class="footnoteRef" id="fnref31"><sup>31</sup></a>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">writeRaster</span>(<span class="dt">x =</span> single_layer,
             <span class="dt">filename =</span> <span class="st">&quot;my_raster.tif&quot;</span>,
             <span class="dt">datatype =</span> <span class="st">&quot;INT2U&quot;</span>,
-            <span class="dt">options =</span> <span class="kw">c</span>(<span class="st">&quot;COMPRESS=DEFLATE&quot;</span>))</code></pre></div>
-<p>Full list of the supported file format for writing <code>Raster*</code> objects could be found using <code>writeFormats().</code></p>
+            <span class="dt">options =</span> <span class="kw">c</span>(<span class="st">&quot;COMPRESS=DEFLATE&quot;</span>),
+            <span class="dt">overwrite =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>Note that <code>writeFormats()</code> returns a list with all supported file formats on your computer.</p>
 </div>
 </div>
 <div id="visual-outputs" class="section level2">
-<h2><span class="header-section-number">5.4</span> Visual outputs</h2>
-<p>R support many different static and interactive graphics formats.</p>
-<p>The most general method to save a static plot is to open a graphic device, create a plot, and close a graphic device, for example:</p>
+<h2><span class="header-section-number">5.6</span> Visual outputs</h2>
+<p>R supports many different static and interactive graphics formats. The most general method to save a static plot is to open a graphic device, create a plot, and close it, for example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">png</span>(<span class="dt">filename =</span> <span class="st">&quot;lifeExp.png&quot;</span>, <span class="dt">width =</span> <span class="dv">500</span>, <span class="dt">height =</span> <span class="dv">350</span>)
 <span class="kw">plot</span>(world[<span class="st">&quot;lifeExp&quot;</span>])
 <span class="kw">dev.off</span>()</code></pre></div>
-<p>Each of the available formats, <code>pdf()</code>, <code>bmp()</code>, <code>jpeg()</code>, <code>png()</code>, and <code>tiff()</code>, has its own function. You can specify several properties of the output plot, including width and height.</p>
+<p>Other available graphic devices include <code>pdf()</code>, <code>bmp()</code>, <code>jpeg()</code>, <code>png()</code>, and <code>tiff()</code>. You can specify several properties of the output plot, including width, height and resolution.</p>
 <p>Additionally, several graphic packages provide its own function to save a graphical output. For example, the <strong>tmap</strong> package has the <code>save_tmap()</code> function. You can save a <code>tmap</code> object to different graphic formats by specifying the object name and a file path to a new graphic file.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tmap)
 tmap_obj =<span class="st"> </span><span class="kw">tm_shape</span>(world) +
@@ -637,22 +657,23 @@ tmap_obj =<span class="st"> </span><span class="kw">tm_shape</span>(world) +
 <!-- ```{r} -->
 <!-- a = plot(world["lifeExp"]) -->
 <!-- ``` -->
-<p>On the other hand, an interactive map could be usually saved as an HTML file. This can be done with the <code>saveWidget()</code> function from the <code>htmlwidget</code> package:</p>
+<p>On the other hand, on can save interactive maps as an HTML file using the <code>saveWidget()</code> function from the <code>htmlwidgets</code> package:</p>
+<!-- example doesn't work, problem with colors I guess -->
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mapview)
 <span class="kw">library</span>(htmlwidgets)
 mapview_obj =<span class="st"> </span><span class="kw">mapview</span>(world, <span class="dt">zcol =</span> <span class="st">&quot;lifeExp&quot;</span>, <span class="dt">legend =</span> <span class="ot">TRUE</span>)
-<span class="kw">saveWidget</span>(mapview_obj, <span class="dt">file=</span><span class="st">&quot;my_interactive_map.html&quot;</span>)</code></pre></div>
+<span class="kw">saveWidget</span>(mapview_obj, <span class="dt">file =</span> <span class="st">&quot;my_interactive_map.html&quot;</span>)</code></pre></div>
 </div>
 <div id="exercises-4" class="section level2">
-<h2><span class="header-section-number">5.5</span> Exercises</h2>
+<h2><span class="header-section-number">5.7</span> Exercises</h2>
 <ol style="list-style-type: decimal">
 <li><p>List and describe three types of vector, raster, and geodatabase formats.</p></li>
-<li><p>Name at least differences between <code>read_sf()</code> and the more well-known function <code>st_read()</code>.</p></li>
-<li><p>Read the <code>cycle_hire_xy.csv</code> file from the <strong>spData</strong> package (Hint: it is located in the <code>misc\</code> folder). What is a geometry type of a new object?</p></li>
-<li><p>Download Germany borders data using <strong>rnaturalearth</strong> and create a new object called <code>germany_borders</code>. Write this new object to a file of the GeoPackage format.</p></li>
-<li><p>Download raster data of global monthly minimum temperature with five minutes resolution using the <strong>raster</strong> package. Extract only values for June and save them to the <code>tmin_june.tif</code> file (Hint: use <code>raster::subset()</code>).</p></li>
-<li><p>Create a static map of Germany borders and save it to a PNG file.</p></li>
-<li><p>Create an interactive map using data from the <code>cycle_hire_xy.csv</code> file. Export this map to the HTML file called <code>cycle_hire.html</code>.</p></li>
+<li><p>Name at least two differences between <code>read_sf()</code> and the more well-known function <code>st_read()</code>.</p></li>
+<li><p>Read the <code>cycle_hire_xy.csv</code> file from the <strong>spData</strong> package (Hint: it is located in the <code>misc\</code> folder). What is a geometry type of the loaded object?</p></li>
+<li><p>Download the borders of Germany using <strong>rnaturalearth</strong>, and create a new object called <code>germany_borders</code>. Write this new object to a file of the GeoPackage format.</p></li>
+<li><p>Download the global monthly minimum temperature with a spatial resolution of five minutes using the <strong>raster</strong> package. Extract the June values, and save them to a file named <code>tmin_june.tif</code> file (Hint: use <code>raster::subset()</code>).</p></li>
+<li><p>Create a static map of Germany’s borders, and save it to a PNG file.</p></li>
+<li><p>Create an interactive map using data from the <code>cycle_hire_xy.csv</code> file. Export this map to a file called <code>cycle_hire.html</code>.</p></li>
 </ol>
 
 </div>
@@ -667,12 +688,14 @@ mapview_obj =<span class="st"> </span><span class="kw">mapview</span>(world, <sp
 <hr />
 <ol start="23">
 <li id="fn23"><p>Concepts such as computational efficiency, hard disk space and ‘idempotence’ are useful when thinking about reading and writing geographic datasets, which can become large and difficult to handle. Loading/saving data is yet another way of saying the same thing.<a href="read-write.html#fnref23">↩</a></p></li>
-<li id="fn24"><p><a href="http://www.opengeospatial.org" class="uri">http://www.opengeospatial.org</a><a href="read-write.html#fnref24">↩</a></p></li>
-<li id="fn25"><p>See <a href="http://adv-r.had.co.nz/Environments.html" class="uri">http://adv-r.had.co.nz/Environments.html</a> for more information on the environment<a href="read-write.html#fnref25">↩</a></p></li>
-<li id="fn26"><p>A list of supported vector formats and theirs options could be found at <a href="http://www.gdal.org/ogr_formats.html" class="uri">http://www.gdal.org/ogr_formats.html</a>.<a href="read-write.html#fnref26">↩</a></p></li>
-<li id="fn27"><p>Using INT4U is not recommended as R does not support 32-bit unsigned integers.<!--recheck this info--><a href="read-write.html#fnref27">↩</a></p></li>
-<li id="fn28"><p>Full list of supported raster formats with theirs options could be found at <a href="http://www.gdal.org/formats_list.html" class="uri">http://www.gdal.org/formats_list.html</a><a href="read-write.html#fnref28">↩</a></p></li>
-<li id="fn29"><p>Creation options for the GeoTIFF format are at <a href="http://www.gdal.org/frmt_gtiff.html" class="uri">http://www.gdal.org/frmt_gtiff.html</a><a href="read-write.html#fnref29">↩</a></p></li>
+<li id="fn24"><p>Data loaded with <code>data()</code> often is a R dataset (<code>.Rdata</code> ord <code>.rda</code>)<a href="read-write.html#fnref24">↩</a></p></li>
+<li id="fn25"><p>prounounce “goo-dal”, with the double o making a reference to object-orientation<a href="read-write.html#fnref25">↩</a></p></li>
+<li id="fn26"><p><a href="http://www.opengeospatial.org" class="uri">http://www.opengeospatial.org</a><a href="read-write.html#fnref26">↩</a></p></li>
+<li id="fn27"><p>See <a href="http://adv-r.had.co.nz/Environments.html" class="uri">http://adv-r.had.co.nz/Environments.html</a> for more information on the environment<a href="read-write.html#fnref27">↩</a></p></li>
+<li id="fn28"><p>A list of supported vector formats and theirs options can be found at <a href="http://www.gdal.org/ogr_formats.html" class="uri">http://www.gdal.org/ogr_formats.html</a>.<a href="read-write.html#fnref28">↩</a></p></li>
+<li id="fn29"><p>Using INT4U is not recommended as R does not support 32-bit unsigned integers.<!--recheck this info--><a href="read-write.html#fnref29">↩</a></p></li>
+<li id="fn30"><p>Full list of supported raster formats with theirs options can be found at <a href="http://www.gdal.org/formats_list.html" class="uri">http://www.gdal.org/formats_list.html</a><a href="read-write.html#fnref30">↩</a></p></li>
+<li id="fn31"><p>Find out about GeoTIFF options under <a href="http://www.gdal.org/frmt_gtiff.html" class="uri">http://www.gdal.org/frmt_gtiff.html</a>.<a href="read-write.html#fnref31">↩</a></p></li>
 </ol>
 </div>
             </section>
