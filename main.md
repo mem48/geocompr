@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveb4e1e3444be8fa22
+preserveb74f727d48892a8d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3562,7 +3562,7 @@ Then the might struggle to find the exact geolibrary matching his or her demands
 Here, geolibraries come to the rescue bundling the information of a collection of geolibraries.
 If you are looking for data from all over the world, the [GEOSS portal](http://www.geoportal.org/) might be a good starting point.
 We also would like you to point to the [EarthExplorer](https://earthexplorer.usgs.gov/) and the [Copernicus Open Access Hub](https://scihub.copernicus.eu/) for a wide variety of global datasets including multispectral and radar images.
-European data is available from the Initiative for spatial information in the European Comunity ([INSPIRE][http://inspire-geoportal.ec.europa.eu/)).
+European data is available from the Initiative for spatial information in the European Community ([INSPIRE][http://inspire-geoportal.ec.europa.eu/)).
 This [Wikipedia article](https://en.wikipedia.org/wiki/Geoportal) lists a few more interesting geoportals.
 
 Typically, geoportals provide an interface that lets you query interactively the existing data (spatial and temporal extent, and product).
@@ -3671,7 +3671,7 @@ File-based data formats can contain either vector or raster data, while geodatab
 Historically, GIS file formats were developed by mapping agencies and software companies. <!--examples-->
 Exchanging spatial data between different software packages each coming with its own format was troublesome in the beginning.
 
-GDAL ^[prounounce "goo-dal", with the double o making a reference to object-orientation]put an end to these troubles by enabling <!--name and pronounciation--> reading and writing many raster and vector data formats.
+GDAL ^[prounounce "goo-dal", with the double o making a reference to object-orientation]put an end to these troubles by enabling reading and writing many raster and vector data formats.
 Subsequently, many open and proprietary GIS software (e.g., GRASS, QGIS, ArcGIS, ENVI) were quick to incorporate it.
 <!-- GDAL (it's great - you can read, convert, and very often (though not always) write) -->
 <!-- GDAL info "it is possible to have smaller number of supported formats than there are on the GDAL webpage; you may need to recompile..." -->
@@ -3832,7 +3832,7 @@ Please refer to section \@ref(raster-classes) for information on the difference 
 
 ## Data output (O) {#data-output}
 
-<!--maybe we can come up withan intro which is a bit more compelling-->
+<!--maybe we can come up with an intro which is a bit more compelling-->
 The ability of writing spatial data could be used for conversion between different formats and for saving newly created objects.
 Depending on the data type (vector or raster), object class (e.g `multipoint` or `RasterLayer`), and type and amount of stored information (e.g. object size, range of values) - it is important to know how to store spatial files in the most efficient way.
 The next two section will show how to do that.
@@ -3901,7 +3901,7 @@ write_sf(obj = world, dsn = "world.gpkg")
 <!-- how about saving multilayer gpkg? -->
 The `layer_options` argument could be also used for many different purposes.
 One of them is to write spatial data to a text file.
-This can be done by specifing `GEOMETRY` inside of `layer_options`. 
+This can be done by specifying `GEOMETRY` inside of `layer_options`. 
 It could be either `AS_XY` for simple point datasets (it creates two new columns for coordinates) or `AS_WKT` for more complex spatial data (one new column is created which contains the well-known-text representation of spatial objects).
 
 
@@ -3925,7 +3925,7 @@ Commonly, one would use LOG1S for bitmap (binary) rasters.
 Unsigned integers (INT1U, INT2U, INT4U) are suitable for categorical data, while float numbers (FLT4S and FLTS8S) usually represent continuous data.
 `writeRaster()` uses FLT4S as the default.
 While this works in most cases, the size of the output file will be unnecessarly large if you save binary or categorical data.
-Therefore, we would recommend to use the datatyp that needs the least storing space but is still able to represent all values (check the range of values with the `summary()` function).
+Therefore, we would recommend to use the datatype that needs the least storing space but is still able to represent all values (check the range of values with the `summary()` function).
 
 
 Table: (\#tab:datatypes)Datatypes supported by the raster package
