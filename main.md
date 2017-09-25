@@ -2,7 +2,7 @@
 --- 
 title: 'Geocomputation with R'
 author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
-date: '2017-09-22'
+date: '2017-09-25'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -38,7 +38,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-09-22 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-09-25 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveb74f727d48892a8d
+preserve0e52270413e85956
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -461,9 +461,10 @@ Most points in geographical work contain only two dimensions, represented by 'No
 These numbers represent point's distance from an $origin$ along the $x$ (horizontal) and $y$ (vertical) axis.
 In 3 dimensional CRSs three numbers are needed: $x$, $y$ and $z$.
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">Don't confuse geographic vector data with `vector`s in R.
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">Take care when using the word 'vector' as it can have two meanings in this book:
+geographic vector data and `vector`s (note the `monospace` font) in R.
 The former is a data model, the latter is an R class just like `data.frame` and `matrix`.
-There is a link between the two meanings, however: the spatial coordinates at the heart of the geographic vector data model can be represented in R using `vector` objects or lists of them.</div>\EndKnitrBlock{rmdnote}
+Still, there is a link between the two: the spatial coordinates which are at the heart of the geographic vector data model can be represented in R using `vector` objects.</div>\EndKnitrBlock{rmdnote}
 
 In mathematical notation these points are typically represented as numbers separated by commas and enclosed by a pair of brackets: 
 $(1, 3)$ for example, represents a point located one unit to the right and three units above the origin.
