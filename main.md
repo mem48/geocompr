@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea7f84be36b7aa64a
+preservea17de21d0e8197cd
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -420,9 +420,8 @@ Everyone learns in a different way so it is important that you structure your co
 
 * * *
 
-After having successfully installed R, you have to install and load add-on packages to handle spatial data.
-On Mac and Linux operating systems there are a few additional requirements: see the [README](https://github.com/r-spatial/sf) of the **sf** package for instructions.
-The **sf**, **raster**, **spData**, and **spDataLarge** packages used in this chapter can be installed and loaded with the following commands:
+After testing your up-to-date R/RStudio set-up, the next step is to load and install spatial packages.
+The **sf**, **raster**, **spData**, and **spDataLarge** packages used in this chapter can be installed and loaded as follows:
 
 
 ```r
@@ -436,9 +435,11 @@ install.packages("spDataLarge")
 library(spDataLarge)
 ```
 
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">On Mac and Linux operating systems a few requirements must be met, as described in the **sf** [README](https://github.com/r-spatial/sf) file for details.</div>\EndKnitrBlock{rmdnote}
+
 This chapter will provide brief explanations of the fundamental geographic data models: vector and raster.
 We will introduce briefly the theory behind both data models, and then move quickly towards how these are implemented in R.
-Vector and raster models are vital to geospatial analysis [@longley_geographic_2015].
+<!-- Vector and raster models are vital to geospatial analysis [@longley_geographic_2015]. -->
 The vector data model represents the world using points, lines and polygons.
 This means, it supports data with discrete, well-defined borders.
 Generally, vector datasets have a high level of precision (but not necessarily accuracy as we will see in \@ref(units)).
