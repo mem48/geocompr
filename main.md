@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve0e52270413e85956
+preserve07f06c141937d1fd
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -412,7 +412,7 @@ You can install and set up both in a few minutes on most modern computers, as de
 
 If you are not a regular R user, we recommend that you familiarize yourself with the language before proceeding with this chapter.
 You can do so using resources such as @gillespie_efficient_2016, @grolemund_r_2016 as well as online interactive guides such as [DataCamp](https://www.datacamp.com/courses/free-introduction-to-r).
-It is also worth to spend time to establish an efficient programming workflow, for example with the help of an RStudio '[project](https://csgillespie.github.io/efficientR/set-up.html#project-management)'.
+We recommend organising your work as you learn, for example with the help of an RStudio '[project](https://csgillespie.github.io/efficientR/set-up.html#project-management)' called `geocomp-learning` or similar and a new script for each chapter.
 Subsequently, you can use the RStudio project provided in the root directory of the [`geocompr`](https://github.com/Robinlovelace/geocompr) GitHub repository.
 This will make it easier to run this book's worked examples on your computer.
 
