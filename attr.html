@@ -471,97 +471,40 @@ north_america$name_long
 Figure 3.1: The unemployment rate (taken from World Bank statistics) in Canada and the United States to illustrate the utility of joining attribute data on to spatial datasets.
 </p>
 </div>
-<p>It is also possible to join objects by different variables. Both of the datasets have variables with names of countries, but they are named differently. The <code>north_america</code> has a <code>name_long</code> column and the <code>wb_north_america</code> has a <code>name</code> column. In these cases, we can use a named vector to specify the connection, e.g. <code>c(&quot;name_long&quot; = &quot;name&quot;)</code>:</p>
+<p>It is also possible to join objects by different variables. Both of the datasets have variables with names of countries, but they are named differently. The <code>north_america</code> has a <code>name_long</code> column and the <code>wb_north_america</code> has a <code>name</code> column. In these cases a named vector, such as <code>c(&quot;name_long&quot; = &quot;name&quot;)</code>, can specify the connection:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join2 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">left_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
-left_join2
-<span class="co">#&gt; Simple feature collection with 3 features and 5 fields</span>
-<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513</span>
-<span class="co">#&gt; epsg (SRID):    4326</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;   iso_a2.x     name_long iso_a2.y urban_pop unemploy</span>
-<span class="co">#&gt; 1       CA        Canada       CA  29022137     6.91</span>
-<span class="co">#&gt; 2       GL     Greenland     &lt;NA&gt;        NA       NA</span>
-<span class="co">#&gt; 3       US United States       US 259740511     6.17</span>
-<span class="co">#&gt;                             geom</span>
-<span class="co">#&gt; 1 MULTIPOLYGON (((-63.6645 46...</span>
-<span class="co">#&gt; 2 MULTIPOLYGON (((-46.76379 8...</span>
-<span class="co">#&gt; 3 MULTIPOLYGON (((-155.54211 ...</span></code></pre></div>
-<p>The new object <code>left_join2</code>, however, contains two duplicated variables - <code>iso_a2.x</code> and <code>iso_a2.y</code> because both of the input tables possessed a variable named <code>iso_a2</code>. To solve this problem we should specify all the keys:</p>
+<span class="kw">names</span>(left_join2)
+<span class="co">#&gt; [1] &quot;iso_a2.x&quot;  &quot;name_long&quot; &quot;iso_a2.y&quot;  &quot;urban_pop&quot; &quot;unemploy&quot;  &quot;geom&quot;</span></code></pre></div>
+<p>Note that the result contains two duplicated variables - <code>iso_a2.x</code> and <code>iso_a2.y</code> because both <code>x</code> and <code>y</code> objects have the column <code>iso_a2</code>. This can be solved by specifying all the keys:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join3 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">left_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso_a2&quot;</span>, <span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
-left_join3
-<span class="co">#&gt; Simple feature collection with 3 features and 4 fields</span>
-<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513</span>
-<span class="co">#&gt; epsg (SRID):    4326</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;   iso_a2     name_long urban_pop unemploy                           geom</span>
-<span class="co">#&gt; 1     CA        Canada  29022137     6.91 MULTIPOLYGON (((-63.6645 46...</span>
-<span class="co">#&gt; 2     GL     Greenland        NA       NA MULTIPOLYGON (((-46.76379 8...</span>
-<span class="co">#&gt; 3     US United States 259740511     6.17 MULTIPOLYGON (((-155.54211 ...</span></code></pre></div>
-<p>It is also possible to use our objects in the reverse order, where a <code>data.frame</code> object is the first argument and a <code>sf</code> object is the second argument. This would keep the geometry column but drop the <code>sf</code> class, and result in a <code>data.frame</code> object.</p>
+<span class="st">  </span><span class="kw">left_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso_a2&quot;</span>, <span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))</code></pre></div>
+<p>Joins also work when a data frame is the first argument. This keeps the geometry column but drops the <code>sf</code> class, returning a <code>data.frame</code> object.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># keeps the geom column, but drops the sf class</span>
 left_join4 =<span class="st"> </span>wb_north_america %&gt;%
 <span class="st">  </span><span class="kw">left_join</span>(north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso_a2&quot;</span>))
-left_join4
-<span class="co">#&gt;            name iso_a2 urban_pop unemploy     name_long</span>
-<span class="co">#&gt; 1        Canada     CA  29022137     6.91        Canada</span>
-<span class="co">#&gt; 2        Mexico     MX  99018446     5.25          &lt;NA&gt;</span>
-<span class="co">#&gt; 3 United States     US 259740511     6.17 United States</span>
-<span class="co">#&gt;                             geom</span>
-<span class="co">#&gt; 1 MULTIPOLYGON (((-63.6645 46...</span>
-<span class="co">#&gt; 2                           NULL</span>
-<span class="co">#&gt; 3 MULTIPOLYGON (((-155.54211 ...</span>
 <span class="kw">class</span>(left_join4)
 <span class="co">#&gt; [1] &quot;data.frame&quot;</span></code></pre></div>
-<p><code>left_join4</code> has only one class - <code>data.frame</code>, however it is possible to add spatial <code>sf</code> class using the <code>st_as_sf()</code> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">left_join4_sf =<span class="st"> </span><span class="kw">st_as_sf</span>(left_join4)
-left_join4_sf
-<span class="co">#&gt; Simple feature collection with 3 features and 5 fields (with 1 geometry empty)</span>
-<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324</span>
-<span class="co">#&gt; epsg (SRID):    4326</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;            name iso_a2 urban_pop unemploy     name_long</span>
-<span class="co">#&gt; 1        Canada     CA  29022137     6.91        Canada</span>
-<span class="co">#&gt; 2        Mexico     MX  99018446     5.25          &lt;NA&gt;</span>
-<span class="co">#&gt; 3 United States     US 259740511     6.17 United States</span>
-<span class="co">#&gt;                             geom</span>
-<span class="co">#&gt; 1 MULTIPOLYGON (((-63.6645 46...</span>
-<span class="co">#&gt; 2             MULTIPOLYGON EMPTY</span>
-<span class="co">#&gt; 3 MULTIPOLYGON (((-155.54211 ...</span>
-<span class="kw">class</span>(left_join4_sf)
-<span class="co">#&gt; [1] &quot;sf&quot;         &quot;data.frame&quot;</span></code></pre></div>
-<p>On the other hand, it is also possible to remove the geometry column of <code>left_join4</code> using base R functions or <code>dplyr</code>. Here, this is this simple because the geometry column is just another <code>data.frame</code> column and no longer the sticky geometry column of an <code>sf</code> object (see also Chapter <a href="spatial-class.html#spatial-class">2</a>):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># base R</span>
-left_join4_df =<span class="st"> </span><span class="kw">subset</span>(left_join4, <span class="dt">select =</span> -geom)
-<span class="co"># or dplyr</span>
-left_join4_df =<span class="st"> </span>left_join4 %&gt;%<span class="st"> </span>dplyr::<span class="kw">select</span>(-geom)
-left_join4_df
-<span class="co">#&gt;            name iso_a2 urban_pop unemploy     name_long</span>
-<span class="co">#&gt; 1        Canada     CA  29022137     6.91        Canada</span>
-<span class="co">#&gt; 2        Mexico     MX  99018446     5.25          &lt;NA&gt;</span>
-<span class="co">#&gt; 3 United States     US 259740511     6.17 United States</span>
-<span class="kw">class</span>(left_join4_df)
-<span class="co">#&gt; [1] &quot;data.frame&quot;</span></code></pre></div>
-<p>In contrast <code>left_join()</code>, <code>inner_join()</code> keeps only observations from the left object (<code>north_america</code>) where there are matching observations in the right object (<code>wb_north_america</code>). All columns from the left and right object are still kept:</p>
+
+<div class="rmdnote">
+It is possible to convert a data frame with a geometry list column, such as <code>left_join4</code>, into an <code>sf</code> object with <code>st_as_sf()</code>, as follows: <code>st_as_sf(left_join4)</code>.
+</div>
+<p></p>
+<!-- On the other hand, it is also possible to remove the geometry column of `left_join4` using base R functions or `dplyr`. -->
+<!-- Here, this is this simple because the geometry column is just another `data.frame` column and no longer the sticky geometry column of an `sf` object (see also Chapter \@ref(spatial-class)): -->
+<!-- ```{r} -->
+<!-- # base R -->
+<!-- left_join4_df = subset(left_join4, select = -geom) -->
+<!-- # or dplyr -->
+<!-- left_join4_df = left_join4 %>% dplyr::select(-geom) -->
+<!-- left_join4_df -->
+<!-- class(left_join4_df) -->
+<!-- ``` -->
+<p>In contrast to <code>left_join()</code>, <code>inner_join()</code> keeps only observations from the left object (<code>north_america</code>) where there are matching observations in the right object (<code>wb_north_america</code>). All columns from the left and right object are still kept:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inner_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">inner_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso_a2&quot;</span>, <span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
-inner_join1
-<span class="co">#&gt; Simple feature collection with 2 features and 4 fields</span>
-<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324</span>
-<span class="co">#&gt; epsg (SRID):    4326</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=WGS84 +no_defs</span>
-<span class="co">#&gt;   iso_a2     name_long urban_pop unemploy                           geom</span>
-<span class="co">#&gt; 1     CA        Canada  29022137     6.91 MULTIPOLYGON (((-63.6645 46...</span>
-<span class="co">#&gt; 2     US United States 259740511     6.17 MULTIPOLYGON (((-155.54211 ...</span></code></pre></div>
+inner_join1$name_long
+<span class="co">#&gt; [1] &quot;Canada&quot;        &quot;United States&quot;</span></code></pre></div>
 </div>
 <div id="creating-attributes-and-removing-spatial-information" class="section level3">
 <h3><span class="header-section-number">3.2.4</span> Creating attributes and removing spatial information</h3>

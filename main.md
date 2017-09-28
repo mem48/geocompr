@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve2e51f418df7e3231
+preservec0c16328b6e562f2
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2106,129 +2106,60 @@ The utility of this is shown in Figure \@ref(fig:unemploy), which shows the unem
 It is also possible to join objects by different variables.
 Both of the datasets have variables with names of countries, but they are named differently.
 The `north_america` has a `name_long` column and the `wb_north_america` has a `name` column.
-In these cases, we can use a named vector to specify the connection, e.g. `c("name_long" = "name")`:
+In these cases a named vector, such as `c("name_long" = "name")`, can specify the connection:
 
 
 ```r
 left_join2 = north_america %>% 
   left_join(wb_north_america, by = c("name_long" = "name"))
-left_join2
-#> Simple feature collection with 3 features and 5 fields
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>   iso_a2.x     name_long iso_a2.y urban_pop unemploy
-#> 1       CA        Canada       CA  29022137     6.91
-#> 2       GL     Greenland     <NA>        NA       NA
-#> 3       US United States       US 259740511     6.17
-#>                             geom
-#> 1 MULTIPOLYGON (((-63.6645 46...
-#> 2 MULTIPOLYGON (((-46.76379 8...
-#> 3 MULTIPOLYGON (((-155.54211 ...
+names(left_join2)
+#> [1] "iso_a2.x"  "name_long" "iso_a2.y"  "urban_pop" "unemploy"  "geom"
 ```
 
-The new object `left_join2`, however, contains two duplicated variables - `iso_a2.x` and `iso_a2.y` because both of the input tables possessed a variable named `iso_a2`.
-To solve this problem we should specify all the keys:
+Note that the result contains two duplicated variables - `iso_a2.x` and `iso_a2.y` because both `x` and `y` objects have the column `iso_a2`.
+This can be solved by specifying all the keys:
 
 
 ```r
 left_join3 = north_america %>% 
   left_join(wb_north_america, by = c("iso_a2", "name_long" = "name"))
-left_join3
-#> Simple feature collection with 3 features and 4 fields
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -12.20855 ymax: 83.64513
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>   iso_a2     name_long urban_pop unemploy                           geom
-#> 1     CA        Canada  29022137     6.91 MULTIPOLYGON (((-63.6645 46...
-#> 2     GL     Greenland        NA       NA MULTIPOLYGON (((-46.76379 8...
-#> 3     US United States 259740511     6.17 MULTIPOLYGON (((-155.54211 ...
 ```
 
-It is also possible to use our objects in the reverse order, where a `data.frame` object is the first argument and a `sf` object is the second argument.
-This would keep the geometry column but drop the `sf` class, and result in a `data.frame` object.
+Joins also work when a data frame is the first argument.
+This keeps the geometry column but drops the `sf` class, returning a `data.frame` object.
 
 
 ```r
 # keeps the geom column, but drops the sf class
 left_join4 = wb_north_america %>%
   left_join(north_america, by = c("iso_a2"))
-left_join4
-#>            name iso_a2 urban_pop unemploy     name_long
-#> 1        Canada     CA  29022137     6.91        Canada
-#> 2        Mexico     MX  99018446     5.25          <NA>
-#> 3 United States     US 259740511     6.17 United States
-#>                             geom
-#> 1 MULTIPOLYGON (((-63.6645 46...
-#> 2                           NULL
-#> 3 MULTIPOLYGON (((-155.54211 ...
 class(left_join4)
 #> [1] "data.frame"
 ```
 
-`left_join4` has only one class - `data.frame`, however it is possible to add spatial `sf` class using the `st_as_sf()` function: 
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">It is possible to convert a data frame with a geometry list column, such as `left_join4`, into an `sf` object with `st_as_sf()`, as follows: `st_as_sf(left_join4)`. </div>\EndKnitrBlock{rmdnote}
 
+<!-- On the other hand, it is also possible to remove the geometry column of `left_join4` using base R functions or `dplyr`. -->
+<!-- Here, this is this simple because the geometry column is just another `data.frame` column and no longer the sticky geometry column of an `sf` object (see also Chapter \@ref(spatial-class)): -->
 
-```r
-left_join4_sf = st_as_sf(left_join4)
-left_join4_sf
-#> Simple feature collection with 3 features and 5 fields (with 1 geometry empty)
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>            name iso_a2 urban_pop unemploy     name_long
-#> 1        Canada     CA  29022137     6.91        Canada
-#> 2        Mexico     MX  99018446     5.25          <NA>
-#> 3 United States     US 259740511     6.17 United States
-#>                             geom
-#> 1 MULTIPOLYGON (((-63.6645 46...
-#> 2             MULTIPOLYGON EMPTY
-#> 3 MULTIPOLYGON (((-155.54211 ...
-class(left_join4_sf)
-#> [1] "sf"         "data.frame"
-```
+<!-- ```{r} -->
+<!-- # base R -->
+<!-- left_join4_df = subset(left_join4, select = -geom) -->
+<!-- # or dplyr -->
+<!-- left_join4_df = left_join4 %>% dplyr::select(-geom) -->
+<!-- left_join4_df -->
+<!-- class(left_join4_df) -->
+<!-- ``` -->
 
-On the other hand, it is also possible to remove the geometry column of `left_join4` using base R functions or `dplyr`.
-Here, this is this simple because the geometry column is just another `data.frame` column and no longer the sticky geometry column of an `sf` object (see also Chapter \@ref(spatial-class)):
-
-
-```r
-# base R
-left_join4_df = subset(left_join4, select = -geom)
-# or dplyr
-left_join4_df = left_join4 %>% dplyr::select(-geom)
-left_join4_df
-#>            name iso_a2 urban_pop unemploy     name_long
-#> 1        Canada     CA  29022137     6.91        Canada
-#> 2        Mexico     MX  99018446     5.25          <NA>
-#> 3 United States     US 259740511     6.17 United States
-class(left_join4_df)
-#> [1] "data.frame"
-```
-
-In contrast `left_join()`, `inner_join()` keeps only observations from the left object (`north_america`) where there are matching observations in the right object (`wb_north_america`). 
+In contrast to `left_join()`, `inner_join()` keeps only observations from the left object (`north_america`) where there are matching observations in the right object (`wb_north_america`). 
 All columns from the left and right object are still kept:
 
 
 ```r
 inner_join1 = north_america %>% 
   inner_join(wb_north_america, by = c("iso_a2", "name_long" = "name"))
-inner_join1
-#> Simple feature collection with 2 features and 4 fields
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: -171.7911 ymin: 18.91619 xmax: -52.6481 ymax: 83.23324
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>   iso_a2     name_long urban_pop unemploy                           geom
-#> 1     CA        Canada  29022137     6.91 MULTIPOLYGON (((-63.6645 46...
-#> 2     US United States 259740511     6.17 MULTIPOLYGON (((-155.54211 ...
+inner_join1$name_long
+#> [1] "Canada"        "United States"
 ```
 
 ### Creating attributes and removing spatial information
