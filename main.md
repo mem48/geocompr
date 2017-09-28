@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve975ce20470053dc1
+preserve2e51f418df7e3231
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2053,10 +2053,8 @@ Joins do this by combining tables based on a shared 'key' variable.
 **dplyr** has powerful functions for joining: `left_join()`, `right_join()`,  `inner_join()`, `full_join`, `semi_join()` and `anti_join()`.
 These function names follow conventions used in the database language [SQL](http://r4ds.had.co.nz/relational-data.html) [@grolemund_r_2016, Chapter 13].
 Using them with `sf` objects is the focus of this section.
-
-**sf** supports **dplyr** join functions.
-The only important difference between combining two `data.frames` and combining `sf` and `data.frame` objects is the special `sf` column storing the geometry information:
-the result of data joins can be either an `sf` or `data.frame` object.
+**dplyr** join functions work the same on data frames and `sf` objects, the only important difference being the `geometry` list column.
+The result of data joins can be either an `sf` or `data.frame` object.
 
 Most joins involving spatial data will have an `sf` object as the first argument and a `data.frame` object as the second argument, resulting in a new `sf` object (the reverse order is also possible and will return a `data.frame`).
 We will focus on the commonly used left and inner joins, which use the same syntax as the other join types [see @grolemund_r_2016 for more join types].
