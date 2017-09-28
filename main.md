@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea0e9bca04764ef06
+preserve3447fdb6bfd4fcd8
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1833,8 +1833,10 @@ world$name_long
 ```
 
 <!-- , after the package has been loaded: [or - it is a part of tidyverse] -->
-Base R functions are essential, and we recommend that you have a working knowledge of them.
-However, **dplyr** can make working with data frames more intuitive, and can lead to faster code due to its C++ backend and ability to interface with data bases (important when working with big data).
+Base R functions are mature and widely used.
+However, the more recent **dplyr** approach has several advantages.
+It enables intuitive workflows.
+It's fast, due to its C++ backend and database integration, important when working with big data.
 The main **dplyr** subsetting functions are `select()`, `slice()`, `filter()` and `pull()`.
 
 <div class="rmdnote">
