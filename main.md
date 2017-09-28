@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee11159c66a61edf1
+preserve7c72b207ceb745a2
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2214,8 +2214,8 @@ class(left_join4_df)
 #> [1] "data.frame"
 ```
 
-In contrast to the left join, the `inner_join()` keeps only observations from the left object (`north_america`) where there are matching observations in the right object (`wb_north_america`). 
-Additionally, all columns from the left and right object are kept:
+In contrast `left_join()`, `inner_join()` keeps only observations from the left object (`north_america`) where there are matching observations in the right object (`wb_north_america`). 
+All columns from the left and right object are still kept:
 
 
 ```r

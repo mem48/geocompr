@@ -550,7 +550,7 @@ left_join4_df
 <span class="co">#&gt; 3 United States     US 259740511     6.17 United States</span>
 <span class="kw">class</span>(left_join4_df)
 <span class="co">#&gt; [1] &quot;data.frame&quot;</span></code></pre></div>
-<p>In contrast to the left join, the <code>inner_join()</code> keeps only observations from the left object (<code>north_america</code>) where there are matching observations in the right object (<code>wb_north_america</code>). Additionally, all columns from the left and right object are kept:</p>
+<p>In contrast <code>left_join()</code>, <code>inner_join()</code> keeps only observations from the left object (<code>north_america</code>) where there are matching observations in the right object (<code>wb_north_america</code>). All columns from the left and right object are still kept:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inner_join1 =<span class="st"> </span>north_america %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">inner_join</span>(wb_north_america, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;iso_a2&quot;</span>, <span class="st">&quot;name_long&quot;</span> =<span class="st"> &quot;name&quot;</span>))
 inner_join1
