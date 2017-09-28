@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve6f72cb8fe9def1ad
+preserve1693f9fb766325d1
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1995,7 +1995,7 @@ world %>%
 
 The result is a spatial data frame of class `sf` (only the non-spatial results are shown): the aggregation procedure dissolves boundaries within continental land masses.
 In the previous code chunk `pop` and `n_countries` are column names in the result.
-`sum()` and `n()` were the the aggregating functions.
+`sum()` and `n()` were the aggregating functions.
 
 Let's combine what we've learned so far about **dplyr** by chaining together functions to find the world's 3 most populous continents (with `dplyr::n()` ) and the number of countries they contain.
 The output of the following code is presented in Table \@ref(tab:continents)):

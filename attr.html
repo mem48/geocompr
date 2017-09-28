@@ -390,7 +390,7 @@ The ‘right arrow’ <code>-&gt;</code> operator can be used to make the result
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">pop =</span> <span class="kw">sum</span>(pop, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">n_countries =</span> <span class="kw">n</span>())</code></pre></div>
 <pre><code>#&gt;        pop n_countries
 #&gt; 1 7.21e+09         177</code></pre>
-<p>The result is a spatial data frame of class <code>sf</code> (only the non-spatial results are shown): the aggregation procedure dissolves boundaries within continental land masses. In the previous code chunk <code>pop</code> and <code>n_countries</code> are column names in the result. <code>sum()</code> and <code>n()</code> were the the aggregating functions.</p>
+<p>The result is a spatial data frame of class <code>sf</code> (only the non-spatial results are shown): the aggregation procedure dissolves boundaries within continental land masses. In the previous code chunk <code>pop</code> and <code>n_countries</code> are column names in the result. <code>sum()</code> and <code>n()</code> were the aggregating functions.</p>
 <p>Let’s combine what we’ve learned so far about <strong>dplyr</strong> by chaining together functions to find the world’s 3 most populous continents (with <code>dplyr::n()</code> ) and the number of countries they contain. The output of the following code is presented in Table <a href="attr.html#tab:continents">3.2</a>):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">st_set_geometry</span>(<span class="dt">value =</span> <span class="ot">NULL</span>) %&gt;%
