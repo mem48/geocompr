@@ -390,64 +390,47 @@ The ‘right arrow’ <code>-&gt;</code> operator can be used to make the result
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">pop =</span> <span class="kw">sum</span>(pop, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">n_countries =</span> <span class="kw">n</span>())</code></pre></div>
 <pre><code>#&gt;        pop n_countries
 #&gt; 1 7.21e+09         177</code></pre>
-<p>The result is a spatial data frame of class <code>sf</code> (only the non-spatial results are shown): the aggregation procedure dissolves boundaries within continental land masses.</p>
-<p>Aggregating with <strong>dplyr</strong> functions requires understanding of the syntax. The above code chunk the <code>pop =</code> and <code>n_countries =</code> arguments names the columns in the resulting data frame. <code>sum()</code> and <code>n()</code> were the the aggregating functions. More details are provided in the help pages (which can be accessed via <code>?summarize</code> and <code>vignette(package = &quot;dplr&quot;)</code> and Chapter 5 of <a href="http://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarize">R for Data Science</a>.</p>
+<p>The result is a spatial data frame of class <code>sf</code> (only the non-spatial results are shown): the aggregation procedure dissolves boundaries within continental land masses. In the previous code chunk <code>pop</code> and <code>n_countries</code> are column names in the result. <code>sum()</code> and <code>n()</code> were the the aggregating functions.</p>
+<p>Let’s combine what we’ve learned so far about <strong>dplyr</strong> by chaining together functions to find the world’s 3 most populous continents (with <code>dplyr::n()</code> ) and the number of countries they contain. The output of the following code is presented in Table <a href="attr.html#tab:continents">3.2</a>):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">st_set_geometry</span>(<span class="dt">value =</span> <span class="ot">NULL</span>) %&gt;%
+<span class="st">  </span><span class="kw">select</span>(pop, continent) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(continent) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">pop =</span> <span class="kw">sum</span>(pop, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">n_countries =</span> <span class="kw">n</span>()) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">top_n</span>(<span class="dt">n =</span> <span class="dv">3</span>, <span class="dt">wt =</span> pop) </code></pre></div>
 <table>
 <caption><span id="tab:continents">Table 3.2: </span>The top 3 most populous continents, and the number of countries in each.</caption>
 <thead>
 <tr class="header">
-<th align="left">iso_a2</th>
-<th align="left">name_long</th>
 <th align="left">continent</th>
-<th align="left">region_un</th>
-<th align="left">subregion</th>
-<th align="left">type</th>
-<th align="right">area_km2</th>
 <th align="right">pop</th>
-<th align="right">lifeExp</th>
-<th align="right">gdpPercap</th>
+<th align="right">n_countries</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">CN</td>
-<td align="left">China</td>
-<td align="left">Asia</td>
-<td align="left">Asia</td>
-<td align="left">Eastern Asia</td>
-<td align="left">Country</td>
-<td align="right">9409832</td>
-<td align="right">1.36e+09</td>
-<td align="right">75.8</td>
-<td align="right">12759</td>
+<td align="left">Africa</td>
+<td align="right">1.15e+09</td>
+<td align="right">51</td>
 </tr>
 <tr class="even">
-<td align="left">IN</td>
-<td align="left">India</td>
 <td align="left">Asia</td>
-<td align="left">Asia</td>
-<td align="left">Southern Asia</td>
-<td align="left">Sovereign country</td>
-<td align="right">3142892</td>
-<td align="right">1.30e+09</td>
-<td align="right">68.0</td>
-<td align="right">5392</td>
+<td align="right">4.31e+09</td>
+<td align="right">47</td>
 </tr>
 <tr class="odd">
-<td align="left">US</td>
-<td align="left">United States</td>
-<td align="left">North America</td>
-<td align="left">Americas</td>
-<td align="left">Northern America</td>
-<td align="left">Country</td>
-<td align="right">9510744</td>
-<td align="right">3.19e+08</td>
-<td align="right">78.9</td>
-<td align="right">51775</td>
+<td align="left">Europe</td>
+<td align="right">7.39e+08</td>
+<td align="right">39</td>
 </tr>
 </tbody>
 </table>
-<p><code>sf</code> objects are well-integrated with the <strong>tidyverse</strong>, as illustrated by the fact that the aggregated objects preserve the geometry of the original <code>world</code> object. Here, we even had to make some efforts to prevent a spatial operation. When <code>aggregate()</code>ing the population we have just used the population vector. Had we used the spatial object (world[, “population”]), <code>aggregate()</code> would have done a spatial aggregation of the polygon data. The same would have happened, had we not dismissed the geometry prior to using the <code>summarize()</code> function. We will explain this so-called ‘dissolving polygons’ in more detail in the the next chapter.</p>
+<!-- `sf` objects are well-integrated with the **tidyverse**, as illustrated by the fact that the aggregated objects preserve the geometry of the original `world` object. -->
+<!-- Here, we even had to make some efforts to prevent a spatial operation. -->
+<!-- When `aggregate()`ing the population we have just used the population vector.  -->
+<!-- Had we used the spatial object (world[, "population"]), `aggregate()` would have done a spatial aggregation of the polygon data.  -->
+<!-- The same would have happened, had we not dismissed the geometry prior to using the `summarize()` function. -->
+<!-- We will explain this so-called 'dissolving polygons' in more detail in the the next chapter. -->
 <!-- Todo (optional): add exercise exploring similarities/differences with `world_continents`? -->
 <!-- should it stay or should it go (?) aka should we present the arrange function?: -->
 <!-- Jannes: I would suggest to leave the arrange function as an exercise to the reader. -->
@@ -614,6 +597,11 @@ world %&gt;%<span class="st"> </span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_data =<span class="st"> </span>world %&gt;%<span class="st"> </span><span class="kw">st_set_geometry</span>(<span class="ot">NULL</span>)
 <span class="kw">class</span>(world_data)
 <span class="co">#&gt; [1] &quot;data.frame&quot;</span></code></pre></div>
+
+<div class="rmdnote">
+More details are provided in the help pages (which can be accessed via <code>?summarize</code> and <code>vignette(package = &quot;dplyr&quot;)</code> and Chapter 5 of <a href="http://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarize">R for Data Science</a>.
+</div>
+<p></p>
 </div>
 </div>
 <div id="manipulating-raster-objects" class="section level2">

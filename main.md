@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee5e94853e82e67ac
+preservee11159c66a61edf1
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1994,27 +1994,38 @@ world %>%
 ```
 
 The result is a spatial data frame of class `sf` (only the non-spatial results are shown): the aggregation procedure dissolves boundaries within continental land masses.
-
-Aggregating with **dplyr** functions requires understanding of the syntax.
-The above code chunk the `pop =` and `n_countries =` arguments names the columns in the resulting data frame.
+In the previous code chunk `pop` and `n_countries` are column names in the result.
 `sum()` and `n()` were the the aggregating functions.
-More details are provided in the help pages (which can be accessed via `?summarize` and `vignette(package = "dplr")` and Chapter 5 of [R for Data Science](http://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarize). 
+
+Let's combine what we've learned so far about **dplyr** by chaining together functions to find the world's 3 most populous continents (with `dplyr::n()` ) and the number of countries they contain.
+The output of the following code is presented in Table \@ref(tab:continents)):
+
+
+```r
+world %>% 
+  st_set_geometry(value = NULL) %>%
+  select(pop, continent) %>% 
+  group_by(continent) %>% 
+  summarize(pop = sum(pop, na.rm = TRUE), n_countries = n()) %>% 
+  top_n(n = 3, wt = pop) 
+```
+
 
 
 Table: (\#tab:continents)The top 3 most populous continents, and the number of countries in each.
 
-iso_a2   name_long       continent       region_un   subregion          type                 area_km2        pop   lifeExp   gdpPercap
--------  --------------  --------------  ----------  -----------------  ------------------  ---------  ---------  --------  ----------
-CN       China           Asia            Asia        Eastern Asia       Country               9409832   1.36e+09      75.8       12759
-IN       India           Asia            Asia        Southern Asia      Sovereign country     3142892   1.30e+09      68.0        5392
-US       United States   North America   Americas    Northern America   Country               9510744   3.19e+08      78.9       51775
+continent         pop   n_countries
+----------  ---------  ------------
+Africa       1.15e+09            51
+Asia         4.31e+09            47
+Europe       7.39e+08            39
 
-`sf` objects are well-integrated with the **tidyverse**, as illustrated by the fact that the aggregated objects preserve the geometry of the original `world` object.
-Here, we even had to make some efforts to prevent a spatial operation.
-When `aggregate()`ing the population we have just used the population vector. 
-Had we used the spatial object (world[, "population"]), `aggregate()` would have done a spatial aggregation of the polygon data. 
-The same would have happened, had we not dismissed the geometry prior to using the `summarize()` function.
-We will explain this so-called 'dissolving polygons' in more detail in the the next chapter.
+<!-- `sf` objects are well-integrated with the **tidyverse**, as illustrated by the fact that the aggregated objects preserve the geometry of the original `world` object. -->
+<!-- Here, we even had to make some efforts to prevent a spatial operation. -->
+<!-- When `aggregate()`ing the population we have just used the population vector.  -->
+<!-- Had we used the spatial object (world[, "population"]), `aggregate()` would have done a spatial aggregation of the polygon data.  -->
+<!-- The same would have happened, had we not dismissed the geometry prior to using the `summarize()` function. -->
+<!-- We will explain this so-called 'dissolving polygons' in more detail in the the next chapter. -->
 
 <!-- Todo (optional): add exercise exploring similarities/differences with `world_continents`? -->
 
@@ -2314,6 +2325,8 @@ world_data = world %>% st_set_geometry(NULL)
 class(world_data)
 #> [1] "data.frame"
 ```
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">More details are provided in the help pages (which can be accessed via `?summarize` and `vignette(package = "dplyr")` and Chapter 5 of [R for Data Science](http://r4ds.had.co.nz/transform.html#grouped-summaries-with-summarize). </div>\EndKnitrBlock{rmdnote}
 
 ## Manipulating raster objects
 
