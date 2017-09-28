@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve3447fdb6bfd4fcd8
+preservee5e94853e82e67ac
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1840,7 +1840,7 @@ It's fast, due to its C++ backend and database integration, important when worki
 The main **dplyr** subsetting functions are `select()`, `slice()`, `filter()` and `pull()`.
 
 <div class="rmdnote">
-<p>Both <strong>raster</strong> and <strong>dplyr</strong> packages have a function called <code>select()</code>. If both packages are loaded, this can generate error messages containing the text: <code>unable to find an inherited method for function ‘select’ for signature ‘&quot;sf&quot;’</code>. To avoid this error message, and prevent ambiguity, we use the long-form function name, prefixed by the package name and two colons (usually omitted from R scripts for concise code): <code>dplyr::select()</code>.</p>
+<p><strong>raster</strong> and <strong>dplyr</strong> packages have a function called <code>select()</code>. If both packages are loaded, this can generate error messages containing the text: <code>unable to find an inherited method for function ‘select’ for signature ‘&quot;sf&quot;’</code>. To avoid this error message, and prevent ambiguity, we use the long-form function name, prefixed by the package name and two colons (usually omitted from R scripts for concise code): <code>dplyr::select()</code>.</p>
 </div>
 
 `select()` selects columns by name or position.
@@ -1922,9 +1922,12 @@ Symbol      Name
 <!-- add warning about = vs == -->
 <!-- add info about combination of &, |, ! -->
 
-A benefit of **dplyr** is its ease of use, which is enhanced by its compatibility with the *pipe* operator ` %>% ` (from **magrittr**, which takes its name from the Unix pipe `|`).
-Despite its strange form (it points 'forward'), its behaviour is simple, 'piping' the output of a previous command into the first argument of the next function.
-Many functions can be combined in this way in a process called *chaining* because the fundamental functions (or 'verbs', like `select()`) of **dplyr** take a `data.frame` their first argument and also return one.^[If you want **dplyr** to return a vector, use `pull`.]
+A benefit of **dplyr** is its compatibility with the *pipe* operator ` %>% `.
+This 'R pipe', which takes its name from the Unix pipe `|` and is part of the **magrittr** package, enables expressive code by 'piping' the output of a previous command into the first argument of the next function.
+This allows *chaining* data analysis commands, with the data frame being passed from one function to the next.
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">The **dplyr** function `pull()` extracts a single variable as a vector.</div>\EndKnitrBlock{rmdnote}
+
 This is illustrate below, in which the `world` dataset is subset by columns (`name_long` and `continent`) and the first five rows (result not shown).
 
 
