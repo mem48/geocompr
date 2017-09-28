@@ -25,7 +25,7 @@
 <meta name="author" content="Robin Lovelace, Jakub Nowosad, Jannes Muenchow">
 
 
-<meta name="date" content="2017-09-25">
+<meta name="date" content="2017-09-28">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -258,7 +258,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co">#&gt;  [4] initialize            merge                 plot                 </span>
 <span class="co">#&gt;  [7] print                 rbind                 [                    </span>
 <span class="co">#&gt; [10] [[&lt;-                  $&lt;-                   show                 </span></code></pre></div>
-<p>Many of these functions, including <code>rbind()</code> (for binding rows of data together) and <code>$&lt;-</code> (for creating new columns) were developed for data frames. A key feature of <code>sf</code> objects is that they store spatial and non-spatial data in the same way, as columns in a <code>data.frame</code> (the geometry column is typically called <code>geometry</code>). <code>sf</code> objects also support <code>tibble</code> and <code>tbl</code> classes used in the tidyverse, allowing ‘tidy’ data analysis workflows to apply for spatial data. Thus <strong>sf</strong> enables the full power of R’s data analysis capabilities to be unleashed on geographic data. Before using these capabilities it’s worth re-capping how to discover the basic properties of vector data objects. Let’s start by using base R functions for to get a measure of the <code>world</code> dataset:</p>
+<p>Many of these functions, including <code>rbind()</code> (for binding rows of data together) and <code>$&lt;-</code> (for creating new columns) were developed for data frames. A key feature of <code>sf</code> objects is that they store spatial and non-spatial data in the same way, as columns in a <code>data.frame</code> (the geometry column is typically called <code>geometry</code>). <code>sf</code> objects also support <code>tibble</code> and <code>tbl</code> classes used in the tidyverse, allowing ‘tidy’ data analysis workflows for spatial data. Thus <strong>sf</strong> enables the full power of R’s data analysis capabilities to be unleashed on geographic data. Before using these capabilities it’s worth re-capping how to discover the basic properties of vector data objects. Let’s start by using base R functions for to get a measure of the <code>world</code> dataset:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(world) <span class="co"># it is a 2 dimensional object, with rows and columns</span>
 <span class="co">#&gt; [1] 177  11</span>
 <span class="kw">nrow</span>(world) <span class="co"># how many rows?</span>
