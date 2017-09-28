@@ -6,20 +6,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Geocomputation with R</title>
-  <meta name="description" content="Forthcoming book on geographical data with R.">
+  <meta name="description" content="Forthcoming book on geographic data with R.">
   <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Geocomputation with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://robinlovelace.net/geocompr" />
   
-  <meta property="og:description" content="Forthcoming book on geographical data with R." />
+  <meta property="og:description" content="Forthcoming book on geographic data with R." />
   <meta name="github-repo" content="Robinlovelace/geocompr" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Geocomputation with R" />
   
-  <meta name="twitter:description" content="Forthcoming book on geographical data with R." />
+  <meta name="twitter:description" content="Forthcoming book on geographic data with R." />
   
 
 <meta name="author" content="Robin Lovelace, Jakub Nowosad, Jannes Muenchow">
@@ -261,7 +261,7 @@ On Mac and Linux operating systems a few requirements must be met, as described 
 </div>
 <div id="vector-data" class="section level2">
 <h2><span class="header-section-number">2.1</span> Vector data</h2>
-<p>The geographic vector model is based on points located within a coordinate reference system (CRS). Points can represent self-standing features (e.g. the location of a bus stop) or they can be linked together to form more complex geometry types, lines and polygons. Most points in geographical work contain only two dimensions, represented by ‘Northing and Easting’ (for projected or <em>Cartesian</em> CRSs) or Longitude and Latitude (for geographic CRSs) pairs. These numbers represent point’s distance from an <span class="math inline">\(origin\)</span> along the <span class="math inline">\(x\)</span> (horizontal) and <span class="math inline">\(y\)</span> (vertical) axis. In 3 dimensional CRSs three numbers are needed: <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span> and <span class="math inline">\(z\)</span>.</p>
+<p>The geographic vector model is based on points located within a coordinate reference system (CRS). Points can represent self-standing features (e.g. the location of a bus stop) or they can be linked together to form more complex geometry types, lines and polygons. Most points in geographic work contain only two dimensions, represented by ‘Northing and Easting’ (for projected or <em>Cartesian</em> CRSs) or Longitude and Latitude (for geographic CRSs) pairs. These numbers represent point’s distance from an <span class="math inline">\(origin\)</span> along the <span class="math inline">\(x\)</span> (horizontal) and <span class="math inline">\(y\)</span> (vertical) axis. In 3 dimensional CRSs three numbers are needed: <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span> and <span class="math inline">\(z\)</span>.</p>
 
 <div class="rmdnote">
 Take care when using the word ‘vector’ as it can have two meanings in this book: geographic vector data and <code>vector</code>s (note the <code>monospace</code> font) in R. The former is a data model, the latter is an R class just like <code>data.frame</code> and <code>matrix</code>. Still, there is a link between the two: the spatial coordinates which are at the heart of the geographic vector data model can be represented in R using <code>vector</code> objects.
@@ -279,7 +279,7 @@ Figure 2.1: Illustration of vector point data in base R.
 </div>
 <div id="intro-sf" class="section level3">
 <h3><span class="header-section-number">2.1.1</span> An introduction to simple features</h3>
-<p>Simple features is an open standard developed and endorsed by the Open Geospatial Consortium (<a href="http://portal.opengeospatial.org/files/?artifact_id=25355">OGC</a>) to represent a wide range of geographical information. It is a hierarchical data model that simplifies geographic data by condensing a complex range of geographic forms into a single geometry class. Only 7 out of 68 possible types of simple feature are currently used in the vast majority of GIS operations (Figure <a href="spatial-class.html#fig:sf-ogc">2.2</a>). The R package <strong>sf</strong> <span class="citation">(Pebesma <a href="#ref-R-sf">2017</a>)</span> fully supports all of these (including plotting methods etc.).<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a></p>
+<p>Simple features is an open standard developed and endorsed by the Open Geospatial Consortium (<a href="http://portal.opengeospatial.org/files/?artifact_id=25355">OGC</a>) to represent a wide range of geographic information. It is a hierarchical data model that simplifies geographic data by condensing a complex range of geographic forms into a single geometry class. Only 7 out of 68 possible types of simple feature are currently used in the vast majority of GIS operations (Figure <a href="spatial-class.html#fig:sf-ogc">2.2</a>). The R package <strong>sf</strong> <span class="citation">(Pebesma <a href="#ref-R-sf">2017</a>)</span> fully supports all of these (including plotting methods etc.).<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a></p>
 <div class="figure" style="text-align: center"><span id="fig:sf-ogc"></span>
 <img src="figures/sf-classes.png" alt="The subset of the Simple Features class hierarchy supported by sf. Figure based on the Open Geospatial Consortium document [06-103r4](http://www.opengeospatial.org/standards/sfa)." width="100%" />
 <p class="caption">
@@ -335,7 +335,7 @@ Figure 2.3: A spatial plot of the world using the sf package, with a facet for e
 <span class="co">#&gt; 1     AF Afghanistan      Asia MULTIPOLYGON (((61.21081709...</span>
 <span class="co">#&gt; 2     AO      Angola    Africa MULTIPOLYGON (((16.32652835...</span></code></pre></div>
 <p>All this may seem rather complex, especially for a class system that is supposed to be simple. However, there are good reasons for organizing things this way and using <strong>sf</strong>.</p>
-<!-- It's a `MULTIPOLYGON` with 177 features and a geographical (longitude/latidue) coordinate reference system (CRS) with an EPSG code of `4326`. -->
+<!-- It's a `MULTIPOLYGON` with 177 features and a geographic (longitude/latidue) coordinate reference system (CRS) with an EPSG code of `4326`. -->
 </div>
 <div id="why-simple-features" class="section level3">
 <h3><span class="header-section-number">2.1.2</span> Why Simple Features?</h3>

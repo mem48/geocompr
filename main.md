@@ -11,7 +11,7 @@ bibliography:
   - packages.bib
 biblio-style: apalike
 link-citations: yes
-description: "Forthcoming book on geographical data with R."
+description: "Forthcoming book on geographic data with R."
 github-repo: "Robinlovelace/geocompr"
 url: 'http\://robinlovelace.net/geocompr'
 ---
@@ -91,7 +91,7 @@ Anyone can now download high performance spatial libraries on their computer.
 However, despite the growth of geospatial software that is *open source*, much of it remains *inaccessible*, in a form that is scriptable and therefore easily reproducible and 'computational'.
 Open source Geographic Information Systems (GIS) such as QGIS (see [qgis.org](http://qgis.org/en/site/)) have greatly reduced the 'barrier to entry', but the emphasis of such programs on a Graphical User Interface (GUI) can discourage reproducibility and an emphasis on the code that the Geocomputational approach requires, as discussed in Chapter 13.
 
-A major aim of this book is to make geographical data analysis more accessible as part of a reproducible workflow.
+A major aim of this book is to make geographic data analysis more accessible as part of a reproducible workflow.
 R is a flexible language that allows access to many spatial software libraries (see section \@ref(why-geocomputation-with-r)).
 Before going into the details of the software, however, it is worth taking a step back and thinking about what we mean by geocomputation.
 
@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservec0c16328b6e562f2
+preserve6f72cb8fe9def1ad
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -464,7 +464,7 @@ This book uses **sf** and **raster** packages to work with vector data and raste
 
 The geographic vector model is based on points located within a coordinate reference system (CRS).
 Points can represent self-standing features (e.g. the location of a bus stop) or they can be linked together to form more complex geometry types, lines and polygons.
-Most points in geographical work contain only two dimensions, represented by 'Northing and Easting' (for projected or *Cartesian* CRSs) or Longitude and Latitude (for geographic CRSs) pairs.
+Most points in geographic work contain only two dimensions, represented by 'Northing and Easting' (for projected or *Cartesian* CRSs) or Longitude and Latitude (for geographic CRSs) pairs.
 These numbers represent point's distance from an $origin$ along the $x$ (horizontal) and $y$ (vertical) axis.
 In 3 dimensional CRSs three numbers are needed: $x$, $y$ and $z$.
 
@@ -500,7 +500,7 @@ plot(x = p[1], y = p[2], xlim =  c(0, 5), ylim = c(0, 5))
 
 ### An introduction to simple features {#intro-sf}
 
-Simple features is an open standard developed and endorsed by the Open Geospatial Consortium ([OGC](http://portal.opengeospatial.org/files/?artifact_id=25355)) to represent a wide range of geographical information.
+Simple features is an open standard developed and endorsed by the Open Geospatial Consortium ([OGC](http://portal.opengeospatial.org/files/?artifact_id=25355)) to represent a wide range of geographic information.
 It is a hierarchical data model that simplifies geographic data by condensing a complex range of geographic forms into a single geometry class.
 Only 7 out of 68 possible types of simple feature are currently used in the vast majority of GIS operations (Figure \@ref(fig:sf-ogc)).
 The R package **sf** [@R-sf] fully supports all of these (including plotting methods etc.).^[
@@ -615,7 +615,7 @@ world[1:2, 1:3]
 All this may seem rather complex, especially for a class system that is supposed to be simple.
 However, there are good reasons for organizing things this way and using **sf**.
 
-<!-- It's a `MULTIPOLYGON` with 177 features and a geographical (longitude/latidue) coordinate reference system (CRS) with an EPSG code of `4326`. -->
+<!-- It's a `MULTIPOLYGON` with 177 features and a geographic (longitude/latidue) coordinate reference system (CRS) with an EPSG code of `4326`. -->
 
 ### Why Simple Features?
 
@@ -1699,9 +1699,9 @@ To derive the corresponding coordinate, we have to move from the origin three ce
 The raster header gives the matrix a spatial dimension which we need when plotting the raster or when we want to combine two rasters, think, for instance, of adding the values of one raster to another (see also next Chapter).
 <!-- should we somewhere add a table comparing advantages/disadvantages of using the vector or raster data model, would fit nicely into chapter 2 -->
 
-This chapter focuses on non-geographical operations on vector and raster data.
+This chapter focuses on non-geographic operations on vector and raster data.
 For vector data, we will introduce subsetting, aggregating and joining attribute data in the next section.
-Note that the corresponding functions also have a geographical equivalent.
+Note that the corresponding functions also have a geographic equivalent.
 Sometimes you can even use the same functions for attribute and spatial operations.
 This is the case for subsetting as base R's `[` and tidyverse's `filter()` let you also subset spatial data based on the spatial extent of another spatial object (see Chapter \@ref(spatial-data-operations)).
 Therefore the skills you learn here are cross-transferable which is also why this chapter lays the foundation for the next chapter (Chapter \@ref(spatial-data-operations)) which extends the here presented methods to the spatial world.
@@ -1751,7 +1751,7 @@ ncol(world) # how many columns?
 #> [1] 11
 ```
 
-Our dataset contains ten non-geographical columns (and one geometry list-column) with almost 200 rows representing the world's countries.
+Our dataset contains ten non-geographic columns (and one geometry list-column) with almost 200 rows representing the world's countries.
 
 Extracting the attribute data of an `sf` object is the same as removing its geometry:
 

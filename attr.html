@@ -6,20 +6,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Geocomputation with R</title>
-  <meta name="description" content="Forthcoming book on geographical data with R.">
+  <meta name="description" content="Forthcoming book on geographic data with R.">
   <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Geocomputation with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://robinlovelace.net/geocompr" />
   
-  <meta property="og:description" content="Forthcoming book on geographical data with R." />
+  <meta property="og:description" content="Forthcoming book on geographic data with R." />
   <meta name="github-repo" content="Robinlovelace/geocompr" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Geocomputation with R" />
   
-  <meta name="twitter:description" content="Forthcoming book on geographical data with R." />
+  <meta name="twitter:description" content="Forthcoming book on geographic data with R." />
   
 
 <meta name="author" content="Robin Lovelace, Jakub Nowosad, Jannes Muenchow">
@@ -247,7 +247,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">3.1</span> Introduction</h2>
 <p>Attribute data is non-spatial information associated with geographic (geometry) data. A bus stop provides a simple example. In a spatial vector object its position would typically be represented by latitude and longitude coordinates (geometry data), in addition to its name. The name is an <em>attribute</em> of the feature (to use Simple Features terminology) that bears no relation to its geometry. <!-- idea: add an example of a bus stop (or modify a previous example so it represents a bus stop) in the previous chapter  --></p>
 <p>Another example is the elevation value (attribute) for a specific grid cell in raster data. Unlike vector data, the raster data model stores the coordinate of the grid cell only indirectly: There is a less clear distinction between attribute and spatial information in raster data. Say, we are in the 3<sup>rd</sup> row and the 4<sup>th</sup> column of a raster matrix. To derive the corresponding coordinate, we have to move from the origin three cells in x-direction and four cells in y-direction with the cell resolution defining the distance for each x- and y-step. The raster header gives the matrix a spatial dimension which we need when plotting the raster or when we want to combine two rasters, think, for instance, of adding the values of one raster to another (see also next Chapter). <!-- should we somewhere add a table comparing advantages/disadvantages of using the vector or raster data model, would fit nicely into chapter 2 --></p>
-<p>This chapter focuses on non-geographical operations on vector and raster data. For vector data, we will introduce subsetting, aggregating and joining attribute data in the next section. Note that the corresponding functions also have a geographical equivalent. Sometimes you can even use the same functions for attribute and spatial operations. This is the case for subsetting as base R’s <code>[</code> and tidyverse’s <code>filter()</code> let you also subset spatial data based on the spatial extent of another spatial object (see Chapter <a href="spatial-data-operations.html#spatial-data-operations">4</a>). Therefore the skills you learn here are cross-transferable which is also why this chapter lays the foundation for the next chapter (Chapter <a href="spatial-data-operations.html#spatial-data-operations">4</a>) which extends the here presented methods to the spatial world.</p>
+<p>This chapter focuses on non-geographic operations on vector and raster data. For vector data, we will introduce subsetting, aggregating and joining attribute data in the next section. Note that the corresponding functions also have a geographic equivalent. Sometimes you can even use the same functions for attribute and spatial operations. This is the case for subsetting as base R’s <code>[</code> and tidyverse’s <code>filter()</code> let you also subset spatial data based on the spatial extent of another spatial object (see Chapter <a href="spatial-data-operations.html#spatial-data-operations">4</a>). Therefore the skills you learn here are cross-transferable which is also why this chapter lays the foundation for the next chapter (Chapter <a href="spatial-data-operations.html#spatial-data-operations">4</a>) which extends the here presented methods to the spatial world.</p>
 <p>Raster attribute data operations are covered in Section <a href="attr.html#manipulating-raster-objects">3.3</a>, which covers the creating continuous and categorical raster layers and extracting cell values from one layer and multiple layers (raster subsetting). Section <a href="attr.html#summarizing-raster-objects">3.3.2</a> provides an overview of ‘global’ raster operations which can be used to characterize entire raster datasets.</p>
 </div>
 <div id="vector-attribute-manipulation" class="section level2">
@@ -265,7 +265,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="co">#&gt; [1] 177</span>
 <span class="kw">ncol</span>(world) <span class="co"># how many columns?</span>
 <span class="co">#&gt; [1] 11</span></code></pre></div>
-<p>Our dataset contains ten non-geographical columns (and one geometry list-column) with almost 200 rows representing the world’s countries.</p>
+<p>Our dataset contains ten non-geographic columns (and one geometry list-column) with almost 200 rows representing the world’s countries.</p>
 <p>Extracting the attribute data of an <code>sf</code> object is the same as removing its geometry:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_df =<span class="st"> </span><span class="kw">st_set_geometry</span>(world, <span class="ot">NULL</span>)
 <span class="kw">class</span>(world_df)
