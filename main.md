@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve0311de25d5d641f5
+preserve3bc6e47d6f7420dc
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2367,13 +2367,20 @@ elev[]
 ```
 
 Leaving the square brackets empty is a shortcut version of `values()` for retrieving all values of a raster.
-Of course, one can use indexing to modify multiple cells or even blocks.
+Multiple cells can also be modified in this way:
+
+
+```r
+elev[1, 1:2] = 0
+```
 
 ### Summarizing raster objects
-In R we can easily derive descriptive statistics for entire rasters.
-Printing the raster object to the console already returns the minimum and maximum values of a raster.
-You can also use the `summary()` function for the most common descriptive statistics (minimum, maximum, interquartile range and number of `NA`s).
-If we are interested in further summary operations such as the standard deviation (see below) or if we want to define our own summary functions, we can do so with the `cellStats` command. 
+
+**raster** contains functions for extracting descriptive statistics for entire rasters.
+Printing a raster object to the console by default, by typing its name, returns minimum and maximum values of a raster.
+`summary()` provides common descriptive statistics (minimum, maximum, interquartile range and number of `NA`s).
+Further summary operations such as the standard deviation (see below) or custom summary statistics can be calculated with `cellStats()`. 
+
 
 ```r
 cellStats(elev, sd)
