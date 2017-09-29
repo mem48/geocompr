@@ -588,14 +588,14 @@ Figure 3.2: Raster with numberic values (left) and a raster with categorical val
 </div>
 <div id="raster-subsetting" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Raster subsetting</h3>
-<p>We can subset raster datasets with the help of <code>[</code> which accepts different types of input.</p>
+<p>Raster subsetting is done with the base R operator <code>[</code>, which accepts a variety of inputs:</p>
 <ul>
 <li>row-column indexing</li>
 <li>cell IDs</li>
 <li>coordinates</li>
 <li>another raster object</li>
 </ul>
-<p>The latter two represent already spatial subsetting (see next chapter). Here, we demonstrate the first two subsetting options in the two commands below. Both return the value of the top left pixel in the raster object <code>elev</code> (results not shown):</p>
+<p>The latter two represent spatial subsetting (see the next chapter). The first two subsetting options are demonstrated in the commands below — both return the value of the top left pixel in the raster object <code>elev</code> (results not shown):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># row 1, column 1</span>
 elev[<span class="dv">1</span>, <span class="dv">1</span>]
 <span class="co"># cell ID 1</span>

@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservec9437a5a69e6f32f
+preserveef656f801c99a980
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2330,16 +2330,16 @@ factorValues(grain, grain[c(1, 12, 36)])
 
 ### Raster subsetting
 
-We can subset raster datasets with the help of `[` which accepts different types of input.
+Raster subsetting is done with the base R operator `[`, which accepts a variety of inputs:
 
 - row-column indexing
 - cell IDs
 - coordinates
 - another raster object
 
-The latter two represent already spatial subsetting (see next chapter).
-Here, we demonstrate the first two subsetting options in the two commands below.
-Both return the value of the top left pixel in the raster object `elev` (results not shown):
+The latter two represent spatial subsetting (see the next chapter).
+The first two subsetting options are demonstrated in the commands below ---
+both return the value of the top left pixel in the raster object `elev` (results not shown):
 
 
 ```r
