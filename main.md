@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservec84688f7ce8f9a7a
+preservec9437a5a69e6f32f
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2297,12 +2297,11 @@ clay < silt < sand in terms of grain size, so the levels are provided in this or
 
 `raster` objects represent categorical varibles as integers, so `grain[1, 1]` returns a number that represents a unique identifiers, rather than "clay", "silt" or "sand". 
 The raster object stores the corresponding look-up table or "Raster Attribute Table" (RAT) as a data frame in a new slot named `attributes`, which can be viewed with `ratify(grain)` (see `?ratify()` for more information).
-Use `levels()` to just retrieve the attribute table.
-We can even add further columns to this attribute table:
+Use the function `levels()` to retrieve the attribute table and add additional factor values:
 
 
 ```r
-levels(grain)[[1]] =  cbind(levels(grain)[[1]], wetness = c("wet", "moist", "dry"))
+levels(grain)[[1]] = cbind(levels(grain)[[1]], wetness = c("wet", "moist", "dry"))
 levels(grain)
 #> [[1]]
 #>   ID VALUE wetness
@@ -2311,10 +2310,8 @@ levels(grain)
 #> 3  3  sand     dry
 ```
 
-This is really interesting since we have learned that each raster cell can only possess one value.
-In fact, the raster cells themselves still consist of only one value, namely an integer which represents a unique identifier.
-This identifier can then be used to look up the attributes in the corresponding attribute table (stored in a slot named `attributes`).
-Say, we would like to know the grain size and the wetness of cell IDs 1, 12 and 36, we can run:
+This behaviour demonstrates that raster cells can only possess one value, an identifier which can be used to look up the attributes in the corresponding attribute table (stored in a slot named `attributes`).
+This is illustrated in command below, which returns the grain size and wetness of cell IDs 1, 12 and 36, we can run:
 
 
 ```r
@@ -2332,6 +2329,7 @@ factorValues(grain, grain[c(1, 12, 36)])
 </div>
 
 ### Raster subsetting
+
 We can subset raster datasets with the help of `[` which accepts different types of input.
 
 - row-column indexing
