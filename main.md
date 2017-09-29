@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservebdfab09dc5a94db9
+preserve42db880709f59248
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2295,7 +2295,7 @@ In the preceding code chunk the `levels` argument is used to create an ordered f
 clay < silt < sand in terms of grain size, so the levels are provided in this order.</div>\EndKnitrBlock{rmdnote}
 
 `raster` objects represent categorical varibles as integers, so `grain[1, 1]` returns a number that represents a unique identifiers, rather than "clay", "silt" or "sand". 
-The raster object stores the corresponding look-up table or "Raster Attribute Table" (RAT) as a data frame in a new slot named `attributes` which you see when you print a so-called 'ratified' raster to the console (see `?ratify()` command for more information).
+The raster object stores the corresponding look-up table or "Raster Attribute Table" (RAT) as a data frame in a new slot named `attributes`, which can be viewed with `ratify(grain)` (see `?ratify()` command for more information).
 Use `levels()` to just retrieve the attribute table.
 We can even add further columns to this attribute table:
 
