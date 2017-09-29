@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve3bc6e47d6f7420dc
+preserveeeef437ba11231e4
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2386,14 +2386,18 @@ Further summary operations such as the standard deviation (see below) or custom 
 cellStats(elev, sd)
 ```
 
-Note: if you provide the `summary()` and `cellStats()` functions with a raster stack or brick object, they will summarize each layer separately.
-Try `summary(brick(elev, grain))`. 
-Nothing stops us from visualizing descriptive raster statistics.
-We can manually retrieving raster values with the help of the `values()` and `getValues()` function, and putting their output into any `plot()` function we like.
-Or we can make use of the `boxplot()`, `density()`, `hist()` and `pairs()` methods for raster objects.
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">If you provide the `summary()` and `cellStats()` functions with a raster stack or brick object, they will summarize each layer separately, as can be illustrated by running `summary(brick(elev, grain))`.</div>\EndKnitrBlock{rmdnote}
+
+Raster value statistics can be visualized in a variety of ways.
+Raster values, e.g. returned by `values()` or `getValues()`, can be plotted in a variety of ways, including with `boxplot()`, `density()`, `hist()` and `pairs()`, which work for raster objects, as demonstrated in the histogram created with the command below (not shown):
+
+
+```r
+hist(elev)
+```
 
 Descriptive raster statistics belong to the so-called global raster operations.
-These and other typical raster processing operations are part of the map algebra scheme which we will get to know better in the next chapter.
+These and other typical raster processing operations are part of the map algebra scheme which are covered in the next chapter.
 
 <div class="rmdnote">
 <p>Some function names clash between packages (e.g., <code>select</code>, as discussed in a previous note). In addition to not loading packages by referring to functions verbosely (e.g., <code>dplyr::select()</code>) another way to prevent function names clashes is by unloading the offending package with <code>detach()</code>. The following command, for example, unloads the <strong>raster</strong> package (this can also be done in the <em>package</em> tab in the right-bottom pane in RStudio): <code>detach(&quot;package:raster&quot;, unload = TRUE, force = TRUE)</code>. The <code>force</code> argument makes sure that the package will be detached even if other packages depend on it. This, however, may lead to a restricted usability of packages depending on the detached package, and is therefore not recommended.</p>
