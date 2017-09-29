@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve23426f76cd1233c4
+preservebdfab09dc5a94db9
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2294,9 +2294,7 @@ The function `factor()` can be used to convert character data to a suitable rast
 In the preceding code chunk the `levels` argument is used to create an ordered factor:
 clay < silt < sand in terms of grain size, so the levels are provided in this order.</div>\EndKnitrBlock{rmdnote}
 
-`raster` objects represent categorical varibles as integers.
-Hence, `grain[1, 1]` returns an integer instead of "sand", "silt" or "clay".
-These integers in turn represent unique identifiers. 
+`raster` objects represent categorical varibles as integers, so `grain[1, 1]` returns a number that represents a unique identifiers, rather than "clay", "silt" or "sand". 
 The raster object stores the corresponding look-up table or "Raster Attribute Table" (RAT) as a data frame in a new slot named `attributes` which you see when you print a so-called 'ratified' raster to the console (see `?ratify()` command for more information).
 Use `levels()` to just retrieve the attribute table.
 We can even add further columns to this attribute table:
