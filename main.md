@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveef656f801c99a980
+preserve0311de25d5d641f5
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2349,16 +2349,14 @@ elev[1, 1]
 elev[1]
 ```
 
-To extract all values or complete rows, you can use `values()` and `getValues()`
-In case you apply subsetting to a raster stack or brick, this will return the cell value(s) for each single layer.
-For example, `stack(elev, grain)[1]` returns a matrix with one row and two columns - one for each layer.
-In this example we have used cell ID subsetting, of course, you can also use row-column or coordinate indexing.
-On the other hand, the `raster::subset()` command lets you extract a specific or several layers from a raster stack or brick.
-For the same operation, you can also use the `[[` operator.
-If you only want to extract a single layer, you might also use the `$` operator.
+To extract all values or complete rows, you can use `values()` and `getValues()`.
+For multi-layered raster objects `stack` or `brick`, this will return the cell value(s) for each layer.
+For example, `stack(elev, grain)[1]` returns a matrix with one row and two columns --- one for each layer.
+<!-- In this example we have used cell ID subsetting, of course, you can also use row-column or coordinate indexing. -->
+For multi-layer raster objects another way to subset is with `raster::subset()`, which extracts layers from a raster stack or brick. The `[[` and `$` operators can also be used.
 
-To modify a single cell value, we overwrite existing values with the help of subsetting operations (see above).
-For instance, let us replace the upper left cell of `elev`, which is 1, by 0:
+Cell values can be modified by overwriting existing values in conjunction with a subsetting operation.
+The following code chunk, for example, sets the upper left cell of `elev` to 0:
 
 
 ```r
