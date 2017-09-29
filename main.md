@@ -2,7 +2,7 @@
 --- 
 title: 'Geocomputation with R'
 author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
-date: '2017-09-28'
+date: '2017-09-29'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -38,7 +38,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-09-28 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-09-29 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve2ef74e1ffc325173
+preservec8399d7ff62289ba
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2260,13 +2260,12 @@ class(world_data)
 
 ## Manipulating raster objects
 
-In contrast to simple features (vector data), raster data represents continuous surfaces.
-In this section we will use a raster object created *from scratch*, building on section \@ref(an-introduction-to-raster).
-Raster data has a fundamentally different structure than vector data, so subsetting and other operations work in a different way, as demonstrated in section \@ref(raster-subsetting).
+In contrast to the vector data model underlying simple features (which represents points, lines and polygons as discrete entities in space), raster data represent continuous surfaces.
+This section shows how raster objects work, by creating them *from scratch*, building on section \@ref(an-introduction-to-raster).
+Because of their unique structure, subsetting and other operations on raster datasets work in a different way, as demonstrated in section \@ref(raster-subsetting).
 
-Let us start with manually recreating the raster dataset of Chapter \@ref(raster-classes).
-This should make it easy to understand how **raster** and related operations work (Figure \@ref(fig:cont-cate-rasters)).
-Here, we create a raster which should represent elevations, therefore, we name it accordingly `elev`.
+The following code recreates the raster dataset used in section \@ref(raster-classes), the result of which is illustrated in Figure \@ref(fig:cont-cate-rasters).
+This demonstrates how the `raster()` function works to create an example raster named `elev` (representing elevations).
 
 
 ```r
@@ -2276,37 +2275,24 @@ elev = raster(nrow = 6, ncol = 6, res = 0.5,
               vals = 1:36)
 ```
 
-Note that a raster object can also contain categorical data.
-For this, we can use either Boolean or factor variables in R.
-For instance, we can create a raster representing grain sizes (Figure \@ref(fig:cont-cate-rasters)):
+The result is a raster object with 6 rows and 6 columns (specified by the `nrow` and `ncol` arguments), and minimum and a minimum and maximum spatial extent (specified by `xmn`, `xmx` and equivalent arguments for the y axis).
+The `vals` argument sets the values that each cell contains: numeric data ranging from 1 to 36 in this case.
+Raster objects can also contain categorical values of class `logical` or `factor` variables in R.
+The following code creates a raster representing grain sizes (Figure \@ref(fig:cont-cate-rasters)):
 
 
 ```r
-grain_size = c("clay", "silt", "sand")
+grains = c("clay", "silt", "sand")
+grain_values = factor(sample(grains, 36, replace = TRUE))
 grain = raster(nrow = 6, ncol = 6, res = 0.5, 
                xmn = -1.5, xmx = 1.5, ymn = -1.5, ymx = 1.5,
-               vals = factor(sample(grain_size, 36, replace = TRUE), 
-                             levels = grain_size))
-grain
-#> class       : RasterLayer 
-#> dimensions  : 6, 6, 36  (nrow, ncol, ncell)
-#> resolution  : 0.5, 0.5  (x, y)
-#> extent      : -1.5, 1.5, -1.5, 1.5  (xmin, xmax, ymin, ymax)
-#> coord. ref. : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 
-#> data source : in memory
-#> names       : layer 
-#> values      : 1, 3  (min, max)
-#> attributes  :
-#>  ID VALUE
-#>   1  clay
-#>   2  silt
-#>   3  sand
+               vals = grain_values)
 ```
 
 The **raster** package represents Boolean and factor variables as integers.
 Hence, `grain[1, 1]` returns an integer instead of "sand", "silt" or "clay".
 These integers in turn represent unique identifiers. 
-The raster object stores the corresponding look-up table or "Raster Attribute Table" (RAT) as a data frame in a new slot named `attributes` which you see when you print a so-called 'ratified' raster to the console (see the help page of the `ratify()` command for more information).
+The raster object stores the corresponding look-up table or "Raster Attribute Table" (RAT) as a data frame in a new slot named `attributes` which you see when you print a so-called 'ratified' raster to the console (see `?ratify()` command for more information).
 Use `levels()` to just retrieve the attribute table.
 We can even add further columns to this attribute table:
 
@@ -2317,8 +2303,8 @@ levels(grain)
 #> [[1]]
 #>   ID VALUE wetness
 #> 1  1  clay     wet
-#> 2  2  silt   moist
-#> 3  3  sand     dry
+#> 2  2  sand   moist
+#> 3  3  silt     dry
 ```
 
 This is really interesting since we have learned that each raster cell can only possess one value.
@@ -2330,9 +2316,9 @@ Say, we would like to know the grain size and the wetness of cell IDs 1, 12 and 
 ```r
 factorValues(grain, grain[c(1, 12, 36)])
 #>   VALUE wetness
-#> 1  sand     dry
+#> 1  sand   moist
 #> 2  clay     wet
-#> 3  silt   moist
+#> 3  silt     dry
 ```
 
 
