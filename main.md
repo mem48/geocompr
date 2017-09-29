@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveeeef437ba11231e4
+preserveba7223b693282cd6
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2004,11 +2004,11 @@ The output of the following code is presented in Table \@ref(tab:continents)):
 
 ```r
 world %>% 
-  st_set_geometry(value = NULL) %>%
-  select(pop, continent) %>% 
+  dplyr::select(pop, continent) %>% 
   group_by(continent) %>% 
   summarize(pop = sum(pop, na.rm = TRUE), n_countries = n()) %>% 
-  top_n(n = 3, wt = pop) 
+  top_n(n = 3, wt = pop) %>%
+  st_set_geometry(value = NULL) 
 ```
 
 
