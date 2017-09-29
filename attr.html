@@ -556,24 +556,29 @@ elev =<span class="st"> </span><span class="kw">raster</span>(<span class="dt">n
               <span class="dt">vals =</span> <span class="dv">1</span>:<span class="dv">36</span>)</code></pre></div>
 <p>The result is a raster object with 6 rows and 6 columns (specified by the <code>nrow</code> and <code>ncol</code> arguments), and minimum and a minimum and maximum spatial extent (specified by <code>xmn</code>, <code>xmx</code> and equivalent arguments for the y axis). The <code>vals</code> argument sets the values that each cell contains: numeric data ranging from 1 to 36 in this case. Raster objects can also contain categorical values of class <code>logical</code> or <code>factor</code> variables in R. The following code creates a raster representing grain sizes (Figure <a href="attr.html#fig:cont-cate-rasters">3.2</a>):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">grains =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;clay&quot;</span>, <span class="st">&quot;silt&quot;</span>, <span class="st">&quot;sand&quot;</span>)
-grain_values =<span class="st"> </span><span class="kw">factor</span>(<span class="kw">sample</span>(grains, <span class="dv">36</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>))
+grain_values =<span class="st"> </span><span class="kw">factor</span>(<span class="kw">sample</span>(grains, <span class="dv">36</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>), <span class="dt">levels =</span> grains)
 grain =<span class="st"> </span><span class="kw">raster</span>(<span class="dt">nrow =</span> <span class="dv">6</span>, <span class="dt">ncol =</span> <span class="dv">6</span>, <span class="dt">res =</span> <span class="fl">0.5</span>, 
                <span class="dt">xmn =</span> -<span class="fl">1.5</span>, <span class="dt">xmx =</span> <span class="fl">1.5</span>, <span class="dt">ymn =</span> -<span class="fl">1.5</span>, <span class="dt">ymx =</span> <span class="fl">1.5</span>,
                <span class="dt">vals =</span> grain_values)</code></pre></div>
-<p>The <strong>raster</strong> package represents Boolean and factor variables as integers. Hence, <code>grain[1, 1]</code> returns an integer instead of “sand”, “silt” or “clay”. These integers in turn represent unique identifiers. The raster object stores the corresponding look-up table or “Raster Attribute Table” (RAT) as a data frame in a new slot named <code>attributes</code> which you see when you print a so-called ‘ratified’ raster to the console (see <code>?ratify()</code> command for more information). Use <code>levels()</code> to just retrieve the attribute table. We can even add further columns to this attribute table:</p>
+
+<div class="rmdnote">
+<code>raster</code> objects cannot contain values of class ‘character’. The function <code>factor()</code> can be used to convert character data to a suitable raster dataset. In the preceding code chunk the <code>levels</code> argument is used to create an ordered factor: clay &lt; silt &lt; sand in terms of grain size, so the levels are provided in this order.
+</div>
+<p></p>
+<p><code>raster</code> objects represent categorical varibles as integers. Hence, <code>grain[1, 1]</code> returns an integer instead of “sand”, “silt” or “clay”. These integers in turn represent unique identifiers. The raster object stores the corresponding look-up table or “Raster Attribute Table” (RAT) as a data frame in a new slot named <code>attributes</code> which you see when you print a so-called ‘ratified’ raster to the console (see <code>?ratify()</code> command for more information). Use <code>levels()</code> to just retrieve the attribute table. We can even add further columns to this attribute table:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">levels</span>(grain)[[<span class="dv">1</span>]] =<span class="st">  </span><span class="kw">cbind</span>(<span class="kw">levels</span>(grain)[[<span class="dv">1</span>]], <span class="dt">wetness =</span> <span class="kw">c</span>(<span class="st">&quot;wet&quot;</span>, <span class="st">&quot;moist&quot;</span>, <span class="st">&quot;dry&quot;</span>))
 <span class="kw">levels</span>(grain)
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt;   ID VALUE wetness</span>
 <span class="co">#&gt; 1  1  clay     wet</span>
-<span class="co">#&gt; 2  2  sand   moist</span>
-<span class="co">#&gt; 3  3  silt     dry</span></code></pre></div>
+<span class="co">#&gt; 2  2  silt   moist</span>
+<span class="co">#&gt; 3  3  sand     dry</span></code></pre></div>
 <p>This is really interesting since we have learned that each raster cell can only possess one value. In fact, the raster cells themselves still consist of only one value, namely an integer which represents a unique identifier. This identifier can then be used to look up the attributes in the corresponding attribute table (stored in a slot named <code>attributes</code>). Say, we would like to know the grain size and the wetness of cell IDs 1, 12 and 36, we can run:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">factorValues</span>(grain, grain[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">12</span>, <span class="dv">36</span>)])
 <span class="co">#&gt;   VALUE wetness</span>
-<span class="co">#&gt; 1  sand   moist</span>
+<span class="co">#&gt; 1  sand     dry</span>
 <span class="co">#&gt; 2  clay     wet</span>
-<span class="co">#&gt; 3  silt     dry</span></code></pre></div>
+<span class="co">#&gt; 3  silt   moist</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:cont-cate-rasters"></span>
 <img src="figures/03_cont_categ_rasters.png" alt="Raster with numberic values (left) and a raster with categorical values (right)." width="765" />
 <p class="caption">

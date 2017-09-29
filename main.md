@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservec8399d7ff62289ba
+preserve23426f76cd1233c4
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2283,13 +2283,18 @@ The following code creates a raster representing grain sizes (Figure \@ref(fig:c
 
 ```r
 grains = c("clay", "silt", "sand")
-grain_values = factor(sample(grains, 36, replace = TRUE))
+grain_values = factor(sample(grains, 36, replace = TRUE), levels = grains)
 grain = raster(nrow = 6, ncol = 6, res = 0.5, 
                xmn = -1.5, xmx = 1.5, ymn = -1.5, ymx = 1.5,
                vals = grain_values)
 ```
 
-The **raster** package represents Boolean and factor variables as integers.
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">`raster` objects cannot contain values of class 'character'.
+The function `factor()` can be used to convert character data to a suitable raster dataset.
+In the preceding code chunk the `levels` argument is used to create an ordered factor:
+clay < silt < sand in terms of grain size, so the levels are provided in this order.</div>\EndKnitrBlock{rmdnote}
+
+`raster` objects represent categorical varibles as integers.
 Hence, `grain[1, 1]` returns an integer instead of "sand", "silt" or "clay".
 These integers in turn represent unique identifiers. 
 The raster object stores the corresponding look-up table or "Raster Attribute Table" (RAT) as a data frame in a new slot named `attributes` which you see when you print a so-called 'ratified' raster to the console (see `?ratify()` command for more information).
@@ -2303,8 +2308,8 @@ levels(grain)
 #> [[1]]
 #>   ID VALUE wetness
 #> 1  1  clay     wet
-#> 2  2  sand   moist
-#> 3  3  silt     dry
+#> 2  2  silt   moist
+#> 3  3  sand     dry
 ```
 
 This is really interesting since we have learned that each raster cell can only possess one value.
@@ -2316,9 +2321,9 @@ Say, we would like to know the grain size and the wetness of cell IDs 1, 12 and 
 ```r
 factorValues(grain, grain[c(1, 12, 36)])
 #>   VALUE wetness
-#> 1  sand   moist
+#> 1  sand     dry
 #> 2  clay     wet
-#> 3  silt     dry
+#> 3  silt   moist
 ```
 
 
