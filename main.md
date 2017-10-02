@@ -2,7 +2,7 @@
 --- 
 title: 'Geocomputation with R'
 author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
-date: '2017-09-29'
+date: '2017-10-02'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -38,7 +38,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-09-29 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-10-02 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveba7223b693282cd6
+preservecaba905f255672db
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2489,12 +2489,10 @@ library(spData)
 
 ## Introduction
 
-Spatial operations are an important component of any geospatial software and vital for many applications involving spatial data.
-There are clear overlaps between spatial and non-spatial operations.
+Spatial operations are a vital part of geocomputation, providing the basis for many applications in geocomputation.
 Common spatial attribute data processing tasks include spatial subsetting (as we will see in section \@ref(spatial-subsetting) and section \@ref(raster-subsetting)), joining and aggregation (see sections \@ref(spatial-joining-and-aggregation), \@ref(map-algebra), for example).
 In the case of vector data, each of these spatial operations has a non-spatial equivalent, as demonstrated in section \@ref(vector-attribute-manipulation) in the previous chapter.
 By contrast, subsetting is the only spatial raster operation we present in this chapter (section \@ref(spatial-operations-on-raster-data)) which also has a non-spatial counterpart.
-Nevertheless, spatial raster and vector operations share many similarities, at least in terms of functionality though the internal processing is completely different.
 
 Some operations covered in this chapter are unique to spatial data.
 A variety of *topological relations* can be used to subset/join vector geometries (by default **sf** uses the catch-all *intersects* but other relations such as *within* can be very useful), a topic that is explored in section \@ref(topological-relations).
