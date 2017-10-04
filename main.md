@@ -2,7 +2,7 @@
 --- 
 title: 'Geocomputation with R'
 author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
-date: '2017-10-03'
+date: '2017-10-04'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -38,7 +38,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-10-03 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-10-04 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve020ed3853c820cb3
+preservedb27ad84fd9d4582
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2493,14 +2493,14 @@ library(spData)
 Spatial operations are a vital part of geocomputation.
 This chapter shows how spatial objects can be modified in a multitude of ways based on their location and shape.
 The content clearly builds on the previous chapter because many spatial operations have a non-spatial (attribute) equivalent.
-Spatial operations on *vector* objects include spatial subsetting (covered in section \@ref(spatial-subsetting) and section \@ref(raster-subsetting)), joining and aggregation (sections \@ref(spatial-joining-and-aggregation) and \@ref(map-algebra)),
-concepts that have been covered in section \@ref(vector-attribute-manipulation) for attribute data.
+Spatial operations on *vector* objects include spatial subsetting (covered in section \@ref(spatial-subsetting)), joining and aggregation (section \@ref(spatial-joining-and-aggregation)).
+These topics may sound daunting, but they have already been covered, in section \@ref(vector-attribute-manipulation).
 Spatial operations on *rasters* include merging and subsetting, covered in section \@ref(spatial-operations-on-raster-data).
 
 The chapter also introduces new concepts that are unique to spatial data.
 A variety of *topological relations* can be used to subset/join vector geometries (by default **sf** uses the catch-all *intersects* but other relations such as *within* can be very useful), a topic that is explored in section \@ref(topological-relations).
-Spatial operations on raster datasets involve an understanding of *map algebra* and *alignment*, covered in sections \@ref(map-algebra) and \@ref(aligning-rasters) respectively.
-New geometry data can be created by modifying existing spatial objects, using operations such as 'buffer' and 'clip', described in sections \@ref(modifying-geometry-data) and \@ref(map-algebra).
+New geometry data can be created by modifying existing spatial objects, using operations such as 'buffer' and 'clip', described in sections \@ref(modifying-geometry-data) and \@ref(clipping).
+Spatial operations on raster datasets involve *map algebra* and *alignment*, concepts introduced and demonstrated with simple examples in sections \@ref(map-algebra) and \@ref(aligning-rasters).
 
 Another unique aspect of spatial objects is distance.
 All features are related to each other in geographic space, and distance calculations resolve which spatial features are nearer or further away from a given point or each other (see sections \@ref(distance-relations) and \@ref(map-algebra)).
@@ -2990,7 +2990,10 @@ For instance, if the intersection of our buffer and a country is 100 000 km^^2^^
 <!-- - ? generalization **rmapsharper** - https://github.com/ateucher/rmapshaper -->
 <!-- `st_union` -->
 
+### Modifying geometry data
+
 ### Clipping
+
 Spatial clipping is a form of spatial subsetting that involves changes to the `geometry` columns of at least some of the affected features.
 
 Clipping can only apply to features more complex than points: 
