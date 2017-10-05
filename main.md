@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveb3ec03f83db294d1
+preserve0c0e4b440bce5953
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2706,7 +2706,7 @@ p = st_sf(st_cast(st_sfc(p_multi), "POINT"))
 <p class="caption">(\#fig:relation-objects)Points (p 1 to 4), line and polygon objects arranged to demonstrate spatial relations.</p>
 </div>
 
-Starting with the simplest case, which can see which of the points intersect in some way with the polygon using `st_intersects()` as follows:
+Starting with the simplest case, where you can see which of the points intersect in some way with the polygon using `st_intersects()` as follows:
 
 
 ```r
