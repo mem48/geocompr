@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve640ca087e007cede
+preserveb64b57881ff37a13
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2770,12 +2770,8 @@ This applies only to the second object, which is inside the triangular polygon, 
 
 
 ```r
-st_within(p, a, sparse = FALSE)
-#>       [,1]
-#> [1,]  TRUE
-#> [2,] FALSE
-#> [3,] FALSE
-#> [4,] FALSE
+st_within(p, a, sparse = FALSE)[, 1]
+#> [1]  TRUE FALSE FALSE FALSE
 ```
 
 Note that although point 1 is *within* the triangle, it does not *touch* any part of its border.
@@ -2783,32 +2779,20 @@ For this reason `st_touches()` only returns `TRUE` for the second point:
 
 
 ```r
-st_touches(p, a, sparse = FALSE)
-#>       [,1]
-#> [1,] FALSE
-#> [2,]  TRUE
-#> [3,] FALSE
-#> [4,] FALSE
+st_touches(p, a, sparse = FALSE)[, 1]
+#> [1] FALSE  TRUE FALSE FALSE
 ```
 
 What about features that do not touch, but *almost touch* the selection object?
 These can be selected using `st_is_within_distance()`, which has an additional `dist` argument, which can be used to set how close target object need to be before they are selected.
-Note that although point 4 is 1 unit of distance from the nearest node of `a` (at point 2 in Figure \@ref(fig:relation-objects)), it is still selected when the distance is set to 0.9:
+Note that although point 4 is 1 unit of distance from the nearest node of `a` (at point 2 in Figure \@ref(fig:relation-objects)), it is still selected when the distance is set to 0.9.
+This is illustrated in the code chunk below, the second line of which converts the lengthy list output into a `logical` object:
 
 
 ```r
-st_is_within_distance(p, a, dist = 0.9) # can only return a sparse matrix
-#> [[1]]
-#> [1] 1
-#> 
-#> [[2]]
-#> [1] 1
-#> 
-#> [[3]]
-#> integer(0)
-#> 
-#> [[4]]
-#> [1] 1
+sel = st_is_within_distance(p, a, dist = 0.9) # can only return a sparse matrix
+lengths(sel) > 0
+#> [1]  TRUE  TRUE FALSE  TRUE
 ```
 
 

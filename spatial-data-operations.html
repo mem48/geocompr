@@ -389,32 +389,15 @@ p[sel, ]</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_disjoint</span>(p, a, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)[, <span class="dv">1</span>]
 <span class="co">#&gt; [1] FALSE FALSE  TRUE  TRUE</span></code></pre></div>
 <p>Other topological operators are more specific. <code>st_within()</code>, for example, returns <code>TRUE</code> only for objects that are completely within the selecting object. This applies only to the second object, which is inside the triangular polygon, as illustrated below:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_within</span>(p, a, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)
-<span class="co">#&gt;       [,1]</span>
-<span class="co">#&gt; [1,]  TRUE</span>
-<span class="co">#&gt; [2,] FALSE</span>
-<span class="co">#&gt; [3,] FALSE</span>
-<span class="co">#&gt; [4,] FALSE</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_within</span>(p, a, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)[, <span class="dv">1</span>]
+<span class="co">#&gt; [1]  TRUE FALSE FALSE FALSE</span></code></pre></div>
 <p>Note that although point 1 is <em>within</em> the triangle, it does not <em>touch</em> any part of its border. For this reason <code>st_touches()</code> only returns <code>TRUE</code> for the second point:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_touches</span>(p, a, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)
-<span class="co">#&gt;       [,1]</span>
-<span class="co">#&gt; [1,] FALSE</span>
-<span class="co">#&gt; [2,]  TRUE</span>
-<span class="co">#&gt; [3,] FALSE</span>
-<span class="co">#&gt; [4,] FALSE</span></code></pre></div>
-<p>What about features that do not touch, but <em>almost touch</em> the selection object? These can be selected using <code>st_is_within_distance()</code>, which has an additional <code>dist</code> argument, which can be used to set how close target object need to be before they are selected. Note that although point 4 is 1 unit of distance from the nearest node of <code>a</code> (at point 2 in Figure <a href="spatial-data-operations.html#fig:relation-objects">4.3</a>), it is still selected when the distance is set to 0.9:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_is_within_distance</span>(p, a, <span class="dt">dist =</span> <span class="fl">0.9</span>) <span class="co"># can only return a sparse matrix</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; [1] 1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; [1] 1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[3]]</span>
-<span class="co">#&gt; integer(0)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[4]]</span>
-<span class="co">#&gt; [1] 1</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_touches</span>(p, a, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)[, <span class="dv">1</span>]
+<span class="co">#&gt; [1] FALSE  TRUE FALSE FALSE</span></code></pre></div>
+<p>What about features that do not touch, but <em>almost touch</em> the selection object? These can be selected using <code>st_is_within_distance()</code>, which has an additional <code>dist</code> argument, which can be used to set how close target object need to be before they are selected. Note that although point 4 is 1 unit of distance from the nearest node of <code>a</code> (at point 2 in Figure <a href="spatial-data-operations.html#fig:relation-objects">4.3</a>), it is still selected when the distance is set to 0.9. This is illustrated in the code chunk below, the second line of which converts the lengthy list output into a <code>logical</code> object:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sel =<span class="st"> </span><span class="kw">st_is_within_distance</span>(p, a, <span class="dt">dist =</span> <span class="fl">0.9</span>) <span class="co"># can only return a sparse matrix</span>
+<span class="kw">lengths</span>(sel) &gt;<span class="st"> </span><span class="dv">0</span>
+<span class="co">#&gt; [1]  TRUE  TRUE FALSE  TRUE</span></code></pre></div>
 <!-- Equals: -->
 <!-- https://postgis.net/docs/ST_Equals.html -->
 <!-- ```{r, eval=FALSE} -->
