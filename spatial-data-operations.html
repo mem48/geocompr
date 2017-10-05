@@ -374,7 +374,7 @@ Figure 4.3: Points (p 1 to 4), line and polygon objects arranged to demonstrate 
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[4]]</span>
 <span class="co">#&gt; integer(0)</span></code></pre></div>
-<p>What is expected here is that we get a positive (<code>1</code>) response for the first two points and a negative (empty vector) from the last two. What may be unexpected is that the result comes in the form of a list. To return the result as a logical vector, of the type that can be used for subsetting and other operations, the result must be returned as a <em>dense matrix</em>. By default the results are a sparse matrix, which reduces the size of the output on multi-feature objects. This can be done using the <code>sparse</code> argument as follows:</p>
+<p>What is expected here is that we get a positive (<code>1</code>) response for the first two points and a negative (empty vector - <code>integer(0)</code>) from the last two. What may be unexpected is that the result comes in the form of a list. By default the results are a sparse matrix, which reduces the size of the output on multi-feature objects. To return the result as a logical vector, of the type that can be used for subsetting and other operations, the result must be returned as a <em>dense matrix</em>. This can be done using the <code>sparse</code> argument as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_intersects</span>(p, a, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)
 <span class="co">#&gt;       [,1]</span>
 <span class="co">#&gt; [1,]  TRUE</span>

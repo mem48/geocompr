@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve0c0e4b440bce5953
+preserve9d6aabf016d03abf
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2724,10 +2724,10 @@ st_intersects(p, a)
 #> integer(0)
 ```
 
-What is expected here is that we get a positive (`1`) response for the first two points and a negative (empty vector) from the last two.
+What is expected here is that we get a positive (`1`) response for the first two points and a negative (empty vector - `integer(0)`) from the last two.
 What may be unexpected is that the result comes in the form of a list.
-To return the result as a logical vector, of the type that can be used for subsetting and other operations, the result must be returned as a *dense matrix*.
 By default the results are a sparse matrix, which reduces the size of the output on multi-feature objects.
+To return the result as a logical vector, of the type that can be used for subsetting and other operations, the result must be returned as a *dense matrix*.
 This can be done using the `sparse` argument as follows:
 
 
