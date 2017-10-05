@@ -2,7 +2,7 @@
 --- 
 title: 'Geocomputation with R'
 author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
-date: '2017-10-04'
+date: '2017-10-05'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -38,7 +38,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-10-04 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-10-05 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservedb27ad84fd9d4582
+preserve8435bd09ac512211
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2503,7 +2503,7 @@ New geometry data can be created by modifying existing spatial objects, using op
 Spatial operations on raster datasets involve *map algebra* and *alignment*, concepts introduced and demonstrated with simple examples in sections \@ref(map-algebra) and \@ref(aligning-rasters).
 
 Another unique aspect of spatial objects is distance.
-All features are related to each other in geographic space, and distance calculations resolve which spatial features are nearer or further away from a given point or each other (see sections \@ref(distance-relations) and \@ref(map-algebra)).
+All features are related to each other in geographic space, and distance calculations resolve which spatial features are nearer or further away from a given point or each other (see section \@ref(distance-relations)).
 
 <!-- I've commented-out these sentences as map algebra and merging are now mentioned in the previous paragraph and this intro section seemed to be getting overly long! -->
 <!-- The final section in this chapter additionally explores how to align two raster objects in case their headers mismatch (section \@ref(aligning-rasters)). -->
@@ -2513,13 +2513,21 @@ All features are related to each other in geographic space, and distance calcula
 
 ## Spatial operations on vector data
 
+This section provides an overview of spatial operations in the **sf** package.
+
 ### Spatial subsetting
 
-Spatial subsetting is the process of selecting only those features of a spatial object that in some way *intersect* with another spatial object.
-<!-- can we already reference the intersection figure here? Generally asking, why can't we present the other topological operations here? Would fit nicely in this section... -->
-Note that 'intersect' in this context has a precise meaning:
-if `y` is used to subset features in a 'target' object of `x`, any features in `x` that touch, overlap or are within features in `y` will be selected.
-Intersect is the default operation for spatial subsetting but others can be used using the `op =`
+Spatial subsetting is the process of selecting features of a spatial object based on whether or not they some way *relate* in space to another object.
+There are many types of *topological relations*, including touching, overlapping and being within.
+These are implemented as *spatial operators* in **sf** functions such as `st_touches()`, `st_overlaps()` and `st_within()`, as described in section \@ref(topological-relations).
+
+As with attribute data, spatial data can be subset using the `[` operator, with commands such as `x[y, ]` being used to subset features of target object `x` by `y`.
+However, instead of `y` being of class `logical` (a vector of `TRUE` and `FALSE` values), it is another spatial (`sf`) object.
+
+The default spatial operator for spatial subsetting in **sf** (and other software) is *intersects*.
+This has a precise meaning:
+subsetting a spatial object `x` by another spatial object  `y` will return any features in `x` that touch, overlap or are within features in `y`.
+Others can be used using the `op =`
 argument.^[Interested
 readers can see this default value of `op` set in the first line of the function call by entering its long-form name into the console `` sf:::`[.sf` ``.
 The `?sf` help page documents this also.
