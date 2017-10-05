@@ -361,7 +361,7 @@ p =<span class="st"> </span><span class="kw">st_sf</span>(<span class="kw">st_ca
 Figure 4.3: Points (p 1 to 4), line and polygon objects arranged to demonstrate spatial relations.
 </p>
 </div>
-<p>Starting with the simplest case, where you can see which of the points intersect in some way with the polygon using <code>st_intersects()</code> as follows:</p>
+<p>A simple query is: which of the points in <code>p</code> intersect in some way with polygon <code>a</code>? The question can be answered by inspection (points 1 and 2 are over or touch the triangle). It can also be answered by using the topological relation <em>intersects</em>, implemented in <strong>sf</strong> as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_intersects</span>(p, a)
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; [1] 1</span>
@@ -374,7 +374,7 @@ Figure 4.3: Points (p 1 to 4), line and polygon objects arranged to demonstrate 
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[4]]</span>
 <span class="co">#&gt; integer(0)</span></code></pre></div>
-<p>What is expected here is that we get a positive (<code>1</code>) response for the first two points and a negative (empty vector - <code>integer(0)</code>) from the last two. What may be unexpected is that the result comes in the form of a list. By default the results are a sparse matrix, which reduces the size of the output on multi-feature objects. To return the result as a logical vector, of the type that can be used for subsetting and other operations, the result must be returned as a <em>dense matrix</em>. This can be done using the <code>sparse</code> argument as follows:</p>
+<p>The contents of the result should be as you expected: the function returns a positive (<code>1</code>) result for the first two points, and a negative result (represented by an empty vector, <code>integer(0)</code>) is returned for the last two. What may be unexpected is that the result comes in the form of a list. This is because topological operations in the <strong>sf</strong> return a sparse matrix by default, which is useful in that it reduces the memory requirements of the output from operations on multi-feature objects. To return the result as a logical vector, of the type that can be used for subsetting and other operations, the result must be returned as a <em>dense matrix</em>. This can be done by setting the <code>sparse</code> argument to <code>FALSE</code> as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_intersects</span>(p, a, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)
 <span class="co">#&gt;       [,1]</span>
 <span class="co">#&gt; [1,]  TRUE</span>

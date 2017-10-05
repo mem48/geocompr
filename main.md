@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve40ddb8cb584a44ba
+preserve525e5f2547cbdb68
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2706,7 +2706,9 @@ p = st_sf(st_cast(st_sfc(p_multi), "POINT"))
 <p class="caption">(\#fig:relation-objects)Points (p 1 to 4), line and polygon objects arranged to demonstrate spatial relations.</p>
 </div>
 
-Starting with the simplest case, where you can see which of the points intersect in some way with the polygon using `st_intersects()` as follows:
+A simple query is: which of the points in `p` intersect in some way with polygon `a`?
+The question can be answered by inspection (points 1 and 2 are over or touch the triangle).
+It can also be answered by using the topological relation *intersects*, implemented in **sf** as follows:
 
 
 ```r
@@ -2724,11 +2726,12 @@ st_intersects(p, a)
 #> integer(0)
 ```
 
-What is expected here is that we get a positive (`1`) response for the first two points and a negative (empty vector - `integer(0)`) from the last two.
+The contents of the result should be as you expected:
+the function returns a positive (`1`) result for the first two points, and a negative result (represented by an empty vector, `integer(0)`) is returned for the last two.
 What may be unexpected is that the result comes in the form of a list.
-By default the results are a sparse matrix, which reduces the size of the output on multi-feature objects.
+This is because topological operations in the **sf** return a sparse matrix by default, which is useful in that it reduces the memory requirements of the output from operations on multi-feature objects.
 To return the result as a logical vector, of the type that can be used for subsetting and other operations, the result must be returned as a *dense matrix*.
-This can be done using the `sparse` argument as follows:
+This can be done by setting the `sparse` argument to `FALSE` as follows:
 
 
 ```r
