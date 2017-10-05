@@ -265,10 +265,16 @@ It is important to note that spatial operations that use two spatial objects rel
 <h3><span class="header-section-number">4.2.1</span> Spatial subsetting</h3>
 <p>Spatial subsetting is the process of selecting features of a spatial object based on whether or not they some way <em>relate</em> in space to another object. There are many types of <em>topological relations</em>, including touching, overlapping and being within. These are implemented as <em>spatial operators</em> in <strong>sf</strong> functions such as <code>st_touches()</code>, <code>st_overlaps()</code> and <code>st_within()</code>, as described in section <a href="spatial-data-operations.html#topological-relations">4.2.2</a>.</p>
 <p>As with attribute data, spatial data can be subset using the <code>[</code> operator, with commands such as <code>x[y, ]</code> being used to subset features of target object <code>x</code> by <code>y</code>. However, instead of <code>y</code> being of class <code>logical</code> (a vector of <code>TRUE</code> and <code>FALSE</code> values), it is another spatial (<code>sf</code>) object.</p>
-<p>The default spatial operator for spatial subsetting in <strong>sf</strong> (and other software) is <em>intersects</em>. This has a precise meaning: subsetting a spatial object <code>x</code> by another spatial object <code>y</code> will return any features in <code>x</code> that touch, overlap or are within features in <code>y</code>. Others can be used using the <code>op =</code> argument.<a href="#fn19" class="footnoteRef" id="fnref19"><sup>19</sup></a> There are nine well-defined operations that can be used for spatial subsetting, covered in section <a href="spatial-data-operations.html#topological-relations">4.2.2</a>. This may seem daunting but the good news is that you do not have to learn all of them separately: after you understand how to spatially subset objects that <em>intersect</em> another (via <code>st_intersects()</code>) it is easy to subset based on other types of spatial operation such as <code>st_touches()</code>, <code>st_crosses()</code> and <code>st_within()</code>. For this reason now we focus only on one of the spatial subsetting operations. We use <code>st_intersects()</code> because it the default when subsetting with <code>[</code>, and is a useful as a ‘catch all’ that identifies all types of spatial relations.</p>
+<p>The default spatial operator for spatial subsetting in <strong>sf</strong> (and other software) is <em>intersects</em>. This has a precise meaning: subsetting a spatial object <code>x</code> by another spatial object <code>y</code> will return any features in <code>x</code> that touch, overlap or are within features in <code>y</code>. Others can be used using the <code>op =</code> argument.</p>
+
+<div class="rmdnote">
+Interested readers can see this default value of <code>op</code> set in the first line of the function call by entering its long-form name into the console <code>sf:::`[.sf`</code>. The <code>?sf</code> help page documents this also.
+</div>
+<p></p>
+<p>There are nine well-defined operations that can be used for spatial subsetting, covered in section <a href="spatial-data-operations.html#topological-relations">4.2.2</a>. This may seem daunting but the good news is that you do not have to learn all of them separately: after you understand how to spatially subset objects that <em>intersect</em> another (via <code>st_intersects()</code>) it is easy to subset based on other types of spatial operation such as <code>st_touches()</code>, <code>st_crosses()</code> and <code>st_within()</code>. For this reason now we focus only on one of the spatial subsetting operations. We use <code>st_intersects()</code> because it the default when subsetting with <code>[</code>, and is a useful as a ‘catch all’ that identifies all types of spatial relations.</p>
 <p>In general terms, spatial subsetting is simply the spatial equivalent of <em>attribute subsetting</em>. As with attribute subsetting, spatial subsetting is a <em>binary operation</em>: an object is either selected or not. Following the structure of section <a href="attr.html#vector-attribute-subsetting">3.2.1</a>, we start with base methods before describing how to do it in the <strong>tidyverse</strong>. <!-- todo: link to non-binary links, e.g. area-weighted spatial interpolation --></p>
 <!-- #### Spatial subsetting in base R -->
-<p>To introduce spatial vector subsetting operations we will use countries in Africa. We will apply attribute subsetting to the <code>world</code> dataset (see previous chapter):<a href="#fn20" class="footnoteRef" id="fnref20"><sup>20</sup></a></p>
+<p>To introduce spatial vector subsetting operations we will use countries in Africa. We will apply attribute subsetting to the <code>world</code> dataset (see previous chapter):<a href="#fn19" class="footnoteRef" id="fnref19"><sup>19</sup></a></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">africa_wgs =<span class="st"> </span>world[world$continent ==<span class="st"> &quot;Africa&quot;</span>, ]</code></pre></div>
 <p>To further prepare the input data, we will reproject the data to the coordinate reference system (CRS) 32630, its EPSG code (explained in Chapter 6):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">africa =<span class="st"> </span><span class="kw">st_transform</span>(africa_wgs, <span class="dt">crs =</span> <span class="dv">32630</span>)</code></pre></div>
@@ -357,7 +363,7 @@ p =<span class="st"> </span><span class="kw">st_multipoint</span>(<span class="d
 <span class="kw">plot</span>(b, <span class="dt">border =</span> <span class="st">&quot;green&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(l, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(p, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="figures/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-18-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Equals: <!-- https://postgis.net/docs/ST_Equals.html --></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_equals</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p>Contains: <!-- https://postgis.net/docs/ST_Contains.html --> <!-- https://postgis.net/docs/ST_ContainsProperly.html --></p>
@@ -450,7 +456,7 @@ Figure 4.3: Illustration of a spatial join: the populations of the world’s 3 l
 <span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))
 <span class="kw">plot</span>(us_states[, <span class="st">&quot;total_pop_15&quot;</span>], <span class="dt">main =</span> <span class="st">&quot;US states&quot;</span>)
 <span class="kw">plot</span>(regions[, <span class="st">&quot;total_pop_15&quot;</span>], <span class="dt">main =</span> <span class="st">&quot;US regions&quot;</span>)</code></pre></div>
-<p><img src="figures/unnamed-chunk-30-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-31-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Of course, there is also spatial tidyverse counterpart. You can achieve the same with:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">group_by</span>(us_states, REGION) %&gt;%
 <span class="st">  </span><span class="kw">summarize</span>(<span class="kw">sum</span>(<span class="dt">pop =</span> total_pop_15, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
@@ -529,7 +535,7 @@ y =<span class="st"> </span>b[<span class="dv">2</span>]
 x_and_y =<span class="st"> </span><span class="kw">st_intersection</span>(x, y)
 <span class="kw">plot</span>(b)
 <span class="kw">plot</span>(x_and_y, <span class="dt">col =</span> <span class="st">&quot;lightgrey&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>) <span class="co"># color intersecting area</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-35-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-36-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>The subsequent code chunk demonstrate how this works for all combinations of the ‘Venn’ diagram representing <code>x</code> and <code>y</code>, inspired by <a href="http://r4ds.had.co.nz/transform.html#logical-operators">Figure 5.1</a> of the book R for Data Science <span class="citation">(Grolemund and Wickham <a href="#ref-grolemund_r_2016">2016</a>)</span>. <!-- Todo: reference r4ds --></p>
 <div class="figure" style="text-align: center"><span id="fig:venn-clip"></span>
 <img src="figures/venn-clip-1.png" alt="Spatial equivalents of logical operators." width="576" />
@@ -673,13 +679,13 @@ aut_ch =<span class="st"> </span><span class="kw">merge</span>(aut, ch)</code></
 <div id="aligning-rasters" class="section level3">
 <h3><span class="header-section-number">4.3.4</span> Aligning rasters</h3>
 <p>When merging or performing map algebra on rasters, their resolution, projection, origin and/or extent has to match. Otherwise, how should we add the values of one raster with a resolution of 0.2 decimal degrees to a second with a resolution of 1 decimal degree? The same problem arises when we would like to merge satellite imagery from different sensors with different projections and resolutions. We can deal with such mismatches by aligning the rasters.</p>
-<p>The <code>projectRaster()</code> function reprojects one raster to a desired projection, say from UTM to WGS84. The origin is the point closest to (0, 0) if you moved towards it in steps of x and y resolution. If two rasters have different origins, their cells do not overlap completely which would make map algebra impossible. To change the origin , use <code>origin()</code>.<a href="#fn21" class="footnoteRef" id="fnref21"><sup>21</sup></a> Equally, map algebra operations require the same extent. To align the extent of one object with that of another, use the <code>extend()</code> command. If you perform an algebraic operation on two objects with differing extents in R, the <strong>raster</strong> package returns the intersection, and says so in a warning (try: <code>elev + extend(elev, 2)</code>).</p>
+<p>The <code>projectRaster()</code> function reprojects one raster to a desired projection, say from UTM to WGS84. The origin is the point closest to (0, 0) if you moved towards it in steps of x and y resolution. If two rasters have different origins, their cells do not overlap completely which would make map algebra impossible. To change the origin , use <code>origin()</code>.<a href="#fn20" class="footnoteRef" id="fnref20"><sup>20</sup></a> Equally, map algebra operations require the same extent. To align the extent of one object with that of another, use the <code>extend()</code> command. If you perform an algebraic operation on two objects with differing extents in R, the <strong>raster</strong> package returns the intersection, and says so in a warning (try: <code>elev + extend(elev, 2)</code>).</p>
 <p>The <code>aggregate()</code> and <code>disaggregate()</code> functions help to change the cell size resolution of a raster. For instance let us aggregate <code>elev</code> from a resolution of 0.5 to a resolution of 1, that means we aggregate by a factor of 2. Additionally, the output cell value should correspond to the mean of the input cells (but you can use any other function as well):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">elev_agg =<span class="st"> </span><span class="kw">aggregate</span>(elev, <span class="dt">fact =</span> <span class="dv">2</span>, <span class="dt">fun =</span> mean)
 <span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))
 <span class="kw">plot</span>(elev)
 <span class="kw">plot</span>(elev_agg)</code></pre></div>
-<p><img src="figures/unnamed-chunk-48-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-49-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Note that the origin of <code>elev_agg</code> has changed, too. The <code>resample()</code> command lets you align several raster properties in one go, namely origin, extent and resolution. Let us resample an extended <code>elev_agg</code> to the properties of <code>elev</code> again.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add 2 rows and columns, i.e. change the extent</span>
 elev_agg =<span class="st"> </span><span class="kw">extend</span>(elev_agg, <span class="dv">2</span>)
@@ -776,9 +782,8 @@ elev_disagg =<span class="st"> </span><span class="kw">resample</span>(elev_agg,
 <div class="footnotes">
 <hr />
 <ol start="19">
-<li id="fn19"><p>Interested readers can see this default value of <code>op</code> set in the first line of the function call by entering its long-form name into the console <code>sf:::`[.sf`</code>. The <code>?sf</code> help page documents this also.<a href="spatial-data-operations.html#fnref19">↩</a></p></li>
-<li id="fn20"><p>Recall that we can also subset simple features using the <code>filter()</code> function, e.g. with <code>filter(world, continent == &quot;Africa&quot;)</code><a href="spatial-data-operations.html#fnref20">↩</a></p></li>
-<li id="fn21"><p>If the origins of two raster datasets are just marginally apart, it sometimes is sufficient to simply increase the <code>tolerance</code> argument of <code>raster::rasterOptions()</code>.<a href="spatial-data-operations.html#fnref21">↩</a></p></li>
+<li id="fn19"><p>Recall that we can also subset simple features using the <code>filter()</code> function, e.g. with <code>filter(world, continent == &quot;Africa&quot;)</code><a href="spatial-data-operations.html#fnref19">↩</a></p></li>
+<li id="fn20"><p>If the origins of two raster datasets are just marginally apart, it sometimes is sufficient to simply increase the <code>tolerance</code> argument of <code>raster::rasterOptions()</code>.<a href="spatial-data-operations.html#fnref20">↩</a></p></li>
 </ol>
 </div>
             </section>
