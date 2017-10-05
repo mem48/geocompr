@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve9d6aabf016d03abf
+preserve38a9ba7582ab483e
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2740,9 +2740,9 @@ st_intersects(p, a, sparse = FALSE)
 #> [4,] FALSE
 ```
 
-The output is an matrix with the 4 rows representing the 4 features in the target object `p`.
+The output is an matrix with the four rows representing the four features in the target object `p`.
 The rows represent features in the selecting object: the first two features in `p` intersect with `a`.
-(There is only one feature in `a` so the result has only 1 column.)
+(There is only one feature in `a` so the result has only one column.)
 The result can be used to subset the features of `p` in a two-stage operation that is equivalent of `p[a, ]`:
 
 
