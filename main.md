@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve52a7cc3688394404
+preserve899a20a3b071f5ef
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2740,15 +2740,24 @@ st_intersects(p, a, sparse = FALSE)
 #> [4,] FALSE
 ```
 
-Note that this result can be used to subset the features of `p`, in a long-form way of doing subsetting (demonstrated for illustration purposes only, result not show):
+The output is an matrix with the 4 rows representing the 4 features in the target object `p`.
+The rows represent features in the selecting object: the first two features in `p` intersect with `a`.
+(There is only one feature in `a` so the result has only 1 column.)
+The result can be used to subset the features of `p` in a two-stage operation that is equivalent of `p[a, ]`:
 
 
 ```r
-p[st_intersects(p, a, sparse = FALSE), ]
+sel = st_intersects(p, a, sparse = FALSE)[, 1]
+p[sel, ]
 ```
 
-The second feature in the object `p` only just touches the polygon `a`, yet is selected because `st_intersects()` is a catch-all topological operation that returns `TRUE` if any kind of spatial relation.
-Other topological operators are more specific: `st_within()`, for example, returns `TRUE` only for objects that are completely within the selecting object.
+Note the use of `[, 1]` to select only the first column --- we'll use this to return only a vector instead of matrix in subsequent code chunks.
+This operator ensures that the intermediary object `sel` is a `logical` vector (rather than a matrix).
+
+`st_intersects()` returns `TRUE` for the second feature in the object `p` even though it just touches the polygon `a`.
+This is because *intersects* is a catch-all topological operation that covers any type of spatial relation.
+Other topological operators are more specific.
+`st_within()`, for example, returns `TRUE` only for objects that are completely within the selecting object.
 This applies only to the second object, which is inside the triangular polygon, as illustrated below:
 
 
