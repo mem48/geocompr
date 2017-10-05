@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservedb9562e0381dc832
+preservecf2edb240c243bfb
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2686,6 +2686,7 @@ row.names(filter(africa, subregion == "Northern Africa"))
 
 To understand topological relations, it helps to have some simple test data to work with.
 Figure \@ref(relation-objects) illustrates a polygon (`a`), a line (`l`) and some points (`p`).
+These objects are created in the code below.
 
 
 ```r
@@ -2696,15 +2697,60 @@ l1 = st_linestring(x = matrix(c(-1, -1, -0.5, 1), , 2))
 l = st_sfc(l1)
 
 p_matrix = matrix(c(0.5, 1, -1, 0, 0, 1, 0.5, 1), ncol = 2)
-p = st_multipoint(x = p_matrix)
-
-plot(a, border = "red", axes = TRUE)
-plot(l, add = TRUE)
-plot(p, add = TRUE, lab = 1:4)
-text(p_matrix[, 1] + 0.05, p_matrix[, 2] + 0.05, 1:4)
+p_multi = st_multipoint(x = p_matrix)
+p = st_cast(st_sfc(p_multi), "POINT")
 ```
 
 <img src="figures/relation-objects-1.png" width="576" style="display: block; margin: auto;" />
+
+Starting with the simplest case, which can see which of the points intersect in some way with the polygon using `st_intersects()` as follows:
+
+
+```r
+st_intersects(p, a)
+#> [[1]]
+#> [1] 1
+#> 
+#> [[2]]
+#> [1] 1
+#> 
+#> [[3]]
+#> integer(0)
+#> 
+#> [[4]]
+#> integer(0)
+```
+
+What is expected here is that we get a positive (`1`) response for the first two points and a negative (empty vector) from the last two.
+What may be unexpected is that the result comes in the form of a list.
+To return the result as a logical vector, of the type that can be used for subsetting and other operations, the result must be returned as a *dense matrix*.
+By default the results are a sparse matrix, which reduces the size of the output on multi-feature objects.
+This can be done using the `sparse` argument as follows:
+
+
+```r
+st_intersects(p, a, sparse = FALSE)
+#>       [,1]
+#> [1,]  TRUE
+#> [2,]  TRUE
+#> [3,] FALSE
+#> [4,] FALSE
+```
+
+Note that this result can be used to subset the features of `p`, in a long-form way of doing subsetting (demonstrated for illustration purposes only, result not show):
+
+
+```r
+p[st_intersects(p, a, sparse = FALSE)]
+#> Geometry set for 2 features 
+#> geometry type:  POINT
+#> dimension:      XY
+#> bbox:           xmin: 0.5 ymin: 0 xmax: 1 ymax: 1
+#> epsg (SRID):    NA
+#> proj4string:    NA
+#> POINT (0.5 0)
+#> POINT (1 1)
+```
 
 
 
@@ -2894,7 +2940,7 @@ plot(us_states[, "total_pop_15"], main = "US states")
 plot(regions[, "total_pop_15"], main = "US regions")
 ```
 
-<img src="figures/unnamed-chunk-21-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-25-1.png" width="576" style="display: block; margin: auto;" />
 
 Of course, there is also spatial tidyverse counterpart.
 You can achieve the same with:
@@ -3029,7 +3075,7 @@ plot(b)
 plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
 ```
 
-<img src="figures/unnamed-chunk-26-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-30-1.png" width="576" style="display: block; margin: auto;" />
 
 The subsequent code chunk demonstrate how this works for all combinations of the 'Venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
 <!-- Todo: reference r4ds -->
@@ -3376,7 +3422,7 @@ plot(elev)
 plot(elev_agg)
 ```
 
-<img src="figures/unnamed-chunk-39-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-43-1.png" width="576" style="display: block; margin: auto;" />
 
 Note that the origin of `elev_agg` has changed, too.
 The `resample()` command lets you align several raster properties in one go, namely origin, extent and resolution.
