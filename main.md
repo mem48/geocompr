@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve4f2470c5145aa451
+preservedb9562e0381dc832
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2684,113 +2684,105 @@ row.names(filter(africa, subregion == "Northern Africa"))
 <!-- Distance relations -->
 <!-- Subset (1) points in polygons <-> (2) -->
 
+To understand topological relations, it helps to have some simple test data to work with.
+Figure \@ref(relation-objects) illustrates a polygon (`a`), a line (`l`) and some points (`p`).
+
 
 ```r
 a1 = st_polygon(list(rbind(c(-1, -1), c(1, -1), c(1, 1), c(-1, -1))))
-a2 = st_polygon(list(rbind(c(2, 0), c(2, 2), c(3, 2), c(3, 0), c(2, 0))))
-a = st_sfc(a1, a2)
+a = st_sfc(a1)
 
-b1 = a1 * 0.5
-b2 = a2 * 0.4 + c(1, 0.5)
-b = st_sfc(b1, b2)
+l1 = st_linestring(x = matrix(c(-1, -1, -0.5, 1), , 2))
+l = st_sfc(l1)
 
-l1 = st_linestring(x = matrix(c(0, 3, -1, 1), , 2))
-l2 = st_linestring(x = matrix(c(-1, -1, -0.5, 1), , 2))
-l = st_sfc(l1, l2)
-
-p = st_multipoint(x = matrix(c(0.5, 1, -1, 0, 1, 0.5), , 2))
+p_matrix = matrix(c(0.5, 1, -1, 0, 0, 1, 0.5, 1), ncol = 2)
+p = st_multipoint(x = p_matrix)
 
 plot(a, border = "red", axes = TRUE)
-plot(b, border = "green", add = TRUE)
 plot(l, add = TRUE)
-plot(p, add = TRUE)
+plot(p, add = TRUE, lab = 1:4)
+text(p_matrix[, 1] + 0.05, p_matrix[, 2] + 0.05, 1:4)
 ```
 
-<img src="figures/unnamed-chunk-18-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/relation-objects-1.png" width="576" style="display: block; margin: auto;" />
 
-Equals:
+
+
+
+
+<!-- Equals: -->
 <!-- https://postgis.net/docs/ST_Equals.html -->
 
+<!-- ```{r, eval=FALSE} -->
+<!-- st_equals(a, b, sparse = FALSE) -->
+<!-- ``` -->
 
-```r
-st_equals(a, b, sparse = FALSE)
-```
-
-Contains:
+<!-- Contains: -->
 <!-- https://postgis.net/docs/ST_Contains.html -->
 <!-- https://postgis.net/docs/ST_ContainsProperly.html -->
 
+<!-- ```{r, eval=FALSE} -->
+<!-- st_contains(a, b, sparse = FALSE) -->
+<!-- st_contains_properly(a, b, sparse = FALSE) -->
+<!-- ``` -->
 
-```r
-st_contains(a, b, sparse = FALSE)
-st_contains_properly(a, b, sparse = FALSE)
-```
-
-Covers:
+<!-- Covers: -->
 <!-- https://postgis.net/docs/ST_Covers.html -->
 <!-- https://postgis.net/docs/ST_CoveredBy.html -->
 
+<!-- ```{r, eval=FALSE} -->
+<!-- st_covers(a, b, sparse = FALSE) -->
+<!-- st_covered_by(a, b, sparse = FALSE) -->
+<!-- ``` -->
 
-```r
-st_covers(a, b, sparse = FALSE)
-st_covered_by(a, b, sparse = FALSE)
-```
-
-Within:
+<!-- Within: -->
 <!-- https://postgis.net/docs/ST_Within.html -->
 
+<!-- ```{r, eval=FALSE} -->
+<!-- st_within(a, b, sparse = FALSE) -->
+<!-- ``` -->
 
-```r
-st_within(a, b, sparse = FALSE)
-```
-
-Overlaps:
+<!-- Overlaps: -->
 <!-- https://postgis.net/docs/ST_Overlaps.html -->
 
+<!-- ```{r, eval=FALSE} -->
+<!-- st_overlaps(a, b, sparse = FALSE) -->
+<!-- ``` -->
 
-```r
-st_overlaps(a, b, sparse = FALSE)
-```
-
-Intersects:
+<!-- Intersects: -->
 <!-- https://postgis.net/docs/ST_Intersects.html -->
 
+<!-- ```{r, eval=FALSE} -->
+<!-- st_intersects(a, b, sparse = FALSE) -->
+<!-- ``` -->
 
-```r
-st_intersects(a, b, sparse = FALSE)
-```
-
-Disjoint:
+<!-- Disjoint: -->
 <!-- https://postgis.net/docs/ST_Disjoint.html -->
 
+<!-- ```{r, eval=FALSE} -->
+<!-- st_disjoint(a, b, sparse = FALSE) -->
+<!-- ``` -->
 
-```r
-st_disjoint(a, b, sparse = FALSE)
-```
-
-Touches:
+<!-- Touches: -->
 <!-- https://postgis.net/docs/ST_Touches.html -->
 
+<!-- ```{r, eval=FALSE} -->
+<!-- st_touches(a, b, sparse = FALSE) -->
+<!-- ``` -->
 
-```r
-st_touches(a, b, sparse = FALSE)
-```
-
-Crosses:
+<!-- Crosses: -->
 <!-- https://postgis.net/docs/ST_Crosses.html -->
 
+<!-- ```{r, eval=FALSE} -->
+<!-- st_crosses(a, b, sparse = FALSE) -->
+<!-- ``` -->
 
-```r
-st_crosses(a, b, sparse = FALSE)
-```
-
-DE9-IM - https://en.wikipedia.org/wiki/DE-9IM
+<!-- DE9-IM - https://en.wikipedia.org/wiki/DE-9IM -->
 <!-- https://edzer.github.io/sfr/reference/st_relate.html -->
 
-
-```r
-st_relate(a, b, sparse = FALSE)
-```
+<!-- ```{r, eval=FALSE} -->
+<!-- st_relate(a, b, sparse = FALSE) -->
+<!-- ``` -->
 
 <!-- examples (points/polygons) -->
 <!-- examples (points/lines) -->
@@ -2902,7 +2894,7 @@ plot(us_states[, "total_pop_15"], main = "US states")
 plot(regions[, "total_pop_15"], main = "US regions")
 ```
 
-<img src="figures/unnamed-chunk-31-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-21-1.png" width="576" style="display: block; margin: auto;" />
 
 Of course, there is also spatial tidyverse counterpart.
 You can achieve the same with:
@@ -3037,7 +3029,7 @@ plot(b)
 plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
 ```
 
-<img src="figures/unnamed-chunk-36-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-26-1.png" width="576" style="display: block; margin: auto;" />
 
 The subsequent code chunk demonstrate how this works for all combinations of the 'Venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
 <!-- Todo: reference r4ds -->
@@ -3384,7 +3376,7 @@ plot(elev)
 plot(elev_agg)
 ```
 
-<img src="figures/unnamed-chunk-49-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-39-1.png" width="576" style="display: block; margin: auto;" />
 
 Note that the origin of `elev_agg` has changed, too.
 The `resample()` command lets you align several raster properties in one go, namely origin, extent and resolution.

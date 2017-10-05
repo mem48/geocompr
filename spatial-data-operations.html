@@ -345,47 +345,75 @@ This discarding of row names is not something that is specific to spatial data, 
 <!-- ?geos_binary_pred -->
 <!-- Distance relations -->
 <!-- Subset (1) points in polygons <-> (2) -->
+<p>To understand topological relations, it helps to have some simple test data to work with. Figure <a href="#relation-objects"><strong>??</strong></a> illustrates a polygon (<code>a</code>), a line (<code>l</code>) and some points (<code>p</code>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a1 =<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(-<span class="dv">1</span>, -<span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>, -<span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="kw">c</span>(-<span class="dv">1</span>, -<span class="dv">1</span>))))
-a2 =<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">0</span>), <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>))))
-a =<span class="st"> </span><span class="kw">st_sfc</span>(a1, a2)
+a =<span class="st"> </span><span class="kw">st_sfc</span>(a1)
 
-b1 =<span class="st"> </span>a1 *<span class="st"> </span><span class="fl">0.5</span>
-b2 =<span class="st"> </span>a2 *<span class="st"> </span><span class="fl">0.4</span> +<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">0.5</span>)
-b =<span class="st"> </span><span class="kw">st_sfc</span>(b1, b2)
+l1 =<span class="st"> </span><span class="kw">st_linestring</span>(<span class="dt">x =</span> <span class="kw">matrix</span>(<span class="kw">c</span>(-<span class="dv">1</span>, -<span class="dv">1</span>, -<span class="fl">0.5</span>, <span class="dv">1</span>), , <span class="dv">2</span>))
+l =<span class="st"> </span><span class="kw">st_sfc</span>(l1)
 
-l1 =<span class="st"> </span><span class="kw">st_linestring</span>(<span class="dt">x =</span> <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">3</span>, -<span class="dv">1</span>, <span class="dv">1</span>), , <span class="dv">2</span>))
-l2 =<span class="st"> </span><span class="kw">st_linestring</span>(<span class="dt">x =</span> <span class="kw">matrix</span>(<span class="kw">c</span>(-<span class="dv">1</span>, -<span class="dv">1</span>, -<span class="fl">0.5</span>, <span class="dv">1</span>), , <span class="dv">2</span>))
-l =<span class="st"> </span><span class="kw">st_sfc</span>(l1, l2)
-
-p =<span class="st"> </span><span class="kw">st_multipoint</span>(<span class="dt">x =</span> <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, -<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.5</span>), , <span class="dv">2</span>))
+p_matrix =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, -<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.5</span>, <span class="dv">1</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)
+p =<span class="st"> </span><span class="kw">st_multipoint</span>(<span class="dt">x =</span> p_matrix)
 
 <span class="kw">plot</span>(a, <span class="dt">border =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">axes =</span> <span class="ot">TRUE</span>)
-<span class="kw">plot</span>(b, <span class="dt">border =</span> <span class="st">&quot;green&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
 <span class="kw">plot</span>(l, <span class="dt">add =</span> <span class="ot">TRUE</span>)
-<span class="kw">plot</span>(p, <span class="dt">add =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="figures/unnamed-chunk-18-1.png" width="576" style="display: block; margin: auto;" /></p>
-<p>Equals: <!-- https://postgis.net/docs/ST_Equals.html --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_equals</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Contains: <!-- https://postgis.net/docs/ST_Contains.html --> <!-- https://postgis.net/docs/ST_ContainsProperly.html --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_contains</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)
-<span class="kw">st_contains_properly</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Covers: <!-- https://postgis.net/docs/ST_Covers.html --> <!-- https://postgis.net/docs/ST_CoveredBy.html --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_covers</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)
-<span class="kw">st_covered_by</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Within: <!-- https://postgis.net/docs/ST_Within.html --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_within</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Overlaps: <!-- https://postgis.net/docs/ST_Overlaps.html --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_overlaps</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Intersects: <!-- https://postgis.net/docs/ST_Intersects.html --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_intersects</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Disjoint: <!-- https://postgis.net/docs/ST_Disjoint.html --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_disjoint</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Touches: <!-- https://postgis.net/docs/ST_Touches.html --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_touches</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>Crosses: <!-- https://postgis.net/docs/ST_Crosses.html --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crosses</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p>DE9-IM - <a href="https://en.wikipedia.org/wiki/DE-9IM" class="uri">https://en.wikipedia.org/wiki/DE-9IM</a> <!-- https://edzer.github.io/sfr/reference/st_relate.html --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_relate</span>(a, b, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<span class="kw">plot</span>(p, <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">lab =</span> <span class="dv">1</span>:<span class="dv">4</span>)
+<span class="kw">text</span>(p_matrix[, <span class="dv">1</span>] +<span class="st"> </span><span class="fl">0.05</span>, p_matrix[, <span class="dv">2</span>] +<span class="st"> </span><span class="fl">0.05</span>, <span class="dv">1</span>:<span class="dv">4</span>)</code></pre></div>
+<p><img src="figures/relation-objects-1.png" width="576" style="display: block; margin: auto;" /></p>
+<!-- Equals: -->
+<!-- https://postgis.net/docs/ST_Equals.html -->
+<!-- ```{r, eval=FALSE} -->
+<!-- st_equals(a, b, sparse = FALSE) -->
+<!-- ``` -->
+<!-- Contains: -->
+<!-- https://postgis.net/docs/ST_Contains.html -->
+<!-- https://postgis.net/docs/ST_ContainsProperly.html -->
+<!-- ```{r, eval=FALSE} -->
+<!-- st_contains(a, b, sparse = FALSE) -->
+<!-- st_contains_properly(a, b, sparse = FALSE) -->
+<!-- ``` -->
+<!-- Covers: -->
+<!-- https://postgis.net/docs/ST_Covers.html -->
+<!-- https://postgis.net/docs/ST_CoveredBy.html -->
+<!-- ```{r, eval=FALSE} -->
+<!-- st_covers(a, b, sparse = FALSE) -->
+<!-- st_covered_by(a, b, sparse = FALSE) -->
+<!-- ``` -->
+<!-- Within: -->
+<!-- https://postgis.net/docs/ST_Within.html -->
+<!-- ```{r, eval=FALSE} -->
+<!-- st_within(a, b, sparse = FALSE) -->
+<!-- ``` -->
+<!-- Overlaps: -->
+<!-- https://postgis.net/docs/ST_Overlaps.html -->
+<!-- ```{r, eval=FALSE} -->
+<!-- st_overlaps(a, b, sparse = FALSE) -->
+<!-- ``` -->
+<!-- Intersects: -->
+<!-- https://postgis.net/docs/ST_Intersects.html -->
+<!-- ```{r, eval=FALSE} -->
+<!-- st_intersects(a, b, sparse = FALSE) -->
+<!-- ``` -->
+<!-- Disjoint: -->
+<!-- https://postgis.net/docs/ST_Disjoint.html -->
+<!-- ```{r, eval=FALSE} -->
+<!-- st_disjoint(a, b, sparse = FALSE) -->
+<!-- ``` -->
+<!-- Touches: -->
+<!-- https://postgis.net/docs/ST_Touches.html -->
+<!-- ```{r, eval=FALSE} -->
+<!-- st_touches(a, b, sparse = FALSE) -->
+<!-- ``` -->
+<!-- Crosses: -->
+<!-- https://postgis.net/docs/ST_Crosses.html -->
+<!-- ```{r, eval=FALSE} -->
+<!-- st_crosses(a, b, sparse = FALSE) -->
+<!-- ``` -->
+<!-- DE9-IM - https://en.wikipedia.org/wiki/DE-9IM -->
+<!-- https://edzer.github.io/sfr/reference/st_relate.html -->
+<!-- ```{r, eval=FALSE} -->
+<!-- st_relate(a, b, sparse = FALSE) -->
+<!-- ``` -->
 <!-- examples (points/polygons) -->
 <!-- examples (points/lines) -->
 <!-- examples (lines/polygons) -->
@@ -456,7 +484,7 @@ Figure 4.3: Illustration of a spatial join: the populations of the world’s 3 l
 <span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))
 <span class="kw">plot</span>(us_states[, <span class="st">&quot;total_pop_15&quot;</span>], <span class="dt">main =</span> <span class="st">&quot;US states&quot;</span>)
 <span class="kw">plot</span>(regions[, <span class="st">&quot;total_pop_15&quot;</span>], <span class="dt">main =</span> <span class="st">&quot;US regions&quot;</span>)</code></pre></div>
-<p><img src="figures/unnamed-chunk-31-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-21-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Of course, there is also spatial tidyverse counterpart. You can achieve the same with:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">group_by</span>(us_states, REGION) %&gt;%
 <span class="st">  </span><span class="kw">summarize</span>(<span class="kw">sum</span>(<span class="dt">pop =</span> total_pop_15, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
@@ -535,7 +563,7 @@ y =<span class="st"> </span>b[<span class="dv">2</span>]
 x_and_y =<span class="st"> </span><span class="kw">st_intersection</span>(x, y)
 <span class="kw">plot</span>(b)
 <span class="kw">plot</span>(x_and_y, <span class="dt">col =</span> <span class="st">&quot;lightgrey&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>) <span class="co"># color intersecting area</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-36-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-26-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>The subsequent code chunk demonstrate how this works for all combinations of the ‘Venn’ diagram representing <code>x</code> and <code>y</code>, inspired by <a href="http://r4ds.had.co.nz/transform.html#logical-operators">Figure 5.1</a> of the book R for Data Science <span class="citation">(Grolemund and Wickham <a href="#ref-grolemund_r_2016">2016</a>)</span>. <!-- Todo: reference r4ds --></p>
 <div class="figure" style="text-align: center"><span id="fig:venn-clip"></span>
 <img src="figures/venn-clip-1.png" alt="Spatial equivalents of logical operators." width="576" />
@@ -685,7 +713,7 @@ aut_ch =<span class="st"> </span><span class="kw">merge</span>(aut, ch)</code></
 <span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))
 <span class="kw">plot</span>(elev)
 <span class="kw">plot</span>(elev_agg)</code></pre></div>
-<p><img src="figures/unnamed-chunk-49-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-39-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Note that the origin of <code>elev_agg</code> has changed, too. The <code>resample()</code> command lets you align several raster properties in one go, namely origin, extent and resolution. Let us resample an extended <code>elev_agg</code> to the properties of <code>elev</code> again.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add 2 rows and columns, i.e. change the extent</span>
 elev_agg =<span class="st"> </span><span class="kw">extend</span>(elev_agg, <span class="dv">2</span>)
