@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservecf2edb240c243bfb
+preserve994be7d6b40007d1
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2698,7 +2698,7 @@ l = st_sfc(l1)
 
 p_matrix = matrix(c(0.5, 1, -1, 0, 0, 1, 0.5, 1), ncol = 2)
 p_multi = st_multipoint(x = p_matrix)
-p = st_cast(st_sfc(p_multi), "POINT")
+p = st_sf(st_cast(st_sfc(p_multi), "POINT"))
 ```
 
 <img src="figures/relation-objects-1.png" width="576" style="display: block; margin: auto;" />
@@ -2741,16 +2741,60 @@ Note that this result can be used to subset the features of `p`, in a long-form 
 
 
 ```r
-p[st_intersects(p, a, sparse = FALSE)]
-#> Geometry set for 2 features 
-#> geometry type:  POINT
-#> dimension:      XY
-#> bbox:           xmin: 0.5 ymin: 0 xmax: 1 ymax: 1
-#> epsg (SRID):    NA
-#> proj4string:    NA
-#> POINT (0.5 0)
-#> POINT (1 1)
+p[st_intersects(p, a, sparse = FALSE), ]
 ```
+
+The second feature in the object `p` only just touches the polygon `a`, yet is selected because `st_intersects()` is a catch-all topological operation that returns `TRUE` if any kind of spatial relation.
+Other topological operators are more specific: `st_within()`, for example, returns `TRUE` only for objects that are completely within the selecting object.
+This applies only to the second object, which is inside the triangular polygon, as illustrated below:
+
+
+```r
+st_within(p, a, sparse = FALSE)
+#>       [,1]
+#> [1,]  TRUE
+#> [2,] FALSE
+#> [3,] FALSE
+#> [4,] FALSE
+```
+
+Note that although point 1 is *within* the triangle, it does not *touch* any part of its border.
+For this reason `st_touches()` only returns `TRUE` for the second point:
+
+
+```r
+st_touches(p, a, sparse = FALSE)
+#>       [,1]
+#> [1,] FALSE
+#> [2,]  TRUE
+#> [3,] FALSE
+#> [4,] FALSE
+```
+
+What about features that do not touch, but *almost touch* the selection object?
+These can be selected using `st_is_within_distance()`, which has an additional `dist` argument, which can be used to set how close target object need to be before they are selected.
+Note that although point 4 is 1 unit of distance from the nearest node of `a` (at point 2 in Figure \@ref(relation-object)), it is still selected when the distance is set to 0.9:
+
+
+```r
+st_is_within_distance(p, a, dist = 0.9) # can only return a sparse matrix
+#> [[1]]
+#> [1] 1
+#> 
+#> [[2]]
+#> [1] 1
+#> 
+#> [[3]]
+#> integer(0)
+#> 
+#> [[4]]
+#> [1] 1
+```
+
+
+
+
+
 
 
 
@@ -2940,7 +2984,7 @@ plot(us_states[, "total_pop_15"], main = "US states")
 plot(regions[, "total_pop_15"], main = "US regions")
 ```
 
-<img src="figures/unnamed-chunk-25-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-30-1.png" width="576" style="display: block; margin: auto;" />
 
 Of course, there is also spatial tidyverse counterpart.
 You can achieve the same with:
@@ -3075,7 +3119,7 @@ plot(b)
 plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
 ```
 
-<img src="figures/unnamed-chunk-30-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-35-1.png" width="576" style="display: block; margin: auto;" />
 
 The subsequent code chunk demonstrate how this works for all combinations of the 'Venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
 <!-- Todo: reference r4ds -->
@@ -3422,7 +3466,7 @@ plot(elev)
 plot(elev_agg)
 ```
 
-<img src="figures/unnamed-chunk-43-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-48-1.png" width="576" style="display: block; margin: auto;" />
 
 Note that the origin of `elev_agg` has changed, too.
 The `resample()` command lets you align several raster properties in one go, namely origin, extent and resolution.
