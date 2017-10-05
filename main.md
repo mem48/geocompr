@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve525e5f2547cbdb68
+preserve4e35a0de5d975eeb
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2758,6 +2758,7 @@ This operator ensures that the intermediary object `sel` is a `logical` vector (
 
 `st_intersects()` returns `TRUE` for the second feature in the object `p` even though it just touches the polygon `a`.
 This is because *intersects* is a catch-all topological operation that covers any type of spatial relation.
+There are many other topological operations that you can use, some of which we'll demonstrate below.
 The opposite of `st_intersects()` is `st_disjoint()`, which returns only objects that do not spatially relate in any way to the selecting object:
 
 
