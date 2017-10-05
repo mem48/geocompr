@@ -385,7 +385,10 @@ Figure 4.3: Points (p 1 to 4), line and polygon objects arranged to demonstrate 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sel =<span class="st"> </span><span class="kw">st_intersects</span>(p, a, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)[, <span class="dv">1</span>]
 p[sel, ]</code></pre></div>
 <p>Note the use of <code>[, 1]</code> to select only the first column — we’ll use this to return only a vector instead of matrix in subsequent code chunks. This operator ensures that the intermediary object <code>sel</code> is a <code>logical</code> vector (rather than a matrix).</p>
-<p><code>st_intersects()</code> returns <code>TRUE</code> for the second feature in the object <code>p</code> even though it just touches the polygon <code>a</code>. This is because <em>intersects</em> is a catch-all topological operation that covers any type of spatial relation. Other topological operators are more specific. <code>st_within()</code>, for example, returns <code>TRUE</code> only for objects that are completely within the selecting object. This applies only to the second object, which is inside the triangular polygon, as illustrated below:</p>
+<p><code>st_intersects()</code> returns <code>TRUE</code> for the second feature in the object <code>p</code> even though it just touches the polygon <code>a</code>. This is because <em>intersects</em> is a catch-all topological operation that covers any type of spatial relation. The opposite of <code>st_intersects()</code> is <code>st_disjoint()</code>, which returns only objects that do not spatially relate in any way to the selecting object:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_disjoint</span>(p, a, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)[, <span class="dv">1</span>]
+<span class="co">#&gt; [1] FALSE FALSE  TRUE  TRUE</span></code></pre></div>
+<p>Other topological operators are more specific. <code>st_within()</code>, for example, returns <code>TRUE</code> only for objects that are completely within the selecting object. This applies only to the second object, which is inside the triangular polygon, as illustrated below:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_within</span>(p, a, <span class="dt">sparse =</span> <span class="ot">FALSE</span>)
 <span class="co">#&gt;       [,1]</span>
 <span class="co">#&gt; [1,]  TRUE</span>
@@ -536,7 +539,7 @@ Figure 4.4: Illustration of a spatial join: the populations of the world’s 3 l
 <span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))
 <span class="kw">plot</span>(us_states[, <span class="st">&quot;total_pop_15&quot;</span>], <span class="dt">main =</span> <span class="st">&quot;US states&quot;</span>)
 <span class="kw">plot</span>(regions[, <span class="st">&quot;total_pop_15&quot;</span>], <span class="dt">main =</span> <span class="st">&quot;US regions&quot;</span>)</code></pre></div>
-<p><img src="figures/unnamed-chunk-30-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-31-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Of course, there is also spatial tidyverse counterpart. You can achieve the same with:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">group_by</span>(us_states, REGION) %&gt;%
 <span class="st">  </span><span class="kw">summarize</span>(<span class="kw">sum</span>(<span class="dt">pop =</span> total_pop_15, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
@@ -615,7 +618,7 @@ y =<span class="st"> </span>b[<span class="dv">2</span>]
 x_and_y =<span class="st"> </span><span class="kw">st_intersection</span>(x, y)
 <span class="kw">plot</span>(b)
 <span class="kw">plot</span>(x_and_y, <span class="dt">col =</span> <span class="st">&quot;lightgrey&quot;</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>) <span class="co"># color intersecting area</span></code></pre></div>
-<p><img src="figures/unnamed-chunk-35-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-36-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>The subsequent code chunk demonstrate how this works for all combinations of the ‘Venn’ diagram representing <code>x</code> and <code>y</code>, inspired by <a href="http://r4ds.had.co.nz/transform.html#logical-operators">Figure 5.1</a> of the book R for Data Science <span class="citation">(Grolemund and Wickham <a href="#ref-grolemund_r_2016">2016</a>)</span>. <!-- Todo: reference r4ds --></p>
 <div class="figure" style="text-align: center"><span id="fig:venn-clip"></span>
 <img src="figures/venn-clip-1.png" alt="Spatial equivalents of logical operators." width="576" />
@@ -765,7 +768,7 @@ aut_ch =<span class="st"> </span><span class="kw">merge</span>(aut, ch)</code></
 <span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))
 <span class="kw">plot</span>(elev)
 <span class="kw">plot</span>(elev_agg)</code></pre></div>
-<p><img src="figures/unnamed-chunk-48-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><img src="figures/unnamed-chunk-49-1.png" width="576" style="display: block; margin: auto;" /></p>
 <p>Note that the origin of <code>elev_agg</code> has changed, too. The <code>resample()</code> command lets you align several raster properties in one go, namely origin, extent and resolution. Let us resample an extended <code>elev_agg</code> to the properties of <code>elev</code> again.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add 2 rows and columns, i.e. change the extent</span>
 elev_agg =<span class="st"> </span><span class="kw">extend</span>(elev_agg, <span class="dv">2</span>)
