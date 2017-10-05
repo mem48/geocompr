@@ -346,11 +346,11 @@ This discarding of row names is not something that is specific to spatial data, 
 <!-- Distance relations -->
 <!-- Subset (1) points in polygons <-> (2) -->
 <p>To understand topological relations, it helps to have some simple test data to work with. Figure <a href="spatial-data-operations.html#fig:relation-objects">4.3</a> illustrates a polygon (<code>a</code>), a line (<code>l</code>) and some points (<code>p</code>). These objects are created in the code below.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a1 =<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(-<span class="dv">1</span>, -<span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>, -<span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="kw">c</span>(-<span class="dv">1</span>, -<span class="dv">1</span>))))
-a =<span class="st"> </span><span class="kw">st_sfc</span>(a1)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a_poly =<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(-<span class="dv">1</span>, -<span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>, -<span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="kw">c</span>(-<span class="dv">1</span>, -<span class="dv">1</span>))))
+a =<span class="st"> </span><span class="kw">st_sfc</span>(a_poly)
 
-l1 =<span class="st"> </span><span class="kw">st_linestring</span>(<span class="dt">x =</span> <span class="kw">matrix</span>(<span class="kw">c</span>(-<span class="dv">1</span>, -<span class="dv">1</span>, -<span class="fl">0.5</span>, <span class="dv">1</span>), , <span class="dv">2</span>))
-l =<span class="st"> </span><span class="kw">st_sfc</span>(l1)
+l_line =<span class="st"> </span><span class="kw">st_linestring</span>(<span class="dt">x =</span> <span class="kw">matrix</span>(<span class="kw">c</span>(-<span class="dv">1</span>, -<span class="dv">1</span>, -<span class="fl">0.5</span>, <span class="dv">1</span>), , <span class="dv">2</span>))
+l =<span class="st"> </span><span class="kw">st_sfc</span>(l_line)
 
 p_matrix =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, -<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.5</span>, <span class="dv">1</span>), <span class="dt">ncol =</span> <span class="dv">2</span>)
 p_multi =<span class="st"> </span><span class="kw">st_multipoint</span>(<span class="dt">x =</span> p_matrix)

@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveb64b57881ff37a13
+preserve783a32dfc3579d18
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2690,11 +2690,11 @@ These objects are created in the code below.
 
 
 ```r
-a1 = st_polygon(list(rbind(c(-1, -1), c(1, -1), c(1, 1), c(-1, -1))))
-a = st_sfc(a1)
+a_poly = st_polygon(list(rbind(c(-1, -1), c(1, -1), c(1, 1), c(-1, -1))))
+a = st_sfc(a_poly)
 
-l1 = st_linestring(x = matrix(c(-1, -1, -0.5, 1), , 2))
-l = st_sfc(l1)
+l_line = st_linestring(x = matrix(c(-1, -1, -0.5, 1), , 2))
+l = st_sfc(l_line)
 
 p_matrix = matrix(c(0.5, 1, -1, 0, 0, 1, 0.5, 1), ncol = 2)
 p_multi = st_multipoint(x = p_matrix)
