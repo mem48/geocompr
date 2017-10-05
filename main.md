@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservef33da2aa712d238e
+preserve8420dfa7aa7c7223
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2685,7 +2685,7 @@ row.names(filter(africa, subregion == "Northern Africa"))
 <!-- Subset (1) points in polygons <-> (2) -->
 
 To understand topological relations, it helps to have some simple test data to work with.
-Figure \@ref(relation-objects) illustrates a polygon (`a`), a line (`l`) and some points (`p`).
+Figure \@ref(fig:relation-objects) illustrates a polygon (`a`), a line (`l`) and some points (`p`).
 These objects are created in the code below.
 
 
@@ -2773,7 +2773,7 @@ st_touches(p, a, sparse = FALSE)
 
 What about features that do not touch, but *almost touch* the selection object?
 These can be selected using `st_is_within_distance()`, which has an additional `dist` argument, which can be used to set how close target object need to be before they are selected.
-Note that although point 4 is 1 unit of distance from the nearest node of `a` (at point 2 in Figure \@ref(relation-object)), it is still selected when the distance is set to 0.9:
+Note that although point 4 is 1 unit of distance from the nearest node of `a` (at point 2 in Figure \@ref(fig:relation-objects)), it is still selected when the distance is set to 0.9:
 
 
 ```r

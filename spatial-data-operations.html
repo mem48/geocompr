@@ -345,7 +345,7 @@ This discarding of row names is not something that is specific to spatial data, 
 <!-- ?geos_binary_pred -->
 <!-- Distance relations -->
 <!-- Subset (1) points in polygons <-> (2) -->
-<p>To understand topological relations, it helps to have some simple test data to work with. Figure <a href="#relation-objects"><strong>??</strong></a> illustrates a polygon (<code>a</code>), a line (<code>l</code>) and some points (<code>p</code>). These objects are created in the code below.</p>
+<p>To understand topological relations, it helps to have some simple test data to work with. Figure <a href="#fig:relation-objects"><strong>??</strong></a> illustrates a polygon (<code>a</code>), a line (<code>l</code>) and some points (<code>p</code>). These objects are created in the code below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a1 =<span class="st"> </span><span class="kw">st_polygon</span>(<span class="kw">list</span>(<span class="kw">rbind</span>(<span class="kw">c</span>(-<span class="dv">1</span>, -<span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>, -<span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="kw">c</span>(-<span class="dv">1</span>, -<span class="dv">1</span>))))
 a =<span class="st"> </span><span class="kw">st_sfc</span>(a1)
 
@@ -392,7 +392,7 @@ p =<span class="st"> </span><span class="kw">st_sf</span>(<span class="kw">st_ca
 <span class="co">#&gt; [2,]  TRUE</span>
 <span class="co">#&gt; [3,] FALSE</span>
 <span class="co">#&gt; [4,] FALSE</span></code></pre></div>
-<p>What about features that do not touch, but <em>almost touch</em> the selection object? These can be selected using <code>st_is_within_distance()</code>, which has an additional <code>dist</code> argument, which can be used to set how close target object need to be before they are selected. Note that although point 4 is 1 unit of distance from the nearest node of <code>a</code> (at point 2 in Figure <a href="#relation-object"><strong>??</strong></a>), it is still selected when the distance is set to 0.9:</p>
+<p>What about features that do not touch, but <em>almost touch</em> the selection object? These can be selected using <code>st_is_within_distance()</code>, which has an additional <code>dist</code> argument, which can be used to set how close target object need to be before they are selected. Note that although point 4 is 1 unit of distance from the nearest node of <code>a</code> (at point 2 in Figure <a href="#fig:relation-objects"><strong>??</strong></a>), it is still selected when the distance is set to 0.9:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_is_within_distance</span>(p, a, <span class="dt">dist =</span> <span class="fl">0.9</span>) <span class="co"># can only return a sparse matrix</span>
 <span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; [1] 1</span>
