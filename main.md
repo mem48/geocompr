@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve38a9ba7582ab483e
+preserve13b1e735d1d27f2b
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2741,8 +2741,7 @@ st_intersects(p, a, sparse = FALSE)
 ```
 
 The output is an matrix with the four rows representing the four features in the target object `p`.
-The rows represent features in the selecting object: the first two features in `p` intersect with `a`.
-(There is only one feature in `a` so the result has only one column.)
+The rows represent features in the selecting object: the first two features in `p` intersect with `a` (There is only one feature in `a` so the result has only one column).
 The result can be used to subset the features of `p` in a two-stage operation that is equivalent of `p[a, ]`:
 
 
@@ -2784,8 +2783,9 @@ st_touches(p, a, sparse = FALSE)[, 1]
 ```
 
 What about features that do not touch, but *almost touch* the selection object?
-These can be selected using `st_is_within_distance()`, which has an additional `dist` argument, which can be used to set how close target object need to be before they are selected.
-Note that although point 4 is 1 unit of distance from the nearest node of `a` (at point 2 in Figure \@ref(fig:relation-objects)), it is still selected when the distance is set to 0.9.
+These can be selected using `st_is_within_distance()`, which has an additional `dist` argument.
+It can be used to set how close target object need to be before they are selected.
+Note that although point 4 is one unit of distance from the nearest node of `a` (at point 2 in Figure \@ref(fig:relation-objects)), it is still selected when the distance is set to 0.9.
 This is illustrated in the code chunk below, the second line of which converts the lengthy list output into a `logical` object:
 
 
