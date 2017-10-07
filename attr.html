@@ -568,7 +568,7 @@ grain =<span class="st"> </span><span class="kw">raster</span>(<span class="dt">
                <span class="dt">vals =</span> grain_fact)</code></pre></div>
 
 <div class="rmdnote">
-<code>raster</code> objects cannot contain values of class ‘character’. For this reason the function <code>factor()</code> is used in the preceding code chunk. The <code>levels</code> argument was used to create an ordered factor: clay &lt; silt &lt; sand in terms of grain size, so the levels are provided in this order.
+<code>raster</code> objects can contain values of class <code>numeric</code>, <code>integer</code>, <code>logical</code> or <code>factor</code>, but not <code>character</code>. To use character values they must first be converted into an appropriate class, for example using the function <code>factor()</code>. The <code>levels</code> argument was used in the preceding code chund to create an ordered factor: clay &lt; silt &lt; sand in terms of grain size. See the <a href="http://adv-r.had.co.nz/Data-structures.html">Data structures</a> chapter of <span class="citation">(Wickham <a href="#ref-wickham_advanced_2014">2014</a>)</span> for further details on classes.
 </div>
 <p></p>
 <p><code>raster</code> objects represent categorical varibles as integers, so <code>grain[1, 1]</code> returns a number that represents a unique identifiers, rather than “clay”, “silt” or “sand”. The raster object stores the corresponding look-up table or “Raster Attribute Table” (RAT) as a data frame in a new slot named <code>attributes</code>, which can be viewed with <code>ratify(grain)</code> (see <code>?ratify()</code> for more information). Use the function <code>levels()</code> to retrieve the attribute table and add additional factor values:</p>
@@ -672,6 +672,9 @@ Some function names clash between packages (e.g., <code>select</code>, as discus
 <div id="refs" class="references">
 <div id="ref-grolemund_r_2016">
 <p>Grolemund, Garrett, and Hadley Wickham. 2016. <em>R for Data Science</em>. 1 edition. O’Reilly Media.</p>
+</div>
+<div id="ref-wickham_advanced_2014">
+<p>Wickham, Hadley. 2014. <em>Advanced R</em>. CRC Press. <a href="http://www.crcpress.com/product/isbn/9781466586963 http://adv-r.had.co.nz http://www.crcpress.com/product/isbn/9781466586963 http://adv-r.had.co.nz" class="uri">http://www.crcpress.com/product/isbn/9781466586963 http://adv-r.had.co.nz http://www.crcpress.com/product/isbn/9781466586963 http://adv-r.had.co.nz</a>.</p>
 </div>
 </div>
 <div class="footnotes">

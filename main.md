@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea6c582c5d179ba60
+preservefe2cb22553959453
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2291,10 +2291,11 @@ grain = raster(nrow = 6, ncol = 6, res = 0.5,
                vals = grain_fact)
 ```
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">`raster` objects cannot contain values of class 'character'.
-For this reason the function `factor()` is used in the preceding code chunk.
-The `levels` argument was used to create an ordered factor:
-clay < silt < sand in terms of grain size, so the levels are provided in this order.</div>\EndKnitrBlock{rmdnote}
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">`raster` objects can contain values of class `numeric`, `integer`, `logical` or `factor`, but not `character`.
+To use character values they must first be converted into an appropriate class, for example using the function `factor()`. 
+The `levels` argument was used in the preceding code chund to create an ordered factor:
+clay < silt < sand in terms of grain size.
+See the [Data structures](http://adv-r.had.co.nz/Data-structures.html) chapter of [@wickham_advanced_2014] for further details on classes.</div>\EndKnitrBlock{rmdnote}
 
 `raster` objects represent categorical varibles as integers, so `grain[1, 1]` returns a number that represents a unique identifiers, rather than "clay", "silt" or "sand". 
 The raster object stores the corresponding look-up table or "Raster Attribute Table" (RAT) as a data frame in a new slot named `attributes`, which can be viewed with `ratify(grain)` (see `?ratify()` for more information).
