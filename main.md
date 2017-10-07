@@ -2,7 +2,7 @@
 --- 
 title: 'Geocomputation with R'
 author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
-date: '2017-10-05'
+date: '2017-10-07'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -38,7 +38,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-10-05 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-10-07 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve28aade5695235f12
+preservedb31d3d5fbfa038b
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2503,7 +2503,8 @@ New geometry data can be created by modifying existing spatial objects, using op
 Spatial operations on raster datasets involve *map algebra* and *alignment*, concepts introduced and demonstrated with simple examples in sections \@ref(map-algebra) and \@ref(aligning-rasters).
 
 Another unique aspect of spatial objects is distance.
-All features are related to each other in geographic space, and distance calculations resolve which spatial features are nearer or further away from a given point or each other (see section \@ref(distance-relations)).
+All spatial objects are related through space and distance calculations can be used to find the strength of this relationship between spatial entities.
+Distance operations are covered in sections \@ref(distance-relations) and \@ref(global-operations-and-distances) for vector and raster datasets respectively.
 
 <!-- I've commented-out these sentences as map algebra and merging are now mentioned in the previous paragraph and this intro section seemed to be getting overly long! -->
 <!-- The final section in this chapter additionally explores how to align two raster objects in case their headers mismatch (section \@ref(aligning-rasters)). -->
@@ -3256,7 +3257,8 @@ Next we only want to keep those values of `elev` which are `TRUE` in `rmask`, or
 These operations are in fact Boolean local operations since we compare cell-wise two rasters.
 The next subsection explores these and related operations in more detail.
 
-###  Map algebra
+### Map algebra
+
 Map algebra makes raster processing really fast.
 This is because raster datasets only implicitly store coordinates.
 To derive the coordinate of a specific cell, we have to calculate it using its matrix position and the raster resolution and origin.
@@ -3278,7 +3280,9 @@ Most often the output cell value is the result of a 3 x 3 input cell block.
 This classification scheme uses basically the number of cells involved in a processing step as distinguishing feature.
 Of course, one can classify raster operations based on other characteristics such as discipline.
 Think, for instance, of terrain, hydrological analysis or image classifications.
-In the following paragraphs, we will explain each of the four map algebra operations by example.
+The following sections explain how each type of map algebra operations can be used, with reference to worked examples.
+
+### Local operations
 
 **Local** operations comprise all cell-by-cell operations in one or several layers.
 A good example is the classification of intervals of numeric values into groups such as grouping a digital elevation model into low (class 1), middle (class 2) and high elevations (class 3).
@@ -3330,6 +3334,8 @@ Subsequently, we model our response as a function of our predictors using `lm`, 
 To make a spatial prediction, all we have to do, is to apply the estimated coefficients to the predictor rasters, and summing up the resulting output rasters (<!--Chapter ??; -->see also @muenchow_predictive_2013).
 <!-- add reference to chapter ecological modeling -->
 
+### Focal operations
+
 While local functions operate on one cell, though possibly from multiple layers, **focal** operations take into account a central cell and its neighbors.
 The neighborhood (also named kernel, filter or moving window) under consideration is typically of size 3-by-3 cells (that is the central cell and its eight surrounding neighbors) but can take on any other (not necessarily rectangular) shape as defined by the user.
 A focal operation applies an aggregation function to all cells within the specified neighborhood, uses the corresponding output as the new value for the the central cell, and moves on to the next central cell (Figure \@ref(fig:focal-example)).
@@ -3373,6 +3379,8 @@ Fortunately, desktop GIS commonly provide these algorithms.
 In Chapter 13 we will learn how to access GIS functionality from within R.
 <!-- Reference 13-gis chapter -->
 
+### Zonal operations
+
 *Zonal* operations are similar to focal operations.
 The difference is that zonal filters can take on any shape instead of just a predefined window.
 Our grain size raster is a good example (Figure \@ref(fig:cont-cate-rasters)) because the different grain sizes are spread in an irregular fashion throughout the raster.
@@ -3393,6 +3401,8 @@ z
 
 This returns the statistics for each category, here the mean altitude for each grain size class.
 Of course, we can add this statistic to the attribute table of the ratified raster (see previous chapter).
+
+### Global operations and distances
 
 *Global* operations are a special case of zonal operations with the entire raster dataset representing a single zone.
 The most common global operations are descriptive statistics for the entire raster dataset such as the minimum or maximum (see previous chapter).
