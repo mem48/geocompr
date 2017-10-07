@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservea81fd3e1d6797130
+preserve5eb4e105e0a83f47
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2505,10 +2505,6 @@ Spatial operations on raster datasets involve *map algebra* (covered in sections
 Another unique aspect of spatial objects is distance.
 All spatial objects are related through space and distance calculations can be used to find the strength of this relationship between spatial entities.
 Distance operations are covered in sections \@ref(distance-relations) and \@ref(global-operations-and-distances) for vector and raster datasets respectively.
-
-<!-- I've commented-out these sentences as map algebra and merging are now mentioned in the previous paragraph and this intro section seemed to be getting overly long! -->
-<!-- The final section in this chapter additionally explores how to align two raster objects in case their headers mismatch (section \@ref(aligning-rasters)). -->
-<!-- This is especially important if we want to merge several rasters into one bigger raster or if we want to use several mismatching raster layers for algebraic operations. -->
 
 \BeginKnitrBlock{rmdnote}<div class="rmdnote">It is important to note that spatial operations that use two spatial objects rely on both objects having the same coordinate reference system, a topic that was introduced in \@ref(crs-intro) and which will be covered in more depth in Chapter 6.</div>\EndKnitrBlock{rmdnote}
 
