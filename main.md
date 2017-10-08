@@ -2,7 +2,7 @@
 --- 
 title: 'Geocomputation with R'
 author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
-date: '2017-10-07'
+date: '2017-10-08'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -38,7 +38,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-10-07 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-10-08 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservefe2cb22553959453
+preserve08a50de7f24ab974
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1716,7 +1716,7 @@ Section \@ref(summarizing-raster-objects) provides an overview of 'global' raste
 Geographic vector data in R are well-support by `sf`, a class which extends the `data.frame`.
 Thus `sf` objects have one column per attribute variable (such as 'name') and one row per observation, or *feature* (e.g. per bus station).
 `sf` objects also have a special column to contain geometry data, usually named `geometry`.
-The `geometry` colum is special because it is a *list-colum*, which can contain multiple geographic entities (points, lines, polygons) per row.
+The `geometry` column is special because it is a *list-colum*, which can contain multiple geographic entities (points, lines, polygons) per row.
 In Chapter \@ref(spatial-class) we saw how to perform *generic methods* such as `plot()` and `summary()` on `sf` objects.
 **sf** also provides methods that allow `sf` objects to behave like regular data frames:
 
@@ -1765,7 +1765,7 @@ class(world_df)
 ```
 
 This can be useful if the geometry column causes problems, e.g., by occupying large amounts of RAM, or to focus the attention on the attribute data.
-For most cases, however, there is no harm in keeping the geometry column because non-spatial data operations on `sf` objects only change an object's geometry when appropriate (e.g. by disolving borders between adjacent polygons following aggregation).
+For most cases, however, there is no harm in keeping the geometry column because non-spatial data operations on `sf` objects only change an object's geometry when appropriate (e.g. by dissolving borders between adjacent polygons following aggregation).
 This means that proficiency with attribute data in `sf` objects equates to proficiency with data frames in R.
 For many applications, the tidyverse package **dplyr** offers the most effective and intuitive approach of working with data frames, hence the focus on this approach in this section.^[
 Unlike objects of class `Spatial` of the **sp** package, `sf` objects are also compatible with the **tidyverse** packages **dplyr** and **ggplot2**.
@@ -2293,11 +2293,11 @@ grain = raster(nrow = 6, ncol = 6, res = 0.5,
 
 \BeginKnitrBlock{rmdnote}<div class="rmdnote">`raster` objects can contain values of class `numeric`, `integer`, `logical` or `factor`, but not `character`.
 To use character values they must first be converted into an appropriate class, for example using the function `factor()`. 
-The `levels` argument was used in the preceding code chund to create an ordered factor:
+The `levels` argument was used in the preceding code chunk to create an ordered factor:
 clay < silt < sand in terms of grain size.
 See the [Data structures](http://adv-r.had.co.nz/Data-structures.html) chapter of [@wickham_advanced_2014] for further details on classes.</div>\EndKnitrBlock{rmdnote}
 
-`raster` objects represent categorical varibles as integers, so `grain[1, 1]` returns a number that represents a unique identifiers, rather than "clay", "silt" or "sand". 
+`raster` objects represent categorical variables as integers, so `grain[1, 1]` returns a number that represents a unique identifiers, rather than "clay", "silt" or "sand". 
 The raster object stores the corresponding look-up table or "Raster Attribute Table" (RAT) as a data frame in a new slot named `attributes`, which can be viewed with `ratify(grain)` (see `?ratify()` for more information).
 Use the function `levels()` to retrieve the attribute table and add additional factor values:
 
@@ -2312,7 +2312,7 @@ levels(grain)
 #> 3  3  sand     dry
 ```
 
-This behaviour demonstrates that raster cells can only possess one value, an identifier which can be used to look up the attributes in the corresponding attribute table (stored in a slot named `attributes`).
+This behavior demonstrates that raster cells can only possess one value, an identifier which can be used to look up the attributes in the corresponding attribute table (stored in a slot named `attributes`).
 This is illustrated in command below, which returns the grain size and wetness of cell IDs 1, 12 and 36, we can run:
 
 
