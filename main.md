@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservebdf8eb654da4eecd
+preserve10b35776ba4c6df7
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -4103,6 +4103,235 @@ Export this map to a file called `cycle_hire.html`.
 [^2]: Full list of supported raster formats with theirs options can be found at http://www.gdal.org/formats_list.html
 
 <!--chapter:end:05-read-write-plot.Rmd-->
+
+
+# Reprojections and Transformations {#coord}
+
+<!-- random notes -->
+<!-- CRS also represent spatial relationship between datasets. -->
+<!-- Therefore, spatial operations could only be correctly performed on data with the same CRS. -->
+
+<!-- While the concept of CRS applies to both data types, conversion between coordinate rerefence systems differs between vector and raster. -->
+<!-- Tranformation from one CRS to another in vector data changes only coordinates of vertices, keeping the values intact. -->
+<!-- (for most of the case is better to reproject vector than raster) -->
+<!-- rasters: transformation means change of the coordinates of (special case of resampling) -->
+<!-- changes in dimensions, resolution, extent -->
+<!-- change shape and attributes) -->
+<!-- different methods of computing values after transformation, such as ngb or bilinear  -->
+
+<!-- - crs - a heart of spatial data -->
+<!-- - short history  -->
+<!-- - types of crs (geographic vs cartesian; local vs regional vs global) -->
+<!-- - objectives - 1/ to combine different datasets, 2/ area calculations, 3/ distance mesasurement, 4/ navigation, 5/ spatial data representations -->
+<!-- - proj -->
+<!-- - proj4 + epsg -->
+<!-- - the most popular epsg -->
+
+## Prerequisites {-}
+
+- This chapter requires **tidyverse**, **sf**, and **spData** packages:
+
+
+```r
+library(tidyverse)
+library(sf)
+library(spData)
+```
+
+## Introduction
+
+<!--in most of the cases reproject vector, not raster-->
+
+## Setting and transforming the CRS
+
+As stated in Chapter \@ref(crs-intro), it is important to understand which CRS you are working in when undertaking spatial operations.
+Many spatial operations assume that you are using a *projected* CRS (on a Euclidean grid with units of meters rather than a geographic 'lat/lon' grid with units of degrees).
+The GEOS engine underlying most spatial operations in **sf**, for example, assume your data is in a projected CRS.
+For this reason **sf** contains a function for checking if geometries have a geographic or projected CRS.
+This is illustrated below using the example of the *Greenwich point* which came to define 0 degrees longitude:
+
+
+```r
+greenwich = st_sf(geometry = st_sfc(st_point(c(0, 51.5))))
+st_is_longlat(greenwich)
+#> [1] NA
+```
+
+The results show that when geographic data is created from scratch, or is loaded from a source that has no CRS metadata, the CRS is unspecified by default.
+Spatial operations on objects without a CRS run on the implicit assumption that they are projected, even when in reality they are not.
+This can be seen by creating a huge buffer of 10 degrees around the `greenwich` point:
+
+
+```r
+greenwich_buff = st_buffer(greenwich, dist = 10)
+```
+
+Brief consideration of what has happened should set alarm bells ringing:
+the buffer will be highly distorted when projected onto the surface of the Earth.
+For this reason, when **sf** (and other spatial packages) know that geometries are in lat/long coordinates they emit a warning.
+This is illustrated in the code below which sets the CRS of `greenwich` to a lat/lon CRS (the commonly used EPSG 4326 in this case), checks to ensure that R thinks it's a geographic CRS, and then re-applies the buffer:
+
+
+```r
+greenwich_latlon = st_set_crs(greenwich, 4326)
+st_is_longlat(greenwich_latlon)
+#> [1] TRUE
+greenwich_buff_latlon = st_buffer(greenwich_latlon, 10)
+#> Warning in st_buffer.sfc(st_geometry(x), dist, nQuadSegs): st_buffer does
+#> not correctly buffer longitude/latitude data, dist needs to be in decimal
+#> degrees.
+```
+
+The results show that, as expected, `4326` is a geographic (lat/lon) CRS.
+As a result a warning message is emitted to warn the user that the operation may not work correctly and that, if the operation was intended, the distance should be in degrees (not meters or some other Euclidean distance measurement).
+The seemingly small difference in setting the CRS may seem inconsequential but it can have a huge impact.
+This is illustrated in Figure \@ref(crs-buf), which shows how the two buffers are plotted, with the (correctly) defined CRS of the latter object being dramatically elongated in the north-south direction due to the thinning of the vertical lines of longitude towards the Earth's poles.  
+
+
+
+
+```r
+plot(greenwich_buff, graticule = st_crs(4326))
+plot(greenwich_buff_latlon, graticule = st_crs(4326))
+```
+
+<div class="figure" style="text-align: center">
+<img src="figures/crs-buf-1.png" alt="Buffers on geographic data with undefined (left) and defined (right) CRSs." width="576" /><img src="figures/crs-buf-2.png" alt="Buffers on geographic data with undefined (left) and defined (right) CRSs." width="576" />
+<p class="caption">(\#fig:crs-buf)Buffers on geographic data with undefined (left) and defined (right) CRSs.</p>
+</div>
+
+## CRS transformation
+
+While CRSs can be set manually, it is more common in real world applications to *transform* a known CRS into another.
+A typical example is when geometry data is provided in a geographic CRS but you want to do spatial operations, which require it to be in a projected CRS.
+
+Let's use a real-world example to illustrate this.
+The dataset `cycle_hire_osm` represents all cycle hire locations across London, take from OpenStreetMap (OSM).
+It is automatically loaded by the **spData** package, meaning we do not have to load it, and its CRS can be queried as follows:
+
+
+```r
+st_crs(cycle_hire_osm)
+#> $epsg
+#> [1] 4326
+#> 
+#> $proj4string
+#> [1] "+proj=longlat +datum=WGS84 +no_defs"
+#> 
+#> attr(,"class")
+#> [1] "crs"
+```
+
+Let's create a new version of it in a projected CRS, using the 'magic number' (a value to be explained subsequently) of 27700:
+
+
+```r
+cycle_hire_projected = st_transform(cycle_hire_osm, 27700)
+st_crs(cycle_hire_projected)
+#> $epsg
+#> [1] 27700
+#> 
+#> $proj4string
+#> [1] "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs"
+#> 
+#> attr(,"class")
+#> [1] "crs"
+```
+
+Note that the result shows that the `epsg` has been updated and that `proj4string` element of the CRS now contains, among other things `+proj=tmerc` (meaning it is a projected CRS using the [tranverse Mercator](https://en.wikipedia.org/wiki/Transverse_Mercator_projection) projection) and `+units=m` (meaning the units of the coordinates are meters).
+Another function, from the **rgdal** library, provides a note about the CRS (its name):
+
+
+```r
+crs_codes = rgdal::make_EPSG()[1:2]
+dplyr::filter(crs_codes, code == 27700)
+#>    code                                note
+#> 1 27700 # OSGB 1936 / British National Grid
+```
+
+The result shows that the EPSG code 27700 represents the British National Grid, a result that could have been found by searching online for "[CRS 27700](https://www.google.com/search?q=CRS+27700)".
+This projection is clearly inappropriate for the data: the coordinates represent degrees of longitude and latitude, and this can also be seen by plotting it over a basemap, e.g. with the **mapview** package: `mapview::mapview(sf_points)`.
+
+The formula that converts a geographic point into a point on the surface of the Earth is provided by the `proj4string` element of the `crs` (see [proj4.org](http://proj4.org/) for further details):
+
+
+```r
+st_crs(27700)$proj4string
+#> [1] "+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs"
+```
+
+### Pro tip {-}
+
+The EPSG code can be found inside the `crs` attribute of the object's geometry.
+It is hidden from view for most of the time except when the object is printed but can be can identified and set using the functions `attribute()` and `attr()`, as illustrated below:
+
+
+```r
+attr(sf_points$geometry, which = "crs")$epsg
+```
+
+<!-- ### Vector data -->
+
+<!-- <!-- CRS assign --> -->
+
+<!-- - In case when a coordinate reference system (CRS) is missing or the wrong CRS is set, `st_crs()` or `st_set_crs` function can be used: -->
+
+<!-- ```{r, warning=FALSE} -->
+<!-- world_set3410 = st_set_crs(world, 3410) -->
+<!-- st_crs(world_set3410) -->
+<!-- ``` -->
+
+<!-- ```{r coord_compare0, echo=FALSE} -->
+<!-- par(mfrow = c(1, 2), mar=c(0,0,0,0)) -->
+<!-- plot(world_set3410[0]);plot(world[0]) -->
+<!-- ``` -->
+
+<!-- <!-- Reprojection --> -->
+
+<!-- - The `st_transform()` can be used to transform coordinates -->
+
+<!-- ```{r} -->
+<!-- world_3410 = st_transform(world, 3410) -->
+<!-- st_crs(world_3410) -->
+<!-- ``` -->
+
+<!-- ```{r coord_compare, echo=FALSE} -->
+<!-- par(mfrow = c(1, 2), mar=c(0,0,0,0)) -->
+<!-- plot(world_3410[0]);plot(world[0]) -->
+<!-- ``` -->
+
+<!--
+- st_as_sf(x, coords = c("x","y"))
+- st_crs(x)
+- st_transform(x, crs)
+- ==
+- !st_is_longlat(x)
+- st_set_crs(x, crs)
+- st_proj_info
+- st_bbox
+-->
+
+### Raster data
+
+<!--
+- projectRaster
+-->
+
+## Affine transformations
+
+### Translating
+
+### Scaling
+
+### Rotating
+
+### Reflecting
+
+### Shearing
+
+<!-- Todo: add content on simplifying using mapshaper and other packages (e.g. sf) -->
+
+<!--chapter:end:06-transform.Rmd-->
 
 
 # References

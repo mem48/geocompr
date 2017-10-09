@@ -6,27 +6,26 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Geocomputation with R</title>
-  <meta name="description" content="Geocomputation with R">
-  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
+  <meta name="description" content="Forthcoming book on geographic data with R.">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
 
   <meta property="og:title" content="Geocomputation with R" />
   <meta property="og:type" content="book" />
   <meta property="og:url" content="http://robinlovelace.net/geocompr" />
   
-  
+  <meta property="og:description" content="Forthcoming book on geographic data with R." />
   <meta name="github-repo" content="Robinlovelace/geocompr" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Geocomputation with R" />
   
+  <meta name="twitter:description" content="Forthcoming book on geographic data with R." />
   
-  
 
-<meta name="author" content="Robin Lovelace">
-<meta name="author" content="Jakub Nowosad">
+<meta name="author" content="Robin Lovelace, Jakub Nowosad, Jannes Muenchow">
 
 
-<meta name="date" content="2017-05-30">
+<meta name="date" content="2017-10-09">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -34,7 +33,7 @@
   
   
 <link rel="prev" href="read-write.html">
-<link rel="next" href="vector.html">
+<link rel="next" href="references.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -48,7 +47,7 @@
 
 
 
-<script src="libs/htmlwidgets-0.8/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
 <link href="libs/leaflet-0.7.7/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-0.7.7/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -61,9 +60,6 @@
 <script src="libs/leaflet-providers-plugin-1.1.0/leaflet-providers-plugin.js"></script>
 <link href="libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.css" rel="stylesheet" />
 <script src="libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.min.js"></script>
-<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
-<script src="libs/HomeButton-0.0.1/home-button.js"></script>
-<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -115,7 +111,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </style>
 
 <link rel="stylesheet" href="css/style.css" type="text/css" />
-<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -134,93 +129,108 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#development"><i class="fa fa-check"></i>Development</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#reproducibility"><i class="fa fa-check"></i>Reproducibility</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
-<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#why-geocomputation-with-r"><i class="fa fa-check"></i><b>1.1</b> Why Geocomputation with R?</a></li>
-<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#rs-spatial-ecosystem"><i class="fa fa-check"></i><b>1.2</b> R’s spatial ecosystem</a></li>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#what-is-geocomputation"><i class="fa fa-check"></i><b>1.1</b> What is geocomputation?</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#why-geocomputation-with-r"><i class="fa fa-check"></i><b>1.2</b> Why Geocomputation with R?</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#software-for-geocomputation"><i class="fa fa-check"></i><b>1.3</b> Software for geocomputation</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#rs-spatial-ecosystem"><i class="fa fa-check"></i><b>1.4</b> R’s spatial ecosystem</a></li>
+<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#rs-spatial-history"><i class="fa fa-check"></i><b>1.5</b> R’s spatial history</a></li>
+<li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#exercises"><i class="fa fa-check"></i><b>1.6</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="spatial-class.html"><a href="spatial-class.html"><i class="fa fa-check"></i><b>2</b> Simple features and plots</a><ul>
+<li class="chapter" data-level="2" data-path="spatial-class.html"><a href="spatial-class.html"><i class="fa fa-check"></i><b>2</b> Geographic data in R</a><ul>
 <li class="chapter" data-level="" data-path="spatial-class.html"><a href="spatial-class.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
-<li class="chapter" data-level="2.1" data-path="spatial-class.html"><a href="spatial-class.html#an-introduction-to-simple-features"><i class="fa fa-check"></i><b>2.1</b> An introduction to Simple Features</a><ul>
-<li class="chapter" data-level="2.1.1" data-path="spatial-class.html"><a href="spatial-class.html#exercises"><i class="fa fa-check"></i><b>2.1.1</b> Exercises</a></li>
+<li class="chapter" data-level="2.1" data-path="spatial-class.html"><a href="spatial-class.html#vector-data"><i class="fa fa-check"></i><b>2.1</b> Vector data</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="spatial-class.html"><a href="spatial-class.html#intro-sf"><i class="fa fa-check"></i><b>2.1.1</b> An introduction to simple features</a></li>
+<li class="chapter" data-level="2.1.2" data-path="spatial-class.html"><a href="spatial-class.html#why-simple-features"><i class="fa fa-check"></i><b>2.1.2</b> Why Simple Features?</a></li>
+<li class="chapter" data-level="2.1.3" data-path="spatial-class.html"><a href="spatial-class.html#basic-map"><i class="fa fa-check"></i><b>2.1.3</b> Basic map making</a></li>
+<li class="chapter" data-level="2.1.4" data-path="spatial-class.html"><a href="spatial-class.html#sf_classes"><i class="fa fa-check"></i><b>2.1.4</b> Simple feature classes</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="spatial-class.html"><a href="spatial-class.html#why-simple-features"><i class="fa fa-check"></i><b>2.2</b> Why Simple Features?</a></li>
-<li class="chapter" data-level="2.3" data-path="spatial-class.html"><a href="spatial-class.html#basic-map"><i class="fa fa-check"></i><b>2.3</b> Basic map making</a><ul>
-<li class="chapter" data-level="2.3.1" data-path="spatial-class.html"><a href="spatial-class.html#challenge"><i class="fa fa-check"></i><b>2.3.1</b> Challenge</a></li>
-<li class="chapter" data-level="2.3.2" data-path="spatial-class.html"><a href="spatial-class.html#further-work"><i class="fa fa-check"></i><b>2.3.2</b> Further work</a></li>
-<li class="chapter" data-level="2.3.3" data-path="spatial-class.html"><a href="spatial-class.html#exercises-1"><i class="fa fa-check"></i><b>2.3.3</b> Exercises</a></li>
+<li class="chapter" data-level="2.2" data-path="spatial-class.html"><a href="spatial-class.html#raster-data"><i class="fa fa-check"></i><b>2.2</b> Raster data</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="spatial-class.html"><a href="spatial-class.html#an-introduction-to-raster"><i class="fa fa-check"></i><b>2.2.1</b> An introduction to raster</a></li>
+<li class="chapter" data-level="2.2.2" data-path="spatial-class.html"><a href="spatial-class.html#basic-map-making"><i class="fa fa-check"></i><b>2.2.2</b> Basic map making</a></li>
+<li class="chapter" data-level="2.2.3" data-path="spatial-class.html"><a href="spatial-class.html#raster-classes"><i class="fa fa-check"></i><b>2.2.3</b> Raster classes</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="spatial-class.html"><a href="spatial-class.html#vector-data"><i class="fa fa-check"></i><b>2.4</b> Vector data</a></li>
-<li class="chapter" data-level="2.5" data-path="spatial-class.html"><a href="spatial-class.html#raster-data"><i class="fa fa-check"></i><b>2.5</b> Raster data</a></li>
+<li class="chapter" data-level="2.3" data-path="spatial-class.html"><a href="spatial-class.html#crs-intro"><i class="fa fa-check"></i><b>2.3</b> Coordinate Reference Systems</a></li>
+<li class="chapter" data-level="2.4" data-path="spatial-class.html"><a href="spatial-class.html#units"><i class="fa fa-check"></i><b>2.4</b> Units</a></li>
+<li class="chapter" data-level="2.5" data-path="spatial-class.html"><a href="spatial-class.html#exercises-1"><i class="fa fa-check"></i><b>2.5</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="attr.html"><a href="attr.html"><i class="fa fa-check"></i><b>3</b> Attribute data operations</a><ul>
 <li class="chapter" data-level="" data-path="attr.html"><a href="attr.html#prerequisites-1"><i class="fa fa-check"></i>Prerequisites</a></li>
 <li class="chapter" data-level="3.1" data-path="attr.html"><a href="attr.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
-<li class="chapter" data-level="3.2" data-path="attr.html"><a href="attr.html#base-vs-data.table-vs-dplyr"><i class="fa fa-check"></i><b>3.2</b> Base vs data.table vs dplyr</a></li>
-<li class="chapter" data-level="3.3" data-path="attr.html"><a href="attr.html#attribute-subsetting"><i class="fa fa-check"></i><b>3.3</b> Attribute subsetting</a></li>
-<li class="chapter" data-level="3.4" data-path="attr.html"><a href="attr.html#attribute-data-aggregation"><i class="fa fa-check"></i><b>3.4</b> Attribute data aggregation</a></li>
-<li class="chapter" data-level="3.5" data-path="attr.html"><a href="attr.html#attribute-data-joining"><i class="fa fa-check"></i><b>3.5</b> Attribute data joining</a></li>
-<li class="chapter" data-level="3.6" data-path="attr.html"><a href="attr.html#attribute-data-creation"><i class="fa fa-check"></i><b>3.6</b> Attribute data creation</a></li>
-<li class="chapter" data-level="3.7" data-path="attr.html"><a href="attr.html#removing-spatial-information"><i class="fa fa-check"></i><b>3.7</b> Removing spatial information</a></li>
+<li class="chapter" data-level="3.2" data-path="attr.html"><a href="attr.html#vector-attribute-manipulation"><i class="fa fa-check"></i><b>3.2</b> Vector attribute manipulation</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="attr.html"><a href="attr.html#vector-attribute-subsetting"><i class="fa fa-check"></i><b>3.2.1</b> Vector attribute subsetting</a></li>
+<li class="chapter" data-level="3.2.2" data-path="attr.html"><a href="attr.html#vector-attribute-aggregation"><i class="fa fa-check"></i><b>3.2.2</b> Vector attribute aggregation</a></li>
+<li class="chapter" data-level="3.2.3" data-path="attr.html"><a href="attr.html#vector-attribute-joining"><i class="fa fa-check"></i><b>3.2.3</b> Vector attribute joining</a></li>
+<li class="chapter" data-level="3.2.4" data-path="attr.html"><a href="attr.html#creating-attributes-and-removing-spatial-information"><i class="fa fa-check"></i><b>3.2.4</b> Creating attributes and removing spatial information</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="attr.html"><a href="attr.html#manipulating-raster-objects"><i class="fa fa-check"></i><b>3.3</b> Manipulating raster objects</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="attr.html"><a href="attr.html#raster-subsetting"><i class="fa fa-check"></i><b>3.3.1</b> Raster subsetting</a></li>
+<li class="chapter" data-level="3.3.2" data-path="attr.html"><a href="attr.html#summarizing-raster-objects"><i class="fa fa-check"></i><b>3.3.2</b> Summarizing raster objects</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="attr.html"><a href="attr.html#exercises-2"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html"><i class="fa fa-check"></i><b>4</b> Spatial data operations</a><ul>
 <li class="chapter" data-level="" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#prerequisites-2"><i class="fa fa-check"></i>Prerequisites</a></li>
 <li class="chapter" data-level="4.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#attribute-subsetting-1"><i class="fa fa-check"></i><b>4.2</b> Attribute subsetting</a></li>
-<li class="chapter" data-level="4.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#attribute-data-aggregation-1"><i class="fa fa-check"></i><b>4.3</b> Attribute data aggregation</a></li>
-<li class="chapter" data-level="4.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#attribute-data-joining-1"><i class="fa fa-check"></i><b>4.4</b> Attribute data joining</a></li>
-<li class="chapter" data-level="4.5" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#attribute-data-creation-1"><i class="fa fa-check"></i><b>4.5</b> Attribute data creation</a></li>
+<li class="chapter" data-level="4.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-operations-on-vector-data"><i class="fa fa-check"></i><b>4.2</b> Spatial operations on vector data</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-subsetting"><i class="fa fa-check"></i><b>4.2.1</b> Spatial subsetting</a></li>
+<li class="chapter" data-level="4.2.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#topological-relations"><i class="fa fa-check"></i><b>4.2.2</b> Topological relations</a></li>
+<li class="chapter" data-level="4.2.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-joining-and-aggregation"><i class="fa fa-check"></i><b>4.2.3</b> Spatial joining and aggregation</a></li>
+<li class="chapter" data-level="4.2.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#aggregating-or-dissolving"><i class="fa fa-check"></i><b>4.2.4</b> Aggregating or dissolving</a></li>
+<li class="chapter" data-level="4.2.5" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#modifying-geometry-data"><i class="fa fa-check"></i><b>4.2.5</b> Modifying geometry data</a></li>
+<li class="chapter" data-level="4.2.6" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#clipping"><i class="fa fa-check"></i><b>4.2.6</b> Clipping</a></li>
+<li class="chapter" data-level="4.2.7" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#distance-relations"><i class="fa fa-check"></i><b>4.2.7</b> Distance relations</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#spatial-operations-on-raster-data"><i class="fa fa-check"></i><b>4.3</b> Spatial operations on raster data</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="attr.html"><a href="attr.html#raster-subsetting"><i class="fa fa-check"></i><b>4.3.1</b> Spatial subsetting</a></li>
+<li class="chapter" data-level="4.3.2" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#map-algebra"><i class="fa fa-check"></i><b>4.3.2</b> Map algebra</a></li>
+<li class="chapter" data-level="4.3.3" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#local-operations"><i class="fa fa-check"></i><b>4.3.3</b> Local operations</a></li>
+<li class="chapter" data-level="4.3.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#focal-operations"><i class="fa fa-check"></i><b>4.3.4</b> Focal operations</a></li>
+<li class="chapter" data-level="4.3.5" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#zonal-operations"><i class="fa fa-check"></i><b>4.3.5</b> Zonal operations</a></li>
+<li class="chapter" data-level="4.3.6" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#global-operations-and-distances"><i class="fa fa-check"></i><b>4.3.6</b> Global operations and distances</a></li>
+<li class="chapter" data-level="4.3.7" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#merging-rasters"><i class="fa fa-check"></i><b>4.3.7</b> Merging rasters</a></li>
+<li class="chapter" data-level="4.3.8" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#aligning-rasters"><i class="fa fa-check"></i><b>4.3.8</b> Aligning rasters</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="spatial-data-operations.html"><a href="spatial-data-operations.html#exercises-3"><i class="fa fa-check"></i><b>4.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="read-write.html"><a href="read-write.html"><i class="fa fa-check"></i><b>5</b> Geographic data I/O</a><ul>
-<li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#data-input-i"><i class="fa fa-check"></i><b>5.1</b> Data Input (I)</a></li>
-<li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#data-output-o"><i class="fa fa-check"></i><b>5.2</b> Data output (O)</a></li>
+<li class="chapter" data-level="" data-path="read-write.html"><a href="read-write.html#prerequisites-3"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="5.1" data-path="read-write.html"><a href="read-write.html#introduction-2"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="read-write.html"><a href="read-write.html#retrieving-data"><i class="fa fa-check"></i><b>5.2</b> Retrieving open data</a></li>
 <li class="chapter" data-level="5.3" data-path="read-write.html"><a href="read-write.html#file-formats"><i class="fa fa-check"></i><b>5.3</b> File formats</a></li>
-<li class="chapter" data-level="5.4" data-path="read-write.html"><a href="read-write.html#visual-outputs"><i class="fa fa-check"></i><b>5.4</b> Visual outputs</a></li>
-<li class="chapter" data-level="5.5" data-path="read-write.html"><a href="read-write.html#exercises-2"><i class="fa fa-check"></i><b>5.5</b> Exercises</a></li>
+<li class="chapter" data-level="5.4" data-path="read-write.html"><a href="read-write.html#data-input"><i class="fa fa-check"></i><b>5.4</b> Data Input (I)</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="read-write.html"><a href="read-write.html#vector-data-1"><i class="fa fa-check"></i><b>5.4.1</b> Vector data</a></li>
+<li class="chapter" data-level="5.4.2" data-path="read-write.html"><a href="read-write.html#raster-data-1"><i class="fa fa-check"></i><b>5.4.2</b> Raster data</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="coord.html"><a href="coord.html"><i class="fa fa-check"></i><b>6</b> Coordinate reference systems/reprojecting</a><ul>
-<li class="chapter" data-level="" data-path="coord.html"><a href="coord.html#prerequisites-3"><i class="fa fa-check"></i>Prerequisites</a></li>
-<li class="chapter" data-level="6.1" data-path="coord.html"><a href="coord.html#introduction-2"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
-<li class="chapter" data-level="6.2" data-path="coord.html"><a href="coord.html#vector-data-1"><i class="fa fa-check"></i><b>6.2</b> Vector data</a></li>
-<li class="chapter" data-level="6.3" data-path="coord.html"><a href="coord.html#raster-data-1"><i class="fa fa-check"></i><b>6.3</b> Raster data</a></li>
+<li class="chapter" data-level="5.5" data-path="read-write.html"><a href="read-write.html#data-output"><i class="fa fa-check"></i><b>5.5</b> Data output (O)</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="read-write.html"><a href="read-write.html#vector-data-2"><i class="fa fa-check"></i><b>5.5.1</b> Vector data</a></li>
+<li class="chapter" data-level="5.5.2" data-path="read-write.html"><a href="read-write.html#raster-data-2"><i class="fa fa-check"></i><b>5.5.2</b> Raster data</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="vector.html"><a href="vector.html"><i class="fa fa-check"></i><b>7</b> Working with vector data</a><ul>
-<li class="chapter" data-level="" data-path="vector.html"><a href="vector.html#prerequisites-4"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="5.6" data-path="read-write.html"><a href="read-write.html#visual-outputs"><i class="fa fa-check"></i><b>5.6</b> Visual outputs</a></li>
+<li class="chapter" data-level="5.7" data-path="read-write.html"><a href="read-write.html#exercises-4"><i class="fa fa-check"></i><b>5.7</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="raster.html"><a href="raster.html"><i class="fa fa-check"></i><b>8</b> Working with raster data</a><ul>
-<li class="chapter" data-level="" data-path="raster.html"><a href="raster.html#prerequisites-5"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="6" data-path="coord.html"><a href="coord.html"><i class="fa fa-check"></i><b>6</b> Reprojections and Transformations</a><ul>
+<li class="chapter" data-level="" data-path="coord.html"><a href="coord.html#prerequisites-4"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="6.1" data-path="coord.html"><a href="coord.html#introduction-3"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="coord.html"><a href="coord.html#setting-and-transforming-the-crs"><i class="fa fa-check"></i><b>6.2</b> Setting and transforming the CRS</a></li>
+<li class="chapter" data-level="6.3" data-path="coord.html"><a href="coord.html#crs-transformation"><i class="fa fa-check"></i><b>6.3</b> CRS transformation</a><ul>
+<li class="chapter" data-level="" data-path="coord.html"><a href="coord.html#pro-tip"><i class="fa fa-check"></i>Pro tip</a></li>
+<li class="chapter" data-level="6.3.1" data-path="coord.html"><a href="coord.html#raster-data-3"><i class="fa fa-check"></i><b>6.3.1</b> Raster data</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="raster-vector.html"><a href="raster-vector.html"><i class="fa fa-check"></i><b>9</b> Raster-vector interaction</a><ul>
-<li class="chapter" data-level="" data-path="raster-vector.html"><a href="raster-vector.html#prerequisites-6"><i class="fa fa-check"></i>Prerequisites</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html"><i class="fa fa-check"></i><b>10</b> Point Pattern analysis and spatial interpolation</a><ul>
-<li class="chapter" data-level="10.1" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#data"><i class="fa fa-check"></i><b>10.1</b> Data</a></li>
-<li class="chapter" data-level="10.2" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#basic-point-pattern-analysis"><i class="fa fa-check"></i><b>10.2</b> Basic point pattern analysis</a></li>
-<li class="chapter" data-level="10.3" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#point-density"><i class="fa fa-check"></i><b>10.3</b> Point density</a><ul>
-<li class="chapter" data-level="10.3.1" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#exercises-3"><i class="fa fa-check"></i><b>10.3.1</b> Exercises</a></li>
-<li class="chapter" data-level="10.3.2" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#challenges"><i class="fa fa-check"></i><b>10.3.2</b> Challenges</a></li>
-</ul></li>
-<li class="chapter" data-level="10.4" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#points-in-polygons-and-raster-cells"><i class="fa fa-check"></i><b>10.4</b> Points in polygons and raster cells</a><ul>
-<li class="chapter" data-level="10.4.1" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#exercises-4"><i class="fa fa-check"></i><b>10.4.1</b> Exercises</a></li>
-<li class="chapter" data-level="10.4.2" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#challenge-1"><i class="fa fa-check"></i><b>10.4.2</b> Challenge</a></li>
-<li class="chapter" data-level="10.4.3" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#exercises-5"><i class="fa fa-check"></i><b>10.4.3</b> Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="10.5" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#point-distance-analysis"><i class="fa fa-check"></i><b>10.5</b> Point distance analysis</a></li>
-<li class="chapter" data-level="10.6" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#spatial-interpolation"><i class="fa fa-check"></i><b>10.6</b> Spatial interpolation</a><ul>
-<li class="chapter" data-level="10.6.1" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#exercises-6"><i class="fa fa-check"></i><b>10.6.1</b> Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="10.7" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#voronoi-polygon-interpolation"><i class="fa fa-check"></i><b>10.7</b> Voronoi polygon interpolation</a><ul>
-<li class="chapter" data-level="10.7.1" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#exercises-7"><i class="fa fa-check"></i><b>10.7.1</b> Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="10.8" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#interpolation-with-the-gstat-package"><i class="fa fa-check"></i><b>10.8</b> Interpolation with the gstat package</a><ul>
-<li class="chapter" data-level="10.8.1" data-path="point-pattern-analysis-and-spatial-interpolation.html"><a href="point-pattern-analysis-and-spatial-interpolation.html#exercises-8"><i class="fa fa-check"></i><b>10.8.1</b> Exercises</a></li>
+<li class="chapter" data-level="6.4" data-path="coord.html"><a href="coord.html#affine-transformations"><i class="fa fa-check"></i><b>6.4</b> Affine transformations</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="coord.html"><a href="coord.html#translating"><i class="fa fa-check"></i><b>6.4.1</b> Translating</a></li>
+<li class="chapter" data-level="6.4.2" data-path="coord.html"><a href="coord.html#scaling"><i class="fa fa-check"></i><b>6.4.2</b> Scaling</a></li>
+<li class="chapter" data-level="6.4.3" data-path="coord.html"><a href="coord.html#rotating"><i class="fa fa-check"></i><b>6.4.3</b> Rotating</a></li>
+<li class="chapter" data-level="6.4.4" data-path="coord.html"><a href="coord.html#reflecting"><i class="fa fa-check"></i><b>6.4.4</b> Reflecting</a></li>
+<li class="chapter" data-level="6.4.5" data-path="coord.html"><a href="coord.html#shearing"><i class="fa fa-check"></i><b>6.4.5</b> Shearing</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>11</b> References</a></li>
+<li class="chapter" data-level="7" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>7</b> References</a></li>
 <li class="divider"></li>
 <li><a href="http://robinlovelace.net/">Robin Lovelace</a></li>
 <li><a href="https://nowosad.github.io/">Jakub Nowosad</a></li>
+<li><a href="http://www.geographie.uni-jena.de/en/Muenchow.html">Jannes Muenchow</a></li>
 
 </ul>
 
@@ -240,7 +250,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="coord" class="section level1">
-<h1><span class="header-section-number">6</span> Coordinate reference systems/reprojecting</h1>
+<h1><span class="header-section-number">6</span> Reprojections and Transformations</h1>
+<!-- random notes -->
+<!-- CRS also represent spatial relationship between datasets. -->
+<!-- Therefore, spatial operations could only be correctly performed on data with the same CRS. -->
+<!-- While the concept of CRS applies to both data types, conversion between coordinate rerefence systems differs between vector and raster. -->
+<!-- Tranformation from one CRS to another in vector data changes only coordinates of vertices, keeping the values intact. -->
+<!-- (for most of the case is better to reproject vector than raster) -->
+<!-- rasters: transformation means change of the coordinates of (special case of resampling) -->
+<!-- changes in dimensions, resolution, extent -->
+<!-- change shape and attributes) -->
+<!-- different methods of computing values after transformation, such as ngb or bilinear  -->
 <!-- - crs - a heart of spatial data -->
 <!-- - short history  -->
 <!-- - types of crs (geographic vs cartesian; local vs regional vs global) -->
@@ -248,54 +268,105 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <!-- - proj -->
 <!-- - proj4 + epsg -->
 <!-- - the most popular epsg -->
-<div id="prerequisites-3" class="section level2 unnumbered">
+<div id="prerequisites-4" class="section level2 unnumbered">
 <h2>Prerequisites</h2>
 <ul>
 <li>This chapter requires <strong>tidyverse</strong>, <strong>sf</strong>, and <strong>spData</strong> packages:</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sf)
-<span class="kw">library</span>(tidyverse)</code></pre></div>
-<ul>
-<li>You must have loaded the <code>world</code> data from the spData package:</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(spData)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(sf)
+<span class="kw">library</span>(spData)</code></pre></div>
 </div>
-<div id="introduction-2" class="section level2">
+<div id="introduction-3" class="section level2">
 <h2><span class="header-section-number">6.1</span> Introduction</h2>
 <!--in most of the cases reproject vector, not raster-->
 </div>
-<div id="vector-data-1" class="section level2">
-<h2><span class="header-section-number">6.2</span> Vector data</h2>
-<!-- CRS assign -->
-<ul>
-<li>In case when a coordinate reference system (CRS) is missing or the wrong CRS is set, <code>st_crs()</code> or <code>st_set_crs</code> function can be used:</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_set3410 =<span class="st"> </span><span class="kw">st_set_crs</span>(world, <span class="dv">3410</span>)
-<span class="kw">st_crs</span>(world_set3410)
+<div id="setting-and-transforming-the-crs" class="section level2">
+<h2><span class="header-section-number">6.2</span> Setting and transforming the CRS</h2>
+<p>As stated in Chapter <a href="spatial-class.html#crs-intro">2.3</a>, it is important to understand which CRS you are working in when undertaking spatial operations. Many spatial operations assume that you are using a <em>projected</em> CRS (on a Euclidean grid with units of meters rather than a geographic ‘lat/lon’ grid with units of degrees). The GEOS engine underlying most spatial operations in <strong>sf</strong>, for example, assume your data is in a projected CRS. For this reason <strong>sf</strong> contains a function for checking if geometries have a geographic or projected CRS. This is illustrated below using the example of the <em>Greenwich point</em> which came to define 0 degrees longitude:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">greenwich =<span class="st"> </span><span class="kw">st_sf</span>(<span class="dt">geometry =</span> <span class="kw">st_sfc</span>(<span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">51.5</span>))))
+<span class="kw">st_is_longlat</span>(greenwich)
+<span class="co">#&gt; [1] NA</span></code></pre></div>
+<p>The results show that when geographic data is created from scratch, or is loaded from a source that has no CRS metadata, the CRS is unspecified by default. Spatial operations on objects without a CRS run on the implicit assumption that they are projected, even when in reality they are not. This can be seen by creating a huge buffer of 10 degrees around the <code>greenwich</code> point:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">greenwich_buff =<span class="st"> </span><span class="kw">st_buffer</span>(greenwich, <span class="dt">dist =</span> <span class="dv">10</span>)</code></pre></div>
+<p>Brief consideration of what has happened should set alarm bells ringing: the buffer will be highly distorted when projected onto the surface of the Earth. For this reason, when <strong>sf</strong> (and other spatial packages) know that geometries are in lat/long coordinates they emit a warning. This is illustrated in the code below which sets the CRS of <code>greenwich</code> to a lat/lon CRS (the commonly used EPSG 4326 in this case), checks to ensure that R thinks it’s a geographic CRS, and then re-applies the buffer:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">greenwich_latlon =<span class="st"> </span><span class="kw">st_set_crs</span>(greenwich, <span class="dv">4326</span>)
+<span class="kw">st_is_longlat</span>(greenwich_latlon)
+<span class="co">#&gt; [1] TRUE</span>
+greenwich_buff_latlon =<span class="st"> </span><span class="kw">st_buffer</span>(greenwich_latlon, <span class="dv">10</span>)
+<span class="co">#&gt; Warning in st_buffer.sfc(st_geometry(x), dist, nQuadSegs): st_buffer does</span>
+<span class="co">#&gt; not correctly buffer longitude/latitude data, dist needs to be in decimal</span>
+<span class="co">#&gt; degrees.</span></code></pre></div>
+<p>The results show that, as expected, <code>4326</code> is a geographic (lat/lon) CRS. As a result a warning message is emitted to warn the user that the operation may not work correctly and that, if the operation was intended, the distance should be in degrees (not meters or some other Euclidean distance measurement). The seemingly small difference in setting the CRS may seem inconsequential but it can have a huge impact. This is illustrated in Figure <a href="#crs-buf"><strong>??</strong></a>, which shows how the two buffers are plotted, with the (correctly) defined CRS of the latter object being dramatically elongated in the north-south direction due to the thinning of the vertical lines of longitude towards the Earth’s poles.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(greenwich_buff, <span class="dt">graticule =</span> <span class="kw">st_crs</span>(<span class="dv">4326</span>))
+<span class="kw">plot</span>(greenwich_buff_latlon, <span class="dt">graticule =</span> <span class="kw">st_crs</span>(<span class="dv">4326</span>))</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:crs-buf"></span>
+<img src="figures/crs-buf-1.png" alt="Buffers on geographic data with undefined (left) and defined (right) CRSs." width="576" /><img src="figures/crs-buf-2.png" alt="Buffers on geographic data with undefined (left) and defined (right) CRSs." width="576" />
+<p class="caption">
+Figure 6.1: Buffers on geographic data with undefined (left) and defined (right) CRSs.
+</p>
+</div>
+</div>
+<div id="crs-transformation" class="section level2">
+<h2><span class="header-section-number">6.3</span> CRS transformation</h2>
+<p>While CRSs can be set manually, it is more common in real world applications to <em>transform</em> a known CRS into another. A typical example is when geometry data is provided in a geographic CRS but you want to do spatial operations, which require it to be in a projected CRS.</p>
+<p>Let’s use a real-world example to illustrate this. The dataset <code>cycle_hire_osm</code> represents all cycle hire locations across London, take from OpenStreetMap (OSM). It is automatically loaded by the <strong>spData</strong> package, meaning we do not have to load it, and its CRS can be queried as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crs</span>(cycle_hire_osm)
 <span class="co">#&gt; $epsg</span>
-<span class="co">#&gt; [1] 3410</span>
+<span class="co">#&gt; [1] 4326</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $proj4string</span>
-<span class="co">#&gt; [1] &quot;+proj=cea +lon_0=0 +lat_ts=30 +x_0=0 +y_0=0 +a=6371228 +b=6371228 +units=m +no_defs&quot;</span>
+<span class="co">#&gt; [1] &quot;+proj=longlat +datum=WGS84 +no_defs&quot;</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; attr(,&quot;class&quot;)</span>
 <span class="co">#&gt; [1] &quot;crs&quot;</span></code></pre></div>
-<p><img src="figures/coord_compare0-1.png" width="672" style="display: block; margin: auto;" /></p>
-<!-- Reprojection -->
-<ul>
-<li>The <code>st_transform()</code> can be used to transform coordinates</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_3410 =<span class="st"> </span><span class="kw">st_transform</span>(world, <span class="dv">3410</span>)
-<span class="kw">st_crs</span>(world_3410)
+<p>Let’s create a new version of it in a projected CRS, using the ‘magic number’ (a value to be explained subsequently) of 27700:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cycle_hire_projected =<span class="st"> </span><span class="kw">st_transform</span>(cycle_hire_osm, <span class="dv">27700</span>)
+<span class="kw">st_crs</span>(cycle_hire_projected)
 <span class="co">#&gt; $epsg</span>
-<span class="co">#&gt; [1] 3410</span>
+<span class="co">#&gt; [1] 27700</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $proj4string</span>
-<span class="co">#&gt; [1] &quot;+proj=cea +lon_0=0 +lat_ts=30 +x_0=0 +y_0=0 +a=6371228 +b=6371228 +units=m +no_defs&quot;</span>
+<span class="co">#&gt; [1] &quot;+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs&quot;</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; attr(,&quot;class&quot;)</span>
 <span class="co">#&gt; [1] &quot;crs&quot;</span></code></pre></div>
-<p><img src="figures/coord_compare-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Note that the result shows that the <code>epsg</code> has been updated and that <code>proj4string</code> element of the CRS now contains, among other things <code>+proj=tmerc</code> (meaning it is a projected CRS using the <a href="https://en.wikipedia.org/wiki/Transverse_Mercator_projection">tranverse Mercator</a> projection) and <code>+units=m</code> (meaning the units of the coordinates are meters). Another function, from the <strong>rgdal</strong> library, provides a note about the CRS (its name):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crs_codes =<span class="st"> </span>rgdal::<span class="kw">make_EPSG</span>()[<span class="dv">1</span>:<span class="dv">2</span>]
+dplyr::<span class="kw">filter</span>(crs_codes, code ==<span class="st"> </span><span class="dv">27700</span>)
+<span class="co">#&gt;    code                                note</span>
+<span class="co">#&gt; 1 27700 # OSGB 1936 / British National Grid</span></code></pre></div>
+<p>The result shows that the EPSG code 27700 represents the British National Grid, a result that could have been found by searching online for “<a href="https://www.google.com/search?q=CRS+27700">CRS 27700</a>”. This projection is clearly inappropriate for the data: the coordinates represent degrees of longitude and latitude, and this can also be seen by plotting it over a basemap, e.g. with the <strong>mapview</strong> package: <code>mapview::mapview(sf_points)</code>.</p>
+<p>The formula that converts a geographic point into a point on the surface of the Earth is provided by the <code>proj4string</code> element of the <code>crs</code> (see <a href="http://proj4.org/">proj4.org</a> for further details):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crs</span>(<span class="dv">27700</span>)$proj4string
+<span class="co">#&gt; [1] &quot;+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs&quot;</span></code></pre></div>
+<div id="pro-tip" class="section level3 unnumbered">
+<h3>Pro tip</h3>
+<p>The EPSG code can be found inside the <code>crs</code> attribute of the object’s geometry. It is hidden from view for most of the time except when the object is printed but can be can identified and set using the functions <code>attribute()</code> and <code>attr()</code>, as illustrated below:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attr</span>(sf_points$geometry, <span class="dt">which =</span> <span class="st">&quot;crs&quot;</span>)$epsg</code></pre></div>
+<!-- ### Vector data -->
+<!-- <!-- CRS assign -->
+<p>–&gt;</p>
+<!-- - In case when a coordinate reference system (CRS) is missing or the wrong CRS is set, `st_crs()` or `st_set_crs` function can be used: -->
+<!-- ```{r, warning=FALSE} -->
+<!-- world_set3410 = st_set_crs(world, 3410) -->
+<!-- st_crs(world_set3410) -->
+<!-- ``` -->
+<!-- ```{r coord_compare0, echo=FALSE} -->
+<!-- par(mfrow = c(1, 2), mar=c(0,0,0,0)) -->
+<!-- plot(world_set3410[0]);plot(world[0]) -->
+<!-- ``` -->
+<!-- <!-- Reprojection -->
+<p>–&gt;</p>
+<!-- - The `st_transform()` can be used to transform coordinates -->
+<!-- ```{r} -->
+<!-- world_3410 = st_transform(world, 3410) -->
+<!-- st_crs(world_3410) -->
+<!-- ``` -->
+<!-- ```{r coord_compare, echo=FALSE} -->
+<!-- par(mfrow = c(1, 2), mar=c(0,0,0,0)) -->
+<!-- plot(world_3410[0]);plot(world[0]) -->
+<!-- ``` -->
 <!--
 - st_as_sf(x, coords = c("x","y"))
 - st_crs(x)
@@ -307,12 +378,32 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 - st_bbox
 -->
 </div>
-<div id="raster-data-1" class="section level2">
-<h2><span class="header-section-number">6.3</span> Raster data</h2>
+<div id="raster-data-3" class="section level3">
+<h3><span class="header-section-number">6.3.1</span> Raster data</h3>
 <!--
 - projectRaster
 -->
+</div>
+</div>
+<div id="affine-transformations" class="section level2">
+<h2><span class="header-section-number">6.4</span> Affine transformations</h2>
+<div id="translating" class="section level3">
+<h3><span class="header-section-number">6.4.1</span> Translating</h3>
+</div>
+<div id="scaling" class="section level3">
+<h3><span class="header-section-number">6.4.2</span> Scaling</h3>
+</div>
+<div id="rotating" class="section level3">
+<h3><span class="header-section-number">6.4.3</span> Rotating</h3>
+</div>
+<div id="reflecting" class="section level3">
+<h3><span class="header-section-number">6.4.4</span> Reflecting</h3>
+</div>
+<div id="shearing" class="section level3">
+<h3><span class="header-section-number">6.4.5</span> Shearing</h3>
+<!-- Todo: add content on simplifying using mapshaper and other packages (e.g. sf) -->
 
+</div>
 </div>
 </div>
             </section>
@@ -321,7 +412,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         </div>
       </div>
 <a href="read-write.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="vector.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -332,7 +423,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
 <script>
-require(["gitbook"], function(gitbook) {
+gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
 "github": false,
@@ -350,7 +441,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/Robinlovelace/geocompr/edit/master/06-coord.Rmd",
+"link": "https://github.com/Robinlovelace/geocompr/edit/master/06-transform.Rmd",
 "text": "Edit"
 },
 "download": null,
@@ -361,6 +452,17 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
