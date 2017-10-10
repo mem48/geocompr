@@ -25,7 +25,7 @@
 <meta name="author" content="Robin Lovelace, Jakub Nowosad, Jannes Muenchow">
 
 
-<meta name="date" content="2017-10-09">
+<meta name="date" content="2017-10-10">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -213,18 +213,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6" data-path="coord.html"><a href="coord.html"><i class="fa fa-check"></i><b>6</b> Reprojections and Transformations</a><ul>
 <li class="chapter" data-level="" data-path="coord.html"><a href="coord.html#prerequisites-4"><i class="fa fa-check"></i>Prerequisites</a></li>
 <li class="chapter" data-level="6.1" data-path="coord.html"><a href="coord.html#introduction-3"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
-<li class="chapter" data-level="6.2" data-path="coord.html"><a href="coord.html#setting-and-transforming-the-crs"><i class="fa fa-check"></i><b>6.2</b> Setting and transforming the CRS</a></li>
-<li class="chapter" data-level="6.3" data-path="coord.html"><a href="coord.html#crs-transformation"><i class="fa fa-check"></i><b>6.3</b> CRS transformation</a><ul>
-<li class="chapter" data-level="" data-path="coord.html"><a href="coord.html#pro-tip"><i class="fa fa-check"></i>Pro tip</a></li>
-<li class="chapter" data-level="6.3.1" data-path="coord.html"><a href="coord.html#raster-data-3"><i class="fa fa-check"></i><b>6.3.1</b> Raster data</a></li>
-</ul></li>
-<li class="chapter" data-level="6.4" data-path="coord.html"><a href="coord.html#affine-transformations"><i class="fa fa-check"></i><b>6.4</b> Affine transformations</a><ul>
-<li class="chapter" data-level="6.4.1" data-path="coord.html"><a href="coord.html#translating"><i class="fa fa-check"></i><b>6.4.1</b> Translating</a></li>
-<li class="chapter" data-level="6.4.2" data-path="coord.html"><a href="coord.html#scaling"><i class="fa fa-check"></i><b>6.4.2</b> Scaling</a></li>
-<li class="chapter" data-level="6.4.3" data-path="coord.html"><a href="coord.html#rotating"><i class="fa fa-check"></i><b>6.4.3</b> Rotating</a></li>
-<li class="chapter" data-level="6.4.4" data-path="coord.html"><a href="coord.html#reflecting"><i class="fa fa-check"></i><b>6.4.4</b> Reflecting</a></li>
-<li class="chapter" data-level="6.4.5" data-path="coord.html"><a href="coord.html#shearing"><i class="fa fa-check"></i><b>6.4.5</b> Shearing</a></li>
-</ul></li>
+<li class="chapter" data-level="6.2" data-path="coord.html"><a href="coord.html#crs-transformation"><i class="fa fa-check"></i><b>6.2</b> CRS transformation</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>7</b> References</a></li>
 <li class="divider"></li>
@@ -251,6 +240,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="coord" class="section level1">
 <h1><span class="header-section-number">6</span> Reprojections and Transformations</h1>
+<div id="prerequisites-4" class="section level2 unnumbered">
+<h2>Prerequisites</h2>
+<ul>
+<li>This chapter requires <strong>tidyverse</strong>, <strong>sf</strong>, and <strong>spData</strong> packages:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(sf)
+<span class="kw">library</span>(spData)</code></pre></div>
+</div>
+<div id="introduction-3" class="section level2">
+<h2><span class="header-section-number">6.1</span> Introduction</h2>
 <!-- random notes -->
 <!-- CRS also represent spatial relationship between datasets. -->
 <!-- Therefore, spatial operations could only be correctly performed on data with the same CRS. -->
@@ -268,21 +268,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <!-- - proj -->
 <!-- - proj4 + epsg -->
 <!-- - the most popular epsg -->
-<div id="prerequisites-4" class="section level2 unnumbered">
-<h2>Prerequisites</h2>
-<ul>
-<li>This chapter requires <strong>tidyverse</strong>, <strong>sf</strong>, and <strong>spData</strong> packages:</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(sf)
-<span class="kw">library</span>(spData)</code></pre></div>
-</div>
-<div id="introduction-3" class="section level2">
-<h2><span class="header-section-number">6.1</span> Introduction</h2>
 <!--in most of the cases reproject vector, not raster-->
-</div>
-<div id="setting-and-transforming-the-crs" class="section level2">
-<h2><span class="header-section-number">6.2</span> Setting and transforming the CRS</h2>
 <p>As stated in Chapter <a href="spatial-class.html#crs-intro">2.3</a>, it is important to understand which CRS you are working in when undertaking spatial operations. Many spatial operations assume that you are using a <em>projected</em> CRS (on a Euclidean grid with units of meters rather than a geographic ‘lat/lon’ grid with units of degrees). The GEOS engine underlying most spatial operations in <strong>sf</strong>, for example, assume your data is in a projected CRS. For this reason <strong>sf</strong> contains a function for checking if geometries have a geographic or projected CRS. This is illustrated below using the example of the <em>Greenwich point</em> which came to define 0 degrees longitude:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">greenwich =<span class="st"> </span><span class="kw">st_sf</span>(<span class="dt">geometry =</span> <span class="kw">st_sfc</span>(<span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">51.5</span>))))
 <span class="kw">st_is_longlat</span>(greenwich)
@@ -297,7 +283,7 @@ greenwich_buff_latlon =<span class="st"> </span><span class="kw">st_buffer</span
 <span class="co">#&gt; Warning in st_buffer.sfc(st_geometry(x), dist, nQuadSegs): st_buffer does</span>
 <span class="co">#&gt; not correctly buffer longitude/latitude data, dist needs to be in decimal</span>
 <span class="co">#&gt; degrees.</span></code></pre></div>
-<p>The results show that, as expected, <code>4326</code> is a geographic (lat/lon) CRS. As a result a warning message is emitted to warn the user that the operation may not work correctly and that, if the operation was intended, the distance should be in degrees (not meters or some other Euclidean distance measurement). The seemingly small difference in setting the CRS may seem inconsequential but it can have a huge impact. This is illustrated in Figure <a href="#crs-buf"><strong>??</strong></a>, which shows how the two buffers are plotted, with the (correctly) defined CRS of the latter object being dramatically elongated in the north-south direction due to the thinning of the vertical lines of longitude towards the Earth’s poles.</p>
+<p>The results show that, as expected, <code>4326</code> is a geographic (lat/lon) CRS. As a result a warning message is emitted to warn the user that the operation may not work correctly and that, if the operation was intended, the distance should be in degrees (not meters or some other Euclidean distance measurement). The seemingly small difference in setting the CRS may seem inconsequential but it can have a huge impact. This is illustrated in Figure <a href="coord.html#fig:crs-buf">6.1</a>, which shows how the two buffers are plotted, with the (correctly) defined CRS of the latter object being dramatically elongated in the north-south direction due to the thinning of the vertical lines of longitude towards the Earth’s poles.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(greenwich_buff, <span class="dt">graticule =</span> <span class="kw">st_crs</span>(<span class="dv">4326</span>))
 <span class="kw">plot</span>(greenwich_buff_latlon, <span class="dt">graticule =</span> <span class="kw">st_crs</span>(<span class="dv">4326</span>))</code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:crs-buf"></span>
@@ -308,9 +294,10 @@ Figure 6.1: Buffers on geographic data with undefined (left) and defined (right)
 </div>
 </div>
 <div id="crs-transformation" class="section level2">
-<h2><span class="header-section-number">6.3</span> CRS transformation</h2>
-<p>While CRSs can be set manually, it is more common in real world applications to <em>transform</em> a known CRS into another. A typical example is when geometry data is provided in a geographic CRS but you want to do spatial operations, which require it to be in a projected CRS.</p>
-<p>Let’s use a real-world example to illustrate this. The dataset <code>cycle_hire_osm</code> represents all cycle hire locations across London, take from OpenStreetMap (OSM). It is automatically loaded by the <strong>spData</strong> package, meaning we do not have to load it, and its CRS can be queried as follows:</p>
+<h2><span class="header-section-number">6.2</span> CRS transformation</h2>
+<p>While CRSs can be set manually, it is more common in real world applications to <em>transform</em> a known CRS into another. A typical example is when geometry data is provided in a geographic CRS but you want to do spatial operations, which require it to be in a projected CRS. Let’s use real-world examples to illustrate this.</p>
+<!-- Vector data -->
+<p>The dataset <code>cycle_hire_osm</code> represents all cycle hire locations across London, take from OpenStreetMap (OSM). It is automatically loaded by the <strong>spData</strong> package, meaning we do not have to load it, and its CRS can be queried as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crs</span>(cycle_hire_osm)
 <span class="co">#&gt; $epsg</span>
 <span class="co">#&gt; [1] 4326</span>
@@ -340,33 +327,11 @@ dplyr::<span class="kw">filter</span>(crs_codes, code ==<span class="st"> </span
 <p>The formula that converts a geographic point into a point on the surface of the Earth is provided by the <code>proj4string</code> element of the <code>crs</code> (see <a href="http://proj4.org/">proj4.org</a> for further details):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crs</span>(<span class="dv">27700</span>)$proj4string
 <span class="co">#&gt; [1] &quot;+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs&quot;</span></code></pre></div>
-<div id="pro-tip" class="section level3 unnumbered">
-<h3>Pro tip</h3>
-<p>The EPSG code can be found inside the <code>crs</code> attribute of the object’s geometry. It is hidden from view for most of the time except when the object is printed but can be can identified and set using the functions <code>attribute()</code> and <code>attr()</code>, as illustrated below:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attr</span>(sf_points$geometry, <span class="dt">which =</span> <span class="st">&quot;crs&quot;</span>)$epsg</code></pre></div>
-<!-- ### Vector data -->
-<!-- <!-- CRS assign -->
-<p>–&gt;</p>
-<!-- - In case when a coordinate reference system (CRS) is missing or the wrong CRS is set, `st_crs()` or `st_set_crs` function can be used: -->
-<!-- ```{r, warning=FALSE} -->
-<!-- world_set3410 = st_set_crs(world, 3410) -->
-<!-- st_crs(world_set3410) -->
-<!-- ``` -->
-<!-- ```{r coord_compare0, echo=FALSE} -->
-<!-- par(mfrow = c(1, 2), mar=c(0,0,0,0)) -->
-<!-- plot(world_set3410[0]);plot(world[0]) -->
-<!-- ``` -->
-<!-- <!-- Reprojection -->
-<p>–&gt;</p>
-<!-- - The `st_transform()` can be used to transform coordinates -->
-<!-- ```{r} -->
-<!-- world_3410 = st_transform(world, 3410) -->
-<!-- st_crs(world_3410) -->
-<!-- ``` -->
-<!-- ```{r coord_compare, echo=FALSE} -->
-<!-- par(mfrow = c(1, 2), mar=c(0,0,0,0)) -->
-<!-- plot(world_3410[0]);plot(world[0]) -->
-<!-- ``` -->
+
+<div class="rmdnote">
+The EPSG code can be found inside the <code>crs</code> attribute of the object’s geometry. It is hidden from view for most of the time except when the object is printed but can be can identified and set using the <code>st_crs</code> function, for example <code>st_crs(cycle_hire_osm)$epsg</code>.
+</div>
+<p></p>
 <!--
 - st_as_sf(x, coords = c("x","y"))
 - st_crs(x)
@@ -374,36 +339,22 @@ dplyr::<span class="kw">filter</span>(crs_codes, code ==<span class="st"> </span
 - ==
 - !st_is_longlat(x)
 - st_set_crs(x, crs)
-- st_proj_info
+- st_proj_info("proj");st_proj_info("ellps");st_proj_info("datum");st_proj_info("units")
 - st_bbox
+- st_wrap_dateline
 -->
-</div>
-<div id="raster-data-3" class="section level3">
-<h3><span class="header-section-number">6.3.1</span> Raster data</h3>
+<!--Raster data -->
 <!--
 - projectRaster
 -->
-</div>
-</div>
-<div id="affine-transformations" class="section level2">
-<h2><span class="header-section-number">6.4</span> Affine transformations</h2>
-<div id="translating" class="section level3">
-<h3><span class="header-section-number">6.4.1</span> Translating</h3>
-</div>
-<div id="scaling" class="section level3">
-<h3><span class="header-section-number">6.4.2</span> Scaling</h3>
-</div>
-<div id="rotating" class="section level3">
-<h3><span class="header-section-number">6.4.3</span> Rotating</h3>
-</div>
-<div id="reflecting" class="section level3">
-<h3><span class="header-section-number">6.4.4</span> Reflecting</h3>
-</div>
-<div id="shearing" class="section level3">
-<h3><span class="header-section-number">6.4.5</span> Shearing</h3>
+<!-- ## Affine transformations -->
+<!-- ### Translating -->
+<!-- ### Scaling -->
+<!-- ### Rotating -->
+<!-- ### Reflecting -->
+<!-- ### Shearing -->
 <!-- Todo: add content on simplifying using mapshaper and other packages (e.g. sf) -->
 
-</div>
 </div>
 </div>
             </section>
