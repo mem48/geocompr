@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve0261d864cce95295
+preserve52398125cd9c945d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3708,6 +3708,21 @@ class(worldclim_prec)
 #> attr(,"package")
 #> [1] "raster"
 ```
+
+A third example uses the recently developed package **osmdata** [@R-osmdata] to find parks from the OpenStreetMap (OSM) database.
+As illustrated in the code-chunk below, queries begin with the function `opq()` (short for OpenStreetMap query), the first argument of which is bounding box, or text string representing a bounding box (the city of Leeds this case).
+The result is passed to a function for selecting which OSM elements we're interested in (parks in this case), represented by *key-value pairs*, which in turn is passed to the function `osmdata_sf()` which does the work of downloading the data and converting it into a list of `sf` objects (see `vignette('osmdata')` for further details):
+
+
+```r
+library(osmdata)
+parks = opq(bbox = "leeds uk") %>% 
+  add_osm_feature(key = "leisure", value = "park") %>% 
+  osmdata_sf()
+```
+
+OpenStreetMap is a vast global database of crowd-sourced data and it is growing by the minute.
+Although the quality is not as spatially consistent as many official datasets, OSM data have many advantages: they are globally available free of charge and using crowd-source data can encourage 'citizen science' and contributions back to the digital commons.
 
 Finally, R packages might contain or just consist of spatial data (e.g., package **spData**).
 You can access such data with the `data()` function.

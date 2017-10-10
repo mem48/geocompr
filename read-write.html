@@ -326,6 +326,12 @@ worldclim_prec =<span class="st"> </span><span class="kw">getData</span>(<span c
 <span class="co">#&gt; [1] &quot;RasterStack&quot;</span>
 <span class="co">#&gt; attr(,&quot;package&quot;)</span>
 <span class="co">#&gt; [1] &quot;raster&quot;</span></code></pre></div>
+<p>A third example uses the recently developed package <strong>osmdata</strong> <span class="citation">(Padgham et al. <a href="#ref-R-osmdata">2017</a>)</span> to find parks from the OpenStreetMap (OSM) database. As illustrated in the code-chunk below, queries begin with the function <code>opq()</code> (short for OpenStreetMap query), the first argument of which is bounding box, or text string representing a bounding box (the city of Leeds this case). The result is passed to a function for selecting which OSM elements we’re interested in (parks in this case), represented by <em>key-value pairs</em>, which in turn is passed to the function <code>osmdata_sf()</code> which does the work of downloading the data and converting it into a list of <code>sf</code> objects (see <code>vignette('osmdata')</code> for further details):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(osmdata)
+parks =<span class="st"> </span><span class="kw">opq</span>(<span class="dt">bbox =</span> <span class="st">&quot;leeds uk&quot;</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">add_osm_feature</span>(<span class="dt">key =</span> <span class="st">&quot;leisure&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;park&quot;</span>) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw">osmdata_sf</span>()</code></pre></div>
+<p>OpenStreetMap is a vast global database of crowd-sourced data and it is growing by the minute. Although the quality is not as spatially consistent as many official datasets, OSM data have many advantages: they are globally available free of charge and using crowd-source data can encourage ‘citizen science’ and contributions back to the digital commons.</p>
 <p>Finally, R packages might contain or just consist of spatial data (e.g., package <strong>spData</strong>). You can access such data with the <code>data()</code> function. For example, you can get a list of dataset in a package, <code>data(package = &quot;spData&quot;)</code>. To attach the dataset to the global environment specify the name of a dataset (<code>data(&quot;cycle_hire&quot;, package = &quot;spData&quot;)</code>). Sometimes, packages come also with the original files.<a href="#fn22" class="footnoteRef" id="fnref22"><sup>22</sup></a>. To load such a file from the package, you need to specify the package name and the relative path to the dataset, for example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world_raw_filepath =<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;shapes/world.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;spData&quot;</span>)
 world_raw =<span class="st"> </span><span class="kw">st_read</span>(world_raw_filepath)
@@ -693,6 +699,9 @@ mapview_obj =<span class="st"> </span><span class="kw">mapview</span>(world, <sp
 </div>
 <h3> References</h3>
 <div id="refs" class="references">
+<div id="ref-R-osmdata">
+<p>Padgham, Mark, Bob Rudis, Robin Lovelace, and Maëlle Salmon. 2017. <em>Osmdata: Import ’OpenStreetMap’ Data as Simple Features or Spatial Objects</em>. <a href="https://CRAN.R-project.org/package=osmdata" class="uri">https://CRAN.R-project.org/package=osmdata</a>.</p>
+</div>
 <div id="ref-gillespie_efficient_2016">
 <p>Gillespie, Colin, and Robin Lovelace. 2016. <em>Efficient R Programming: A Practical Guide to Smarter Programming</em>. O’Reilly Media. <a href="https://csgillespie.github.io/efficientR/" class="uri">https://csgillespie.github.io/efficientR/</a>.</p>
 </div>
