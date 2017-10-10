@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveea212c73a9aafbcd
+preserve0261d864cce95295
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3738,7 +3738,7 @@ File-based data formats can contain either vector or raster data, while geodatab
 Historically, GIS file formats were developed by mapping agencies and software companies. <!--examples-->
 Exchanging spatial data between different software packages each coming with its own format was troublesome in the beginning.
 
-GDAL ^[prounounce "goo-dal", with the double o making a reference to object-orientation]put an end to these troubles by enabling reading and writing many raster and vector data formats.
+GDAL^[prounounce "goo-dal", with the double o making a reference to object-orientation] put an end to these troubles by enabling reading and writing many raster and vector data formats.
 Subsequently, many open and proprietary GIS software (e.g., GRASS, QGIS, ArcGIS, ENVI) were quick to incorporate it.
 <!-- GDAL (it's great - you can read, convert, and very often (though not always) write) -->
 <!-- GDAL info "it is possible to have smaller number of supported formats than there are on the GDAL webpage; you may need to recompile..." -->
@@ -4277,7 +4277,9 @@ It is hidden from view for most of the time except when the object is printed bu
 ### Raster data
 
 <!--
+- data? one numerical and one categorical
 - projectRaster
+- an issue of resampling (comparision of old and new values)
 -->
 
 <!-- ## Affine transformations -->
