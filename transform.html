@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="transform.html">
-
+<link rel="prev" href="read-write.html">
+<link rel="next" href="references.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -238,215 +238,132 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1">
-<h1><span class="header-section-number">7</span> References</h1>
+<div id="transform" class="section level1">
+<h1><span class="header-section-number">6</span> Reprojections and Transformations</h1>
+<div id="prerequisites-4" class="section level2 unnumbered">
+<h2>Prerequisites</h2>
+<ul>
+<li>This chapter requires the packages <strong>tidyverse</strong>, <strong>sf</strong>, and <strong>spData</strong>:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(sf)
+<span class="kw">library</span>(spData)</code></pre></div>
+</div>
+<div id="introduction-3" class="section level2">
+<h2><span class="header-section-number">6.1</span> Introduction</h2>
+<!-- random notes -->
+<!-- CRS also represent spatial relationship between datasets. -->
+<!-- Therefore, spatial operations could only be correctly performed on data with the same CRS. -->
+<!-- While the concept of CRS applies to both data types, conversion between coordinate rerefence systems differs between vector and raster. -->
+<!-- Tranformation from one CRS to another in vector data changes only coordinates of vertices, keeping the values intact. -->
+<!-- (for most of the case is better to reproject vector than raster) -->
+<!-- rasters: transformation means change of the coordinates of (special case of resampling) -->
+<!-- changes in dimensions, resolution, extent -->
+<!-- change shape and attributes) -->
+<!-- different methods of computing values after transformation, such as ngb or bilinear  -->
+<!-- - crs - a heart of spatial data -->
+<!-- - short history  -->
+<!-- - types of crs (geographic vs cartesian; local vs regional vs global) -->
+<!-- - objectives - 1/ to combine different datasets, 2/ area calculations, 3/ distance mesasurement, 4/ navigation, 5/ spatial data representations -->
+<!-- - proj -->
+<!-- - proj4 + epsg -->
+<!-- - the most popular epsg -->
+<!--in most of the cases reproject vector, not raster-->
+<p>As stated in Chapter <a href="spatial-class.html#crs-intro">2.3</a>, it is important to understand which CRS you are working in when undertaking spatial operations. Many spatial operations assume that you are using a <em>projected</em> CRS (on a Euclidean grid with units of meters rather than a geographic ‘lat/lon’ grid with units of degrees). The GEOS engine underlying most spatial operations in <strong>sf</strong>, for example, assume your data is in a projected CRS. For this reason <strong>sf</strong> contains a function for checking if geometries have a geographic or projected CRS. This is illustrated below using the example of the <em>Greenwich point</em> which came to define 0 degrees longitude:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">greenwich =<span class="st"> </span><span class="kw">st_sf</span>(<span class="dt">geometry =</span> <span class="kw">st_sfc</span>(<span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">51.5</span>))))
+<span class="kw">st_is_longlat</span>(greenwich)
+<span class="co">#&gt; [1] NA</span></code></pre></div>
+<p>The results show that when geographic data is created from scratch, or is loaded from a source that has no CRS metadata, the CRS is unspecified by default. Spatial operations on objects without a CRS run on the implicit assumption that they are projected, even when in reality they are not. This can be seen by creating a huge buffer of 10 degrees around the <code>greenwich</code> point:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">greenwich_buff =<span class="st"> </span><span class="kw">st_buffer</span>(greenwich, <span class="dt">dist =</span> <span class="dv">10</span>)</code></pre></div>
+<p>Brief consideration of what has happened should set alarm bells ringing: the buffer will be highly distorted when projected onto the surface of the Earth. For this reason, when <strong>sf</strong> (and other spatial packages) know that geometries are in lat/long coordinates they emit a warning. This is illustrated in the code below which sets the CRS of <code>greenwich</code> to a lat/lon CRS (the commonly used EPSG 4326 in this case), checks to ensure that R thinks it’s a geographic CRS, and then re-applies the buffer:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">greenwich_latlon =<span class="st"> </span><span class="kw">st_set_crs</span>(greenwich, <span class="dv">4326</span>)
+<span class="kw">st_is_longlat</span>(greenwich_latlon)
+<span class="co">#&gt; [1] TRUE</span>
+greenwich_buff_latlon =<span class="st"> </span><span class="kw">st_buffer</span>(greenwich_latlon, <span class="dv">10</span>)
+<span class="co">#&gt; Warning in st_buffer.sfc(st_geometry(x), dist, nQuadSegs): st_buffer does</span>
+<span class="co">#&gt; not correctly buffer longitude/latitude data, dist needs to be in decimal</span>
+<span class="co">#&gt; degrees.</span></code></pre></div>
+<p>The results show that, as expected, <code>4326</code> is a geographic (lat/lon) CRS. As a result a warning message is emitted to warn the user that the operation may not work correctly and that, if the operation was intended, the distance should be in degrees (not meters or some other Euclidean distance measurement). The seemingly small difference in setting the CRS may seem inconsequential but it can have a huge impact. This is illustrated in Figure <a href="transform.html#fig:crs-buf">6.1</a>, which shows how the two buffers are plotted, with the (correctly) defined CRS of the latter object being dramatically elongated in the north-south direction due to the thinning of the vertical lines of longitude towards the Earth’s poles.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(greenwich_buff, <span class="dt">graticule =</span> <span class="kw">st_crs</span>(<span class="dv">4326</span>))
+<span class="kw">plot</span>(greenwich_buff_latlon, <span class="dt">graticule =</span> <span class="kw">st_crs</span>(<span class="dv">4326</span>))</code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:crs-buf"></span>
+<img src="figures/crs-buf-1.png" alt="Buffers on geographic data with undefined (top) and defined (bottom) CRSs." width="576" /><img src="figures/crs-buf-2.png" alt="Buffers on geographic data with undefined (top) and defined (bottom) CRSs." width="576" />
+<p class="caption">
+Figure 6.1: Buffers on geographic data with undefined (top) and defined (bottom) CRSs.
+</p>
+</div>
+</div>
+<div id="crs-transformation" class="section level2">
+<h2><span class="header-section-number">6.2</span> CRS transformation</h2>
+<p>While CRSs can be set manually, it is more common in real world applications to <em>transform</em> a known CRS into another. A typical example is when geometry data is provided in a geographic CRS but you want to do spatial operations, which require it to be in a projected CRS. Let’s use real-world examples to illustrate this.</p>
+<!-- Vector data -->
+<p>The dataset <code>cycle_hire_osm</code> represents all cycle hire locations across London, take from OpenStreetMap (OSM). It is automatically loaded by the <strong>spData</strong> package, meaning we do not have to load it, and its CRS can be queried as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crs</span>(cycle_hire_osm)
+<span class="co">#&gt; $epsg</span>
+<span class="co">#&gt; [1] 4326</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $proj4string</span>
+<span class="co">#&gt; [1] &quot;+proj=longlat +datum=WGS84 +no_defs&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; attr(,&quot;class&quot;)</span>
+<span class="co">#&gt; [1] &quot;crs&quot;</span></code></pre></div>
+<p>Let’s create a new version of it in a projected CRS, using the ‘magic number’ (a value to be explained subsequently) of 27700:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cycle_hire_projected =<span class="st"> </span><span class="kw">st_transform</span>(cycle_hire_osm, <span class="dv">27700</span>)
+<span class="kw">st_crs</span>(cycle_hire_projected)
+<span class="co">#&gt; $epsg</span>
+<span class="co">#&gt; [1] 27700</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $proj4string</span>
+<span class="co">#&gt; [1] &quot;+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs&quot;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; attr(,&quot;class&quot;)</span>
+<span class="co">#&gt; [1] &quot;crs&quot;</span></code></pre></div>
+<p>Note that the result shows that the <code>epsg</code> has been updated and that <code>proj4string</code> element of the CRS now contains, among other things <code>+proj=tmerc</code> (meaning it is a projected CRS using the <a href="https://en.wikipedia.org/wiki/Transverse_Mercator_projection">tranverse Mercator</a> projection) and <code>+units=m</code> (meaning the units of the coordinates are meters). Another function, from the <strong>rgdal</strong> library, provides a note about the CRS (its name):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crs_codes =<span class="st"> </span>rgdal::<span class="kw">make_EPSG</span>()[<span class="dv">1</span>:<span class="dv">2</span>]
+dplyr::<span class="kw">filter</span>(crs_codes, code ==<span class="st"> </span><span class="dv">27700</span>)
+<span class="co">#&gt;    code                                note</span>
+<span class="co">#&gt; 1 27700 # OSGB 1936 / British National Grid</span></code></pre></div>
+<p>The result shows that the EPSG code 27700 represents the British National Grid, a result that could have been found by searching online for “<a href="https://www.google.com/search?q=CRS+27700">CRS 27700</a>”. This projection is clearly inappropriate for the data: the coordinates represent degrees of longitude and latitude, and this can also be seen by plotting it over a basemap, e.g. with the <strong>mapview</strong> package: <code>mapview::mapview(sf_points)</code>.</p>
+<p>The formula that converts a geographic point into a point on the surface of the Earth is provided by the <code>proj4string</code> element of the <code>crs</code> (see <a href="http://proj4.org/">proj4.org</a> for further details):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crs</span>(<span class="dv">27700</span>)$proj4string
+<span class="co">#&gt; [1] &quot;+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489 +units=m +no_defs&quot;</span></code></pre></div>
 
-<div id="refs" class="references">
-<div>
-<p>Akima, Hiroshi, and Albrecht Gebhardt. 2016. <em>Akima: Interpolation of Irregularly and Regularly Spaced Data</em>. <a href="https://CRAN.R-project.org/package=akima" class="uri">https://CRAN.R-project.org/package=akima</a>.</p>
+<div class="rmdnote">
+The EPSG code can be found inside the <code>crs</code> attribute of the object’s geometry. It is hidden from view for most of the time except when the object is printed but can be can identified and set using the <code>st_crs</code> function, for example <code>st_crs(cycle_hire_osm)$epsg</code>.
 </div>
-<div>
-<p>Appelhans, Tim, Florian Detsch, Christoph Reudenbach, and Stefan Woellauer. 2017. <em>Mapview: Interactive Viewing of Spatial Objects in R</em>. <a href="https://CRAN.R-project.org/package=mapview" class="uri">https://CRAN.R-project.org/package=mapview</a>.</p>
-</div>
-<div>
-<p>Baddeley, Adrian, Ege Rubak, and Rolf Turner. 2015. <em>Spatial Point Patterns: Methodology and Applications with R</em>. London: Chapman; Hall/CRC Press. <a href="http://www.crcpress.com/Spatial-Point-Patterns-Methodology-and-Applications-with-R/Baddeley-Rubak-Turner/9781482210200/" class="uri">http://www.crcpress.com/Spatial-Point-Patterns-Methodology-and-Applications-with-R/Baddeley-Rubak-Turner/9781482210200/</a>.</p>
-</div>
-<div>
-<p>Bivand, Roger. 2001. “More on Spatial Data Analysis.” <em>R News</em> 1 (3): 13–17.</p>
-</div>
-<div>
-<p>———. 2003. “Approaches to Classes for Spatial Data in R.” In <em>Proceedings of DSC</em>, edited by Kurt Hornik, Friedrich Leisch, and Achim Zeileis. <a href="https://www.r-project.org/nosvn/conferences/DSC-2003/Proceedings/Bivand.pdf" class="uri">https://www.r-project.org/nosvn/conferences/DSC-2003/Proceedings/Bivand.pdf</a>.</p>
-</div>
-<div>
-<p>———. 2016a. <em>Rgrass7: Interface Between GRASS 7 Geographical Information System and R</em>. <a href="https://CRAN.R-project.org/package=rgrass7" class="uri">https://CRAN.R-project.org/package=rgrass7</a>.</p>
-</div>
-<div>
-<p>———. 2016b. <em>Spgrass6: Interface Between GRASS 6 and R</em>. <a href="http://CRAN.R-project.org/package=spgrass6" class="uri">http://CRAN.R-project.org/package=spgrass6</a>.</p>
-</div>
-<div>
-<p>———. 2017. <em>Spdep: Spatial Dependence: Weighting Schemes, Statistics and Models</em>. <a href="https://CRAN.R-project.org/package=spdep" class="uri">https://CRAN.R-project.org/package=spdep</a>.</p>
-</div>
-<div>
-<p>Bivand, Roger S. 2000. “Using the R Statistical Data Analysis Language on GRASS 5.0 GIS Database Files.” <em>Computers &amp; Geosciences</em> 26 (9): 1043–52. <a href="http://www.sciencedirect.com/science/article/pii/S0098300400000571" class="uri">http://www.sciencedirect.com/science/article/pii/S0098300400000571</a>.</p>
-</div>
-<div>
-<p>Bivand, Roger, and Albrecht Gebhardt. 2000. “Implementing Functions for Spatial Statistical Analysis Using the Language.” <em>Journal of Geographical Systems</em> 2 (3): 307–17. <a href="http://www.springerlink.com/index/CJRPUMB78JUYH54W.pdf" class="uri">http://www.springerlink.com/index/CJRPUMB78JUYH54W.pdf</a>.</p>
-</div>
-<div>
-<p>Bivand, Roger, and Nicholas Lewin-Koh. 2017. <em>Maptools: Tools for Reading and Handling Spatial Objects</em>. <a href="https://CRAN.R-project.org/package=maptools" class="uri">https://CRAN.R-project.org/package=maptools</a>.</p>
-</div>
-<div>
-<p>Bivand, Roger, and Markus Neteler. 2000. “Open Source Geocomputation: Using the R Data Analysis Language Integrated with GRASS GIS and PostgreSQL Data Base Systems.” In <em>Proceedings of the 5th International Conference on GeoComputation</em>, edited by Markus Neteler and Roger S. Bivand. <a href="http://www.geocomputation.org/2000/GC009/Gc009.htm" class="uri">http://www.geocomputation.org/2000/GC009/Gc009.htm</a>.</p>
-</div>
-<div>
-<p>Bivand, Roger, and Colin Rundel. 2017. <em>Rgeos: Interface to Geometry Engine - Open Source (’GEOS’)</em>. <a href="https://CRAN.R-project.org/package=rgeos" class="uri">https://CRAN.R-project.org/package=rgeos</a>.</p>
-</div>
-<div>
-<p>Bivand, Roger, Tim Keitt, and Barry Rowlingson. 2017. <em>Rgdal: Bindings for the ’Geospatial’ Data Abstraction Library</em>. <a href="https://CRAN.R-project.org/package=rgdal" class="uri">https://CRAN.R-project.org/package=rgdal</a>.</p>
-</div>
-<div>
-<p>Bivand, Roger, Edzer J Pebesma, and Virgilio Gómez-Rubio. 2013. <em>Applied Spatial Data Analysis with R</em>. Vol. 747248717. Springer.</p>
-</div>
-<div>
-<p>Brenning, Alexander. 2012. <em>ArcGIS Geoprocessing in R via Python</em>. <a href="https://CRAN.R-project.org/package=RPyGeo" class="uri">https://CRAN.R-project.org/package=RPyGeo</a>.</p>
-</div>
-<div>
-<p>Brenning, Alexander, and Donovan Bangs. 2016. <em>RSAGA: SAGA Geoprocessing and Terrain Analysis in R</em>. <a href="https://CRAN.R-project.org/package=RSAGA" class="uri">https://CRAN.R-project.org/package=RSAGA</a>.</p>
-</div>
-<div>
-<p>Brzustowicz, Michael R. 2017. <em>Data Science with Java: [Practical Methods for Scientists and Engineers]</em>. First edition. Beijing Boston Farnham: O´Reilly.</p>
-</div>
-<div>
-<p>Burrough, P. A., Rachael McDonnell, and Christopher D. Lloyd. 2015. <em>Principles of Geographical Information Systems</em>. Third edition. Oxford ; New York: Oxford University Press.</p>
-</div>
-<div>
-<p>Calenge, C. 2006. “The Package Adehabitat for the R Software: Tool for the Analysis of Space and Habitat Use by Animals.” <em>Ecological Modelling</em> 197: 1035.</p>
-</div>
-<div>
-<p>Chambers, John M. 2016. <em>Extending R</em>. CRC Press.</p>
-</div>
-<div>
-<p>Cheng, Joe, Bhaskar Karambelkar, and Yihui Xie. 2017. <em>Leaflet: Create Interactive Web Maps with the JavaScript ’Leaflet’ Library</em>. <a href="https://CRAN.R-project.org/package=leaflet" class="uri">https://CRAN.R-project.org/package=leaflet</a>.</p>
-</div>
-<div>
-<p>Garrard, Chris. 2016. <em>Geoprocessing With Python</em>. Shelter Island, NY: Manning Publications.</p>
-</div>
-<div>
-<p>Gillespie, Colin, and Robin Lovelace. 2016. <em>Efficient R Programming: A Practical Guide to Smarter Programming</em>. O’Reilly Media. <a href="https://csgillespie.github.io/efficientR/" class="uri">https://csgillespie.github.io/efficientR/</a>.</p>
-</div>
-<div>
-<p>Grolemund, Garrett, and Hadley Wickham. 2016. <em>R for Data Science</em>. 1 edition. O’Reilly Media.</p>
-</div>
-<div>
-<p>Hijmans, Robert J. 2016a. <em>Geosphere: Spherical Trigonometry</em>. <a href="https://CRAN.R-project.org/package=geosphere" class="uri">https://CRAN.R-project.org/package=geosphere</a>.</p>
-</div>
-<div>
-<p>———. 2016b. <em>Raster: Geographic Data Analysis and Modeling</em>. <a href="https://CRAN.R-project.org/package=raster" class="uri">https://CRAN.R-project.org/package=raster</a>.</p>
-</div>
-<div>
-<p>Jr, Paulo J. Ribeiro, and Peter J. Diggle. 2016. <em>geoR: Analysis of Geostatistical Data</em>. <a href="https://CRAN.R-project.org/package=geoR" class="uri">https://CRAN.R-project.org/package=geoR</a>.</p>
-</div>
-<div>
-<p>Kahle, David, and Hadley Wickham. 2013. “Ggmap: Spatial Visualization with Ggplot2.” <em>The R Journal</em> 5 (1): 144–61. <a href="http://journal.r-project.org/archive/2013-1/kahle-wickham.pdf" class="uri">http://journal.r-project.org/archive/2013-1/kahle-wickham.pdf</a>.</p>
-</div>
-<div>
-<p>Lamigueiro, Óscar Perpiñán. 2014. <em>Displaying Time Series, Spatial, and Space-Time Data with R</em>. CRC Press.</p>
-</div>
-<div>
-<p>Liu, Jian-Guo, and Philippa J. Mason. 2009. <em>Essential Image Processing and GIS for Remote Sensing</em>. Chichester, West Sussex, UK ; Hoboken, NJ: Wiley-Blackwell.</p>
-</div>
-<div>
-<p>Livingstone, David N. 1992. <em>The Geographical Tradition: Episodes in the History of a Contested Enterprise</em>. Oxford, UK ; Cambridge, USA: John Wiley &amp; Sons Ltd.</p>
-</div>
-<div>
-<p>Longley, Paul A., Sue M. Brooks, Rachael McDonnell, and Bill MacMillan, eds. 1998. <em>Geocomputation: A Primer</em>. 1 edition. Chichester, Eng. ; New York: Wiley.</p>
-</div>
-<div>
-<p>Muenchow, Jannes, and Patrick Schratz. 2017. <em>RQGIS: Integrating R with QGIS</em>. <a href="https://github.com/jannes-m/RQGIS" class="uri">https://github.com/jannes-m/RQGIS</a>.</p>
-</div>
-<div>
-<p>Muenchow, Jannes, Achim Bräuning, Eric Frank Rodríguez, and Henrik von Wehrden. 2013. “Predictive Mapping of Species Richness and Plant Species’ Distributions of a Peruvian Fog Oasis Along an Altitudinal Gradient.” <em>Biotropica</em> 45 (5): 557–66. doi:<a href="https://doi.org/10.1111/btp.12049">10.1111/btp.12049</a>.</p>
-</div>
-<div>
-<p>Neteler, Markus, and Helena Mitasova. 2008. <em>Open Source GIS: A GRASS GIS Approach</em>. 3. ed. New York, NY: Springer.</p>
-</div>
-<div>
-<p>Openshaw, Stan, and Robert J. Abrahart, eds. 2000. <em>Geocomputation</em>. 1 edition. London ; New York: CRC Press.</p>
-</div>
-<div>
-<p>Pebesma, Edzer. 2017. <em>Sf: Simple Features for R</em>. <a href="https://github.com/r-spatial/sf/" class="uri">https://github.com/r-spatial/sf/</a>.</p>
-</div>
-<div>
-<p>Pebesma, Edzer, and Roger Bivand. 2017. <em>Sp: Classes and Methods for Spatial Data</em>. <a href="https://CRAN.R-project.org/package=sp" class="uri">https://CRAN.R-project.org/package=sp</a>.</p>
-</div>
-<div>
-<p>Pebesma, Edzer, and Benedikt Graeler. 2017. <em>Gstat: Spatial and Spatio-Temporal Geostatistical Modelling, Prediction and Simulation</em>. <a href="https://CRAN.R-project.org/package=gstat" class="uri">https://CRAN.R-project.org/package=gstat</a>.</p>
-</div>
-<div>
-<p>Pebesma, Edzer, Thomas Mailund, and James Hiebert. 2016. “Measurement Units in R.” <em>The R Journal</em> 8 (2): 486–94. <a href="https://journal.r-project.org/archive/2016-2/pebesma-mailund-hiebert.pdf" class="uri">https://journal.r-project.org/archive/2016-2/pebesma-mailund-hiebert.pdf</a>.</p>
-</div>
-<div>
-<p>Qiu, Fang, Caiyun Zhang, and Yuhong Zhou. 2012. “The Development of an Areal Interpolation ArcGIS Extension and a Comparative Study.” <em>GIScience &amp; Remote Sensing</em> 49 (5): 644–63. doi:<a href="https://doi.org/10.2747/1548-1603.49.5.644">10.2747/1548-1603.49.5.644</a>.</p>
-</div>
-<div>
-<p>Ripley, Brian D. 2001. “Spatial Statistics in R.” <em>R News</em> 1 (2): 14–15.</p>
-</div>
-<div>
-<p>Roller, D. 2010. <em>Eratosthenes’ “Geography”</em>. Princeton University Press. <a href="http://books.google.co.uk/books?id=8peKyWK_SWsC" class="uri">http://books.google.co.uk/books?id=8peKyWK_SWsC</a>.</p>
-</div>
-<div>
-<p>Rowlingson, B. S, and P. J Diggle. 1993. “Splancs: Spatial Point Pattern Analysis Code in S-Plus.” <em>Computers &amp; Geosciences</em> 19 (5): 627–55. doi:<a href="https://doi.org/10.1016/0098-3004(93)90099-Q">10.1016/0098-3004(93)90099-Q</a>.</p>
-</div>
-<div>
-<p>Rowlingson, Barry, and Peter Diggle. 2017. <em>Splancs: Spatial and Space-Time Point Pattern Analysis</em>. <a href="https://CRAN.R-project.org/package=splancs" class="uri">https://CRAN.R-project.org/package=splancs</a>.</p>
-</div>
-<div>
-<p>Rowlingson, Barry, Adrian Baddeley, Rolf Turner, and Peter Diggle. 2003. “Rasp: A Package for Spatial Statistics.” In <em>Proceedings of the 3rd International Workshop on Distributed Statistical Computing</em>, edited by Kurt Hornik. <a href="https://www.r-project.org/conferences/DSC-2003/Proceedings/RowlingsonEtAl.pdf" class="uri">https://www.r-project.org/conferences/DSC-2003/Proceedings/RowlingsonEtAl.pdf</a>.</p>
-</div>
-<div>
-<p>Tennekes, Martijn. 2017. <em>Tmap: Thematic Maps</em>. <a href="https://CRAN.R-project.org/package=tmap" class="uri">https://CRAN.R-project.org/package=tmap</a>.</p>
-</div>
-<div>
-<p>Tobler, Waldo R. 1979. “Smooth Pycnophylactic Interpolation for Geographical Regions.” <em>Journal of the American Statistical Association</em> 74 (367): 519–30. doi:<a href="https://doi.org/10.1080/01621459.1979.10481647">10.1080/01621459.1979.10481647</a>.</p>
-</div>
-<div>
-<p>Tomlin, C. Dana. 1990. <em>Geographic Information Systems and Cartographic Modeling</em>. Englewood Cliffs, N.J: Prentice Hall.</p>
-</div>
-<div>
-<p>University, S. original by James J. Majure Iowa State, and R. port + extensions by Albrecht Gebhardt. 2016. <em>Sgeostat: An Object-Oriented Framework for Geostatistical Modeling in S+</em>. <a href="https://CRAN.R-project.org/package=sgeostat" class="uri">https://CRAN.R-project.org/package=sgeostat</a>.</p>
-</div>
-<div>
-<p>Venables, W. N., and B. D. Ripley. 2002. <em>Modern Applied Statistics with S</em>. Fourth. New York: Springer. <a href="http://www.stats.ox.ac.uk/pub/MASS4" class="uri">http://www.stats.ox.ac.uk/pub/MASS4</a>.</p>
-</div>
-<div>
-<p>Wickham, Hadley. 2014. <em>Advanced R</em>. CRC Press. <a href="http://www.crcpress.com/product/isbn/9781466586963 http://adv-r.had.co.nz http://www.crcpress.com/product/isbn/9781466586963 http://adv-r.had.co.nz" class="uri">http://www.crcpress.com/product/isbn/9781466586963 http://adv-r.had.co.nz http://www.crcpress.com/product/isbn/9781466586963 http://adv-r.had.co.nz</a>.</p>
-</div>
-<div>
-<p>Wulf, Andrea. 2015. <em>The Invention of Nature: Alexander von Humboldt’s New World</em>. First American Edition. New York: Alfred A. Knopf.</p>
-</div>
-</div>
-</div>
+<p></p>
+<!--
+- st_as_sf(x, coords = c("x","y"))
+- st_crs(x)
+- st_transform(x, crs)
+- ==
+- !st_is_longlat(x)
+- st_set_crs(x, crs)
+- st_proj_info("proj");st_proj_info("ellps");st_proj_info("datum");st_proj_info("units")
+- st_bbox
+- st_wrap_dateline
+-->
+<!--Raster data -->
+<!--
+- projectRaster
+-->
+<!-- ## Affine transformations -->
+<!-- ### Translating -->
+<!-- ### Scaling -->
+<!-- ### Rotating -->
+<!-- ### Reflecting -->
+<!-- ### Shearing -->
+<!-- Todo: add content on simplifying using mapshaper and other packages (e.g. sf) -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="transform.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="read-write.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -475,7 +392,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/Robinlovelace/geocompr/edit/master/references.Rmd",
+"link": "https://github.com/Robinlovelace/geocompr/edit/master/06-transform.Rmd",
 "text": "Edit"
 },
 "download": null,

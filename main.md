@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve4f60fb9384acff01
+preserve46d455a81dbfc970
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1490,6 +1490,7 @@ The first one is an angle from the prime meridian plan and the second one is an 
 Therefore, units of geographic coordinate systems are degrees.
 
 <!-- ellipsoid, geoid, datum -->
+<!-- st_proj_info("proj");st_proj_info("ellps");st_proj_info("datum");st_proj_info("units") -->
 
 Projected coordinate systems are based on Cartesian coordinates and represent any area on a flat surface. 
 Projected coordinate system needs to have an origin, x and y axes, and a linear unit of measure.
@@ -1555,8 +1556,7 @@ projection(new_raster)
 <p class="caption">(\#fig:raster-crs)Examples of projected (left) and geographic (right) coordinate systems for a raster data type</p>
 </div>
 
-<!-- reference to the 6th chapter -->
-<!--(see Chapter \@ref(coord) for more on CRSs)-->
+See Chapter \@ref(transform) for more on CRSs.
 
 ## Units
 
@@ -4105,11 +4105,11 @@ Export this map to a file called `cycle_hire.html`.
 <!--chapter:end:05-read-write-plot.Rmd-->
 
 
-# Reprojections and Transformations {#coord}
+# Reprojections and Transformations {#transform}
 
 ## Prerequisites {-}
 
-- This chapter requires **tidyverse**, **sf**, and **spData** packages:
+- This chapter requires the packages **tidyverse**, **sf**, and **spData**:
 
 
 ```r
@@ -4193,8 +4193,8 @@ plot(greenwich_buff_latlon, graticule = st_crs(4326))
 ```
 
 <div class="figure" style="text-align: center">
-<img src="figures/crs-buf-1.png" alt="Buffers on geographic data with undefined (left) and defined (right) CRSs." width="576" /><img src="figures/crs-buf-2.png" alt="Buffers on geographic data with undefined (left) and defined (right) CRSs." width="576" />
-<p class="caption">(\#fig:crs-buf)Buffers on geographic data with undefined (left) and defined (right) CRSs.</p>
+<img src="figures/crs-buf-1.png" alt="Buffers on geographic data with undefined (top) and defined (bottom) CRSs." width="576" /><img src="figures/crs-buf-2.png" alt="Buffers on geographic data with undefined (top) and defined (bottom) CRSs." width="576" />
+<p class="caption">(\#fig:crs-buf)Buffers on geographic data with undefined (top) and defined (bottom) CRSs.</p>
 </div>
 
 ## CRS transformation
