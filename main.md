@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve46d455a81dbfc970
+preserveea212c73a9aafbcd
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3629,7 +3629,7 @@ Then the might struggle to find the exact geolibrary matching his or her demands
 Here, geolibraries come to the rescue bundling the information of a collection of geolibraries.
 If you are looking for data from all over the world, the [GEOSS portal](http://www.geoportal.org/) might be a good starting point.
 We also would like you to point to the [EarthExplorer](https://earthexplorer.usgs.gov/) and the [Copernicus Open Access Hub](https://scihub.copernicus.eu/) for a wide variety of global datasets including multispectral and radar images.
-European data is available from the Initiative for spatial information in the European Community ([INSPIRE][http://inspire-geoportal.ec.europa.eu/)).
+European data is available from the Initiative for spatial information in the European Community ([INSPIRE](http://inspire-geoportal.ec.europa.eu/)).
 This [Wikipedia article](https://en.wikipedia.org/wiki/Geoportal) lists a few more interesting geoportals.
 
 Typically, geoportals provide an interface that lets you query interactively the existing data (spatial and temporal extent, and product).
@@ -4203,7 +4203,8 @@ While CRSs can be set manually, it is more common in real world applications to 
 A typical example is when geometry data is provided in a geographic CRS but you want to do spatial operations, which require it to be in a projected CRS.
 Let's use real-world examples to illustrate this.
 
-<!-- Vector data -->
+### Vector data
+
 The dataset `cycle_hire_osm` represents all cycle hire locations across London, take from OpenStreetMap (OSM).
 It is automatically loaded by the **spData** package, meaning we do not have to load it, and its CRS can be queried as follows:
 
@@ -4273,7 +4274,7 @@ It is hidden from view for most of the time except when the object is printed bu
 - st_wrap_dateline
 -->
 
-<!--Raster data -->
+### Raster data
 
 <!--
 - projectRaster

@@ -213,7 +213,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6" data-path="transform.html"><a href="transform.html"><i class="fa fa-check"></i><b>6</b> Reprojections and Transformations</a><ul>
 <li class="chapter" data-level="" data-path="transform.html"><a href="transform.html#prerequisites-4"><i class="fa fa-check"></i>Prerequisites</a></li>
 <li class="chapter" data-level="6.1" data-path="transform.html"><a href="transform.html#introduction-3"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
-<li class="chapter" data-level="6.2" data-path="transform.html"><a href="transform.html#crs-transformation"><i class="fa fa-check"></i><b>6.2</b> CRS transformation</a></li>
+<li class="chapter" data-level="6.2" data-path="transform.html"><a href="transform.html#crs-transformation"><i class="fa fa-check"></i><b>6.2</b> CRS transformation</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="transform.html"><a href="transform.html#vector-data-3"><i class="fa fa-check"></i><b>6.2.1</b> Vector data</a></li>
+<li class="chapter" data-level="6.2.2" data-path="transform.html"><a href="transform.html#raster-data-3"><i class="fa fa-check"></i><b>6.2.2</b> Raster data</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>7</b> References</a></li>
 <li class="divider"></li>
@@ -296,7 +299,8 @@ Figure 6.1: Buffers on geographic data with undefined (top) and defined (bottom)
 <div id="crs-transformation" class="section level2">
 <h2><span class="header-section-number">6.2</span> CRS transformation</h2>
 <p>While CRSs can be set manually, it is more common in real world applications to <em>transform</em> a known CRS into another. A typical example is when geometry data is provided in a geographic CRS but you want to do spatial operations, which require it to be in a projected CRS. Letâ€™s use real-world examples to illustrate this.</p>
-<!-- Vector data -->
+<div id="vector-data-3" class="section level3">
+<h3><span class="header-section-number">6.2.1</span> Vector data</h3>
 <p>The dataset <code>cycle_hire_osm</code> represents all cycle hire locations across London, take from OpenStreetMap (OSM). It is automatically loaded by the <strong>spData</strong> package, meaning we do not have to load it, and its CRS can be queried as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">st_crs</span>(cycle_hire_osm)
 <span class="co">#&gt; $epsg</span>
@@ -343,7 +347,9 @@ The EPSG code can be found inside the <code>crs</code> attribute of the objectâ€
 - st_bbox
 - st_wrap_dateline
 -->
-<!--Raster data -->
+</div>
+<div id="raster-data-3" class="section level3">
+<h3><span class="header-section-number">6.2.2</span> Raster data</h3>
 <!--
 - projectRaster
 -->
@@ -355,6 +361,7 @@ The EPSG code can be found inside the <code>crs</code> attribute of the objectâ€
 <!-- ### Shearing -->
 <!-- Todo: add content on simplifying using mapshaper and other packages (e.g. sf) -->
 
+</div>
 </div>
 </div>
             </section>
