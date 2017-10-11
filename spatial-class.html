@@ -25,7 +25,7 @@
 <meta name="author" content="Robin Lovelace, Jakub Nowosad, Jannes Muenchow">
 
 
-<meta name="date" content="2017-10-10">
+<meta name="date" content="2017-10-11">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -459,7 +459,7 @@ Figure 2.6: Centroids representing country population, diameter being proportion
 <li>Polygon with one hole - <code>POLYGON ((1 5, 4 4, 4 1, 2 2, 1 5), (2 4, 3 4, 3 3, 2 3, 2 4))</code></li>
 </ul>
 <p><img src="figures/polygon_hole-1.png" width="576" style="display: block; margin: auto;" /></p>
-<p>So far, our geometry types have just included one feature. To represent multiple features in one object, we can use the “multi”-version of each geometry type:</p>
+<p>So far we have created geometries with only one geometric entity per feature. However, <strong>sf</strong> also allows multiple geometries to exist within a single feature (hence the term ‘geometry collection’) using “multi” version of each geometry type:</p>
 <ul>
 <li>Multipoint - <code>MULTIPOINT (5 2, 1 3, 3 4, 3 2)</code></li>
 <li>Multistring - <code>MULTILINESTRING ((1 5, 4 4, 4 1, 2 2, 3 2), (1 2, 2 4))</code></li>
@@ -894,7 +894,6 @@ r_stack
 <p>Vector and raster spatial data types share concepts intrinsic to spatial data. Perhaps the most important of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other bodies). Coordinate system could be either projected or geographic (Figures <a href="spatial-class.html#fig:vector-crs">2.9</a> and <a href="spatial-class.html#fig:raster-crs">2.10</a>).</p>
 <p>Geographic coordinate systems identify any location on the Earth’s surface using two values - longitude and latitude. The first one is an angle from the prime meridian plan and the second one is an angle from the equatorial plane to this location. Therefore, units of geographic coordinate systems are degrees.</p>
 <!-- ellipsoid, geoid, datum -->
-<!-- st_proj_info("proj");st_proj_info("ellps");st_proj_info("datum");st_proj_info("units") -->
 <p>Projected coordinate systems are based on Cartesian coordinates and represent any area on a flat surface. Projected coordinate system needs to have an origin, x and y axes, and a linear unit of measure.</p>
 <!-- projection types, e.g. cylindrical -->
 <!-- spatial distortion: area, direction, distance, shape -->
@@ -930,7 +929,8 @@ Figure 2.9: Examples of projected (left) and geographic (right) coordinate syste
 Figure 2.10: Examples of projected (left) and geographic (right) coordinate systems for a raster data type
 </p>
 </div>
-<p>See Chapter <a href="transform.html#transform">6</a> for more on CRSs.</p>
+<!-- reference to the 6th chapter -->
+<!--(see Chapter \@ref(coord) for more on CRSs)-->
 </div>
 <div id="units" class="section level2">
 <h2><span class="header-section-number">2.4</span> Units</h2>

@@ -2,7 +2,7 @@
 --- 
 title: 'Geocomputation with R'
 author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
-date: '2017-10-10'
+date: '2017-10-11'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -38,7 +38,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-10-10 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-10-11 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve52398125cd9c945d
+preserve4344e1bf2ab18045
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -801,8 +801,8 @@ By definition, a polygon has one exterior boundary (outer ring) and can have zer
 
 <img src="figures/polygon_hole-1.png" width="576" style="display: block; margin: auto;" />
 
-So far, our geometry types have just included one feature.
-To represent multiple features in one object, we can use the "multi"-version of each geometry type:
+So far we have created geometries with only one geometric entity per feature.
+However, **sf** also allows multiple geometries to exist within a single feature (hence the term 'geometry collection') using "multi" version of each geometry type:
 
 - Multipoint - `MULTIPOINT (5 2, 1 3, 3 4, 3 2)`
 - Multistring - `MULTILINESTRING ((1 5, 4 4, 4 1, 2 2, 3 2), (1 2, 2 4))`
@@ -1490,7 +1490,6 @@ The first one is an angle from the prime meridian plan and the second one is an 
 Therefore, units of geographic coordinate systems are degrees.
 
 <!-- ellipsoid, geoid, datum -->
-<!-- st_proj_info("proj");st_proj_info("ellps");st_proj_info("datum");st_proj_info("units") -->
 
 Projected coordinate systems are based on Cartesian coordinates and represent any area on a flat surface. 
 Projected coordinate system needs to have an origin, x and y axes, and a linear unit of measure.
@@ -1556,7 +1555,8 @@ projection(new_raster)
 <p class="caption">(\#fig:raster-crs)Examples of projected (left) and geographic (right) coordinate systems for a raster data type</p>
 </div>
 
-See Chapter \@ref(transform) for more on CRSs.
+<!-- reference to the 6th chapter -->
+<!--(see Chapter \@ref(coord) for more on CRSs)-->
 
 ## Units
 
