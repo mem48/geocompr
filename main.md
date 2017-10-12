@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve2f735e0ee3b6ac64
+preserve9c5b809e759a3642
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1490,12 +1490,16 @@ The first one is an angle from the prime meridian plan and the second one is an 
 Therefore, units of geographic coordinate systems are degrees.
 <!-- for example Los Angeles, Melbourne -->
 
-<!-- ellipsoid -->
+The surface of the earth is represented by a spherical of ellipsoidal surface in geographic coordinate systems.<!--fig?-->
+<!-- spherical model -->
 <!-- when working at larger scales, an ellipsoid representation of earth may be desired -->
+<!-- ellipsoidal model -->
+The shape of an ellipse is defined by two an equatorial radius and a polar radius. <!--fig?-->
 <!-- ellipsoid example -->
 
 <!-- datum -->
-<!-- geoid - short explanation -->
+<!-- geoid - short explanation (a mean sea 
+level surface)-->
 <!-- global/geocentric datum -->
 <!-- local datum -->
 <!-- plot? -->
@@ -1509,6 +1513,9 @@ Projected coordinate systems are based on Cartesian coordinates and represent an
 Projected coordinate system needs to have an origin, x and y axes, and a linear unit of measure.
 
 <!-- spatial distortion: area, direction, distance, shape -->
+Maps projections are mathematical models for conversion of three-dimensional surface into a two-dimensional representation on a map.
+Therefore, some properties of the Earth's surface are distorted in this process, such as area, direction, distance, and shape.
+<!-- one more sentence and some references?? -->
 
 Two main ways to describe CRS in R is an `epsg` code or a `proj4string` definition.
 Both of these approaches have advantages and disadvantages. 

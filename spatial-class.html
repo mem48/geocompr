@@ -893,11 +893,10 @@ r_stack
 <h2><span class="header-section-number">2.3</span> Coordinate Reference Systems</h2>
 <p>Vector and raster spatial data types share concepts intrinsic to spatial data. Perhaps the most important of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other bodies). Coordinate system could be either projected or geographic (Figures <a href="spatial-class.html#fig:vector-crs">2.9</a> and <a href="spatial-class.html#fig:raster-crs">2.10</a>).</p>
 <p>Geographic coordinate systems identify any location on the Earth’s surface using two values - longitude and latitude. The first one is an angle from the prime meridian plan and the second one is an angle from the equatorial plane to this location. Therefore, units of geographic coordinate systems are degrees. <!-- for example Los Angeles, Melbourne --></p>
-<!-- ellipsoid -->
-<!-- when working at larger scales, an ellipsoid representation of earth may be desired -->
-<!-- ellipsoid example -->
+<p>The surface of the earth is represented by a spherical of ellipsoidal surface in geographic coordinate systems.<!--fig?--> <!-- spherical model --> <!-- when working at larger scales, an ellipsoid representation of earth may be desired --> <!-- ellipsoidal model --> The shape of an ellipse is defined by two an equatorial radius and a polar radius. <!--fig?--> <!-- ellipsoid example --></p>
 <!-- datum -->
-<!-- geoid - short explanation -->
+<!-- geoid - short explanation (a mean sea 
+level surface)-->
 <!-- global/geocentric datum -->
 <!-- local datum -->
 <!-- plot? -->
@@ -906,6 +905,7 @@ r_stack
 <!-- st_proj_info(type = "datum") -->
 <p>Projected coordinate systems are based on Cartesian coordinates and represent any area on a flat surface. <!-- projection types, e.g. Conic, Cylindrical, Planar --> Projected coordinate system needs to have an origin, x and y axes, and a linear unit of measure.</p>
 <!-- spatial distortion: area, direction, distance, shape -->
+<p>Maps projections are mathematical models for conversion of three-dimensional surface into a two-dimensional representation on a map. Therefore, some properties of the Earth’s surface are distorted in this process, such as area, direction, distance, and shape. <!-- one more sentence and some references?? --></p>
 <p>Two main ways to describe CRS in R is an <code>epsg</code> code or a <code>proj4string</code> definition. Both of these approaches have advantages and disadvantages. An <code>epsg</code> code is usually shorter, and therefore easier to remember. The code also refers to only one, well-defined coordinate reference system. On the other hand, a <code>proj4string</code> definition allows you more flexibility when it comes to specifying different parameters such as the projection type, the datum and the ellipsoid. This way you can specify many different projections, and modify existing ones. This makes the <code>proj4string</code> approach also more complicated<a href="#fn16" class="footnoteRef" id="fnref16"><sup>16</sup></a>. <code>epsg</code> always points to exactly one particular CRS. Correspondingly, there is also only one possible <code>proj4string</code> for a specific <code>epsg</code>-code.</p>
 <p>In <strong>sf</strong> the CRS of an object can be retrieved using <code>st_crs()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">old_crs =<span class="st"> </span><span class="kw">st_crs</span>(new_vector) <span class="co"># get CRS</span>
