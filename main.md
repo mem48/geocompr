@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve213223e81644f320
+preserve9f53fbd98fcb6d35
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2527,7 +2527,7 @@ This section provides an overview of spatial operations in the **sf** package.
 
 ### Spatial subsetting
 
-Spatial subsetting is the process of selecting features of a spatial object based on whether or not they some way *relate* in space to another object.
+Spatial subsetting is the process of selecting features of a spatial object based on whether or not they in some way *relate* in space to another object.
 There are many types of *topological relations*, including touching, overlapping and being within.
 These are implemented as *spatial operators* in **sf** functions such as `st_touches()`, `st_overlaps()` and `st_within()`, as described in section \@ref(topological-relations).
 
