@@ -2,7 +2,7 @@
 --- 
 title: 'Geocomputation with R'
 author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
-date: '2017-10-11'
+date: '2017-10-12'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -38,7 +38,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-10-11 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-10-12 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve4344e1bf2ab18045
+preserve213223e81644f320
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1488,13 +1488,25 @@ Coordinate system could be either projected or geographic (Figures \@ref(fig:vec
 Geographic coordinate systems identify any location on the Earth's surface using two values - longitude and latitude. 
 The first one is an angle from the prime meridian plan and the second one is an angle from the equatorial plane to this location.
 Therefore, units of geographic coordinate systems are degrees.
+<!-- for example Los Angeles, Melbourne -->
 
-<!-- ellipsoid, geoid, datum -->
+<!-- ellipsoid -->
+<!-- when working at larger scales, an ellipsoid representation of earth may be desired -->
+<!-- ellipsoid example -->
+
+<!-- datum -->
+<!-- geoid - short explanation -->
+<!-- global/geocentric datum -->
+<!-- local datum -->
+<!-- plot? -->
+<!-- plus maybe table (few examples) -->
+
+<!-- st_proj_info(type = "ellps") -->
+<!-- st_proj_info(type = "datum") -->
 
 Projected coordinate systems are based on Cartesian coordinates and represent any area on a flat surface. 
+<!-- projection types, e.g. Conic, Cylindrical, Planar -->
 Projected coordinate system needs to have an origin, x and y axes, and a linear unit of measure.
-
-<!-- projection types, e.g. cylindrical -->
 
 <!-- spatial distortion: area, direction, distance, shape -->
 
