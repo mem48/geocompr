@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservedc91e7dcad0da2af
+preserved7395ede16a617e4
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -281,15 +281,15 @@ See the [r-spatial](https://github.com/r-spatial/) organisation and conversation
 ] and a growing number of actively developed packages which are designed to work in harmony with **sf** (Table \@ref(tab:revdep)) and 
 
 
-Table: (\#tab:revdep)The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-10-04 there are 30 packages which import sf.
+Table: (\#tab:revdep)The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-10-11 there are 31 packages which import sf.
 
 package       Downloads
 -----------  ----------
-plotly             1954
-leaflet             689
-geojsonio           211
+plotly             1870
+leaflet             712
+geojsonio           199
 mapview             180
-rmapshaper          142
+rmapshaper          138
 
 ## R's spatial history
 
