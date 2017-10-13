@@ -2,7 +2,7 @@
 --- 
 title: 'Geocomputation with R'
 author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
-date: '2017-10-12'
+date: '2017-10-13'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -38,7 +38,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-10-12 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-10-13 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve9c5b809e759a3642
+preservedc91e7dcad0da2af
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1495,6 +1495,14 @@ The surface of the earth is represented by a spherical of ellipsoidal surface in
 <!-- when working at larger scales, an ellipsoid representation of earth may be desired -->
 <!-- ellipsoidal model -->
 The shape of an ellipse is defined by two an equatorial radius and a polar radius. <!--fig?-->
+<!--should we mention flattening?-->
+<!-- WGS84   a=6378137.0     rf=298.257223563 -->
+<!-- a × (1 − rf) = b -->
+Since the Earth is flattened at the poles, an equatorial radius is slightly longer than a polar axis.
+For example, the difference of the equatorial radius and polar radius is about 21.385 km for the WGS 84 ellipsoid.
+You can access a list of available ellipses and theirs properties using the `st_proj_info(type = "ellps")` function.
+
+<!--  -->
 <!-- ellipsoid example -->
 
 <!-- datum -->
@@ -1505,7 +1513,7 @@ level surface)-->
 <!-- plot? -->
 <!-- plus maybe table (few examples) -->
 
-<!-- st_proj_info(type = "ellps") -->
+
 <!-- st_proj_info(type = "datum") -->
 
 Projected coordinate systems are based on Cartesian coordinates and represent any area on a flat surface. 

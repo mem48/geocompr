@@ -25,7 +25,7 @@
 <meta name="author" content="Robin Lovelace, Jakub Nowosad, Jannes Muenchow">
 
 
-<meta name="date" content="2017-10-12">
+<meta name="date" content="2017-10-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -893,7 +893,9 @@ r_stack
 <h2><span class="header-section-number">2.3</span> Coordinate Reference Systems</h2>
 <p>Vector and raster spatial data types share concepts intrinsic to spatial data. Perhaps the most important of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other bodies). Coordinate system could be either projected or geographic (Figures <a href="spatial-class.html#fig:vector-crs">2.9</a> and <a href="spatial-class.html#fig:raster-crs">2.10</a>).</p>
 <p>Geographic coordinate systems identify any location on the Earth’s surface using two values - longitude and latitude. The first one is an angle from the prime meridian plan and the second one is an angle from the equatorial plane to this location. Therefore, units of geographic coordinate systems are degrees. <!-- for example Los Angeles, Melbourne --></p>
-<p>The surface of the earth is represented by a spherical of ellipsoidal surface in geographic coordinate systems.<!--fig?--> <!-- spherical model --> <!-- when working at larger scales, an ellipsoid representation of earth may be desired --> <!-- ellipsoidal model --> The shape of an ellipse is defined by two an equatorial radius and a polar radius. <!--fig?--> <!-- ellipsoid example --></p>
+<p>The surface of the earth is represented by a spherical of ellipsoidal surface in geographic coordinate systems.<!--fig?--> <!-- spherical model --> <!-- when working at larger scales, an ellipsoid representation of earth may be desired --> <!-- ellipsoidal model --> The shape of an ellipse is defined by two an equatorial radius and a polar radius. <!--fig?--> <!--should we mention flattening?--> <!-- WGS84   a=6378137.0     rf=298.257223563 --> <!-- a × (1 − rf) = b --> Since the Earth is flattened at the poles, an equatorial radius is slightly longer than a polar axis. For example, the difference of the equatorial radius and polar radius is about 21.385 km for the WGS 84 ellipsoid. You can access a list of available ellipses and theirs properties using the <code>st_proj_info(type = &quot;ellps&quot;)</code> function.</p>
+<!--  -->
+<!-- ellipsoid example -->
 <!-- datum -->
 <!-- geoid - short explanation (a mean sea 
 level surface)-->
@@ -901,7 +903,6 @@ level surface)-->
 <!-- local datum -->
 <!-- plot? -->
 <!-- plus maybe table (few examples) -->
-<!-- st_proj_info(type = "ellps") -->
 <!-- st_proj_info(type = "datum") -->
 <p>Projected coordinate systems are based on Cartesian coordinates and represent any area on a flat surface. <!-- projection types, e.g. Conic, Cylindrical, Planar --> Projected coordinate system needs to have an origin, x and y axes, and a linear unit of measure.</p>
 <!-- spatial distortion: area, direction, distance, shape -->
