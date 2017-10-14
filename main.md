@@ -2,7 +2,7 @@
 --- 
 title: 'Geocomputation with R'
 author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
-date: '2017-10-13'
+date: '2017-10-14'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -38,7 +38,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-10-13 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-10-14 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserved7395ede16a617e4
+preserve58c72dab3c9306fc
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1377,9 +1377,9 @@ Aside from reading in a raster, you can also create one from scratch.
 Running `raster()` creates an empty `RasterLayer`.
 Here, however, we will create manually a very simple raster.
 This should make it easy to understand how raster and related operations work.
-Our raster should consist of just three rows and columns centered around the null meridian and the equator (see xmn, xmx, ymn and ymx parameters).
+Our raster should consist of just three rows and columns centered around the null meridian and the equator (see `xmn`, `xmx`, `ymn` and `ymx` parameters).
 Additionally, we define a resolution of 0.5, which here corresponds to 0.5 degrees since the default proj4string of a raster object is WGS84.
-Finally, we set the values with the vals argument.
+Finally, we set the values with the `vals` argument.
 Here, we just number the cells, that means we assign 1 to cell 1, 2 to cell 2, and finally 36 to cell 36.
 We know that there are 36 cells by multiplying six (rows) by six (columns).
 As we have seen above, setting raster values in R corresponds to a rowwise cell filling starting at the upper left corner.
@@ -1490,31 +1490,33 @@ The first one is an angle from the prime meridian plan and the second one is an 
 Therefore, units of geographic coordinate systems are degrees.
 <!-- for example Los Angeles, Melbourne -->
 
-The surface of the earth is represented by a spherical of ellipsoidal surface in geographic coordinate systems.<!--fig?-->
+The surface of the earth in geographic coordinate systems is represented by a spherical or ellipsoidal surface.<!--fig?-->
 <!-- spherical model -->
 <!-- when working at larger scales, an ellipsoid representation of earth may be desired -->
 <!-- ellipsoidal model -->
-The shape of an ellipse is defined by two an equatorial radius and a polar radius. <!--fig?-->
-<!--should we mention flattening?-->
-<!-- WGS84   a=6378137.0     rf=298.257223563 -->
-<!-- a × (1 − rf) = b -->
+The shape of an ellipse could defined by either the equatorial radius (a) and the polar radius (b), or by a and the inverse flattening (rf), where:
+$$rf = 1/((a-b)/a)$$
+<!--fig?-->
+<!-- WGS84   a=6378137.0     rf=298.2572 -->
+<!-- 1/((a-b)/a) -->
+<!-- a - 1/rf * a = b -->
 Since the Earth is flattened at the poles, an equatorial radius is slightly longer than a polar axis.
-For example, the difference of the equatorial radius and polar radius is about 21.385 km for the WGS 84 ellipsoid.
+For example, the difference of the equatorial radius and polar radius in the WGS 84 ellipsoid is about 21.385 km.
 You can access a list of available ellipses and theirs properties using the `st_proj_info(type = "ellps")` function.
-
-<!--  -->
 <!-- ellipsoid example -->
 
-<!-- datum -->
-<!-- geoid - short explanation (a mean sea 
-level surface)-->
-<!-- global/geocentric datum -->
-<!-- local datum -->
-<!-- plot? -->
+Additionally, a position and orientation of the spheroid relative to the center of the earth needs to be defined using a datum.
+The earth’s surface is irregular due to gravitational and surface feature variations.
+Therefore, datums were created to account for the local variations in establishing a coordinate system.
+There are two types of datums - local and geocentric.
+In local datums, the ellipsoid surface aligns closely to the earth surface at a particular location.
+For example, NAD27 (North American Datum of 1927) is a local datum created for the United States area.
+Geocentric datums are aligned to the center of the earth.
+It includes WGS84 (World Geodetic System 1984) Datum.
+A list of datums supported in R could be obtain with `st_proj_info(type = "datum")`.
+
+<!-- plots? -->
 <!-- plus maybe table (few examples) -->
-
-
-<!-- st_proj_info(type = "datum") -->
 
 Projected coordinate systems are based on Cartesian coordinates and represent any area on a flat surface. 
 <!-- projection types, e.g. Conic, Cylindrical, Planar -->
