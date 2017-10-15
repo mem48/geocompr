@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve78ffce6e6045b9be
+preserve5b72cd1c9b81237f
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1524,8 +1524,13 @@ Maps projections are mathematical models for conversion of three-dimensional sur
 This transition cannot be done without adding some distortion.
 Therefore, some properties of the Earth's surface are distorted in this process, such as area, direction, distance, and shape.
 A projected coordinate system can preserve only one or two of those properties.
-Projections are often named based on a property they preserve: equal-area preserves area, azimuthal preserve direction, eqidistant preserve distance, and conformal preserve local shape.
+Projections are often named based on a property they preserve: equal-area preserves area, azimuthal preserve direction, equidistant preserve distance, and conformal preserve local shape.
+
+<!-- There are three main groups of projection types - conic, cylindrical, and planar. -->
+<!-- A planar projection -->
+<!-- projection types, e.g. Conic, Cylindrical, Planar -->
 <!-- plus maybe table (few examples) -->
+<!-- add good reference to projections -->
 
 Two main ways to describe CRS in R is an `epsg` code or a `proj4string` definition.
 Both of these approaches have advantages and disadvantages. 
