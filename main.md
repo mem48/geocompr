@@ -2,7 +2,7 @@
 --- 
 title: 'Geocomputation with R'
 author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
-date: '2017-10-14'
+date: '2017-10-15'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -38,7 +38,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-10-14 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-10-15 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve58c72dab3c9306fc
+preserve78ffce6e6045b9be
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1483,7 +1483,7 @@ Note that operations on `RasterBrick` and `RasterStack` objects will typically r
 
 Vector and raster spatial data types share concepts intrinsic to spatial data.
 Perhaps the most important of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other bodies).
-Coordinate system could be either projected or geographic (Figures \@ref(fig:vector-crs) and \@ref(fig:raster-crs)).
+Coordinate system could be either geographic or projected (Figures \@ref(fig:vector-crs) and \@ref(fig:raster-crs)).
 
 Geographic coordinate systems identify any location on the Earth's surface using two values - longitude and latitude. 
 The first one is an angle from the prime meridian plan and the second one is an angle from the equatorial plane to this location.
@@ -1514,18 +1514,18 @@ For example, NAD27 (North American Datum of 1927) is a local datum created for t
 Geocentric datums are aligned to the center of the earth.
 It includes WGS84 (World Geodetic System 1984) Datum.
 A list of datums supported in R could be obtain with `st_proj_info(type = "datum")`.
-
 <!-- plots? -->
 <!-- plus maybe table (few examples) -->
 
 Projected coordinate systems are based on Cartesian coordinates and represent any area on a flat surface. 
-<!-- projection types, e.g. Conic, Cylindrical, Planar -->
-Projected coordinate system needs to have an origin, x and y axes, and a linear unit of measure.
-
-<!-- spatial distortion: area, direction, distance, shape -->
+A projected coordinate system has an origin, x and y axes, and a linear unit of measure.
+All projected coordinate systems are based on geographic coordinate systems
 Maps projections are mathematical models for conversion of three-dimensional surface into a two-dimensional representation on a map.
+This transition cannot be done without adding some distortion.
 Therefore, some properties of the Earth's surface are distorted in this process, such as area, direction, distance, and shape.
-<!-- one more sentence and some references?? -->
+A projected coordinate system can preserve only one or two of those properties.
+Projections are often named based on a property they preserve: equal-area preserves area, azimuthal preserve direction, eqidistant preserve distance, and conformal preserve local shape.
+<!-- plus maybe table (few examples) -->
 
 Two main ways to describe CRS in R is an `epsg` code or a `proj4string` definition.
 Both of these approaches have advantages and disadvantages. 
