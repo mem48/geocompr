@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve560b5fc715720919
+preserve688491db98c37f57
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1528,11 +1528,11 @@ Projections are often named based on a property they preserve: equal-area preser
 
 There are three main groups of projection types - conic, cylindrical, and planar.
 In a conic projection the earth surface is projected onto a cone along a single line of tangency or two lines of tangency. 
-Distorsions are minimized along the tangency lines and rise with the distance from those lines in this projection.
+Distortions are minimized along the tangency lines and rise with the distance from those lines in this projection.
 Therefore, it is the best suited for maps of mid-latitude areas.
-A cylindrical projeciton maps the surface onto a cylinder.
+A cylindrical projection maps the surface onto a cylinder.
 This projection also could be created by touching the earth's surface along a single line of tangency or two lines of tangency. 
-Cylindrical projecitons are the most often used in mapping of thethe entire world.
+Cylindrical projections are the most often used in mapping of the entire world.
 A planar projection projects data onto a flat surface touching the globe at a point or along a line of tangency. 
 It is typically used in mapping polar regions.
 <!-- https://en.wikipedia.org/wiki/List_of_map_projections -->
