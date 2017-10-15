@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve688491db98c37f57
+preserve21b559f9a9299ae0
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1485,6 +1485,8 @@ Vector and raster spatial data types share concepts intrinsic to spatial data.
 Perhaps the most important of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other bodies).
 Coordinate system could be either geographic or projected (Figures \@ref(fig:vector-crs) and \@ref(fig:raster-crs)).
 
+### Geographic coordinate systems
+
 Geographic coordinate systems identify any location on the Earth's surface using two values - longitude and latitude. 
 The first one is an angle from the prime meridian plan and the second one is an angle from the equatorial plane to this location.
 Therefore, units of geographic coordinate systems are degrees.
@@ -1517,6 +1519,8 @@ A list of datums supported in R could be obtain with `st_proj_info(type = "datum
 <!-- plots? -->
 <!-- plus maybe table (few examples) -->
 
+### Projected coordinate systems 
+
 Projected coordinate systems are based on Cartesian coordinates and represent any area on a flat surface. 
 A projected coordinate system has an origin, x and y axes, and a linear unit of measure.
 All projected coordinate systems are based on geographic coordinate systems
@@ -1539,7 +1543,9 @@ It is typically used in mapping polar regions.
 <!-- plus maybe table (few examples) -->
 <!-- add good reference to projections -->
 
-Two main ways to describe CRS in R is an `epsg` code or a `proj4string` definition.
+### CRS in R
+
+Two main ways to describe CRS in R are an `epsg` code or a `proj4string` definition.
 Both of these approaches have advantages and disadvantages. 
 An `epsg` code is usually shorter, and therefore easier to remember. 
 The code also refers to only one, well-defined coordinate reference system. 
