@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve21b559f9a9299ae0
+preserve20fd37790a454d67
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1542,6 +1542,7 @@ It is typically used in mapping polar regions.
 <!-- https://en.wikipedia.org/wiki/List_of_map_projections -->
 <!-- plus maybe table (few examples) -->
 <!-- add good reference to projections -->
+`st_proj_info(type = "proj")` gives a list of the available projections supported by the PROJ.4 library.
 
 ### CRS in R
 
