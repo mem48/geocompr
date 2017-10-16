@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve740f715b1c4b2914
+preserve954639ea33f28e39
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1492,8 +1492,8 @@ The first one is an angle from the prime meridian plan and the second one is an 
 Therefore, units of geographic coordinate systems are degrees.
 <!-- for example Los Angeles, Melbourne -->
 
-The surface of the earth in geographic coordinate systems is represented by a spherical or ellipsoidal surface.
-Spherical models represent the shape of the earth of a specific radius, assuming that the earth is a perfect sphere. 
+The surface of the Earth in geographic coordinate systems is represented by a spherical or ellipsoidal surface.
+Spherical models represent the shape of the Earth of a specific radius, assuming that the Earth is a perfect sphere. 
 While it simplifies calculations and works well for small scale maps, it could not be sufficient for the work at a larger scale.
 More accurate measurements can be done with an ellipsoidal model.
 The shape of an ellipse is defined by either the equatorial radius (a) and the polar radius (b), or by a and the inverse flattening (rf), where:
@@ -1507,13 +1507,13 @@ For example, the difference of the equatorial radius and polar radius in the WGS
 You can access a list of available ellipses and theirs properties using the `st_proj_info(type = "ellps")` function.
 <!-- ellipsoid example -->
 
-Additionally, a position and orientation of the spheroid relative to the center of the earth needs to be defined using a datum.
-The earth’s surface is irregular due to gravitational and surface feature variations.
+Additionally, a position and orientation of the spheroid relative to the center of the Earth needs to be defined using a datum.
+The Earth’s surface is irregular due to gravitational and surface feature variations.
 Therefore, datums were created to account for the local variations in establishing a coordinate system.
 There are two types of datums - local and geocentric.
-In local datums, the ellipsoid surface aligns closely to the earth surface at a particular location.
+In local datums, the ellipsoid surface aligns closely to the Earth surface at a particular location.
 For example, NAD27 (North American Datum of 1927) is a local datum created for the United States area.
-Geocentric datums are aligned to the center of the earth.
+Geocentric datums are aligned to the center of the Earth
 It includes WGS84 (World Geodetic System 1984) Datum.
 A list of datums supported in R could be obtain with `st_proj_info(type = "datum")`.
 <!-- plots? -->
@@ -1531,11 +1531,11 @@ A projected coordinate system can preserve only one or two of those properties.
 Projections are often named based on a property they preserve: equal-area preserves area, azimuthal preserve direction, equidistant preserve distance, and conformal preserve local shape.
 
 There are three main groups of projection types - conic, cylindrical, and planar.
-In a conic projection the earth surface is projected onto a cone along a single line of tangency or two lines of tangency. 
+In a conic projection the Earth surface is projected onto a cone along a single line of tangency or two lines of tangency. 
 Distortions are minimized along the tangency lines and rise with the distance from those lines in this projection.
 Therefore, it is the best suited for maps of mid-latitude areas.
 A cylindrical projection maps the surface onto a cylinder.
-This projection also could be created by touching the earth's surface along a single line of tangency or two lines of tangency. 
+This projection also could be created by touching the Earth's surface along a single line of tangency or two lines of tangency. 
 Cylindrical projections are the most often used in mapping of the entire world.
 A planar projection projects data onto a flat surface touching the globe at a point or along a line of tangency. 
 It is typically used in mapping polar regions.
@@ -1583,8 +1583,6 @@ new_vector = st_set_crs(new_vector, 4326) # set CRS
 ```
 
 The warning message informs us that the `st_set_crs()` function do not transform data from one CRS to another.
-However, it can be done using `st_transform()`.
-More on that in chapter \@ref(coord).
 
 <div class="figure" style="text-align: center">
 <img src="figures/02_vector_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a vector data type." width="765" />
@@ -1604,8 +1602,7 @@ projection(new_raster)
 <p class="caption">(\#fig:raster-crs)Examples of projected (left) and geographic (right) coordinate systems for a raster data type</p>
 </div>
 
-<!-- reference to the 6th chapter -->
-<!--(see Chapter \@ref(coord) for more on CRSs)-->
+More information on CRS and spatial tranformation is in chapter \@ref(transform).
 
 ## Units
 
