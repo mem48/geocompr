@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve4fae1b7557f062ca
+preserveef0360a26d0ec335
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2605,20 +2605,20 @@ africa = st_transform(africa_wgs, crs = 32630)
 We can also use the `[` operator for *Spatial* subsetting.
 The difference is that we use *another spatial object* inside the square brackets instead of an `integer` or `logical` vector.
 This is a concise and consistent syntax, as shown in the next code chunk.
-Let's test it with a hypothetical scenario: we want to subset all countries within 20 degrees of the point where the equator (where latitude = 0 degrees) intersects the prime meridian (longitude = 0 degrees), as illustrated in Figure \@ref(fig:globe).
+Let's test it with a hypothetical scenario: we want to subset all countries within 2000 km of the point where the equator (where latitude = 0 degrees) intersects the prime meridian (longitude = 0 degrees), as illustrated in Figure \@ref(fig:globe).
 The subsetting object is created below.
 Note that this must have the same CRS as the target object (set with the `crs` argument):
 
 
 ```r
-center = st_sf(geometry = st_sfc(st_point(c(0, 0)), crs = 4326))
-buff = st_buffer(x = center, dist = 20)
-buff = st_transform(buff, 32630)
+center_wgs = st_sf(geometry = st_sfc(st_point(c(0, 0)), crs = 4326))
+center = st_transform(center_wgs, 32630)
+buff = st_buffer(center, dist = 2e6)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="figures/globe.png" alt="Hypothetical subsetting scenario: select all countries which intersect with a circle of 20 degrees in radius around planet Earth. Figure created with the **[globe](https://cran.r-project.org/package=globe)** package." width="250" />
-<p class="caption">(\#fig:globe)Hypothetical subsetting scenario: select all countries which intersect with a circle of 20 degrees in radius around planet Earth. Figure created with the **[globe](https://cran.r-project.org/package=globe)** package.</p>
+<img src="figures/globe.png" alt="Hypothetical subsetting scenario: select all countries which intersect with a circle of 2000 km in radius around planet Earth. Figure created with the **[globe](https://cran.r-project.org/package=globe)** package." width="250" />
+<p class="caption">(\#fig:globe)Hypothetical subsetting scenario: select all countries which intersect with a circle of 2000 km in radius around planet Earth. Figure created with the **[globe](https://cran.r-project.org/package=globe)** package.</p>
 </div>
 
 The data to be subset, or 'target layer', is the `africa` object created above, which has a projected CRS (`32630`).
@@ -2626,7 +2626,7 @@ Subsequently, spatial subsetting can be done with a single, concise command:
 
 
 ```r
-africa_buff = africa[buff, ]
+africa_buf = africa[buff, ]
 ```
 
 \BeginKnitrBlock{rmdnote}<div class="rmdnote">If we were using geographic ('lon/lat') data the previous command would have emitted a message warning about assuming `planar coordinates`.
@@ -2638,17 +2638,19 @@ The spatial subsetting clearly worked: only countries intersecting with the gian
 
 
 ```r
-plot(africa_buff["pop"])
+plot(africa_buf["pop"])
 plot(buff, add = TRUE)
 ```
 
+
+<!-- Todo: improve this figure, e.g. by creating a new hidden chunk - still show this one -->
 <div class="figure" style="text-align: center">
-<img src="figures/africa-buff-1.png" alt="Subset of the `africa` data selected based on their intersection with a circle 20 degrees in radius with a center point at 0 degrees longitude and 0 degrees latitude." width="576" />
-<p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 20 degrees in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
+preserve3991c73308a71c24
+<p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 2000 km in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 
-Note that countries that just touch the giant circle are selected such as Algeria (the large country at the north of plot).
-`st_relates()` includes countries that only touch (but are not within or overlapping with) the selection object.
+Note that countries that just touch the giant circle are selected such as Chad (northeast of the circle).
+This is because the default subsetting operator is `st_intersects()`, which returns any type of spatial relation.
 Other spatial subsetting operations such as `st_within()` are more conservative, as shown in section \@ref(topological-relations).
 
 Before we progress to explore the differences between different spatial subsetting operations, it is worth seeing alternative ways to achieve the same result,
@@ -2658,7 +2660,7 @@ The second way to reproduce the subsetting operation illustrated in Figure \@ref
 
 ```r
 sel_buff = st_intersects(x = africa, y = buff, sparse = FALSE)
-africa_buff2 = africa[sel_buff, ]
+africa_buf2 = africa[sel_buff, ]
 ```
 
 The third way is essentially the same as the second, but uses the `filter()` function introduced in section \@ref(vector-attribute-subsetting), forming the foundations of a 'tidy' spatial data analysis workflow.
@@ -2666,7 +2668,7 @@ If you already use **dplyr** for data manipulation, this way should seem familia
 
 
 ```r
-africa_buff3 = filter(africa, sel_buff)
+africa_buf3 = filter(africa, sel_buff)
 ```
 
 How can we be sure that the results are the same for the three subsetting operations?
@@ -2674,19 +2676,19 @@ We can test them as follows:
 
 
 ```r
-identical(x = africa_buff, y = africa_buff2)
+identical(x = africa_buf, y = africa_buf2)
 #> [1] TRUE
-identical(x = africa_buff, y = africa_buff3)
+identical(x = africa_buf, y = africa_buf3)
 #> [1] FALSE
 ```
 
-The reason that the third spatially subset object (`africa_buff3`) is not identical is that **dplyr** changes the row names:
+The reason that the third spatially subset object (`africa_buf3`) is not identical is that **dplyr** changes the row names:
 
 
 ```r
-head(row.names(africa_buff))
+head(row.names(africa_buf))
 #> [1] "2"  "14" "15" "27" "32" "33"
-head(row.names(africa_buff3))
+head(row.names(africa_buf3))
 #> [1] "1" "2" "3" "4" "5" "6"
 ```
 
@@ -2694,8 +2696,8 @@ If the row names are re-set, the objects become identical:
 
 
 ```r
-attr(africa_buff3, "row.names") = attr(x = africa_buff, "row.names")
-identical(africa_buff, africa_buff3)
+attr(africa_buf3, "row.names") = attr(x = africa_buf, "row.names")
+identical(africa_buf, africa_buf3)
 #> [1] TRUE
 ```
 
@@ -3031,7 +3033,7 @@ plot(us_states[, "total_pop_15"], main = "US states")
 plot(regions[, "total_pop_15"], main = "US regions")
 ```
 
-<img src="figures/unnamed-chunk-31-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-32-1.png" width="576" style="display: block; margin: auto;" />
 
 Of course, there is also spatial tidyverse counterpart.
 You can achieve the same with:
@@ -3058,11 +3060,11 @@ st_join(buff, africa[, "pop"]) %>%
 #> Simple feature collection with 1 feature and 1 field
 #> geometry type:  POLYGON
 #> dimension:      XY
-#> bbox:           xmin: -1420255 ymin: -2214294 xmax: 3131474 ymax: 2214294
+#> bbox:           xmin: -1166021 ymin: -2e+06 xmax: 2833979 ymax: 2e+06
 #> epsg (SRID):    32630
 #> proj4string:    +proj=utm +zone=30 +datum=WGS84 +units=m +no_defs
 #>        pop                       geometry
-#> 1 5.29e+08 POLYGON ((3131474.37142526 ...
+#> 1 4.87e+08 POLYGON ((2833978.55690392 ...
 # summarize(africa[buff, "pop"], pop = sum(pop, na.rm = TRUE))
 ```
 -->
@@ -3166,7 +3168,7 @@ plot(b)
 plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
 ```
 
-<img src="figures/unnamed-chunk-36-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-37-1.png" width="576" style="display: block; margin: auto;" />
 
 The subsequent code chunk demonstrate how this works for all combinations of the 'Venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
 <!-- Todo: reference r4ds -->
@@ -3522,7 +3524,7 @@ plot(elev)
 plot(elev_agg)
 ```
 
-<img src="figures/unnamed-chunk-49-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-50-1.png" width="576" style="display: block; margin: auto;" />
 
 Note that the origin of `elev_agg` has changed, too.
 The `resample()` command lets you align several raster properties in one go, namely origin, extent and resolution.
