@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveafc33d57159c85ef
+preserve84bc9c4a8c413298
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -240,7 +240,7 @@ In fact, we often advise our students to start with Python just because the majo
 ].
 However, when the teaching moves on to statistical geoprocessing and spatial predictive modeling we guide them towards R where they can take advantage of the concepts already learned through Python.
 Nevertheless, you can also use Python for the most common statistical learning techniques (though R tends to be more on the bleeding edge regarding new statistical development including those in the geostatistical community).
-In addition, Python also offers excellent support for spatial data analysis and manipulation (see packages **osgeo**, **Shapely**, **NumPy**, **osgeo**, **PyGeoProcessing**). 
+In addition, Python also offers excellent support for spatial data analysis and manipulation (see packages **osgeo**, **Shapely**, **NumPy**, **PyGeoProcessing**). 
 We refer you to @garrard_geoprocessing_2016 for an introduction to geoprocessing with Python.
 
 ## R's spatial ecosystem
@@ -2645,7 +2645,7 @@ plot(buff, add = TRUE)
 
 <!-- Todo: improve this figure, e.g. by creating a new hidden chunk - still show this one -->
 <div class="figure" style="text-align: center">
-preservec67ad2a3ab4b15d9
+preserveafe205c4f7879192
 <p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 2000 km in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 
