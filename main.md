@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve84bc9c4a8c413298
+preserve6441036035612c28
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -274,7 +274,7 @@ So time invested in learning the 'new ways' of handling spatial data and, hopefu
 It is noteworthy that shifts in the wider R community, as exemplified by the data processing package **dplyr** (released in [2014](https://cran.r-project.org/src/contrib/Archive/dplyr/)) influenced shifts in R's spatial ecosystem. 
 Alongside other packages that have a shared style and emphasis on 'tidy data' (including e.g., **ggplot2**), **dplyr** was placed in the **tidyverse** 'metapackage' in late [2016](https://cran.r-project.org/src/contrib/Archive/tidyverse/).
 The **tidyverse** approach, with its focus on long-form data and fast, intuitively named functions, has become immensely popular.
-This has led to a demand for 'tidy spatial data' which has been partly met by **sf** and other approaches such as the GitHub package [**tabularaster**](https://hypertidy.github.io/tabularaster/).
+This has led to a demand for 'tidy spatial data' which has been partly met by **sf** and other approaches such as **tabularaster**.
 An obvious feature of the **tidyverse** is the tendency for packages to work in harmony.
 Although an equivalent **geoverse** is presently missing, there is an on-going discussion of harmonizing R's many spatial packages.^[
 See the [r-spatial](https://github.com/r-spatial/) organisation and conversations in the [discussion](https://github.com/r-spatial/discuss/issues/11) repo for more on this.
@@ -2645,7 +2645,7 @@ plot(buff, add = TRUE)
 
 <!-- Todo: improve this figure, e.g. by creating a new hidden chunk - still show this one -->
 <div class="figure" style="text-align: center">
-preserveafe205c4f7879192
+preserve2508506ce092f2d8
 <p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 2000 km in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 
