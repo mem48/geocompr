@@ -2,7 +2,7 @@
 --- 
 title: 'Geocomputation with R'
 author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
-date: '2017-10-17'
+date: '2017-10-18'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -38,7 +38,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-10-17 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-10-18 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservec6729cd678956a41
+preserve578d9219eb760878
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1847,7 +1847,7 @@ world[, c("name_long", "lifeExp")] # subset columns by name
 ```
 
 A demonstration of the utility of using `logical` vectors for subsetting is shown in the code chunk below.
-This creates a new object, `small_countries`, containing nations whose surface area is smaller than 100,000 km^2^:
+This creates a new object, `small_countries`, containing nations whose surface area is smaller than 10,000 km^2^:
 
 
 ```r
@@ -3645,7 +3645,7 @@ library(raster)
 
 The previous chapters provided an overview of spatial data classes in R, with a focus on simple features and rasters.
 This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world.
-Before we can even think about processing data, we need to retrieve it, i.e. we need to know which sources are at our disposal (section \@ref{#retrieving-data}).
+Before we can even think about processing data, we need to retrieve it, i.e. we need to know which sources are at our disposal (section \@ref{retrieving-data}).
 Having data, we need to know how we can import them in our software.
 <!-- so far, I haven't seen a discussion on the pros and cons -->
 Therefore, it is important to be aware of the most often used spatial file formats and their pros and cons (see section \@ref(file-formats)).
@@ -3844,12 +3844,12 @@ All of them load the data into R or, more precisely, assign objects to your work
 Spatial vector data comes in a wide variety of file formats, most of which can be read-in via the **sf** function `st_read()`.
 Behind the scenes this calls GDAL.
 To find out which data formats **sf** supports, run `st_drivers()`. 
-Here, we show only the first two drivers (see Table \@ref(tab:drivers)):
+Here, we show only the first five drivers (see Table \@ref(tab:drivers)):
 
 
 ```r
 sf_drivers = st_drivers()
-head(sf_drivers, n = 2)
+head(sf_drivers, n = 5)
 ```
 
 

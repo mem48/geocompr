@@ -25,7 +25,7 @@
 <meta name="author" content="Robin Lovelace, Jakub Nowosad, Jannes Muenchow">
 
 
-<meta name="date" content="2017-10-17">
+<meta name="date" content="2017-10-18">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -259,7 +259,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="introduction-2" class="section level2">
 <h2><span class="header-section-number">5.1</span> Introduction</h2>
-<p>The previous chapters provided an overview of spatial data classes in R, with a focus on simple features and rasters. This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world. Before we can even think about processing data, we need to retrieve it, i.e. we need to know which sources are at our disposal (section @ref{#retrieving-data}). Having data, we need to know how we can import them in our software. <!-- so far, I haven't seen a discussion on the pros and cons --> Therefore, it is important to be aware of the most often used spatial file formats and their pros and cons (see section <a href="read-write.html#file-formats">5.3</a>). For the same purposes knowing how to efficiently read and write spatial data is crucial (see sections <a href="read-write.html#data-input">5.4</a> and <a href="read-write.html#data-output">5.5</a>). We also include a section (<a href="read-write.html#visual-outputs">5.6</a>) on visualization because outputting data in a human (not just computer) readable format enables non-programmers to benefit from your work.</p>
+<p>The previous chapters provided an overview of spatial data classes in R, with a focus on simple features and rasters. This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world. Before we can even think about processing data, we need to retrieve it, i.e. we need to know which sources are at our disposal (section @ref{retrieving-data}). Having data, we need to know how we can import them in our software. <!-- so far, I haven't seen a discussion on the pros and cons --> Therefore, it is important to be aware of the most often used spatial file formats and their pros and cons (see section <a href="read-write.html#file-formats">5.3</a>). For the same purposes knowing how to efficiently read and write spatial data is crucial (see sections <a href="read-write.html#data-input">5.4</a> and <a href="read-write.html#data-output">5.5</a>). We also include a section (<a href="read-write.html#visual-outputs">5.6</a>) on visualization because outputting data in a human (not just computer) readable format enables non-programmers to benefit from your work.</p>
 <p>I/O is short for “input/output” which means, in plain English, “reading and writing data”. We use the acronym instead of plain English not to confuse you or to make chapter names short, but because that is the term used in computer science, and it is useful to think of data import and export from a computing perspective.<a href="#fn21" class="footnoteRef" id="fnref21"><sup>21</sup></a></p>
 </div>
 <div id="retrieving-data" class="section level2">
@@ -450,9 +450,9 @@ world_raw =<span class="st"> </span><span class="kw">st_read</span>(world_raw_fi
 <p>Executing commands such as <code>sf::st_read()</code> (the main function we use for loading vector data) or <code>raster::raster()</code> (the main function used for loading raster data) silently sets off a chain of events that reads data from files. <!-- transition is unclear, not sure what you would like to say --> Moreover, there are many R packages containing a wide range of spatial data or providing simple access to different data sources. All of them load the data into R or, more precisely, assign objects to your workspace, stored in RAM accessible from the <code>.GlobalEnv</code><a href="#fn25" class="footnoteRef" id="fnref25"><sup>25</sup></a> of your current R session.</p>
 <div id="vector-data-1" class="section level3">
 <h3><span class="header-section-number">5.4.1</span> Vector data</h3>
-<p>Spatial vector data comes in a wide variety of file formats, most of which can be read-in via the <strong>sf</strong> function <code>st_read()</code>. Behind the scenes this calls GDAL. To find out which data formats <strong>sf</strong> supports, run <code>st_drivers()</code>. Here, we show only the first two drivers (see Table <a href="read-write.html#tab:drivers">5.3</a>):</p>
+<p>Spatial vector data comes in a wide variety of file formats, most of which can be read-in via the <strong>sf</strong> function <code>st_read()</code>. Behind the scenes this calls GDAL. To find out which data formats <strong>sf</strong> supports, run <code>st_drivers()</code>. Here, we show only the first five drivers (see Table <a href="read-write.html#tab:drivers">5.3</a>):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sf_drivers =<span class="st"> </span><span class="kw">st_drivers</span>()
-<span class="kw">head</span>(sf_drivers, <span class="dt">n =</span> <span class="dv">2</span>)</code></pre></div>
+<span class="kw">head</span>(sf_drivers, <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
 <table>
 <caption><span id="tab:drivers">Table 5.3: </span>Sample of available drivers for reading/writing vector data (it could vary between different GDAL versions).</caption>
 <thead>

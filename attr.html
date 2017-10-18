@@ -25,7 +25,7 @@
 <meta name="author" content="Robin Lovelace, Jakub Nowosad, Jannes Muenchow">
 
 
-<meta name="date" content="2017-10-17">
+<meta name="date" content="2017-10-18">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -295,7 +295,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[<span class="dv">1</span>:<span class="dv">6</span>, ] <span class="co"># subset rows by position</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[, <span class="dv">1</span>:<span class="dv">3</span>] <span class="co"># subset columns by position</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">world[, <span class="kw">c</span>(<span class="st">&quot;name_long&quot;</span>, <span class="st">&quot;lifeExp&quot;</span>)] <span class="co"># subset columns by name</span></code></pre></div>
-<p>A demonstration of the utility of using <code>logical</code> vectors for subsetting is shown in the code chunk below. This creates a new object, <code>small_countries</code>, containing nations whose surface area is smaller than 100,000 km<sup>2</sup>:</p>
+<p>A demonstration of the utility of using <code>logical</code> vectors for subsetting is shown in the code chunk below. This creates a new object, <code>small_countries</code>, containing nations whose surface area is smaller than 10,000 km<sup>2</sup>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sel_area =<span class="st"> </span>world$area_km2 &lt;<span class="st"> </span><span class="dv">10000</span>
 <span class="kw">summary</span>(sel_area) <span class="co"># a logical vector</span>
 <span class="co">#&gt;    Mode   FALSE    TRUE </span>
