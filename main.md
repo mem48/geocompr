@@ -89,7 +89,7 @@ Over the last few decades a huge amount of work has gone into developing open so
 This means that spatial data analysis is no longer the preserve of those who can afford expensive programs, and the hardware to run them.
 Anyone can now download high performance spatial libraries on their computer.
 However, despite the growth of geospatial software that is *open source*, much of it remains *inaccessible*, in a form that is scriptable and therefore easily reproducible and 'computational'.
-Open source Geographic Information Systems (GIS) such as QGIS (see [qgis.org](http://qgis.org/en/site/)) have greatly reduced the 'barrier to entry', but the emphasis of such programs on a Graphical User Interface (GUI) can discourage reproducibility and an emphasis on the code that the Geocomputational approach requires, as discussed in Chapter 13.
+Open source Geographic Information Systems (GIS) such as QGIS (see [qgis.org](http://qgis.org/en/site/)) have greatly reduced the 'barrier to entry', but the emphasis of such programs on a Graphical User Interface (GUI) can discourage reproducibility and an emphasis on the code that the Geocomputational approach requires, as discussed in Chapter 13. <!--\@ref(gis) --><!-- REF NEEDS TO BE FIXED IN FUTURE-->
 
 A major aim of this book is to make geographic data analysis more accessible as part of a reproducible workflow.
 R is a flexible language that allows access to many spatial software libraries (see section \@ref(why-geocomputation-with-r)).
@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveb8587c768846f392
+preserveafc33d57159c85ef
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -220,7 +220,7 @@ Java's object-oriented syntax is similar to C++, however, its memory management 
 Still, it is rather unforgiving regarding class, object and variable declarations forcing you to think about a well-designed programming structure.
 This is especially useful in large projects with thousands of lines of codes placed in numerous files.
 Following the *write once, run anywhere* principle, Java is platform-independent (which is unusual for a compiled programming language).
-Overall, Java's compiled language has an excellent performance on large-scale systems making it a suitable candidate for complex architecture projects such as programming a desktop GIS.
+Overall, compiled Java programs have an excellent performance on large-scale systems making them suitable candidates for complex architecture projects such as programming a desktop GIS.
 However, Java is probably less suitable for statistical modeling and visualization compared to Python or R.
 First and foremost, though you can do data science with Java [@brzustowicz_data_2017], Java offers much fewer statistical libraries especially when compared with R.
 Secondly, interpreted languages (such as R and Python) are often easier to write (at the prize of lower performance) than compiled languages (such as Java and C++).
@@ -2645,7 +2645,7 @@ plot(buff, add = TRUE)
 
 <!-- Todo: improve this figure, e.g. by creating a new hidden chunk - still show this one -->
 <div class="figure" style="text-align: center">
-preserve7d0f958a4f51deab
+preservec67ad2a3ab4b15d9
 <p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 2000 km in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 
