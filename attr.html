@@ -335,7 +335,7 @@ world3 =<span class="st"> </span>dplyr::<span class="kw">select</span>(world, -s
 <p><code>slice()</code> is the row-equivalent of <code>select()</code>. The following code chunk, for example, selects the 3<sup>rd</sup> to 5<sup>th</sup> rows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">slice</span>(world, <span class="dv">3</span>:<span class="dv">5</span>)</code></pre></div>
 <p><code>filter()</code> is <strong>dplyr</strong>’s equivalent of base R’s <code>subset()</code> function. It keeps only rows matching given criteria, e.g., only countries with a very high average of life expectancy:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Countries with a life expectancy more than 82 years</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Countries with a life expectancy longer than 82 years</span>
 world6 =<span class="st"> </span><span class="kw">filter</span>(world, lifeExp &gt;<span class="st"> </span><span class="dv">82</span>)</code></pre></div>
 <p>The standard set of comparison operators can be used in the <code>filter()</code> function, as illustrated in Table <a href="attr.html#tab:operators">3.1</a>:</p>
 <table>
@@ -396,7 +396,7 @@ The ‘right arrow’ <code>-&gt;</code> operator can be used to make the result
 </div>
 <div id="vector-attribute-aggregation" class="section level3">
 <h3><span class="header-section-number">3.2.2</span> Vector attribute aggregation</h3>
-<p>Aggregation operations summarize datasets by a grouping variable, which can be either another attribute column or a spatial object (see Chapter <a href="#spatial-attribute-operations"><strong>??</strong></a>). Imagine we would like to calculate the number of people per continent. Fortunately, our <code>world</code> dataset has the necessary ingredients, with the <code>pop</code> column containing the population per country and the grouping variable <code>continent</code>. In base R this can be done with <code>aggregate()</code> as follows:</p>
+<p>Aggregation operations summarize datasets by a grouping variable, which can be either another attribute column or a spatial object. Imagine we would like to calculate the number of people per continent. Fortunately, our <code>world</code> dataset has the necessary ingredients, with the <code>pop</code> column containing the population per country and the grouping variable <code>continent</code>. In base R this can be done with <code>aggregate()</code> as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">aggregate</span>(pop ~<span class="st"> </span>continent, <span class="dt">FUN =</span> sum, <span class="dt">data =</span> world, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p>The result is a non-spatial data frame with eight rows, one per continent, and two columns (see Table <a href="attr.html#tab:continents">3.2</a> with results for the top 3 most populous continents).</p>
 <p><code>summarize()</code> is the <strong>dplyr</strong> equivalent of <code>aggregate()</code>, which uses the function <code>group_by()</code> to create the grouping variable. The tidy equivalent of the <code>aggregate()</code> method is as follows:</p>

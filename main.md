@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve578d9219eb760878
+preserve662cbe4115b1c55d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1949,7 +1949,7 @@ It keeps only rows matching given criteria, e.g., only countries with a very hig
 
 
 ```r
-# Countries with a life expectancy more than 82 years
+# Countries with a life expectancy longer than 82 years
 world6 = filter(world, lifeExp > 82)
 ```
 
@@ -2004,7 +2004,7 @@ There are additional advantages of pipes from a communication perspective: they 
 
 ### Vector attribute aggregation
 
-Aggregation operations summarize datasets by a grouping variable, which can be either another attribute column or a spatial object (see Chapter \@ref(spatial-attribute-operations)).
+Aggregation operations summarize datasets by a grouping variable, which can be either another attribute column or a spatial object.
 Imagine we would like to calculate the number of people per continent. 
 Fortunately, our `world` dataset has the necessary ingredients, with the `pop` column containing the population per country and the grouping variable `continent`.
 In base R this can be done with `aggregate()` as follows:
