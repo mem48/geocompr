@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve01e6d88da4c8839c
+preserve763c3143cc842ff8
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -806,7 +806,7 @@ However, **sf** also allows multiple geometries to exist within a single feature
 
 - Multipoint - `MULTIPOINT (5 2, 1 3, 3 4, 3 2)`
 - Multistring - `MULTILINESTRING ((1 5, 4 4, 4 1, 2 2, 3 2), (1 2, 2 4))`
-- Multipolygon - `MULTIPOLYGON ((1 5, 4 4, 4 1, 2 2, 1 5), (0 2, 1 2, 1 3, 0 3, 0 2))`
+- Multipolygon - `MULTIPOLYGON (((1 5, 2 2, 4 1, 4 4, 1 5), (0 2, 1 2, 1 3, 0 3, 0 2)))`
 
 <img src="figures/multis-1.png" width="576" style="display: block; margin: auto;" />
 
@@ -2645,7 +2645,7 @@ plot(buff, add = TRUE)
 
 <!-- Todo: improve this figure, e.g. by creating a new hidden chunk - still show this one -->
 <div class="figure" style="text-align: center">
-preserve1dcf05f61d2dabfe
+preserve754866f98e27bcf8
 <p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 2000 km in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 
@@ -2991,7 +2991,7 @@ joined[!is.na(joined$population_millions), ]
 This operation is also know as spatial overlay.
 `st_join()` performs by default a left join (see chapter \@ref(vector-attribute-joining), but you can change this to an inner join operation.
 Another default of `st_join()` is to intersect the two provided layers.
-Of course, you can use any other topological operations we have already encountered above such as `st_within()` or or `st_touches()` (please refer also to the help page of `st_join()`.
+Of course, you can use any other topological operations we have already encountered above such as `st_within()` or or `st_touches()` (please refer also to the help page of `st_join()`).
 In the example above, we have added features of a point layer to a polygon layer.
 Please note that there might be multiple point matches for one polygon. 
 Had we chosen to select the four (instead of three) most populous cities in the world, two of them would have belonged to China (Shanghai and Beijing, give it a try yourself).
@@ -3668,7 +3668,7 @@ You just have to know where to look.
 While we cannot provide a comprehensive guide to all available geodata, we point to a few of the most important sources.
 Overall, geolibraries and geoportals facilitate the search and download of geodata.
 Geolibraries are a very useful data source but often only contain data for a specific locations.
-Then the might struggle to find the exact geolibrary matching his or her demands.
+Then you might struggle to find the exact geolibrary matching his or her demands.
 Here, geolibraries come to the rescue bundling the information of a collection of geolibraries.
 If you are looking for data from all over the world, the [GEOSS portal](http://www.geoportal.org/) might be a good starting point.
 We also would like you to point to the [EarthExplorer](https://earthexplorer.usgs.gov/) and the [Copernicus Open Access Hub](https://scihub.copernicus.eu/) for a wide variety of global datasets including multispectral and radar images.
