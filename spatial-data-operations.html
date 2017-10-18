@@ -295,9 +295,9 @@ Interested readers can see this default value of <code>op</code> set in the firs
 center =<span class="st"> </span><span class="kw">st_transform</span>(center_wgs, <span class="dv">32630</span>)
 buff =<span class="st"> </span><span class="kw">st_buffer</span>(center, <span class="dt">dist =</span> <span class="fl">2e6</span>)</code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:globe"></span>
-<img src="figures/globe.png" alt="Hypothetical subsetting scenario: select all countries which intersect with a circle of 2000 km in radius around planet Earth. Figure created with the **[globe](https://cran.r-project.org/package=globe)** package." width="250" />
+<img src="figures/globe.png" alt="Hypothetical subsetting scenario: select all countries which intersect with a circle of 2000 km in radius located at zero degrees longitude and zero degrees latitude. Figure created with the **[globe](https://cran.r-project.org/package=globe)** package." width="250" />
 <p class="caption">
-Figure 4.1: Hypothetical subsetting scenario: select all countries which intersect with a circle of 2000 km in radius around planet Earth. Figure created with the <strong><a href="https://cran.r-project.org/package=globe">globe</a></strong> package.
+Figure 4.1: Hypothetical subsetting scenario: select all countries which intersect with a circle of 2000 km in radius located at zero degrees longitude and zero degrees latitude. Figure created with the <strong><a href="https://cran.r-project.org/package=globe">globe</a></strong> package.
 </p>
 </div>
 <p>The data to be subset, or ‘target layer’, is the <code>africa</code> object created above, which has a projected CRS (<code>32630</code>). Subsequently, spatial subsetting can be done with a single, concise command:</p>
