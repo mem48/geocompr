@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservee988d8e5b274f411
+preserveb8587c768846f392
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2617,8 +2617,8 @@ buff = st_buffer(center, dist = 2e6)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="figures/globe.png" alt="Hypothetical subsetting scenario: select all countries which intersect with a circle of 2000 km in radius located at zero degrees longitude and zero degrees latitude. Figure created with the **[globe](https://cran.r-project.org/package=globe)** package." width="250" />
-<p class="caption">(\#fig:globe)Hypothetical subsetting scenario: select all countries which intersect with a circle of 2000 km in radius located at zero degrees longitude and zero degrees latitude. Figure created with the **[globe](https://cran.r-project.org/package=globe)** package.</p>
+<img src="figures/globe.png" alt="Subsetting scenario: which countries intersect with a circle of 2000 km in radius located at zero degrees longitude and zero degrees latitude? Figure created with the **[globe](https://cran.r-project.org/package=globe)** package." width="250" />
+<p class="caption">(\#fig:globe)Subsetting scenario: which countries intersect with a circle of 2000 km in radius located at zero degrees longitude and zero degrees latitude? Figure created with the **[globe](https://cran.r-project.org/package=globe)** package.</p>
 </div>
 
 The data to be subset, or 'target layer', is the `africa` object created above, which has a projected CRS (`32630`).
@@ -2645,7 +2645,7 @@ plot(buff, add = TRUE)
 
 <!-- Todo: improve this figure, e.g. by creating a new hidden chunk - still show this one -->
 <div class="figure" style="text-align: center">
-preserve4bf01f5f109029c6
+preserve7d0f958a4f51deab
 <p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 2000 km in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 
