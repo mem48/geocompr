@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservec5cb62a65828a95d
+preserve4fae1b7557f062ca
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -3645,7 +3645,7 @@ library(raster)
 
 The previous chapters provided an overview of spatial data classes in R, with a focus on simple features and rasters.
 This chapter is about getting spatial data onto your computer and then, perhaps after processing it with techniques described in this book, back out to the world.
-Before we can even think about processing data, we need to retrieve it, i.e. we need to know which sources are at our disposal (section \@ref{retrieving-data}).
+Before we can even think about processing data, we need to retrieve it, i.e. we need to know which sources are at our disposal (section \@ref(retrieving-data)).
 Having data, we need to know how we can import them in our software.
 <!-- so far, I haven't seen a discussion on the pros and cons -->
 Therefore, it is important to be aware of the most often used spatial file formats and their pros and cons (see section \@ref(file-formats)).
