@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve763c3143cc842ff8
+preserve9eb80c4f638778fa
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2645,7 +2645,7 @@ plot(buff, add = TRUE)
 
 <!-- Todo: improve this figure, e.g. by creating a new hidden chunk - still show this one -->
 <div class="figure" style="text-align: center">
-preserve754866f98e27bcf8
+preserve358406a7ea45d35c
 <p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 2000 km in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 
@@ -3791,8 +3791,8 @@ Find more information on getting data using R packages in [section 5.5](https://
 
 ## File formats
 
-Spatial data is usually stored as files or in geodatabases. 
-File-based data formats can contain either vector or raster data, while geodatabases could store both.
+Spatial data is usually stored as files or in spatial databases. 
+File-based data formats can contain either vector or raster data, while spatial databases could store both.
 Historically, GIS file formats were developed by mapping agencies and software companies. <!--examples-->
 Exchanging spatial data between different software packages each coming with its own format was troublesome in the beginning.
 
