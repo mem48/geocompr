@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve662cbe4115b1c55d
+preservec5cb62a65828a95d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2014,7 +2014,7 @@ In base R this can be done with `aggregate()` as follows:
 aggregate(pop ~ continent, FUN = sum, data = world, na.rm = TRUE)
 ```
 
-The result is a non-spatial data frame with eight rows, one per continent, and two columns (see Table \@ref(tab:continents) with results for the top 3 most populous continents).
+The result is a non-spatial data frame with six rows, one per continent, and two columns (see Table \@ref(tab:continents) with results for the top 3 most populous continents).
 
 `summarize()` is the **dplyr** equivalent of `aggregate()`, which uses the function `group_by()` to create the grouping variable.
 The tidy equivalent of the `aggregate()` method is as follows:
