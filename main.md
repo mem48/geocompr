@@ -189,7 +189,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve6441036035612c28
+preserve01e6d88da4c8839c
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -276,9 +276,9 @@ Alongside other packages that have a shared style and emphasis on 'tidy data' (i
 The **tidyverse** approach, with its focus on long-form data and fast, intuitively named functions, has become immensely popular.
 This has led to a demand for 'tidy spatial data' which has been partly met by **sf** and other approaches such as **tabularaster**.
 An obvious feature of the **tidyverse** is the tendency for packages to work in harmony.
-Although an equivalent **geoverse** is presently missing, there is an on-going discussion of harmonizing R's many spatial packages.^[
+Although an equivalent **geoverse** is presently missing, there is an on-going discussion of harmonizing R's many spatial packages^[
 See the [r-spatial](https://github.com/r-spatial/) organisation and conversations in the [discussion](https://github.com/r-spatial/discuss/issues/11) repo for more on this.
-] and a growing number of actively developed packages which are designed to work in harmony with **sf** (Table \@ref(tab:revdep)) and 
+] and a growing number of actively developed packages which are designed to work in harmony with **sf** (Table \@ref(tab:revdep)). 
 
 
 Table: (\#tab:revdep)The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-10-11 there are 31 packages which import sf.
@@ -354,8 +354,8 @@ While **rgdal** and **sp** solved many spatial issues, R was still lacking geome
 Therefore, Colin Rundel started to develop a package that interfaces GEOS, an open-source geometry library, during a Google Summer of Coding project in 2010.
 The resulting **rgeos** package [first released in 2010; @R-rgeos] brought geometry calculations to R by allowing functions and operators from the GEOS library to manipulate **sp** objects.
 Another limitation of **sp** was its limited support of raster data.
-The **raster**-package [first released in 2010; @R-raster] overcame this by providing a `raster` class and functions for creating, reading and writing raster data.
-A key feature of **raster** is its ability to work with datasets that are too large to fit into the main memory (RAM), thereby overcoming one of R's major limitations when working on raster data.^[The
+The **raster**-package [first released in 2010; @R-raster] overcame this by providing `Raster*` classes and functions for creating, reading and writing raster data.
+A key feature of **raster** is its ability to work with datasets that are too large to fit into the main memory (RAM), thereby overcoming one of R's major limitations when working on large raster data.^[The
 **raster** package also provided tools for raster algebra, general raster functions and the development of more additional raster functions.]
 
 In parallel with or partly even preceding the development of spatial classes and methods came the support for R as an interface to dedicated GIS software.
@@ -414,7 +414,7 @@ You can install and set up both in a few minutes on most modern computers, as de
 If you are not a regular R user, we recommend that you familiarize yourself with the language before proceeding with this chapter.
 You can do so using resources such as @gillespie_efficient_2016, @grolemund_r_2016 as well as online interactive guides such as [DataCamp](https://www.datacamp.com/courses/free-introduction-to-r).
 We recommend organising your work as you learn, for example with the help of an RStudio '[project](https://csgillespie.github.io/efficientR/set-up.html#project-management)' called `geocomp-learning` or similar and a new script for each chapter.
-The code you type to help learn the content of this chapter, for example, could be placed in script called `chapter-02.R`.
+The code you type to help learn the content of this chapter, for example, could be placed in a script called `chapter-02.R`.
 Everyone learns in a different way so it is important that you structure your code in a way that makes sense to you and that you avoid copy-pasting to get used to typing code.
 <!-- Another option is to use the RStudio project provided in the root directory of the [`geocompr`](https://github.com/Robinlovelace/geocompr) GitHub repository. -->
 <!-- This will make it easier to run this book's worked examples on your computer. -->
@@ -2645,7 +2645,7 @@ plot(buff, add = TRUE)
 
 <!-- Todo: improve this figure, e.g. by creating a new hidden chunk - still show this one -->
 <div class="figure" style="text-align: center">
-preserve2508506ce092f2d8
+preserve1dcf05f61d2dabfe
 <p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 2000 km in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 
