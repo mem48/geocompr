@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve30cbe337530174e3
+preservee016d145a7a5fb59
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -319,7 +319,7 @@ Initially, **maptools** just contained a wrapper around [shapelib](http://shapel
 The corresponding and nowadays obsolete S3 class called "Map" stored this list alongside an attribute data frame. 
 The work on the "Map" class representation was nevertheless important since it directly fed into **sp** prior to its publication on CRAN.
 
-In 2003, Hornik et al. [-@hornik_approaches_2003] published an extended review of spatial packages. 
+In 2003, @hornik_approaches_2003 published an extended review of spatial packages. 
 Around this time the development of R's spatial capabilities increasingly supported interfaces to external libraries, especially to GDAL and PROJ.4.
 These interfaces facilitated geographic data I/O (covered in chapter \@ref(read-write)) and CRS transformations, respectively.
 @hornik_approaches_2003 proposed a spatial data class system, including support for points, lines, polygons and grids based on GDAL's support for a wide range of spatial data formats.
@@ -2647,7 +2647,7 @@ plot(buff, add = TRUE)
 
 <!-- Todo: improve this figure, e.g. by creating a new hidden chunk - still show this one -->
 <div class="figure" style="text-align: center">
-preserve6b32fe0b9f163b5f
+preserve85222d886e9dd5e4
 <p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 2000 km in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 
