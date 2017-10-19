@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve17b01bc724b48089
+preserve6a70c28d46270d4e
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -346,7 +346,7 @@ This enables non-spatial data operations to work alongside spatial operations (c
 Additionally, **sp** implemented generic methods for spatial data types for well-known functions such as `summary()` and `plot()` .
 
 In the following, **sp** classes rapidly became the go-to standard for spatial data in R, resulting in a proliferation of packages that depended on it from around 20 in 2008 and over 100 in 2013 [@bivand_applied_2013].
-Now more than 200 packages rely on **sp**, making it an important part of the R ecosystem. 
+Now more than 450 packages rely on **sp**, making it an important part of the R ecosystem. 
 <!-- https://github.com/Robinlovelace/geocompr/issues/58 -->
 <!-- https://github.com/edzer/sfr/issues/387#issuecomment-308949140 -->
 
@@ -2647,7 +2647,7 @@ plot(buff, add = TRUE)
 
 <!-- Todo: improve this figure, e.g. by creating a new hidden chunk - still show this one -->
 <div class="figure" style="text-align: center">
-preservec1b0a9ec3071efe0
+preserve80e01f49cc47ab80
 <p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 2000 km in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 
