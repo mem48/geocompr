@@ -85,11 +85,13 @@ Learning how to use the wealth of geospatial 'tools' this computational approach
 However, it is even more liberating to create new tools.
 By the end of the book you should be able to create new tools in the form of shareable R functions.
 
-Over the last few decades a huge amount of work has gone into developing open source software for handling geographic data (see [foss4g.org](http://foss4g.org/)).
-This means that spatial data analysis is no longer the preserve of those who can afford expensive programs, and the hardware to run them.
-Anyone can now download high performance spatial libraries on their computer.
-However, despite the growth of geospatial software that is *open source*, much of it remains *inaccessible*, in a form that is scriptable and therefore easily reproducible and 'computational'.
-Open source Geographic Information Systems (GIS) such as QGIS (see [qgis.org](http://qgis.org/en/site/)) have greatly reduced the 'barrier to entry', but the emphasis of such programs on a Graphical User Interface (GUI) can discourage reproducibility and an emphasis on the code that the Geocomputational approach requires, as discussed in Chapter 13. <!--\@ref(gis) --><!-- REF NEEDS TO BE FIXED IN FUTURE-->
+Over the last few decades free and open source software for geospatial data ('FOSS4G') has progressed at an astonishing rate (see [foss4g.org](http://foss4g.org/)).
+FOSS4G means that geospatial analysis no longer needs to be the preserve of those who can afford expensive programs because anyone can now download high performance spatial libraries on their computer.
+However, despite the growth of geospatial software that is *open source*, much of it is still not easy to script.
+Open source Geographic Information Systems (GIS) such as QGIS (see [qgis.org](http://qgis.org/en/site/)) have greatly reduced the 'barrier to entry' have an emphasis on the Graphical User Interface (GUI) rather than the Command-Line Interface (CLI).
+This GUI-centred approach can discourage reproducibility.
+This book focusses exclusively on the CLI, enabling reproducible, and 'computational' workflows, something we will expand on in Chapter 13.
+<!--\@ref(gis) --><!-- REF NEEDS TO BE FIXED IN FUTURE-->
 
 A major aim of this book is to make geographic data analysis more accessible as part of a reproducible workflow.
 R is a flexible language that allows access to many spatial software libraries (see section \@ref(why-geocomputation-with-r)).
@@ -189,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve09ed70b829c8239d
+preserve30cbe337530174e3
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2645,7 +2647,7 @@ plot(buff, add = TRUE)
 
 <!-- Todo: improve this figure, e.g. by creating a new hidden chunk - still show this one -->
 <div class="figure" style="text-align: center">
-preserve50d57657ef5f2475
+preserve6b32fe0b9f163b5f
 <p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 2000 km in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 
