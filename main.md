@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserveb85d1d5b7b9673b4
+preserve4db69593a16731de
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -933,7 +933,7 @@ st_geometrycollection(gemetrycollection_list)
 #### Simple feature collections {#sfc}
 
 One `sfg` object contains only a single simple feature geometry. 
-A simple feature collection (`sfc`) is a list of `sfg` objects and can additionally contain information about the coordinate reference system in use.
+A collection of simple feature geometries (`sfc`) is a list is a list of `sfg` objects and can additionally contain information about the coordinate reference system in use.
 For instance, to combine two simple features into one object with two features, we can use the `st_sfc()` function. 
 This is important since this collection represents the geometry column in **sf** data frames:
 
@@ -2649,7 +2649,7 @@ plot(buff, add = TRUE)
 
 <!-- Todo: improve this figure, e.g. by creating a new hidden chunk - still show this one -->
 <div class="figure" style="text-align: center">
-preserveedd0469a32c2ccea
+preserve99a4f76a431e5d87
 <p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 2000 km in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 

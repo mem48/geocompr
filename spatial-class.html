@@ -552,7 +552,7 @@ gemetrycollection_list =<span class="st"> </span><span class="kw">list</span>(<s
 </div>
 <div id="sfc" class="section level4">
 <h4><span class="header-section-number">2.1.4.3</span> Simple feature collections</h4>
-<p>One <code>sfg</code> object contains only a single simple feature geometry. A simple feature collection (<code>sfc</code>) is a list of <code>sfg</code> objects and can additionally contain information about the coordinate reference system in use. For instance, to combine two simple features into one object with two features, we can use the <code>st_sfc()</code> function. This is important since this collection represents the geometry column in <strong>sf</strong> data frames:</p>
+<p>One <code>sfg</code> object contains only a single simple feature geometry. A collection of simple feature geometries (<code>sfc</code>) is a list is a list of <code>sfg</code> objects and can additionally contain information about the coordinate reference system in use. For instance, to combine two simple features into one object with two features, we can use the <code>st_sfc()</code> function. This is important since this collection represents the geometry column in <strong>sf</strong> data frames:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># sfc POINT</span>
 point1 =<span class="st"> </span><span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>))
 point2 =<span class="st"> </span><span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))
