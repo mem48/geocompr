@@ -2,7 +2,7 @@
 --- 
 title: 'Geocomputation with R'
 author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
-date: '2017-10-20'
+date: '2017-10-21'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -27,8 +27,8 @@ Welcome to **geocompr**, the [website](http://robinlovelace.net/geocompr) of our
 Inspired by the **bookdown** [R package](https://github.com/rstudio/bookdown) we are developing this book in the open.
 We decided to make the book open source to encourage contributions, ensure reproducibility and provide access to the material as it evolves.
 
-We're developing the book in 3 main phases.
-We're in phase 1 and focussed on the first 5 main chapters, which we aim to be complete by September.
+We're developing the book in four main phases.
+We're in phase two and focussed on the application chapters, which we aim to be complete by December.
 Drafts of other chapters will be added to this website as the project progresses.
 
 The latest version is hosted at [robinlovelace.net/geocompr](http://robinlovelace.net/geocompr).
@@ -38,7 +38,7 @@ Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-10-20 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+The version of the book you are reading now was built on 2017-10-21 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 **bookdown** makes editing a book as easy as editing a wiki.
 To do so, just click on the 'edit me' icon highlighted in the image below.
 Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
@@ -191,7 +191,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve5ba72e5f873e58ca
+preservedd60ef063805cbe1
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2649,7 +2649,7 @@ plot(buff, add = TRUE)
 
 <!-- Todo: improve this figure, e.g. by creating a new hidden chunk - still show this one -->
 <div class="figure" style="text-align: center">
-preserve3a68eeb43d61749e
+preservea0ff9db90b26c771
 <p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 2000 km in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 
