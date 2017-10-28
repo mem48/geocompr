@@ -2,7 +2,7 @@
 --- 
 title: 'Geocomputation with R'
 author: 'Robin Lovelace, Jakub Nowosad, Jannes Muenchow'
-date: '2017-10-26'
+date: '2017-10-28'
 knit: bookdown::render_book
 site: bookdown::bookdown_site
 documentclass: book
@@ -25,23 +25,28 @@ Welcome to **geocompr**, the [website](http://robinlovelace.net/geocompr) of our
 ## Development {-}
 
 Inspired by the **bookdown** [R package](https://github.com/rstudio/bookdown) we are developing this book in the open.
-We decided to make the book open source to encourage contributions, ensure reproducibility and provide access to the material as it evolves.
+We decided to make the book open source.
+Why?
+To encourage contributions, ensure reproducibility and provide access to the material as it evolves.
 
 We're developing the book in four main phases.
 We're in phase two and focussed on the application chapters, which we aim to be complete by December.
 Drafts of other chapters will be added to this website as the project progresses.
 
-The latest version is hosted at [robinlovelace.net/geocompr](http://robinlovelace.net/geocompr).
-This website is kept up-to-date thanks to Travis, a continuous integration (CI) service.
-Travis automatically rebuilds the book and finds bugs by reporting the 'build status' after every update.
+1. Foundations
+2. Basic applications
+3. Geocomputation methods
+4. Advanced applications
+
+Currently we're working primarily on the second part, which we aim to be complete by December.
+New chapters will be added to this website as the project progresses, hosted at [robinlovelace.net/geocompr](http://robinlovelace.net/geocompr) and kept up-to-date thanks to [Travis](https://travis-ci.org/Robinlovelace/geocompr).
 Currently the build is:
 
 [![Build Status](https://travis-ci.org/Robinlovelace/geocompr.svg?branch=master)](https://travis-ci.org/Robinlovelace/geocompr) 
 
-The version of the book you are reading now was built on 2017-10-26 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
-**bookdown** makes editing a book as easy as editing a wiki.
-To do so, just click on the 'edit me' icon highlighted in the image below.
-Which-ever chapter you are looking at, this will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) file hosted on GitHub. If you have a GitHub account, you'll be able to make changes there and submit a pull request. If you do not, it's time to [sign-up](https://github.com/)! 
+The version of the book you are reading now was built on 2017-10-28 and was built on [Travis](https://travis-ci.org/Robinlovelace/geocompr).
+**bookdown** makes editing a book as easy as editing a wiki, provided you have a GitHub account ([sign-up at github.com](https://github.com/)).
+Once logged-in to GitHub, clicking on the 'edit me' icon highlighted in the image below will take you to the source [R Markdown](http://rmarkdown.rstudio.com/) where you can make changes:
 
 [![](figures/editme.png)](https://github.com/Robinlovelace/geocompr/edit/master/index.Rmd)
 
@@ -60,7 +65,7 @@ if(!require(devtools)) {
 devtools::install_github("robinlovelace/geocompr")
 ```
 
-To build the book locally, clone or [download](https://github.com/Robinlovelace/geocompr/archive/master.zip) the repo and run the following line from the [project](https://github.com/Robinlovelace/geocompr/blob/master/geocompr.Rproj)'s root directory:
+To build the book locally, clone or [download](https://github.com/Robinlovelace/geocompr/archive/master.zip) the [geocompr repo](https://github.com/Robinlovelace/geocompr/), open the [geocompr.Rproj project file](https://github.com/Robinlovelace/geocompr/blob/master/geocompr.Rproj) in RStudio and run the following lines:
 
 
 ```r
@@ -79,19 +84,25 @@ For further details see the book's GitHub page at [Robinlovelace/geocompr](https
 # Introduction {#intro}
 
 This book is about harnessing the power of modern computers to *do things* with geographic data.
-It teaches a range of spatial skills, including: reading, writing and manipulating geographic data; making static and interactive maps; and modeling geographic phenomena.
-By demonstrating how various spatial operations can be linked, in the reproducible 'code chunks' that intersperse the prose, the book also shows how these skills support a transparent and thus scientific workflow.
-Learning how to use the wealth of geospatial 'tools' this computational approach enables can be exciting and liberating.
-However, it is even more liberating to create new tools.
-By the end of the book you should be able to create new tools in the form of shareable R functions.
+It teaches a range of spatial skills, including: reading, writing and manipulating geographic data; making static and interactive maps; applying geocomputation to solve real-world problems; and modeling geographic phenomena.
+By demonstrating how various spatial operations can be linked, in reproducible 'code chunks' that intersperse the prose, the book also teaches a transparent and thus scientific workflow.
+Learning how to use the wealth of geospatial tools available from the R command line can be exciting but creating *new ones* can be truly liberating, by removing constraints on your creativity imposed by software.
+By the end of the book you should be able to create new tools for geocomputation in the form of shareable R scripts and functions.
 
 Over the last few decades free and open source software for geospatial data ('FOSS4G') has progressed at an astonishing rate (see [foss4g.org](http://foss4g.org/)).
-FOSS4G means that geospatial analysis no longer needs to be the preserve of those who can afford expensive programs because anyone can now download high performance spatial libraries on their computer.
+Thanks to FOSS4G and the wider open source movement geospatial analysis is no longer the preserve of those with expensive hardware and software: anyone can now download high performance spatial libraries on their computer.
 However, despite the growth of geospatial software that is *open source*, much of it is still not easy to script.
 Open source Geographic Information Systems (GIS) such as QGIS (see [qgis.org](http://qgis.org/en/site/)) have greatly reduced the 'barrier to entry' have an emphasis on the Graphical User Interface (GUI) rather than the Command-Line Interface (CLI).
 This GUI-centred approach can discourage reproducibility.
 This book focusses exclusively on the CLI, enabling reproducible, and 'computational' workflows, something we will expand on in Chapter 13.
 <!--\@ref(gis) --><!-- REF NEEDS TO BE FIXED IN FUTURE-->
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">Reproducibility is a major advantage of command-line interfaces, but what does it mean in practice?
+We define it as follows:
+
+> A process is reproducible only if the same results can be generated by others using publicly accessible code.
+
+This may sound simple and easy to acheive (which it is if you carefully maintain your R code in script files) but has profound implications for teaching and the scientific process [@pebesma_r_2012].</div>\EndKnitrBlock{rmdnote}
 
 A major aim of this book is to make geographic data analysis more accessible as part of a reproducible workflow.
 R is a flexible language that allows access to many spatial software libraries (see section \@ref(why-geocomputation-with-r)).
@@ -116,8 +127,8 @@ This book aims to teach how to do geocomputation rather than just to think about
 Hence, you should be also able to apply the learned methods and mastered skills to real-world data, for evidence-based analysis in your own areas of interest.
 Moreover, throughout the book we encourage you to make geographic research more reproducible, scientific and socially beneficial. 
 
-This book is also part of the movement towards Geographical Information Science (GDS), a more recent concept which incorporates elements of 'data science' into GIS.
-Like Geocomputation, GSD can be defined in terms of its relation with GIS, some of which are outlined in Table \@ref(tab:gdsl).
+This book is also related to a movement that has been labelled Geographical Information Science (GDS).
+This recent concept essentially combines 'data science' with GIS and, like Geocomputation, can be defined in comparison with GIS (see Table \@ref(tab:gdsl)).
 The focus on reproducibility and a command-line interface in this book is aligned with GDS.
 
 
@@ -191,7 +202,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservec186c71264445b5f
+preservefe8bd5eeca6a30e4
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -220,32 +231,39 @@ For example, the open-source desktop GIS [gvSig](http://www.gvsig.com/en/product
 There are also many open source add-on libraries available for Java, including [GeoTools](http://docs.geotools.org/) and the [Java Topology Suite](https://www.locationtech.org/projects/technology.jts).^[Please note, that GEOS is a C++ port of the Java Topology Suite.]
 Furthermore, many server-based applications use Java including among others [Geoserver/Geonode](http://geonode.org/), [deegree](http://www.deegree.org/) and [52°North WPS](http://52north.org/communities/geoprocessing/wps/).
 
-Java's object-oriented syntax is similar to C++, however, its memory management is much simpler.
-Still, it is rather unforgiving regarding class, object and variable declarations forcing you to think about a well-designed programming structure.
-This is especially useful in large projects with thousands of lines of codes placed in numerous files.
-Following the *write once, run anywhere* principle, Java is platform-independent (which is unusual for a compiled programming language).
-Overall, compiled Java programs have an excellent performance on large-scale systems making them suitable candidates for complex architecture projects such as programming a desktop GIS.
-However, Java is probably less suitable for statistical modeling and visualization compared to Python or R.
-First and foremost, though you can do data science with Java [@brzustowicz_data_2017], Java offers much fewer statistical libraries especially when compared with R.
-Secondly, interpreted languages (such as R and Python) are often easier to write (at the prize of lower performance) than compiled languages (such as Java and C++).
-Moreover, interpreted languages allow a faster and interactive (line-by-line) code implementation.
-Finally, R's native support of data types such as data frames and matrices is especially advantageous when it comes to analyzing data.
+Java's object-oriented syntax is similar to that of C++ but its memory management is simpler.
+Java is rather unforgiving regarding class, object and variable declarations, which encourages well-designed programming structure, useful in large projects with thousands of lines of codes placed in numerous files.
+Following the *write once, run anywhere* principle, Java is platform-independent (which is unusual for a compiled language) and has excellent performance on large-scale systems.
+This makes Java a suitable language for complex architecture projects such [RStudio](https://github.com/rstudio/rstudio), the Integrated Development Environment (IDE) in which this book was written!
 
-Lastly, we will introduce Python for geocomputation
-Many people believe that R and Python are battling for supremacy in the field of data science.
-This is accompanied by a partly offensive as much as often rather subjective discussion on what to learn or what to use.
-We believe that both languages have their merits, and in the end it is about doing geocomputation and communicating the corresponding results regardless of the chosen software.
-Moreover, both languages are object-oriented, and have lots of further things in common.
-Learning one language should give you a headstart when choosing to learn the other as well.
-R's major advantage is that statisticians wrote hundreds of statistical packages (unmatched by Python) explicitly for other statisticians.
-By contrast, Python's major advantage is that it is (unlike R) a multi-purpose language thereby bringing together people from diverse fields which also explains Python's bigger user base compared to R's.
-So if you like Python better or you think it better suits your needs (for example because you are also interested in web and GUI development), go for it.
-In fact, we often advise our students to start with Python just because the major GIS software packages provide Python libraries that lets the user access its geoalgorithms from the Python command line^[`grass.script` for GRASS (https://grasswiki.osgeo.org/wiki/GRASS_and_Python), `saga-python` for SAGA-GIS (http://saga-python.readthedocs.io/en/latest/), `processing` for QGIS and `arcpy` for ArcGIS.
-].
-However, when the teaching moves on to statistical geoprocessing and spatial predictive modeling we guide them towards R where they can take advantage of the concepts already learned through Python.
-Nevertheless, you can also use Python for the most common statistical learning techniques (though R tends to be more on the bleeding edge regarding new statistical development including those in the geostatistical community).
-In addition, Python also offers excellent support for spatial data analysis and manipulation (see packages **osgeo**, **Shapely**, **NumPy**, **PyGeoProcessing**). 
-We refer you to @garrard_geoprocessing_2016 for an introduction to geoprocessing with Python.
+Java is less suitable for statistical modeling and visualization than Python or R.
+Although Java can be used for data science [@brzustowicz_data_2017], it has relatively few statistical libraries, especially compared with R.
+Furthermore Java is hard to use interactively.
+Interpreted languages (such as R and Python) are better suited for the type of interactive workflow used in many geographic workflows than compiled languages (such as Java and C++).
+Unlike Java (and most other languages) R has native support for data frames and matrices, making it especially well suited for (geographic) data analysis.
+
+Python is the final language for geocomputation that deserves attention in this section.
+Like R, Python has gained popularity due to the rapid growth of data science [@robinson_impressive_2017].
+Both languages are object-oriented, and have lots of further things in common.
+Due to their similarities there is much on-line discussion framing the relative merits of each language as a competition, as exemplified by an [infographic](https://www.datacamp.com/community/tutorials/r-or-python-for-data-analysis) by DataCamp titled "DATA SCIENCE WARS: R vs Python", which arguably generates more heat than light.
+
+In practice both languages have their strengths and to some extent which you use is less important than domain of application and the communication of results.
+Learning either will provide a head-start in learning the other.
+However there are major advantages of R over Python for geocomputation which explains its prominence in this book.
+R has unparalled support for statistics, including spatial statistics, with hundreds of packages (unmatched by Python) supporting thousands of statistical methods.
+
+The major advantage of Python is that it is a *general-purpose* programming language.
+It is well-suited to many applications, including desktop software, computer games, websites and data science.
+R, by contrast, is primarily suited to the latter, under a broad definition of data science.^[R
+has been extended in various directions, notably in  **shiny**, a package for developing interactive we applications in R.]
+This also explains Python's larger user base compared with R's.
+Python is often the only shared language between different (geocomputation) communities, explaining why it has become the 'glue' that holds many GIS programs together.
+Many geoalgorithms, including those in QGIS and ArcMap, can be accessed from the Python command line, making it well-suited as a starter language for command-line GIS.^[Python modules providing access to geoalgorithms include `grass.script` for GRASS (https://grasswiki.osgeo.org/wiki/GRASS_and_Python), `saga-python` for SAGA-GIS (http://saga-python.readthedocs.io/en/latest/), `processing` for QGIS and `arcpy` for ArcGIS.
+]
+
+For spatial statistics and predictive modeling, however, R is second-to-none.
+This does not mean you must chose either R or Python: Python supports most common statistical techniques (though R tends to support new developments in spatial statistics earlier) and many concepts learned from Python can be applied to the R world.
+Like R Python also supports spatial data analysis and manipulation with packages such as **osgeo**, **Shapely**, **NumPy** and **PyGeoProcessing** [@garrard_geoprocessing_2016].
 
 ## R's spatial ecosystem
 
@@ -295,19 +313,18 @@ geojsonio           204
 mapview             185
 rmapshaper          143
 
-## R's spatial history
+## The history of R-spatial
 
-There are many benefits of using recent packages such as **sf**, with the caveat that they are generally less stable than mature packages such as its predecessor, the **sp**-package.
+There are many benefits of using recent spatial packages such as **sf**, as advocated in this book.
+However it is also important to be aware of the history of R's spatial capabilities: many functions, use-cases and teaching material are contained in older packages.
+These can still be useful today, provided you know where to look.
 
-The saying "if you live on the cutting edge you risk getting hurt" captures this well, meaning that older packages may be more appropriate for applications requiring stability and backwards-compatibility with other mature packages.
-Another reason for knowing about the history of geocomputation with R is that there is a wealth of functions, use-cases and teaching material written using older packages in R's spatial ecosystem, which can still be useful today if you know where to look.
-
-The beginnings of spatial capabilities in R are closely connected with its predecessor - the S language [@bivand_implementing_2000].
+R's spatial capabilities originated in early spatial packages in the S language [@bivand_implementing_2000].
 The 1990s saw the development of numerous S scripts and a handful of packages for spatial statistics.
-By the year 2000, there were already R packages for performing various tasks, including "point pattern analysis, geostatistics, exploratory spatial data analysis and spatial econometrics", as described in an [article](http://www.geocomputation.org/2000/GC009/Gc009.htm) presented at the GeoComputation2000 conference [@bivand_open_2000].
-Some of these, including **spatial**, **sgeostat** and **splancs**, can still be downloaded as R packages [@rowlingson_splancs:_1993; @rowlingson_splancs:_2017;@venables_modern_2002; @university_sgeostat:_2016].
+R packages arose from these and by 2000 there were R packages for various spatial methods "point pattern analysis, geostatistics, exploratory spatial data analysis and spatial econometrics", according to an [article](http://www.geocomputation.org/2000/GC009/Gc009.htm) presented at GeoComputation2000  [@bivand_open_2000]
+Some of these, notably **spatial**, **sgeostat** and **splancs** are still available on CRAN [@rowlingson_splancs:_1993; @rowlingson_splancs:_2017;@venables_modern_2002; @university_sgeostat:_2016].
 
-Volume 1/2 of R News (the predecessor of The R Journal) contained an overview of spatial statistical software in R at the time, much of which was based on previous code written for S/S-PLUS [@ripley_spatial_2001].
+A subsequent article in R News (the predecessor of [The R Journal](https://journal.r-project.org/)) contained an overview of spatial statistical software in R at the time, much of which was based on previous code written for S/S-PLUS [@ripley_spatial_2001].
 This overview described packages for spatial smoothing and interpolation (e.g., **akima**, **spatial**, **sgeostat** and **geoR**) and point pattern analysis [**splancs** and **spatstat**; @akima_akima:_2016; @rowlingson_splancs:_2017; @jr_geor:_2016].
 <!-- there is something wrong with the citation: Jr and Diggle 2016 (@jr_geor:_2016)-->
 While all these are still available on CRAN, **spatstat** stands out among them, as it remains dominant in the field of spatial point pattern analysis [@baddeley_spatial_2015].
@@ -344,7 +361,7 @@ The sophisticated class system supported points, lines, polygons and grids, with
 <!-- points, multipoints, pixels, full grid, line, lines, spatial lines, polygon, polygons, spatial polygons -->
 Making use of the S4 class system, **sp** stores each piece of 'spatially specific' information (such as bounding box, coordinate reference system, attribute table) in slots, which are accessible via the `@` symbol.
 For instance, **sp**-classes store attribute data in the `data` slot as a `data.frame`.
-This enables non-spatial data operations to work alongside spatial operations (covered in chapters \@ref(attr) and \@ref(spatial-data-operations), respectively).
+This enables non-spatial data operations to work alongside spatial operations (see section \@ref(why-simple-features)).
 Additionally, **sp** implemented generic methods for spatial data types for well-known functions such as `summary()` and `plot()` .
 
 In the following, **sp** classes rapidly became the go-to standard for spatial data in R, resulting in a proliferation of packages that depended on it from around 20 in 2008 and over 100 in 2013 [@bivand_applied_2013].
@@ -425,22 +442,18 @@ Everyone learns in a different way so it is important that you structure your co
 
 * * *
 
-After testing your up-to-date R/RStudio set-up, the next step is to load and install spatial packages.
-The **sf**, **raster**, **spData**, and **spDataLarge** packages used in this chapter can be installed and loaded as follows:
+After testing your up-to-date R/RStudio set-up the next step is to load the spatial packages used in this chapter (these must be installed and should be up-to-date):
 
 
 ```r
-install.packages("sf")
-install.packages("raster")
-install.packages("spData")
-library(sf)
-library(raster)
-library(spData)
-install.packages("spDataLarge")
-library(spDataLarge)
+library(raster)      # classes and functions for raster data
+library(spData)      # geographic data
+library(spDataLarge) # geographic data
+library(sf)          # classes and functions for vector data
 ```
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">On Mac and Linux operating systems a few requirements must be met, as described in the **sf** [README](https://github.com/r-spatial/sf) file for details.</div>\EndKnitrBlock{rmdnote}
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">On Mac and Linux a few requirements must be met to install **sf**.
+These are described in the package's README at [github.com/r-spatial/sf](https://github.com/r-spatial/sf).</div>\EndKnitrBlock{rmdnote}
 
 This chapter will provide brief explanations of the fundamental geographic data models: vector and raster.
 We will introduce the theory behind each data model and the disciplines in which they predominate, before demonstrating their implementation in R.
@@ -467,41 +480,49 @@ This book uses **sf** and **raster** packages to work with vector data and raste
 
 ## Vector data
 
-The geographic vector model is based on points located within a coordinate reference system (CRS).
-Points can represent self-standing features (e.g. the location of a bus stop) or they can be linked together to form more complex geometry types, lines and polygons.
-Most points in geographic work contain only two dimensions, represented by 'Northing and Easting' (for projected or *Cartesian* CRSs) or Longitude and Latitude (for geographic CRSs) pairs.
-These numbers represent point's distance from an $origin$ along the $x$ (horizontal) and $y$ (vertical) axis.
-In 3 dimensional CRSs three numbers are needed: $x$, $y$ and $z$.
-
 \BeginKnitrBlock{rmdnote}<div class="rmdnote">Take care when using the word 'vector' as it can have two meanings in this book:
 geographic vector data and `vector`s (note the `monospace` font) in R.
 The former is a data model, the latter is an R class just like `data.frame` and `matrix`.
 Still, there is a link between the two: the spatial coordinates which are at the heart of the geographic vector data model can be represented in R using `vector` objects.</div>\EndKnitrBlock{rmdnote}
 
-In mathematical notation these points are typically represented as numbers separated by commas and enclosed by a pair of brackets: 
-$(1, 3)$ for example, represents a point located one unit to the right and three units above the origin.
-Instead of creating these points manually, one would commonly read-in data with functions such as `read_csv()` from the **tidyverse** or `read_sf()` from the **sf** package (see chapter \@ref(read-write)).
-To generate new data (e.g., for testing), one can use the command `c()` (think of 'c' for 'combine'), as illustrated
-below:^[Other methods for generating numbers include with the `seq()` function (short for 'sequence') for generating regular sequences or `runif()`, `rnorm()` and other functions generating random numbers following some kind of probability distribution.
-The **mapedit** package can be used to create spatial data manually on an interactive map.
-]
+The geographic vector model is based on points located within a coordinate reference system (CRS).
+Points can represent self-standing features (e.g. the location of a bus stop) or they can be linked together to form more complex geometries such as lines and polygons.
+Most point geometries contain only two dimension (3 dimensional CRSs contain an additional $z$ value, typically representing height above sea level).
+
+In this system London, for example, can be represented by the coordinates `c(-0.1, 51.5)`.
+This mean its location is -0.1 degrees east and 55.5 degrees north of the origin at 0 degrees longitude (the Prime Meridian) and 0 degree latitude (the Equator) in a geographic ('lon/lat') CRS (Figure \@ref(fig:vectorplots), left panel).
+The same point could also be approximated in a projected CRS with 'Easting/Northing' values of `c(530000, 180000)` in the British National Grid (BNG).
+In the vector data model this suggests that London is located 530 km *East* and 180 km *North* of the $origin$ of the CRS.
+This can be verified visually: slightly more than 5 'boxes' --- square areas bounded by the grey grid lines 100 km in width --- separate the point representing London from the origin in Figure \@ref(fig:vectorplots).
+This shows that the origin of the BNG is located in the sea to the southeast of the UK, ensuring that all locations in the UK can be represented with positive Easting and Northing values.
+CRSs are described in section \@ref(crs-intro).
 
 
-```r
-p = c(1, 3)
-```
-
-Now this can be plotted in Cartesian space, as illustrated in figure \@ref(fig:cartesian):
-
-
-```r
-plot(x = p[1], y = p[2], xlim =  c(0, 5), ylim = c(0, 5))
-```
 
 <div class="figure" style="text-align: center">
-<img src="figures/cartesian-1.png" alt="Illustration of vector point data in base R." width="576" />
-<p class="caption">(\#fig:cartesian)Illustration of vector point data in base R.</p>
+<img src="figures/vector_lonlat.png" alt="Illustration of vector (point) data in R with the location of London (the red X) represented with reference to an origin (the blue circle). The left plot represents a geographic CRS with an origin at 0° Longitude and latitude. The right plot represents a projected CRS with an origin at -2° longitude and 49° latitude, and units of meters." width="45%" /><img src="figures/vector_projected.png" alt="Illustration of vector (point) data in R with the location of London (the red X) represented with reference to an origin (the blue circle). The left plot represents a geographic CRS with an origin at 0° Longitude and latitude. The right plot represents a projected CRS with an origin at -2° longitude and 49° latitude, and units of meters." width="45%" />
+<p class="caption">(\#fig:vectorplots)Illustration of vector (point) data in R with the location of London (the red X) represented with reference to an origin (the blue circle). The left plot represents a geographic CRS with an origin at 0° Longitude and latitude. The right plot represents a projected CRS with an origin at -2° longitude and 49° latitude, and units of meters.</p>
 </div>
+
+
+<!-- Commented out: not really necessary here - keeping as could be useful elsewhere: -->
+<!-- In mathematical notation these points are typically represented as numbers separated by commas and enclosed by a pair of brackets:  -->
+<!-- $(1, 3)$ for example, represents a point located one unit to the right and three units above the origin. -->
+<!-- Instead of creating these points manually, one would commonly read-in data with functions such as `read_csv()` from the **tidyverse** or `read_sf()` from the **sf** package (see chapter \@ref(read-write)). -->
+<!-- To generate new data (e.g., for testing), one can use the command `c()` (think of 'c' for 'combine'), as illustrated -->
+<!-- below:^[Other methods for generating numbers include with the `seq()` function (short for 'sequence') for generating regular sequences or `runif()`, `rnorm()` and other functions generating random numbers following some kind of probability distribution. -->
+<!-- The **mapedit** package can be used to create spatial data manually on an interactive map. -->
+<!-- ] -->
+
+<!-- ```{r} -->
+<!-- p = c(1, 3) -->
+<!-- ``` -->
+
+<!-- Now this can be plotted in Cartesian space, as illustrated in figure \@ref(fig:cartesian): -->
+
+<!-- ```{r cartesian, fig.cap="Illustration of vector point data in base R."} -->
+<!-- plot(x = p[1], y = p[2], xlim =  c(0, 5), ylim = c(0, 5)) -->
+<!-- ``` -->
 
 ### An introduction to simple features {#intro-sf}
 
@@ -514,8 +535,8 @@ All 68 types can be represented in R, although (at the time of writing) all meth
 ]
 
 <div class="figure" style="text-align: center">
-<img src="figures/sf-classes.png" alt="The subset of the Simple Features class hierarchy supported by sf. Figure based on the Open Geospatial Consortium document [06-103r4](http://www.opengeospatial.org/standards/sfa)." width="100%" />
-<p class="caption">(\#fig:sf-ogc)The subset of the Simple Features class hierarchy supported by sf. Figure based on the Open Geospatial Consortium document [06-103r4](http://www.opengeospatial.org/standards/sfa).</p>
+<img src="figures/sf-classes.png" alt="The subset of the Simple Features class hierarchy supported by sf." width="100%" />
+<p class="caption">(\#fig:sf-ogc)The subset of the Simple Features class hierarchy supported by sf.</p>
 </div>
 
 **sf** can represent all common vector geometry types (raster data classes are not supported by **sf**): points, lines, polygons and their respective 'multi' versions (which group together features of the same type into a single feature).
@@ -534,16 +555,8 @@ vignette("sf3") # for manipulating Simple Features
 ```
 
 As the first vignette explains, simple feature objects in R are stored in a data frame, with geographic data occupying a special column, a 'list-column'. This column is usually named 'geom' or 'geometry'.
-Let us load a 'real world' example, here the `world` dataset, with the help of the **spData** package:
-
-
-```r
-library(spData)
-```
-
-**spData** silently loaded the `world` dataset (and many other spatial datasets - see [the spData website](https://nowosad.github.io/spData/) for a full list).
-This dataset contains spatial and non-spatial information, as shown by the function `names()`, which reports the column headings in data frames. 
-Please note that the last column contains the geographic information:
+We will use the `world` dataset provided by the **spData**, loaded at the beginning of this chapter (see [nowosad.github.io/spData](https://nowosad.github.io/spData/) for a list datasets loaded by the package).
+`world` is a spatial object containing spatial and attribute columns, the names of which are returned by the function `names()` (the last column contains the geographic information):
 
 
 ```r
@@ -553,14 +566,12 @@ names(world)
 #> [11] "geom"
 ```
 
-It is the contents of this modest-looking `geom` column that gives `sf` objects their spatial powers.
-This so-called list-column contains all the coordinates.
-**sf**'s `plot()` method uses these coordinates to create a map (Figure \@ref(fig:world-all)).
+It is the contents of this modest-looking `geom` column that gives `sf` objects their spatial powers, a 'list-column' that contains all the coordinates.
+The **sf** package provides a `plot()` method for vizualising geographic data:
+the follow command creates Figure \@ref(fig:world-all).
 
 
 ```r
-library(sf) # must be loaded to plot sf objects
-#> Linking to GEOS 3.5.0, GDAL 2.1.0, proj.4 4.8.0
 plot(world)
 #> Warning: plotting the first 9 out of 10 attributes; use max.plot = 10 to
 #> plot all
@@ -590,11 +601,14 @@ summary(world["lifeExp"])
 #>  NA's   :9
 ```
 
-Although we have only selected one variable for the `summary` command, it also outputs an report on the geometry (we explore such 'attribute operations' in more depth in Chapter \@ref(attr)).
-This is due to the sticky behavior of the geometry columns of **sf** objects (see Chapter \@ref(attr)).
-Hence, the result provides a quick summary of both the non-spatial and spatial data contained in `world`: the average life expectancy is 73 years (ranging from less than 50 to more than 80 years) across all countries which are represented in the form of `MULTIPOLYGON`s.
-`MULTIPOLYGON`s allow more than one polygon per row (here: country).
-This representation is necessary for countries with many islands such as Indonesia and Greece. 
+Although we have only selected one variable for the `summary` command, it also outputs a report on the geometry.
+This demonstrates the 'sticky' behavior of the geometry columns of **sf** objects, meaning the geometry is kept unless the user deliberately removes them, as we'll see in section \@ref(vector-attribute-manipulation).
+The result provides a quick summary of both the non-spatial and spatial data contained in `world`: the average life expectancy is 73 years (ranging from less than 50 to more than 80 years) across all countries.
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">The word `MULTIPOLYGON` in the summary output above refers to the geometry type of features (countries) in the `world` object.
+This representation is necessary for countries with islands such as Indonesia and Greece.
+Other geometry types are described in section \@ref(sf_classes).</div>\EndKnitrBlock{rmdnote}
+
 
 <!-- TODO: cross-reference section covering CRSs. -->
 It is worth taking a deeper look at the basic behavior and contents of this simple feature object, which can usefully be thought of as a '**S**patial data**F**rame).
@@ -622,31 +636,38 @@ However, there are good reasons for organizing things this way and using **sf**.
 
 <!-- It's a `MULTIPOLYGON` with 177 features and a geographic (longitude/latidue) coordinate reference system (CRS) with an EPSG code of `4326`. -->
 
-### Why Simple Features?
+### Why simple features?
 
-There are many advantages of **sf** over **sp**, including:
+Simple features is a widely supported data model that underlies data structures in many GIS applications including QGIS and PostGIS.
+A major advantage of this is that using the data model ensures your work is cross-transferable to other set-ups, for example importing from exporting to spatial databases.
 
-- Faster reading and writing of data (more than 10 times faster in some cases)
-- Better plotting performance
+A more specific question from an R perspective is 'why use the **sf** package when **sp** is already tried and tested?
+There are many reasons (linked to the advantages of the simple features model) including:
+
+- Fast reading and writing of data
+- Ehnhanced plotting performance
 - **sf** objects can be treated as data frames in most operations
 - **sf** functions can be combined using `%>%` operator and works well with the [tidyverse](http://tidyverse.org/) collection of R packages
-- **sf** function names are relatively consistent and intuitive (all begin with `st_`) compared with the function names and syntax of the **sp**, **rgdal** and **rgeos** packages that it supersedes.
+- **sf** function names are relatively consistent and intuitive (all begin with `st_`)
 
-A broader advantage is that simple features are so well-supported by other software products, not least PostGIS, which has heavily influenced the design of **sf**.
-
-A disadvantage you should be aware of, however, is that **sf** is not *feature complete* and that it continues to evolve.
-The transition from **sp** to **sf** will likely take many years, and many spatial packages may never switch.
-Even if you discover spatial data with R through the **sf** package, it is still worth at least being aware of **sp** classes, even if you rarely use them for everyday geospatial tasks.
-
-Fortunately it is easy to translate between **sp** and **sf** using the `as()` function: 
+Due to such advantages some spatial packages (including **tmap**, **mapview** and **tidycensus**) have added support for **sf**.
+However, it will take many years for many packages to transition, and some packages will never switch.
+Fortunately these can still be used in a workflow based on `sf` objects, by converting them to the `Spatial` class used in **sp**: 
 
 
 ```r
 library(sp)
-world_sp = as(object = world, Class = "Spatial")
+world_sp = as(world, Class = "Spatial")
+# sp functions ...
 ```
 
-@bivand_applied_2013 provides an excellent introduction to **sp**.
+`Spatial` objects can be converted back to `sf` in the same way or with `st_as_sf()`:
+
+
+```r
+world_sf = st_as_sf(world_sp, "sf")
+```
+
 
 ### Basic map making {#basic-map}
 
@@ -703,7 +724,7 @@ Sorry for commenting on this again but just to clarify africa[0] selects zero co
 
 
 
-#### Further work
+### Base plot arguments {#base-args}
 
 **sf** simplifies spatial data objects compared with **sp** and provides a near-direct interface to GDAL and GEOS C++ functions.
 In theory this should make **sf** faster than **sp**/**rgdal**/**rgeos**, something that is tested in Chapter 5 for data I/O.
@@ -730,19 +751,20 @@ summary(sel_asia)
 Note: `st_intersects()` uses [GEOS](https://trac.osgeo.org/geos/) in the background for the spatial overlay operation (see also Chapter \@ref(spatial-data-operations)).
 
 Since **sf**'s `plot()` function builds on base plotting methods, you may also use its many optional arguments (see `?plot` and `?par`).
-This provides powerful but not necessarily intuitive functionality.
-For instance, in order to make the diameter of a circle proportional to a country's population, we provide the `cex` argument with the result of a calculation (see Figure \@ref(fig:africa), and the code below).
+This provides a powerful but not necessarily intuitive interface.
+To make the area of circles proportional to population, for example, the `cex` argument can be used as follows (see Figure \@ref(fig:contpop) created with the code below and the exercises in section \@ref(ex2)):
 
 
 ```r
 plot(world["continent"])
-plot(world_centroids, add = TRUE, cex = world$pop / 1e8, lwd = 3)
+plot(world_centroids, add = TRUE, cex = sqrt(world$pop) / 10000)
 ```
 
 <div class="figure" style="text-align: center">
-<img src="figures/africa-1.png" alt="Centroids representing country population, diameter being proportional to population." width="576" />
-<p class="caption">(\#fig:africa)Centroids representing country population, diameter being proportional to population.</p>
+<img src="figures/contpop-1.png" alt="Country continents (represented by fill colour) and 2015 populations (represented by points, with point area proportional to population) worldwide." width="576" />
+<p class="caption">(\#fig:contpop)Country continents (represented by fill colour) and 2015 populations (represented by points, with point area proportional to population) worldwide.</p>
 </div>
+
 
 <!-- More appropriate for subsequent chapters. -->
 <!-- This shows that there are 43 countries in Asia -->
@@ -1208,15 +1230,13 @@ Aside from general raster data manipulation, **raster** provides many low level 
 **raster** also lets you work on large raster datasets that are too large to fit into the main memory. 
 In this case, **raster** provides the possibility to divide the raster into smaller chunks (rows or blocks), and processes these iteratively instead of loading the whole raster file into RAM (for more information, please refer to `vignette("functions", package = "raster")`.
 
-For the illustration of the **raster** concepts, we will use datasets from the **spDataLarge** package.
+For the illustration of **raster** concepts, we will use datasets from the **spDataLarge** (note these packages were loaded at the beginning of the chapter).
 It consists of a few raster and one vector datasets covering an area of the Zion National Park (Utah, USA).
 For example, `srtm.tif` is a digital elevation model of this area (for more details - see its documentation `?srtm`)
 First of all, we would like to create a `RasterLayer` object named `new_raster`:
 
 
 ```r
-library(spDataLarge)
-library(raster)
 raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge")
 new_raster = raster(raster_filepath)
 ```
@@ -1424,7 +1444,7 @@ new_raster4[2, 4] = 826
 Aside from `RasterLayer`, there are two additional classes: `RasterBrick` and `RasterStack`.
 Both can handle multiple layers, but differ regarding the number of supported file formats, type of internal representation and processing speed.
 
-A `RasterBrick` consists of multiple layers, which typically correspond to a multispectral satellite file. 
+A `RasterBrick` consists of multiple layers, which typically correspond to a single multispectral satellite file or a single multilayer object in memory. 
 The `brick()` function creates a `RasterBrick` object.
 Usually, you provide it with a filename to a multilayer raster file but might also use another raster object and other spatial objects (see its help page for all supported formats).
 
@@ -1453,10 +1473,11 @@ nlayers(r_brick)
 ```
 
 A `RasterStack` is similar to a `RasterBrick` in the sense that it consists also of multiple layers.
+However, in contrast to `RasterBrick`, `RasterStack` allows to connect several raster objects stored in different files or multiply objects in memory.
 More specifically, a `RasterStack` is a list of `RasterLayer` objects with the same extent and resolution. 
 Hence, one way to create it is with the help of spatial objects already existing in R's global environment. 
 And again, one can simply specify a path to a file stored on disk.
-The possibility to create a `RasterStack` from a file stored on disk and an object residing in R's global environment is one of the main differences compared to a `RasterBrick`.
+<!-- The possibility to create a `RasterStack` from a file stored on disk and an object residing in R's global environment is one of the main differences compared to a `RasterBrick`. -->
 
 
 ```r
@@ -1480,13 +1501,17 @@ r_stack
 #> max values  : 1610784,     19071
 ```
 
-Another difference is that the processing time for `RasterBrick` objects should be usually shorter than for `RasterStack` objects.
-Note that operations on `RasterBrick` and `RasterStack` objects will typically return a `RasterBrick`.
+Another difference is that the processing time for `RasterBrick` objects is usually shorter than for `RasterStack` objects.
+
+Decision on which `Raster*` class should be used depends mostly on a character of input data. 
+Processing of a single mulitilayer file or object is the most effective with `RasterBrick`, while `RasterStack` allows calculations based on many files, many `Raster*` objects, or both.
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">Operations on `RasterBrick` and `RasterStack` objects will typically return a `RasterBrick`.</div>\EndKnitrBlock{rmdnote}
 
 ## Coordinate Reference Systems {#crs-intro}
 
 Vector and raster spatial data types share concepts intrinsic to spatial data.
-Perhaps the most important of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other bodies).
+Perhaps the most fundamental of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other bodies).
 Coordinate system could be either geographic or projected (Figures \@ref(fig:vector-crs) and \@ref(fig:raster-crs)).
 
 ### Geographic coordinate systems
@@ -1557,16 +1582,26 @@ An `epsg` code is usually shorter, and therefore easier to remember.
 The code also refers to only one, well-defined coordinate reference system. 
 On the other hand, a `proj4string` definition allows you more flexibility when it comes to specifying different parameters such as the projection type, the datum and the ellipsoid. 
 This way you can specify many different projections, and modify existing ones.
-This makes the `proj4string` approach also more complicated^[In the background, `sf` and `raster` use the [PROJ.4](http://proj4.org/) software, which enables transformations between different projections].
-`epsg` always points to exactly one particular CRS.
-Correspondingly, there is also only one possible `proj4string` for a specific `epsg`-code.
+This makes the `proj4string` approach also more complicated.
+<!-- ^[In the background, `sf` and `raster` use the [PROJ.4](http://proj4.org/) software, which enables transformations between different projections]. -->
+`epsg` points to exactly one particular CRS.
+
+Spatial R packages support a wide range of CRSs they use long-establish [proj4](http://proj4.org/) library.
+Other than searching for EPSG codes on-line, another quick way to find-out about available CRSs is via the `rgdal::make_EPSG()` function, which outputs a data frame of available projections.
+Before going into more detail into these, it's worth learning how to view and filter them inside R, as this could save time trawling the internet.
+The following code will show available CRSs interactively, allowing filtering of ones of interest (try filtering for the OSGB CRSs for example):
+
+
+```r
+crs_data = rgdal::make_EPSG()
+View(crs_data)
+```
 
 In **sf** the CRS of an object can be retrieved using `st_crs()`:
 
 
 ```r
-old_crs = st_crs(new_vector) # get CRS
-old_crs # print CRS
+st_crs(new_vector) # get CRS
 #> $epsg
 #> [1] NA
 #> 
@@ -1586,24 +1621,24 @@ new_vector = st_set_crs(new_vector, 4326) # set CRS
 #> for that
 ```
 
-The warning message informs us that the `st_set_crs()` function do not transform data from one CRS to another.
+The warning message informs that the `st_set_crs()` function do not transform data from one CRS to another.
 
 <div class="figure" style="text-align: center">
-<img src="figures/02_vector_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a vector data type." width="765" />
-<p class="caption">(\#fig:vector-crs)Examples of projected (left) and geographic (right) coordinate systems for a vector data type.</p>
+<img src="figures/02_vector_crs.png" alt="Examples of geographic (left) and projected (right) and coordinate systems for a vector data type." width="765" />
+<p class="caption">(\#fig:vector-crs)Examples of geographic (left) and projected (right) and coordinate systems for a vector data type.</p>
 </div>
 
 The `projection()` function can be use to access a CRS information from the `Raster*` object: 
 
 
 ```r
-projection(new_raster)
+projection(new_raster) # get CRS
 #> [1] "+proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
 ```
 
 <div class="figure" style="text-align: center">
-<img src="figures/02_raster_crs.png" alt="Examples of projected (left) and geographic (right) coordinate systems for a raster data type" width="475" />
-<p class="caption">(\#fig:raster-crs)Examples of projected (left) and geographic (right) coordinate systems for a raster data type</p>
+<img src="figures/02_raster_crs.png" alt="Examples of geographic (left) and projected (right) and coordinate systems for a raster data type" width="475" />
+<p class="caption">(\#fig:raster-crs)Examples of geographic (left) and projected (right) and coordinate systems for a raster data type</p>
 </div>
 
 More information on CRS and spatial tranformation is in chapter \@ref(transform).
@@ -1669,7 +1704,6 @@ If we used the WGS84 projection, the units would change.
 
 
 ```r
-library(rgdal)
 repr = projectRaster(new_raster, crs = "+init=epsg:4326")
 res(repr)
 #> [1] 0.000831 0.000833
@@ -1684,7 +1718,7 @@ Again, the `res()` command gives back a numeric vector without any unit, forcing
 
 <!-- ## Precision -->
 
-## Exercises
+## Exercises {#ex2}
 
 <!-- vector exercises -->
 1. What does the summary of the `geometry` column tell us about the `world` dataset, in terms of:
@@ -1697,14 +1731,21 @@ Again, the `res()` command gives back a numeric vector without any unit, forcing
     - Bonus: make the country boundaries a dotted grey line.
     - Hint: `border` is an additional argument of `plot()` for **sf**  objects.
 
-3. What does the `lwd` argument do in the `plot()` code that generates Figure \@ref(fig:africa). Perform the same operations and map making for another continent of your choice.
-    - Bonus: Download some global geographic data and add attribute variables assigning them to the continents of the world.
+3. What does the `cex` argument do in the `plot()` function that generates Figure \@ref(fig:contpop)?
+    - Why was `cex` passed the `sqrt(world$pop) / 10000` instead of just the population directly?
+    - Bonus: what equivalent arguments to `cex` exist in the dedicated vizualisation package **tmap**?
+    
+4. Re-run the code that 'generated' Figure \@ref(fig:contpop) at the end of \@ref(base-args) and find 3 similarities and 3 differences between the plot produced on your computer and that in the book.
+    - What is similar?
+    - What has changed?
+    - Bonus: play around with and research base plotting arguments to make your version of Figure \@ref(fig:contpop) more attractive. Which arguments were most useful.
+    - Advanced: try to reproduce the map presented in Figure \@ref(base-args). Copy-and-pasting is prohibited!
 
 <!-- raster exercises -->
-4. Read the `raster/nlcd2011.tif` file from the **spDataLarge** package. 
+5. Read the `raster/nlcd2011.tif` file from the **spDataLarge** package. 
 What kind of information can you get about the properties of this file?
 <!-- (crs, ncols, nrow, ncells, bbox, navalues) -->
-5. Create an empty `RasterLayer` object called `my_raster` with 10 columns and 10 rows, and resolution of 10 units.
+6. Create an empty `RasterLayer` object called `my_raster` with 10 columns and 10 rows, and resolution of 10 units.
 Assign random values between 0 and 10 to the new raster and plot it.
 <!-- crs exercises -->
 <!-- 1. pros and cons of the projection types -->
@@ -1788,6 +1829,12 @@ methods(class = "sf") # methods for sf objects, first 12 shown
 
 Many of these functions, including `rbind()` (for binding rows of data together) and `$<-` (for creating new columns) were developed for data frames.
 A key feature of `sf` objects is that they store spatial and non-spatial data in the same way, as columns in a `data.frame` (the geometry column is typically called `geometry`).
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">The geometry column of `sf` objects is typically called `geometry` but any name can be used.
+The following command, for example, creates a geometry column named `g`:
+`st_sf(data.frame(n = world$name_long), g = world$geom)`.
+This enables geometries imported from spatial databases to have a variety of names such as `wkb_geometry` and `the_geom`.</div>\EndKnitrBlock{rmdnote}
+
 `sf` objects also support `tibble` and `tbl` classes used in the tidyverse, allowing 'tidy' data analysis workflows for spatial data.
 Thus **sf** enables the full power of R's data analysis capabilities to be unleashed on geographic data.
 Before using these capabilities it's worth re-capping how to discover the basic properties of vector data objects.
@@ -2002,8 +2049,6 @@ world8 = dplyr::select(
 
 This generates the same result --- verify this with `identical(world7, world8)` --- in the same number of lines of code, but in a much more confusing way, starting with the function that is called last!
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">The 'right arrow' `->` operator can be used to make the result be assigned at the end of a chaining process.</div>\EndKnitrBlock{rmdnote}
-
 There are additional advantages of pipes from a communication perspective: they encourage adding comments to self-contained functions and allow single lines *commented-out* without breaking the code.
 
 ### Vector attribute aggregation
@@ -2189,7 +2234,9 @@ class(left_join4)
 #> [1] "data.frame"
 ```
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">It is possible to convert a data frame with a geometry list column, such as `left_join4`, into an `sf` object with `st_as_sf()`, as follows: `st_as_sf(left_join4)`. </div>\EndKnitrBlock{rmdnote}
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">In most cases the geometry column is only useful in an `sf` object.
+The geometry column can only be used for creating maps and spatial operations if R 'knows' it is a spatial object, defined by a spatial package such as **sf**.
+Fortunately non-spatial data frames with a geometry list column (like `left_join4`) can be coerced into an `sf` object as follows: `st_as_sf(left_join4)`. </div>\EndKnitrBlock{rmdnote}
 
 <!-- On the other hand, it is also possible to remove the geometry column of `left_join4` using base R functions or `dplyr`. -->
 <!-- Here, this is this simple because the geometry column is just another `data.frame` column and no longer the sticky geometry column of an `sf` object (see also Chapter \@ref(spatial-class)): -->
@@ -2224,7 +2271,6 @@ Using base R, we can type:
 
 
 ```r
-data("world")
 world_new = world # do not overwrite our original data
 world_new$pop_dens = world_new$pop / world_new$area_km2
 ```
@@ -2320,7 +2366,6 @@ This demonstrates how the `raster()` function works to create an example raster 
 
 
 ```r
-library(raster)
 elev = raster(nrow = 6, ncol = 6, res = 0.5,
               xmn = -1.5, xmx = 1.5, ymn = -1.5, ymx = 1.5,
               vals = 1:36)
@@ -2405,7 +2450,17 @@ To extract all values or complete rows, you can use `values()` and `getValues()`
 For multi-layered raster objects `stack` or `brick`, this will return the cell value(s) for each layer.
 For example, `stack(elev, grain)[1]` returns a matrix with one row and two columns --- one for each layer.
 <!-- In this example we have used cell ID subsetting, of course, you can also use row-column or coordinate indexing. -->
-For multi-layer raster objects another way to subset is with `raster::subset()`, which extracts layers from a raster stack or brick. The `[[` and `$` operators can also be used.
+For multi-layer raster objects another way to subset is with `raster::subset()`, which extracts layers from a raster stack or brick. The `[[` and `$` operators can also be used:
+
+
+```r
+r_stack = stack(elev, grain)
+names(r_stack) = c("elev", "grain")
+# three ways to extract a layer of a stack
+raster::subset(r_stack, "elev")
+r_stack[["elev"]]
+r_stack$elev
+```
 
 Cell values can be modified by overwriting existing values in conjunction with a subsetting operation.
 The following code chunk, for example, sets the upper left cell of `elev` to 0:
@@ -2566,21 +2621,38 @@ This section provides an overview of spatial operations in the **sf** package.
 ### Spatial subsetting
 
 Spatial subsetting is the process of selecting features of a spatial object based on whether or not they in some way *relate* in space to another object.
-Various *topological relations* or *operators*, including `st_touches()`, `st_crosses()` and `st_within()`, described in section \@ref(topological-relations), can be used for spatial subsetting.
-`st_intersects()` is the default when subsetting with `[`, a useful as a 'catch all' that identifies all types of spatial relations.
-Topological relations are best understood in the context of subsetting, explaining why this topic is covered next, before other spatial operations.
-These are, starting with spatial joining and aggregation, described in section \@ref(spatial-joining-and-aggregation) onwards.
+An example of spatial subsetting is provided by the `nz` and `nz_height` datasets in **spData**, which provide projected data on the 16 main regions and 101 highest points in New Zealand (Figure \@ref(fig:nz-subset)).
+The following code subsets all the high points in the Canterbury region:
 
-As with attribute data, spatial data can be subset using the `[` operator, with commands such as `x[y, ]` being used to subset features of target object `x` by `y`.
-However, instead of `y` being of class `logical` (a vector of `TRUE` and `FALSE` values), it is another spatial (`sf`) object.
 
-The default spatial operator for spatial subsetting in **sf** (and other software) is *intersects*.
-This has a precise meaning:
-subsetting a spatial object `x` by another spatial object  `y` will return any features in `x` that touch, overlap or are within features in `y`.
-Others can be used using the `op =` argument.
+```r
+canterbury = nz %>% filter(REGC2017_NAME == "Canterbury Region")
+canterbury_height = nz_height[canterbury, ]
+```
 
-\BeginKnitrBlock{rmdnote}<div class="rmdnote">Interested
-readers can see this default value of `op` set in the first line of the function call by entering its long-form name into the console `` sf:::`[.sf` ``.
+<div class="figure" style="text-align: center">
+<img src="figures/nz-subset-1.png" alt="Illustration of spatial subsetting. The right-hand map was produced by subsetting the point data in the left hand map as follows: `nz_height[canterbury, ]`." width="576" />
+<p class="caption">(\#fig:nz-subset)Illustration of spatial subsetting. The right-hand map was produced by subsetting the point data in the left hand map as follows: `nz_height[canterbury, ]`.</p>
+</div>
+
+The preceding code chunk shows that, like attribute data, spatial data can be subset using the `[` operator: `x[y, ]` subsets features of target object `x` by `y`.
+Instead of `y` being of class `logical` (a vector of `TRUE` and `FALSE` values), it is another spatial (`sf`) object.
+
+Various *topological relations*, which determine the type of spatial relationship used for subsetting, can be used for spatial subsetting.
+As we'll see in section \@ref(topological-relations), these include features that *touch*, *cross* or are *within* the source object (`y`).
+*Intersects* is the default for subsetting (and other spatial operations) however, because it is a useful 'catch all' that identifies all types of spatial relations.
+Topological relations are best understood in the context of subsetting, explaining why this topic is covered in the next section.
+
+For now the important thing to remember is that subsetting a spatial object `x` by another spatial object `y` returns any features in `x` that in some way relate (using the *intersects* operator) in space to `y`.
+Other operators can be used using the `op =` argument.
+The following code, for example, would select all points in `nz_height` that do *not* intersect with Canterbury (result not shown):
+
+
+```r
+nz_height[canterbury, , op = st_disjoint]
+```
+
+\BeginKnitrBlock{rmdnote}<div class="rmdnote">Interested readers can see this default value of `op` set in the first line of the function call by entering its long-form name into the console `` sf:::`[.sf` ``.
 The `?sf` help page documents this also.</div>\EndKnitrBlock{rmdnote}
 
 In general terms, spatial subsetting is simply the spatial equivalent of *attribute subsetting*.
@@ -2649,7 +2721,7 @@ plot(buff, add = TRUE)
 
 <!-- Todo: improve this figure, e.g. by creating a new hidden chunk - still show this one -->
 <div class="figure" style="text-align: center">
-preserve3855e440749f9ef8
+preservee0ed792cfd6123f9
 <p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 2000 km in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 
@@ -2948,6 +3020,7 @@ As with attribute data joining adds a new column to the target object (the argum
 
 The process is illustrated in Figure \@ref(fig:spatial-join), which shows a target object (the `world` dataset, left) being joined to a source dataset (the three most populous cities of the world), resulting in a new attribute being added to the `world` dataset (right).
 <!-- Idea: use random points over Earth's surface to allocate data to world countries. -->
+<!-- I'm not sure this is a good starting example to show how st_join works - thoughts? -->
 
 
 ```r
@@ -2960,30 +3033,8 @@ asia = world %>%
 
 
 ```r
-joined = st_join(x = asia, y = urb)
-joined[!is.na(joined$population_millions), ]
-#> Simple feature collection with 3 features and 19 fields
-#> geometry type:  MULTIPOLYGON
-#> dimension:      XY
-#> bbox:           xmin: 68.17665 ymin: 7.965535 xmax: 145.5431 ymax: 53.4588
-#> epsg (SRID):    4326
-#> proj4string:    +proj=longlat +datum=WGS84 +no_defs
-#>    iso_a2 name_long continent region_un     subregion              type
-#> 8      CN     China      Asia      Asia  Eastern Asia           Country
-#> 13     IN     India      Asia      Asia Southern Asia Sovereign country
-#> 18     JP     Japan      Asia      Asia  Eastern Asia Sovereign country
-#>    area_km2      pop lifeExp gdpPercap index year rank_order country_code
-#> 8   9409832 1.36e+09    75.8     12759   423 2020          3          156
-#> 13  3142892 1.30e+09    68.0      5392   422 2020          2          356
-#> 18   404620 1.27e+08    83.6     37365   421 2020          1          392
-#>    country_or_area city_code urban_agglomeration note population_millions
-#> 8            China     20656            Shanghai    5                27.1
-#> 13           India     21228               Delhi   17                29.3
-#> 18           Japan     21671               Tokyo    1                38.3
-#>                              geom
-#> 8  MULTIPOLYGON (((110.3391878...
-#> 13 MULTIPOLYGON (((77.83745079...
-#> 18 MULTIPOLYGON (((134.6384281...
+joined = st_join(x = asia, y = urb) %>% 
+  na.omit()
 ```
 
 
@@ -2993,17 +3044,90 @@ joined[!is.na(joined$population_millions), ]
 </div>
 
 This operation is also know as spatial overlay.
-`st_join()` performs by default a left join (see chapter \@ref(vector-attribute-joining), but you can change this to an inner join operation.
-Another default of `st_join()` is to intersect the two provided layers.
-Of course, you can use any other topological operations we have already encountered above such as `st_within()` or or `st_touches()` (please refer also to the help page of `st_join()`).
-In the example above, we have added features of a point layer to a polygon layer.
-Please note that there might be multiple point matches for one polygon. 
+By default, `st_join()` performs a left join (see section \@ref(vector-attribute-joining)), but it can also do inner joins by setting the argument `left = FALSE`.
+Like spatial subsetting, the default topological operator used by `st_join()` is `st_intersects()`.
+This can be changed with the `join` argument (see `?st_join` for details).
+In the example above, we have added features of a point layer to a polygon layer but there might be multiple point matches per polygon. 
 Had we chosen to select the four (instead of three) most populous cities in the world, two of them would have belonged to China (Shanghai and Beijing, give it a try yourself).
 In such a case `st_join()` simply adds a new row.
-In our example we would end up with two polygons representing China.
+In our example we would have ended up with two polygons representing China.
+
+### Non-overlapping joins
+
+Sometimes two geographic datasets do not touch but still have a strong geographic relationship enabling joins.
+The datasets `cycle_hire` and `cycle_hire_osm`, already loaded in the **spData** package, provide a good example.
+Plotting them shows that they are closely related but they do not touch, as shown in Figure \@ref(fig:cycle-hire), a base version of which is created with the following code below:
 
 
-#### Non-overlapping joins 
+```r
+plot(cycle_hire$geometry, col = "blue")
+plot(cycle_hire_osm$geometry, add = T, pch = 3, col = "red")
+```
+
+We can check if any points are the same `st_intersects()` as show below:
+
+
+```r
+any(st_touches(cycle_hire, cycle_hire_osm, sparse = FALSE))
+#> [1] FALSE
+```
+
+
+
+<div class="figure" style="text-align: center">
+<img src="figures/cycle-hire-1.png" alt="The spatial distribution of cycle hire points in London based on official data (blue) and OpenStreetMap data (red)." width="576" />
+<p class="caption">(\#fig:cycle-hire)The spatial distribution of cycle hire points in London based on official data (blue) and OpenStreetMap data (red).</p>
+</div>
+
+Imagine that we need to join the `capacity` variable in `cycle_hire_osm` onto the official 'target' data contained in `cycle_hire`.
+This is when a non-overlapping join is needed.
+The simplest method is to use the topological operator `st_within_distance()` shown in section \@ref(topological-relations).
+Note that before performing the relation both datasets must be transformed into a projected CRS, saved as new objects denoted by the affix `P` (for projected) below, using a treshold distance of 20 m:
+
+
+```r
+# factor -> numeric: to be removed with later version of spData
+cycle_hire_osm$capacity = as.numeric(as.character(cycle_hire_osm$capacity))
+x = st_transform(cycle_hire, 27700)
+y = st_transform(cycle_hire_osm, 27700)
+sel = st_is_within_distance(x, y, dist = 20)
+summary(lengths(sel) > 0)
+#>    Mode   FALSE    TRUE 
+#> logical     304     438
+```
+
+This shows that there are 436 points in the target object `cycle_hire` within the threshold distance.
+How to retrieve the *values* associated with the respective `cycle_hire_osm` points though?
+The solution is again with `st_join()` although the additional dist argument must be specified:
+
+
+```r
+z = st_join(x, y, st_is_within_distance, dist = 20)
+nrow(cycle_hire)
+#> [1] 742
+nrow(z)
+#> [1] 762
+```
+
+Note that the number of rows in the joined result is greater than the target.
+This is because some cycle hire stations in `x` have multiple matches in `y`.
+To aggregate the values for the overlapping points and return the mean, we can use the aggregation methods learned in Chapter 3, resulting in an object with the same number of rows as the target:
+
+
+```r
+z = z %>% group_by(id) %>% 
+  summarize(capacity = mean(capacity))
+nrow(z) == nrow(cycle_hire)
+#> [1] TRUE
+```
+
+The capacity of nearby stations can be verified by comparing a plot of the capacity of the source `cycle_hire_osm` data with the results in this new object (plots not show):
+
+
+```r
+plot(cycle_hire_osm["capacity"])
+plot(z["capacity"])
+```
 
 <!-- Nearest neighbour analysis -->
 <!-- e.g. two point's datasets (non-overlapping) -->
@@ -3037,10 +3161,9 @@ plot(us_states[, "total_pop_15"], main = "US states")
 plot(regions[, "total_pop_15"], main = "US regions")
 ```
 
-<img src="figures/unnamed-chunk-32-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-41-1.png" width="576" style="display: block; margin: auto;" />
 
-Of course, there is also spatial tidyverse counterpart.
-You can achieve the same with:
+Spatial aggregation can also be done in the **tidyverse**, using **dplyr** functions as follows:
 
 
 ```r
@@ -3172,7 +3295,7 @@ plot(b)
 plot(x_and_y, col = "lightgrey", add = TRUE) # color intersecting area
 ```
 
-<img src="figures/unnamed-chunk-37-1.png" width="576" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-46-1.png" width="576" style="display: block; margin: auto;" />
 
 The subsequent code chunk demonstrate how this works for all combinations of the 'Venn' diagram representing `x` and `y`, inspired by [Figure 5.1](http://r4ds.had.co.nz/transform.html#logical-operators) of the book R for Data Science [@grolemund_r_2016].
 <!-- Todo: reference r4ds -->
@@ -3322,8 +3445,7 @@ Most often the output cell value is the result of a 3 x 3 input cell block.
 4. *Global* or per-raster operations, that means the output cell derives its value potentially from one or several entire rasters
 
 This classification scheme uses basically the number of cells involved in a processing step as distinguishing feature.
-Of course, one can classify raster operations based on other characteristics such as discipline.
-Think, for instance, of terrain, hydrological analysis or image classifications.
+Raster operations can also be classified by discipline, for example terrain, hydrological analysis or image classifications.
 The following sections explain how each type of map algebra operations can be used, with reference to worked examples (also see `vignette("Raster")` for a technical description of map algebra).
 
 ### Local operations
@@ -3353,10 +3475,9 @@ log(elev)
 elev > 5
 ```
 
-Instead of arithmetic operators, you can also use the `calc()` and `overlay()` functions.
-These functions are more efficient.
-So you should use them if you have to process large raster datasets. 
-Additionally, they let you directly store an output file.
+Instead of arithmetic operators, one can also use the `calc()` and `overlay()` functions.
+These functions are more efficient, hence, they are preferable in the presence of large raster datasets. 
+Additionally, they allow to directly store an output file.
 
 The calculation of the normalized difference vegetation index (NDVI) is one of the most famous local, i.e. pixel-by-pixel, raster operations.
 It ranges between - 1 and 1 with positive values indicating the presence of living plants (mostly > 0.2).
@@ -3385,9 +3506,9 @@ A focal operation applies an aggregation function to all cells within the specif
 Other names for this operation are spatial filtering and convolution [@burrough_principles_2015].
 
 In R, we can use the `focal()` function to perform spatial filtering. 
-We define the shape of the moving window with a `matrix` whose values correspond to weights.
-Secondly, the the `fun` argument lets us specify the function we wish to apply to this neighborhood.
-Here, we choose the minimum, but of course we can use any other function such as the the sum, the mean, the median, the mode, the maximum or the variance.
+We define the shape of the moving window with a `matrix` whose values correspond to weights (see `w` parameter in the code chunk below).
+Secondly, the `fun` parameter lets us specify the function we wish to apply to this neighborhood.
+Here, we choose the minimum, but any other summary function, including `sum()`, `mean()`, or `var()` can be used.
 
 
 ```r
@@ -3401,10 +3522,7 @@ r_focal = focal(elev, w = matrix(1, nrow = 3, ncol = 3), fun = min)
 
 We can quickly check if the output meets our expectations.
 In our example, the minimum value has to be always the upper left corner of the moving window (remember we have created the input raster by rowwise incrementing the cell values by one starting at the upper left corner).
-Of course, the `focal()`-function has computed the correct result.
-In this example, our weighting matrix consists only of 1s.
-This means each cell has the same weight on the output.
-If appropriate, you can change this by specifying different weights.
+In this example, the weighting matrix consists only of 1s, meaning each cell has the same weight on the output, but this can be changed.
 
 Focal functions or filters play a dominant role in image processing.
 Low-pass or smoothing filters use the mean function to remove extremes.
@@ -3442,8 +3560,7 @@ z
 #> 3    3 19.8
 ```
 
-This returns the statistics for each category, here the mean altitude for each grain size class.
-Of course, we can add this statistic to the attribute table of the ratified raster (see previous chapter).
+This returns the statistics for each category, here the mean altitude for each grain size class and can be added to the attribute table of the ratified raster (see previous chapter).
 
 ### Global operations and distances
 
@@ -3457,7 +3574,7 @@ To do so, we can weight the distance with elevation so that each additional alti
 Visibility and viewshed computations also belong to the family of global operations <!--(in the exercises of Chapter ?? you will compute a viewshed raster)-->.
 <!-- reference 13-gis chapter-->
 
-Many map algebra operations have a counterpart in vector processing [@liu_essential_2009; Table \@ref(tab:mapalg_vector))].
+Many map algebra operations have a counterpart in vector processing [@liu_essential_2009].
 Computing a distance raster (zonal operation) while only considering a maximum distance (logical focal operation) is the equivalent to a vector buffer operation (section \@ref(modifying-geometry-data)).
 Reclassifying raster data (either local or zonal function depending on the input) is equivalent to dissolving vector data (section \@ref(spatial-joining-and-aggregation)). 
 Overlaying two rasters (local operation), where one contains `NULL` or `NA` values representing a mask, is similar to vector clipping (section \@ref(modifying-geometry-data)).
@@ -3471,7 +3588,7 @@ However, zonal operations might be the better raster equivalent compared to chan
 Zonal operations can dissolve the cells of one raster in accordance with the zones (categories) of another raster using an aggregation function (see above).
 
 ### Merging rasters
-Suppose we would like to compute the NDVI (see focal functions of the previous section), and additionally want to compute terrain attributes from elevation data for observations within a study area.
+Suppose we would like to compute the NDVI (see section \@ref(local-operations)), and additionally want to compute terrain attributes from elevation data for observations within a study area.
 Before such computations we would have to acquire airborne or remotely sensed information.
 The corresponding imagery is often divided into scenes covering a specific spatial extent.
 Frequently, a study area covers more than one scene.
@@ -3501,6 +3618,7 @@ To do so, we need a more advanced approach.
 Remote scientist frequently apply histogram matching or use regression techniques to align the values of the first image with those of the second image.
 The packages **landsat** (`histmatch()`, `relnorm()`, `PIF()`), **satellite** (`calcHistMatch()`) and **RStoolbox** (`histMatch()`, `pifMatch()`) provide the corresponding functions.
 
+
 ### Aligning rasters
 
 When merging or performing map algebra on rasters, their resolution, projection, origin and/or extent has to match.
@@ -3509,16 +3627,41 @@ The same problem arises when we would like to merge satellite imagery from diffe
 We can deal with such mismatches by aligning the rasters.
 
 The `projectRaster()` function reprojects one raster to a desired projection, say from UTM to WGS84.
-The origin is the point closest to (0, 0) if you moved towards it in steps of x and y resolution.
-If two rasters have different origins, their cells do not overlap completely which would make map algebra impossible.
-To change the origin , use `origin()`.^[If the origins of two raster datasets are just marginally apart, it sometimes is sufficient to simply increase the `tolerance` argument  of `raster::rasterOptions()`.]
 Equally, map algebra operations require the same extent.
-To align the extent of one object with that of another, use the `extend()` command.
-If you perform an algebraic operation on two objects with differing extents in R, the **raster** package returns the intersection, and says so in a warning (try: `elev + extend(elev, 2)`).
+Following code adds one row and two columns to each side of the raster while setting all new values to an elevation of 1000 meters (\@ref(fig:extend-example)).
+
+
+```r
+elev_2 = extend(elev, c(1, 2), value = 1000)
+plot(elev_2)
+```
+
+<div class="figure" style="text-align: center">
+<img src="figures/extend-example-1.png" alt="Original raster extended by 1 one row on each side (top, bottom) and two columns on each side (right, left)." width="576" />
+<p class="caption">(\#fig:extend-example)Original raster extended by 1 one row on each side (top, bottom) and two columns on each side (right, left).</p>
+</div>
+
+Performing an algebraic operation on two objects with differing extents in R, the **raster** package returns the result for the intersection, and says so in a warning.
+
+
+```r
+elev_3 = elev + elev_2
+#> Warning in elev + elev_2: Raster objects have different extents. Result for
+#> their intersection is returned
+```
+
+However, we can also align the extent of two rasters with the `extend()` command.
+Here, we extend the `elev` object to the extend of `elev_2`. 
+The newly added rows and column receive the default value of the `value` parameter, i.e., `NA`.
+
+
+```r
+elev_4 = extend(elev, elev_2)
+```
 
 The `aggregate()` and `disaggregate()` functions help to change the cell size resolution of a raster.
-For instance let us aggregate `elev` from a resolution of 0.5 to a resolution of 1, that means we aggregate by a factor of 2.
-Additionally, the output cell value should correspond to the mean of the input cells (but  you can use any other function as well):
+For instance, let us aggregate `elev` from a resolution of 0.5 to a resolution of 1, that means we aggregate by a factor of 2 (Fig. \@ref(fig:aggregate-example)).
+Additionally, the output cell value should correspond to the mean of the input cells (but  one could use other functions as well such as `median()`, `sum()`, etc.):
 
 
 ```r
@@ -3528,9 +3671,42 @@ plot(elev)
 plot(elev_agg)
 ```
 
-<img src="figures/unnamed-chunk-50-1.png" width="576" style="display: block; margin: auto;" />
+<div class="figure" style="text-align: center">
+<img src="figures/aggregate-example-1.png" alt="Original raster (left). Aggregated raster (right)." width="576" />
+<p class="caption">(\#fig:aggregate-example)Original raster (left). Aggregated raster (right).</p>
+</div>
 
 Note that the origin of `elev_agg` has changed, too.
+
+
+```r
+origin(elev)
+#> [1] 0 0
+origin(elev_agg)
+#> [1] 0.5 0.5
+```
+
+The origin is the point closest to (0, 0) if you moved towards it in steps of x and y resolution.
+If two rasters have different origins, their cells do not overlap completely which would make map algebra impossible.
+To change the origin , use `origin()`.^[If the origins of two raster datasets are just marginally apart, it sometimes is sufficient to simply increase the `tolerance` argument  of `raster::rasterOptions()`.]
+Looking at figure \@ref(fig:origin-example) reveals the effect of changing the origin.
+
+
+```r
+# plot the aggregated raster
+plot(elev_agg)
+# change the origin
+origin(elev_agg) = c(0, 0)
+# plot it again
+plot(elev_agg, add = TRUE)
+```
+
+<div class="figure" style="text-align: center">
+<img src="figures/origin-example-1.png" alt="Plotting rasters with the same values but different origins." width="576" />
+<p class="caption">(\#fig:origin-example)Plotting rasters with the same values but different origins.</p>
+</div>
+
+
 The `resample()` command lets you align several raster properties in one go, namely origin, extent and resolution.
 Let us resample an extended `elev_agg` to the properties of `elev` again.
 
@@ -3670,18 +3846,17 @@ Nowadays, a vast amount of spatial data is available on the internet.
 Best of all, much of it is freely available.
 You just have to know where to look.
 While we cannot provide a comprehensive guide to all available geodata, we point to a few of the most important sources.
-Overall, geolibraries and geoportals facilitate the search and download of geodata.
-Geolibraries are a very useful data source but often only contain data for a specific locations.
-Then you might struggle to find the exact geolibrary matching his or her demands.
-Here, geolibraries come to the rescue bundling the information of a collection of geolibraries.
-If you are looking for data from all over the world, the [GEOSS portal](http://www.geoportal.org/) might be a good starting point.
-We also would like you to point to the [EarthExplorer](https://earthexplorer.usgs.gov/) and the [Copernicus Open Access Hub](https://scihub.copernicus.eu/) for a wide variety of global datasets including multispectral and radar images.
-European data is available from the Initiative for spatial information in the European Community ([INSPIRE](http://inspire-geoportal.ec.europa.eu/)).
-This [Wikipedia article](https://en.wikipedia.org/wiki/Geoportal) lists a few more interesting geoportals.
+Various 'geoportals' (web services providing geographic data such as the geospatial datasets in [Data.gov](https://catalog.data.gov/dataset?metadata_type=geospatial)) are a good place to start, providing a wide range of geographic data.
+Geoportals are a very useful data source but often only contain data for a specific locations (see the [Wikipedia page on geoportals](https://en.wikipedia.org/wiki/Geoportal) for a list of geoportals covering many areas of the world).
+
+To overcome this limitation some global geoportals have been developed.
+The [GEOSS portal](http://www.geoportal.org/), for example, provides global remote sensing data.
+Additional geoportals with global coverage and an emphasis on raster data include the [EarthExplorer](https://earthexplorer.usgs.gov/) and the [Copernicus Open Access Hub](https://scihub.copernicus.eu/).
+A wealth of European data is available from the [INSPIRE geoportal](http://inspire-geoportal.ec.europa.eu/).
 
 Typically, geoportals provide an interface that lets you query interactively the existing data (spatial and temporal extent, and product).
 However, in this book we encourage you to create reproducible workflows.
-Automated data downloads are often possible through simple download calls or specific APIs (e.g., have a look at the Sentinel API), which saves human working time, and allows to easily repeat and update this process in the future. 
+In many cases data downloads can be scripted via download calls to static URLs or APIs (see the [Sentinel API](https://scihub.copernicus.eu/twiki/do/view/SciHubWebPortal/APIHubDescription) for example), saving time, and enabling others to repeat and update the unglamorous data download process. 
 
 Traditionally, files have been stored on servers.
 <!-- that's probably not the best example - replace it with something better -->
@@ -3699,7 +3874,7 @@ unzip(zipfile = "USA_parks.zip")
 usa_parks = st_read("ne_10m_parks_and_protected_lands_area.shp")
 ```
 
-Specific R packages providing an interface to geolibraries or geoportals are even more user-friendly (Table \@ref(tab:datapackages)).
+Specific R packages providing an interface to spatial libraries or geoportals are even more user-friendly (Table \@ref(tab:datapackages)).
 
 <!-- add sentinel2 package as soon as it is published on CRAN https://github.com/IVFL-BOKU/sentinel2-->
 
@@ -3878,7 +4053,6 @@ In most cases, as with the ESRI Shapefile (`.shp`) or the `GeoPackage` format (`
 
 
 ```r
-library(sf)
 vector_filepath = system.file("shapes/world.gpkg", package = "spData")
 world = st_read(vector_filepath)
 #> Reading layer `wrld.gpkg' from data source `/home/travis/R/Library/spData/shapes/world.gpkg' using driver `GPKG'
@@ -3928,6 +4102,33 @@ world_wkt = st_read(world_txt, options = "GEOM_POSSIBLE_NAMES=WKT",
 In these situations, it is possible to add the missing information using the `st_set_crs()` function.
 Please refer also to section \@ref(crs-intro) for more information.</div>\EndKnitrBlock{rmdnote}
 
+As a final example, we will show how `st_read()` also reads KML files.
+A KML file stores geographic information in XML format - a data format for the creation of web pages and the transfer of data in an application-independent way [@nolan_xml_2014].
+Here, we access a KML file from the web.
+This file contains more than one layer.
+`st_layers()` lists all available layers.
+We choose the first layer `Placemarks` and say so with the help of the `layer` parameter in `read_sf()`.
+
+
+```r
+url = "https://developers.google.com/kml/documentation/KML_Samples.kml"
+st_layers(url)
+#> Driver: LIBKML 
+#> Available layers:
+#>               layer_name geometry_type features fields
+#> 1             Placemarks                      3     11
+#> 2      Styles and Markup                      1     11
+#> 3       Highlighted Icon                      1     11
+#> 4        Ground Overlays                      1     11
+#> 5        Screen Overlays                      0     11
+#> 6                  Paths                      6     11
+#> 7               Polygons                      0     11
+#> 8          Google Campus                      4     11
+#> 9       Extruded Polygon                      1     11
+#> 10 Absolute and Relative                      4     11
+kml = read_sf(url, layer = "Placemarks")
+```
+
 ### Raster data
 
 Similar to vector data, raster data comes in many file formats with some of them supporting even multilayer files.
@@ -3935,8 +4136,6 @@ Similar to vector data, raster data comes in many file formats with some of them
 
 
 ```r
-library(raster)
-library(spDataLarge)
 raster_filepath = system.file("raster/srtm.tif", package = "spDataLarge")
 single_layer = raster(raster_filepath)
 ```
@@ -4036,7 +4235,6 @@ It could be either `AS_XY` for simple point datasets (it creates two new columns
 
 
 ```r
-library(spData)
 st_write(cycle_hire_xy, "cycle_hire_xy.csv", layer_options = "GEOMETRY=AS_XY")
 st_write(world_wkt, "world_wkt.csv", layer_options = "GEOMETRY=AS_WKT")
 ```
@@ -4130,15 +4328,14 @@ save_tmap(tm  = tmap_obj, filename = "lifeExp_tmap.png")
 <!-- a = plot(world["lifeExp"]) -->
 <!-- ``` -->
 
-On the other hand, on can save interactive maps as an HTML file using the `saveWidget()` function from the `htmlwidgets` package:
+On the other hand, on can save interactive maps created in the `mapview` package as an HTML file or image using the `mapshot()` function:
 
 <!-- example doesn't work, problem with colors I guess -->
 
 ```r
 library(mapview)
-library(htmlwidgets)
 mapview_obj = mapview(world, zcol = "lifeExp", legend = TRUE)
-saveWidget(mapview_obj, file = "my_interactive_map.html")
+mapshot(mapview_obj, file = "my_interactive_map.html")
 ```
 
 ## Exercises
@@ -4358,6 +4555,8 @@ It is hidden from view for most of the time except when the object is printed bu
 <!-- ### Shearing -->
 
 <!-- Todo: add content on simplifying using mapshaper and other packages (e.g. sf) -->
+
+### Exercises
 
 <!--chapter:end:06-transform.Rmd-->
 
