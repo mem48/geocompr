@@ -202,7 +202,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservefe8bd5eeca6a30e4
+preservec212eac0bb92e793
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -303,15 +303,15 @@ See the [r-spatial](https://github.com/r-spatial/) organisation and conversation
 ] and a growing number of actively developed packages which are designed to work in harmony with **sf** (Table \@ref(tab:revdep)). 
 
 
-Table: (\#tab:revdep)The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-10-19 there are 32 packages which import sf.
+Table: (\#tab:revdep)The top 5 most downloaded packages that depend on sf, in terms of average number of downloads per day over the previous month. As of 2017-10-27 there are 33 packages which import sf.
 
 package       Downloads
 -----------  ----------
-plotly             1854
-leaflet             723
-geojsonio           204
-mapview             185
-rmapshaper          143
+plotly             1890
+leaflet             623
+geojsonio           217
+mapview             188
+rmapshaper          154
 
 ## The history of R-spatial
 
@@ -2721,7 +2721,7 @@ plot(buff, add = TRUE)
 
 <!-- Todo: improve this figure, e.g. by creating a new hidden chunk - still show this one -->
 <div class="figure" style="text-align: center">
-preservee0ed792cfd6123f9
+preserve85b9736e2dfe70ad
 <p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 2000 km in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 
