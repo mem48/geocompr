@@ -202,7 +202,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve7bb8e5dbf18b6e58
+preserved2b4ae6231f309b4
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2587,7 +2587,7 @@ library(tidyverse)
 library(raster)
 ```
 
-- It also relies on **spData**, which loads the `world` dataset used in examples in the chapter:
+- It also relies on **spData**, which loads datasets used in examples in the chapter:
 
 
 ```r
@@ -2721,7 +2721,7 @@ plot(buff, add = TRUE)
 
 <!-- Todo: improve this figure, e.g. by creating a new hidden chunk - still show this one -->
 <div class="figure" style="text-align: center">
-preserve351429449b6414ad
+preserve15a6d45309aa4c53
 <p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 2000 km in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 
