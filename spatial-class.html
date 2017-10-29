@@ -912,7 +912,7 @@ Operations on <code>RasterBrick</code> and <code>RasterStack</code> objects will
 </div>
 <div id="crs-intro" class="section level2">
 <h2><span class="header-section-number">2.3</span> Coordinate Reference Systems</h2>
-<p>Vector and raster spatial data types share concepts intrinsic to spatial data. Perhaps the most fundamental of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other bodies). <!-- Coordinates are meaningles without a CRS, as we don't know theirs units (meters, feets, degrees) or what's the origin --> <!-- (-12579102, 4439107) = (-113, 37) --> Coordinate system could be either geographic or projected (Figures <a href="spatial-class.html#fig:vector-crs">2.9</a> and <a href="spatial-class.html#fig:raster-crs">2.10</a>).</p>
+<p>Vector and raster spatial data types share concepts intrinsic to spatial data. Perhaps the most fundamental of these is the Coordinate Reference System (CRS), which defines how the spatial elements of the data relate to the surface of the Earth (or other bodies). <!-- Coordinates are meaningles without a CRS, as we don't know theirs units (meters, feets, degrees) or what's the origin --> <!-- (-12579102, 4439107) = (-113, 37) --> Coordinate system could be either geographic or projected (Figures <a href="spatial-class.html#fig:vector-crs">2.9</a> and <a href="#fig:raster-crs"><strong>??</strong></a>).</p>
 <div id="geographic-coordinate-systems" class="section level3">
 <h3><span class="header-section-number">2.3.1</span> Geographic coordinate systems</h3>
 <p>Geographic coordinate systems identify any location on the Earth’s surface using two values - longitude and latitude. The first one is an angle from the prime meridian plan and the second one is an angle from the equatorial plane to this location. Therefore, units of geographic coordinate systems are degrees. <!-- for example Los Angeles, Melbourne --></p>
@@ -921,7 +921,7 @@ Operations on <code>RasterBrick</code> and <code>RasterStack</code> objects will
 </div>
 <div id="projected-coordinate-systems" class="section level3">
 <h3><span class="header-section-number">2.3.2</span> Projected coordinate systems</h3>
-<p>Projected coordinate systems are based on Cartesian coordinates (X, Y) and represent any area on a flat surface. A projected coordinate system has an origin, x and y axes, and a linear unit of measure. All projected coordinate systems are based on geographic coordinate systems Maps projections are mathematical models for conversion of three-dimensional surface into a two-dimensional representation on a map. This transition cannot be done without adding some distortion. Therefore, some properties of the Earth’s surface are distorted in this process, such as area, direction, distance, and shape. A projected coordinate system can preserve only one or two of those properties. Projections are often named based on a property they preserve: equal-area preserves area, azimuthal preserve direction, equidistant preserve distance, and conformal preserve local shape.</p>
+<p>Projected coordinate systems are based on Cartesian coordinates (X, Y) and represent any area on a flat surface. A projected coordinate system has an origin, x and y axes, and a linear unit of measure. All projected coordinate systems are based on geographic coordinate systems. Maps projections are mathematical models for conversion of three-dimensional surface into a two-dimensional representation on a map. This transition cannot be done without adding some distortion. Therefore, some properties of the Earth’s surface are distorted in this process, such as area, direction, distance, and shape. A projected coordinate system can preserve only one or two of those properties. Projections are often named based on a property they preserve: equal-area preserves area, azimuthal preserve direction, equidistant preserve distance, and conformal preserve local shape.</p>
 <p>There are three main groups of projection types - conic, cylindrical, and planar. In a conic projection the Earth surface is projected onto a cone along a single line of tangency or two lines of tangency. Distortions are minimized along the tangency lines and rise with the distance from those lines in this projection. Therefore, it is the best suited for maps of mid-latitude areas. A cylindrical projection maps the surface onto a cylinder. This projection also could be created by touching the Earth’s surface along a single line of tangency or two lines of tangency. Cylindrical projections are the most often used in mapping of the entire world. A planar projection projects data onto a flat surface touching the globe at a point or along a line of tangency. It is typically used in mapping polar regions. <!-- other projections? --> <!-- https://en.wikipedia.org/wiki/List_of_map_projections --> <!-- plus maybe table (few examples) --> <!-- add good reference to projections --> <code>st_proj_info(type = &quot;proj&quot;)</code> gives a list of the available projections supported by the PROJ.4 library.</p>
 </div>
 <div id="crs-in-r" class="section level3">
@@ -941,9 +941,7 @@ Operations on <code>RasterBrick</code> and <code>RasterStack</code> objects will
 <span class="co">#&gt; attr(,&quot;class&quot;)</span>
 <span class="co">#&gt; [1] &quot;crs&quot;</span></code></pre></div>
 <p>In cases when a coordinate reference system (CRS) is missing or the wrong CRS is set, the <code>st_set_crs()</code> function can be used:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_vector =<span class="st"> </span><span class="kw">st_set_crs</span>(new_vector, <span class="dv">4326</span>) <span class="co"># set CRS</span>
-<span class="co">#&gt; Warning: st_crs&lt;- : replacing crs does not reproject data; use st_transform</span>
-<span class="co">#&gt; for that</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_vector =<span class="st"> </span><span class="kw">st_set_crs</span>(new_vector, <span class="dv">26912</span>) <span class="co"># set CRS</span></code></pre></div>
 <p>The warning message informs that the <code>st_set_crs()</code> function do not transform data from one CRS to another.</p>
 <div class="figure" style="text-align: center"><span id="fig:vector-crs"></span>
 <img src="figures/02_vector_crs.png" alt="Examples of geographic (WGS 84; left) and projected (NAD83 / UTM zone 12N; right) and coordinate systems for a vector data type." width="765" />
@@ -954,12 +952,8 @@ Figure 2.9: Examples of geographic (WGS 84; left) and projected (NAD83 / UTM zon
 <p>The <code>projection()</code> function can be use to access a CRS information from the <code>Raster*</code> object:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">projection</span>(new_raster) <span class="co"># get CRS</span>
 <span class="co">#&gt; [1] &quot;+proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs&quot;</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:raster-crs"></span>
-<img src="figures/02_raster_crs.png" alt="Examples of geographic (WGS 84; left) and projected (NAD83 / UTM zone 12N; right) and coordinate systems for a raster data type" width="475" />
-<p class="caption">
-Figure 2.10: Examples of geographic (WGS 84; left) and projected (NAD83 / UTM zone 12N; right) and coordinate systems for a raster data type
-</p>
-</div>
+<p>The same function, <code>projection()</code>, is used to set a CRS for raster objects. The main difference, comparing to vector data, is that raster objects accepts only <code>proj4</code> definitions:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">projection</span>(new_raster) =<span class="st"> &quot;+proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs&quot;</span> <span class="co"># set CRS</span></code></pre></div>
 <p>More information on CRS and spatial tranformation is in chapter <a href="transform.html#transform">6</a>.</p>
 </div>
 </div>

@@ -202,7 +202,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve092dd1abf67eb493
+preservebc55f176b00c16fc
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -1553,7 +1553,7 @@ A list of datums supported in R could be obtain with `st_proj_info(type = "datum
 
 Projected coordinate systems are based on Cartesian coordinates (X, Y) and represent any area on a flat surface. 
 A projected coordinate system has an origin, x and y axes, and a linear unit of measure.
-All projected coordinate systems are based on geographic coordinate systems
+All projected coordinate systems are based on geographic coordinate systems.
 Maps projections are mathematical models for conversion of three-dimensional surface into a two-dimensional representation on a map.
 This transition cannot be done without adding some distortion.
 Therefore, some properties of the Earth's surface are distorted in this process, such as area, direction, distance, and shape.
@@ -1617,9 +1617,7 @@ In cases when a coordinate reference system (CRS) is missing or the wrong CRS is
 
 
 ```r
-new_vector = st_set_crs(new_vector, 4326) # set CRS
-#> Warning: st_crs<- : replacing crs does not reproject data; use st_transform
-#> for that
+new_vector = st_set_crs(new_vector, 26912) # set CRS
 ```
 
 The warning message informs that the `st_set_crs()` function do not transform data from one CRS to another.
@@ -1637,10 +1635,13 @@ projection(new_raster) # get CRS
 #> [1] "+proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
 ```
 
-<div class="figure" style="text-align: center">
-<img src="figures/02_raster_crs.png" alt="Examples of geographic (WGS 84; left) and projected (NAD83 / UTM zone 12N; right) and coordinate systems for a raster data type" width="475" />
-<p class="caption">(\#fig:raster-crs)Examples of geographic (WGS 84; left) and projected (NAD83 / UTM zone 12N; right) and coordinate systems for a raster data type</p>
-</div>
+The same function, `projection()`, is used to set a CRS for raster objects.
+The main difference, comparing to vector data, is that raster objects accepts only `proj4` definitions:
+
+
+```r
+projection(new_raster) = "+proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs" # set CRS
+```
 
 More information on CRS and spatial tranformation is in chapter \@ref(transform).
 
@@ -2723,7 +2724,7 @@ plot(buff, add = TRUE)
 
 <!-- Todo: improve this figure, e.g. by creating a new hidden chunk - still show this one -->
 <div class="figure" style="text-align: center">
-preserve99e61577fa30e101
+preserve81c01640c030e39e
 <p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 2000 km in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 
