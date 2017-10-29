@@ -202,7 +202,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservead8ef878bc7260bf
+preservec508d8d477beacb5
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -607,7 +607,7 @@ The result provides a quick summary of both the non-spatial and spatial data con
 
 \BeginKnitrBlock{rmdnote}<div class="rmdnote">The word `MULTIPOLYGON` in the summary output above refers to the geometry type of features (countries) in the `world` object.
 This representation is necessary for countries with islands such as Indonesia and Greece.
-Other geometry types are described in section \@ref(sf_classes).</div>\EndKnitrBlock{rmdnote}
+Other geometry types are described in section \@ref(sf-classes).</div>\EndKnitrBlock{rmdnote}
 
 
 <!-- TODO: cross-reference section covering CRSs. -->
@@ -775,7 +775,7 @@ plot(world_centroids, add = TRUE, cex = sqrt(world$pop) / 10000)
 <!-- identical(africa_centroids, africa_centroids2) -->
 <!-- ``` -->
 
-### Simple feature classes {#sf_classes}
+### Simple feature classes {#sf-classes}
 
 To understand new data formats in depth, it often helps to build them from the ground up.
 This section walks you through vector spatial classes step-by-step, from the elementary simple feature geometry to simple feature objects of class `sf` representing complex spatial data.
@@ -2721,7 +2721,7 @@ plot(buff, add = TRUE)
 
 <!-- Todo: improve this figure, e.g. by creating a new hidden chunk - still show this one -->
 <div class="figure" style="text-align: center">
-preserve1f68c02d180483d1
+preserve7fbdd3b2991ca7a9
 <p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 2000 km in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 
