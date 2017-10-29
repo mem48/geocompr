@@ -202,7 +202,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preservec508d8d477beacb5
+preserve7bb8e5dbf18b6e58
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -641,7 +641,7 @@ However, there are good reasons for organizing things this way and using **sf**.
 Simple features is a widely supported data model that underlies data structures in many GIS applications including QGIS and PostGIS.
 A major advantage of this is that using the data model ensures your work is cross-transferable to other set-ups, for example importing from exporting to spatial databases.
 
-A more specific question from an R perspective is 'why use the **sf** package when **sp** is already tried and tested?
+A more specific question from an R perspective is "why use the **sf** package when **sp** is already tried and tested"?
 There are many reasons (linked to the advantages of the simple features model) including:
 
 - Fast reading and writing of data
@@ -2721,7 +2721,7 @@ plot(buff, add = TRUE)
 
 <!-- Todo: improve this figure, e.g. by creating a new hidden chunk - still show this one -->
 <div class="figure" style="text-align: center">
-preserve7fbdd3b2991ca7a9
+preserve351429449b6414ad
 <p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 2000 km in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 
