@@ -261,24 +261,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="introduction-3" class="section level2">
 <h2><span class="header-section-number">6.1</span> Introduction</h2>
-<!-- random notes -->
-<!-- CRS also represent spatial relationship between datasets. -->
-<!-- Therefore, spatial operations could only be correctly performed on data with the same CRS. -->
-<!-- While the concept of CRS applies to both data types, conversion between coordinate rerefence systems differs between vector and raster. -->
-<!-- Tranformation from one CRS to another in vector data changes only coordinates of vertices, keeping the values intact. -->
-<!-- (for most of the case is better to reproject vector than raster) -->
-<!-- rasters: transformation means change of the coordinates of (special case of resampling) -->
-<!-- changes in dimensions, resolution, extent -->
-<!-- change shape and attributes) -->
-<!-- different methods of computing values after transformation, such as ngb or bilinear  -->
-<!-- - crs - a heart of spatial data -->
-<!-- - short history  -->
-<!-- - types of crs (geographic vs cartesian; local vs regional vs global) -->
-<!-- - objectives - 1/ to combine different datasets, 2/ area calculations, 3/ distance mesasurement, 4/ navigation, 5/ spatial data representations -->
-<!-- - proj -->
-<!-- - proj4 + epsg -->
-<!-- - the most popular epsg -->
-<!--in most of the cases reproject vector, not raster-->
 <p>As stated in Chapter <a href="spatial-class.html#crs-intro">2.3</a>, it is important to understand which CRS you are working in when undertaking spatial operations. Many spatial operations assume that you are using a <em>projected</em> CRS (on a Euclidean grid with units of meters rather than a geographic ‘lat/lon’ grid with units of degrees). The GEOS engine underlying most spatial operations in <strong>sf</strong>, for example, assume your data is in a projected CRS. For this reason <strong>sf</strong> contains a function for checking if geometries have a geographic or projected CRS. This is illustrated below using the example of the <em>Greenwich point</em> which came to define 0 degrees longitude:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">greenwich =<span class="st"> </span><span class="kw">st_sf</span>(<span class="dt">geometry =</span> <span class="kw">st_sfc</span>(<span class="kw">st_point</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">51.5</span>))))
 <span class="kw">st_is_longlat</span>(greenwich)
@@ -305,7 +287,7 @@ Figure 6.1: Buffers on geographic data with undefined (top) and defined (bottom)
 </div>
 <div id="crs-transformation" class="section level2">
 <h2><span class="header-section-number">6.2</span> CRS transformation</h2>
-<p>While CRSs can be set manually, it is more common in real world applications to <em>transform</em> a known CRS into another. A typical example is when geometry data is provided in a geographic CRS but you want to do spatial operations, which require it to be in a projected CRS. Let’s use real-world examples to illustrate this.</p>
+<p>While CRSs can be set manually, it is more common in real world applications to <em>transform</em> a known CRS into another. A typical example is when geometry data is provided in a geographic CRS but you want to do spatial operations, which require it to be in a projected CRS. <!-- CRS also represent spatial relationship between datasets. --> <!-- Therefore, spatial operations could only be correctly performed on data with the same CRS. --> <!-- - objectives - 1/ to combine different datasets, 2/ area calculations, 3/ distance mesasurement, 4/ navigation, 5/ spatial data representations --> Let’s use real-world examples to illustrate this.</p>
 <div id="vector-data-3" class="section level3">
 <h3><span class="header-section-number">6.2.1</span> Vector data</h3>
 <p>The dataset <code>cycle_hire_osm</code> represents all cycle hire locations across London, take from OpenStreetMap (OSM). It is automatically loaded by the <strong>spData</strong> package, meaning we do not have to load it, and its CRS can be queried as follows:</p>
@@ -357,6 +339,14 @@ The EPSG code can be found inside the <code>crs</code> attribute of the object�
 </div>
 <div id="raster-data-3" class="section level3">
 <h3><span class="header-section-number">6.2.2</span> Raster data</h3>
+<!-- While the concept of CRS applies to both data types, conversion between coordinate rerefence systems differs between vector and raster. -->
+<!-- Tranformation from one CRS to another in vector data changes only coordinates of vertices, keeping the values intact. -->
+<!-- (for most of the case is better to reproject vector than raster) -->
+<!-- rasters: transformation means change of the coordinates of (special case of resampling) -->
+<!-- changes in dimensions, resolution, extent -->
+<!-- change shape and attributes) -->
+<!-- different methods of computing values after transformation, such as ngb or bilinear  -->
+<!--in most of the cases reproject vector, not raster-->
 <!--
 - data? one numerical and one categorical
 - projectRaster
