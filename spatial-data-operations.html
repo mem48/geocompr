@@ -299,8 +299,9 @@ Interested readers can see this default value of <code>op</code> set in the firs
 <p></p>
 <p>In general terms, spatial subsetting is simply the spatial equivalent of <em>attribute subsetting</em>. As with attribute subsetting, spatial subsetting is a <em>binary operation</em>: an object is either selected or not. Following the structure of section <a href="attr.html#vector-attribute-subsetting">3.2.1</a>, we start with base methods before describing how to do it in the <strong>tidyverse</strong>. <!-- todo: link to non-binary links, e.g. area-weighted spatial interpolation --></p>
 <!-- #### Spatial subsetting in base R -->
-<p>To introduce spatial vector subsetting operations we will use countries in Africa. We will apply attribute subsetting to the <code>world</code> dataset (see previous chapter):<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">africa_wgs =<span class="st"> </span>world[world$continent ==<span class="st"> &quot;Africa&quot;</span>, ]</code></pre></div>
+<p>Another spatial subsetting example will use an object representing the countries of Africa, created using attribute subsetting as follows:</p>
+<p>We will apply attribute subsetting to the <code>world</code> dataset (see previous chapter):<a href="#fn18" class="footnoteRef" id="fnref18"><sup>18</sup></a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">africa_wgs =<span class="st"> </span>world %&gt;%<span class="st"> </span><span class="kw">filter</span>(continent ==<span class="st"> &quot;Africa&quot;</span>)</code></pre></div>
 <p>To further prepare the input data, we will reproject the data to the coordinate reference system (CRS) 32630, its EPSG code (explained in Chapter 6):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">africa =<span class="st"> </span><span class="kw">st_transform</span>(africa_wgs, <span class="dt">crs =</span> <span class="dv">32630</span>)</code></pre></div>
 <p>We can also use the <code>[</code> operator for <em>Spatial</em> subsetting. The difference is that we use <em>another spatial object</em> inside the square brackets instead of an <code>integer</code> or <code>logical</code> vector. This is a concise and consistent syntax, as shown in the next code chunk. Let’s test it with a hypothetical scenario: we want to subset all countries within 2000 km of the point where the equator (where latitude = 0 degrees) intersects the prime meridian (longitude = 0 degrees), as illustrated in Figure <a href="spatial-data-operations.html#fig:globe">4.2</a>. The subsetting object is created below. Note that this must have the same CRS as the target object (set with the <code>crs</code> argument):</p>
@@ -344,7 +345,7 @@ africa_buf2 =<span class="st"> </span>africa[sel_buff, ]</code></pre></div>
 <span class="co">#&gt; [1] FALSE</span></code></pre></div>
 <p>The reason that the third spatially subset object (<code>africa_buf3</code>) is not identical is that <strong>dplyr</strong> changes the row names:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">row.names</span>(africa_buf))
-<span class="co">#&gt; [1] &quot;2&quot;  &quot;14&quot; &quot;15&quot; &quot;27&quot; &quot;32&quot; &quot;33&quot;</span>
+<span class="co">#&gt; [1] &quot;1&quot; &quot;3&quot; &quot;4&quot; &quot;6&quot; &quot;7&quot; &quot;8&quot;</span>
 <span class="kw">head</span>(<span class="kw">row.names</span>(africa_buf3))
 <span class="co">#&gt; [1] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; &quot;5&quot; &quot;6&quot;</span></code></pre></div>
 <p>If the row names are re-set, the objects become identical:</p>
@@ -357,7 +358,7 @@ This discarding of row names is not something that is specific to spatial data, 
 </p>
 </div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">row.names</span>(africa[africa$subregion ==<span class="st"> &quot;Northern Africa&quot;</span>, ])
-<span class="co">#&gt; [1] &quot;46&quot;  &quot;48&quot;  &quot;94&quot;  &quot;100&quot; &quot;138&quot; &quot;140&quot; &quot;162&quot;</span>
+<span class="co">#&gt; [1] &quot;12&quot; &quot;13&quot; &quot;24&quot; &quot;26&quot; &quot;36&quot; &quot;37&quot; &quot;46&quot;</span>
 <span class="kw">row.names</span>(<span class="kw">filter</span>(africa, subregion ==<span class="st"> &quot;Northern Africa&quot;</span>))
 <span class="co">#&gt; [1] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; &quot;5&quot; &quot;6&quot; &quot;7&quot;</span></code></pre></div>
 </div>
@@ -937,7 +938,7 @@ elev_disagg =<span class="st"> </span><span class="kw">resample</span>(elev_agg,
 <div class="footnotes">
 <hr />
 <ol start="18">
-<li id="fn18"><p>Recall that we can also subset simple features using the <code>filter()</code> function, e.g. with <code>filter(world, continent == &quot;Africa&quot;)</code><a href="spatial-data-operations.html#fnref18">↩</a></p></li>
+<li id="fn18"><p>Recall attribute subsetting can also be done in base R with <code>africa_wgs = world[world$continent == &quot;Africa&quot;, ]</code>.<a href="spatial-data-operations.html#fnref18">↩</a></p></li>
 <li id="fn19"><p>If the origins of two raster datasets are just marginally apart, it sometimes is sufficient to simply increase the <code>tolerance</code> argument of <code>raster::rasterOptions()</code>.<a href="spatial-data-operations.html#fnref19">↩</a></p></li>
 </ol>
 </div>

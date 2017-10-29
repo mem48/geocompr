@@ -202,7 +202,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserved2b4ae6231f309b4
+preserve9437f222d75a311d
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -2662,13 +2662,14 @@ Following the structure of section \@ref(vector-attribute-subsetting), we start 
 
 <!-- #### Spatial subsetting in base R -->
 
-To introduce spatial vector subsetting operations we will use countries in Africa.
+Another spatial subsetting example will use an object representing the countries of Africa, created using attribute subsetting as follows:
+
 We will apply attribute subsetting to the `world` dataset (see previous chapter):^[Recall
-that we can also subset simple features using the `filter()` function, e.g. with `filter(world, continent == "Africa")`]
+attribute subsetting can also be done in base R with `africa_wgs = world[world$continent == "Africa", ]`.]
 
 
 ```r
-africa_wgs = world[world$continent == "Africa", ]
+africa_wgs = world %>% filter(continent == "Africa")
 ```
 
 To further prepare the input data, we will reproject the data to the coordinate reference system (CRS) 32630, its EPSG code (explained in Chapter 6):
@@ -2721,7 +2722,7 @@ plot(buff, add = TRUE)
 
 <!-- Todo: improve this figure, e.g. by creating a new hidden chunk - still show this one -->
 <div class="figure" style="text-align: center">
-preserve15a6d45309aa4c53
+preserve3dee250a032adf38
 <p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 2000 km in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 
@@ -2763,7 +2764,7 @@ The reason that the third spatially subset object (`africa_buf3`) is not identic
 
 ```r
 head(row.names(africa_buf))
-#> [1] "2"  "14" "15" "27" "32" "33"
+#> [1] "1" "3" "4" "6" "7" "8"
 head(row.names(africa_buf3))
 #> [1] "1" "2" "3" "4" "5" "6"
 ```
@@ -2784,7 +2785,7 @@ identical(africa_buf, africa_buf3)
 
 ```r
 row.names(africa[africa$subregion == "Northern Africa", ])
-#> [1] "46"  "48"  "94"  "100" "138" "140" "162"
+#> [1] "12" "13" "24" "26" "36" "37" "46"
 row.names(filter(africa, subregion == "Northern Africa"))
 #> [1] "1" "2" "3" "4" "5" "6" "7"
 ```
