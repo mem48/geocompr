@@ -202,7 +202,7 @@ leaflet() %>%
 ```
 
 <div class="figure" style="text-align: center">
-preserve9437f222d75a311d
+preserveed884251a288c1ff
 <p class="caption">(\#fig:interactive)World at night imagery from NASA overlaid by the authors' approximate home locations to illustrate interactive mapping with R.</p>
 </div>
 
@@ -608,7 +608,6 @@ The result provides a quick summary of both the non-spatial and spatial data con
 \BeginKnitrBlock{rmdnote}<div class="rmdnote">The word `MULTIPOLYGON` in the summary output above refers to the geometry type of features (countries) in the `world` object.
 This representation is necessary for countries with islands such as Indonesia and Greece.
 Other geometry types are described in section \@ref(sf-classes).</div>\EndKnitrBlock{rmdnote}
-
 
 <!-- TODO: cross-reference section covering CRSs. -->
 It is worth taking a deeper look at the basic behavior and contents of this simple feature object, which can usefully be thought of as a '**S**patial data**F**rame).
@@ -1624,8 +1623,8 @@ new_vector = st_set_crs(new_vector, 4326) # set CRS
 The warning message informs that the `st_set_crs()` function do not transform data from one CRS to another.
 
 <div class="figure" style="text-align: center">
-<img src="figures/02_vector_crs.png" alt="Examples of geographic (left) and projected (right) and coordinate systems for a vector data type." width="765" />
-<p class="caption">(\#fig:vector-crs)Examples of geographic (left) and projected (right) and coordinate systems for a vector data type.</p>
+<img src="figures/02_vector_crs.png" alt="Examples of geographic (WGS 84; left) and projected (NAD83 / UTM zone 12N; right) and coordinate systems for a vector data type." width="765" />
+<p class="caption">(\#fig:vector-crs)Examples of geographic (WGS 84; left) and projected (NAD83 / UTM zone 12N; right) and coordinate systems for a vector data type.</p>
 </div>
 
 The `projection()` function can be use to access a CRS information from the `Raster*` object: 
@@ -1637,8 +1636,8 @@ projection(new_raster) # get CRS
 ```
 
 <div class="figure" style="text-align: center">
-<img src="figures/02_raster_crs.png" alt="Examples of geographic (left) and projected (right) and coordinate systems for a raster data type" width="475" />
-<p class="caption">(\#fig:raster-crs)Examples of geographic (left) and projected (right) and coordinate systems for a raster data type</p>
+<img src="figures/02_raster_crs.png" alt="Examples of geographic (WGS 84; left) and projected (NAD83 / UTM zone 12N; right) and coordinate systems for a raster data type" width="475" />
+<p class="caption">(\#fig:raster-crs)Examples of geographic (WGS 84; left) and projected (NAD83 / UTM zone 12N; right) and coordinate systems for a raster data type</p>
 </div>
 
 More information on CRS and spatial tranformation is in chapter \@ref(transform).
@@ -2722,7 +2721,7 @@ plot(buff, add = TRUE)
 
 <!-- Todo: improve this figure, e.g. by creating a new hidden chunk - still show this one -->
 <div class="figure" style="text-align: center">
-preserve3dee250a032adf38
+preserve5ca742b7b342e59f
 <p class="caption">(\#fig:africa-buff)Subset of the `africa` data selected based on their intersection with a circle 2000 km in radius with a center point at 0 degrees longitude and 0 degrees latitude.</p>
 </div>
 

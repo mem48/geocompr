@@ -946,18 +946,18 @@ Operations on <code>RasterBrick</code> and <code>RasterStack</code> objects will
 <span class="co">#&gt; for that</span></code></pre></div>
 <p>The warning message informs that the <code>st_set_crs()</code> function do not transform data from one CRS to another.</p>
 <div class="figure" style="text-align: center"><span id="fig:vector-crs"></span>
-<img src="figures/02_vector_crs.png" alt="Examples of geographic (left) and projected (right) and coordinate systems for a vector data type." width="765" />
+<img src="figures/02_vector_crs.png" alt="Examples of geographic (WGS 84; left) and projected (NAD83 / UTM zone 12N; right) and coordinate systems for a vector data type." width="765" />
 <p class="caption">
-Figure 2.9: Examples of geographic (left) and projected (right) and coordinate systems for a vector data type.
+Figure 2.9: Examples of geographic (WGS 84; left) and projected (NAD83 / UTM zone 12N; right) and coordinate systems for a vector data type.
 </p>
 </div>
 <p>The <code>projection()</code> function can be use to access a CRS information from the <code>Raster*</code> object:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">projection</span>(new_raster) <span class="co"># get CRS</span>
 <span class="co">#&gt; [1] &quot;+proj=utm +zone=12 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs&quot;</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:raster-crs"></span>
-<img src="figures/02_raster_crs.png" alt="Examples of geographic (left) and projected (right) and coordinate systems for a raster data type" width="475" />
+<img src="figures/02_raster_crs.png" alt="Examples of geographic (WGS 84; left) and projected (NAD83 / UTM zone 12N; right) and coordinate systems for a raster data type" width="475" />
 <p class="caption">
-Figure 2.10: Examples of geographic (left) and projected (right) and coordinate systems for a raster data type
+Figure 2.10: Examples of geographic (WGS 84; left) and projected (NAD83 / UTM zone 12N; right) and coordinate systems for a raster data type
 </p>
 </div>
 <p>More information on CRS and spatial tranformation is in chapter <a href="transform.html#transform">6</a>.</p>
