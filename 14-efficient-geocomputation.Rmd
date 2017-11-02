@@ -7,9 +7,12 @@
 So far, this book has demonstrated geocomputation with relatively small data sets, this may have given the impression that geocomputation can be done quickly. However, as you move from examples to real problems you may find that the amount of data and thus the time to process increases significantly. In the worst cases your computer may fail to complete the task, run out of memory, or crash. This chapter will introduce some technique you may use to boost the performance of large or complex geocomputations.
 
 ## Benchmarking
-When thinking about efficient programming it is important to have a “what works” attitude. You may come across programmers that insist that “X is always better than Y”, this is rarely true. Therefore, it is necessary to test different methods and compare their performance. 
+When thinking about efficient programming it is important to have a “what works” attitude.  You may come across programmers that insist that “X is always better than Y”, this is rarely true.  Therefore, it is necessary to test different methods and compare their performance.  Even in cases where some methods are intrinsically faster if you have to spend significant amount of your time rewriting your code to save a small amount of the computers time it may not be worth the effort.
+
+Bechnmakring is simple the process to timing how long your code takes, and thus allowing you to work out if chanign the way your code runs has saved any time.
+
 ### Sys.Time()
-A really simple way to measure the time a chunk of code takes to run is to simple record the time before and after. The `Sys.Time()` function returns the current date and time. While the `difftime()` function returns the difference between two times.
+A really simple way to measure the time a chunk of code takes to run is to simply record the time before and after.  The `Sys.Time()` function returns the current date and time.  While the `difftime()` function returns the difference between two times.
 ```{r}
 t1 = Sys.time()
 ## Arbitrary Code that takes some time to run
@@ -34,9 +37,72 @@ Running multiple tests gives greater confidence that the observed different in p
 
 ### Profvis
 The profvis package produces graphs showing the time to execute each line of your code. This can be particularly helpful in identifying where you should focus your optimisation efforts.
+
+
+## Theory
+
+Although this book is not a guide to the details of computer science a little theory will help you understand what makes your code run fast or slow. 
+
+### Order
+
+In computer science problems can be divided by their order using [Big O notation](https://en.wikipedia.org/wiki/Big_O_notation). Without going into too much detail the amount of time an algorithm takes to run changes with the number of elements (n) in the problem. For example if an algorithm takes twice as long to run for twice as much data computer scientists say in runs in linear time or f(n) = O(n).
+
+While it may be inconvenient to wait ten times as long to process ten times as much data, it is usually tolerable.  However, not all algorithms take linear time.  Some take polynomial time f(n) = O(n^c^), where, for example, ten times as much data takes a hundred times as long to process, the worst algorithms take factorial time f(n) = O(n!) (e.g. 5! = 5 x 4 X 3 X 2 X 1), in these problems ten times more data would take 10! = 3,628,800 times longer to process!  There are many more orders that exist, but for now, it will suffice for you to know these three common types.
+
+Knowing what the order of your problem is will help you decide how to approach optimising your code.  Linear time problems are usually those that are independent of each other.  For example `st_buffer()` runs in linear time, as the buffering of point 1 is completely unaffected by the buffering of point 2.  Problems that involve the interaction of each member usually require quadratic time.  For example `st_distance()` runs in polynomial time as the number of distances to calculate increases as the numebr of points increase.
+
+Although algorithms have order, particular problems may not.  This means that it can be possible to take an algorithm that runs in polynomial or factorial time and rewrite it as on that only takes linear time.  Whether this is possible for all algorithms is an ongoing area of research for mathematics and computer science.  A practical example is that of sorting a list of numbers (or anything else) into order.  Simple sorting algorithms such as bubble sort are O(n^2^) while a more efficient algorithms such as insertion sort are O(n).
+
+If your algorithm already runs in linear time, or cannot be rewritten to do so then the only way to improve performance it to make each individual iteration run faster.  These kinds of improvements will scale up to large dataset but may not be meaningful for problems of higher orders.
+
+### Memory Management
+
+Modern computers can read and write from memory incredibly fast.  But it still takes some amount of time.  For many problems loading in the data in and out of memory can take up more time than performing the calculation.  So efficient memory management is essential for well-optimised code.
+
+Probably one of the most common mistakes in R memory management is to repeatedly copy data by using functions such as `rbind()` take this simple example.
+
+```{r}
+# A very poorly written piece of code
+# Produces a data.frame of numbers 1 to 10 and their squares
+t1 = Sys.time()
+df = data.frame(a = 1, b = 1 ^2)
+for(i in 2:100000){
+  df2 = data.frame(a = i, b = i ^2)
+  df = rbind(df, df2)
+}
+t2 = Sys.time()
+difftime(t2,t1, units = "secs")
+```
+
+Although to the human eye, this code mealy "sticks" the next row of the data frame onto the end of the existing data frame, to the computer there may not be space in the memory to "stick on" the next row. Thus, each time this loop runs the contents of df must be copied to a new place in memory, before the new row can be added.  On a small data frame like this, the time cost is not noticeable but on a large data set, your code can spend the vast majority of its time copying data rather than calculating your results.
+
+The solution to this kind of problem is to use lists.  Lists work differently "under the hood", which means that you can add to the end of a list without copying the rest of the list.
+
+```{r}
+# A better piece of code
+# Produces a data.frame of numbers 1 to 10 and their squares
+library(dplyr)
+t1 = Sys.time()
+df.list = list()
+for(i in 1:100000){
+  df2 = data.frame(a = i, b = i ^2)
+  df.list[[i]] = df2
+}
+# df.list is a list of data frames, we must bind each data frame together in a single result
+df = bind_rows(df.list) # Uses the dplyr package and is faster than base R do.call("rbind",df.list)
+t2 = Sys.time()
+difftime(t2,t1, units = "secs")
+```
+
+### Parallelisation
+
+Computers are very good a doing one thing at a time. When your computer does several things at once, say running and R script and playing music, what it is actually doing is switching between those tow task so quickly that you don't notice the gaps. 
+
+
  
 
 ## Iteration with Spatial Data
+
 ### Vectorisation (Why Iteration has not come up earlier)
 Iteration (doing the same thing multiple times) is extremely common in programming. But can be introduce quite late in the process of learning R. This is because R is a vectorised language, and thus can easily handle long vectors or variables as well as single variables. 
 Consider thing simple example:
@@ -50,7 +116,7 @@ sqrt(y)
 The same is true of many spatial functions such as `st_buffer()` which can create a buffer around a single geometry or many geometries. However in the background the `st_buffer()` function is working along a list of geometries performing the same task again and again. Finally, the function puts all the individual results together into a single object and returns them to you.
 Vectorisation in R is very efficient, and very easy to use, but you may eventually come to a problem which cannot be done in a single vectorised step and must instead iterate along a list of geometries.
 The reason iteration matters for efficient geocomputation is that price of code that you iterate over may be run thousands or millions of times, thus millisecond gains in a price of code can multiplied to hours or days of processing time by iteration. 
-### Is iteration necessary
+### Is iteration necessary?
 As iteration can have potentially high computation costs, it is always worth asking if iteration is necessary. The is an old story in mathematics that as a child Gauss was set a pointless task by his teacher to add the numbers 1 to 100. This was intended to keep the children occupied, and is a good example of an iterative task. 
 1 + 2 = 3
 3 + 3 = 6
@@ -58,7 +124,7 @@ As iteration can have potentially high computation costs, it is always worth ask
 And so on
 However, so the story goes, Gauss realised that there is short cut. For any list of positive integers from 1 to n:
 S = n(n + 1) / 2
-There is no need to go into the detail of the mathematics here merely to show that we can benchmark the two solutions in R. In this case I have increased the problem from 1:100 to 1:10000 to account of the greater performance of your computer.
+There is no need to go into the detail of the mathematics here merely to show that we can benchmark the two solutions in R.  In this case, I have increased the problem from 1:100 to 1:10000 to account of the greater performance of your computer.
 ```{r}
 sum(1:10000) == 10000*(10000+1)/2 # Check the result is the same
 microbenchmark(sum(1:10000),  10000*(10000+1)/2, times = 100) # Compare the performance
