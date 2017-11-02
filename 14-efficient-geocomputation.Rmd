@@ -96,9 +96,9 @@ difftime(t2,t1, units = "secs")
 
 ### Parallelisation
 
-Computers are very good a doing one thing at a time. When your computer does several things at once, say running and R script and playing music, what it is actually doing is switching between those tow task so quickly that you don't notice the gaps. 
+Computers are very good a doing one thing at a time. When your computer does several things at once, say running and R script and playing music, what it is actually doing is switching between those two task so quickly that you don't notice the gaps. Most modern computer processors now have multiple cores, with 2-4 being common and high end desktops having 8 or more cores. Multiple cores allow multiple task to be done in parallel. So your computer might use one core to play music and another core to run your R script.
 
-
+R code natually runs as a single "thread", however later in this chapter we will explore how cenrtain problems can be paralleised and thus be done fater than serial problems.
  
 
 ## Iteration with Spatial Data
@@ -192,8 +192,9 @@ library(sf)
 library(tmap)
 tmap_mode("view")
 points.proj <- st_transform(points, 27700) #Convert to a projected coordinate system (British National Grid)
+t1 <- Sys.time()
 shapes <- list()
-for(i in seq_along(points$id)){ #Loop along each row of the points data.frame
+for(i in seq_along(points.proj$id)){ #Loop along each row of the points data.frame
   #Get the number of bikes and spaces for the current row
   bikes = points.proj$nbikes[i]
   empty = points.proj$nempty[i]
@@ -247,12 +248,13 @@ for(i in seq_along(points$id)){ #Loop along each row of the points data.frame
 
 }
 
-result = data.frame(id = points$id, geometry = NA)
+result = data.frame(id = points.proj$id, geometry = NA)
 result$geometry <- st_sfc(shapes)
 st_geometry(result) = result$geometry
 st_crs(result) = 27700
-result = st_transform(result, 4326) #Convert resutls back to latitutes and logitudes
 
+t2 <- Sys.time()
+difftime(t2,t1, units = "secs")
 qtm(result)
 
 ```
@@ -283,7 +285,6 @@ library(sf)
 library(tmap)
 tmap_mode("view")
 points.proj <- st_transform(points, 27700) #Convert to a projected coordinate system (British National Grid)
-shapes <- list()
 
 points2shapes <- function(i){
   #Get the number of bikes and spaces for the current row
@@ -338,9 +339,46 @@ points2shapes <- function(i){
 
 }
 
+# We can call the function for any row in the data frame
+result <- points2shapes(1)
+plot(result)
+
+```
+
+Now we have converted out code into a function which will run for any row, we want to run it for all the rows in our data frame. This can by done in two ways the tradional way is to use the `apply()` family of functions. Or, we can use the newer `map()` famiyl of functions from the `purrr` package.
+
+```{r}
+library(sf)
+library(tmap)
+library(purrr)
+tmap_mode("view")
+points.proj <- st_transform(points, 27700) #Convert to a projected coordinate system (British National Grid)
+
+# using the apply family of functions
+t1 <- Sys.time()
+results <- lapply(1:nrow(points.proj), points2shapes)# Returns a list of geometries
+shapes <- points.proj # Make a copy of the original data frame
+shapes$geometry <- st_sfc(results) # Convert the list into a simple features column, and repalce the points with oour new shapes
+st_crs(shapes) <- st_crs(points.proj) # THe list of geometrys has no crs, so we must reasign the same crs
+t2 <- Sys.time()
+difftime(t2,t1, units = "secs")
+qtm(shapes)
+
+# using the map family of functions
 
 
 ```
+
+On a small dataset such as this you will not notice a significant performance difference for functionalising you code. Let scale up the problem and to see the difference.
+
+```{r}
+
+# make the problem very big by repeateding the data many times
+points.proj <- st_transform(points, 27700)
+
+```
+
+This code simply rep
 
 
 ## Parallelisation
