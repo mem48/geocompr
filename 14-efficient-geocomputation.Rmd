@@ -94,12 +94,20 @@ t2 = Sys.time()
 difftime(t2,t1, units = "secs")
 ```
 
-### Parallelisation
+#### Releasing Memory
 
-Computers are very good a doing one thing at a time. When your computer does several things at once, say running and R script and playing music, what it is actually doing is switching between those two task so quickly that you don't notice the gaps. Most modern computer processors now have multiple cores, with 2-4 being common and high end desktops having 8 or more cores. Multiple cores allow multiple task to be done in parallel. So your computer might use one core to play music and another core to run your R script.
+Another common problem with large geocompuation problems is running out of memory, or in the case of Raster datasets having to write to the hard disk rather than working in RAM. Running out of memeory usually resutls in R crashing or failing to execute fucntions, while using the hard disk resutls in a servere performance penalty.
 
-R code natually runs as a single "thread", however later in this chapter we will explore how cenrtain problems can be paralleised and thus be done fater than serial problems.
- 
+Although the full details of memeory managment are beyond the scope of this book several useful points are worth remembering.
+
+[1] 32 Bit versions of R (or any other program) can only use up to 4 GB of meory
+[2] 32 Bit versions of R on 32 Bit Windows can only use 2-3 GB of memory
+[3] 64 Bit versions of R can access all the RAM on your computer (you are unlikly to have more than 16 exabytes of RAM which is the 64 Bit limit)
+[4] Use the `rm()` function to remove objects that you no longer need in your code, this will allows R to re use the memoery for other functions
+[5] In more complex cases use `gc()` to release memory from R to the operatign system, this is only necessary if your are working with very large files, as R mostly handels this aspect of memeory management on its own.
+[6] Consider discarding unneeded data. For example if you are produing a map using boundary data for an external source. That data may come with attributes that have no use to you. Remove them from the data frame after importing them to R to free up memeory for other uses.
+[7] Consider geometric simplification, disucssed later in the chapter.
+
 
 ## Iteration with Spatial Data
 
@@ -369,16 +377,152 @@ qtm(shapes)
 
 ```
 
-On a small dataset such as this you will not notice a significant performance difference for functionalising you code. Let scale up the problem and to see the difference.
+The hisorically lapplys woulc run siginicantly faster than the for loop. However, gradual improvements to how R handels loops have narrowed the gap substantially. Using lapply still has benefits:
 
-```{r}
-
-# make the problem very big by repeateding the data many times
-points.proj <- st_transform(points, 27700)
-
-```
-
-This code simply rep
+[1] Placing code into functions reduces duplication of code and reduces errors
+[2] Functions are tidier and don't leave rouge varaibles after running 
+[3] Functions are easier to parallelise than loops
 
 
 ## Parallelisation
+
+Computers are very good a doing one thing at a time. When your computer does several things at once, say running and R script and playing music, what it is actually doing is switching between those two task so quickly that you don't notice the gaps. Most modern computer processors now have multiple cores, with 2-4 being common and high end desktops having 8 or more cores. Multiple cores allow multiple task to be done in parallel. So your computer might use one core to play music and another core to run your R script.
+
+R code natually runs as a single "thread", certain problems can be paralleised and thus be done fater than serial problems. Before looking at how to paralleise code, we need to know when to paralleise.
+
+### When is Paralleisation Appropiate
+
+Not all problems are suitable of parellisation. Take the example of making tea, a simple tea making process miight look like:
+
+[1] Put tea in pot
+[2] Pour cold water into kettle and turn on kettle
+[3] Wait for kettle to boil water
+[4] Pour boiling water in to pot
+[5] Wait for tea to brew
+[6] Pour milk in to cup
+[7] Pour tea in to cup
+[8] Drink tea
+
+This is largely a serial process, it it impossible to pour the tea into the cup before the kettle has boiled the water. There are some processes that can be done at the same time, for example you could put the tea in the pot while the kettle is boiling the water. An more optimised process might look like:
+
+[1] Pour cold water into kettle and turn on kettle
+[2] Put tea in pot
+[3] Wait for kettle to boil water
+[4] Pour boiling water in to pot
+[5] Pour milk in to cup
+[6] Wait for tea to brew
+[7] Pour tea in to cup
+[8] Drink tea
+
+No we have achived some light parellisation by performing some tasks duing the waiting period of boiling the kettle and brewing the tea.But having eight people assigned to each do one of the seven stages would not be faster than having one person do all the stages. But now supposde that one pot of tea can provide four cups of tea and we need to produce 32 cups of tea. Now there may be oppertunities for paralleisation. If we had eight people with eight kettles and eight tea pots they could produce all 32 cups of tea in the time it takes one person to produce four cups of tea.
+
+There is, however, a cost gathering eight people with eight kettles and tea pots into one kitchen is liekly to get crowded. Perhaps they will get in each other way or we might run out of tea cups.
+
+These issues are all true for geocompuation as well as tea, and can be summaried as:
+
+[1] Alway optimise your process before tying to parallise it
+[2] Not all process can be parellised, especially if later stages are dependant on earlier stages
+[3] Sometimes you can parellise a serial process if you need to do it many times, or it can be divided in chunks (e.g. different regions)
+[4] There are costs to parelliseation which may exceed the benefits of doing many tasks at once
+
+With R geompuation parellisation is unlikly to benefit simple processes unless you are handeling million of rows of data. But if you have a more complex task especially if it is the kind of task that may take seconds per row rather than miliseconds you may find that parellisation can provide significant speed boosts.
+
+### Parallel R for Windows, Linux, and Mac
+
+Unfortunatly parellisation works differently on Windows as it does on Linux and Mac computers. Linux and Mac support the `mcapply` function which simplifys the use of parellisation, however this is unaviaible on Windows. As the majority of users are on Windows, this book will focus on the Windows technique (which will also work on Linux and Mac), but non-Windows users may find their code is a little simpler whe using the `mcapply` function.
+
+### parlapply
+
+Remember earlier in the chapter when we converted a loop to a lappy call without gaining a significant boost in speed? `parlapply` is the reason we did this. Put simply it is a parellel version of the `lapply` function. The basic strucutre of a parallel geocomutaion is:
+
+```{r}
+library(sf)
+library(parallel)
+
+#make a cluster of 3 workers
+cl <- makeCluster(3)
+
+# A simple wrapper function containing the parlapply
+fun <- function(cl){
+  parLapply(cl, 1:nrow(mydata) ,myfunction) #the parlappy just like the lapply by we also specify the cluster
+}
+
+#Any packages or data we need to export to the workers
+clusterExport(cl, varlist=c("var1", "var2","var3")) # Any data required
+clusterEvalQ(cl, {library(sf); source("myscript.R")}) # Any packages and external scripts (i.e. not the script you are currnety running)
+
+# Call the Wrapper Fuucntion and do the geocompuation
+result <- fun(cl) # will be a list of lenght = number of workers
+
+# Stop the cluser not that it is complete
+stopCluster(cl)
+rm(cl,fun) # Clean up
+      
+# Bind the list of results together
+result <- do.call("rbind",result)
+
+
+```
+
+
+
+
+
+ 
+
+
+
+
+
+## Simplification of spaitial data
+
+Spatial data can be chalananging to work with becuase it is very large. This increases memory usage and processing time. There are ways to reduce the size of spatial data significantly by reducing the detail and precison of the data. For exmaple if you were producing a map of the world, you would be  probably not require a map accurate to the nearst metre.
+
+### Geometric Simplification
+
+The function `st_simplify()` reduces the number of points used to descibe a shape while preserving the general shape using the [Ramer–Douglas–Peucker algorithm](https://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm).
+
+```{r}
+library(spData)
+library(sf)
+shape = st_transform(lnd[1,], 27700) #Simplification works best on projected coordinate systems
+shape = shape[,"geometry"] #Discard the attributes to focus on the geometry
+shape.simple1 = st_simplify(shape, preserveTopology = TRUE, dTolerance = 100)
+shape.simple2 = st_simplify(shape, preserveTopology = TRUE, dTolerance = 1000)
+plot(shape$geometry, border = "black")
+plot(shape.simple1$geometry, border = "red", add = T)
+plot(shape.simple2$geometry, border = "green", add = T)
+object.size(shape)         # 24968 bytes
+object.size(shape.simple1) #  5344 bytes
+object.size(shape.simple2) #  4688 bytes
+
+```
+
+In this simple example we reduce the size of the geometry by more than a factor of five. Note that `st_simplify` works on a per geometry basis. So if you have to adjacent poygons that share a boorder before simplification they may not be perfectly aligned after simplification.
+
+### Precision Reduction
+
+Have a look as the coordiantes of a single point that makes up polygon we used above
+
+```{r}
+
+print( as.character( shape$geometry[[1]][1][[1]][[1]][1,] ) ) #Extracts the first point in a multipolygon
+
+```
+
+Theses cordinate are accuate to the nearst 0.000000001 metres or 1 nano metre. For most geocomupational purposes this is an unecessary levle of procison. Lets reduce the procision of the data and see how much memoery we can save.
+
+```{r}
+
+shape.simple3 = shape
+shape.simple3$geometry <- st_as_binary(shape.simple3$geometry, precision = 10) # SF only allows precison to change during a conversion
+shape.simple3$geometry <- st_as_sfc(shape.simple3$geometry)
+print( as.character( shape.simple3$geometry[[1]][1][[1]][[1]][1,] ) )
+object.size(shape)         # 24968 bytes
+object.size(shape.simple3) # 24760 bytes
+
+```
+
+In this case the saving is not very significant, but if you are using a file format that stores geometry as text, for example GeoJSON, the sumulative saving for many shapes can be signfificant.
+
+In both these examples there is a loss of data, you will need to consider carefully the concequences of discarding this data before using these techniques. They can can however be particually useful during disemination. For example when you export and interative map from RStudio the spatial data is stored in the GeoJSON format, which is widely used in web mapping. GeoJSON benefits significantly from the use of these techniques, and thus improved the perfroamcne of your published maps.
